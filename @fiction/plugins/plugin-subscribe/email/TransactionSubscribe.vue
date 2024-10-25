@@ -66,7 +66,7 @@ async function sendRequest(user?: User) {
   }
   else {
     try {
-      const r = await props.action.requestTransaction({ userId, orgId, code })
+      const r = await props.action.requestTransaction({ userId, where: { orgId }, code })
       response.value = r
     }
     catch (e) {

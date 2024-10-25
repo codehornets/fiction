@@ -96,7 +96,11 @@ export class EmailAction<T extends EmailActionSurface = EmailActionSurface > ext
   }
 
   async requestTransaction(args: T['transactionArgs'], meta?: RequestMeta): Promise<T['transactionResponse']> {
-    const r = await this.fictionTransactions?.requests.EmailAction.request({ _action: 'serverTransaction', actionId: this.settings.actionId, ...args }, meta)
+    const r = await this.fictionTransactions?.requests.EmailAction.request({
+      _action: 'serverTransaction',
+      actionId: this.settings.actionId,
+      ...args,
+    }, meta)
 
     return r
   }

@@ -8,7 +8,7 @@ export function getEmails(args: { fictionSubscribe: FictionSubscribe }) {
   const fictionUser = fictionSubscribe.settings.fictionUser
 
   const subscribe = new EmailAction<{
-    transactionArgs: { orgId: string, userId: string, code?: string }
+    transactionArgs: { userId: string, code?: string, where: { orgId: string } }
     transactionResponse: EndpointResponse<Subscriber>
     queryVars: { orgId: string, orgName?: string, orgEmail?: string }
   }>({
@@ -55,15 +55,17 @@ export function getEmails(args: { fictionSubscribe: FictionSubscribe }) {
       }
     },
     serverTransaction: async (args, meta: EndpointMeta) => {
-      const { orgId, userId, code } = args
+      const { where, userId, code } = args
 
       if (!code) {
         throw new Error('Missing code')
       }
 
-      await fictionUser.queries.ManageUser.serve({ _action: 'verifyEmail', code, email: userId }, { ...meta, server: true })
+      const orgId = where.orgId
 
-      const r = await fictionSubscribe.queries.ManageSubscription.serve({ _action: 'create', orgId, subscriber: { userId } }, { ...meta, server: true })
+      await fictionUser.queries.ManageUser.serve({ _action: 'verifyEmail', code, email: userId }, { ...meta, caller: 'subscribeServerTransactionVerifyEmail', server: true })
+
+      const r = await fictionSubscribe.queries.ManageSubscription.serve({ _action: 'create', orgId, subscriber: { userId } }, { ...meta, caller: 'subscribeServerTransactionCreate', server: true })
 
       const sub = r.data?.[0]
 
