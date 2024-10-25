@@ -276,10 +276,12 @@ export class Endpoint<T extends Query = Query, U extends string = string> {
     return responseData
   }
 
-  getUserInfo(args?: { userOptional?: boolean }) {
+  async getUserInfo(args?: { userOptional?: boolean }) {
     const { userOptional = false } = args || {}
     if (!this.fictionUser)
       throw new Error(`fictionUser is required for getUserInfo`)
+
+    await this.fictionUser.userInitialized()
 
     const { orgId, orgName } = this.fictionUser.activeOrganization.value ?? {}
 
@@ -307,7 +309,7 @@ export class Endpoint<T extends Query = Query, U extends string = string> {
 
     const headers = { Authorization: this.bearerHeader }
 
-    const userInfo = this.getUserInfo()
+    const userInfo = await this.getUserInfo()
 
     const url = this.requestUrl
 
@@ -335,10 +337,10 @@ export class Endpoint<T extends Query = Query, U extends string = string> {
   /**
    * Browser request with projectId and orgId added automatically
    */
-  public projectRequest(
+  public async projectRequest(
     params: DistributiveOmit< Parameters<this['request']>[0], 'orgId' | 'userId'>,
     opts?: RequestOptions,
-  ): ReturnType<this['request']> {
+  ): Promise<ReturnType<this['request']>> {
     const { userOptional, useRouteParams } = opts || {}
 
     if (!this.fictionUser)
@@ -351,7 +353,7 @@ export class Endpoint<T extends Query = Query, U extends string = string> {
       requestParams = { offset, limit, order, orderBy, userId, ...requestParams }
     }
 
-    const userInfo = this.getUserInfo({ userOptional })
+    const userInfo = await this.getUserInfo({ userOptional })
 
     if (!userOptional && !userInfo)
       return { status: 'error', context: 'projectReguest: no active organization or user' } as ReturnType<this['request']>

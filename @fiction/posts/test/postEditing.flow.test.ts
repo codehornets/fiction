@@ -3,8 +3,8 @@ import { describe, it } from 'vitest'
 import { createPostsUiTestingKit } from './postTestUtils'
 
 describe('postEditing', async () => {
-  it('creates post and allows basic editing', { retry: isCi() ? 3 : 2 }, async () => {
-    const kit = await createPostsUiTestingKit({ headless: false, slowMo: 500, initUser: true })
+  it('creates post and allows basic editing', { retry: isCi() ? 3 : 1 }, async () => {
+    const kit = await createPostsUiTestingKit({ headless: false, slowMo: 0, initUser: true })
 
     await kit.performActions({
       caller: 'postEditing',
