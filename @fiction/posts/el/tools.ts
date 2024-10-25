@@ -3,31 +3,10 @@ import { AdminEditorController } from '@fiction/admin'
 import { vue } from '@fiction/core'
 
 export const tools = [
-  // {
-  //   toolId: 'posts',
-  //   icon: 'i-tabler-box-multiple',
-  //   el: vue.defineAsyncComponent(() => import('./ToolSettings.vue')),
-  //   location: 'primary',
-  //   isPrimary: true,
-  // },
-  // {
-  //   toolId: 'email',
-  //   icon: 'i-tabler-mail-share',
-  //   el: vue.defineAsyncComponent(() => import('./ToolSettings.vue')),
-  //   location: 'primary',
-  //   isPrimary: true,
-  // },
-  // {
-  //   toolId: 'subscriptions',
-  //   icon: 'i-tabler-user-up',
-  //   el: vue.defineAsyncComponent(() => import('./ToolSettings.vue')),
-  //   location: 'primary',
-  //   isPrimary: true,
-  // },
   {
     toolId: 'history',
     icon: 'i-tabler-history',
-    el: vue.defineAsyncComponent(async () => import('./ToolHistory.vue')),
+    el: vue.defineAsyncComponent(() => import('./ToolHistory.vue')),
     location: 'primary',
     isPrimary: true,
   },
@@ -37,7 +16,7 @@ export const tools = [
     icon: 'i-tabler-edit-circle',
     location: 'context',
     isDefault: true,
-    el: vue.defineAsyncComponent(async () => import('./ToolPostMain.vue')),
+    el: vue.defineAsyncComponent(() => import('./ToolPostMain.vue')),
   },
 ] as const satisfies EditorTool[]
 

@@ -32,23 +32,25 @@ const handles = vue.computed<Handle[]>(() => {
 </script>
 
 <template>
-  <ElTool :tool="tool">
-    <div class="p-4">
-      <ElToolBanner
-        v-if="handles.length === 0"
-        title="Draft History"
-        sub="Drafts of the post will show here"
-        :icon="tool.icon"
-      />
-      <template v-else>
-        <ELToolHandle
-          v-for="handle in handles"
-          :key="handle.handleId"
-          class="drag-handle"
-          :handle="handle"
-          :data-drag-id="handle.handleId"
+  <div>
+    <ElTool :tool>
+      <div class="p-4">
+        <ElToolBanner
+          v-if="handles.length === 0"
+          title="Draft History"
+          sub="Drafts of the post will show here"
+          :icon="tool.icon"
         />
-      </template>
-    </div>
-  </ElTool>
+        <template v-else>
+          <ELToolHandle
+            v-for="handle in handles"
+            :key="handle.handleId"
+            class="drag-handle"
+            :handle="handle"
+            :data-drag-id="handle.handleId"
+          />
+        </template>
+      </div>
+    </ElTool>
+  </div>
 </template>

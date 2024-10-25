@@ -29,7 +29,7 @@ function updatePost(config: Partial<EmailCampaignConfig>) {
 </script>
 
 <template>
-  <ElTool :tool="tool">
+  <ElTool :tool>
     <ElForm v-if="campaign" id="toolForm">
       <FormEngine
         state-key="emailPreview"

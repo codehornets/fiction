@@ -5,6 +5,8 @@ import XText from '@fiction/ui/common/XText.vue'
 import XMedia from '@fiction/ui/media/XMedia.vue'
 import ProseEditor from '@fiction/ui/prose/editor/ProseEditor.vue'
 
+defineOptions({ name: 'ElPostEditor' })
+
 const { post } = defineProps<{
   post?: Post
   card: Card

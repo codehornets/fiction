@@ -1,4 +1,4 @@
-import { Endpoint, type EndpointMeta, objectId, standardTable } from '@fiction/core'
+import { type EndpointMeta, objectId, standardTable } from '@fiction/core'
 import { createTestUtils, getTestEmail } from '@fiction/core/test-utils'
 import { afterAll, describe, expect, it } from 'vitest'
 

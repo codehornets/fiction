@@ -141,6 +141,7 @@ export class FictionBuild extends FictionPlugin<FictionBuildSettings> {
           }
         },
       },
+
       // {
       //   name: "fictionVitePluginPost",
       //   enforce: "post",
@@ -187,12 +188,15 @@ export class FictionBuild extends FictionPlugin<FictionBuildSettings> {
         'path-browserify',
         '@vue-email/components',
         '@vue-email/render',
-        // 'dayjs',
-        // 'dayjs/plugin/timezone',
-        // 'dayjs/plugin/utc',
-        // 'dayjs/plugin/relativeTime',
-        // 'dayjs/plugin/updateLocale',
-        // 'dayjs/plugin/weekOfYear',
+        '@shopify/draggable',
+        '@tiptap/core',
+        '@tailwindcss/typography',
+        'dayjs',
+        'dayjs/plugin/timezone',
+        'dayjs/plugin/utc',
+        'dayjs/plugin/relativeTime',
+        'dayjs/plugin/updateLocale',
+        'dayjs/plugin/weekOfYear',
         // 'events',
         'spark-md5',
         'deepmerge',
@@ -262,6 +266,7 @@ export class FictionBuild extends FictionPlugin<FictionBuildSettings> {
       },
 
       plugins: [
+      //  OptimizeExclude(),
         ...customPlugins,
       ],
       optimizeDeps: this.getOptimizeDeps(),

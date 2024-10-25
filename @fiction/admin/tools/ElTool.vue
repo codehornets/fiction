@@ -4,6 +4,8 @@ import type { EditorTool } from './tools'
 import { toLabel } from '@fiction/core'
 import XButton from '@fiction/ui/buttons/XButton.vue'
 
+defineOptions({ name: 'ElTool' })
+
 defineProps({
   tool: { type: Object as vue.PropType<EditorTool>, required: true },
   actions: { type: Array as vue.PropType<ActionButton[]>, default: () => [] },

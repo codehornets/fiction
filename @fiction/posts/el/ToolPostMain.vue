@@ -175,13 +175,15 @@ function updatePost(config: TablePostConfig) {
 </script>
 
 <template>
-  <ElTool v-if="post" :tool>
-    <FormEngine
-      state-key="postEdit"
-      :model-value="post.toConfig()"
-      :options
-      :input-props="{ post, card }"
-      @update:model-value="updatePost($event as TablePostConfig)"
-    />
-  </ElTool>
+  <div>
+    <ElTool v-if="post" :tool>
+      <FormEngine
+        state-key="postEdit"
+        :model-value="post.toConfig()"
+        :options
+        :input-props="{ post, card }"
+        @update:model-value="updatePost($event as TablePostConfig)"
+      />
+    </ElTool>
+  </div>
 </template>
