@@ -4,19 +4,20 @@ import { useElementVisible } from '.'
 
 defineOptions({ name: 'AnimClipPath' })
 
-const props = defineProps({
-  animate: { type: [Boolean, String] as vue.PropType<'swipe' | 'expand' | '' | boolean>, default: false },
-  rounded: { type: Boolean, default: true },
-})
+const { animate, rounded, caller = 'unknown' } = defineProps<{
+  animate: 'swipe' | 'expand' | '' | boolean
+  rounded?: boolean
+  caller: string
+}>()
 
 const randomId = shortId()
 const isVisible = vue.ref(false)
 
 vue.onMounted(async () => {
-  await useElementVisible({ caller: 'animClipPath', selector: `#${randomId}`, onVisible: () => isVisible.value = true })
+  await useElementVisible({ caller: `animClipPath-${caller}`, selector: `#${randomId}`, onVisible: () => isVisible.value = true })
 })
 
-const endClip = vue.computed(() => props.rounded ? '[clip-path:inset(0_round_20px)]' : '[clip-path:inset(0)]')
+const endClip = vue.computed(() => rounded ? '[clip-path:inset(0_round_20px)]' : '[clip-path:inset(0)]')
 
 const animateStyle = vue.computed(() => ({
   expand: { start: '[clip-path:inset(30%)] opacity-50', end: `${endClip.value} opacity-100` },
@@ -24,11 +25,11 @@ const animateStyle = vue.computed(() => ({
 }))
 
 const wrapClass = vue.computed(() => {
-  if (!props.animate)
+  if (!animate)
     return ''
 
   const out = ['clip-path-anim', 'transition-all']
-  const styleKey = typeof props.animate === 'string' ? props.animate : 'expand'
+  const styleKey = typeof animate === 'string' ? animate : 'expand'
   const stl = animateStyle.value[styleKey]
 
   if (isVisible.value)

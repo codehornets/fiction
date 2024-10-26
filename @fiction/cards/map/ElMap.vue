@@ -168,7 +168,7 @@ vue.onUnmounted(() => {
     >
       <ElSpinner class="h-12 w-12" />
     </div>
-    <AnimClipPath :enabled="animate" class="w-full h-full outline-none focus:outline-none focus:ring-0 ">
+    <AnimClipPath :animate="animate" class="w-full h-full outline-none focus:outline-none focus:ring-0 " caller="ElMap">
       <div
         :id="container"
         class="h-full cursor-auto text-black font-bold font-sans text-xs"

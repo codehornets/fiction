@@ -140,7 +140,7 @@ function gridCols() {
                 />
               </div>
 
-              <AnimClipPath animate="expand" class="my-[min(max(35px,_5vw),_30px)] md:-mx-16">
+              <AnimClipPath animate="expand" class="my-[min(max(35px,_5vw),_30px)] md:-mx-16" caller="showcase">
                 <div v-if="activeItem?.media?.value?.url" class=" mx-auto relative overflow-hidden rounded-xl" :class="featuredImageAspect(activeItem.media.value)">
                   <img :src="activeItem.media.value.url" :alt="activeItem.title.value" class="absolute h-full w-full object-cover object-center">
                 </div>

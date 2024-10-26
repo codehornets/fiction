@@ -158,7 +158,14 @@ const imageModeClass = vue.computed(() => props.imageMode === 'contain' ? 'objec
 </script>
 
 <template>
-  <ClipPathAnim :class="cls" :animate="animate" :data-format="mediaFormat || 'none'" :data-media-width="media?.width" :data-media-height="media?.height">
+  <ClipPathAnim
+    caller="media"
+    :class="cls"
+    :animate="animate"
+    :data-format="mediaFormat || 'none'"
+    :data-media-width="media?.width"
+    :data-media-height="media?.height"
+  >
     <div
       v-if="media"
       :class="[!inlineImage ? 'h-full w-full' : '', flipClass]"

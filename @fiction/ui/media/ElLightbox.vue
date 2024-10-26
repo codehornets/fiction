@@ -93,7 +93,7 @@ function previousItem() {
         <!-- Next and Previous buttons -->
         <ElClose class="absolute right-2 top-2 z-40" />
 
-        <AnimClipPath animate="expand">
+        <AnimClipPath animate="expand" caller="lightbox">
           <div ref="animatedDivRef" class="relative  h-[80vh] w-[90vw] md:w-[80dvw] flex flex-col gap-6 overflow-hidden rounded-xl">
             <div class="grow relative" @click.stop>
               <XMedia ref="mediaRef" class="absolute inset-0" :media="activeItem.media" image-mode="contain" />

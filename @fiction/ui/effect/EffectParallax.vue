@@ -66,7 +66,7 @@ const cardStyle = vue.computed(() => ({
 
 <template>
   <div ref="cardRef" class="parallax-card h-full w-full drop-shadow-md" :style="cardStyle">
-    <ClipPathAnim :animate="animate" class="h-full w-full">
+    <ClipPathAnim :animate="animate" class="h-full w-full" caller="parallax">
       <slot />
     </ClipPathAnim>
   </div>

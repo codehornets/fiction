@@ -93,6 +93,9 @@ const config = vue.computed<TransactionProps | undefined>(() => {
 
 const quotes = [
   { text: 'Yesterday you said tomorrow.', author: 'Nike' },
+  { text: 'Become who you are.', author: 'Nietzsche' },
+  { text: 'Take massive action now!', author: 'Tony Robbins' },
+  { text: 'Change your story, change your life.', author: 'Lori Gottlieb' },
 ]
 
 const quote = vue.computed(() => quotes[Math.floor(Math.random() * quotes.length)])

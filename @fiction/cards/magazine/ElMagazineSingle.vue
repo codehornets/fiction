@@ -78,7 +78,7 @@ const imageAspect = vue.computed(() => {
           <ElAuthor v-for="(author, i) in post.authors.value" :key="i" :user="author" :date-at="post.dateAt.value" />
         </div>
       </div>
-      <AnimClipPath :animate="true" class="my-[min(max(35px,_5vw),_60px)]">
+      <AnimClipPath :animate="true" class="my-[min(max(35px,_5vw),_60px)]" caller="magSingle">
         <div v-if="post.media.value?.url" class=" mx-auto relative overflow-hidden rounded-lg" :class="imageAspect">
           <!-- Optionally display media -->
           <img :src="post.media.value?.url" alt="Post media" class="absolute h-full w-full object-cover object-center">
