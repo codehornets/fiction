@@ -72,8 +72,8 @@ const imageAspect = vue.computed(() => {
             Edit Post
           </CardButton>
         </div>
-        <CardTextPost tag="h1" path="title" :post class="text-6xl font-bold x-font-title text-balance" />
-        <CardTextPost :post tag="h2" path="subTitle" class="text-3xl font-medium dark:text-theme-400 text-balance" />
+        <CardTextPost tag="h1" path="title" :post="post" class="text-6xl font-bold x-font-title text-balance" />
+        <CardTextPost :post="post" tag="h2" path="subTitle" class="text-3xl font-medium dark:text-theme-400 text-balance" />
         <div class="flex justify-center">
           <ElAuthor v-for="(author, i) in post.authors.value" :key="i" :user="author" :date-at="post.dateAt.value" />
         </div>
@@ -85,7 +85,7 @@ const imageAspect = vue.computed(() => {
         </div>
       </AnimClipPath>
       <div :class="proseClass">
-        <CardTextPost :post path="content" class="content-container" />
+        <CardTextPost :post="post" path="content" class="content-container" />
 
         <div v-if="post.tags.value?.length" class="not-prose tags flex gap-4 my-8 items-center px-4 justify-center" :class="proseClass">
           <div class="text-xs italic text-theme-500">

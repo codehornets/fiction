@@ -1,27 +1,45 @@
-import type { EndpointMeta, EndpointResponse, FictionDb, FictionEnv, FictionUser, Organization } from '@fiction/core'
+import type { EndpointMeta, EndpointResponse, Organization } from '@fiction/core'
 import type Stripe from 'stripe'
 import type { FictionStripe } from '.'
+import type { StripePluginSettings } from './plugin'
 import type { CustomerData } from './types'
 import { abort, Query, standardTable } from '@fiction/core'
 
-// Type to identify a customer either by orgId or customerId
-type WhereCustomer = { customerId?: string }
+type StripeEndpointSettings = StripePluginSettings & { fictionStripe: FictionStripe }
+
+export class QueryPortalSession extends Query<StripeEndpointSettings> {
+  async run(params: { orgId: string, returnUrl?: string }, _meta: EndpointMeta): Promise<EndpointResponse<Stripe.BillingPortal.Session>> {
+    const { orgId, returnUrl } = params
+    const fictionStripe = this.settings.fictionStripe
+    const stripe = fictionStripe.getServerClient()
+
+    const r = await fictionStripe.queries.ManageCustomer.serve({ _action: 'retrieve', orgId }, _meta)
+
+    const customerId = r.data?.customer?.id
+
+    if (!customerId) {
+      return { status: 'error', message: 'customerId not found' }
+    }
+
+    const session = await stripe.billingPortal.sessions.create({
+      customer: customerId,
+      return_url: returnUrl,
+    })
+
+    return { status: 'success', data: session }
+  }
+}
 
 // Union type for all possible action parameters
 type ManageCustomerRequestParams =
   | { _action: 'create', fields: { email?: string, name?: string } }
-  | { _action: 'update', where?: WhereCustomer, fields: { email?: string, name?: string } }
-  | { _action: 'retrieve', where?: WhereCustomer }
-  | { _action: 'delete', where?: WhereCustomer }
+  | { _action: 'update', fields: { email?: string, name?: string } }
+  | { _action: 'retrieve' }
+  | { _action: 'delete' }
 
 type ManageCustomerParams = ManageCustomerRequestParams & { orgId: string, userId?: string }
 
-export class QueryManageCustomer extends Query<{
-  fictionUser: FictionUser
-  fictionDb: FictionDb
-  fictionEnv: FictionEnv
-  fictionStripe: FictionStripe
-}> {
+export class QueryManageCustomer extends Query<StripeEndpointSettings> {
   async run(params: ManageCustomerParams, meta: EndpointMeta): Promise<EndpointResponse<CustomerData>> {
     switch (params._action) {
       case 'create':
@@ -72,9 +90,9 @@ export class QueryManageCustomer extends Query<{
     params: ManageCustomerParams & { _action: 'update' },
     _meta: EndpointMeta,
   ): Promise<EndpointResponse<CustomerData>> {
-    const { where, fields: { email, name }, orgId } = params
+    const { fields: { email, name }, orgId } = params
     const stripe = this.settings.fictionStripe.getServerClient()
-    const { data: customer } = await this.getCustomer({ where, orgId })
+    const { data: customer } = await this.getCustomer({ orgId })
 
     if (!customer || customer.deleted) {
       throw abort('Customer not found')
@@ -91,25 +109,25 @@ export class QueryManageCustomer extends Query<{
     params: ManageCustomerParams & { _action: 'retrieve' },
     _meta: EndpointMeta,
   ): Promise<EndpointResponse<CustomerData>> {
-    const { where, orgId } = params
+    const { orgId } = params
 
-    const r = await this.getCustomer({ where, orgId })
+    const r = await this.getCustomer({ orgId })
 
     if (r.status === 'error') {
       throw abort(r.message || 'Payment API Error')
     }
 
     const customerData = await this.getCustomerData({ orgId })
-    return { status: 'success', data: customerData, message: 'Customer retrieved successfully' }
+    return { status: 'success', data: customerData }
   }
 
   private async deleteCustomer(
     params: ManageCustomerParams & { _action: 'delete' },
     _meta: EndpointMeta,
   ): Promise<EndpointResponse<CustomerData>> {
-    const { where, orgId } = params
+    const { orgId } = params
 
-    const { data: customer } = await this.getCustomer({ where, orgId })
+    const { data: customer, org } = await this.getCustomer({ orgId })
 
     if (!customer || customer.deleted) {
       throw abort('Customer not found')
@@ -120,9 +138,28 @@ export class QueryManageCustomer extends Query<{
 
     return {
       status: 'success',
-      data: { customer: deletedCustomer as Stripe.Customer & { deleted: true } },
+      data: { customer: deletedCustomer as Stripe.Customer & { deleted: true }, org },
       message: 'Customer deleted successfully',
     }
+  }
+
+  private async getStoredCustomerInfo(args: { orgId: string }): Promise<Organization> {
+    const { orgId } = args
+    const db = this.settings.fictionDb.client()
+    const liveStripe = this.settings.fictionStripe.stripeMode.value === 'live'
+
+    const org = await db
+      .select('*')
+      .from(standardTable.org)
+      .where({ orgId })
+      .first<Organization>()
+
+    if (!liveStripe) {
+      org.customer = org.customerTest
+      org.customerId = org.customerTest?.customerId
+    }
+
+    return org
   }
 
   private async saveCustomerInfo(args: {
@@ -163,31 +200,15 @@ export class QueryManageCustomer extends Query<{
     }
   }
 
-  private async getCustomer(args: { where?: WhereCustomer, orgId: string }): Promise<EndpointResponse<Stripe.Customer & { deleted?: boolean } >> {
-    const { where, orgId } = args
-    const db = this.settings.fictionDb.client()
+  private async getCustomer(args: { orgId: string }): Promise<EndpointResponse<Stripe.Customer & { deleted?: boolean } > & { org: Organization }> {
+    const { orgId } = args
     const stripe = this.settings.fictionStripe.getServerClient()
-    const liveStripe = this.settings.fictionStripe.stripeMode.value === 'live'
-    const customerField = liveStripe ? 'customer' : 'customerTest'
+    const org = await this.getStoredCustomerInfo({ orgId })
 
-    let org: Organization | undefined
-    let customerId: string | undefined
-
-    if (orgId) {
-      org = await db
-        .select('*')
-        .from(standardTable.org)
-        .where({ orgId })
-        .first<Organization>()
-
-      customerId = org?.[customerField]?.customerId
-    }
-    else {
-      customerId = where?.customerId
-    }
+    const customerId = org?.customerId
 
     if (!customerId) {
-      return { status: 'error', message: 'Customer not found' }
+      return { status: 'error', message: 'Customer not found', org }
     }
 
     let customer: (Stripe.Customer & { deleted?: boolean }) | undefined
@@ -210,16 +231,16 @@ export class QueryManageCustomer extends Query<{
     }
     catch (error) {
       this.log.error('Payment API Error: Failed to retrieve customer', { error })
-      return { status: 'error', message: 'Payment API Error' }
+      return { status: 'error', message: 'Payment API Error', org }
     }
 
-    return { status: 'success', data: customer }
+    return { status: 'success', data: customer, org }
   }
 
   private async getCustomerData(args: { orgId: string }): Promise<CustomerData> {
     const { orgId } = args
 
-    const { data: customer } = await this.getCustomer({ orgId })
+    const { data: customer, org } = await this.getCustomer({ orgId })
 
     const stripe = this.settings.fictionStripe.getServerClient()
 
@@ -232,6 +253,7 @@ export class QueryManageCustomer extends Query<{
     return {
       customer,
       subscriptions,
+      org,
     }
   }
 }

@@ -1,6 +1,15 @@
-import type { EndpointResponse, User } from '@fiction/core'
+import type { EndpointResponse, Organization, User } from '@fiction/core'
 import type Stripe from 'stripe'
 import type { FictionStripe } from '.'
+
+export type CheckoutQueryParams = {
+  priceId?: string
+  loginPath?: string
+  customerId?: string
+  orgId?: string
+  trialPeriod?: string
+  customerEmail?: string
+}
 
 export type CustomerDetails = {
   customerId?: string
@@ -57,6 +66,7 @@ export interface StripePlanInfo {
 export interface CustomerData {
   customer?: Stripe.Customer & { deleted?: boolean }
   subscriptions?: Stripe.Subscription[]
+  org: Organization
 }
 
 export interface SubscriptionDetails {
