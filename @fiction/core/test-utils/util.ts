@@ -190,7 +190,7 @@ function snapString(value: unknown, key?: string, opts: { maskedKeys?: string[] 
       || key?.endsWith('Iso')
       || key === 'duration'
       || key === 'timestamp')
-      && val
+    && val
   ) {
     out = rep('dateTime')
   }

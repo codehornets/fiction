@@ -79,9 +79,9 @@ export function getLogicResult(args: {
       || (l.operator === '<>'
         && (typeof v === 'string' || Array.isArray(v))
         && v.includes(String(l.value)))
-        || (l.operator === '><'
-          && (typeof v === 'string' || Array.isArray(v))
-          && !v.includes(String(l.value)))
+      || (l.operator === '><'
+        && (typeof v === 'string' || Array.isArray(v))
+        && !v.includes(String(l.value)))
     ) {
       skipTo = l.skipTo
       return false

@@ -1,28 +1,5 @@
 {
-  "name": "@fiction/analytics",
-  "type": "module",
-  "version": "6.0.35",
   "author": "Fiction",
-  "license": "MIT",
-  "main": "index.ts",
-  "dependencies": {
-    "@fiction/core": "workspace:*",
-    "@fiction/ui": "workspace:*",
-    "@types/js-yaml": "^4.0.9",
-    "express": "^4.21.1",
-    "js-yaml": "^4.1.0",
-    "metadata-scraper": "^0.2.61",
-    "sql-formatter": "^15.4.5",
-    "stacktrace-js": "^2.0.2",
-    "ua-parser-js": "2.0.0-beta.3"
-  },
-  "devDependencies": {
-    "@fiction/theme-minimal": "workspace:*"
-  },
-  "gitHead": "435e8535660c83acb445295cfb98a21b32c69434",
-  "publishConfig": {
-    "access": "public"
-  },
   "buildOptions": [
     {
       "buildName": "FictionTag",
@@ -33,5 +10,28 @@
         "types": "dist/clientTag/index.d.ts"
       }
     }
-  ]
+  ],
+  "dependencies": {
+    "@fiction/core": "workspace:*",
+    "@fiction/ui": "workspace:*",
+    "@types/js-yaml": "^4.0.9",
+    "express": "^4.21.1",
+    "js-yaml": "^4.1.0",
+    "metadata-scraper": "^0.2.61",
+    "sql-formatter": "^15.4.5",
+    "stacktrace-js": "^2.0.2",
+    "ua-parser-js": "2.0.0-rc.1"
+  },
+  "devDependencies": {
+    "@fiction/theme-minimal": "workspace:*"
+  },
+  "gitHead": "435e8535660c83acb445295cfb98a21b32c69434",
+  "license": "MIT",
+  "main": "index.ts",
+  "name": "@fiction/analytics",
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "version": "6.0.35"
 }
