@@ -31,7 +31,12 @@ export type SiteTestUtils = TestUtils & {
   createSite: (args?: { themeId?: string }) => Promise<Site>
 }
 
-export async function createSiteTestUtils(args: { mainFilePath?: string, context?: 'node' | 'app', themes?: ThemeSetup[], delaySiteRouterCreation?: boolean } = {}): Promise<SiteTestUtils> {
+export async function createSiteTestUtils(args: {
+  mainFilePath?: string
+  context?: 'node' | 'app'
+  themes?: ThemeSetup[]
+  delaySiteRouterCreation?: boolean
+} = {}): Promise<SiteTestUtils> {
   const { mainFilePath, context = 'node', delaySiteRouterCreation = false } = args
 
   const testUtils = createTestUtils({ mainFilePath, envFiles: [testEnvFile], ...args })

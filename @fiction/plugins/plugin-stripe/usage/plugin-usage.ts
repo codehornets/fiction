@@ -1,8 +1,9 @@
 import type { FictionApp, FictionDb, FictionPluginSettings, FictionServer, FictionUser } from '@fiction/core'
-import type { FictionStripe } from './plugin'
+import type { FictionStripe } from '../plugin'
+import type { CustomerDetails } from '../types'
 import { FictionPlugin, safeDirname, vue } from '@fiction/core'
+import { tables } from '../tables'
 import { QueryManageUsage } from './endpointsUsage'
-import { tables } from './tables'
 
 export type FictionUsageSettings = {
   fictionServer: FictionServer
@@ -39,9 +40,8 @@ export class FictionUsage extends FictionPlugin<FictionUsageSettings> {
     this.settings.fictionDb.addTables(tables)
   }
 
-  async setUsage() {
-    const customer = this.settings.fictionStripe.activeCustomer.value
-
+  async setUsage(args: { customer?: CustomerDetails }): Promise<void> {
+    const { customer } = args
     this.log.info('set usage', { data: { customer } })
 
     if (!customer?.cycleEndAtIso || !customer?.cycleStartAtIso)
@@ -60,7 +60,7 @@ export class FictionUsage extends FictionPlugin<FictionUsageSettings> {
 
     const usedCredits = result.data?.credits || 0
 
-    const paidCredits = this.settings.fictionStripe?.activeCustomer.value?.credits || 0
+    const paidCredits = customer.credits || 0
     const percentUsed = Math.round((usedCredits / paidCredits) * 100)
 
     this.activeUsage.value = {

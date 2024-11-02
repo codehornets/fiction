@@ -55,7 +55,7 @@ export interface StripePlanInfo {
 }
 
 export interface CustomerData {
-  customer?: Stripe.Customer | Stripe.DeletedCustomer
+  customer?: Stripe.Customer & { deleted?: boolean }
   subscriptions?: Stripe.Subscription[]
 }
 

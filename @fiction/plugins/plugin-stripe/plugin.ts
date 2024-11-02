@@ -3,10 +3,10 @@ import type * as StripeJS from '@stripe/stripe-js'
 import type express from 'express'
 import type * as types from './types'
 
-import { abort, dayjs, Endpoint, FictionPlugin, isActualBrowser, toLabel, vue } from '@fiction/core'
+import { abort, Endpoint, FictionPlugin, isActualBrowser, vue } from '@fiction/core'
 import Stripe from 'stripe'
-import { QueryGetCustomerData, QueryListSubscriptions, QueryManageCustomer } from './endpoints'
-import { getCycleRange } from './utils'
+import { QueryManageCustomer } from './endpoints'
+import { setCustomerData } from './utils'
 import './register'
 
 interface CheckoutQueryParams {
@@ -43,8 +43,6 @@ export class FictionStripe extends FictionPlugin<StripePluginSettings> {
 
   queries = {
     ManageCustomer: new QueryManageCustomer({ fictionStripe: this, ...this.settings }),
-    ListSubscriptions: new QueryListSubscriptions({ fictionStripe: this, ...this.settings }),
-    GetCustomerData: new QueryGetCustomerData({ fictionStripe: this, ...this.settings }),
   }
 
   requests = this.createRequests({
@@ -64,26 +62,19 @@ export class FictionStripe extends FictionPlugin<StripePluginSettings> {
 
   secretKey = vue.computed(() => this.stripeMode.value === 'live' ? this.settings.secretKeyLive : this.settings.secretKeyTest)
   publicKey = vue.computed(() => this.stripeMode.value === 'live' ? this.settings.publicKeyLive : this.settings.publicKeyTest)
-  activeCustomerId = vue.computed(() => this.settings.fictionUser?.activeOrganization.value?.customerId)
 
-  useCustomerManager = this.settings.useCustomerManager ?? false
-  activeCustomer = vue.ref<types.CustomerDetails | undefined>()
   initialized?: Promise<boolean>
-  resolveCustomerLoad?: (value: boolean | PromiseLike<boolean>) => void
-  loading = vue.ref(false)
-  cycleEndAtIso = vue.computed(() => this.activeCustomer.value?.cycleEndAtIso)
-  cycleStartAtIso = vue.computed(() => this.activeCustomer.value?.cycleStartAtIso)
 
-  customerPortalUrl = vue.computed(() => {
-    const activeCustomer = this.activeCustomer.value
-    const stripeCustomer = activeCustomer?.customer
+  // customerPortalUrl = vue.computed(() => {
+  //   const activeCustomer = this.activeCustomer.value
+  //   const stripeCustomer = activeCustomer?.customer
 
-    let prefilledEmail = ''
-    if (stripeCustomer && 'email' in stripeCustomer)
-      prefilledEmail = `?prefilled_email=${encodeURIComponent(stripeCustomer.email || '')}`
+  //   let prefilledEmail = ''
+  //   if (stripeCustomer && 'email' in stripeCustomer)
+  //     prefilledEmail = `?prefilled_email=${encodeURIComponent(stripeCustomer.email || '')}`
 
-    return `${this.settings.customerPortalUrl}${prefilledEmail}`
-  })
+  //   return `${this.settings.customerPortalUrl}${prefilledEmail}`
+  // })
 
   constructor(settings: StripePluginSettings) {
     super('FictionStripe', settings)
@@ -113,7 +104,7 @@ export class FictionStripe extends FictionPlugin<StripePluginSettings> {
 
         const { orgId, orgEmail, orgName, customerId } = o
         await this.queries.ManageCustomer.serve(
-          { _action: 'update', orgId, email: orgEmail, name: orgName, customerId },
+          { _action: 'update', orgId, fields: { email: orgEmail, name: orgName }, where: { customerId } },
           { server: true },
         )
       },
@@ -130,156 +121,23 @@ export class FictionStripe extends FictionPlugin<StripePluginSettings> {
       if (!this.publicKey.value)
         this.log.warn(`stripe publicKey key not set: ${this.stripeMode.value}`)
     }
-
-    if (this.useCustomerManager)
-      this.customerDataWatcher().catch(console.error)
   }
 
-  async customerDataWatcher() {
-    if (!this.settings.fictionEnv.isApp.value)
-      return
-
-    if (isActualBrowser())
-      this.customerInitialized().catch(console.error)
-
-    await this.settings.fictionUser.pageInitialized()
-
-    this.loading.value = true
-    /**
-     * Update when organization changes
-     */
-    vue.watch(
-      () => this.settings.fictionUser.activeOrganization.value,
-      async () => {
-        await this.setCustomerData({ reason: 'organization changed' })
-      },
-
-      { immediate: true },
-    )
-  }
-
-  setCustomerData = async (
-    args: { reason?: string } = {},
-  ): Promise<types.CustomerDetails | undefined> => {
-    const { reason } = args
-    this.log.warn(`setCustomerData called: ${reason}`, {
-      data: {
-        user: this.settings.fictionUser.activeUser.value,
-        org: this.settings.fictionUser.activeOrganization.value,
-      },
-    })
-
+  getCurrentCustomer = async (): Promise<types.CustomerDetails | undefined> => {
     await this.settings.fictionUser.userInitialized({ caller: 'setCustomerData' })
 
-    const org = this.settings.fictionUser?.activeOrganization.value
+    const org = this.settings.fictionUser.activeOrganization.value
 
-    if (!org || !org.orgId) {
-      this.activeCustomer.value = undefined
-      if (this.resolveCustomerLoad)
-        this.resolveCustomerLoad(true)
-      return
-    }
+    if (!org)
+      throw new Error('No active organization')
 
-    const { orgName, orgEmail, orgId, specialPlan, createdAt } = org
-
-    this.loading.value = true
-
-    const r = await this.requests.GetCustomerData.request({
-      orgId,
-      orgName,
-      email: orgEmail ?? this.settings.fictionUser?.activeUser.value?.email,
+    const currentCustomer = await setCustomerData({
+      organization: org,
+      fictionStripe: this,
+      products: this.settings.products,
     })
 
-    const customerData = r.data
-    const customerId = customerData?.customer?.id
-
-    this.log.info(`SET CUSTOMER DATA: ${orgId}, live: ${this.stripeMode.value}`, { data: { reason, customer: customerData } })
-
-    const basics = { specialPlan, customerId, orgId, customer: customerData?.customer }
-
-    let details: Partial<types.CustomerDetails> | undefined
-
-    const pricing = this.settings.products.flatMap(_ => _.pricing.map(p => ({ ..._, ...p, planName: p.planName || toLabel(p.alias) })))
-
-    customerData?.subscriptions?.forEach((sub) => {
-      const price = pricing.find(p => p.priceId === sub.items.data[0].price.id)
-
-      if (price && (sub.status === `trialing` || sub.status === `active`)) {
-        const { timeEnd, timeStart, anchorDateUtc } = getCycleRange({
-          timestamp: sub.billing_cycle_anchor,
-        })
-        const subscriptionId = sub.id
-        const isTrial = sub.status === `trialing`
-        const isCanceled = !!sub.canceled_at
-        details = {
-          ...basics,
-          ...price,
-          subscriptionId,
-          isTrial,
-          anchorDateUtc,
-          cyclePeriod: 'month',
-          cycleEndAtIso: timeEnd.toISOString(),
-          cycleStartAtIso: timeStart.toISOString(),
-          isCanceled,
-        }
-      }
-    })
-
-    if (!details) {
-      const dayJsCreatedAt = dayjs(createdAt)
-
-      const now = dayjs()
-      const cycleStartAt = dayJsCreatedAt.year(now.year()).month(now.month())
-
-      // If the cycle start date is in the future, move it back one month
-      if (cycleStartAt.isAfter(now))
-        cycleStartAt.subtract(1, 'month')
-
-      const cycleEndAt = cycleStartAt.add(1, 'month')
-
-      details = {
-        ...basics,
-        plan: 'free',
-        planName: 'Free',
-        tier: 0,
-        quantity: 0,
-        credits: 0,
-        icon: 'i-carbon-star-half',
-        isTrial: false,
-        priceId: '',
-        cost: 0,
-        group: 'free',
-        costPerUnit: 0,
-        duration: 'month',
-        cycleStartAtIso: cycleStartAt.toISOString(),
-        cycleEndAtIso: cycleEndAt.toISOString(),
-      }
-    }
-
-    if (details.specialPlan)
-      details.planName = `${details.planName} (${details.specialPlan})`
-
-    this.log.info(`SET CUSTOMER RESULT ${orgId}`, { data: details })
-
-    this.activeCustomer.value = details as types.CustomerDetails
-    this.loading.value = false
-
-    if (this.resolveCustomerLoad)
-      this.resolveCustomerLoad(true)
-
-    return details as types.CustomerDetails
-  }
-
-  customerInitialized = async (): Promise< types.CustomerDetails | undefined> => {
-    if (!this.initialized) {
-      this.initialized = new Promise((resolve) => {
-        this.resolveCustomerLoad = resolve
-      })
-    }
-
-    await this.initialized
-
-    return this.activeCustomer.value
+    return currentCustomer
   }
 
   getServerClient(): Stripe {
@@ -290,7 +148,7 @@ export class FictionStripe extends FictionPlugin<StripePluginSettings> {
       const key = this.secretKey.value
 
       if (!key)
-        throw new Error('stripe secret key not found')
+        throw new Error(`stripe getServerClient: secretKey not found (${this.stripeMode.value})`)
 
       this.serverClient = new Stripe(key, { apiVersion: this.apiVersion })
     }
@@ -304,7 +162,7 @@ export class FictionStripe extends FictionPlugin<StripePluginSettings> {
     if (!this.browserClient) {
       const publicKey = this.publicKey.value
       if (!publicKey)
-        throw new Error('Stripe secret key not found')
+        throw new Error(`Stripe getBrowserClient: publicKey not found (${this.stripeMode.value})`)
 
       const createdClient = await StripeJS.loadStripe(publicKey)
       this.browserClient = createdClient ?? undefined
@@ -333,7 +191,6 @@ export class FictionStripe extends FictionPlugin<StripePluginSettings> {
       const url = new URL(`${baseUrl}/api/stripe-checkout/init`)
 
       args.orgId = this.settings.fictionUser.activeOrgId.value || ':orgId'
-      args.customerId = this.activeCustomerId.value || ':customerId'
 
       if (args)
         url.search = new URLSearchParams(args as Record<string, string>).toString()
@@ -383,15 +240,20 @@ export class FictionStripe extends FictionPlugin<StripePluginSettings> {
 
     try {
       if (action === 'init') {
-        const { priceId, customerId, trialPeriod, orgId }
-          = query as CheckoutQueryParams
+        const { priceId, trialPeriod, orgId } = query as CheckoutQueryParams
 
         if (!priceId)
           throw abort('no priceId')
+
+        if (!orgId)
+          throw abort('no orgId')
+
+        const r = await this.queries.ManageCustomer.serve({ orgId, _action: 'retrieve' }, { server: true })
+
+        const customerId = r.data?.customer?.id
+
         if (!customerId)
           throw abort('no customerId')
-        if (!orgId)
-          throw abort('no ordId')
 
         const stripe = this.getServerClient()
 

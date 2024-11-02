@@ -9,7 +9,7 @@ import type { Organization, OrganizationMember, User } from './types.js'
 import { FictionPlugin } from '../plugin.js'
 import { EnvVar, vars } from '../plugin-env/index.js'
 import { TypedEventTarget } from '../utils/eventTarget.js'
-import { crossVar, hasWindow, isActualBrowser, isNode, safeDirname, vue } from '../utils/index.js'
+import { crossVar, hasWindow, isActualBrowser, isNode, isTest, safeDirname, vue } from '../utils/index.js'
 import { createUserToken, decodeUserToken, manageClientUserToken } from '../utils/jwt.js'
 import { getAccessLevel, userCan, userCapabilities } from '../utils/priv.js'
 import * as priv from '../utils/priv.js'
@@ -340,7 +340,7 @@ export class FictionUser extends FictionPlugin<UserPluginSettings> {
   userInitialized = async (args?: { caller?: string }): Promise<User | undefined> => {
     const { caller = 'unknown' } = args || {}
 
-    if (!isActualBrowser()) {
+    if (typeof window === 'undefined') {
       this.log.warn('user initialization called on server', { data: { caller } })
       return
     }

@@ -243,12 +243,14 @@ export class QueryManageOrganization extends OrgQuery {
     const { orgName, orgEmail, orgId } = fields
     const defaultName = orgEmail?.split('@')[0] || 'Personal'
 
+    const createFields = this.settings.fictionDb.prep({ type: meta.server ? 'internal' : 'insert', fields, meta, table: t.org })
+
     const [responseOrg] = await this.db()
       .insert({
         orgId: orgId || objectId({ prefix: 'org' }),
         orgName: orgName || defaultName,
         ownerId: fields.ownerId || userId,
-        orgEmail,
+        ...createFields,
       })
       .into(t.org)
       .onConflict('org_id')
