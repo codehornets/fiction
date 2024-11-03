@@ -1,6 +1,6 @@
 import type * as StripeJS from '@stripe/stripe-js'
 import type express from 'express'
-import type { FictionStripe } from './plugin'
+import type { FictionStripe } from './index.js'
 import type { CheckoutQueryParams, CustomerData, CustomerDetails, StripeProductConfig } from './types'
 import { abort, dayjs, toLabel } from '@fiction/core'
 import Stripe from 'stripe'

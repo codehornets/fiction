@@ -1,7 +1,7 @@
 import type { EndpointMeta, EndpointResponse, Organization } from '@fiction/core'
 import type Stripe from 'stripe'
 import type { FictionStripe } from '.'
-import type { StripePluginSettings } from './plugin'
+import type { StripePluginSettings } from './index.js'
 import type { CustomerData } from './types'
 import { abort, Query, standardTable } from '@fiction/core'
 
