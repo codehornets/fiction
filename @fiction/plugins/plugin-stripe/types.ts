@@ -34,7 +34,7 @@ export type CustomerDetails = {
   specialPlan?: 'vip' | 'npo' | ''
   specialQuantity?: number
   totalQuantity?: number
-} & StripePriceConfig
+} & StripePriceConfig & EndpointResponse
 
 export interface StripeProductConfig {
   pricing: StripePriceConfig[]

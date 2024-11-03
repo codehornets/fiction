@@ -15,7 +15,7 @@ const { fictionStripe } = useService<{ fictionStripe?: FictionStripe }>()
 const loading = vue.ref(true)
 
 vue.onMounted(async () => {
-  await fictionStripe?.setCustomerData()
+  await fictionStripe?.requestSetCustomerData()
   loading.value = false
 })
 

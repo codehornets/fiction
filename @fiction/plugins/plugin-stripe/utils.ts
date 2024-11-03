@@ -2,7 +2,7 @@ import type * as StripeJS from '@stripe/stripe-js'
 import type express from 'express'
 import type { FictionStripe } from './index.js'
 import type { CheckoutQueryParams, CustomerData, CustomerDetails, StripeProductConfig } from './types'
-import { abort, dayjs, toLabel } from '@fiction/core'
+import { abort, dayjs, type EndpointResponse, toLabel } from '@fiction/core'
 import Stripe from 'stripe'
 
 export async function getPortalUrl(args: { fictionStripe: FictionStripe, returnUrl?: string }): Promise<string> {
@@ -28,9 +28,6 @@ export async function getCheckoutUrl(args: { fictionStripe: FictionStripe, query
   const { query, fictionStripe } = args
 
   const { loginPath } = query
-
-  if (fictionStripe.fictionEnv?.isNode)
-    return '#'
 
   await fictionStripe.settings.fictionUser.userInitialized({ caller: 'getCheckoutUrl' })
 
@@ -213,16 +210,24 @@ export function getCycleRange(args: {
 }
 
 type ProcessCustomerDataArgs = {
-  customerData?: CustomerData
+  customerDataResponse: EndpointResponse<CustomerData>
   products: StripeProductConfig[]
 }
 
 export function processCustomerData(args: ProcessCustomerDataArgs): CustomerDetails {
-  const { customerData, products } = args
+  const { customerDataResponse, products } = args
+  const customerData = customerDataResponse?.data
   const org = customerData?.org
-  const { orgId, specialPlan, customerId, createdAt } = org || {}
+  const {
+    orgId,
+    specialPlan,
+    customerId = customerData?.customer?.id,
+    createdAt,
+  } = org || {}
 
   const basics = {
+    status: customerDataResponse.status,
+    message: customerDataResponse.message,
     specialPlan: specialPlan as CustomerDetails['specialPlan'],
     customerId,
     orgId,
@@ -285,7 +290,7 @@ export function processCustomerData(args: ProcessCustomerDataArgs): CustomerDeta
 
 // Helper function to create free tier details
 function createFreeTierDetails(args: {
-  basics: Pick<CustomerDetails, 'specialPlan' | 'customerId' | 'orgId' | 'customer'>
+  basics: Pick<CustomerDetails, 'specialPlan' | 'customerId' | 'orgId' | 'customer' | 'status'>
   createdAt?: string
 }): CustomerDetails {
   const { basics, createdAt } = args
@@ -338,7 +343,7 @@ export async function setCustomerData(args: {
   })
 
   return processCustomerData({
-    customerData: customerDataResponse.data,
+    customerDataResponse,
     products,
   })
 }

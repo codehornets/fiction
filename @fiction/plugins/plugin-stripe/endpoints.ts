@@ -18,15 +18,20 @@ export class QueryPortalSession extends Query<StripeEndpointSettings> {
     const customerId = r.data?.customer?.id
 
     if (!customerId) {
-      return { status: 'error', message: 'customerId not found' }
+      return { status: 'error', message: `customerId not found` }
     }
 
-    const session = await stripe.billingPortal.sessions.create({
-      customer: customerId,
-      return_url: returnUrl,
-    })
-
-    return { status: 'success', data: session }
+    try {
+      const session = await stripe.billingPortal.sessions.create({
+        customer: customerId,
+        return_url: returnUrl,
+      })
+      return { status: 'success', data: session }
+    }
+    catch (error) {
+      this.log.error('Payment API Error: Failed to create portal session', { error })
+      return { status: 'error', message: 'Payment API Error' }
+    }
   }
 }
 
@@ -41,6 +46,10 @@ type ManageCustomerParams = ManageCustomerRequestParams & { orgId: string, userI
 
 export class QueryManageCustomer extends Query<StripeEndpointSettings> {
   async run(params: ManageCustomerParams, meta: EndpointMeta): Promise<EndpointResponse<CustomerData>> {
+    if (!params.orgId) {
+      throw abort('Missing orgId')
+    }
+
     switch (params._action) {
       case 'create':
         return this.createCustomer(params, meta)
@@ -94,7 +103,7 @@ export class QueryManageCustomer extends Query<StripeEndpointSettings> {
     const stripe = this.settings.fictionStripe.getServerClient()
     const { data: customer } = await this.getCustomer({ orgId })
 
-    if (!customer || customer.deleted) {
+    if (!customer || customer?.deleted) {
       throw abort('Customer not found')
     }
 
@@ -129,12 +138,19 @@ export class QueryManageCustomer extends Query<StripeEndpointSettings> {
 
     const { data: customer, org } = await this.getCustomer({ orgId })
 
-    if (!customer || customer.deleted) {
+    if (!customer || customer?.deleted) {
       throw abort('Customer not found')
     }
 
     const stripe = this.settings.fictionStripe.getServerClient()
     const deletedCustomer = await stripe.customers.del(customer.id)
+
+    await this.saveCustomerInfo({
+      orgId,
+      customerId: null,
+      data: null,
+      customerAuthorized: null,
+    })
 
     return {
       status: 'success',
@@ -143,16 +159,24 @@ export class QueryManageCustomer extends Query<StripeEndpointSettings> {
     }
   }
 
-  private async getStoredCustomerInfo(args: { orgId: string }): Promise<Organization> {
-    const { orgId } = args
+  private async getStoredCustomerInfo(args: { orgId: string, caller: string }): Promise<Organization> {
+    const { orgId, caller = 'unknown' } = args
     const db = this.settings.fictionDb.client()
     const liveStripe = this.settings.fictionStripe.stripeMode.value === 'live'
+
+    if (!orgId) {
+      throw new Error(`No orgId provided (${caller})`)
+    }
 
     const org = await db
       .select('*')
       .from(standardTable.org)
       .where({ orgId })
       .first<Organization>()
+
+    if (!org) {
+      throw new Error(`Organization not found: ${orgId}`)
+    }
 
     if (!liveStripe) {
       org.customer = org.customerTest
@@ -166,28 +190,30 @@ export class QueryManageCustomer extends Query<StripeEndpointSettings> {
     orgId: string
     customerId?: string | null
     customerAuthorized?: 'authorized' | 'invalid' | null
-    data?: Record<string, any>
+    data?: Record<string, any> | null
   }): Promise<void> {
     const { orgId, customerId, customerAuthorized, data } = args
     const db = this.settings.fictionDb.client()
     const liveStripe = this.settings.fictionStripe.stripeMode.value === 'live'
 
     const save: Record<string, string | null> = {}
-    if (customerId) {
+    if (typeof customerId !== 'undefined') {
       save[liveStripe ? 'customerId' : 'customerIdTest'] = customerId
     }
-    if (customerAuthorized) {
+    if (typeof customerAuthorized !== 'undefined') {
       save.customerAuthorized = customerAuthorized
     }
 
     await db.update(save).from(standardTable.org).where({ orgId })
 
-    if (data) {
+    if (typeof data !== 'undefined') {
       const customerField = liveStripe ? 'customer' : 'customer_test'
-      const customerMerge = db.raw(
-        `coalesce(${customerField}::jsonb, '{}'::jsonb) || ?::jsonb`,
-        JSON.stringify(data),
-      )
+      const customerMerge = data === null
+        ? db.raw(`'{}'::jsonb`)
+        : db.raw(
+          `coalesce(${customerField}::jsonb, '{}'::jsonb) || ?::jsonb`,
+          JSON.stringify(data),
+        )
 
       const saveMeta = liveStripe
         ? { customer: customerMerge }
@@ -203,7 +229,7 @@ export class QueryManageCustomer extends Query<StripeEndpointSettings> {
   private async getCustomer(args: { orgId: string }): Promise<EndpointResponse<Stripe.Customer & { deleted?: boolean } > & { org: Organization }> {
     const { orgId } = args
     const stripe = this.settings.fictionStripe.getServerClient()
-    const org = await this.getStoredCustomerInfo({ orgId })
+    const org = await this.getStoredCustomerInfo({ orgId, caller: 'getCustomer' })
 
     const customerId = org?.customerId
 
@@ -216,7 +242,7 @@ export class QueryManageCustomer extends Query<StripeEndpointSettings> {
     try {
       customer = await stripe.customers.retrieve(customerId) as Stripe.Customer & { deleted?: boolean }
 
-      if (customer.deleted || !customer) {
+      if (customer?.deleted || !customer) {
         if (org?.orgId) {
           this.log.warn('Customer not found on org', { orgId: org.orgId })
           await this.saveCustomerInfo({

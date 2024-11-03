@@ -43,7 +43,9 @@
     "./docs/.vitepress/**/*",
     "./docs/**/*",
     "**/.fiction/*",
-    "**/.fiction/*.json"
+    "**/.fiction/*.json",
+    "@fiction/plugins/plugin-stripe/.ref/stripeMocks.ts",
+    "@fiction/plugins/plugin-stripe/.ref/__stripe.test.ts"
   ],
 
   "exclude": [

@@ -1,6 +1,6 @@
 import type { FictionAdmin } from '@fiction/admin/index.js'
 import type { FictionEnv } from '@fiction/core'
-import type { FictionStripe } from '@fiction/plugin-stripe/plugin.js'
+import type { FictionStripe } from '@fiction/plugin-stripe/index.js'
 
 import type { Theme } from '@fiction/site/theme.js'
 import type { SpecificService } from './index.js'

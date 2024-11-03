@@ -7,10 +7,10 @@ import SettingsPanel from './SettingsPanel.vue'
 
 const { card } = defineProps<{ card: Card }>()
 const { fictionStripe, fictionUser } = useService<{ fictionStripe?: FictionStripe }>()
-const activeCustomer = vue.computed(() => {
-  return fictionStripe?.activeCustomer.value
-})
 
+const activeCustomer = vue.computed(() => fictionStripe?.activeCustomer.value)
+const customerPortalUrl = vue.ref('')
+const isLoading = vue.ref(true)
 const header = vue.computed(() => {
   return {
     title: `Current Plan: ${activeCustomer.value?.planName || 'None'}`,
@@ -19,11 +19,31 @@ const header = vue.computed(() => {
     actions: [
       {
         name: 'Billing Dashboard',
-        href: fictionStripe?.customerPortalUrl.value,
+        href: customerPortalUrl.value,
         theme: 'primary' as const,
       },
     ],
   }
+})
+
+async function setPortalUrl() {
+  if (activeCustomer.value) {
+    const r = await fictionStripe?.requests.PortalSession.projectRequest({
+      returnUrl: window.location.href,
+    })
+
+    if (r?.success && r.data?.url) {
+      customerPortalUrl.value = r.data?.url
+    }
+  }
+}
+
+vue.onMounted(async () => {
+  await fictionStripe?.customerInitialized({ caller: 'PanelBilling' })
+
+  await setPortalUrl()
+
+  isLoading.value = false
 })
 </script>
 
@@ -51,10 +71,10 @@ const header = vue.computed(() => {
                 <div class="text-theme-500 text-xs">
                   Current Cycle
                 </div>
-                <div class="font-bold">
-                  {{ standardDate(fictionStripe?.cycleStartAtIso.value) }}
+                <div v-if="activeCustomer" class="font-bold">
+                  {{ standardDate(activeCustomer?.cycleStartAtIso) }}
                   to
-                  {{ standardDate(fictionStripe?.cycleEndAtIso.value) }}
+                  {{ standardDate(activeCustomer?.cycleEndAtIso) }}
                 </div>
               </div>
             </div>
@@ -80,7 +100,7 @@ const header = vue.computed(() => {
           </p>
         </div>
         <div class="mt-6">
-          <XButton :href="fictionStripe?.customerPortalUrl.value" theme="primary">
+          <XButton :href="customerPortalUrl" theme="primary">
             Billing Dashboard &rarr;
           </XButton>
         </div>

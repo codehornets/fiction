@@ -1,10 +1,298 @@
 /**
  * @vitest-environment happy-dom
  */
+
+import type { Stripe } from 'stripe'
+
 import type { CustomerData, StripeProductConfig } from '../types'
-import { dayjs, type Organization } from '@fiction/core'
-import { beforeAll, describe, expect, it } from 'vitest'
-import { getCycleRange, processCustomerData } from '../utils'
+import { dayjs, type Organization, vue } from '@fiction/core'
+import { createSiteTestUtils } from '@fiction/site/test/testUtils'
+import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
+import { FictionStripe } from '..'
+import { checkoutEndpointHandler, getCheckoutConfig, getCheckoutUrl, getCycleRange, getPortalUrl, processCustomerData } from '../utils'
+
+describe('stripe Utils', async () => {
+  // Create FictionStripe before test utils initialization
+  const testUtils = await createSiteTestUtils()
+
+  const fictionStripe = new FictionStripe({
+    ...testUtils,
+    secretKeyTest: testUtils.fictionEnv.var('STRIPE_SECRET_KEY_TEST'),
+    publicKeyTest: testUtils.fictionEnv.var('STRIPE_PUBLIC_KEY_TEST'),
+    customerPortalUrl: 'https://test.portal.url',
+    products: [{
+      productId: 'prod_test',
+      alias: 'standard',
+      tier: 10,
+      pricing: [{
+        priceId: 'price_test',
+        duration: 'month',
+        cost: 10,
+        costPerUnit: 10,
+        credits: 1000,
+        quantity: 1,
+        group: 'standard',
+      }],
+    }],
+  })
+
+  // Initialize test utils after FictionStripe creation
+  const initialized = await testUtils.init()
+  const { orgId } = initialized
+
+  // Reset functionality
+  const resetStripeState = () => {
+    // Clear any mocks
+    vi.clearAllMocks()
+    // Reset instance properties that might be modified during tests
+    fictionStripe.browserClient = undefined
+    fictionStripe.serverClient = undefined
+  }
+
+  beforeEach(() => {
+    resetStripeState()
+  })
+
+  describe('getPortalUrl', () => {
+    it('returns portal session URL when session creation succeeds', async () => {
+      const mockSuccessUrl = 'https://portal.session.url'
+      const returnUrl = 'https://return.url'
+
+      vi.spyOn(fictionStripe.requests.PortalSession, 'projectRequest').mockResolvedValueOnce({
+        status: 'success',
+        data: { url: mockSuccessUrl } as Stripe.BillingPortal.Session,
+      })
+
+      const result = await getPortalUrl({
+        fictionStripe,
+        returnUrl,
+      })
+
+      expect(result).toBe(mockSuccessUrl)
+    })
+
+    it('returns default portal URL with prefilled email when session creation fails', async () => {
+      const mockCustomerEmail = 'test@example.com'
+      vi.spyOn(fictionStripe.requests.PortalSession, 'projectRequest').mockResolvedValueOnce({
+        status: 'error',
+      })
+
+      vi.spyOn(fictionStripe.queries.ManageCustomer, 'serve').mockResolvedValueOnce({
+        status: 'success',
+        data: {
+          customer: { email: mockCustomerEmail } as any,
+        } as CustomerData,
+      })
+
+      const result = await getPortalUrl({ fictionStripe })
+
+      expect(result).toBe(`https://test.portal.url?prefilled_email=${encodeURIComponent(mockCustomerEmail)}`)
+    })
+  })
+
+  describe('getCheckoutUrl', () => {
+    it('returns checkout initialization URL for authenticated user', async () => {
+      const query = {
+        priceId: 'price_test',
+        trialPeriod: '14',
+      }
+
+      const result = await getCheckoutUrl({
+        fictionStripe,
+        query,
+      })
+
+      expect(result).toContain('/api/stripe-checkout/init')
+      expect(result).toContain('priceId=price_test')
+      expect(result).toContain('trialPeriod=14')
+    })
+
+    it('returns login redirect URL for unauthenticated user', async () => {
+      // Mock user as not authenticated
+      vi.spyOn(fictionStripe.settings.fictionUser, 'activeUser', 'get').mockReturnValue(vue.ref(undefined))
+
+      const query = {
+        priceId: 'price_test',
+        loginPath: '/login',
+      }
+
+      // Mock window.location
+      const mockLocation = new URL('https://test.com/checkout')
+      vi.stubGlobal('location', mockLocation)
+
+      const result = await getCheckoutUrl({
+        fictionStripe,
+        query,
+      })
+
+      expect(result).toBe(`/login?redirect=${encodeURIComponent(mockLocation.href)}`)
+
+      // Clean up global stub
+      vi.unstubAllGlobals()
+    })
+  })
+
+  describe('checkoutEndpointHandler', () => {
+    // Helper to create properly chained mock response
+    const createMockResponse = () => {
+      const res = {
+        status: vi.fn(),
+        send: vi.fn(),
+        redirect: vi.fn(),
+        end: vi.fn(),
+      }
+      res.status.mockReturnValue(res)
+      res.send.mockReturnValue(res)
+      return res
+    }
+
+    it('creates checkout session and redirects on successful initialization', async () => {
+      const mockRequest = {
+        params: { action: 'init' },
+        query: {
+          priceId: 'price_test',
+          orgId,
+        },
+      }
+
+      const mockResponse = createMockResponse()
+
+      // Mock customer retrieval
+      vi.spyOn(fictionStripe.queries.ManageCustomer, 'serve').mockResolvedValueOnce({
+        status: 'success',
+        data: {
+          customer: { id: 'cus_test' },
+        } as CustomerData,
+      })
+
+      // Mock stripe checkout session creation
+      const mockSessionUrl = 'https://checkout.stripe.com/test'
+      vi.spyOn(fictionStripe, 'getServerClient').mockReturnValue({
+        checkout: {
+          sessions: {
+            create: vi.fn().mockResolvedValue({ url: mockSessionUrl }),
+          },
+        },
+      } as any)
+
+      await checkoutEndpointHandler({
+        fictionStripe,
+        request: mockRequest as any,
+        response: mockResponse as any,
+      })
+
+      expect(mockResponse.redirect).toHaveBeenCalledWith(303, mockSessionUrl)
+    })
+
+    it('handles missing priceId error', async () => {
+      const mockRequest = {
+        params: { action: 'init' },
+        query: { orgId },
+      }
+
+      const mockResponse = createMockResponse()
+
+      await checkoutEndpointHandler({
+        fictionStripe,
+        request: mockRequest as any,
+        response: mockResponse as any,
+      })
+
+      expect(mockResponse.status).toHaveBeenCalledWith(400)
+      expect(mockResponse.send).toHaveBeenCalledWith({
+        status: 'error',
+        message: 'no priceId',
+      })
+      expect(mockResponse.end).toHaveBeenCalled()
+    })
+
+    it('handles invalid action parameter', async () => {
+      const mockRequest = {
+        params: { action: 'invalid' },
+        query: {
+          priceId: 'price_test',
+          orgId,
+        },
+      }
+
+      const mockResponse = createMockResponse()
+
+      await checkoutEndpointHandler({
+        fictionStripe,
+        request: mockRequest as any,
+        response: mockResponse as any,
+      })
+
+      expect(mockResponse.status).toHaveBeenCalledWith(400)
+      expect(mockResponse.send).toHaveBeenCalledWith({
+        status: 'error',
+        message: 'invalid action',
+      })
+      expect(mockResponse.end).toHaveBeenCalled()
+    })
+
+    it('handles missing orgId error', async () => {
+      const mockRequest = {
+        params: { action: 'init' },
+        query: {
+          priceId: 'price_test',
+        },
+      }
+
+      const mockResponse = createMockResponse()
+
+      await checkoutEndpointHandler({
+        fictionStripe,
+        request: mockRequest as any,
+        response: mockResponse as any,
+      })
+
+      expect(mockResponse.status).toHaveBeenCalledWith(400)
+      expect(mockResponse.send).toHaveBeenCalledWith({
+        status: 'error',
+        message: 'no orgId',
+      })
+      expect(mockResponse.end).toHaveBeenCalled()
+    })
+  })
+
+  describe('getCheckoutConfig', () => {
+    it('returns default success and cancel URLs when no callbacks provided', () => {
+      const result = getCheckoutConfig({
+        orgId,
+        fictionStripe,
+      })
+
+      const baseUrl = fictionStripe.settings.fictionApp.appUrl.value
+
+      expect(result).toEqual({
+        successUrl: `${baseUrl}/checkout-success`,
+        cancelUrl: `${baseUrl}/checkout-cancel`,
+      })
+    })
+
+    it('uses custom success and cancel paths when callbacks provided', () => {
+      // Create temporary instance with custom callbacks
+      const tempFictionStripe = new FictionStripe({
+        ...fictionStripe.settings,
+        checkoutSuccessPathname: () => '/custom-success',
+        checkoutCancelPathname: () => '/custom-cancel',
+      })
+
+      const result = getCheckoutConfig({
+        orgId,
+        fictionStripe: tempFictionStripe,
+      })
+
+      const baseUrl = tempFictionStripe.settings.fictionApp.appUrl.value
+
+      expect(result).toEqual({
+        successUrl: `${baseUrl}/custom-success`,
+        cancelUrl: `${baseUrl}/custom-cancel`,
+      })
+    })
+  })
+})
 
 describe('getCycleRange', () => {
   beforeAll(() => {
@@ -94,9 +382,8 @@ describe('processCustomerData', () => {
 
   it('returns free tier details when no subscription exists', () => {
     const result = processCustomerData({
-      organization: baseOrg,
       products: baseProducts,
-      customerData: undefined,
+      customerDataResponse: { status: 'success', data: { org: baseOrg } },
     })
 
     expect(result).toMatchObject({
@@ -125,12 +412,14 @@ describe('processCustomerData', () => {
           }],
         },
       } as any],
+      org: baseOrg,
     }
 
+    const customerDataResponse = { status: 'success' as const, data: customerData }
+
     const result = processCustomerData({
-      organization: baseOrg,
       products: baseProducts,
-      customerData,
+      customerDataResponse,
     })
 
     expect(result).toMatchObject({
@@ -158,22 +447,24 @@ describe('processCustomerData', () => {
           }],
         },
       } as any],
+      org: baseOrg,
     }
 
+    const customerDataResponse = { status: 'success' as const, data: customerData }
+
     const result = processCustomerData({
-      organization: baseOrg,
       products: baseProducts,
-      customerData,
+      customerDataResponse,
     })
 
     expect(result.isTrial).toBe(true)
   })
 
   it('handles special plans correctly', () => {
+    const customerDataResponse = { status: 'success' as const, data: { org: { ...baseOrg, specialPlan: 'vip' as const } } }
     const result = processCustomerData({
-      organization: { ...baseOrg, specialPlan: 'vip' },
       products: baseProducts,
-      customerData: undefined,
+      customerDataResponse,
     })
 
     expect(result.planName).toBe('Free (vip)')
@@ -192,12 +483,14 @@ describe('processCustomerData', () => {
           }],
         },
       } as any],
+      org: baseOrg,
     }
 
+    const customerDataResponse = { status: 'success' as const, data: customerData }
+
     const result = processCustomerData({
-      organization: baseOrg,
       products: baseProducts,
-      customerData,
+      customerDataResponse,
     })
 
     // Should fall back to free tier
@@ -232,12 +525,14 @@ describe('processCustomerData', () => {
           },
         } as any,
       ],
+      org: baseOrg,
     }
 
+    const customerDataResponse = { status: 'success' as const, data: customerData }
+
     const result = processCustomerData({
-      organization: baseOrg,
       products: baseProducts,
-      customerData,
+      customerDataResponse,
     })
 
     // Should use the valid subscription

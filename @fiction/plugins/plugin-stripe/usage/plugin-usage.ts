@@ -1,5 +1,5 @@
 import type { FictionApp, FictionDb, FictionPluginSettings, FictionServer, FictionUser } from '@fiction/core'
-import type { FictionStripe } from '../plugin'
+import type { FictionStripe } from '../index.js'
 import type { CustomerDetails } from '../types'
 import { FictionPlugin, safeDirname, vue } from '@fiction/core'
 import { tables } from '../tables'

@@ -1,15 +1,14 @@
 import type { FictionApp, FictionDb, FictionEnv, FictionPluginSettings, FictionRouter, FictionServer, FictionUser } from '@fiction/core'
 
 import type * as StripeJS from '@stripe/stripe-js'
+
 import type Stripe from 'stripe'
 
 import type * as types from './types'
-
 import { Endpoint, FictionPlugin, vue } from '@fiction/core'
 import { EnvVar, vars } from '@fiction/core/plugin-env'
 import { QueryManageCustomer, QueryPortalSession } from './endpoints'
-import { checkoutEndpointHandler, getCurrentCustomerDetails, getStripeBrowserClient, getStripeServerClient, setCustomerData } from './utils'
-import './register'
+import { checkoutEndpointHandler, getCurrentCustomerDetails, getStripeBrowserClient, getStripeServerClient } from './utils'
 
 vars.register(() => [
   new EnvVar({ name: 'STRIPE_PUBLIC_KEY_TEST', isPublic: true, isOptional: true }),
@@ -23,6 +22,7 @@ vars.register(() => [
 ])
 
 export * from './types'
+export * from './utils'
 
 export type StripePluginSettings = {
   fictionEnv: FictionEnv
@@ -43,6 +43,21 @@ export type StripePluginSettings = {
   customerPortalUrl: string
   useCustomerManager?: boolean
 } & FictionPluginSettings
+
+// Custom error classes for better error handling
+class StripeInitializationError extends Error {
+  constructor(message: string, public override cause?: unknown) {
+    super(message)
+    this.name = 'StripeInitializationError'
+  }
+}
+
+class CustomerInitializationError extends Error {
+  constructor(message: string, public override cause?: unknown) {
+    super(message)
+    this.name = 'CustomerInitializationError'
+  }
+}
 
 export class FictionStripe extends FictionPlugin<StripePluginSettings> {
   apiVersion = '2024-09-30.acacia' as const
@@ -73,67 +88,206 @@ export class FictionStripe extends FictionPlugin<StripePluginSettings> {
   constructor(settings: StripePluginSettings) {
     super('FictionStripe', settings)
 
-    const checkoutEndpoint = new Endpoint({
-      requestHandler: async (...r) => checkoutEndpointHandler({ request: r[0], response: r[1], fictionStripe: this }),
-      key: 'oAuthEndpoint',
-      basePath: '/stripe-checkout/:action',
-      serverUrl: this.settings.fictionServer.serverUrl.value,
-      fictionUser: this.settings.fictionUser,
-      fictionEnv: this.settings.fictionEnv,
-      useNaked: true,
-    })
+    this.validateSettings()
+    this.setupEndpoint()
+    this.setupHooks()
+    this.logInitialization()
+  }
 
-    this.settings.fictionServer.addEndpoints([checkoutEndpoint])
+  private validateSettings() {
+    if (!this.settings.customerPortalUrl) {
+      throw new StripeInitializationError('Customer portal URL is required')
+    }
 
-    /**
-     * Update customer email information when corresponding org is updated
-     */
+    if (!Array.isArray(this.settings.products) || this.settings.products.length === 0) {
+      throw new StripeInitializationError('At least one product configuration is required')
+    }
+  }
+
+  private setupEndpoint() {
+    try {
+      const checkoutEndpoint = new Endpoint({
+        requestHandler: async (...r) => checkoutEndpointHandler({ request: r[0], response: r[1], fictionStripe: this }),
+        key: 'oAuthEndpoint',
+        basePath: '/stripe-checkout/:action',
+        serverUrl: this.settings.fictionServer.serverUrl.value,
+        fictionUser: this.settings.fictionUser,
+        fictionEnv: this.settings.fictionEnv,
+        useNaked: true,
+      })
+
+      this.settings.fictionServer.addEndpoints([checkoutEndpoint])
+    }
+    catch (error) {
+      throw new StripeInitializationError('Failed to setup checkout endpoint', error)
+    }
+  }
+
+  private setupHooks() {
     this.settings.fictionEnv?.addHook({
       hook: 'updateOrganization',
       caller: 'FictionStripe',
       context: 'server',
       callback: async (o) => {
-        if (!o.orgId)
-          throw new Error('updateOrganization hook missing orgId')
+        try {
+          if (!o.orgId) {
+            throw new Error('updateOrganization hook missing orgId')
+          }
 
-        const { orgId, orgEmail, orgName } = o
-        await this.queries.ManageCustomer.serve(
-          { _action: 'update', orgId, fields: { email: orgEmail, name: orgName } },
-          { server: true },
-        )
+          const { orgId, orgEmail, orgName } = o
+          await this.queries.ManageCustomer.serve(
+            { _action: 'update', orgId, fields: { email: orgEmail, name: orgName } },
+            { server: true },
+          )
+        }
+        catch (error) {
+          this.log.error('Failed to update customer details in hook', { error })
+          throw error
+        }
       },
     })
+  }
 
+  private logInitialization() {
     if (!this.settings.fictionEnv.isApp.value) {
+      const hasSecretKey = !!this.secretKey.value
+      const hasPublicKey = !!this.publicKey.value
+
       this.log.info('initializing stripe', {
-        data: { secretKeyExists: !!this.secretKey.value, publicKeyExists: !!this.publicKey.value, stripeMode: this.stripeMode.value },
+        data: {
+          secretKeyExists: hasSecretKey,
+          publicKeyExists: hasPublicKey,
+          stripeMode: this.stripeMode.value,
+        },
       })
 
-      if (!this.secretKey.value)
+      if (!hasSecretKey) {
         this.log.warn(`stripe secretKey key not set: ${this.stripeMode.value}`)
+      }
 
-      if (!this.publicKey.value)
+      if (!hasPublicKey) {
         this.log.warn(`stripe publicKey key not set: ${this.stripeMode.value}`)
+      }
     }
   }
 
-  getCurrentCustomerDetails = async (): Promise<types.CustomerDetails | undefined> => {
-    return getCurrentCustomerDetails({ fictionStripe: this })
+  activeCustomer = vue.shallowRef<types.CustomerDetails>()
+  private initPromise?: Promise<boolean>
+  private resolveCustomer?: (value: boolean | PromiseLike<boolean>) => void
+  private initializationError?: Error
+
+  async requestSetCustomerData() {
+    try {
+      await this.settings.fictionUser.userInitialized({ caller: 'stripe.customer' })
+      this.activeCustomer.value = await getCurrentCustomerDetails({ fictionStripe: this })
+      return this.activeCustomer.value
+    }
+    catch (error) {
+      this.initializationError = new CustomerInitializationError(
+        'Failed to initialize customer data',
+        error,
+      )
+      throw this.initializationError
+    }
+  }
+
+  async customerInitialized(args: { caller: string }) {
+    const { caller = 'unknown' } = args || {}
+
+    if (typeof window === 'undefined') {
+      this.log.warn('customer initialization: no window', { data: { caller } })
+      return
+    }
+
+    // If there was a previous initialization error, clear it and retry
+    if (this.initializationError) {
+      this.initPromise = undefined
+      this.initializationError = undefined
+    }
+
+    if (!this.initPromise) {
+      this.log.info('initializing customer', { data: { caller } })
+      this.initPromise = new Promise(async (resolve, reject) => {
+        this.resolveCustomer = resolve
+        try {
+          const result = await this.requestSetCustomerData()
+          resolve(true)
+        }
+        catch (error) {
+          this.log.error('Failed to initialize customer', {
+            error,
+            data: { caller },
+          })
+          reject(error)
+        }
+      })
+
+      this.customerDataRefreshWatchers()
+    }
+
+    try {
+      await this.initPromise
+
+      if (this.activeCustomer.value?.status === 'error') {
+        this.initPromise = undefined
+      }
+
+      return this.activeCustomer.value
+    }
+    catch (error) {
+      // Clear the promise so subsequent calls can retry
+      this.initPromise = undefined
+      throw error
+    }
+  }
+
+  closeWatcher?: vue.WatchHandle
+
+  customerDataRefreshWatchers() {
+    if (this.closeWatcher) {
+      this.closeWatcher()
+    }
+
+    // Debounce the update to prevent rapid consecutive calls
+    let updateTimeout: NodeJS.Timeout
+
+    this.closeWatcher = vue.watch(
+      () => this.settings.fictionUser.activeOrgId.value,
+      async () => {
+        clearTimeout(updateTimeout)
+        updateTimeout = setTimeout(async () => {
+          try {
+            await this.requestSetCustomerData()
+          }
+          catch (error) {
+            this.log.error('Failed to refresh customer data', { error })
+          }
+        }, 100) // 100ms debounce
+      },
+    )
   }
 
   getServerClient(): Stripe {
     if (!this.serverClient) {
+      if (!this.secretKey.value) {
+        throw new StripeInitializationError(
+          `Stripe secret key not available for ${this.stripeMode.value} mode`,
+        )
+      }
       this.serverClient = getStripeServerClient({ fictionStripe: this })
     }
-
     return this.serverClient
   }
 
   getBrowserClient = async (): Promise<StripeJS.Stripe> => {
     if (!this.browserClient) {
+      if (!this.publicKey.value) {
+        throw new StripeInitializationError(
+          `Stripe public key not available for ${this.stripeMode.value} mode`,
+        )
+      }
       this.browserClient = await getStripeBrowserClient({ fictionStripe: this })
     }
-
     return this.browserClient
   }
 }
