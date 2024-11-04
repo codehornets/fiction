@@ -6,6 +6,7 @@
     "@fiction/core": "workspace:*",
     "@fiction/forms": "workspace:*",
     "@fiction/plugin-ai": "workspace:*",
+    "@fiction/plugin-brand": "workspace:*",
     "@fiction/plugin-contact": "workspace:*",
     "@fiction/plugin-extend": "workspace:*",
     "@fiction/plugin-highlight-code": "workspace:*",

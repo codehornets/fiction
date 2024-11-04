@@ -9,6 +9,7 @@ import { FictionTeam } from '@fiction/core/plugin-team/index.js'
 import { getEnvVars } from '@fiction/core/utils/index.js'
 import { FictionForms } from '@fiction/forms'
 import { FictionAi } from '@fiction/plugin-ai'
+import { FictionBrand } from '@fiction/plugin-brand'
 import { FictionExtend } from '@fiction/plugin-extend/index.js'
 import { FictionMonitor } from '@fiction/plugin-monitor/index.js'
 import { FictionNewsletter } from '@fiction/plugin-newsletter'
@@ -181,8 +182,9 @@ const fictionUi = new FictionUi({ fictionEnv, apps: [fictionApp, fictionAppSites
 const fictionSubscribe = new FictionSubscribe(s)
 const fictionPosts = new FictionPosts(s)
 const fictionNewsletter = new FictionNewsletter({ fictionPosts, fictionSubscribe, ...s })
+const fictionBrand = new FictionBrand({ ...s })
 
-const baseService = { ...s, fictionForms, fictionAnalytics, fictionSites, fictionTeam, fictionUi, fictionStripe, fictionSubscribe, fictionNewsletter, fictionPosts }
+const baseService = { ...s, fictionForms, fictionBrand, fictionAnalytics, fictionSites, fictionTeam, fictionUi, fictionStripe, fictionSubscribe, fictionNewsletter, fictionPosts }
 
 export type SpecificService = typeof baseService
 
