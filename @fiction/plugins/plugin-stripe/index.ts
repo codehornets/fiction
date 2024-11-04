@@ -60,8 +60,6 @@ class CustomerInitializationError extends Error {
 }
 
 export class FictionStripe extends FictionPlugin<StripePluginSettings> {
-  apiVersion = '2024-09-30.acacia' as const
-
   queries = {
     ManageCustomer: new QueryManageCustomer({ fictionStripe: this, ...this.settings }),
     PortalSession: new QueryPortalSession({ fictionStripe: this, ...this.settings }),

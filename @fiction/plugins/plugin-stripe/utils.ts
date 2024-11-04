@@ -61,7 +61,7 @@ export function getStripeServerClient(args: { fictionStripe: FictionStripe }): S
   if (!key)
     throw new Error(`stripe getServerClient: secretKey not found (${fictionStripe.stripeMode.value})`)
 
-  return new Stripe(key, { apiVersion: fictionStripe.apiVersion })
+  return new Stripe(key)
 }
 
 export async function getStripeBrowserClient(args: { fictionStripe: FictionStripe }): Promise<StripeJS.Stripe> {
