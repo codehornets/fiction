@@ -1,10 +1,11 @@
 import type { EmailVars } from '@fiction/plugin-transactions/action.js'
+import { isCi } from '@fiction/core'
 import { createTestUser } from '@fiction/core/test-utils/init.js'
 import { createUiTestingKit } from '@fiction/core/test-utils/kit.js'
 import { afterAll, describe, expect, it } from 'vitest'
 import { setup } from './kit.main.js'
 
-describe('subscribe uiux', { retry: 3 }, async () => {
+describe('subscribe uiux', { retry: isCi() ? 3 : 0 }, async () => {
   const kit = await createUiTestingKit({ headless: false, setup, slowMo: 4000 })
 
   afterAll(async () => kit?.close())
@@ -68,7 +69,7 @@ describe('subscribe uiux', { retry: 3 }, async () => {
 
     const emailContent = r.data?.html || ''
     expect(emailContent).toContain('Confirm Subscription')
-    expect(emailContent).toContain(vars.callbackUrl.replaceAll('&', '&amp;'))
+    expect(emailContent).toContain(vars.callbackUrl)
     expect(emailContent).not.toContain(vars.unsubscribeUrl)
   })
 

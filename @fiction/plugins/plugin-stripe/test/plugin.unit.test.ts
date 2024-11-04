@@ -5,7 +5,6 @@
 import type Stripe from 'stripe'
 import type { CustomerDetails } from '../types'
 
-import { vue } from '@fiction/core'
 import { createSiteTestUtils } from '@fiction/site/test/testUtils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { FictionStripe } from '..'

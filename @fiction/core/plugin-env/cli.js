@@ -1,4 +1,4 @@
-#!/usr/bin/env node --import=tsx --import=@fiction/core/plugin-env/loader.mjs --max-old-space-size=4096
+#!/usr/bin/env node --no-warnings --import=tsx --import=@fiction/core/plugin-env/loader.mjs --max-old-space-size=4096
 
 import process from 'node:process'
 

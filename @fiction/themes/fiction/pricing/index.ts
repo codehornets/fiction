@@ -3,14 +3,20 @@ import { getCheckoutUrl } from '@fiction/plugin-stripe/index.js'
 import { CardFactory } from '@fiction/site/cardFactory.js'
 import { templates } from '../templates.js'
 
-export async function page(args: { fictionStripe?: FictionStripe }) {
+async function purchaseUrl(args: { priceId: string, fictionStripe?: FictionStripe }) {
   const { fictionStripe } = args
 
+  const loginPath = '/auth/login'
+
   if (!fictionStripe) {
-    throw new Error('FictionStripe plugin is required')
+    return loginPath
   }
 
-  const purchaseUrl = async (args: { priceId: string }) => await getCheckoutUrl({ fictionStripe, query: { ...args, loginPath: '/auth/login' } })
+  return await getCheckoutUrl({ fictionStripe, query: { ...args, loginPath } })
+}
+
+export async function page(args: { fictionStripe?: FictionStripe }) {
+  const { fictionStripe } = args
 
   const factory = new CardFactory({ templates })
 
@@ -34,7 +40,7 @@ export async function page(args: { fictionStripe?: FictionStripe }) {
           name: 'Pro',
           price: 99,
           desc: `Everything in Basic, plus...`,
-          href: await purchaseUrl({ priceId: 'price_222' }),
+          href: await purchaseUrl({ fictionStripe, priceId: 'price_222' }),
           badge: 'Most Popular',
           features: [
             { name: 'Up to 10,000 subscribers' },
@@ -47,7 +53,7 @@ export async function page(args: { fictionStripe?: FictionStripe }) {
           name: 'Pro+',
           price: 199,
           desc: `Everything in Basic, plus...`,
-          href: await purchaseUrl({ priceId: 'price_333' }),
+          href: await purchaseUrl({ fictionStripe, priceId: 'price_333' }),
           features: [
             { name: 'Up to 25,000 subscribers' },
             { name: 'Advanced UI cards' },

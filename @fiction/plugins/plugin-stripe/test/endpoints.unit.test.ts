@@ -1,10 +1,8 @@
 import type { EndpointMeta } from '@fiction/core'
 import { createSiteTestUtils } from '@fiction/site/test/testUtils'
-import { query } from 'express'
 import { describe, expect, it } from 'vitest'
 import { FictionStripe } from '..'
 import { mockStripeMethods } from '../.ref/stripeMocks'
-import { QueryManageCustomer } from '../endpoints'
 
 describe('queryManageCustomer', async () => {
   // Set up test utilities and initial state
