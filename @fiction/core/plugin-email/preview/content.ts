@@ -7,6 +7,11 @@ export const sampleHtml = `<h1>Welcome to the <a href="#">Galactic Gazette</a>! 
 </figure>
 
 <p>Imagine a world where <mark>space travel</mark> is as common as taking a bus. Our latest article explores the <strong>future of interstellar journeys</strong>. Is <del>space tourism</del> now a reality?</p>
+
+<div style="text-align: center">
+  <a href="#" style="background: #3498db; color: white; padding: 12px 24px; text-decoration: none; display: inline-block; border-radius: 4px;">Subscribe Now 🚀</a>
+</div>
+
 <h2>Breaking News: The Andromeda Galaxy is Closer than We Thought!</h2>
 
 <figure>
@@ -32,6 +37,11 @@ export const sampleHtml = `<h1>Welcome to the <a href="#">Galactic Gazette</a>! 
   <li>Galactic Federation holds first interstellar summit.</li>
   <li>Exclusive Interview: Astronaut shares their experiences from space.</li>
 </ul>
+
+
+<div style="background: #f8f9fa; border-left: 4px solid #3498db; padding: 15px; margin: 20px 0;">
+  <strong>🌟 Editor's Pick:</strong> Don't miss our exclusive interview with veteran astronaut Sarah Chen about life aboard the ISS!
+</div>
 
 <h2>Astronaut's Guide to Surviving Space</h2>
 

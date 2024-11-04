@@ -3,7 +3,7 @@ import type { Config as TailwindConfig } from 'tailwindcss'
 import type { PropType } from 'vue'
 import type { ActionButton } from '../../schemas/schemas.js'
 import type { MediaItem } from '../../types'
-import { Body, Button, Column, Container, Head, Heading, Hr, Html, Img, Markdown, Preview, Section, Style, Tailwind, Text } from '@vue-email/components'
+import { Body, Button, Column, Head, Heading, Hr, Html, Img, Markdown, Preview, Section, Style, Tailwind, Text } from '@vue-email/components'
 import { computed } from 'vue'
 
 const props = defineProps({
@@ -56,7 +56,6 @@ const colorList = {
 } as const
 
 const fontStack = '-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji"'
-const fancyFontStack = `'Geist', ${fontStack}`
 
 const tailwindConfig: TailwindConfig = {
   content: [],
@@ -101,35 +100,69 @@ function getButtonClass(item: ActionButton): string {
 }
 
 const markdownStyles = {
+  h1: {
+    'font-size': '2.2rem',
+    'line-height': '1.3',
+    'font-weight': '700',
+  },
+  h2: {
+    'font-size': '1.8rem',
+    'line-height': '1.3',
+    'font-weight': '700',
+    'margin-top': '2rem',
+  },
+  h3: {
+    'font-size': '1.6rem',
+    'line-height': '1.4',
+    'font-weight': '700',
+    'opacity': '.8',
+    'margin-top': '1.5rem',
+  },
+  h4: {
+    'font-size': '1.3rem',
+    'line-height': '1.4',
+    'font-weight': '600',
+  },
+  h5: {
+    'font-size': '1.2rem',
+    'line-height': '1.4',
+    'font-weight': '600',
+  },
+  h6: {
+    'font-size': '1rem',
+    'line-height': '1.4',
+    'font-weight': '600',
+  },
   p: {
-    fontSize: '1.1rem',
-    lineHeight: '1.65',
-    fontWeight: 'normal',
+    'font-size': '1.1rem',
+    'line-height': '1.65',
+    'font-weight': 'normal',
   },
   li: {
     padding: '.5rem 0',
   },
   hr: {
-    border: 'none',
-    borderBottom: `1px solid ${colorList.gray[200]}`,
-    opacity: '.5',
-    margin: '2rem 0',
+    'border': 'none',
+    'border-bottom': `1px solid ${colorList.gray[200]}`,
+    'opacity': '.5',
+    'margin': '2rem 0',
   },
   blockQuote: {
-    padding: '0 0 0 1.5rem',
-    margin: '1.5rem 0',
-    borderLeft: `2px solid ${colorList.gray[500]}`,
-    background: 'transparent',
-    fontSize: '1.45em',
-    fontStyle: 'italic',
+    'padding': '0 0 0 1.5rem',
+    'margin': '1.5rem 0',
+    'border-left': `2px solid ${colorList.gray[500]}`,
+    'background': 'transparent',
+    'font-size': '1.45em',
+    'font-style': 'italic',
   },
   image: {
-    margin: '1.5rem 0',
-    padding: '0',
-    display: 'block',
-    maxWidth: '100%',
-    height: 'auto',
+    'margin': '1.5rem 0',
+    'padding': '0',
+    'display': 'block',
+    'max-width': '100%',
+    'height': 'auto',
   },
+
   link: {
     color: '',
   },
@@ -159,12 +192,6 @@ function generateColorStyles(isDark: boolean) {
         <title>{{ subject || "No Subject" }}</title>
         <meta name="description" :content="previewText">
         <Style>
-          {{ generateColorStyles(false) }}
-          @media (prefers-color-scheme: dark) {
-          {{ generateColorStyles(true) }}
-          }
-          .dark { {{ generateColorStyles(true) }} }
-          .light { {{ generateColorStyles(false) }} }
           tbody { font-size: 1rem; line-height: 1.65; }
           h1, h2 { line-height: 1.2; }
           h3, h4, h5 { line-height: 1.4; }
@@ -176,7 +203,8 @@ function generateColorStyles(isDark: boolean) {
           img, figure { max-width: 100%; height: auto; }
           img[data-emoji] { display: inline; }
           figure img { border-radius: .5rem; display: block; }
-          figcaption { font-size: 0.8rem; text-align: center; color: #666; margin-top: 0.5rem; }
+          figcaption { font-size: 0.8rem; text-align: center; color: #666; margin-top: 0.5rem;  }
+          figcaption a { color: inherit; }
           a { transition: opacity 0.2s; }
           a:hover { opacity: 0.8; }
         </Style>
@@ -185,7 +213,14 @@ function generateColorStyles(isDark: boolean) {
         {{ previewText }}
       </Preview>
       <Body :style="{ fontFamily: fontStack }">
-        <Container class="py-8 px-4 max-w-[600px]">
+        <div
+          class="py-8 px-4 "
+          :style="{
+            'max-width': '600px',
+            'margin': '0px auto',
+            'color': previewMode === 'dark' ? colorList.gray[0] : colorList.gray[900],
+          }"
+        >
           <Section v-if="mediaSuper" :style="{ marginBottom: '24px' }">
             <Column v-if="mediaSuper.media?.url" class="w-[22px]">
               <a :href="mediaSuper.href || '#'">
@@ -199,8 +234,8 @@ function generateColorStyles(isDark: boolean) {
             </Column>
           </Section>
 
-          <Section :style="{ font: fancyFontStack }">
-            <Heading data-test-id="email-title" as="h1" :data-heading="heading" :style="{ margin: '0 0 0 0', fontWeight: 'bold', fontSize: '24px', lineHeight: 1.2 }">
+          <Section>
+            <Heading data-test-id="email-title" as="h1" :data-heading="heading" :style="{ 'margin': '0 0 0 0', 'fontWeight': 'bold', 'font-size': '28px', 'lineHeight': 1.3 }">
               {{ heading }}
             </Heading>
 
@@ -220,7 +255,7 @@ function generateColorStyles(isDark: boolean) {
                   :href="item.href"
                   :data-type="item.theme"
                   :class="getButtonClass(item)"
-                  class="rounded-full hover:opacity-80 font-medium select-none"
+                  class="rounded-full hover:opacity-80 font-medium select-none transition-all"
                   :style="{ whiteSpace: 'nowrap' }"
                   v-html="item.name"
                 />
@@ -255,7 +290,7 @@ function generateColorStyles(isDark: boolean) {
               </a>
             </Column>
           </Section>
-        </Container>
+        </div>
       </Body>
     </Html>
   </Tailwind>

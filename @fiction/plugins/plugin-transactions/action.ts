@@ -126,7 +126,7 @@ export class EmailAction<T extends EmailActionSurface = EmailActionSurface > ext
       },
       mediaFooter: {
         media: { url: emailImages.footer.url },
-        name: 'Brand Yourself with Fiction',
+        name: 'Powered by Fiction.com',
         href: `https://www.fiction.com`,
       },
     }

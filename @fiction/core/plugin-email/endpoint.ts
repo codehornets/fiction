@@ -28,7 +28,7 @@ export abstract class EmailQuery extends Query<EmailQuerySettings> {
     const { emailMode = 'standard' } = meta
 
     const isProd = this.settings.fictionEnv.isProd.value
-    const isTest = this.settings.fictionEnv.isTest.value
+    const isTest = meta.isTest ?? this.settings.fictionEnv.isTest.value
     const ci = isCi()
 
     let disabledMessage = ''
