@@ -3,7 +3,7 @@ import type { Card } from '@fiction/site'
 import type { FictionNewsletter } from '..'
 import type { EmailCampaign } from '../campaign'
 import { useService, vue } from '@fiction/core'
-import ElPostEditor from '@fiction/posts/el/ElPostEditor.vue'
+import ElPostEditor from '@fiction/posts/admin/ElPostEditor.vue'
 import { getEmailManageOptions } from './tools'
 
 const { card, campaign } = defineProps<{ card: Card, campaign?: EmailCampaign }>()
