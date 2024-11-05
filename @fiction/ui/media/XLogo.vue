@@ -32,12 +32,16 @@ const typographyStyle = vue.computed(() => {
   const typography = media.typography
   if (!typography)
     return {}
+
+  const scale = typography?.scale || 1
   return {
     fontFamily: typography.font,
     fontWeight: typography.weight,
     lineHeight: 1.2,
     letterSpacing: typography.letterSpacing,
     fontSize: fontSize.value && fontSize.value > 8 ? `${fontSize.value}px` : 'inherit',
+    transform: `scale(${scale})`,
+    transformOrigin: 'center center',
   }
 })
 
@@ -149,7 +153,12 @@ const isSvgContent = vue.computed(() => {
     </template>
 
     <template v-else-if="mediaFormat === 'typography'">
-      <div ref="textRef" class="whitespace-nowrap h-full" :style="typographyStyle" data-test-id="typography-text">
+      <div
+        ref="textRef"
+        class="whitespace-nowrap h-full flex items-center justify-center"
+        :style="typographyStyle"
+        data-test-id="typography-text"
+      >
         {{ media.typography?.text }}
       </div>
     </template>

@@ -1,6 +1,5 @@
 import type { InputOptionSettings } from '@fiction/ui/index.js'
 import { ButtonDesignSchema, colorTheme, colorThemeUser, SizeSchema } from '@fiction/core'
-import InputAi from '@fiction/site/ai/InputAi.vue'
 import { InputOption } from '@fiction/ui/index.js'
 
 type OptArgs = (Partial<InputOptionSettings> & Record<string, unknown>) | undefined
@@ -39,20 +38,6 @@ export const standardOption = {
     schema: ({ z }) => z.string().optional(),
     ..._,
   }),
-  layout: (_: OptArgs = {}) => new InputOption({
-    key: 'layout',
-    label: 'Layout',
-    input: 'InputSelect',
-    props: { list: ['justify', 'center', 'left', 'right'] },
-    schema: ({ z }) => z.enum(['justify', 'center', 'left', 'right']).optional(),
-    ..._,
-  }),
-  socialIcon: (_: OptArgs = {}) => new InputOption({
-    key: 'icon',
-    label: 'Icon',
-    input: 'InputIcon',
-  }),
-
   groupTitle: (_: OptArgs = {}) => new InputOption({
     aliasKey: 'title',
     input: 'InputText',
@@ -99,76 +84,50 @@ export const standardOption = {
   },
   navItems: (_: OptArgs & { maxDepth?: number, itemNames?: string[] } = {}) => {
     const { maxDepth = 0, itemNames = ['Nav Item'] } = _
-    const s = standardOption
     const __ = { label: 'Nav Items', key: 'navItems', ..._ }
     const opts = (depth: number) => {
-      const out = [
-        s.name(),
-        s.icon(),
-        s.href(),
+      const out: InputOption[] = []
 
-      ]
+      out.push(new InputOption({
+        key: `${__.key}_config_${depth}`,
+        label: 'Item Config',
+        input: 'group',
+        options: [
+          new InputOption({ key: 'name', label: 'Text', input: 'InputText' }),
+          new InputOption({ key: 'href', label: 'Link / Route', input: 'InputUrl' }),
+          new InputOption({ key: 'media', label: 'Icon', input: 'InputIcon' }),
+        ],
+      }))
 
       if (depth < maxDepth) {
-        out.push(
-          s.groupTitle({ key: 'items', label: 'Sub Items' }) as InputOption,
-          s.inputList({ key: 'items', label: 'Sub Items', props: { itemName: itemNames[depth + 1] || itemNames.pop() }, options: opts(depth + 1) }),
-          new InputOption({ key: 'subStyle', label: 'Submenu Style', input: 'InputSelect', list: ['drop', 'mega'] }),
-        )
+        out.push(new InputOption({
+          key: `${__.key}_subnav_${depth}`,
+          label: 'Item Sub Navigation',
+          input: 'group',
+          options: [
+            new InputOption({ input: 'InputList', key: 'items', label: 'Sub Items', props: { itemName: itemNames[depth + 1] || itemNames.pop() }, options: opts(depth + 1) }),
+            new InputOption({ key: 'itemsTitle', label: 'Sub Items Title', input: 'InputText' }),
+            new InputOption({ key: 'subStyle', label: 'Submenu Style', input: 'InputSelect', list: ['drop', 'mega'] }),
+          ],
+        }))
       }
 
-      out.push(...[
-        s.desc(),
-        s.target(),
-        new InputOption({ key: 'itemStyle', label: 'Style', input: 'InputSelect', list: ['default', 'button', 'user'] }),
-        new InputOption({ key: 'authState', label: 'Auth State', input: 'InputSelect', list: ['default', 'loggedIn', 'loggedOut'] }),
-      ] as InputOption[])
+      out.push(new InputOption({
+        key: `${__.key}_advanced_${depth}`,
+        label: 'Item Advanced Config',
+        input: 'group',
+        isClosed: true,
+        options: [
+          new InputOption({ key: 'desc', label: 'Description', input: 'InputText' }),
+          new InputOption({ key: 'target', label: 'Target', input: 'InputSelect', list: [{ name: 'Normal', value: '_self' }, { name: 'New Window', value: '_blank' }] }),
+          new InputOption({ key: 'itemStyle', label: 'Style', input: 'InputSelect', list: ['default', 'button', 'user'] }),
+          new InputOption({ key: 'authState', label: 'Auth State', input: 'InputSelect', list: ['default', 'loggedIn', 'loggedOut'] }),
+        ],
+      }))
 
       return out
     }
-    const g = s.group({ ...__, options: [s.groupTitle(__) as InputOption, s.inputList({ ...__, props: { itemName: itemNames[0] }, options: opts(0) })] })
-    return g
-  },
-  mediaItems: (_: OptArgs = {}) => {
-    const s = standardOption
-    return s.inputList({ label: 'Media Items', key: 'mediaItems', ..._, options: [s.media(), s.name(), s.desc(), s.href()], generation: { estimatedMs: 40000 } })
-  },
-  postItems: (_: OptArgs = {}) => {
-    const s = standardOption
-    return s.inputList({ label: 'Post Items', key: 'postItems', ..._, options: [
-      s.media(),
-      s.href(),
-      new InputOption({ key: 'title', label: 'Title', input: 'InputText', placeholder: 'Title' }),
-      new InputOption({ key: 'subTitle', label: 'Subtitle', input: 'InputText', placeholder: 'Sub title' }),
-      new InputOption({ key: 'superTitle', label: 'Super Title', input: 'InputText', placeholder: 'Super Title' }),
-      new InputOption({ key: 'content', label: 'Content', input: 'InputProse', placeholder: 'Content' }),
 
-    ], generation: { estimatedMs: 40000 } })
-  },
-  socials: (_: OptArgs = {}) => {
-    const s = standardOption
-    const __ = { label: 'Socials', key: 'socials', ..._ }
-    return s.group({ ...__, options: [
-      s.groupTitle(__) as InputOption,
-      s.inputList({ ...__, props: { itemName: 'Account' }, options: [s.name(), s.desc(), new InputOption({
-        key: 'icon',
-        label: 'Icon',
-        input: 'InputIcon',
-      }), s.href(), s.target()] }),
-    ] })
-  },
-  post: (_: OptArgs = {}) => {
-    const __ = { label: 'Post', key: 'post', ..._ }
-    const s = standardOption
-    return s.group({ ...__, options: [
-      new InputOption({ key: 'title', label: 'Title', input: 'InputText', schema: ({ z }) => z.string(), ..._ }),
-      new InputOption({ key: 'authorName', label: 'Author Name', input: 'InputText', schema: ({ z }) => z.string(), ..._ }),
-      new InputOption({ key: 'bodyMarkdown', label: 'Content', input: 'InputTextarea', schema: ({ z }) => z.string(), ..._ }),
-    ] })
-  },
-  ai: (_: OptArgs = {}) => {
-    return new InputOption({ label: 'Content Generation', input: 'group', key: 'ai', options: [
-      new InputOption({ key: 'purpose', input: InputAi, ..._, isUtility: true }),
-    ], ..._ })
+    return new InputOption({ ...__, input: 'InputList', label: `${__.label} Items`, props: { itemName: itemNames[0] }, options: opts(0) })
   },
 }

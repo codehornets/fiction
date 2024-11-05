@@ -3,6 +3,7 @@ import type { NavItem } from '@fiction/core'
 import type { Card } from '@fiction/site'
 import { useService, vue } from '@fiction/core'
 import ElAvatar from '@fiction/ui/common/ElAvatar.vue'
+import XIcon from '@fiction/ui/media/XIcon.vue'
 import CardButton from './CardButton.vue'
 import CardText from './CardText.vue'
 import CardLink from './el/CardLink.vue'
@@ -49,7 +50,7 @@ const styles = vue.computed(() => {
   >
     <span class="inline-flex items-center space-x-1 relative whitespace-nowrap">
       <ElAvatar v-if="item.itemStyle === 'user' && service.fictionUser.activeUser.value" class=" size-[1.4em] mr-1.5 rounded-full ring-2 ring-theme-200 dark:ring-theme-0" :email="service.fictionUser.activeUser?.value?.email" />
-
+      <XIcon v-else-if="item.media" :media="item.media" class="size-[1.1em] mr-1" />
       <CardText
         v-if="item.basePath"
         :card

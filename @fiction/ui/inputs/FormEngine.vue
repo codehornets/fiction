@@ -12,7 +12,7 @@ import ElToolSep from './ElToolSep.vue'
 
 const {
   options,
-  stateKey,
+  stateKey = 'formEngine',
   modelValue = {},
   depth = 0,
   basePath = '',
@@ -23,7 +23,7 @@ const {
   disableGroupHide = false,
   format = 'input',
 } = defineProps<{
-  stateKey: string
+  stateKey?: string
   options: InputOption[]
   loading?: boolean
   modelValue?: Record<string, unknown>
@@ -57,7 +57,7 @@ function getGroupClosedStatus(options: InputOption[]): Record<string, boolean> {
 // const menuVisibility = localRef<Record<string, boolean>>({
 //   lifecycle: 'session',
 //   def: getGroupClosedStatus(options),
-//   key: `FormEngine-${stateKey}`,
+//   key: `FormEngine-${stateKey?}`,
 // })
 
 const menuVisibility = vue.ref<Record<string, boolean>>(getGroupClosedStatus(options))

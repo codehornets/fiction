@@ -113,7 +113,7 @@ export const MediaTypographySchema = MediaBasicSchema.extend({
     lineHeight: z.string().optional(),
     letterSpacing: z.string().optional(),
     font: z.string().optional(),
-    size: z.number().optional(),
+    scale: z.number().optional(),
   }).optional(),
 })
 

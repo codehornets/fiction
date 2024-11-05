@@ -32,7 +32,7 @@ vue.onMounted(() => load())
     :card
     :panel-props="{ }"
     :header="{
-      title: 'Newsletters',
+      title: 'Newsletter',
       subTitle: 'Easily send email updates to your subscribers.',
       media: { class: `i-tabler-mail` },
       actions: [],

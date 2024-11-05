@@ -5,6 +5,7 @@ import { getNested, setNested, shortId, vue, waitFor } from '@fiction/core'
 import TransitionSlide from '../anim/TransitionSlide.vue'
 import XButton from '../buttons/XButton.vue'
 import ElInput from './ElInput.vue'
+import FormEngine from './FormEngine.vue'
 
 export type BasicItem = Record<string, unknown> & { _key?: string }
 
@@ -68,6 +69,12 @@ function updateInputValue(args: { index: number, key: string, value: unknown }) 
   updateModelValue(val)
 }
 
+function updateIndexValue(index: number, value: Record<string, unknown>) {
+  const val = [...modelValue]
+  val[index] = value
+  updateModelValue(val)
+}
+
 function getDefaultItem() {
   const item: Record<string, unknown> = {}
   options.forEach((opt) => {
@@ -87,7 +94,7 @@ function addItem() {
 }
 
 function removeItem(item: Record<string, unknown> & { _key: string }) {
-  const confirmed = confirm('Are you sure?')
+  const confirmed = confirm('Delete this item permanently?')
   if (!confirmed)
     return
   const val = modelValue.filter(i => i._key !== item._key)
@@ -144,7 +151,7 @@ vue.onMounted(async () => {
       :data-handle-index="i"
     >
       <div
-        class="px-1 py-1 bg-theme-50/50 dark:bg-theme-600/50 hover:bg-theme-50 text-xs font-mono  font-medium flex justify-between items-center"
+        class="px-1 py-1 bg-theme-50/50 dark:bg-theme-600/50 hover:bg-theme-50 text-xs font-mono font-medium flex justify-between items-center"
         :class="openItem === i ? 'rounded-t-md border-b border-theme-200 dark:border-theme-600' : 'rounded-md'"
         :data-drag-handle="depth"
         data-test-id="handle"
@@ -156,30 +163,20 @@ vue.onMounted(async () => {
             {{ itemName }} {{ i + 1 }}
           </div>
         </div>
-        <div class="text-lg text-theme-300 i-tabler-chevron-down transition-all" :class="openItem === i ? 'rotate-180' : ''" />
+        <div class="flex gap-1 items-center">
+          <div class="text-lg text-theme-300 i-tabler-chevron-down transition-all" :class="openItem === i ? 'rotate-180' : ''" />
+          <div class="text-[1.2em] text-theme-300 i-tabler-x transition-all opacity-70 hover:opacity-100" @click.stop="removeItem(item)" />
+        </div>
       </div>
       <TransitionSlide>
         <div v-if="openItem === i">
           <div class="py-4 px-3 space-y-5">
-            <div v-for="(opt, ii) in options" :key="ii">
-              <ElInput
-                v-if="opt.isHidden.value !== true"
-                :input-class="inputClass"
-                class="setting-input"
-                v-bind="opt.outputProps.value"
-                :depth="depth + 1"
-                :input="opt.input.value"
-                :data-option-path="opt.key.value"
-                :model-value="getNested({ path: opt.key.value, data: item })"
-                @update:model-value="updateInputValue({ index: i, key: opt.key.value || '', value: $event })"
-              />
-            </div>
-            <div class="flex justify-between pt-4">
-              <div />
-              <XButton rounding="full" size="sm" theme="default" icon="i-heroicons-trash" @click="removeItem(item)">
-                Remove Item
-              </XButton>
-            </div>
+            <FormEngine
+              :model-value="item"
+              :options
+              :depth="1"
+              @update:model-value="updateIndexValue(i, $event)"
+            />
           </div>
         </div>
       </TransitionSlide>

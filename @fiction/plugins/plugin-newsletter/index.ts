@@ -52,8 +52,8 @@ export class FictionNewsletter extends FictionPlugin<FictionNewsletterSettings> 
 
       await factory.create({
         templateId: 'dash',
-        slug: 'newsletters',
-        title: 'Newsletters',
+        slug: 'newsletter',
+        title: 'Newsletter',
         cards: [
           await factory.create({
             el: vue.defineAsyncComponent(async () => import('./admin/ViewManageIndex.vue')),

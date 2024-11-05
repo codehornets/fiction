@@ -1,4 +1,4 @@
-import { MediaTypographySchema, vue } from '@fiction/core'
+import { MediaIconSchema, MediaTypographySchema, vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site/card'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
@@ -16,12 +16,14 @@ const navItemSchema = z.object({
   itemsTitle: z.string().optional(),
   items: z.array(z.object({
     name: z.string().optional(),
+    media: MediaIconSchema.optional(),
     href: z.string().optional(),
     target: z.string().optional(),
     authState: authStateSchema,
     itemsTitle: z.string().optional(),
     items: z.array(z.object({
       name: z.string().optional(),
+      media: MediaIconSchema.optional(),
       href: z.string().optional(),
       target: z.string().optional(),
       authState: authStateSchema,
@@ -45,8 +47,8 @@ export type UserConfig = z.infer<typeof schema>
 const options: InputOption[] = [
   new InputOption({ key: 'logo', label: 'Logo', input: 'InputLogo' }),
   new InputOption({ key: 'layout', label: 'Layout', input: 'InputSelect', list: ['navCenter', 'logoCenter', 'justified'] }),
-  standardOption.navItems({ key: 'navA', maxDepth: 2 }),
-  standardOption.navItems({ key: 'navB', maxDepth: 2 }),
+  standardOption.navItems({ key: 'navA', maxDepth: 2, label: 'Left Navigation' }),
+  standardOption.navItems({ key: 'navB', maxDepth: 2, label: 'Right Navigation' }),
 ]
 
 // Example default configuration for a movie actor or director's personal website
