@@ -130,25 +130,23 @@ const altConfig: UserConfig = {
   ],
 }
 
-export const templates = [
-  cardTemplate({
-    templateId,
-    category: ['advanced'],
-    description: 'Pricing columns with features and buttons',
-    icon: 'i-tabler-report-money',
-    colorTheme: 'indigo',
-    el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
-    options,
-    schema,
-    getUserConfig: () => defaultConfig,
-    isPublic: true,
-    demoPage: async () => {
-      return {
-        cards: [
-          { templateId: 'pricing', userConfig: { ...defaultConfig } },
-          { templateId: 'pricing', userConfig: { ...altConfig } },
-        ],
-      }
-    },
-  }),
-] as const
+export const template = cardTemplate({
+  templateId,
+  category: ['advanced'],
+  description: 'Pricing columns with features and buttons',
+  icon: 'i-tabler-report-money',
+  colorTheme: 'indigo',
+  el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
+  options,
+  schema,
+  getUserConfig: () => defaultConfig,
+  isPublic: true,
+  demoPage: async () => {
+    return {
+      cards: [
+        { templateId: 'pricing', userConfig: { ...defaultConfig } },
+        { templateId: 'pricing', userConfig: { ...altConfig } },
+      ],
+    }
+  },
+})

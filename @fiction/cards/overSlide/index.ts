@@ -65,26 +65,24 @@ async function getDefaultConfig(): Promise<UserConfig> {
   }
 }
 
-export const templates = [
-  cardTemplate({
-    templateId,
-    category: ['marketing', 'portfolio'],
-    description: 'Overlayed profile slider, great for showcasing people or services.',
-    icon: 'i-tabler-layers-intersect',
-    colorTheme: 'teal',
-    isPublic: true,
-    schema,
-    options,
-    el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
-    getBaseConfig: () => ({ standard: { spacing: { verticalSpacing: 'sm' } } }),
-    getUserConfig: async () => getDefaultConfig(),
-    demoPage: async () => {
-      const userConfig = await getDefaultConfig()
-      return {
-        cards: [
-          { templateId, userConfig },
-        ],
-      }
-    },
-  }),
-] as const
+export const template = cardTemplate({
+  templateId,
+  category: ['marketing', 'portfolio'],
+  description: 'Overlayed profile slider, great for showcasing people or services.',
+  icon: 'i-tabler-layers-intersect',
+  colorTheme: 'teal',
+  isPublic: true,
+  schema,
+  options,
+  el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
+  getBaseConfig: () => ({ standard: { spacing: { verticalSpacing: 'sm' } } }),
+  getUserConfig: async () => getDefaultConfig(),
+  demoPage: async () => {
+    const userConfig = await getDefaultConfig()
+    return {
+      cards: [
+        { templateId, userConfig },
+      ],
+    }
+  },
+})

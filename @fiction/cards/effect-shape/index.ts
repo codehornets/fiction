@@ -40,22 +40,20 @@ const options: InputOption[] = [
   }),
 ]
 
-export const templates = [
-  cardTemplate({
-    templateId,
-    category: ['effect'],
-    description: 'Shape background effect',
-    icon: 'i-tabler-message-bolt',
-    colorTheme: 'emerald',
-    el: vue.defineAsyncComponent(async () => import('./ElEffect.vue')),
-    isPublic: false,
-    options,
-    schema: UserConfigSchema,
-    getBaseConfig: () => ({ }),
-    getUserConfig: async () => getUserConfig(),
-    demoPage: async () => {
-      const userConfig = await getUserConfig()
-      return { cards: [{ templateId, userConfig }] }
-    },
-  }),
-] as const
+export const template = cardTemplate({
+  templateId,
+  category: ['effect'],
+  description: 'Shape background effect',
+  icon: 'i-tabler-message-bolt',
+  colorTheme: 'emerald',
+  el: vue.defineAsyncComponent(async () => import('./ElEffect.vue')),
+  isPublic: false,
+  options,
+  schema: UserConfigSchema,
+  getBaseConfig: () => ({ }),
+  getUserConfig: async () => getUserConfig(),
+  demoPage: async () => {
+    const userConfig = await getUserConfig()
+    return { cards: [{ templateId, userConfig }] }
+  },
+})

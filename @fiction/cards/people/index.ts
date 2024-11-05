@@ -105,25 +105,23 @@ async function defaultConfig(): Promise<UserConfig> {
   }
 }
 
-export const templates = [
-  cardTemplate({
-    templateId,
-    category: ['advanced'],
-    description: 'Showcase profiles with images and social links.',
-    icon: 'i-tabler-users',
-    colorTheme: 'orange',
-    el,
-    options,
-    schema,
-    isPublic: true,
-    getUserConfig: async () => defaultConfig(),
-    demoPage: async () => {
-      const userConfig = await defaultConfig()
-      return {
-        cards: [
-          { templateId, userConfig },
-        ],
-      }
-    },
-  }),
-] as const
+export const template = cardTemplate({
+  templateId,
+  category: ['advanced'],
+  description: 'Showcase profiles with images and social links.',
+  icon: 'i-tabler-users',
+  colorTheme: 'orange',
+  el,
+  options,
+  schema,
+  isPublic: true,
+  getUserConfig: async () => defaultConfig(),
+  demoPage: async () => {
+    const userConfig = await defaultConfig()
+    return {
+      cards: [
+        { templateId, userConfig },
+      ],
+    }
+  },
+})

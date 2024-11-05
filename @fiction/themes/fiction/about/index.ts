@@ -1,14 +1,13 @@
 import type { MapSchemaConfig } from '@fiction/cards/map'
-import { CardFactory } from '@fiction/site/cardFactory.js'
-import { templates } from '../templates.js'
+import type { CardFactory } from '@fiction/site/cardFactory.js'
+import type { Site } from '@fiction/site/site.js'
 import ap from './ap.webp'
 import girlComputer from './girl-computer.webp'
 import pro from './pro.webp'
 import spectrum from './spectrum.jpg'
 
-export async function page() {
-  const factory = new CardFactory({ templates })
-
+export async function page(args: { site: Site, factory: CardFactory }) {
+  const { factory } = args
   const topHeroCard = await factory.create({
     templateId: 'hero',
     userConfig: {

@@ -13,17 +13,15 @@ const options: InputOption[] = [
   new InputOption({ key: 'items', label: 'Tour Items', input: 'InputList', options: [] }),
 ]
 
-export const templates = [
-  cardTemplate({
-    templateId,
-    category: ['basic'],
-    description: 'Popup modal with media items based on links',
-    icon: 'i-tabler-compass',
-    colorTheme: 'green',
-    isPublic: false,
-    schema,
-    el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
-    options,
+export const template = cardTemplate({
+  templateId,
+  category: ['basic'],
+  description: 'Popup modal with media items based on links',
+  icon: 'i-tabler-compass',
+  colorTheme: 'green',
+  isPublic: false,
+  schema,
+  el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
+  options,
 
-  }),
-] as const
+})

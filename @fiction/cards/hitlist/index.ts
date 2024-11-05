@@ -114,32 +114,30 @@ function getUserConfig(): UserConfig {
   }
 }
 
-export const templates = [
-  cardTemplate({
-    templateId,
-    category: ['marketing'],
-    description: 'A staggered list of talking points',
-    icon: 'i-tabler-list',
-    colorTheme: 'rose',
-    el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
-    schema,
-    options,
-    isPublic: true,
-    getUserConfig: async () => isThisYouConfig(),
-    demoPage: async () => {
-      return {
-        cards: [
-          { templateId, userConfig: isThisYouConfig() },
-          { templateId, userConfig: {
-            ...imagineConfig(),
-            layout: 'left' as const,
-          } },
-          { templateId, userConfig: {
-            ...getUserConfig(),
-            layout: 'right' as const,
-          } },
-        ],
-      }
-    },
-  }),
-] as const
+export const template = cardTemplate({
+  templateId,
+  category: ['marketing'],
+  description: 'A staggered list of talking points',
+  icon: 'i-tabler-list',
+  colorTheme: 'rose',
+  el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
+  schema,
+  options,
+  isPublic: true,
+  getUserConfig: async () => isThisYouConfig(),
+  demoPage: async () => {
+    return {
+      cards: [
+        { templateId, userConfig: isThisYouConfig() },
+        { templateId, userConfig: {
+          ...imagineConfig(),
+          layout: 'left' as const,
+        } },
+        { templateId, userConfig: {
+          ...getUserConfig(),
+          layout: 'right' as const,
+        } },
+      ],
+    }
+  },
+})

@@ -54,28 +54,26 @@ async function getDefaultUserConfig(args: { tags: Tag[] }): Promise<UserConfig> 
 }
 
 const templateId = 'marquee'
-export const templates = [
-  cardTemplate({
-    templateId,
-    category: ['marketing'],
-    description: 'A marquee of media items that slide in and out',
-    icon: 'i-tabler-carousel-horizontal',
-    colorTheme: 'pink',
-    isPublic: true,
-    el,
-    options,
-    getBaseConfig: () => ({ standard: { spacing: { contentWidth: 'none' } } }),
-    getUserConfig: async () => getDefaultUserConfig({ tags: ['object'] }),
-    schema,
-    demoPage: async () => {
-      const uc1 = await getDefaultUserConfig({ tags: ['object'] })
-      const uc2 = await getDefaultUserConfig({ tags: ['object'] })
-      const uc3 = await getDefaultUserConfig({ tags: ['object'] })
-      return { cards: [
-        { templateId, userConfig: uc1 },
-        { templateId, userConfig: { ...uc2, direction: 'right' as const } },
-        { templateId, userConfig: { ...uc3, stagger: true } },
-      ] }
-    },
-  }),
-] as const
+export const template = cardTemplate({
+  templateId,
+  category: ['marketing'],
+  description: 'A marquee of media items that slide in and out',
+  icon: 'i-tabler-carousel-horizontal',
+  colorTheme: 'pink',
+  isPublic: true,
+  el,
+  options,
+  getBaseConfig: () => ({ standard: { spacing: { contentWidth: 'none' } } }),
+  getUserConfig: async () => getDefaultUserConfig({ tags: ['object'] }),
+  schema,
+  demoPage: async () => {
+    const uc1 = await getDefaultUserConfig({ tags: ['object'] })
+    const uc2 = await getDefaultUserConfig({ tags: ['object'] })
+    const uc3 = await getDefaultUserConfig({ tags: ['object'] })
+    return { cards: [
+      { templateId, userConfig: uc1 },
+      { templateId, userConfig: { ...uc2, direction: 'right' as const } },
+      { templateId, userConfig: { ...uc3, stagger: true } },
+    ] }
+  },
+})

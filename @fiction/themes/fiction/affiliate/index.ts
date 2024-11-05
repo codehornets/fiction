@@ -1,9 +1,9 @@
+import type { CardFactory } from '@fiction/site/cardFactory.js'
+import type { Site } from '@fiction/site/site.js'
 import { vue } from '@fiction/core/index.js'
-import { CardFactory } from '@fiction/site/cardFactory.js'
-import { templates } from '../templates.js'
 
-export async function page() {
-  const factory = new CardFactory({ templates })
+export async function page(args: { site: Site, factory: CardFactory }) {
+  const { factory } = args
 
   const homeCard = await factory.create({
     el: vue.defineAsyncComponent(async () => import('./el/ElCard.vue')),

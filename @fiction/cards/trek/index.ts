@@ -64,28 +64,26 @@ async function defaultConfig(): Promise<UserConfig> {
   }
 }
 
-export const templates = [
-  cardTemplate({
-    templateId,
-    category: ['content'],
-    description: 'A tour card with sticky content and parallaxed images',
-    icon: 'i-tabler-compass',
-    colorTheme: 'blue',
-    el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
-    options,
-    schema,
-    isPublic: true,
-    getBaseConfig: () => {
-      return { standard: { spacing: { contentWidth: 'none' } } }
-    },
-    getUserConfig: async () => defaultConfig(),
-    demoPage: async () => {
-      const userConfig = await defaultConfig()
-      return {
-        cards: [
-          { templateId, userConfig },
-        ],
-      }
-    },
-  }),
-] as const
+export const template = cardTemplate({
+  templateId,
+  category: ['content'],
+  description: 'A tour card with sticky content and parallaxed images',
+  icon: 'i-tabler-compass',
+  colorTheme: 'blue',
+  el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
+  options,
+  schema,
+  isPublic: true,
+  getBaseConfig: () => {
+    return { standard: { spacing: { contentWidth: 'none' } } }
+  },
+  getUserConfig: async () => defaultConfig(),
+  demoPage: async () => {
+    const userConfig = await defaultConfig()
+    return {
+      cards: [
+        { templateId, userConfig },
+      ],
+    }
+  },
+})

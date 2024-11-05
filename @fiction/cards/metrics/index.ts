@@ -89,25 +89,23 @@ async function getDefaultConfig(): Promise<UserConfig> {
   }
 }
 
-export const templates = [
-  cardTemplate({
-    templateId,
-    category: ['stats'],
-    description: 'Display key metrics in a visually appealing way',
-    icon: 'i-tabler-number',
-    colorTheme: 'sky',
-    isPublic: true,
-    schema,
-    el: vue.defineAsyncComponent(async () => import('./ElMetrics.vue')),
-    options,
-    getUserConfig: async () => getDefaultConfig(),
-    demoPage: async () => {
-      const userConfig = await getDefaultConfig()
-      return {
-        cards: [
-          { templateId, userConfig },
-        ],
-      }
-    },
-  }),
-] as const
+export const template = cardTemplate({
+  templateId,
+  category: ['stats'],
+  description: 'Display key metrics in a visually appealing way',
+  icon: 'i-tabler-number',
+  colorTheme: 'sky',
+  isPublic: true,
+  schema,
+  el: vue.defineAsyncComponent(async () => import('./ElMetrics.vue')),
+  options,
+  getUserConfig: async () => getDefaultConfig(),
+  demoPage: async () => {
+    const userConfig = await getDefaultConfig()
+    return {
+      cards: [
+        { templateId, userConfig },
+      ],
+    }
+  },
+})

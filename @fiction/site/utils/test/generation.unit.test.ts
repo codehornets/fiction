@@ -1,5 +1,5 @@
 import type { JsonSchema7ObjectType } from 'zod-to-json-schema'
-import { standardCardTemplates } from '@fiction/cards'
+import { getCardTemplates } from '@fiction/cards'
 import { shortId } from '@fiction/core'
 import { describe, expect, it, vi } from 'vitest'
 import zodToJsonSchema from 'zod-to-json-schema'
@@ -11,7 +11,9 @@ import { calculateTotalEstimatedTimeSeconds, generateJsonPropConfig, generateOut
 describe('generation utils', async () => {
   const testUtils = await createSiteTestUtils()
   const site = await Site.create({ fictionSites: testUtils.fictionSites, siteRouter: testUtils.fictionRouterSites, themeId: 'test', siteId: `test-${shortId()}` })
-  const inlineTemplate = standardCardTemplates.find(t => t.settings.templateId === 'hero')
+
+  const templates = await getCardTemplates()
+  const inlineTemplate = templates.find(t => t.settings.templateId === 'hero')
   const card = new Card({
     site,
     inlineTemplate,

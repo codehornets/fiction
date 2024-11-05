@@ -58,25 +58,23 @@ async function defaultConfig(args: { site?: Site }): Promise<UserConfig> {
   }
 }
 
-export const templates = [
-  cardTemplate({
-    templateId,
-    category: ['content'],
-    description: 'Text that reveals itself as you scroll, with scrolling media items',
-    icon: 'i-tabler-compass',
-    colorTheme: 'green',
-    el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
-    options,
-    isPublic: true,
-    schema,
-    getUserConfig: async args => defaultConfig(args),
-    demoPage: async (args) => {
-      const userConfig = await defaultConfig(args)
-      return {
-        cards: [
-          { templateId, userConfig },
-        ],
-      }
-    },
-  }),
-] as const
+export const template = cardTemplate({
+  templateId,
+  category: ['content'],
+  description: 'Text that reveals itself as you scroll, with scrolling media items',
+  icon: 'i-tabler-compass',
+  colorTheme: 'green',
+  el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
+  options,
+  isPublic: true,
+  schema,
+  getUserConfig: async args => defaultConfig(args),
+  demoPage: async (args) => {
+    const userConfig = await defaultConfig(args)
+    return {
+      cards: [
+        { templateId, userConfig },
+      ],
+    }
+  },
+})

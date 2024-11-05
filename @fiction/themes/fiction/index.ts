@@ -1,5 +1,6 @@
 import type { FictionEnv, NavItem } from '@fiction/core'
 import type { FictionStripe } from '@fiction/plugin-stripe/index.js'
+import type { Site } from '@fiction/site/site.js'
 import { getCardTemplates, getDemoPages } from '@fiction/cards'
 import { safeDirname } from '@fiction/core'
 import { CardFactory } from '@fiction/site/cardFactory.js'
@@ -13,7 +14,6 @@ import * as affiliate from './affiliate/index.js'
 import * as developer from './developer/index.js'
 import * as home from './home/index.js'
 import * as pricing from './pricing/index.js'
-import { templates } from './templates.js'
 import * as tour from './tour/index.js'
 
 const socials: NavItem[] = [
@@ -41,12 +41,13 @@ const socials: NavItem[] = [
 ]
 
 export async function getFactory() {
-  const templates = await getCardTemplates()
-  return new CardFactory({ templates })
+
 }
 
 export async function setup(args: { fictionEnv: FictionEnv, fictionStripe?: FictionStripe }) {
   const { fictionEnv, fictionStripe } = args
+
+  const templates = await getCardTemplates()
 
   const domain = fictionEnv.meta.app?.domain || 'fiction.com'
   return new Theme({
@@ -65,15 +66,15 @@ export async function setup(args: { fictionEnv: FictionEnv, fictionStripe?: Fict
 
       const demoPages = await getDemoPages({ templates, fictionEnv, site })
 
-      const factory = await getFactory()
-      const tourPage = await tour.getPage({ factory })
+      const factory = new CardFactory({ templates })
+      const tourPage = await tour.getPage({ ...args, factory })
       const pages = await Promise.all([
-        home.page(args),
+        home.page({ ...args, factory }),
         tourPage,
-        about.page(),
-        developer.page(),
-        pricing.page({ fictionStripe }),
-        affiliate.page(),
+        about.page({ ...args, factory }),
+        developer.page({ ...args, factory }),
+        pricing.page({ fictionStripe, ...args, factory }),
+        affiliate.page({ ...args, factory }),
         ...demoPages,
       ])
 

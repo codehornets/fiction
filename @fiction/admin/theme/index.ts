@@ -6,12 +6,12 @@ import { Theme } from '@fiction/site/theme.js'
 import favicon from '@fiction/ui/brand/favicon.svg'
 import icon from '@fiction/ui/brand/icon.png'
 import shareImage from '@fiction/ui/brand/shareImage.png'
-import { fictionLogo, templates } from '../templates.js'
+import { fictionLogo, getTemplates } from '../templates.js'
 
 const def = vue.defineAsyncComponent
 
-export async function getPages() {
-  const factory = new CardFactory({ templates })
+export async function getPages(args: { factory: CardFactory }) {
+  const { factory } = args
   return [
     await factory.create({
       regionId: 'main',
@@ -93,7 +93,8 @@ export async function getPages() {
 
 export async function setup(args: { fictionEnv: FictionEnv, fictionAdmin: FictionAdmin }) {
   const { fictionEnv, fictionAdmin } = args
-
+  const templates = await getTemplates()
+  const factory = new CardFactory({ templates })
   return new Theme({
     fictionEnv,
     root: safeDirname(import.meta.url),
@@ -104,8 +105,8 @@ export async function setup(args: { fictionEnv: FictionEnv, fictionAdmin: Fictio
     templates,
     isPublic: false,
     getConfig: async () => {
-      const pg = await getPages()
-      const adminPages = await fictionAdmin.getAdminPages()
+      const pg = await getPages({ factory })
+      const adminPages = await fictionAdmin.getAdminPages({ factory })
       const pages = [...pg, ...adminPages]
       return {
         pages,

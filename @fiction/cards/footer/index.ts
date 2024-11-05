@@ -145,24 +145,22 @@ const defaultConfig: UserConfig = {
 
 const el = vue.defineAsyncComponent(async () => import('./ElCard.vue'))
 
-export const templates = [
-  cardTemplate({
-    templateId,
-    category: ['navigation'],
-    icon: 'i-tabler-box-align-bottom',
-    colorTheme: 'green',
-    description: 'A professional footer for your website',
-    isPublic: true,
-    el,
-    getUserConfig: () => defaultConfig,
-    schema,
-    options,
-    title: 'Footer Pro',
-    demoPage: async () => {
-      return { cards: [
-        { templateId, userConfig: { ...defaultConfig, layout: 'columns' as const } },
-        { templateId, userConfig: { ...defaultConfig, layout: 'centered' as const } },
-      ] }
-    },
-  }),
-] as const
+export const template = cardTemplate({
+  templateId,
+  category: ['navigation'],
+  icon: 'i-tabler-box-align-bottom',
+  colorTheme: 'green',
+  description: 'A professional footer for your website',
+  isPublic: true,
+  el,
+  getUserConfig: () => defaultConfig,
+  schema,
+  options,
+  title: 'Footer Pro',
+  demoPage: async () => {
+    return { cards: [
+      { templateId, userConfig: { ...defaultConfig, layout: 'columns' as const } },
+      { templateId, userConfig: { ...defaultConfig, layout: 'centered' as const } },
+    ] }
+  },
+})

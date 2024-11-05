@@ -61,7 +61,7 @@ type CardFactorSettings<U extends readonly CardTemplate[]> = {
   site?: Site
 }
 
-export class CardFactory<U extends readonly CardTemplate<any>[]> extends FictionObject<CardFactorSettings<U>> {
+export class CardFactory<U extends readonly CardTemplate<any>[] = readonly CardTemplate<any>[]> extends FictionObject<CardFactorSettings<U>> {
   private templates: U
 
   constructor(settings: CardFactorSettings<U>) {

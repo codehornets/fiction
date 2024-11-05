@@ -76,24 +76,22 @@ function getDefaultConfig(): UserConfig {
   }
 }
 
-export const templates = [
-  cardTemplate({
-    templateId,
-    category: ['form', 'marketing'],
-    description: 'A minimal profile card with a splash image, headline, subheading, and contact details.',
-    icon: 'i-tabler-user',
-    colorTheme: 'blue',
-    el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
-    getUserConfig: () => getDefaultConfig(),
-    isPublic: true,
-    options,
-    schema: UserConfigSchema,
-    demoPage: async () => {
-      const defaultConfig = getDefaultConfig()
-      return { cards: [
-        { templateId, userConfig: { ...defaultConfig } },
-        { templateId, userConfig: { ...defaultConfig, layout: 'left' as const } },
-      ] }
-    },
-  }),
-] as const
+export const template = cardTemplate({
+  templateId,
+  category: ['form', 'marketing'],
+  description: 'A minimal profile card with a splash image, headline, subheading, and contact details.',
+  icon: 'i-tabler-user',
+  colorTheme: 'blue',
+  el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
+  getUserConfig: () => getDefaultConfig(),
+  isPublic: true,
+  options,
+  schema: UserConfigSchema,
+  demoPage: async () => {
+    const defaultConfig = getDefaultConfig()
+    return { cards: [
+      { templateId, userConfig: { ...defaultConfig } },
+      { templateId, userConfig: { ...defaultConfig, layout: 'left' as const } },
+    ] }
+  },
+})

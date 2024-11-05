@@ -1,4 +1,4 @@
-import { standardCardTemplates } from '@fiction/cards'
+import { getCardTemplates } from '@fiction/cards'
 import { shortId, waitFor } from '@fiction/core'
 import { describe, expect, it } from 'vitest'
 import { Card, CardTemplate } from '../card'
@@ -10,7 +10,8 @@ describe('card', async () => {
   const testUtils = await createSiteTestUtils()
   const site = await Site.create({ fictionSites: testUtils.fictionSites, siteRouter: testUtils.fictionRouterSites, themeId: 'test', siteId: `test-${shortId()}` })
 
-  const inlineTemplate = standardCardTemplates.find(t => t.settings.templateId === 'hero')
+  const templates = await getCardTemplates()
+  const inlineTemplate = templates.find(t => t.settings.templateId === 'hero')
   const card = new Card({
     site,
     inlineTemplate,
@@ -34,7 +35,7 @@ describe('card', async () => {
   })
 
   it('cardTemplate toCard method generates a card with expected properties', async () => {
-    const newCard = await standardCardTemplates.find(t => t.settings.templateId === 'hero')?.toCard({ site })
+    const newCard = await templates.find(t => t.settings.templateId === 'hero')?.toCard({ site })
     expect(newCard?.settings.templateId).toBe('hero')
     expect(newCard?.settings.title).toBe('Hero')
   })

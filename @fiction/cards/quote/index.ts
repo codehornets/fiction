@@ -65,35 +65,33 @@ const UserConfigSchema = z.object({
 
 export type UserConfig = z.infer<typeof UserConfigSchema>
 
-export const templates = [
-  cardTemplate({
-    templateId,
-    category: ['marketing'],
-    description: 'A quote card with author and organization information',
-    icon: 'i-tabler-quote',
-    colorTheme: 'green',
-    el: vue.defineAsyncComponent(async () => import('./ElQuote.vue')),
-    isPublic: true,
-    options: [
-      new InputOption({
-        input: 'InputList',
-        key: `quotes`,
-        options: [
-          new InputOption({ key: 'text', label: 'Quote Text', input: 'InputText' }),
-          new InputOption({ key: 'author.name', label: 'Author', input: 'InputText' }),
-          new InputOption({ key: 'author.title', label: 'Title', input: 'InputText' }),
-          new InputOption({ key: 'author.image', label: 'Author Image', input: 'InputMedia' }),
-          new InputOption({ key: 'author.href', label: 'Author Link', input: 'InputUrl' }),
-          new InputOption({ key: 'org.name', label: 'Organization', input: 'InputText' }),
-          new InputOption({ key: 'org.image', label: 'Organization Image', input: 'InputMedia' }),
-          new InputOption({ key: 'org.href', label: 'Organization Link', input: 'InputUrl' }),
-        ],
-      }),
-    ],
-    schema: UserConfigSchema,
-    getUserConfig: () => ({ quotes: defaultQuote }),
-    demoPage: async () => {
-      return { cards: [{ templateId, userConfig: { quotes: defaultQuote } }] }
-    },
-  }),
-] as const
+export const template = cardTemplate({
+  templateId,
+  category: ['marketing'],
+  description: 'A quote card with author and organization information',
+  icon: 'i-tabler-quote',
+  colorTheme: 'green',
+  el: vue.defineAsyncComponent(async () => import('./ElQuote.vue')),
+  isPublic: true,
+  options: [
+    new InputOption({
+      input: 'InputList',
+      key: `quotes`,
+      options: [
+        new InputOption({ key: 'text', label: 'Quote Text', input: 'InputText' }),
+        new InputOption({ key: 'author.name', label: 'Author', input: 'InputText' }),
+        new InputOption({ key: 'author.title', label: 'Title', input: 'InputText' }),
+        new InputOption({ key: 'author.image', label: 'Author Image', input: 'InputMedia' }),
+        new InputOption({ key: 'author.href', label: 'Author Link', input: 'InputUrl' }),
+        new InputOption({ key: 'org.name', label: 'Organization', input: 'InputText' }),
+        new InputOption({ key: 'org.image', label: 'Organization Image', input: 'InputMedia' }),
+        new InputOption({ key: 'org.href', label: 'Organization Link', input: 'InputUrl' }),
+      ],
+    }),
+  ],
+  schema: UserConfigSchema,
+  getUserConfig: () => ({ quotes: defaultQuote }),
+  demoPage: async () => {
+    return { cards: [{ templateId, userConfig: { quotes: defaultQuote } }] }
+  },
+})

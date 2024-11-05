@@ -84,23 +84,21 @@ const demoCard2: UserConfig = {
   ],
 }
 
-export const templates = [
-  cardTemplate({
-    templateId,
-    category: ['marketing'],
-    description: 'Side-scrolling ticker of text and images.',
-    icon: 'i-tabler-quote',
-    colorTheme: 'green',
-    el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
-    isPublic: true,
-    options,
-    schema: UserConfigSchema,
-    getUserConfig: () => defaultConfig,
-    demoPage: async () => {
-      return { cards: [
-        { templateId, userConfig: { ...defaultConfig } },
-        { templateId, userConfig: { ...demoCard2 } },
-      ] }
-    },
-  }),
-] as const
+export const template = cardTemplate({
+  templateId,
+  category: ['marketing'],
+  description: 'Side-scrolling ticker of text and images.',
+  icon: 'i-tabler-quote',
+  colorTheme: 'green',
+  el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
+  isPublic: true,
+  options,
+  schema: UserConfigSchema,
+  getUserConfig: () => defaultConfig,
+  demoPage: async () => {
+    return { cards: [
+      { templateId, userConfig: { ...defaultConfig } },
+      { templateId, userConfig: { ...demoCard2 } },
+    ] }
+  },
+})

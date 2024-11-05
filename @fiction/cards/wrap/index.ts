@@ -13,18 +13,16 @@ const options = [
   new InputOption({ key: 'fixedHeader', label: 'Fixed Header', input: 'InputToggle' }),
 ] as InputOption[]
 
-export const templates = [
-  cardTemplate({
-    templateId: 'wrap',
-    el: vue.defineAsyncComponent(async () => import('./CardWrap.vue')),
-    schema: UserConfigSchema,
-    options,
-    isPublic: false,
-    isPageCard: true,
-    getBaseConfig: () => {
-      return {
-        standard: { spacing: { verticalSpacing: 'none' }, handling: { showOnSingle: true } },
-      }
-    },
-  }),
-]
+export const template = cardTemplate({
+  templateId: 'wrap',
+  el: vue.defineAsyncComponent(async () => import('./CardWrap.vue')),
+  schema: UserConfigSchema,
+  options,
+  isPublic: false,
+  isPageCard: true,
+  getBaseConfig: () => {
+    return {
+      standard: { spacing: { verticalSpacing: 'none' }, handling: { showOnSingle: true } },
+    }
+  },
+})

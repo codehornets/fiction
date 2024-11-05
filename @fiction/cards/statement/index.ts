@@ -98,35 +98,33 @@ async function getUserConfig(): Promise<UserConfig & SiteUserConfig> {
   }
 }
 
-export const templates = [
-  cardTemplate({
-    templateId,
-    category: ['content', 'basic'],
-    description: 'Display a statement to focus and highlight your mission, objective, goals, etc. .',
-    icon: 'i-tabler-message-bolt',
-    colorTheme: 'emerald',
-    el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
-    isPublic: true,
-    options,
-    schema: UserConfigSchema,
-    getBaseConfig: () => ({ standard: { spacing: { verticalSpacing: 'xl', contentWidth: 'none' } } }),
-    getUserConfig: async () => getUserConfig(),
-    getEffects: async _ => getEffects(_),
-    demoPage: async (_) => {
-      const userConfig = await getUserConfig()
-      const effects = await getEffects(_)
-      return { cards: [
-        { templateId, userConfig, effects },
-        { templateId, userConfig: {
-          items: [
-            {
-              title: 'Build Your Personal Brand',
-              content: 'Take control of your online presence with our platform. Create a stunning website, capture email subscribers, and engage with your audience effortlessly. Elevate your personal brand and stand out in your industry.',
-              actions: [{ name: 'Get Started', href: '#', theme: 'primary' as const }],
-            },
-          ],
-        } },
-      ] }
-    },
-  }),
-] as const
+export const template = cardTemplate({
+  templateId,
+  category: ['content', 'basic'],
+  description: 'Display a statement to focus and highlight your mission, objective, goals, etc. .',
+  icon: 'i-tabler-message-bolt',
+  colorTheme: 'emerald',
+  el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
+  isPublic: true,
+  options,
+  schema: UserConfigSchema,
+  getBaseConfig: () => ({ standard: { spacing: { verticalSpacing: 'xl', contentWidth: 'none' } } }),
+  getUserConfig: async () => getUserConfig(),
+  getEffects: async _ => getEffects(_),
+  demoPage: async (_) => {
+    const userConfig = await getUserConfig()
+    const effects = await getEffects(_)
+    return { cards: [
+      { templateId, userConfig, effects },
+      { templateId, userConfig: {
+        items: [
+          {
+            title: 'Build Your Personal Brand',
+            content: 'Take control of your online presence with our platform. Create a stunning website, capture email subscribers, and engage with your audience effortlessly. Elevate your personal brand and stand out in your industry.',
+            actions: [{ name: 'Get Started', href: '#', theme: 'primary' as const }],
+          },
+        ],
+      } },
+    ] }
+  },
+})

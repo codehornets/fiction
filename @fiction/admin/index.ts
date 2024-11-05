@@ -5,16 +5,15 @@ import type { FictionMedia } from '@fiction/core/plugin-media'
 import type { FictionRouter } from '@fiction/core/plugin-router'
 import type { FictionUser } from '@fiction/core/plugin-user'
 import type { FictionTransactions } from '@fiction/plugin-transactions'
+import type { CardFactory } from '@fiction/site/cardFactory.js'
 import type { TableCardConfig } from '@fiction/site/index.js'
 import type { Widget } from './dashboard/widget.js'
 import type { WidgetLocation } from './types.js'
 import { envConfig } from '@fiction/core'
 import { FictionPlugin, type FictionPluginSettings } from '@fiction/core/plugin.js'
 import { safeDirname, vue } from '@fiction/core/utils'
-import { CardFactory } from '@fiction/site/cardFactory.js'
 import { createWidgetEndpoints } from './dashboard/util.js'
 import { getEmails } from './emails/index.js'
-import { templates } from './templates.js'
 
 export * from './tools/tools.js'
 export * from './types.js'
@@ -31,8 +30,7 @@ type FictionAdminSettings = {
   fictionServer: FictionServer
 } & FictionPluginSettings
 
-const factory = new CardFactory({ templates })
-type PageLoader = (args: { factory: typeof factory }) => (Promise<TableCardConfig[]> | TableCardConfig[])
+type PageLoader = (args: { factory: CardFactory }) => (Promise<TableCardConfig[]> | TableCardConfig[])
 
 export class FictionAdmin extends FictionPlugin<FictionAdminSettings> {
   widgetRequests?: ReturnType<typeof createWidgetEndpoints>
@@ -60,7 +58,8 @@ export class FictionAdmin extends FictionPlugin<FictionAdminSettings> {
     }),
   ]])
 
-  async getAdminPages(): Promise<TableCardConfig[]> {
+  async getAdminPages(args: { factory: CardFactory }): Promise<TableCardConfig[]> {
+    const { factory } = args
     const pages = await Promise.all(this.adminPageLoaders.value.map(async loader => loader({ factory })))
 
     return pages.flat()

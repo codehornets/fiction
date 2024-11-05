@@ -33,17 +33,15 @@ type ExtractCardRequests<T> = {
 
 export type CardRequests = ExtractCardRequests<Awaited<ReturnType<typeof getQueries>>>
 
-export const templates = [
-  cardTemplate({
-    templateId,
-    category: ['social'],
-    description: 'Instagram galleries for your site',
-    icon: 'i-tabler-image',
-    colorTheme: 'rose',
-    isPublic: false,
-    schema,
-    options,
-    el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
-    getQueries,
-  }),
-] as const
+export const template = cardTemplate({
+  templateId,
+  category: ['social'],
+  description: 'Instagram galleries for your site',
+  icon: 'i-tabler-image',
+  colorTheme: 'rose',
+  isPublic: false,
+  schema,
+  options,
+  el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
+  getQueries,
+})

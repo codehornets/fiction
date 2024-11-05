@@ -1,4 +1,4 @@
-import { standardCardTemplates } from '@fiction/cards'
+import { getCardTemplates } from '@fiction/cards'
 import { type FictionEnv, safeDirname, vue } from '@fiction/core'
 import { z } from 'zod'
 import { cardTemplate } from '../../card.js'
@@ -11,10 +11,12 @@ const def = vue.defineAsyncComponent
 export async function setup(args: { fictionEnv: FictionEnv }) {
   const { fictionEnv } = args
 
-  const factory = new CardFactory({ templates: standardCardTemplates })
+  const tpl = await getCardTemplates()
+
+  const factory = new CardFactory({ templates: tpl })
 
   const templates = [
-    ...standardCardTemplates,
+    ...tpl,
     cardTemplate({
       templateId: 'testWrap',
       el: def(async () => import('./TemplateWrap.vue')),

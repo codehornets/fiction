@@ -1,14 +1,14 @@
 import { refineOptions } from '@fiction/site/utils/schema'
 import { describe, expect, it } from 'vitest'
 import { zodToJsonSchema } from 'zod-to-json-schema'
-import { templates } from '.'
+import { template } from '.'
 
 describe('minimalProfile', async () => {
   it('has correct schema', async () => {
-    if (!templates[0].settings.schema)
+    if (!template.settings.schema)
       throw new Error('no schema')
 
-    const tpl = templates[0]
+    const tpl = template
 
     if (!tpl)
       throw new Error('no template')
@@ -21,7 +21,7 @@ describe('minimalProfile', async () => {
 
     expect(conf.unusedSchema).toMatchInlineSnapshot(`{}`)
 
-    const jsonSchema = zodToJsonSchema(templates[0].settings.schema)
+    const jsonSchema = zodToJsonSchema(template.settings.schema)
     expect(jsonSchema).toMatchInlineSnapshot(`
       {
         "$schema": "http://json-schema.org/draft-07/schema#",

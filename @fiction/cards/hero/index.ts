@@ -54,30 +54,28 @@ export const options: InputOption[] = [
   ] }),
 ]
 
-export const templates = [
-  cardTemplate({
-    templateId,
-    category: ['basic'],
-    isPublic: true,
-    description: 'standard hero section',
-    icon: 'i-tabler-layout-bottombar-collapse-filled',
-    colorTheme: 'orange',
-    el: vue.defineAsyncComponent(async () => import('./ElHero.vue')),
-    options,
-    getUserConfig: () => defaultContent,
-    schema,
-    demoPage: async () => {
-      const splash = (aspect: 'aspect:square' | 'aspect:portrait' = 'aspect:square') => stockMediaHandler.getRandomByTags(['object', aspect])
-      const subHeading = 'lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+export const template = cardTemplate({
+  templateId,
+  category: ['basic'],
+  isPublic: true,
+  description: 'standard hero section',
+  icon: 'i-tabler-layout-bottombar-collapse-filled',
+  colorTheme: 'orange',
+  el: vue.defineAsyncComponent(async () => import('./ElHero.vue')),
+  options,
+  getUserConfig: () => defaultContent,
+  schema,
+  demoPage: async () => {
+    const splash = (aspect: 'aspect:square' | 'aspect:portrait' = 'aspect:square') => stockMediaHandler.getRandomByTags(['object', aspect])
+    const subHeading = 'lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
 
-      return {
-        cards: [
-          { templateId, userConfig: { ...defaultContent, justify: 'center' as const } },
-          { templateId, userConfig: { ...defaultContent, layout: 'justify' as const, splash: splash(), superColor: 'purple' as const } },
-          { templateId, userConfig: { ...defaultContent, layout: 'right' as const, splash: splash('aspect:portrait'), subHeading, superColor: 'red' as const } },
-          { templateId, userConfig: { ...defaultContent, layout: 'left' as const, splash: splash('aspect:portrait'), subHeading, superColor: 'indigo' as const } },
-        ],
-      }
-    },
-  }),
-] as const
+    return {
+      cards: [
+        { templateId, userConfig: { ...defaultContent, justify: 'center' as const } },
+        { templateId, userConfig: { ...defaultContent, layout: 'justify' as const, splash: splash(), superColor: 'purple' as const } },
+        { templateId, userConfig: { ...defaultContent, layout: 'right' as const, splash: splash('aspect:portrait'), subHeading, superColor: 'red' as const } },
+        { templateId, userConfig: { ...defaultContent, layout: 'left' as const, splash: splash('aspect:portrait'), subHeading, superColor: 'indigo' as const } },
+      ],
+    }
+  },
+})

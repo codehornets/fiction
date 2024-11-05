@@ -1,6 +1,6 @@
-import type { getFactory } from '../index.js'
+import type { CardFactory } from '@fiction/site/cardFactory.js'
 
-export async function getPage(args: { factory: Awaited<ReturnType<typeof getFactory>> }) {
+export async function getPage(args: { factory: CardFactory }) {
   const { factory } = args
   return factory.create({
     regionId: 'main',

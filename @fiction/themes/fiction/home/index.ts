@@ -1,17 +1,15 @@
+import type { CardFactory } from '@fiction/site/cardFactory.js'
 import type { Site } from '@fiction/site/site.js'
-import { CardFactory } from '@fiction/site/cardFactory.js'
 import { stockMediaHandler } from '@fiction/ui/stock/index.js'
-import { templates } from '../templates.js'
+import { getFactory } from '../index.js'
 import andrew from './img/andrew.jpg'
 import dean from './img/dean2.jpg'
 import obama from './img/obama.webp'
 import rogan from './img/rogan.jpg'
 import selena from './img/selena.jpg'
 
-export async function page(args: { site: Site }) {
-  const { site } = args
-
-  const factory = new CardFactory({ templates, site })
+export async function page(args: { site: Site, factory: CardFactory }) {
+  const { factory } = args
 
   return factory.create({
     regionId: 'main',

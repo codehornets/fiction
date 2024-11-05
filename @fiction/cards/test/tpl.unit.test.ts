@@ -1,16 +1,18 @@
 import { createSiteTestUtils } from '@fiction/site/test/testUtils'
 import { refineOptions } from '@fiction/site/utils/schema'
 import { describe, expect, it } from 'vitest'
-import { getDemoPages, standardCardTemplates } from '..'
+import { getCardTemplates, getDemoPages } from '..'
 
 describe('verify template settings config', async () => {
   const testUtils = await createSiteTestUtils()
   const site = await testUtils.createSite()
 
-  it('has template options set correctly', async () => {
-    const demoPages = await getDemoPages({ templates: standardCardTemplates, site })
+  const templates = await getCardTemplates()
 
-    const templatesOptionConfig = standardCardTemplates.map((_) => {
+  it('has template options set correctly', async () => {
+    const demoPages = await getDemoPages({ templates, site })
+
+    const templatesOptionConfig = templates.map((_) => {
       const conf = refineOptions({
         options: _.settings.options || [],
         schema: _.settings.schema,

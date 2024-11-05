@@ -38,6 +38,7 @@ import * as testimonials from './testimonials/index.js'
 import * as textEffects from './textEffects'
 import * as ticker from './ticker/index.js'
 import * as tour from './tour'
+import * as transaction from './transactions/index.js'
 import * as trek from './trek/index.js'
 import { createDemoPage } from './utils/demo'
 
@@ -48,7 +49,7 @@ import * as wrap from './wrap/index.js'
 envConfig.register({ name: 'CARD_UI_ROOT', onLoad: ({ fictionEnv }) => { fictionEnv.addUiRoot(safeDirname(import.meta.url)) } })
 
 export const testCardTemplates = [
-  ...nav.templates,
+  nav.template,
 ] as const
 
 type CreateTuple<T extends readonly CardTemplate[]> = {
@@ -61,56 +62,45 @@ type TupleToObject<T extends [string, any]> = {
 
 export type TemplateUserConfigMap<T extends readonly CardTemplate[]> = TupleToObject<CreateTuple<T>>
 
-export const standardCardTemplates: CardTemplate[] = [
-  ...wrap.templates,
-  cardTemplate({
-    templateId: 'transaction',
-    el: vue.defineAsyncComponent(async () => import('./CardWrapTransaction.vue')),
-    schema: z.object({}),
-    getBaseConfig: () => {
-      return { standard: { handling: { showOnSingle: true } } }
-    },
-    isPublic: false,
-    isPageCard: true,
-  }),
-  ...four04.templates,
-  ...nav.templates,
-  ...footer.templates,
-  ...quote.templates,
-  ...profile.templates,
-  ...hero.templates,
-  ...marquee.templates,
-  ...area.templates,
-  ...map.templates,
-  ...magazine.templates,
-  ...capture.templates,
-  ...showcase.templates,
-  ...cinema.templates,
-  ...story.templates,
-  ...ticker.templates,
-  ...people.templates,
-  ...pricing.templates,
-  ...logos.templates,
-  ...mediaGrid.templates,
-  ...tour.templates,
-  ...features.templates,
-  ...metrics.templates,
-  ...faq.templates,
-  ...mediaPop.templates,
-  ...textEffects.templates,
-  ...trek.templates,
-  ...fitText.templates,
-  ...overSlide.templates,
-  ...statement.templates,
-  ...testimonials.templates,
-  ...effectShape.templates,
-  ...gallery.templates,
-  ...contact.templates,
-  ...hitlist.templates,
-] as const
-
 export async function getCardTemplates() {
-  return standardCardTemplates
+  return [
+    wrap.template,
+    transaction.template,
+    four04.template,
+    nav.template,
+    footer.template,
+    quote.template,
+    profile.template,
+    hero.template,
+    marquee.template,
+    area.template,
+    map.template,
+    magazine.template,
+    capture.template,
+    showcase.template,
+    cinema.template,
+    story.template,
+    ticker.template,
+    people.template,
+    pricing.template,
+    logos.template,
+    mediaGrid.template,
+    tour.template,
+    features.template,
+    metrics.template,
+    faq.template,
+    mediaPop.template,
+    textEffects.template,
+    trek.template,
+    fitText.template,
+    overSlide.template,
+    statement.template,
+    testimonials.template,
+    effectShape.template,
+    gallery.template,
+    contact.template,
+    hitlist.template,
+  ] as const
 }
 
 export async function getDemoPages(args: { site: Site, templates: CardTemplate<any>[] | readonly CardTemplate<any>[], fictionEnv?: FictionEnv }) {

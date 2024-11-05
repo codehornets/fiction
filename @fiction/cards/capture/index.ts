@@ -48,40 +48,32 @@ const options: InputOption[] = [
   new InputOption({ key: 'thanksText', label: 'Thanks Text', input: 'InputText', placeholder: 'Thanks for subscribing!', description: 'Text on the thank you message' }),
 ]
 
-export const templates = [
-  cardTemplate({
-    root: safeDirname(import.meta.url),
-    templateId: 'demoProse',
-    el: vue.defineAsyncComponent(async () => import('./DemoProse.vue')),
-    isPublic: false,
+export const template = cardTemplate({
+  root: safeDirname(import.meta.url),
+  templateId,
+  title: 'Capture',
+  category: ['marketing'],
+  description: 'Convert visitors into subscribers with a simple email capture form.',
+  icon: 'i-tabler-mail',
+  colorTheme: 'blue',
+  el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
+  getUserConfig: () => ({
+    superHeading: 'Metric or Social Proof Here',
+    heading: 'Get a [Free Resource]', // email magnet
+    subHeading: 'Add benefits of subscribing here, free resources, etc. Avoid cliches like "stay up to date"',
+    dismissText: 'No thanks',
   }),
-  cardTemplate({
-    root: safeDirname(import.meta.url),
-    templateId,
-    title: 'Capture',
-    category: ['marketing'],
-    description: 'Convert visitors into subscribers with a simple email capture form.',
-    icon: 'i-tabler-mail',
-    colorTheme: 'blue',
-    el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
-    getUserConfig: () => ({
-      superHeading: 'Metric or Social Proof Here',
-      heading: 'Get a [Free Resource]', // email magnet
-      subHeading: 'Add benefits of subscribing here, free resources, etc. Avoid cliches like "stay up to date"',
-      dismissText: 'No thanks',
-    }),
-    isPublic: true,
-    options,
-    schema: UserConfigSchema,
-    demoPage: async () => {
-      return {
-        cards: [
-          { templateId, userConfig: { presentationMode: 'inline' as const, ...demoUserConfig } },
-          { templateId: 'demoProse' },
-          { templateId, userConfig: { presentationMode: 'onLoad' as const, ...demoUserConfig } },
-          { templateId, userConfig: { presentationMode: 'onScroll' as const, ...demoUserConfig } },
-        ],
-      }
-    },
-  }),
-] as const
+  isPublic: true,
+  options,
+  schema: UserConfigSchema,
+  demoPage: async () => {
+    return {
+      cards: [
+        { templateId, userConfig: { presentationMode: 'inline' as const, ...demoUserConfig } },
+        { templateId: 'demoProse', el: vue.defineAsyncComponent(async () => import('./DemoProse.vue')) },
+        { templateId, userConfig: { presentationMode: 'onLoad' as const, ...demoUserConfig } },
+        { templateId, userConfig: { presentationMode: 'onScroll' as const, ...demoUserConfig } },
+      ],
+    }
+  },
+})

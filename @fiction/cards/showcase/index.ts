@@ -41,7 +41,8 @@ export async function getDefaultConfig(): Promise<UserConfig> {
 }
 
 const templateId = 'showcase'
-const template = cardTemplate({
+
+export const template = cardTemplate({
   templateId,
   category: ['portfolio'],
   description: 'Showcase grid of items with popup details',
@@ -57,5 +58,3 @@ const template = cardTemplate({
     return { cards: [{ templateId, userConfig }] }
   },
 })
-
-export const templates = [template] as const

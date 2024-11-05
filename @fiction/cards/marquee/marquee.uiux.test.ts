@@ -2,7 +2,7 @@ import { isCi } from '@fiction/core'
 import { createSiteUiTestingKit } from '@fiction/site/test/testUtils.js'
 import { collectKeysFromOptions } from '@fiction/site/utils/schema'
 import { afterAll, describe, expect, it } from 'vitest'
-import { templates } from './index.js'
+import { template } from './index.js'
 
 const headless = true
 
@@ -25,7 +25,6 @@ describe('marquee card', async () => {
 
 describe('validate option keys', async () => {
   it('marquee: validate option keys', async () => {
-    const template = templates[0]
     const optionKeys = template.settings.options || []
     const keys = collectKeysFromOptions(optionKeys)
 

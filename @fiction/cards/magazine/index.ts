@@ -108,31 +108,29 @@ async function getDemoUserConfig(): Promise<UserConfig> {
   return c
 }
 
-export const templates = [
-  cardTemplate({
-    root: safeDirname(import.meta.url),
-    templateId,
-    category: ['posts'],
-    description: 'A magazine cards for displaying posts in a grid layout.',
-    icon: 'i-tabler-box-padding',
-    colorTheme: 'blue',
-    el: vue.defineAsyncComponent(async () => import('./ElMagazine.vue')),
-    getUserConfig: async () => getDefaultUserConfig(),
-    isPublic: true,
-    options,
-    schema,
-    singleCard: ({ card }) => {
-      return { cards: [{ templateId }] }
-    },
-    demoPage: async () => {
-      const demoUserConfig = await getDemoUserConfig()
-      const defaultUserConfig = await getDefaultUserConfig()
-      return {
-        cards: [
-          { templateId, userConfig: demoUserConfig },
-          { templateId, userConfig: defaultUserConfig },
-        ],
-      }
-    },
-  }),
-] as const
+export const template = cardTemplate({
+  root: safeDirname(import.meta.url),
+  templateId,
+  category: ['posts'],
+  description: 'A magazine cards for displaying posts in a grid layout.',
+  icon: 'i-tabler-box-padding',
+  colorTheme: 'blue',
+  el: vue.defineAsyncComponent(async () => import('./ElMagazine.vue')),
+  getUserConfig: async () => getDefaultUserConfig(),
+  isPublic: true,
+  options,
+  schema,
+  singleCard: ({ card }) => {
+    return { cards: [{ templateId }] }
+  },
+  demoPage: async () => {
+    const demoUserConfig = await getDemoUserConfig()
+    const defaultUserConfig = await getDefaultUserConfig()
+    return {
+      cards: [
+        { templateId, userConfig: demoUserConfig },
+        { templateId, userConfig: defaultUserConfig },
+      ],
+    }
+  },
+})

@@ -107,28 +107,26 @@ async function getUserConfig(): Promise<UserConfig & SiteUserConfig> {
   }
 }
 
-export const templates = [
-  cardTemplate({
-    templateId,
-    category: ['content', 'basic'],
-    description: 'Testimonials from happy customers or users.',
-    icon: 'i-tabler-message-bolt',
-    colorTheme: 'emerald',
-    el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
-    isPublic: true,
-    options,
-    schema: UserConfigSchema,
-    getBaseConfig: () => ({ standard: { } }),
-    getUserConfig: async () => getUserConfig(),
-    demoPage: async (_) => {
-      const userConfig = await getUserConfig()
-      return {
-        cards: [
-          { templateId, userConfig: { ...userConfig, layout: 'mega' as const, standard: { headers: { title: 'Mega Layout' } } } },
-          { templateId, userConfig: { ...userConfig, layout: 'masonry' as const, standard: { headers: { title: 'Masonry Layout' } } } },
-          { templateId, userConfig: { ...userConfig, standard: { headers: { title: 'Slider Layout' } } } },
-        ],
-      }
-    },
-  }),
-] as const
+export const template = cardTemplate({
+  templateId,
+  category: ['content', 'basic'],
+  description: 'Testimonials from happy customers or users.',
+  icon: 'i-tabler-message-bolt',
+  colorTheme: 'emerald',
+  el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
+  isPublic: true,
+  options,
+  schema: UserConfigSchema,
+  getBaseConfig: () => ({ standard: { } }),
+  getUserConfig: async () => getUserConfig(),
+  demoPage: async (_) => {
+    const userConfig = await getUserConfig()
+    return {
+      cards: [
+        { templateId, userConfig: { ...userConfig, layout: 'mega' as const, standard: { headers: { title: 'Mega Layout' } } } },
+        { templateId, userConfig: { ...userConfig, layout: 'masonry' as const, standard: { headers: { title: 'Masonry Layout' } } } },
+        { templateId, userConfig: { ...userConfig, standard: { headers: { title: 'Slider Layout' } } } },
+      ],
+    }
+  },
+})

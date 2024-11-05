@@ -103,21 +103,19 @@ const options: InputOption[] = [
 
 export type UserConfig = z.infer<typeof UserConfigSchema>
 const templateId = 'cinema'
-export const templates = [
-  cardTemplate({
-    templateId,
-    category: ['marketing'],
-    description: 'Full screen images or videos with text overlay.',
-    icon: 'i-tabler-movie',
-    colorTheme: 'rose',
-    el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
-    isPublic: true,
-    options,
-    schema: UserConfigSchema,
-    getBaseConfig: () => ({ standard: { spacing: { contentWidth: 'none', verticalSpacing: 'none' } } }),
-    getUserConfig: () => ({ items: defaultItem }),
-    demoPage: async () => {
-      return { cards: [{ templateId, userConfig: { items: defaultItem, autoSlide: true } }] }
-    },
-  }),
-] as const
+export const template = cardTemplate({
+  templateId,
+  category: ['marketing'],
+  description: 'Full screen images or videos with text overlay.',
+  icon: 'i-tabler-movie',
+  colorTheme: 'rose',
+  el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
+  isPublic: true,
+  options,
+  schema: UserConfigSchema,
+  getBaseConfig: () => ({ standard: { spacing: { contentWidth: 'none', verticalSpacing: 'none' } } }),
+  getUserConfig: () => ({ items: defaultItem }),
+  demoPage: async () => {
+    return { cards: [{ templateId, userConfig: { items: defaultItem, autoSlide: true } }] }
+  },
+})

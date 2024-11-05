@@ -51,24 +51,22 @@ const defaultConfig: UserConfig = {
   ],
 }
 
-export const templates = [
-  cardTemplate({
-    templateId,
-    category: ['marketing'],
-    description: 'Discuss the features of your product or service.',
-    icon: 'i-tabler-discount-check',
-    colorTheme: 'indigo',
-    el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
-    schema,
-    options,
-    getUserConfig: () => defaultConfig,
-    isPublic: true,
-    demoPage: async () => {
-      return {
-        cards: [
-          { templateId, userConfig: defaultConfig },
-        ],
-      }
-    },
-  }),
-] as const
+export const template = cardTemplate({
+  templateId,
+  category: ['marketing'],
+  description: 'Discuss the features of your product or service.',
+  icon: 'i-tabler-discount-check',
+  colorTheme: 'indigo',
+  el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
+  schema,
+  options,
+  getUserConfig: () => defaultConfig,
+  isPublic: true,
+  demoPage: async () => {
+    return {
+      cards: [
+        { templateId, userConfig: defaultConfig },
+      ],
+    }
+  },
+})

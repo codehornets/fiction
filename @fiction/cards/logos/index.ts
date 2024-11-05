@@ -73,25 +73,23 @@ const getUserConfig: (args: { layout?: 'stacked' | 'inline', noItems?: number })
   }
 }
 
-export const templates = [
-  cardTemplate({
-    templateId,
-    category: ['marketing'],
-    description: 'Add a grid of logos or graphic to your page.',
-    icon: 'i-tabler-input-check',
-    colorTheme: 'cyan',
-    el: vue.defineAsyncComponent(async () => import('./ElLogos.vue')),
-    schema,
-    options,
-    isPublic: true,
-    getUserConfig: async () => getUserConfig({ layout: 'stacked' }),
-    demoPage: async () => {
-      return {
-        cards: [
-          { templateId, userConfig: getUserConfig({ layout: 'stacked' }) },
-          { templateId, userConfig: getUserConfig({ layout: 'inline' }) },
-        ],
-      }
-    },
-  }),
-] as const
+export const template = cardTemplate({
+  templateId,
+  category: ['marketing'],
+  description: 'Add a grid of logos or graphic to your page.',
+  icon: 'i-tabler-input-check',
+  colorTheme: 'cyan',
+  el: vue.defineAsyncComponent(async () => import('./ElLogos.vue')),
+  schema,
+  options,
+  isPublic: true,
+  getUserConfig: async () => getUserConfig({ layout: 'stacked' }),
+  demoPage: async () => {
+    return {
+      cards: [
+        { templateId, userConfig: getUserConfig({ layout: 'stacked' }) },
+        { templateId, userConfig: getUserConfig({ layout: 'inline' }) },
+      ],
+    }
+  },
+})

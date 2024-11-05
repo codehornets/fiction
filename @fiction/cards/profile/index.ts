@@ -83,7 +83,8 @@ function getUserConfig(): UserConfig {
     ],
   }
 }
-const minimalProfile = cardTemplate({
+
+export const template = cardTemplate({
   templateId,
   category: ['marketing'],
   description: 'A minimal profile card with a splash image, headline, subheading, and contact details.',
@@ -101,5 +102,3 @@ const minimalProfile = cardTemplate({
     ] }
   },
 })
-
-export const templates = [minimalProfile] as const

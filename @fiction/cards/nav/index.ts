@@ -79,33 +79,31 @@ const defaultConfig: UserConfig = {
 
 const el = vue.defineAsyncComponent(async () => import('./ElCard.vue'))
 
-export const templates = [
-  cardTemplate({
-    templateId,
-    category: ['navigation'],
-    icon: 'i-tabler-box-align-top',
-    colorTheme: 'blue',
-    description: 'A header with a logo and navigation links',
-    isPublic: true,
-    el,
-    getBaseConfig: () => ({ standard: { spacing: { verticalSpacing: 'xs' } } }),
-    getUserConfig: () => ({ ...defaultConfig }),
-    schema,
-    options,
-    title: 'Primary Nav',
-    demoPage: async () => {
-      return { cards: [
-        { templateId, userConfig: { ...defaultConfig } },
-        { templateId, userConfig: { ...defaultConfig, layout: 'logoCenter' as const } },
-        { templateId, userConfig: { ...defaultConfig, layout: 'navCenter' as const } },
-        {
-          templateId,
-          userConfig: {
-            logo: { url: 'https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2830&q=80&sat=-100' },
-            navA: [{ name: 'Lorem Ipsum Lorem Ipsum', href: '/bar' }, { name: 'Long Name', href: '/bar' }, { name: 'Foo', href: '/bar' }, { name: 'Foo', href: '/bar' }],
-          },
+export const template = cardTemplate({
+  templateId,
+  category: ['navigation'],
+  icon: 'i-tabler-box-align-top',
+  colorTheme: 'blue',
+  description: 'A header with a logo and navigation links',
+  isPublic: true,
+  el,
+  getBaseConfig: () => ({ standard: { spacing: { verticalSpacing: 'xs' } } }),
+  getUserConfig: () => ({ ...defaultConfig }),
+  schema,
+  options,
+  title: 'Primary Nav',
+  demoPage: async () => {
+    return { cards: [
+      { templateId, userConfig: { ...defaultConfig } },
+      { templateId, userConfig: { ...defaultConfig, layout: 'logoCenter' as const } },
+      { templateId, userConfig: { ...defaultConfig, layout: 'navCenter' as const } },
+      {
+        templateId,
+        userConfig: {
+          logo: { url: 'https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2830&q=80&sat=-100' },
+          navA: [{ name: 'Lorem Ipsum Lorem Ipsum', href: '/bar' }, { name: 'Long Name', href: '/bar' }, { name: 'Foo', href: '/bar' }, { name: 'Foo', href: '/bar' }],
         },
-      ] }
-    },
-  }),
-] as const
+      },
+    ] }
+  },
+})

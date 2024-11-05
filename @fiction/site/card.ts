@@ -46,7 +46,9 @@ interface CardTemplateSettings<
   getBaseConfig?: (args: { site?: Site }) => CardTemplateUserConfigAll<S>
   getUserConfig?: (args: { site?: Site }) => Promise<CardTemplateUserConfigAll<S>> | (CardTemplateUserConfigAll<S>)
   getEffects?: (args: { site?: Site }) => Promise<TableCardConfig[]>
-  demoPage?: (args: { site: Site }) => Promise<{ cards: CardConfigPortable< CardTemplateUserConfigAll<S>>[] }>
+  demoPage?: (args: { site: Site }) => Promise<{
+    cards: (CardConfigPortable< CardTemplateUserConfigAll<S>> & { el?: vue.Component })[]
+  }>
   getQueries?: (args: CardQuerySettings) => CardTemplateSurface<S>[ 'queries' ]
   getSitemapPaths?: (args: { site: Site, card: Card<CardTemplateUserConfigAll<S>>, pagePath: string }) => Promise<string[]>
   singleCard?: (args: { card: Card }) => CardConfigPortable
@@ -113,6 +115,7 @@ export function cardTemplate<
 export type CardSettings<T extends Record<string, unknown> = Record<string, unknown> > = CardConfigPortable<T> & {
   site?: Site
   inlineTemplate?: CardTemplate<any>
+  el?: ComponentConstructor
   templates?: CardTemplate[] | readonly CardTemplate[]
   onSync?: (card: Card) => void
 }
@@ -169,8 +172,15 @@ export class Card<
   tpl = vue.computed(() => {
     const templates = [...(this.settings.templates || []), ...(this.site?.theme.value?.templates || [])]
     const foundTemplate = templates.find(t => t.settings.templateId === this.templateId.value)
-
-    return this.settings.inlineTemplate || foundTemplate
+    if (this.settings.inlineTemplate) {
+      return this.settings.inlineTemplate
+    }
+    else if (foundTemplate) {
+      return foundTemplate
+    }
+    else if (this.settings.el) {
+      return new CardTemplate({ el: this.settings.el, templateId: `${this.cardId}-inline` })
+    }
   })
 
   isActive = vue.computed<boolean>(() => this.site?.editor.value.selectedCardId === this.settings.cardId)
