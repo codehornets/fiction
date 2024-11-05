@@ -61,7 +61,7 @@ type TupleToObject<T extends [string, any]> = {
 
 export type TemplateUserConfigMap<T extends readonly CardTemplate[]> = TupleToObject<CreateTuple<T>>
 
-export const standardCardTemplates = [
+export const standardCardTemplates: CardTemplate[] = [
   ...wrap.templates,
   cardTemplate({
     templateId: 'transaction',
