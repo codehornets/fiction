@@ -97,7 +97,7 @@ export class FictionSubscribe extends FictionPlugin<FictionSubscribeSettings> {
                   title: 'Subscriber Analytics',
                   description: 'Total subscribers and more',
                   el: vue.defineAsyncComponent(async () => import('./admin/ViewAnalytics.vue')),
-                  userConfig: { isNavItem: true, navIcon: 'i-tabler-user' },
+                  userConfig: { isNavItem: true, navIcon: 'i-tabler-chart-dots', navIconAlt: 'i-tabler-chart-line' },
                 }),
               ],
             }),

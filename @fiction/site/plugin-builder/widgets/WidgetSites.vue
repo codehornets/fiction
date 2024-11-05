@@ -7,8 +7,8 @@ import type { getWidgets } from './index.js'
 import WidgetWrap from '@fiction/admin/dashboard/WidgetWrap.vue'
 import { dayjs, useService, vue } from '@fiction/core'
 import IndexItemList from '@fiction/ui/lists/IndexItemList.vue'
+import { getSiteIndexItemList } from '../../utils/list.js'
 import { manageSiteIndex } from '../../utils/manage.js'
-import { getSiteIndexItemList } from '../utils.js'
 
 type WidgetConfig = ReturnType<typeof getWidgets>['sites']
 

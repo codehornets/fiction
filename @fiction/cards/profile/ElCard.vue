@@ -33,7 +33,7 @@ vue.onMounted(async () => {
 <template>
   <div class="minimal-profile" :class="card.classes.value.contentWidth">
     <div>
-      <div class="md:flex gap-8 xl:gap-12" :class="uc.layout === 'left' ? 'md:flex-row-reverse' : ''">
+      <div class="md:flex gap-8 xl:gap-12" :class="uc.layout === 'right' ? 'md:flex-row-reverse' : ''">
         <div class="w-full md:w-[40%] xl:w-[50%] px-2 ">
           <div class="relative">
             <EffectGlare wrap-class="rounded-[20px]">

@@ -9,8 +9,8 @@ const _hello = 1
 <template>
   <SettingsBoard
     :card
-    base-path="/audience"
     :header="{
+      media: { class: `i-tabler-users` },
       title: 'Manage Subscribers',
       subTitle: 'Manage your subscribers and subscriptions',
     }"

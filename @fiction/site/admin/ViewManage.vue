@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 import type { Card } from '@fiction/site'
-import type { FictionBrand } from '../index.js'
+import type { FictionSites } from '../index.js'
 import SettingsBoard from '@fiction/admin/settings/SettingsBoard.vue'
 import { useService, vue } from '@fiction/core'
 
 const { card } = defineProps<{ card: Card }>()
 const loading = vue.ref(true)
 
-const { fictionBrand, fictionRouter } = useService<{ fictionBrand: FictionBrand }>()
+const { fictionSites, fictionRouter } = useService<{ fictionSites: FictionSites }>()
 
 async function load() {
   loading.value = true
@@ -31,11 +31,11 @@ vue.onMounted(() => load())
     :loading
     :card
     :panel-props="{ }"
+    base-path="/sites"
     :header="{
-      superTitle: 'Brand',
-      title: 'Brand Engine',
-      subTitle: 'Create your brand strategy and style guide. It will be used along with AI to keep your brand consistent.',
-      media: { class: `i-tabler-icons` },
+      title: 'Sites and Landing Pages',
+      subTitle: 'Create and manage one or more sites. Each site can have its own theme, content, and settings.',
+      media: { class: `i-tabler-browser` },
       actions: [],
     }"
   />

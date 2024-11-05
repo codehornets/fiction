@@ -1,4 +1,3 @@
-/* server-only-file */
 import type { EndpointResponse } from '@fiction/core/types'
 import type { User } from '..'
 import type { ApolloApiResponse } from './types'

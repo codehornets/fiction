@@ -59,8 +59,9 @@ function toggleAddElements() {
         :theme="addElementsVisible ? 'theme' : 'primary'"
         rounding="full"
         design="solid"
-        size="sm"
-        :icon="addElementsVisible ? 'i-tabler-remove' : 'i-tabler-plus'"
+        size="md"
+        :icon="addElementsVisible ? 'i-tabler-x' : 'i-tabler-plus'"
+        format="block"
         @click.prevent="toggleAddElements()"
       >
         {{ addElementsVisible ? 'Close' : 'Add New Elements' }}

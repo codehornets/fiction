@@ -40,7 +40,6 @@ function handleLogoUpdate(newValue: MediaObject) {
         <XLogo
           :media="v"
           class="h-full max-w-full"
-          alignment-class="justify-start"
         />
       </div>
       <div

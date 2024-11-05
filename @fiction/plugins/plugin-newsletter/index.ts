@@ -49,12 +49,26 @@ export class FictionNewsletter extends FictionPlugin<FictionNewsletterSettings> 
     const { fictionAdmin } = this.settings
 
     fictionAdmin.addAdminPages({ key: 'send', loader: async ({ factory }) => [
+
       await factory.create({
         templateId: 'dash',
-        slug: 'newsletter',
-        title: 'Newsletter',
-        cards: [await factory.create({ el: vue.defineAsyncComponent(async () => import('./admin/ViewIndex.vue')) })],
-        userConfig: { isNavItem: true, navIcon: 'i-tabler-mail', navIconAlt: 'i-tabler-mail-share', priority: 50 },
+        slug: 'newsletters',
+        title: 'Newsletters',
+        cards: [
+          await factory.create({
+            el: vue.defineAsyncComponent(async () => import('./admin/ViewManageIndex.vue')),
+            cards: [
+              await factory.create({
+                slug: '_home',
+                title: 'Newsletter Index',
+                description: 'Manage all emails and their settings',
+                el: vue.defineAsyncComponent(async () => import('./admin/ViewIndex.vue')),
+                userConfig: { isNavItem: true, navIcon: 'i-tabler-mail', navIconAlt: 'i-tabler-mail-share' },
+              }),
+            ],
+          }),
+        ],
+        userConfig: { isNavItem: true, navIcon: 'i-tabler-mail', navIconAlt: 'i-tabler-mail-share' },
       }),
       await factory.create({
         templateId: 'dash',
@@ -62,7 +76,7 @@ export class FictionNewsletter extends FictionPlugin<FictionNewsletterSettings> 
         title: 'Manage Newsletter Email',
         cards: [
           await factory.create({
-            el: vue.defineAsyncComponent(async () => import('./admin/ViewManage.vue')),
+            el: vue.defineAsyncComponent(async () => import('./admin/ViewManageCampaign.vue')),
             cards: [
               await factory.create({
                 slug: '_home',

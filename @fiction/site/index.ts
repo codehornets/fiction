@@ -78,6 +78,49 @@ export class FictionSites extends FictionPlugin<SitesPluginSettings> {
     this.settings.fictionAdmin.widgetRegister.value.push(...Object.values(widgets))
     this.settings.fictionAdmin.addToWidgetArea('homeSecondary', ['siteVisitors'])
     this.settings.fictionAdmin.addToWidgetArea('sitesIndex', ['sitesWelcome', 'siteVisitors'])
+
+    this.settings.fictionAdmin.addAdminPages({ key: 'sites', loader: async ({ factory }) => [
+      await factory.create({
+        templateId: 'dash',
+        slug: 'sites',
+        title: 'Sites',
+        cards: [
+          await factory.create({
+            el: vue.defineAsyncComponent(async () => import('./admin/ViewManage.vue')),
+            cards: [
+              await factory.create({
+                slug: '_home',
+                title: 'All Sites',
+                description: 'Manage all sites and their settings',
+                el: vue.defineAsyncComponent(async () => import('./admin/ManageIndex.vue')),
+                userConfig: { isNavItem: true, navIcon: 'i-tabler-browser', navIconAlt: 'i-tabler-browser-plus' },
+              }),
+              await factory.create({
+                slug: 'analytics',
+                title: 'Traffic Analytics',
+                description: 'Data and information about the site visitors',
+                el: vue.defineAsyncComponent(async () => import('./admin/ManageAnalytics.vue')),
+                userConfig: { isNavItem: true, navIcon: 'i-tabler-chart-dots', navIconAlt: 'i-tabler-chart-line' },
+              }),
+            ],
+          }),
+        ],
+        userConfig: { isNavItem: true, navIcon: 'i-tabler-browser', navIconAlt: 'i-tabler-browser-plus' },
+      }),
+      await factory.create({
+        regionId: 'main',
+        templateId: 'dash',
+        slug: 'edit-site',
+        title: 'Edit Site',
+        cards: [
+          await factory.create({
+            el: vue.defineAsyncComponent(async () => import('./plugin-builder/SiteEditor.vue')),
+            userConfig: { isNavItem: false, standard: { spacing: { verticalSpacing: 'none' as const } } },
+          }),
+        ],
+        userConfig: { isNavItem: false, layoutFormat: 'full', navIcon: 'i-tabler-home-plus' },
+      }),
+    ] })
   }
 
   addSitemaps() {

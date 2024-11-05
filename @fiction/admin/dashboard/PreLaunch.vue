@@ -69,7 +69,7 @@ const hasAccessCode = vue.ref(false)
                   "
                 >The code you entered is
                   {{ validCode ? "valid" : "invalid" }}</span>
-                <span v-else class="text-theme-400 dark:text-theme-500">The Personal Marketing Platform</span>
+                <span v-else class="text-theme-400 dark:text-theme-500">Software for Personal Growth</span>
               </div>
 
               <h3

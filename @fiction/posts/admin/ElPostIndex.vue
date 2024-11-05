@@ -38,6 +38,7 @@ const list = vue.computed<IndexItem[]>(() => {
       desc: p.subTitle.value || 'No description',
       href: props.card.link(`/edit-post?postId=${p.postId}`),
       media: p.media.value,
+      icon: 'i-tabler-pin',
     } as IndexItem
   })
 })

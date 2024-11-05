@@ -15,7 +15,7 @@ const {
   header,
 } = defineProps<{
   card: Card
-  basePath: string
+  basePath?: string
   panelProps?: Record<string, any>
   loading?: boolean
   header?: PostObject
@@ -35,6 +35,7 @@ const nav = vue.computed<NavItem[]>(() => {
   const router = card.site?.siteRouter.current.value
   const currentRoute = card.site?.siteRouter.current.value
   const query = currentRoute?.fullPath.split('?')[1] || ''
+  const viewId = currentRoute?.params.viewId || ''
 
   return panels.value
     .filter(p => p.userConfig.value?.isNavItem)
@@ -43,11 +44,13 @@ const nav = vue.computed<NavItem[]>(() => {
       const cfg = p.userConfig.value || {}
       const itemId = router?.params.itemId || ''
       const isActive = slug === itemId || slug === currentPanel.value?.userConfig.value?.parentItemId
+      const base = basePath || `/${viewId}`
+      const href = `${base}/${slug}${query ? `?${query}` : ''}`
 
       return {
         name: p.title.value || toLabel(slug),
         desc: p.description.value,
-        href: `${basePath}/${slug}${query ? `?${query}` : ''}`,
+        href,
         isActive,
         icon: isActive && cfg.navIconAlt ? cfg.navIconAlt : cfg.navIcon || 'i-heroicons-arrow-small-right-20-solid',
       }
@@ -60,7 +63,7 @@ const nav = vue.computed<NavItem[]>(() => {
     <div class="w-[32%] shrink-0 rounded-l-md pb-32 p-3 md:p-6 border-r dark:border-theme-600/60 border-theme-300/60 space-y-6">
       <ElHeader
         v-if="header"
-        class="dark:bg-theme-700/50 rounded-xl p-6"
+        class="dark:bg-theme-700/50 rounded-xl p-4"
         :model-value="header"
         @update:model-value="emit('update:header', $event)"
       />

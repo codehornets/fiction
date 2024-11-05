@@ -162,14 +162,13 @@ function updateCurrentSelection(updates: Partial<MediaObject>) {
       />
 
       <div v-else-if="navItemActive.value === 'typography'" class="p-8">
-        <div class="max-w-md mx-auto">
+        <div class="max-w-md mx-auto space-y-4">
           <ElInput
             :model-value="currentSelection.typography?.text"
             label="Logo Text"
             input="InputText"
             data-test-id="typography-text"
             :input-props="{ placeholder: 'Enter text for logo' }"
-            class="mb-4"
             @update:model-value="updateCurrentSelection({ typography: { ...currentSelection.typography, text: $event }, format: 'typography' })"
           />
           <ElInput
@@ -178,8 +177,32 @@ function updateCurrentSelection(updates: Partial<MediaObject>) {
             input="InputFont"
             data-test-id="typography-font"
             :input-props="{ placeholder: 'Select font for logo', noPreview: true }"
-            class="mb-4"
             @update:model-value="updateCurrentSelection({ typography: { ...currentSelection.typography, font: $event }, format: 'typography' })"
+          />
+          <ElInput
+            :model-value="currentSelection.typography?.weight"
+            label="Weight"
+            input="InputSelect"
+            data-test-id="typography-weight"
+            :list="[
+              { value: 'inherit', name: 'Inherit' },
+              { value: '400', name: 'Regular' },
+              { value: '500', name: 'Medium' },
+              { value: '600', name: 'Medium' },
+              { value: '700', name: 'Bold' },
+              { value: '800', name: 'Extra-Bold' },
+              { value: '900', name: 'Black' },
+              { value: '300', name: 'Light' },
+            ]"
+            @update:model-value="updateCurrentSelection({ typography: { ...currentSelection.typography, weight: $event }, format: 'typography' })"
+          />
+          <ElInput
+            :model-value="currentSelection.typography?.weight"
+            label="Size"
+            input="InputRange"
+            data-test-id="typography-size"
+            :input-props="{ min: 30, max: 200, step: 1 }"
+            @update:model-value="updateCurrentSelection({ typography: { ...currentSelection.typography, weight: $event }, format: 'typography' })"
           />
         </div>
       </div>

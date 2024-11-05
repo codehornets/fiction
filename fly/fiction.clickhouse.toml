@@ -13,7 +13,7 @@ CLICKHOUSE_DATABASE = "fiction"
 CLICKHOUSE_USER = "fiction"
 CLICKHOUSE_PASSWORD = "socrates-and-plato"
 
-[mount]
+[mounts]
 source = "clickhouse_data"
 destination = "/var/lib/clickhouse/"
 

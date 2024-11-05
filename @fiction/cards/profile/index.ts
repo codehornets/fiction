@@ -34,33 +34,35 @@ const options: InputOption[] = [
   new InputOption({
     key: 'layout',
     input: 'InputSelect',
+    label: 'Layout',
     list: [
       { name: 'Media on Left', value: 'left' },
       { name: 'Media on Right', value: 'right' },
     ],
   }),
-  new InputOption({ key: 'mediaItems', input: 'InputList', props: { itemName: 'Media Item' }, options: [
+  new InputOption({ key: 'mediaItems', input: 'InputList', label: 'Media', props: { itemName: 'Image / Video' }, options: [
     new InputOption({ key: 'media', input: 'InputMedia' }),
   ] }),
-  new InputOption({ key: 'title', input: 'InputText' }),
-  new InputOption({ key: 'superTitle', input: 'InputText' }),
-  new InputOption({ key: 'content', input: 'InputProse' }),
-  new InputOption({ key: 'detailsTitle', input: 'InputText' }),
+  new InputOption({ key: 'title', input: 'InputText', label: 'Headline' }),
+  new InputOption({ key: 'superTitle', input: 'InputText', label: 'Tagline' }),
+  new InputOption({ key: 'content', input: 'InputProse', label: 'Profile Content' }),
+  new InputOption({ key: 'detailsTitle', input: 'InputText', label: 'Details Title' }),
   new InputOption({ key: 'details', input: 'InputList', props: { itemName: 'Profile Detail' }, options: [
-    new InputOption({ key: 'name', input: 'InputText' }),
-    new InputOption({ key: 'desc', input: 'InputText' }),
-    new InputOption({ key: 'icon', input: 'InputIcon' }),
-    new InputOption({ key: 'href', input: 'InputText' }),
+    new InputOption({ key: 'name', input: 'InputText', label: 'Detail Name' }),
+    new InputOption({ key: 'desc', input: 'InputText', label: 'Detail Description' }),
+    new InputOption({ key: 'icon', input: 'InputIcon', label: 'Detail Icon' }),
+    new InputOption({ key: 'href', input: 'InputText', label: 'Detail Link' }),
   ] }),
-  new InputOption({ key: 'socials', input: 'InputList', props: { itemName: 'Social Media' }, options: [
-    new InputOption({ key: 'name', input: 'InputText' }),
-    new InputOption({ key: 'href', input: 'InputText' }),
-    new InputOption({ key: 'media', input: 'InputIcon' }),
+  new InputOption({ key: 'socials', input: 'InputList', label: 'Social / Links', props: { itemName: 'Social Media' }, options: [
+    new InputOption({ key: 'name', input: 'InputText', label: 'Social Name' }),
+    new InputOption({ key: 'href', input: 'InputUrl', label: 'Social Link' }),
+    new InputOption({ key: 'media', input: 'InputIcon', label: 'Social Icon' }),
   ] }),
 ]
 
 function getUserConfig(): UserConfig {
   return {
+    layout: 'left',
     title: 'A Catchy Headline About Something',
     content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`,
     superTitle: 'A Tagline or Category',

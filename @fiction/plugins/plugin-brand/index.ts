@@ -31,7 +31,7 @@ export class FictionBrand extends FictionPlugin<FictionBrandSettings> {
     fictionAdmin.addAdminPages({ key: 'send', loader: async ({ factory }) => [
       await factory.create({
         templateId: 'dash',
-        slug: 'manage-brand',
+        slug: 'brand',
         title: 'Brand',
         cards: [
           await factory.create({
@@ -44,10 +44,17 @@ export class FictionBrand extends FictionPlugin<FictionBrandSettings> {
                 el: vue.defineAsyncComponent(async () => import('./admin/ManageOverview.vue')),
                 userConfig: { isNavItem: true, navIcon: 'i-tabler-icons', navIconAlt: 'i-tabler-icons' },
               }),
+              await factory.create({
+                slug: 'model',
+                title: 'Content Model',
+                description: 'Create AI reference models for your content and information',
+                el: vue.defineAsyncComponent(async () => import('./admin/ManageModel.vue')),
+                userConfig: { isNavItem: true, navIcon: 'i-tabler-cube', navIconAlt: 'i-tabler-cube-plus' },
+              }),
             ],
           }),
         ],
-        userConfig: { isNavItem: true, navIcon: 'i-tabler-icons', navIconAlt: 'i-tabler-icons' },
+        userConfig: { isNavItem: true, navIcon: 'i-tabler-icons', navIconAlt: 'i-tabler-icons', priority: 200 },
       }),
 
     ] })

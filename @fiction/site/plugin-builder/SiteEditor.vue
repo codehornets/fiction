@@ -148,7 +148,7 @@ async function resetToPublished() {
               <span class="i-tabler-slash text-xl dark:text-theme-500" />
             </CardLink>
 
-            <XText v-if="site" v-model="site.title.value" :is-editable="true" class="hover:bg-theme-100 whitespace-nowrap" />
+            <XText v-if="site" v-model="site.title.value" :is-editable="true" class="hover:bg-theme-100 hover:dark:bg-theme-700 whitespace-nowrap" />
           </div>
         </template>
         <template v-if="site" #headerRight>

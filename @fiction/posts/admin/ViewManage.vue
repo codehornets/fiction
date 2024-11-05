@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 import type { Card } from '@fiction/site'
-import type { FictionBrand } from '../index.js'
+import type { FictionPosts } from '../index.js'
 import SettingsBoard from '@fiction/admin/settings/SettingsBoard.vue'
 import { useService, vue } from '@fiction/core'
 
 const { card } = defineProps<{ card: Card }>()
 const loading = vue.ref(true)
 
-const { fictionBrand, fictionRouter } = useService<{ fictionBrand: FictionBrand }>()
+const service = useService<{ fictionSites: FictionPosts }>()
 
 async function load() {
   loading.value = true
@@ -32,10 +32,9 @@ vue.onMounted(() => load())
     :card
     :panel-props="{ }"
     :header="{
-      superTitle: 'Brand',
-      title: 'Brand Engine',
-      subTitle: 'Create your brand strategy and style guide. It will be used along with AI to keep your brand consistent.',
-      media: { class: `i-tabler-icons` },
+      title: 'Posts and Content',
+      subTitle: 'Easily create and manage posts. Posts can be published, scheduled, or saved as drafts.',
+      media: { class: `i-tabler-pin` },
       actions: [],
     }"
   />

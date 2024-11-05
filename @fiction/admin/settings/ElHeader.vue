@@ -23,7 +23,7 @@ function updateValue<T extends keyof PostObject = keyof PostObject>(key: T, valu
         <div v-if="modelValue.media" class="flex-shrink-0 flex gap-3 items-center">
           <ElIndexItemMedia :media="modelValue.media" class="size-10 @xl:size-14" />
         </div>
-        <div class="pt-1.5 space-y-1">
+        <div class="pt-1.5 @lg:pt-0 space-y-1">
           <XText
             v-if="modelValue.title"
             tag="h1"

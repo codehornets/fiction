@@ -7,74 +7,83 @@ import XMedia from '@fiction/ui/media/XMedia.vue'
 import CardText from '../CardText.vue'
 import NavDots from '../el/NavDots.vue'
 
-const props = defineProps({
-  card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
+type Slide = { title?: string, subTitle?: string, media?: any, textBlend?: string }
+
+const { card } = defineProps<{
+  card: Card<UserConfig>
+}>()
+
+const uc = vue.computed(() => card.userConfig.value)
+const currentItemIndex = vue.ref(0)
+const slides = vue.computed(() => uc.value.slides || [])
+const slideTime = 15000
+const timer = vue.ref<NodeJS.Timeout>()
+
+// Add unique IDs to slides
+const slidesWithIds = vue.computed(() => {
+  return slides.value.map((slide: Slide, index) => ({
+    ...slide,
+    _id: `${card.cardId}-slide-${index}`,
+  }))
 })
 
-const uc = vue.computed(() => props.card.userConfig.value)
-
-const currentItemIndex = vue.ref(0)
-
-const slides = vue.computed(() => uc.value.slides || [])
-
+// Circular array of slides with IDs
 const circularItems = vue.computed(() => {
-  const originalItems = slides.value
-  if (originalItems.length === 0)
+  const items = slidesWithIds.value
+  if (items.length === 0)
     return []
 
-  const startIndex = currentItemIndex.value
-
+  const startIndex = ((currentItemIndex.value % items.length) + items.length) % items.length
   return [
-    ...originalItems.slice(startIndex),
-    ...originalItems.slice(0, startIndex),
+    ...items.slice(startIndex),
+    ...items.slice(0, startIndex),
   ]
 })
 
 const renderItems = vue.computed(() => circularItems.value.slice(0, 5))
-
 const currentItem = vue.computed(() => circularItems.value[0])
 
-const slideTime = 15000
-
-let timer: NodeJS.Timeout | undefined = undefined
-function autoSlideTimer() {
-  const isActive = uc.value.autoSlide
-
-  if (!isActive)
+// Timer management
+function startTimer() {
+  if (!uc.value.autoSlide || slides.value.length <= 1)
     return
+  stopTimer()
 
-  if (timer)
-    clearTimeout(timer)
-
-  timer = setTimeout(() => {
-    const slides = uc.value.slides || []
-    currentItemIndex.value = (currentItemIndex.value + 1) % slides.length
-    autoSlideTimer()
+  timer.value = setTimeout(() => {
+    if (slides.value.length > 0) {
+      setActiveItem(currentItemIndex.value + 1)
+    }
   }, slideTime)
 }
 
-vue.onBeforeUnmount(() => {
-  if (timer)
-    clearTimeout(timer)
-})
+function stopTimer() {
+  if (timer.value) {
+    clearTimeout(timer.value)
+    timer.value = undefined
+  }
+}
 
-vue.onMounted(() => {
-  autoSlideTimer()
-  animateItems()
-})
-
+// Slide navigation
 function setActiveItem(index: number) {
-  currentItemIndex.value = index
-  autoSlideTimer()
+  if (slides.value.length === 0)
+    return
+
+  // Ensure index wraps correctly
+  const normalizedIndex = ((index % slides.value.length) + slides.value.length) % slides.value.length
+  currentItemIndex.value = normalizedIndex
+  startTimer()
 }
 
 function setActiveItemByTitle(title?: string) {
-  const index = slides.value.findIndex(item => item.title === title)
-  if (index !== -1 && title) {
+  if (!title)
+    return
+  const index = slidesWithIds.value.findIndex(item => item.title === title)
+  if (index !== -1) {
     setActiveItem(index)
   }
 }
 
+// Animation
 function getItemStyle(index: number) {
   return {
     zIndex: renderItems.value.length - index,
@@ -99,22 +108,52 @@ function animateItems() {
   })
 }
 
+// Visibility handling
+function handleVisibilityChange() {
+  if (document.visibilityState === 'visible') {
+    stopTimer()
+    currentItemIndex.value = 0
+    startTimer()
+  }
+  else {
+    stopTimer()
+  }
+}
+
+// Watchers and lifecycle hooks
 vue.watch(currentItemIndex, () => {
   animateItems()
 })
 
-async function handleVisibilityChange() {
-  if (document.visibilityState === 'visible') {
-    currentItemIndex.value = 0
+vue.watch(() => uc.value.autoSlide, (newValue) => {
+  if (newValue) {
+    startTimer()
   }
-}
+  else {
+    stopTimer()
+  }
+})
+
+vue.watch(() => slides.value.length, (newLength) => {
+  if (newLength === 0) {
+    currentItemIndex.value = 0
+    stopTimer()
+  }
+  else if (currentItemIndex.value >= newLength) {
+    currentItemIndex.value = 0
+    startTimer()
+  }
+}, { immediate: true })
 
 vue.onMounted(() => {
   document.addEventListener('visibilitychange', handleVisibilityChange)
+  animateItems()
+  startTimer()
 })
 
 vue.onBeforeUnmount(() => {
   document.removeEventListener('visibilitychange', handleVisibilityChange)
+  stopTimer()
 })
 </script>
 
@@ -135,7 +174,11 @@ vue.onBeforeUnmount(() => {
             leave-to-class="opacity-0 -translate-x-44"
             mode="out-in"
           >
-            <div :key="currentItemIndex" class="text-theme-900 dark:text-theme-0 w-full md:absolute top-1/2 md:-translate-y-1/2 z-20 space-y-8" :class="currentItem?.textBlend === 'difference' ? 'mix-blend-difference text-white dark:text-black' : '[text-shadow:_1px_1px_2px_rgba(0,0,0,0.1)]'">
+            <div
+              :key="currentItem._id"
+              class="text-theme-900 dark:text-theme-0 w-full md:absolute top-1/2 md:-translate-y-1/2 z-20 space-y-8"
+              :class="currentItem?.textBlend === 'difference' ? 'mix-blend-difference text-white dark:text-black' : '[text-shadow:_1px_1px_2px_rgba(0,0,0,0.1)]'"
+            >
               <EffectFitText
                 :lines="3"
                 :content="currentItem?.title || ''"
@@ -160,7 +203,7 @@ vue.onBeforeUnmount(() => {
           <div class="absolute md:relative w-full h-full flex justify-end items-center">
             <div
               v-for="(item, i) in renderItems"
-              :key="item.title"
+              :key="item._id"
               class="carousel-item absolute w-full md:w-[90%] md:h-[80%] aspect-[5/3] md:aspect-[4.5/3] cursor-pointer"
               :style="getItemStyle(i)"
               @click="setActiveItemByTitle(item.title)"
@@ -173,7 +216,13 @@ vue.onBeforeUnmount(() => {
           </div>
         </div>
       </div>
-      <NavDots class="mt-6 md:mt-0" :active-item="currentItemIndex" :items="uc.slides || []" :container-id="card.cardId" @update:active-item="setActiveItem($event)" />
+      <NavDots
+        class="mt-6 md:mt-0"
+        :active-item="currentItemIndex"
+        :items="slidesWithIds"
+        :container-id="card.cardId"
+        @update:active-item="setActiveItem($event)"
+      />
     </div>
   </div>
 </template>

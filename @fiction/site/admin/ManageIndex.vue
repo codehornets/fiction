@@ -6,15 +6,12 @@ import type { Site } from '../site'
 import { useService, vue } from '@fiction/core'
 import ElPanel from '@fiction/ui/ElPanel.vue'
 import ElIndexGrid from '@fiction/ui/lists/ElIndexGrid.vue'
+import { getSiteIndexItemList } from '../utils/list.js'
 import { manageSiteIndex } from '../utils/manage.js'
 import ElSiteStart from './ElSiteStart.vue'
-import { getSiteIndexItemList } from './utils.js'
 
-type UserConfig = {
-  isNavItem: boolean
-}
 const props = defineProps({
-  card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
+  card: { type: Object as vue.PropType<Card>, required: true },
 })
 
 const { fictionSites, fictionRouter } = useService<{ fictionSites: FictionSites, fictionAppSites: FictionApp }>()
