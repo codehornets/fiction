@@ -44,7 +44,7 @@ vue.onMounted(() => load())
   <div class="p-12 w-full max-w-screen-md mx-auto">
     <ElIndexGrid
       media-icon="i-tabler-mail"
-      list-title="Newsletter Emails"
+      list-title="Brand Models"
       :list="list"
       :loading
       :actions="[{
@@ -68,12 +68,12 @@ vue.onMounted(() => load())
       <template #zero>
         <ElZeroBanner
           test-id="brand-zero"
-          title="Brands"
-          description="Create brand guides and models to help create content."
+          title="Brand Models"
+          description="Brand models are used to creating content and working with AI."
           icon="i-tabler-icons"
           :actions="[{
             testId: 'new-brand-button-zero',
-            name: 'New Brand',
+            name: 'Create Brand',
             onClick: () => { showStartModal = true },
             theme: 'primary',
             icon: 'i-tabler-icons',

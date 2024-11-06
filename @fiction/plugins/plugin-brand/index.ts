@@ -42,8 +42,8 @@ export class FictionBrand extends FictionPlugin<FictionBrandSettings> {
             cards: [
               await factory.create({
                 slug: '_home',
-                title: 'All Brands',
-                description: 'All brands in the system',
+                title: 'All Models',
+                description: 'All brand models you\'ve created',
                 el: vue.defineAsyncComponent(async () => import('./admin/IndexList.vue')),
                 userConfig: { isNavItem: true, navIcon: 'i-tabler-icons', navIconAlt: 'i-tabler-icons' },
               }),

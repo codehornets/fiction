@@ -341,6 +341,7 @@ export interface CompiledServiceConfig {
       | 'userConfig'
       | 'createdAt'
       | 'updatedAt'
+    fiction_brand: 'brandId' | 'orgId' | 'title' | 'description' | 'guide' | 'createdAt' | 'updatedAt'
     [k: string]: unknown
   }
   [k: string]: unknown

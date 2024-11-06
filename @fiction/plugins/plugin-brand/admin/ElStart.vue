@@ -43,9 +43,9 @@ const stepConfig: StepConfig = {
     const out: StepItem[] = [
 
       {
-        name: 'Create New Brand',
+        name: 'Create Brand Model',
         desc: 'Give it a name...',
-        key: 'emailTitle',
+        key: 'title',
         class: 'max-w-lg',
         isNeeded: true,
         onClick: () => start(),
@@ -65,10 +65,10 @@ const stepConfig: StepConfig = {
     @update:vis="emit('update:vis', $event)"
   >
     <ElStepNav v-slot="{ step }" :step-config="stepConfig">
-      <div v-if="step.key === 'emailTitle'" class="">
+      <div v-if="step.key === 'title'" class="">
         <ElInput
           v-model="form.title"
-          data-test-id="email-title-input"
+          data-test-id="title-input"
           input="InputText"
           placeholder="Title"
           ui-size="lg"
