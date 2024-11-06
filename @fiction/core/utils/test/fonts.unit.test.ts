@@ -6,6 +6,9 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import { createGoogleFontsLink, googleFontsUtility, variantToGoogleFontsFormat } from '../fonts'
 import { fonts } from '../lib/fontList'
 
+const fontA = 'Space Mono'
+const fontB = 'Libre Baskerville'
+
 describe('googleFontsUtility', () => {
   beforeEach(() => {
     googleFontsUtility.reset()
@@ -25,13 +28,13 @@ describe('googleFontsUtility', () => {
 
   describe('createGoogleFontsLink', () => {
     it('should return correct URL for valid font keys', () => {
-      const fontLink = googleFontsUtility.createGoogleFontsLink({ fontKeys: ['Roboto', 'Open Sans'] })
-      expect(fontLink).toContain('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap')
+      const fontLink = googleFontsUtility.createGoogleFontsLink({ fontKeys: [fontA, fontB] })
+      expect(fontLink).toContain('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap')
     })
 
     it('should encode spaces as plus signs in font family names', () => {
-      const fontLink = googleFontsUtility.createGoogleFontsLink({ fontKeys: ['Open Sans'] })
-      expect(fontLink).toContain('Open+Sans')
+      const fontLink = googleFontsUtility.createGoogleFontsLink({ fontKeys: ['Libre Baskerville'] })
+      expect(fontLink).toContain('Libre+Baskerville')
     })
 
     it('should return an empty string when no font keys are provided', () => {
@@ -41,27 +44,27 @@ describe('googleFontsUtility', () => {
   })
 
   it('should load fonts correctly', async () => {
-    await googleFontsUtility.loadFont('Roboto')
-    let linkElement = document.querySelector('link#google-font-roboto')
+    await googleFontsUtility.loadFont(fontB)
+    let linkElement = document.querySelector('link#google-font-libre-baskerville')
     expect(linkElement).not.toBeNull()
-    expect(linkElement?.getAttribute('href')).toContain('Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900')
+    expect(linkElement?.getAttribute('href')).toBe('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap')
     expect(linkElement?.getAttribute('rel')).toBe('stylesheet')
 
     // Should not load again
-    await googleFontsUtility.loadFont('Roboto')
-    expect(document.querySelectorAll('link#google-font-roboto').length).toBe(1)
+    await googleFontsUtility.loadFont(fontB)
+    expect(document.querySelectorAll('link#google-font-libre-baskerville').length).toBe(1)
 
-    await googleFontsUtility.loadFont('Open Sans')
-    linkElement = document.querySelector('link#google-font-open-sans')
+    await googleFontsUtility.loadFont(fontA)
+    linkElement = document.querySelector('link#google-font-space-mono')
     expect(linkElement).not.toBeNull()
-    expect(linkElement?.getAttribute('href')).toContain('Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800')
+    expect(linkElement?.getAttribute('href')).toBe('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap')
     expect(linkElement?.getAttribute('rel')).toBe('stylesheet')
   })
 
   it('should check if a font is loaded', async () => {
-    await googleFontsUtility.loadFont('Roboto')
-    expect(googleFontsUtility.isFontLoaded('Roboto')).toBe(true)
-    expect(googleFontsUtility.isFontLoaded('Open Sans')).toBe(false)
+    await googleFontsUtility.loadFont(fontA)
+    expect(googleFontsUtility.isFontLoaded(fontA)).toBe(true)
+    expect(googleFontsUtility.isFontLoaded(fontB)).toBe(false)
   })
 })
 
@@ -79,14 +82,14 @@ describe('variantToGoogleFontsFormat', () => {
 
 describe('createGoogleFontsLink', () => {
   it('should return correct URL for valid font keys', () => {
-    const fontLink = createGoogleFontsLink({ fontKeys: ['Roboto', 'Open Sans'], fonts })
-    const expectedLink = 'https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap'
+    const fontLink = createGoogleFontsLink({ fontKeys: [fontA, fontB], fonts })
+    const expectedLink = 'https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap'
     expect(fontLink).toBe(expectedLink)
   })
 
   it('should encode spaces as plus signs in font family names', () => {
-    const fontLink = createGoogleFontsLink({ fontKeys: ['Open Sans'], fonts })
-    expect(fontLink).toContain('Open+Sans')
+    const fontLink = createGoogleFontsLink({ fontKeys: [fontA], fonts })
+    expect(fontLink).toContain('Space+Mono')
   })
 
   it('should return an empty string when no font keys are provided', () => {

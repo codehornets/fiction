@@ -3,6 +3,7 @@ import type { IndexItem } from '@fiction/core'
 import type { Card } from '@fiction/site/card'
 import type { FictionBrand } from '../index.js'
 import type { TableBrand } from '../schema.js'
+import SettingsPanel from '@fiction/admin/settings/SettingsPanel.vue'
 import { useService, vue } from '@fiction/core'
 import ElAvatar from '@fiction/ui/common/ElAvatar.vue'
 import ElZeroBanner from '@fiction/ui/ElZeroBanner.vue'
@@ -41,7 +42,7 @@ vue.onMounted(() => load())
 </script>
 
 <template>
-  <div class="p-12 w-full max-w-screen-md mx-auto">
+  <SettingsPanel title="All Brand Models">
     <ElIndexGrid
       media-icon="i-tabler-mail"
       list-title="Brand Models"
@@ -82,5 +83,5 @@ vue.onMounted(() => load())
       </template>
     </ElIndexGrid>
     <ElStart v-model:vis="showStartModal" :card />
-  </div>
+  </SettingsPanel>
 </template>

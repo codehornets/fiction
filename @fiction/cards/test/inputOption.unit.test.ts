@@ -23,7 +23,11 @@ describe('refine options with schema', () => {
       navItemOptions,
     ], schema })
 
-    expect(unusedSchema).toMatchInlineSnapshot(`{}`)
+    expect(unusedSchema).toMatchInlineSnapshot(`
+      {
+        "details.0.icon": "string",
+      }
+    `)
 
     const option = options[0]
 
@@ -43,8 +47,8 @@ describe('refine options with schema', () => {
 
     expect(option2.options.value.map(_ => _.key.value)).toMatchInlineSnapshot(`
       [
-        "detailsTitle",
-        "details",
+        "details_config_0",
+        "details_advanced_0",
       ]
     `)
 
@@ -54,10 +58,7 @@ describe('refine options with schema', () => {
       [
         "authState",
         "desc",
-        "href",
-        "icon",
         "itemStyle",
-        "name",
         "target",
       ]
     `)
@@ -74,8 +75,8 @@ describe('navItemOptionSet Schema Generation', () => {
     const option = standardOption.navItems({ key: 'nav', refine: {} })
 
     expect(option.options.value.length).toBe(2)
-    expect(option.options.value[0].key.value).toBe('navTitle')
-    expect(option.options.value[1].key.value).toBe('nav')
+    expect(option.options.value[0].options.value[0].key.value).toBe('name')
+    expect(option.options.value[1].options.value[0].key.value).toBe('desc')
   })
 })
 
