@@ -5,7 +5,7 @@ import { afterAll, describe, expect, it } from 'vitest'
 import { FictionAws } from '../../plugin-aws'
 import { FictionMedia } from '../../plugin-media'
 import { createTestUtils, testEnvFile } from '../../test-utils'
-import { getEnvVars, shortId } from '../../utils'
+import { getEnvVars } from '../../utils'
 import { sampleHtml } from '../preview/content'
 import { replaceEmailDomain } from '../util'
 

@@ -1,10 +1,9 @@
 <script lang="ts" setup>
 import type { Sortable } from '@shopify/draggable'
 import type { InputOption } from '.'
-import { getNested, setNested, shortId, vue, waitFor } from '@fiction/core'
+import { setNested, shortId, vue, waitFor } from '@fiction/core'
 import TransitionSlide from '../anim/TransitionSlide.vue'
 import XButton from '../buttons/XButton.vue'
-import ElInput from './ElInput.vue'
 import FormEngine from './FormEngine.vue'
 
 export type BasicItem = Record<string, unknown> & { _key?: string }

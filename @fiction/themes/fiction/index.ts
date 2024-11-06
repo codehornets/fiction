@@ -1,6 +1,5 @@
 import type { FictionEnv, NavItem } from '@fiction/core'
 import type { FictionStripe } from '@fiction/plugin-stripe/index.js'
-import type { Site } from '@fiction/site/site.js'
 import { getCardTemplates, getDemoPages } from '@fiction/cards'
 import { safeDirname } from '@fiction/core'
 import { CardFactory } from '@fiction/site/cardFactory.js'

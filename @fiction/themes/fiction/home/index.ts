@@ -1,7 +1,6 @@
 import type { CardFactory } from '@fiction/site/cardFactory.js'
 import type { Site } from '@fiction/site/site.js'
 import { stockMediaHandler } from '@fiction/ui/stock/index.js'
-import { getFactory } from '../index.js'
 import andrew from './img/andrew.jpg'
 import dean from './img/dean2.jpg'
 import obama from './img/obama.webp'

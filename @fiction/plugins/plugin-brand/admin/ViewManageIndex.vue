@@ -32,8 +32,8 @@ vue.onMounted(() => load())
     :card
     :panel-props="{ }"
     :header="{
-      title: 'Brands',
-      subTitle: 'Create and manage brand styles used for creating and customizing your platform and content.',
+      title: 'Brand Models',
+      subTitle: 'Create and manage brand models used for creating content and working with AI.',
       media: { class: `i-tabler-icons` },
       actions: [],
     }"

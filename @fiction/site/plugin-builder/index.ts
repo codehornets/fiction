@@ -1,6 +1,6 @@
 import type { FictionAdmin } from '@fiction/admin'
 import type { FictionSites, SitesPluginSettings } from '..'
-import { FictionPlugin, safeDirname, vue } from '@fiction/core'
+import { FictionPlugin, safeDirname } from '@fiction/core'
 import { getWidgets } from './widgets/index.js'
 
 export type FictionSiteBuilderSettings = {

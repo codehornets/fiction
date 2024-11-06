@@ -7,14 +7,14 @@ import { z } from 'zod'
 const el = vue.defineAsyncComponent(async () => import('./ElShowcase.vue'))
 const aspects = ['square', 'tall', 'wide', 'golden', 'portrait', 'landscape', 'cinema'] as const
 const gridCols = ['1', '2', '3', '4', '5'] as const
-const UserConfigSchema = z.object({
+const schema = z.object({
   posts: PostHandlingSchema.optional(),
   aspect: z.enum(aspects).optional().describe('Image aspect ratio'),
   gridColsMax: z.enum(gridCols).optional().describe('Max number of columns in the grid on large screen'),
   gridColsMin: z.enum(['1', '2']).optional().describe('Min number of columns in the grid on small screen'),
 })
 
-export type UserConfig = z.infer<typeof UserConfigSchema>
+export type UserConfig = z.infer<typeof schema>
 
 const options = [
   new InputOption({ key: 'posts', label: 'Showcase Items', input: 'InputPosts', list: aspects }),
@@ -52,7 +52,7 @@ export const template = cardTemplate({
   el,
   options,
   getUserConfig: async () => getDefaultConfig(),
-  schema: UserConfigSchema,
+  schema,
   demoPage: async () => {
     const userConfig = await getDefaultConfig()
     return { cards: [{ templateId, userConfig }] }
