@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import type { NavItem, PostObject } from '@fiction/core'
+import type { ActionButton, NavItem, PostObject } from '@fiction/core'
 import type { Card } from '@fiction/site/card'
 import type { NavCardUserConfig } from '..'
+import CardButtons from '@fiction/cards/el/CardButtons.vue'
 import CardLink from '@fiction/cards/el/CardLink.vue'
 import { toLabel, toSlug, vue } from '@fiction/core'
 import ElSpinner from '@fiction/ui/loaders/ElSpinner.vue'
@@ -13,12 +14,14 @@ const {
   panelProps = {},
   loading = false,
   header,
+  navActions = [],
 } = defineProps<{
   card: Card
   basePath?: string
   panelProps?: Record<string, any>
   loading?: boolean
   header?: PostObject
+  navActions?: ActionButton[]
 }>()
 
 const emit = defineEmits<{
@@ -61,25 +64,28 @@ const nav = vue.computed<NavItem[]>(() => {
 <template>
   <div class="flex h-[calc(100dvh-61px)]">
     <div class="w-[32%] shrink-0 rounded-l-md pb-32 p-3 md:p-6 border-r dark:border-theme-600/60 border-theme-300/60 space-y-6">
-      <ElHeader
-        v-if="header"
-        class="dark:bg-theme-700/50 rounded-xl p-4"
-        :model-value="header"
-        @update:model-value="emit('update:header', $event)"
-      />
+      <div class="space-y-3">
+        <CardButtons v-if="navActions?.length" :actions="navActions" :card="card" />
+        <ElHeader
+          v-if="header"
+          class="dark:bg-theme-700/30 rounded-xl p-4"
+          :model-value="header"
+          @update:model-value="emit('update:header', $event)"
+        />
+      </div>
       <div class="space-y-2 text-right">
         <CardLink
           v-for="(v, i) in nav"
           :key="i"
           :card
-          class="flex items-center gap-4 px-3 py-2.5 xl:px-5 xl:py-3 text-xs sm:text-base rounded-lg transition-all duration-100"
+          class="flex items-center gap-5 px-3 py-2.5 xl:px-5 xl:py-3 text-xs sm:text-base rounded-lg transition-all duration-100"
           :href="v.href"
           :class="
             v.isActive
               ? 'active bg-primary-100/50 text-primary-700 hover:text-primary-500 dark:bg-theme-700/70 dark:text-theme-0'
               : 'inactive text-theme-600 dark:text-theme-0 hover:bg-theme-100/30 dark:hover:bg-theme-700/60' "
         >
-          <div v-if="v.icon" class="text-[1.5em] xl:text-[2em]  shrink-0 text-theme-500 dark:text-theme-50" :class="v.icon" />
+          <div v-if="v.icon" class="text-[1.5em] xl:text-[1.75em] shrink-0 text-theme-500 dark:text-theme-50" :class="v.icon" />
           <div class="min-w-0 truncate overflow-ellipsis text-left">
             <div class="font-semibold truncate">
               {{ v.name }}

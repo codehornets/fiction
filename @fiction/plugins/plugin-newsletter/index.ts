@@ -60,7 +60,7 @@ export class FictionNewsletter extends FictionPlugin<FictionNewsletterSettings> 
             cards: [
               await factory.create({
                 slug: '_home',
-                title: 'Newsletter Index',
+                title: 'All Emails',
                 description: 'Manage all emails and their settings',
                 el: vue.defineAsyncComponent(async () => import('./admin/ViewIndex.vue')),
                 userConfig: { isNavItem: true, navIcon: 'i-tabler-mail', navIconAlt: 'i-tabler-mail-share' },

@@ -1,120 +1,42 @@
+import { colorThemeBright } from '@fiction/core'
 import { z } from 'zod'
 
-// Enums and Constants
-const brandArchetypes = [
-  'Sage',
-  'Innocent',
-  'Explorer',
-  'Ruler',
-  'Creator',
-  'Caregiver',
-  'Magician',
-  'Hero',
-  'Outlaw',
-  'Lover',
-  'Jester',
-  'Regular Person',
+// Core brand voice options that shape content tone
+const brandVoiceStyles = [
+  'teacher', // Explains complex topics simply
+  'mentor', // Guides and encourages growth
+  'pioneer', // Challenges conventional thinking
+  'friend', // Relates through shared experiences
+  'expert', // Delivers authoritative insights
 ] as const
-
-const contentTypes = ['video', 'blog', 'social', 'podcast', 'newsletter'] as const
-
-const toneAttributes = [
-  'professional',
-  'casual',
-  'humorous',
-  'educational',
-  'inspirational',
-  'controversial',
-  'personal',
-  'technical',
-] as const
-
-// Sub-schemas
-const ColorScheme = z.object({
-  primary: z.string().regex(/^#[0-9A-F]{6}$/i),
-  secondary: z.string().regex(/^#[0-9A-F]{6}$/i),
-  accent: z.string().regex(/^#[0-9A-F]{6}$/i),
-  neutral: z.string().regex(/^#[0-9A-F]{6}$/i),
-})
-
-const ContentPillar = z.object({
-  name: z.string(),
-  description: z.string(),
-  topics: z.array(z.string()),
-  contentTypes: z.array(z.enum(contentTypes)),
-  keyPhrases: z.array(z.string()),
-})
 
 // Main Brand Guide Schema
 export const BrandGuideSchema = z.object({
-  // Basic Information (from Question 1)
-  basics: z.object({
-    targetAge: z.number().min(0).max(100).optional(),
-    targetGender: z.array(z.string()),
-    primaryLocation: z.string(),
-    industry: z.string(),
+  visual: z.object({
+    primaryColor: z.enum(colorThemeBright).describe('main brand color'),
+  }),
+  // Core identity that shapes all content
+  core: z.object({
+    targetAudience: z.string().describe('Who specifically will value your content most'),
+    valuePromise: z.string().describe('The main transformation you help create'),
+    primaryVoice: z.enum(brandVoiceStyles).describe('Your natural teaching/sharing style'),
+    uniqueAngle: z.string().describe('Your specific lens on your topic'),
   }),
 
-  // Vision (from Question 2)
-  vision: z.object({
-    headline: z.string(),
-    shortDescription: z.string().max(280),
-    fiveYearGoals: z.array(z.string()),
-  }),
-
-  // Brand Identity
-  identity: z.object({
-    archetype: z.enum(brandArchetypes),
-    personalityTraits: z.array(z.string()).min(1).max(5),
-    toneOfVoice: z.array(z.enum(toneAttributes)).min(1).max(5),
-    uniqueValueProposition: z.string(),
-  }),
-
-  // Visual Identity
-  visuals: z.object({
-    colors: ColorScheme,
-    recommendedImageStyles: z.array(z.string()),
-    fontPairings: z.object({
-      headings: z.string(),
-      body: z.string(),
-    }),
-  }),
-
-  // Content Strategy
+  // Content creation guidelines
   content: z.object({
-    pillars: z.array(ContentPillar).length(3),
-    targetPostLength: z.object({
-      minimum: z.number(),
-      optimal: z.number(),
-      maximum: z.number(),
-    }),
-    contentMix: z.record(z.enum(contentTypes), z.number()),
-    keyHashtags: z.array(z.string()),
+    mainTopics: z.array(z.string()).max(3).describe('Your 3 core content pillars - main themes you cover'),
+    proofPoints: z.array(z.string()).max(5).describe('Specific experiences that prove your expertise'),
+    phrases: z.array(z.string()).max(10).describe('Example phrases that reflect your voice'),
   }),
 
-  // Expertise Area (from Question 4)
-  expertise: z.object({
-    primaryArea: z.string(),
-    secondaryAreas: z.array(z.string()),
-    topicsToCover: z.array(z.string()),
-    topicsToAvoid: z.array(z.string()),
-  }),
-
-  // Unique Differentiators (from Question 5)
-  differentiators: z.object({
-    uniqueCombination: z.string(),
-    keyStoryElements: z.array(z.string()),
-    competitiveAdvantages: z.array(z.string()),
-  }),
-
-  // Brand Rules for Content Auditing
-  contentRules: z.object({
-    requiredElements: z.array(z.string()),
-    forbiddenElements: z.array(z.string()),
-    toneGuidelines: z.array(z.string()),
-    callToActionTemplates: z.array(z.string()),
+  // Quick content checks
+  rules: z.object({
+    include: z.array(z.string()).describe('Elements in every piece'),
+    avoid: z.array(z.string()).describe('Things that don\'t fit your brand'),
+    hooks: z.array(z.string()).describe('Example ways to start content and hook readers'),
+    closers: z.array(z.string()).describe('Example ways to end content and encourage action'),
   }),
 })
 
-// Type export for TypeScript usage
 export type BrandGuide = z.infer<typeof BrandGuideSchema>

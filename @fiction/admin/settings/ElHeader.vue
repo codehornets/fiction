@@ -18,12 +18,21 @@ function updateValue<T extends keyof PostObject = keyof PostObject>(key: T, valu
 
 <template>
   <div class="@container">
-    <div class="@lg:flex @lg:items-center @lg:justify-between @lg:space-x-6">
-      <div class="@lg:flex items-start @lg:space-x-4 @xl:space-x-6 space-y-2 @lg:space-y-0">
+    <div class="@xs:flex @xs:items-center @xs:justify-between @xs:space-x-6">
+      <div class="@xs:flex items-start @xs:space-x-4 @xl:space-x-6 space-y-2 @xs:space-y-0">
         <div v-if="modelValue.media" class="flex-shrink-0 flex gap-3 items-center">
           <ElIndexItemMedia :media="modelValue.media" class="size-10 @xl:size-14" />
         </div>
-        <div class="pt-1.5 @lg:pt-0 space-y-1">
+        <div class="pt-1.5 @xs:pt-0 space-y-1">
+          <XText
+            v-if="modelValue.superTitle"
+            tag="h4"
+            :model-value="modelValue.superTitle"
+            class="text-sm font-semibold text-primary-500 dark:text-primary-400 font-sans"
+            :is-editable="editable.includes('superTitle')"
+            @update:model-value="updateValue('superTitle', $event)"
+          />
+
           <XText
             v-if="modelValue.title"
             tag="h1"
@@ -41,7 +50,7 @@ function updateValue<T extends keyof PostObject = keyof PostObject>(key: T, valu
           />
         </div>
       </div>
-      <div v-if="modelValue.actions?.length" class="mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-3 sm:space-y-0 sm:space-x-reverse @lg:mt-0 @lg:flex-row @lg:space-x-3">
+      <div v-if="modelValue.actions?.length" class="mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-3 sm:space-y-0 sm:space-x-reverse @xs:mt-0 @xs:flex-row @xs:space-x-3">
         <XButton
           v-for="(action, i) in modelValue.actions"
           :key="i"

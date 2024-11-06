@@ -42,10 +42,6 @@ function getCampaignLink(slug: 'newsletter' | 'manage-newsletter' | 'newsletter-
   return card.link(`/${slug}?campaignId=${campaign?.campaignId}`)
 }
 
-function _getPanelLink(panel: 'compose' | 'delivery' | 'analytics' | '') {
-  return card.link(`/manage-newsletter/${panel}?campaignId=${campaign?.campaignId}`)
-}
-
 async function saveBeforeNavigate(args: { location: string, href: string }) {
   loading.value = args.location
 
@@ -400,18 +396,16 @@ const header = vue.computed(() => {
 
 <template>
   <SettingsPanel title="Newletter Email Overview" :header>
-    <div class="">
-      <div class="my-6 space-y-6">
-        <FormEngine
-          :model-value="campaign?.toConfig()"
-          state-key="settingsTool"
-          ui-size="lg"
-          :options
-          :card
-          format="control"
-          @update:model-value="campaign?.update($event)"
-        />
-      </div>
+    <div class="my-6 space-y-6">
+      <FormEngine
+        :model-value="campaign?.toConfig()"
+        state-key="settingsTool"
+        ui-size="lg"
+        :options
+        :card
+        format="control"
+        @update:model-value="campaign?.update($event)"
+      />
     </div>
 
     <ElModalConfirm

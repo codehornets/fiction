@@ -2,6 +2,7 @@ import type { FictionAdmin } from '@fiction/admin'
 import type { FictionDb, FictionEmail, FictionEnv, FictionMedia, FictionPluginSettings, FictionRouter, FictionServer, FictionUser } from '@fiction/core'
 
 import { FictionPlugin, safeDirname, vue } from '@fiction/core'
+import { brandTable } from './schema'
 
 export type FictionBrandSettings = {
   fictionDb: FictionDb
@@ -22,6 +23,8 @@ export class FictionBrand extends FictionPlugin<FictionBrandSettings> {
   constructor(settings: FictionBrandSettings) {
     super('FictionBrand', { root: safeDirname(import.meta.url), ...settings })
 
+    this.settings.fictionDb.addTables([brandTable])
+
     this.admin()
   }
 
@@ -35,7 +38,27 @@ export class FictionBrand extends FictionPlugin<FictionBrandSettings> {
         title: 'Brand',
         cards: [
           await factory.create({
-            el: vue.defineAsyncComponent(async () => import('./admin/ViewManage.vue')),
+            el: vue.defineAsyncComponent(async () => import('./admin/ViewManageIndex.vue')),
+            cards: [
+              await factory.create({
+                slug: '_home',
+                title: 'All Brands',
+                description: 'All brands in the system',
+                el: vue.defineAsyncComponent(async () => import('./admin/IndexList.vue')),
+                userConfig: { isNavItem: true, navIcon: 'i-tabler-icons', navIconAlt: 'i-tabler-icons' },
+              }),
+            ],
+          }),
+        ],
+        userConfig: { isNavItem: true, navIcon: 'i-tabler-icons', navIconAlt: 'i-tabler-icons', priority: 200 },
+      }),
+      await factory.create({
+        templateId: 'dash',
+        slug: 'manage-brand',
+        title: 'Manage Brand',
+        cards: [
+          await factory.create({
+            el: vue.defineAsyncComponent(async () => import('./admin/ViewManageBrand.vue')),
             cards: [
               await factory.create({
                 slug: '_home',
@@ -54,7 +77,7 @@ export class FictionBrand extends FictionPlugin<FictionBrandSettings> {
             ],
           }),
         ],
-        userConfig: { isNavItem: true, navIcon: 'i-tabler-icons', navIconAlt: 'i-tabler-icons', priority: 200 },
+        userConfig: { parentNavItemSlug: 'brand' },
       }),
 
     ] })

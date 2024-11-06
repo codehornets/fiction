@@ -54,7 +54,15 @@ vue.onMounted(() => load())
       title: campaign?.title.value || 'Untitled',
       subTitle: 'A simple way to send beautiful emails to your email list.',
       media: { class: `i-tabler-mail` },
-      actions: [],
     }"
+    :nav-actions="[
+      {
+        name: 'Index',
+        theme: 'default',
+        size: 'sm',
+        href: card.link('/newsletter'),
+        icon: 'i-tabler-arrow-left',
+      },
+    ]"
   />
 </template>

@@ -40,8 +40,6 @@ import * as ticker from './ticker/index.js'
 import * as tour from './tour'
 import * as transaction from './transactions/index.js'
 import * as trek from './trek/index.js'
-import { createDemoPage } from './utils/demo'
-
 import * as wrap from './wrap/index.js'
 /**
  * Add path for tailwindcss to scan for styles
@@ -171,6 +169,7 @@ export async function getDemoPages(args: { site: Site, templates: CardTemplate<a
 
   const tpls = [buttonsTemplate, inputsTemplate, logoTemplate, mediaTemplate, ...templates]
 
+  const { createDemoPage } = await import('./utils/demo')
   const promises = tpls.filter(t => t.settings.demoPage).map(async (t) => {
     const card = await t.settings.demoPage?.(args) as CardConfigPortable
     const pg = await createDemoPage({ site, template: t, card })

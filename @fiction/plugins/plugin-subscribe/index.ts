@@ -61,7 +61,7 @@ export class FictionSubscribe extends FictionPlugin<FictionSubscribeSettings> {
           slug: 'subscriber-view',
           title: 'View Subscriber',
           cards: [await factory.create({ el: vue.defineAsyncComponent(async () => import('./admin/ViewSingle.vue')) })],
-          userConfig: { navIcon: 'i-tabler-user', parentNavItemSlug: 'subscriber' },
+          userConfig: { navIcon: 'i-tabler-user', parentNavItemSlug: 'audience' },
         }),
         await factory.create({
           templateId: 'dash',
@@ -74,14 +74,14 @@ export class FictionSubscribe extends FictionPlugin<FictionSubscribeSettings> {
               cards: [
                 await factory.create({
                   slug: '_home',
-                  title: 'Subscribers',
+                  title: 'All Subscribers',
                   description: 'Manage your subscribers',
                   el: vue.defineAsyncComponent(async () => import('./admin/ViewIndex.vue')),
                   userConfig: { isNavItem: true, navIcon: 'i-tabler-users', navIconAlt: 'i-tabler-users-plus' },
                 }),
                 await factory.create({
                   slug: 'add',
-                  title: 'Add Subscribers',
+                  title: 'Add New',
                   description: 'Import from a CSV or Cut / Paste',
                   el: vue.defineAsyncComponent(async () => import('./admin/ElImportFile.vue')),
                   userConfig: { isNavItem: true, navIcon: 'i-tabler-table-share', navIconAlt: 'i-tabler-table-plus' },
@@ -94,7 +94,7 @@ export class FictionSubscribe extends FictionPlugin<FictionSubscribeSettings> {
                 }),
                 await factory.create({
                   slug: 'analytics',
-                  title: 'Subscriber Analytics',
+                  title: 'Analytics',
                   description: 'Total subscribers and more',
                   el: vue.defineAsyncComponent(async () => import('./admin/ViewAnalytics.vue')),
                   userConfig: { isNavItem: true, navIcon: 'i-tabler-chart-dots', navIconAlt: 'i-tabler-chart-line' },

@@ -32,9 +32,8 @@ vue.onMounted(() => load())
     :card
     :panel-props="{ }"
     :header="{
-      superTitle: 'Brand',
-      title: 'Brand Engine',
-      subTitle: 'Create your brand strategy and style guide. It will be used along with AI to keep your brand consistent.',
+      title: 'Brands',
+      subTitle: 'Create and manage brand styles used for creating and customizing your platform and content.',
       media: { class: `i-tabler-icons` },
       actions: [],
     }"

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { StandardSize, XButtonProps } from '@fiction/core'
+import type { ActionButton, StandardSize } from '@fiction/core'
 import type { Card } from '@fiction/site'
 import { vue } from '@fiction/core'
 import { animateItemEnter } from '@fiction/ui/anim'
@@ -7,7 +7,7 @@ import CardButton from '../CardButton.vue'
 
 const props = defineProps({
   card: { type: Object as vue.PropType<Card>, required: true },
-  actions: { type: Array as vue.PropType<XButtonProps[]>, default: () => [] },
+  actions: { type: Array as vue.PropType<ActionButton[]>, default: () => [] },
   defaultSize: { type: String as vue.PropType<StandardSize>, default: 'xl' },
   justify: { type: String as vue.PropType<'center' | 'left' | 'right'>, default: 'center' },
 })
@@ -20,7 +20,6 @@ vue.onMounted(() => {
 <template>
   <div
     v-if="actions?.length"
-    class="mt-10 flex items-center gap-x-6"
     :class="justify === 'left' ? 'justify-start' : (justify === 'right' ? 'justify-end' : 'justify-start md:justify-center')"
   >
     <CardButton

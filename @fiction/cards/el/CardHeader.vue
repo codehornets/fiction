@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { colorTheme, MediaObject, XButtonProps } from '@fiction/core'
+import type { ActionButton, colorTheme, MediaObject } from '@fiction/core'
 import type { Card } from '@fiction/site'
 import { vue } from '@fiction/core'
 import XIcon from '@fiction/ui/media/XIcon.vue'
@@ -13,13 +13,13 @@ export type UserConfig = {
   superHeading?: string
   superIcon?: MediaObject
   superColor?: typeof colorTheme[number]
-  actions?: XButtonProps[]
+  actions?: ActionButton[]
   layout?: 'center' | 'justify' | 'right' | 'left'
 }
 
 const props = defineProps({
   card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
-  actions: { type: Array as vue.PropType<XButtonProps[]>, default: () => [] },
+  actions: { type: Array as vue.PropType<ActionButton[]>, default: () => [] },
   withActions: { type: Boolean, default: true },
 })
 
@@ -110,6 +110,13 @@ const layout = vue.computed(() => {
         />
       </div>
     </div>
-    <CardActions v-if="withActions" :card :actions :justify="['justify', 'left', 'right'].includes(layout) ? 'left' : 'center'" :ui-size="layout === 'justify' ? 'lg' : 'xl'" />
+    <CardActions
+      v-if="withActions"
+      class="mt-10 flex items-center gap-x-6"
+      :card
+      :actions
+      :justify="['justify', 'left', 'right'].includes(layout) ? 'left' : 'center'"
+      :ui-size="layout === 'justify' ? 'lg' : 'xl'"
+    />
   </div>
 </template>
