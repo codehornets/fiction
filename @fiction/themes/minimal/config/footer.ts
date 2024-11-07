@@ -15,11 +15,7 @@ export async function getFooter(args: { factory: CardFactory, site: Site, userCo
       await factory.fromTemplate<typeof footerTemplate>({ templateId: 'footer', userConfig: {
         logo: {
           format: 'typography',
-          typography: {
-            text: 'Minimal',
-            font,
-            weight,
-          },
+          typography: { text: 'Minimal', font, weight },
         },
         nav: [
           { name: 'Home', href: '/' },
@@ -29,18 +25,8 @@ export async function getFooter(args: { factory: CardFactory, site: Site, userCo
           copyrightText: `Your Company or Name, Inc.`,
         },
         socials: [
-          {
-            href: 'https://www.linkedin.com/company/fictionco',
-            target: '_blank',
-            name: 'LinkedIn',
-            media: { iconId: `linkedin` },
-          },
-          {
-            href: 'https://www.twitter.com/fictionco',
-            target: '_blank',
-            name: 'X',
-            media: { iconId: 'x' },
-          },
+          { href: '#', target: '_blank', name: 'LinkedIn', media: { iconId: `linkedin` } },
+          { href: '#', target: '_blank', name: 'X', media: { iconId: 'x' } },
         ],
 
       } }),

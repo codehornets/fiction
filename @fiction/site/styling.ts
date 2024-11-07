@@ -7,13 +7,13 @@ type SizeWithNone = StandardSize | 'none' | 'full'
 const spacingClasses = {
   'none': { top: 'pt-0', bottom: 'pb-0' },
   'full': { top: 'min-h-[100dvh] flex items-center', bottom: 'min-h-[100dvh]' },
-  'xxs': { top: 'pt-[calc(0.25rem+.5vw)]', bottom: 'pb-[calc(0.25rem+.5vw)]' },
-  'xs': { top: 'pt-[calc(0.5rem+1vw)]', bottom: 'pb-[calc(0.5rem+1vw)]' },
-  'sm': { top: 'pt-[calc(1rem+2vw)]', bottom: 'pb-[calc(1rem+2vw)]' },
-  'md': { top: 'pt-[calc(2rem+4vw)]', bottom: 'pb-[calc(2rem+4vw)]' },
-  'lg': { top: 'pt-[calc(4rem+6vw)]', bottom: 'pb-[calc(4rem+6vw)]' },
-  'xl': { top: 'pt-[calc(6rem+10vw)]', bottom: 'pb-[calc(6rem+10vw)]' },
-  '2xl': { top: 'pt-[calc(8rem+14vw)]', bottom: 'pb-[calc(8rem+14vw)]' },
+  'xxs': { top: 'pt-[calc(0.25rem+.3vw)]', bottom: 'pb-[calc(0.25rem+.3vw)]' },
+  'xs': { top: 'pt-[calc(0.5rem+.5vw)]', bottom: 'pb-[calc(0.5rem+.3vw)]' },
+  'sm': { top: 'pt-[calc(1rem+1vw)]', bottom: 'pb-[calc(1rem+1vw)]' },
+  'md': { top: 'pt-[calc(2rem+2.5vw)]', bottom: 'pb-[calc(2rem+2.5vw)]' },
+  'lg': { top: 'pt-[calc(4rem+5vw)]', bottom: 'pb-[calc(4rem+5vw)]' },
+  'xl': { top: 'pt-[calc(6rem+8vw)]', bottom: 'pb-[calc(6rem+8vw)]' },
+  '2xl': { top: 'pt-[calc(8rem+12vw)]', bottom: 'pb-[calc(8rem+12vw)]' },
 }
 
 export function getSpacingClass(args: { size: SizeWithNone, direction: Direction }): string {

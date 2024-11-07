@@ -112,9 +112,10 @@ vue.onMounted(() => {
                 col.items ? 'text-theme-300 dark:text-theme-600' : '',
               ]"
               :card
-              :tag="col.href ? 'a' : 'h3'"
+              :tag="col.href && !col.href.includes('http') && !col.href.includes('_reload') ? 'RouterLink' : col.href ? 'a' : 'h3'"
               :path="`nav.${i}.name`"
               animate="fade"
+              :to="col.href"
               :href="col.href"
               :title="col.desc"
             />
