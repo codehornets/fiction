@@ -57,6 +57,7 @@ const ClickHandlerSchema = z.function()
 export const FontConfigValSchema = z.object({
   fontKey: z.string().optional(),
   stack: z.enum(['monospace', 'sans', 'serif']),
+  weight: FontWeightsSchema.optional(),
 })
 export const FontStyleSchema = z.object({
   fontKey: z.string().optional(),

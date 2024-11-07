@@ -42,46 +42,48 @@ vue.onMounted(() => load())
 </script>
 
 <template>
-  <SettingsPanel title="All Brand Models">
-    <ElIndexGrid
-      media-icon="i-tabler-mail"
-      list-title="Brand Models"
-      :list="list"
-      :loading
-      :actions="[{
-        testId: 'new-email-button-index',
-        name: 'New Email',
-        icon: 'i-tabler-plus',
-        theme: 'primary',
-        onClick: () => { showStartModal = true },
-      }]"
-    >
-      <template #item="{ item }">
-        <div class="flex -space-x-0.5">
-          <dt class="sr-only">
-            Authors
-          </dt>
-          <dd v-for="(member, ii) in item.authors" :key="ii">
-            <ElAvatar class="h-6 w-6 rounded-full bg-theme-50 ring-2 ring-white" :email="member.email" />
-          </dd>
-        </div>
-      </template>
-      <template #zero>
-        <ElZeroBanner
-          test-id="brand-zero"
-          title="Brand Models"
-          description="Brand models are used to creating content and working with AI."
-          icon="i-tabler-icons"
-          :actions="[{
-            testId: 'new-brand-button-zero',
-            name: 'Create Brand',
-            onClick: () => { showStartModal = true },
-            theme: 'primary',
-            icon: 'i-tabler-icons',
-          }]"
-        />
-      </template>
-    </ElIndexGrid>
+  <SettingsPanel :title="card.title.value">
+    <div class="p-12 w-full max-w-screen-md mx-auto">
+      <ElIndexGrid
+        media-icon="i-tabler-mail"
+        list-title="Brand Models"
+        :list="list"
+        :loading
+        :actions="[{
+          testId: 'new-email-button-index',
+          name: 'New Email',
+          icon: 'i-tabler-plus',
+          theme: 'primary',
+          onClick: () => { showStartModal = true },
+        }]"
+      >
+        <template #item="{ item }">
+          <div class="flex -space-x-0.5">
+            <dt class="sr-only">
+              Authors
+            </dt>
+            <dd v-for="(member, ii) in item.authors" :key="ii">
+              <ElAvatar class="h-6 w-6 rounded-full bg-theme-50 ring-2 ring-white" :email="member.email" />
+            </dd>
+          </div>
+        </template>
+        <template #zero>
+          <ElZeroBanner
+            test-id="brand-zero"
+            title="Brand Models"
+            description="Brand models are used to creating content and working with AI."
+            icon="i-tabler-icons"
+            :actions="[{
+              testId: 'new-brand-button-zero',
+              name: 'Create Brand',
+              onClick: () => { showStartModal = true },
+              theme: 'primary',
+              icon: 'i-tabler-icons',
+            }]"
+          />
+        </template>
+      </ElIndexGrid>
+    </div>
     <ElStart v-model:vis="showStartModal" :card />
   </SettingsPanel>
 </template>

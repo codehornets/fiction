@@ -3,6 +3,7 @@ import type { IndexItem } from '@fiction/core'
 import type { Card } from '@fiction/site/card'
 import type { EmailCampaign } from '../campaign.js'
 import type { FictionNewsletter } from '../index.js'
+import SettingsPanel from '@fiction/admin/settings/SettingsPanel.vue'
 import { useService, vue } from '@fiction/core'
 import ElAvatar from '@fiction/ui/common/ElAvatar.vue'
 import ElZeroBanner from '@fiction/ui/ElZeroBanner.vue'
@@ -56,46 +57,48 @@ vue.onMounted(async () => {
 </script>
 
 <template>
-  <div class="p-12 w-full max-w-screen-md mx-auto">
-    <ElIndexGrid
-      media-icon="i-tabler-mail"
-      list-title="Newsletter Emails"
-      :list="list"
-      :loading="loading"
-      :actions="[{
-        testId: 'new-email-button-index',
-        name: 'New Email',
-        icon: 'i-tabler-plus',
-        theme: 'primary',
-        onClick: () => { showStartModal = true },
-      }]"
-    >
-      <template #item="{ item }">
-        <div class="flex -space-x-0.5">
-          <dt class="sr-only">
-            Authors
-          </dt>
-          <dd v-for="(member, ii) in item.authors" :key="ii">
-            <ElAvatar class="h-6 w-6 rounded-full bg-theme-50 ring-2 ring-white" :email="member.email" />
-          </dd>
-        </div>
-      </template>
-      <template #zero>
-        <ElZeroBanner
-          test-id="newsletter-zero"
-          title="Your Newsletter"
-          description="Quickly craft emails and send them to your subscribers."
-          icon="i-tabler-mail-share"
-          :actions="[{
-            testId: 'new-email-button-zero',
-            name: 'New Email',
-            onClick: () => { showStartModal = true },
-            theme: 'primary',
-            icon: 'i-heroicons-plus',
-          }]"
-        />
-      </template>
-    </ElIndexGrid>
-    <ElStart v-model:vis="showStartModal" :card />
-  </div>
+  <SettingsPanel :title="card.title.value">
+    <div class="p-12 w-full max-w-screen-md mx-auto">
+      <ElIndexGrid
+        media-icon="i-tabler-mail"
+        list-title="Newsletter Emails"
+        :list="list"
+        :loading="loading"
+        :actions="[{
+          testId: 'new-email-button-index',
+          name: 'New Email',
+          icon: 'i-tabler-plus',
+          theme: 'primary',
+          onClick: () => { showStartModal = true },
+        }]"
+      >
+        <template #item="{ item }">
+          <div class="flex -space-x-0.5">
+            <dt class="sr-only">
+              Authors
+            </dt>
+            <dd v-for="(member, ii) in item.authors" :key="ii">
+              <ElAvatar class="h-6 w-6 rounded-full bg-theme-50 ring-2 ring-white" :email="member.email" />
+            </dd>
+          </div>
+        </template>
+        <template #zero>
+          <ElZeroBanner
+            test-id="newsletter-zero"
+            title="Your Newsletter"
+            description="Quickly craft emails and send them to your subscribers."
+            icon="i-tabler-mail-share"
+            :actions="[{
+              testId: 'new-email-button-zero',
+              name: 'New Email',
+              onClick: () => { showStartModal = true },
+              theme: 'primary',
+              icon: 'i-heroicons-plus',
+            }]"
+          />
+        </template>
+      </ElIndexGrid>
+      <ElStart v-model:vis="showStartModal" :card />
+    </div>
+  </SettingsPanel>
 </template>

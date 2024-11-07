@@ -20,9 +20,9 @@ describe('settings e2e', async () => {
         { type: 'visible', selector: `[data-view-id="sites"]` },
         { type: 'click', selector: `[data-test-id="createSite"]` },
         { type: 'fill', selector: `[data-test-id="siteName"] input`, text: 'Test Site' },
-        { type: 'click', selector: `[data-test-id="createSiteModal"] .xbutton` },
+        { type: 'click', selector: `[data-test-id="createSiteModal"] [data-test-el="step-submit"]` },
         { type: 'click', selector: `[data-test-id="createSiteModal"] [data-test-index="0"]` },
-        { type: 'click', selector: `[data-test-id="createSiteModal"] .xbutton` },
+        { type: 'click', selector: `[data-test-id="createSiteModal"] [data-test-el="step-submit"]` },
         { type: 'visible', selector: `[data-view-id="edit-site"]` },
       ],
     })

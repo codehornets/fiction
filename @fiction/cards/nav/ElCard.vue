@@ -72,7 +72,7 @@ function close() {
             <CardLink
               :card
               href="/"
-              class="flex x-font-title text-2xl font-medium transition-all"
+              class="flex x-font-title text-2xl font-medium transition-all hover:opacity-80 hover:-translate-y-0.5 duration-300"
             >
               <XLogo :media="uc.logo" alignment-class="justify-start" data-test-id="nav-logo" />
             </CardLink>

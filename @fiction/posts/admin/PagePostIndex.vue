@@ -1,20 +1,15 @@
 <script lang="ts" setup>
-import type { vue } from '@fiction/core'
 import type { Card } from '@fiction/site'
+import SettingsPanel from '@fiction/admin/settings/SettingsPanel.vue'
 import ElPostIndex from './ElPostIndex.vue'
 
-type UserConfig = {
-  isNavItem: boolean
-}
-defineProps({
-  card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
-})
-
-const _x = true
+const { card } = defineProps<{ card: Card }>()
 </script>
 
 <template>
-  <div class="p-12 w-full max-w-screen-md mx-auto">
-    <ElPostIndex :card />
-  </div>
+  <SettingsPanel :title="card.title.value">
+    <div class="p-12 w-full max-w-screen-md mx-auto">
+      <ElPostIndex :card />
+    </div>
+  </SettingsPanel>
 </template>

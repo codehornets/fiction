@@ -114,8 +114,6 @@ const defaultConfig: UserConfig = {
     },
   ],
   legal: {
-    privacyPolicyUrl: `#`,
-    termsOfServiceUrl: `#`,
     copyrightText: `Your Company or Name, Inc.`,
   },
   socials: [

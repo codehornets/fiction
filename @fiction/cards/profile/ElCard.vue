@@ -41,7 +41,13 @@ vue.onMounted(async () => {
                 <XMedia v-for="(item, i) in mediaItems" :key="i" :media="item.media" class="relative slide w-full h-full snap-center shrink-0" />
               </div>
             </EffectGlare>
-            <NavDots v-model:active-item="activeItem" :items="mediaItems || []" :container-id="card.cardId" class="absolute bottom-4 z-20 justify-center w-full" />
+            <NavDots
+              v-model:active-item="activeItem"
+              :items="mediaItems || []"
+              :container-id="card.cardId"
+              class="absolute bottom-4 z-20 justify-center w-full"
+              :overlay="true"
+            />
           </div>
         </div>
         <div class="md:w-[60%] xl:w-[50%] mt-6 md:mt-0 flex items-center">
@@ -50,7 +56,7 @@ vue.onMounted(async () => {
               <CardText
                 tag="h3"
                 :card
-                class="text-primary-500 dark:text-primary-400/80 mb-4 xl:mb-6 text-base lg:text-xl font-sans font-medium"
+                class="text-primary-500 dark:text-primary-400 mb-4 xl:mb-6 text-base lg:text-xl font-sans font-medium"
                 path="superTitle"
                 animate="rise"
               />

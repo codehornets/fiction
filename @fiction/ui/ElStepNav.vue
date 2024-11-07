@@ -109,8 +109,10 @@ async function next(currentStep: StepItem) {
           <XButton
             theme="primary"
             size="lg"
+            class="step-submit"
             :loading="step.isLoading"
             :animate="true"
+            data-test-el="step-submit"
             :data-test-id="`step-button-${step.key}`"
             icon-after="i-tabler-arrow-right"
             @click.prevent="next(step)"

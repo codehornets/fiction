@@ -40,20 +40,27 @@ const typographyStyle = vue.computed(() => {
     lineHeight: 1.2,
     letterSpacing: typography.letterSpacing,
     fontSize: fontSize.value && fontSize.value > 8 ? `${fontSize.value}px` : 'inherit',
-    transform: `scale(${scale})`,
-    transformOrigin: 'center center',
+    // transform: `scale(${scale})`,
+    // transformOrigin: 'center center',
   }
 })
 
-const MIN_FONT_SIZE = 8 // Minimum font size in pixels
+const MIN_FONT_SIZE = 10 // Minimum font size in pixels
 
 function adjustFontSize() {
+  const typography = media.typography
+  if (!typography)
+    return {}
+
+  const scale = typography?.scale || 1
+
   if (containerRef.value && textRef.value && fontSize.value > 8) {
     const containerHeight = containerRef.value.clientHeight
-    let testSize = containerHeight
+    const cHeight = containerHeight * scale
+    let testSize = cHeight
     textRef.value.style.fontSize = `${testSize}px`
 
-    while (textRef.value.scrollHeight > containerHeight && testSize > MIN_FONT_SIZE) {
+    while (textRef.value.scrollHeight > cHeight && testSize > MIN_FONT_SIZE) {
       testSize -= 1
       textRef.value.style.fontSize = `${testSize}px`
     }
@@ -136,7 +143,7 @@ const isSvgContent = vue.computed(() => {
 </script>
 
 <template>
-  <div ref="containerRef" :class="containerClass">
+  <div ref="containerRef" class="xlogo" :class="containerClass">
     <template v-if="mediaFormat === 'image' || mediaFormat === 'url'">
       <img v-if="media.url" :src="media.url" :alt="alt || media.alt" :class="contentClass">
     </template>

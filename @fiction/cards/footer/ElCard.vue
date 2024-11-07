@@ -93,7 +93,7 @@ vue.onMounted(() => {
         <div :class="layoutClasses.logoClass" class="text-primary-500 dark:text-theme-0">
           <XLogo v-if="uc.logo" :media="uc.logo" class="h-8" alignment-class="md:justify-start justify-center" />
           <CardText
-            class="text-base text-theme-700 dark:text-theme-500 x-font-title leading-tight text-balance font-medium"
+            class="text-sm text-theme-700 dark:text-theme-500 x-font-title leading-tight text-balance"
             :card
             tag="h2"
             path="tagline"
@@ -106,12 +106,14 @@ vue.onMounted(() => {
             :key="i"
           >
             <CardText
-              class="mb-3 md:mb-4 text-left font-sans text-xs text-theme-300 dark:text-theme-600 font-semibold uppercase tracking-widest"
-              :class="col.href ? 'hover:text-primary-500 dark:hover:text-primary-400' : ''"
+              class="mb-3 md:mb-4 text-left font-sans text-sm  font-semibold"
+              :class="[
+                col.href ? 'hover:text-primary-500 dark:hover:text-primary-400' : '',
+                col.items ? 'text-theme-300 dark:text-theme-600' : '',
+              ]"
               :card
               :tag="col.href ? 'a' : 'h3'"
               :path="`nav.${i}.name`"
-
               animate="fade"
               :href="col.href"
               :title="col.desc"

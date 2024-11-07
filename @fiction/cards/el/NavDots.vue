@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { vue, waitFor } from '@fiction/core'
+import { twMerge, vue, waitFor } from '@fiction/core'
 
 const props = defineProps({
   items: { type: Array, required: true },
@@ -7,6 +7,7 @@ const props = defineProps({
   activeItem: { type: Number, default: 0 },
   itemClass: { type: String, default: 'slide' },
   mode: { type: String as vue.PropType<'dots' | 'lines'>, default: 'dots' },
+  overlay: { type: Boolean, default: false },
 })
 
 const emit = defineEmits<{
@@ -85,6 +86,13 @@ vue.onMounted(() => {
     })
   })
 })
+
+const colorClass = vue.computed(() => {
+  return {
+    dot: props.overlay ? 'bg-theme-0' : 'bg-theme-600/50 dark:bg-theme-0',
+    circle: props.overlay ? 'text-theme-0' : 'text-theme-600/50 dark:text-theme-0',
+  }
+})
 </script>
 
 <template>
@@ -93,13 +101,13 @@ vue.onMounted(() => {
       <div
         v-for="(s, i) in items"
         :key="i"
-        class="group dots-nav flex justify-center items-center rounded-full transition-all text-theme-400 dark:text-theme-0 relative"
-        :class="i === activeItem ? 'is-active' : 'cursor-pointer' "
+        class="group dots-nav flex justify-center items-center rounded-full transition-all relative"
+        :class="[i === activeItem ? 'is-active' : 'cursor-pointer']"
         :data-test-id="`nav-dot-${i}`"
         @click="setActiveItem(i, true)"
       >
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-theme-600/50 dark:bg-theme-0 group-active:opacity-50 transition-all duration-1000" :class="i === activeItem ? 'opacity-0 size-5' : 'opacity-100 size-2' " />
-        <svg class="size-6 text-theme-600/50 dark:text-theme-0" viewBox="0 0 66 66" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+        <div :class="[colorClass.dot, i === activeItem ? 'opacity-0 size-5' : 'opacity-100 size-2']" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full group-active:opacity-50 transition-all duration-1000" />
+        <svg class="size-6" :class="colorClass.circle" viewBox="0 0 66 66" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
           <circle
             class="time"
             stroke-width="5"

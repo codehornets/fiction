@@ -23,24 +23,27 @@ export async function setup(args: { fictionEnv: FictionEnv }) {
     ...meta,
     fictionEnv,
     templates,
+    userConfig: {
+      styling: {
+        fonts: {
+          sans: { stack: 'sans' as const },
+          title: { fontKey: 'Space Mono', stack: 'sans' as const, weight: '600' },
+          body: { stack: 'sans' as const },
+        },
+      },
+    },
     getConfig: async (args) => {
-      // Load config sections dynamically
-      const [{ getPages }, { getHeader }, { getFooter }] = await Promise.all([
-        import('./config/pages'),
-        import('./config/header'),
-        import('./config/footer'),
+      const configs = await Promise.all([
+        import('./config/pages').then(m => m.getPages(args)),
+        import('./config/header').then(m => m.getHeader(args)),
+        import('./config/footer').then(m => m.getFooter(args)),
       ])
 
-      const [pages, header, footer] = await Promise.all([
-        getPages(args),
-        getHeader(args),
-        getFooter(args),
-      ])
+      const [pages, header, footer] = configs
 
       return {
         pages,
         sections: { header, footer },
-        userConfig: {},
       }
     },
 

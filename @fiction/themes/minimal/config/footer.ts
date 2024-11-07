@@ -1,17 +1,28 @@
+import type { template as areaTemplate } from '@fiction/cards/area'
+import type { template as footerTemplate } from '@fiction/cards/footer'
 import type { Site } from '@fiction/site'
 import type { CardFactory } from '@fiction/site/cardFactory'
+import type { SiteUserConfig } from '@fiction/site/schema'
 
-export async function getFooter(args: { factory: CardFactory, site: Site }) {
-  const { factory } = args
-
-  return await factory.create({
+export async function getFooter(args: { factory: CardFactory, site: Site, userConfig: SiteUserConfig }) {
+  const { factory, userConfig } = args
+  const font = userConfig.styling?.fonts?.title.fontKey || 'Poppins'
+  const weight = userConfig.styling?.fonts?.title.weight || '600'
+  return await factory.fromTemplate<typeof areaTemplate>({
     regionId: 'footer',
     templateId: 'area',
     cards: [
-      await factory.create({ templateId: 'footer', userConfig: {
-        logo: { format: 'typography', typography: { text: 'Your Name', font: 'Poppins' } },
+      await factory.fromTemplate<typeof footerTemplate>({ templateId: 'footer', userConfig: {
+        logo: {
+          format: 'typography',
+          typography: {
+            text: 'Minimal',
+            font,
+            weight,
+          },
+        },
         nav: [
-          { name: 'About', href: '/' },
+          { name: 'Home', href: '/' },
           { name: 'Contact', href: '/contact' },
         ],
         legal: {

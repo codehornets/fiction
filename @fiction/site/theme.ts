@@ -8,7 +8,7 @@ import { CardFactory } from './cardFactory.js'
 import { Site, type SiteSettings } from './site.js'
 
 export type ThemeConfig = {
-  userConfig: SiteUserConfig
+  userConfig?: SiteUserConfig
   pages: TableCardConfig[]
   sections: Record<string, TableCardConfig>
 }
@@ -23,7 +23,7 @@ export type ThemeSettings<T extends Record<string, unknown> = Record<string, unk
   templates?: readonly CardTemplate<any>[] | CardTemplate<any>[]
   isPublic?: boolean
   userConfig?: Partial<SiteUserConfig> & T
-  getConfig: (args: { site: Site, factory: CardFactory }) => Promise<ThemeConfig>
+  getConfig: (args: { site: Site, factory: CardFactory, userConfig: SiteUserConfig }) => Promise<ThemeConfig>
   templateDefaults?: {
     page?: string
     transaction?: string
@@ -44,13 +44,14 @@ export class Theme<T extends Record<string, unknown> = Record<string, unknown>> 
   async getConfig(args: { site: Site }) {
     const { site } = args
     const factory = new CardFactory({ site, templates: this.templates })
-    const config = await this.settings.getConfig({ site, factory })
+    const userConfig = deepMerge([this.defaultConfig(), this.settings.userConfig])
+    const config = await this.settings.getConfig({ site, factory, userConfig })
+
+    const fullUserConfig = deepMerge([userConfig, config.userConfig])
 
     const pages = config.pages.map(page => ({ ...page, templateId: page.templateId || this.templateDefaults.value.page }))
 
-    const userConfig = deepMerge([this.defaultConfig(), this.settings.userConfig, config.userConfig])
-
-    return { userConfig, pages, sections: config.sections || {} }
+    return { userConfig: fullUserConfig, pages, sections: config.sections || {} }
   }
 
   async toSite(settings: Omit<SiteSettings, 'themeId'>): Promise<Site> {
