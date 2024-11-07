@@ -3,25 +3,32 @@ import type { Site } from '../../site'
 import { AdminEditorController } from '@fiction/admin'
 import { vue } from '@fiction/core'
 
-export type ToolKeys = 'managePages' | 'addPage' | 'editPage' | 'ai' | 'global' | 'publish' | 'editCard' | 'styling'
+export type ToolKeys = 'managePages' | 'addPage' | 'editPage' | 'editLayout' | 'ai' | 'global' | 'publish' | 'editCard' | 'styling'
 
 export const tools = [
   {
+    toolId: 'editLayout',
+    title: 'Edit Layout',
+    icon: 'i-tabler-square-plus',
+    widthClasses: 'w-[430px]',
+    el: vue.defineAsyncComponent(async () => import('./ToolPageLayout.vue')),
+    isPrimary: true,
+  },
+  {
     toolId: 'editPage',
-    title: 'Edit Current Page',
-    icon: 'i-tabler-layout-grid-add',
+    title: 'Edit Page Details',
+    icon: 'i-tabler-file',
     widthClasses: 'w-[430px]',
     el: vue.defineAsyncComponent(async () => import('./ToolPageEdit.vue')),
     isPrimary: true,
   },
   {
     toolId: 'managePages',
-    icon: 'i-tabler-files',
+    icon: 'i-tabler-stack',
     title: 'Add and Manage Pages',
     el: vue.defineAsyncComponent(async () => import('./PageToolMaster.vue')),
     isPrimary: true,
   },
-
   {
     toolId: 'addPage',
     title: 'Add New Page',
@@ -46,7 +53,7 @@ export const tools = [
   {
     toolId: 'publish',
     title: 'Domain Settings',
-    icon: 'i-tabler-link',
+    icon: 'i-tabler-world',
     isPrimary: true,
     widthClasses: 'w-[600px]',
     el: vue.defineAsyncComponent(async () => import('./ToolPagePublish.vue')),

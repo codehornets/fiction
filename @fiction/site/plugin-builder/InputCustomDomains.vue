@@ -89,7 +89,7 @@ const showInstructions = vue.ref(false)
     >
       <div class="sm:col-span-6">
         <label for="domain" class="block text-theme-500 text-xs">
-          Domains
+          Your Domain Names
         </label>
         <div class="space-y-4">
           <div
@@ -101,17 +101,31 @@ const showInstructions = vue.ref(false)
               <InputText
                 :model-value="item.hostname"
                 type="text"
-                placeholder="www.example.com"
+                placeholder="Enter domain (e.g., www.yoursite.com)"
                 :ui-size="uiSize"
                 @update:model-value="updateHostname($event, i)"
               />
               <div class="flex space-x-1 mt-3 justify-between text-[9px]  font-medium text-theme-500 select-none">
-                <XButton size="xs" :icon="item.isPrimary ? 'i-tabler-check' : 'i-tabler-switch-horizontal'" theme="primary" rounding="full" @click.prevent="setPrimary(i)">
+                <XButton
+                  size="xs"
+                  :icon="item.isPrimary ? 'i-tabler-check' : 'i-tabler-switch-horizontal'"
+                  theme="primary"
+                  rounding="full"
+                  :title="item.isPrimary ? 'This is your main domain' : 'Make this your main domain'"
+                  @click.prevent="setPrimary(i)"
+                >
                   {{ item.isPrimary ? 'Primary Domain' : 'Set as Primary' }}
                 </XButton>
 
-                <XButton size="xs" icon="i-tabler-x" theme="default" rounding="full" @click.prevent="deleteDomain(i)">
-                  Remove
+                <XButton
+                  size="xs"
+                  icon="i-tabler-x"
+                  theme="default"
+                  rounding="full"
+                  title="Remove this domain"
+                  @click.prevent="deleteDomain(i)"
+                >
+                  Remove Domain
                 </XButton>
               </div>
             </div>
@@ -125,32 +139,46 @@ const showInstructions = vue.ref(false)
             rounding="full"
             @click.prevent="addCustomDomain()"
           >
-            Add Domain
+            Add Another Domain
           </XButton>
         </div>
       </div>
       <div class="sm:col-span-6 bg-theme-50 dark:bg-theme-800 rounded-lg p-6 mb-8">
         <label for="instructions" class="block font-bold space-x-4" @click="showInstructions = !showInstructions">
-          <span class="text-base">Instructions &mdash; Setting up your Custom Domain Name</span>
+          <span class="text-base">Domain Setup Instructions</span>
         </label>
 
         <div class="mt-2 text-xs sm:col-span-6 text-theme-500 dark:text-theme-100">
           <ol class="list-decimal list-outside ml-4 space-y-3">
-            <li>Log into your domain registrar and add CNAME record with values below</li>
+            <li>Sign in to your domain provider's website (like GoDaddy, Namecheap, or Google Domains)</li>
+            <li>Find the DNS settings or DNS management section</li>
             <li>
-              <strong>CNAME Host</strong> set to desired sub domain <span>(e.g. 'www') </span>
-              <div class="mt-1">
-                <strong>CNAME Value</strong> set to value below &darr;
+              Add a new <strong>CNAME record</strong> with these settings:
+              <div class="mt-2 space-y-2">
+                <div><strong>Host/Name:</strong> Your subdomain (usually 'www')</div>
+                <div>
+                  <strong>Target/Value:</strong> Copy this exactly &darr;
+                  <code
+                    :class="copyEffect ? 'scale-effect' : ''"
+                    class="py-4 px-6 bg-primary-50 dark:bg-primary-950 dark:hover:bg-primary-800 mt-2 mb-3 rounded-full font-bold text-primary-700 dark:text-primary-50 cursor-pointer flex items-center justify-between"
+                    title="Click to copy to clipboard"
+                    @click="handleCopy()"
+                  >
+                    <span>{{ destination }}</span>
+                    <span class="opacity-50 text-[10px]" v-html="copyText" />
+                  </code>
+                </div>
               </div>
-              <code :class="copyEffect ? 'scale-effect' : ''" class="py-4 px-6  bg-primary-50 dark:bg-primary-950 dark:hover:bg-primary-800 mt-2 mb-3 rounded-full font-bold text-primary-700 dark:text-primary-50 cursor-pointer flex items-center justify-between" @click="handleCopy()">
-                <span>{{ destination }}</span>
-                <span class="opacity-50 text-[10px]" v-html="copyText" />
-              </code>
             </li>
           </ol>
-          <p class="italic mt-4 opacity-60">
-            DNS updates may take up to 48 hours to take effect. If you need help, contact our support team.
-          </p>
+          <div class="mt-4 space-y-2 text-[11px]">
+            <p class="italic opacity-80">
+              <strong>Note:</strong> DNS changes typically take 15-30 minutes to work, but can take up to 48 hours to fully propagate across the internet.
+            </p>
+            <p class="opacity-60">
+              Need help? Our support team can guide you through the process or check your DNS configuration.
+            </p>
+          </div>
         </div>
       </div>
     </div>

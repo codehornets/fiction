@@ -30,12 +30,15 @@ function getSuffixUrl() {
 const options: InputOption[] = [
   new InputOption({
     key: 'editor.hidePublishing',
-    label: 'Domain',
+    label: 'Site Address',
+    description: 'Configure where visitors can find your site',
     input: 'group',
     options: [
       new InputOption({
         key: 'subDomain',
-        label: 'Fiction Domain',
+        label: 'Free Fiction Domain',
+        subLabel: 'Your site\'s included web address',
+        description: 'Choose a unique name for your free Fiction-hosted domain. This will be your site\'s default address.',
         input: 'InputUsername',
         isRequired: true,
 
@@ -50,6 +53,8 @@ const options: InputOption[] = [
       new InputOption({
         key: 'customDomains',
         label: 'Custom Domain',
+        subLabel: 'Use your own domain name',
+        description: 'Connect your own domain name to your site. You\'ll need to update your DNS settings with your domain provider.',
         input: vue.defineAsyncComponent(() => import('../InputCustomDomains.vue')),
         isRequired: true,
 
@@ -92,8 +97,8 @@ const showConfirm = vue.ref(false)
       <FormEngine v-model="v" state-key="publish" :options :input-props="{ site }" />
 
       <div class="text-right px-4 py-2 border-t border-theme-200 dark:border-theme-600 pt-4 space-x-4 flex justify-between">
-        <XButton rounding="full" theme="default" @click="reset()">
-          Reset
+        <XButton rounding="full" theme="default" title="Discard all domain changes" @click="reset()">
+          Discard Changes
         </XButton>
         <XButton
           :loading="loading"
@@ -101,16 +106,27 @@ const showConfirm = vue.ref(false)
           theme="primary"
           rounding="full"
           :disabled="Object.keys(props.site.editor.value.tempSite).length === 0"
-          :title="Object.keys(props.site.editor.value.tempSite).length === 0 ? 'No changes to publish' : 'Publish'"
+          :title="Object.keys(props.site.editor.value.tempSite).length === 0
+            ? 'No pending domain changes'
+            : 'Apply domain changes'"
         >
-          Publish Domain Changes
+          {{ loading ? 'Updating Domains...' : 'Update Site Address' }}
         </XButton>
       </div>
     </ElForm>
     <ElModalConfirm
       v-model:vis="showConfirm"
-      title="Domain Changes"
-      sub="Changes to your sub domain or custom domain will take effect immediately. You'll need to make appropriate changes with your domain provider. Are you sure you want to proceed?"
+      title="Confirm Domain Changes"
+      sub="Your site's web address will change immediately after you confirm. If you're using a custom domain, make sure you've updated your DNS settings with your domain provider first to avoid any disruption.
+
+If you proceed:
+- Your site will be accessible at the new address immediately
+- The old address will no longer work
+- You may need to clear your browser cache to see the changes
+
+Are you ready to update your site's address?"
+      confirm-text="Yes, Update Address"
+      cancel-text="Not Yet"
       @confirmed="save()"
     />
   </ElTool>

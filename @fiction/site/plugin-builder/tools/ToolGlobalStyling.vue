@@ -24,7 +24,7 @@ const options: InputOption[] = [
       new InputOption({
         key: 'userConfig.styling.prefersColorScheme',
         label: 'Theme Mode',
-        description: 'Choose how your site\'s color theme behaves',
+        subLabel: 'Control how your site appears to visitors',
         input: 'InputSelect',
         list: [
           { value: 'auto', label: 'Match System Preferences' },
@@ -43,23 +43,62 @@ const options: InputOption[] = [
       new InputOption({
         key: 'userConfig.standard.scheme.base.primary',
         label: 'Primary Color',
+        subLabel: 'Used for buttons, links, and important elements',
         input: 'InputSelect',
         list: colorThemeUser,
         placeholder: 'Default',
       }),
     ],
   }),
+  // Typography Group
   new InputOption({
     key: 'globalFonts',
-    label: 'Global Fonts',
+    label: 'Typography',
+    description: 'Choose fonts for different parts of your site',
     input: 'group',
     options: [
-      new InputOption({ key: 'userConfig.styling.fonts.title.fontKey', label: 'Title Font', input: 'InputFont', props: { noPreview: true } }),
-      new InputOption({ key: 'userConfig.styling.fonts.body.fontKey', label: 'Body Font', input: 'InputFont', props: { noPreview: true } }),
-      new InputOption({ key: 'userConfig.styling.fonts.highlight.fontKey', label: 'Highlight Font', input: 'InputFont', props: { noPreview: true } }),
-      new InputOption({ key: 'userConfig.styling.fonts.sans.fontKey', label: 'Sans Font', input: 'InputFont', props: { noPreview: true } }),
-      new InputOption({ key: 'userConfig.styling.fonts.serif.fontKey', label: 'Serif Font', input: 'InputFont', props: { noPreview: true } }),
-      new InputOption({ key: 'userConfig.styling.fonts.mono.fontKey', label: 'Mono Font', input: 'InputFont', props: { noPreview: true } }),
+      new InputOption({
+        key: 'userConfig.styling.fonts.title.fontKey',
+        label: 'Headings',
+        subLabel: 'Used for page titles and major headings',
+        input: 'InputFont',
+        props: { noPreview: true },
+      }),
+      new InputOption({
+        key: 'userConfig.styling.fonts.body.fontKey',
+        label: 'Main Text',
+        subLabel: 'Used for paragraphs and general content',
+        input: 'InputFont',
+        props: { noPreview: true },
+      }),
+      new InputOption({
+        key: 'userConfig.styling.fonts.highlight.fontKey',
+        label: 'Accent Text',
+        subLabel: 'Used for emphasis and special text',
+        input: 'InputFont',
+        props: { noPreview: true },
+      }),
+      new InputOption({
+        key: 'userConfig.styling.fonts.sans.fontKey',
+        label: 'Sans-Serif',
+        subLabel: 'Modern, clean style for UI elements',
+        input: 'InputFont',
+        props: { noPreview: true },
+      }),
+      new InputOption({
+        key: 'userConfig.styling.fonts.serif.fontKey',
+        label: 'Serif',
+        subLabel: 'Traditional style for formal content',
+        input: 'InputFont',
+        props: { noPreview: true },
+      }),
+      new InputOption({
+        key: 'userConfig.styling.fonts.mono.fontKey',
+        label: 'Monospace',
+        subLabel: 'Fixed-width font for code and technical content',
+        input: 'InputFont',
+        props: { noPreview: true },
+      }),
     ],
   }),
 ]

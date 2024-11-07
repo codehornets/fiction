@@ -7,7 +7,6 @@ import { vue } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import ElForm from '@fiction/ui/inputs/ElForm.vue'
 import FormEngine from '@fiction/ui/inputs/FormEngine.vue'
-import InputSlug from '../InputSlug.vue'
 
 const props = defineProps<{
   site: Site
@@ -20,24 +19,23 @@ const { site, tool } = props
 const options = vue.computed<InputOption[]>(() => {
   return [
     new InputOption({
-      key: 'pageSetup',
-      label: 'Name / Slug',
+      key: 'manageLayout',
+      label: 'Page Layout',
       input: 'group',
       options: [
-        new InputOption({ key: 'title', label: 'Name', input: 'InputText', placeholder: 'Page Name', isRequired: true }),
-        new InputOption({ key: 'slug', label: 'Slug', input: InputSlug, placeholder: 'my-page', isRequired: true, props: { site } }),
+        new InputOption({
+          key: 'manageLayoutInput',
+          input: vue.defineAsyncComponent(() => import('./InputManageLayout.vue')),
+          props: { site, tool },
+        }),
+        new InputOption({
+          key: 'addElementsInputs',
+          input: vue.defineAsyncComponent(() => import('./InputAddElements.vue')),
+          props: { site, tool },
+        }),
       ],
     }),
 
-    new InputOption({
-      key: 'pageSeo',
-      label: 'SEO / Meta Tags',
-      input: 'group',
-      options: [
-        new InputOption({ key: 'userConfig.seo.title', label: 'Title', input: 'InputText' }),
-        new InputOption({ key: 'userConfig.seo.description', label: 'Description', input: 'InputTextarea', props: { rows: 5 } }),
-      ],
-    }),
   ]
 })
 </script>
@@ -46,7 +44,7 @@ const options = vue.computed<InputOption[]>(() => {
   <ElTool
     :actions="[]"
     v-bind="props"
-    title="Edit Page Details"
+    title="Edit Layout"
   >
     <ElForm>
       <FormEngine
