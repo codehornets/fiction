@@ -1,6 +1,7 @@
 import type { FictionEnv } from '@fiction/core'
 import type { CardConfigPortable } from '@fiction/site'
 import type { CardTemplate } from '@fiction/site/card'
+import type { CardFactory } from '@fiction/site/cardFactory'
 import type { Site } from '@fiction/site/site.js'
 import { envConfig, safeDirname, vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site/card'
@@ -101,7 +102,12 @@ export async function getCardTemplates() {
   ] as const
 }
 
-export async function getDemoPages(args: { site: Site, templates: CardTemplate<any>[] | readonly CardTemplate<any>[], fictionEnv?: FictionEnv }) {
+export async function getDemoPages(args: {
+  site: Site
+  templates: CardTemplate<any>[] | readonly CardTemplate<any>[]
+  fictionEnv?: FictionEnv
+  factory: CardFactory
+}) {
   const { templates, site } = args
 
   const buttonsTemplate = cardTemplate({

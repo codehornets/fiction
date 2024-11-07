@@ -57,11 +57,10 @@ export async function setup(args: { fictionEnv: FictionEnv, fictionStripe?: Fict
     isPublic: false,
     userConfig: {},
     getConfig: async (args) => {
-      const { site } = args
+      const { site, factory } = args
 
-      const demoPages = await getDemoPages({ templates, fictionEnv, site })
+      const demoPages = await getDemoPages({ templates, fictionEnv, site, factory })
 
-      const factory = new CardFactory({ templates })
       const tourPage = await tour.getPage({ ...args, factory })
       const pages = await Promise.all([
         home.page({ ...args, factory }),

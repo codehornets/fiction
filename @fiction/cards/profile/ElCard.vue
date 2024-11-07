@@ -33,8 +33,8 @@ vue.onMounted(async () => {
 <template>
   <div class="minimal-profile" :class="card.classes.value.contentWidth">
     <div>
-      <div class="md:flex gap-8 xl:gap-12" :class="uc.layout === 'right' ? 'md:flex-row-reverse' : ''">
-        <div class="w-full md:w-[40%] xl:w-[50%] px-2 ">
+      <div class="md:flex gap-8  xl:gap-20" :class="uc.layout === 'right' ? 'md:flex-row-reverse' : ''">
+        <div class="w-full md:w-[40%] xl:w-[50%]">
           <div class="relative">
             <EffectGlare wrap-class="rounded-[20px]">
               <div class="aspect-[5/7] relative w-full overflow-x-auto snap-mandatory snap-x flex no-scrollbar clip-path-anim" :class="isVisible ? '[clip-path:inset(0_round_20px)] opacity-100' : '[clip-path:inset(30%)] opacity-50'">
@@ -50,35 +50,35 @@ vue.onMounted(async () => {
               <CardText
                 tag="h3"
                 :card
-                class="text-primary-300 dark:text-primary-600 mb-4 text-base lg:text-lg font-sans font-medium"
+                class="text-primary-500 dark:text-primary-400/80 mb-4 xl:mb-6 text-base lg:text-xl font-sans font-medium"
                 path="superTitle"
                 animate="rise"
               />
               <CardText
                 tag="h1"
                 :card
-                class="heading text-4xl font-semibold md:text-4xl lg:text-5xl x-font-title tracking-tight lg:leading-[1.1] text-balance"
+                class="heading text-4xl font-semibold md:text-4xl lg:text-5xl x-font-title lg:leading-[1.2] text-balance"
                 path="title"
                 animate="rise"
               />
               <CardText
                 tag="div"
                 :card
-                class="sub-heading mt-6 prose md:prose-xl leading-normal dark:prose-invert  prose"
+                class="sub-heading mt-6 prose prose-lg md:prose-2xl leading-normal dark:prose-invert prose-theme"
                 path="content"
                 animate="rise"
               />
             </div>
 
-            <div class="list">
+            <div class="list space-y-6 text-base xl:text-lg">
               <CardText
                 tag="h3"
                 :card
-                class="sub-heading  text-theme-300 x-font-sans text-sm font-semibold mb-4"
+                class="sub-heading text-theme-300 dark:text-theme-600 x-font-sans font-semibold opacity-80"
                 path="detailsTitle"
                 placeholder="List Title"
               />
-              <div class="flex gap-[10%] gap-y-4 flex-wrap font-sans text-sm font-medium">
+              <div class="flex gap-[10%] gap-y-4 flex-wrap font-sans font-medium">
                 <div v-for="(item, i) in uc.details" :key="i" class="w-[45%] ">
                   <CardText
                     :card
@@ -88,7 +88,7 @@ vue.onMounted(async () => {
                   <CardText
                     tag="a"
                     :card
-                    :class="item.href ? 'hover:text-primary-200 text-primary-600 dark:text-primary-400' : 'text-theme-500 dark:text-theme-400'"
+                    :class="item.href ? 'hover:opacity-80 text-primary-600 dark:text-primary-400' : 'text-theme-500 dark:text-theme-400'"
                     :path="`details.${i}.desc`"
                     :href="item.href"
                   />
@@ -105,8 +105,6 @@ vue.onMounted(async () => {
 </template>
 
 <style lang="less">
-@import "@fiction/ui/entry.less";
-
 .clip-path-anim{
   // '0.25,1,0.5,1'
   transition: clip-path 2s cubic-bezier(0.25, 1, 0.33, 1), opacity 2s cubic-bezier(0.25, 1, 0.33, 1), transform 2s cubic-bezier(0.25, 1, 0.33, 1);

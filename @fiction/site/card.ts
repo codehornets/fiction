@@ -7,6 +7,7 @@ import type { CardConfigPortable, TableCardConfig } from './tables.js'
 import type { ComponentConstructor } from './type-utils.js'
 import { deepMerge, FictionObject, objectId, setNested, toLabel, vue } from '@fiction/core'
 import { z } from 'zod'
+import { CardFactory } from './cardFactory.js'
 import { getContentWidthClass, getSpacingClass } from './styling.js'
 import { siteGoto, siteLink } from './utils/manage.js'
 
@@ -17,8 +18,8 @@ type CardCategory = z.infer<typeof CardCategorySchema>
 // Utility type to merge two types
 type MergeTypes<T, U> = T & Omit<U, keyof T>
 
-export type CardTemplateSurfaceDefault = {
-  templateId: string
+export type CardTemplateSurfaceDefault<T extends string = string> = {
+  templateId: T
   userConfig: Record<string, unknown>
   schema: z.AnyZodObject
   queries: Record<string, Query>
@@ -28,6 +29,8 @@ export type CardTemplateSurfaceDefault = {
 // Use defaults
 type CardTemplateSurface<T> = MergeTypes<T, CardTemplateSurfaceDefault>
 type CardTemplateUserConfigAll<T extends CardTemplateSurfaceDefault> = SiteUserConfig & T['userConfig']
+
+type ConfigArgs = { site?: Site, factory: CardFactory }
 
 interface CardTemplateSettings<
   S extends CardTemplateSurfaceDefault = CardTemplateSurfaceDefault,
@@ -44,9 +47,9 @@ interface CardTemplateSettings<
   schema?: CardTemplateSurface<S>[ 'schema' ]
   sections?: Record<string, CardConfigPortable>
   getBaseConfig?: (args: { site?: Site }) => CardTemplateUserConfigAll<S>
-  getUserConfig?: (args: { site?: Site }) => Promise<CardTemplateUserConfigAll<S>> | (CardTemplateUserConfigAll<S>)
-  getEffects?: (args: { site?: Site }) => Promise<TableCardConfig[]>
-  demoPage?: (args: { site: Site }) => Promise<{
+  getUserConfig?: (args: ConfigArgs) => Promise<CardTemplateUserConfigAll<S>> | (CardTemplateUserConfigAll<S>)
+  getEffects?: (args: ConfigArgs) => Promise<TableCardConfig[]>
+  demoPage?: (args: ConfigArgs) => Promise<{
     cards: (CardConfigPortable< CardTemplateUserConfigAll<S>> & { el?: vue.Component })[]
   }>
   getQueries?: (args: CardQuerySettings) => CardTemplateSurface<S>[ 'queries' ]
@@ -73,10 +76,10 @@ export class CardTemplate<
   async toCard(args: { cardId?: string, site?: Site, userConfig?: CardTemplateUserConfigAll<S>, baseConfig?: CardTemplateUserConfigAll<S> } & CardSettings) {
     const { cardId, site, baseConfig = {}, userConfig } = args
     const { getUserConfig = () => {}, getEffects = () => [] } = this.settings
-
+    const factory = new CardFactory({ site, templates: [this] })
     const templateBaseConfig = this.getBaseConfig({ site })
-    const asyncUserConfig = (await getUserConfig({ site })) || {}
-    const effects = (await getEffects({ site })) || []
+    const asyncUserConfig = (await getUserConfig({ site, factory })) || {}
+    const effects = (await getEffects({ site, factory })) || []
 
     const finalUserConfig = deepMerge([templateBaseConfig, baseConfig, asyncUserConfig, userConfig])
 

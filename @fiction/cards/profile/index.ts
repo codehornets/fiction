@@ -1,7 +1,8 @@
+import type { CardFactory } from '@fiction/site/cardFactory'
+import type { SiteUserConfig } from '@fiction/site/schema'
 import { MediaBasicSchema, MediaIconSchema, vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site/card'
 import { InputOption } from '@fiction/ui'
-import { stockMediaHandler } from '@fiction/ui/stock/index.js'
 import { z } from 'zod'
 
 const templateId = 'profile'
@@ -60,27 +61,33 @@ const options: InputOption[] = [
   ] }),
 ]
 
-function getUserConfig(): UserConfig {
+function getUserConfig(args: { factory: CardFactory }): UserConfig & SiteUserConfig {
+  const { factory } = args
   return {
-    layout: 'left',
-    title: 'A Catchy Headline About Something',
-    content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`,
-    superTitle: 'A Tagline or Category',
+    superTitle: 'Name or Tagline',
+    title: 'A Few Words That Describe What You Do',
+    content: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>`,
     mediaItems: [
-      { media: stockMediaHandler.getRandomByTags(['aspect:portrait', 'person']) },
-      { media: stockMediaHandler.getRandomByTags(['aspect:portrait', 'person']) },
+      {
+        media: factory.stock.getRandomByTags(['aspect:portrait', 'person']),
+      },
+      {
+        media: factory.stock.getRandomByTags(['aspect:portrait', 'person']),
+      },
     ],
-    detailsTitle: 'About Me',
+    detailsTitle: 'Let\'s Connect',
     details: [
       { name: 'Location', desc: 'Somewhere, USA' },
       { name: 'Email', desc: 'hello@mywebsite.com', href: 'mailto:hello@example.com' },
       { name: 'Phone', desc: '123-456-7890' },
     ],
     socials: [
-      { name: '@handle on facebook', href: '#', media: { format: 'iconId', iconId: 'facebook' } },
-      { name: '@handle on x', href: '#', media: { format: 'iconId', iconId: 'x' } },
-      { name: '@handle on linkedin', href: '#', media: { format: 'iconId', iconId: 'linkedin' } },
+      { name: 'follow @fictionco on facebook', href: '#', media: { iconId: 'facebook' } },
+      { name: 'follow @fictionco on x', href: '#', media: { iconId: 'x' } },
+      { name: 'connect with @fictionco on linkedin', href: '#', media: { iconId: 'linkedin' } },
     ],
+    standard: { spacing: { verticalSpacing: 'sm' } },
   }
 }
 
@@ -91,14 +98,14 @@ export const template = cardTemplate({
   icon: 'i-tabler-user',
   colorTheme: 'blue',
   el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
-  getUserConfig: () => getUserConfig(),
+  getUserConfig: args => getUserConfig(args),
   isPublic: true,
   options,
   schema,
-  demoPage: async () => {
+  demoPage: async (args) => {
     return { cards: [
-      { templateId, userConfig: { ...getUserConfig() } },
-      { templateId, userConfig: { ...getUserConfig(), layout: 'left' as const } },
+      { templateId, userConfig: { ...getUserConfig(args) } },
+      { templateId, userConfig: { ...getUserConfig(args), layout: 'left' as const } },
     ] }
   },
 })

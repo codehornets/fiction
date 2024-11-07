@@ -31,8 +31,8 @@ vue.onMounted(async () => {
 <template>
   <div :class="card.classes.value.contentWidth" class="contact-form">
     <div class="text-center">
-      <div class="md:inline-flex gap-6 lg:gap-16 justify-center" :class="uc.layout === 'left' ? 'md:flex-row-reverse' : ''">
-        <div class="w-full md:w-[40vw] px-2">
+      <div class="md:flex gap-6 lg:gap-16 justify-center" :class="uc.layout === 'left' ? 'md:flex-row-reverse' : ''">
+        <div class="w-full md:w-[40vw]  ">
           <div v-if="card.site" class="overflow-hidden relative border border-theme-200 dark:border-theme-700 rounded-xl h-full bg-theme-50 dark:bg-theme-800/50">
             <CardForm
               :site="card.site"
@@ -48,21 +48,21 @@ vue.onMounted(async () => {
         </div>
         <div class="md:w-[50%] mt-6 md:mt-0 flex items-center text-left">
           <div class="p-6 flex flex-col justify-center gap-10 2xl:gap-12 " :class="isVisible ? 'translate-y-0' : 'translate-y-[100px]'">
-            <div v-for="(item, i) in items" :key="i" class="list">
+            <div v-for="(item, i) in items" :key="i" class="list space-y-6">
               <CardText
                 tag="h3"
                 :card
-                class="sub-heading text-theme-400 dark:text-theme-500 x-font-title text-lg font-medium mb-4"
+                class="sub-heading text-theme-400 dark:text-theme-500 x-font-title text-lg lg:text-xl font-medium "
                 :path="`items.${i}.title`"
                 placeholder="List Title"
               />
               <div class="flex gap-[10%] gap-y-4 flex-wrap  text-base  ">
                 <a v-for="(subItem, ii) in item.items" :key="ii" :href="subItem.href" class="flex gap-4 items-center hover:text-primary-500 dark:hover:text-primary-400">
-                  <XIcon v-if="subItem.media" class="size-6" :media="subItem.media" />
+                  <XIcon v-if="subItem.media" class="size-6 lg:size-8" :media="subItem.media" />
                   <CardText
                     :card
                     tag="span"
-                    class="text-base font-sans"
+                    class="text-base lg:text-lg font-sans"
                     :path="`items.${i}.items.${ii}.title`"
                   />
                 </a>

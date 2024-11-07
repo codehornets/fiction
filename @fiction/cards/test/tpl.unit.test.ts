@@ -1,3 +1,4 @@
+import { CardFactory } from '@fiction/site/cardFactory'
 import { createSiteTestUtils } from '@fiction/site/test/testUtils'
 import { refineOptions } from '@fiction/site/utils/schema'
 import { describe, expect, it } from 'vitest'
@@ -10,7 +11,8 @@ describe('verify template settings config', async () => {
   const templates = await getCardTemplates()
 
   it('has template options set correctly', async () => {
-    const demoPages = await getDemoPages({ templates, site })
+    const factory = new CardFactory({ site, templates })
+    const demoPages = await getDemoPages({ templates, site, factory })
 
     const templatesOptionConfig = templates.map((_) => {
       const conf = refineOptions({

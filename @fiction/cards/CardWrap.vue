@@ -101,6 +101,7 @@ const autoSetDark = vue.computed(() => {
       loaded ? 'loaded' : '',
       card.depth.value <= 1 ? `overflow-x-clip` : '',
     ]"
+    :data-card-content-pad="standardUc?.spacing?.contentPad"
     :data-card-template-id="card.templateId.value"
     :data-font-title="standardUc?.fontStyle?.title?.fontKey"
     :data-font-body="standardUc?.fontStyle?.body?.fontKey"

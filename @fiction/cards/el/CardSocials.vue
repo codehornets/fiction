@@ -11,7 +11,10 @@ const props = defineProps({
   justify: { type: String as vue.PropType<'left' | 'right' | 'center' | 'justify'>, default: '' },
 })
 
-const clr = { textClasses: 'text-primary-500 dark:text-primary-200', bgClasses: 'bg-primary-50 hover:bg-primary-100 dark:bg-primary-900/30 dark:hover:bg-primary-900/50' }
+const clr = {
+  textClasses: 'text-primary-500 dark:text-primary-200',
+  bgClasses: 'bg-primary-50 hover:bg-primary-100 dark:bg-primary-800/30 dark:hover:bg-primary-800/50',
+}
 
 vue.onMounted(() => {
   useElementVisible({

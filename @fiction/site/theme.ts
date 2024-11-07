@@ -4,8 +4,8 @@ import type { CardTemplate } from './card.js'
 import type { SiteUserConfig } from './schema.js'
 import type { TableCardConfig } from './tables.js'
 import { deepMerge, FictionPlugin, vue } from '@fiction/core'
+import { CardFactory } from './cardFactory.js'
 import { Site, type SiteSettings } from './site.js'
-import { imageStyle } from './util.js'
 
 export type ThemeConfig = {
   userConfig: SiteUserConfig
@@ -21,18 +21,14 @@ export type ThemeSettings<T extends Record<string, unknown> = Record<string, unk
   description?: string
   screenshot?: string
   templates?: readonly CardTemplate<any>[] | CardTemplate<any>[]
-  ui?: UiConfig
   isPublic?: boolean
   userConfig?: Partial<SiteUserConfig> & T
-  getConfig: (args: { site: Site }) => Promise<ThemeConfig>
+  getConfig: (args: { site: Site, factory: CardFactory }) => Promise<ThemeConfig>
   templateDefaults?: {
     page?: string
     transaction?: string
   }
 } & FictionPluginSettings
-
-export type UiItem = { el: vue.Component }
-export interface UiConfig { button?: UiItem }
 
 export type ThemeSetup = (args: ServiceList & { fictionEnv: FictionEnv, fictionAdmin: FictionAdmin }) => Promise<Theme>
 
@@ -46,7 +42,9 @@ export class Theme<T extends Record<string, unknown> = Record<string, unknown>> 
   }
 
   async getConfig(args: { site: Site }) {
-    const config = await this.settings.getConfig(args)
+    const { site } = args
+    const factory = new CardFactory({ site, templates: this.templates })
+    const config = await this.settings.getConfig({ site, factory })
 
     const pages = config.pages.map(page => ({ ...page, templateId: page.templateId || this.templateDefaults.value.page }))
 
@@ -76,13 +74,6 @@ export class Theme<T extends Record<string, unknown> = Record<string, unknown>> 
         isLightMode: false,
       },
 
-      ai: {
-        objectives: {
-          about: 'Create a compelling narrative about the subject, highlighting key strengths and values.',
-          targetCustomer: 'Identify and address the primary audience, their needs, and pain points.',
-          imageStyle: imageStyle.find(i => i.name === 'Grayscale')?.value || '',
-        },
-      },
     }
   }
 }

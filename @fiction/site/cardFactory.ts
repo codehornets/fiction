@@ -3,6 +3,7 @@ import type { CardConfigPortable, PageRegion, Site, TableCardConfig } from './in
 import type { SiteUserConfig } from './schema.js'
 import type { ComponentConstructor } from './type-utils.js'
 import { FictionObject, log } from '@fiction/core'
+import { stockMediaHandler } from '@fiction/ui/stock'
 import { CardTemplate } from './card.js'
 
 type CreateTuple<T extends readonly CardTemplate[]> = {
@@ -33,17 +34,7 @@ type UserConfigType<
     ? ExtractComponentUserConfig<X>
     : U extends readonly CardTemplate[] ? TemplateUserConfigMap<U>[T] : Record<string, unknown>
 
-type CreateCardArgs<
-  T extends keyof TemplateUserConfigMap<U>,
-  U extends readonly CardTemplate[],
-  W extends CardTemplate | undefined,
-  X extends ComponentConstructor | undefined,
-> = {
-  tpl?: W
-  templateId?: T | 'wrap'
-  el?: X
-  userConfig?: UserConfigType<T, U, W, X>
-  baseConfig?: UserConfigType<T, U, W, X>
+type BaseCardConfig = {
   regionId?: PageRegion
   layoutId?: string
   cards?: CardConfigPortable[]
@@ -56,18 +47,68 @@ type CreateCardArgs<
   is404?: boolean
 }
 
-type CardFactorSettings<U extends readonly CardTemplate[]> = {
+type CreateCardArgs<
+  T extends keyof TemplateUserConfigMap<U>,
+  U extends readonly CardTemplate[],
+  W extends CardTemplate | undefined,
+  X extends ComponentConstructor | undefined,
+> = {
+  tpl?: W
+  templateId?: T | 'wrap'
+  el?: X
+  userConfig?: UserConfigType<T, U, W, X>
+  baseConfig?: UserConfigType<T, U, W, X>
+} & BaseCardConfig
+
+type CardFactorySettings<U extends readonly CardTemplate[]> = {
   templates: U
   site?: Site
 }
 
-export class CardFactory<U extends readonly CardTemplate<any>[] = readonly CardTemplate<any>[]> extends FictionObject<CardFactorSettings<U>> {
+type TemplateSurface<T extends CardTemplate> = T extends CardTemplate<infer S> ? S : never
+
+type CardMakeArgs<T extends CardTemplate> = {
+  templateId?: TemplateSurface<T>['templateId']
+  tpl?: T
+  el?: ComponentConstructor
+  userConfig?: TemplateSurface<T>['userConfig'] & SiteUserConfig
+  baseConfig?: TemplateSurface<T>['userConfig'] & SiteUserConfig
+} & BaseCardConfig
+
+export class CardFactory<U extends readonly CardTemplate<any>[] = readonly CardTemplate<any>[]> extends FictionObject<CardFactorySettings<U>> {
   private templates: U
 
-  constructor(settings: CardFactorSettings<U>) {
+  constructor(settings: CardFactorySettings<U>) {
     super('CardFactory', settings)
 
     this.templates = this.settings.templates
+  }
+
+  get stock() {
+    return stockMediaHandler
+  }
+
+  async fromTemplate<T extends CardTemplate<any> = CardTemplate<any>>(args: CardMakeArgs<T>): Promise<TableCardConfig> {
+    const { tpl, el, userConfig, baseConfig } = args
+
+    const templateId = args.templateId || (args.slug ? 'wrap' : 'area')
+
+    if (!templateId && !tpl)
+      throw new Error('CardFactory: templateId or tpl required')
+
+    const inlineTemplate = tpl || (el ? new CardTemplate({ el, templateId: `${templateId}-inline` }) : undefined)
+
+    const template = inlineTemplate || this.templates?.find(template => template.settings.templateId === templateId)
+
+    // Ensure that 'templates' contains 'templateId'
+    if (!template) {
+      log.error('CardFactory', `Template with key "${templateId}" not found in provided templates.`)
+      throw new Error(`CardFactory: Template not found: "${templateId}"`)
+    }
+
+    const createdCard = await template.toCard({ ...args, inlineTemplate, site: this.settings.site, userConfig, baseConfig })
+
+    return createdCard.toConfig() as TableCardConfig
   }
 
   async create<

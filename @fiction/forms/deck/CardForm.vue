@@ -90,7 +90,6 @@ const showNavigation = vue.computed(() => !form.value?.submittedData.value)
       <XButton
         :disabled="!form.isPrevAvailable.value"
         :data-active-index="form.activeCardIndex.value"
-        size="xs"
         rounding="full"
         class="disabled:opacity-50 text-theme-300 dark:text-theme-500 flex"
         icon="i-tabler-arrow-up"
@@ -99,7 +98,6 @@ const showNavigation = vue.computed(() => !form.value?.submittedData.value)
 
       <XButton
         :disabled="!form.isNextAvailable.value"
-        size="xs"
         rounding="full"
         class="disabled:opacity-50 text-theme-300 dark:text-theme-500 flex"
         type="submit"
