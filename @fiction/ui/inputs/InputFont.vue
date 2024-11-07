@@ -44,6 +44,7 @@ const list = vue.computed(() => {
   )
 
   return [
+    { name: 'Default', value: '' },
     { format: 'title', name: 'Google Fonts' },
     ...glist.sort((a, b) => a.name.localeCompare(b.name)),
     { format: 'title', name: 'Defaults' },

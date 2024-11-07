@@ -58,10 +58,10 @@ export function normalizeList(
       return { value: item, name: label }
     }
 
-    const { name = '', value = '' } = item
+    const { name, value } = item
 
-    const formattedName = name || (value ? toLabel(value) : '')
-    const formattedValue = value || (name ? toSlug(name, { replaceNumbers: false }) : '')
+    const formattedName = name ?? (value ? toLabel(value) : '')
+    const formattedValue = value ?? (name ? toSlug(name, { replaceNumbers: false }) : '')
     const finalName = `${prefix}${formattedName}${formattedSuffix}`
 
     return { ...item, name: finalName, value: formattedValue }

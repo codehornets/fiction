@@ -3,12 +3,12 @@ import type { Site } from '../../site'
 import { AdminEditorController } from '@fiction/admin'
 import { vue } from '@fiction/core'
 
-export type ToolKeys = 'managePages' | 'addPage' | 'editPage' | 'ai' | 'global' | 'publish' | 'editCard'
+export type ToolKeys = 'managePages' | 'addPage' | 'editPage' | 'ai' | 'global' | 'publish' | 'editCard' | 'styling'
 
 export const tools = [
   {
     toolId: 'editPage',
-    title: 'Edit Page',
+    title: 'Edit Current Page',
     icon: 'i-tabler-layout-grid-add',
     widthClasses: 'w-[430px]',
     el: vue.defineAsyncComponent(async () => import('./ToolPageEdit.vue')),
@@ -17,7 +17,7 @@ export const tools = [
   {
     toolId: 'managePages',
     icon: 'i-tabler-files',
-    title: 'Manage Pages',
+    title: 'Add and Manage Pages',
     el: vue.defineAsyncComponent(async () => import('./PageToolMaster.vue')),
     isPrimary: true,
   },
@@ -30,15 +30,22 @@ export const tools = [
   },
   {
     toolId: 'global',
-    title: 'Global Settings',
-    icon: 'i-tabler-adjustments',
+    title: 'Metatags and SEO',
+    icon: 'i-tabler-tags',
     isPrimary: true,
     widthClasses: 'w-[500px]',
     el: vue.defineAsyncComponent(async () => import('./ToolPageGlobal.vue')),
   },
   {
+    toolId: 'styling',
+    title: 'Fonts and Colors',
+    icon: 'i-tabler-palette',
+    isPrimary: true,
+    el: vue.defineAsyncComponent(async () => import('./ToolGlobalStyling.vue')),
+  },
+  {
     toolId: 'publish',
-    title: 'Public URL',
+    title: 'Domain Settings',
     icon: 'i-tabler-link',
     isPrimary: true,
     widthClasses: 'w-[600px]',

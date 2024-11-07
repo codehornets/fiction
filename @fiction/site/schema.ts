@@ -5,6 +5,8 @@ export type SizeBasic = z.infer<typeof SizeSchemaComplete>
 
 const KnownFontKeys = ['mono', 'input', 'title', 'sans', 'body', 'serif', 'highlight'] as const
 
+export const prefersColorScheme = ['light', 'dark', 'auto', ''] as const
+
 const BaseFontsSchema = z.object(
   Object.fromEntries(KnownFontKeys.map(key => [key, FontConfigValSchema.optional()])),
 )
@@ -112,7 +114,7 @@ export const SiteUserConfigSchema = z.object({
     isLightMode: z.boolean().optional(),
     fonts: FontsSchema.optional(),
     buttons: ButtonTypeSchema.optional(),
-
+    prefersColorScheme: z.enum(prefersColorScheme).optional(),
   }).optional(),
   standard: CardStandardSchema.optional(),
 })

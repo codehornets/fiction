@@ -196,7 +196,7 @@ export async function setup(args: { fictionEnv: FictionEnv }) {
                   { name: 'About', href: '/about' },
                 ],
                 navB: [
-                  { name: 'Contact', href: '/contact', itemStyle: 'buttonStandard' },
+                  { name: 'Contact', href: '/contact', itemStyle: 'button' },
                 ],
               } }),
             ],

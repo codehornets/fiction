@@ -30,6 +30,7 @@ export async function setup(args: { fictionEnv: FictionEnv }) {
           title: { fontKey: 'Space Mono', stack: 'sans' as const, weight: '600' },
           body: { stack: 'sans' as const },
         },
+        prefersColorScheme: 'dark',
       },
     },
     getConfig: async (args) => {

@@ -40,7 +40,7 @@ function toggleDarkLightMode() {
   const v = !props.site.isLightMode.value
   props.site.isLightMode.value = v
 
-  props.site.syncChange({ noSave: true, caller: 'updateDarkLightMode' })
+  props.site.syncChange({ caller: 'updateDarkLightMode' })
 }
 
 function toggleEditingStyle() {
@@ -76,14 +76,19 @@ function toggleEditingStyle() {
       </div>
 
       <div class="flex items-center gap-2">
-        <XButton
-          rounding="full"
-          :icon="site.isLightMode.value ? 'i-tabler-moon' : 'i-tabler-sun'"
-          size="xs"
-          @click="toggleDarkLightMode()"
+        <ElTooltip
+          direction="bottom"
+          content="For previewing, to change the behavior see global styling options"
         >
-          {{ site.isLightMode.value ? 'Light' : 'Dark' }}
-        </XButton>
+          <XButton
+            rounding="full"
+            :icon="site.isLightMode.value ? 'i-tabler-sun' : 'i-tabler-moon'"
+            size="xs"
+            @click="toggleDarkLightMode()"
+          >
+            {{ site.isLightMode.value ? 'Light' : 'Dark' }} Mode Preview
+          </XButton>
+        </ElTooltip>
 
         <ElTooltip
           direction="bottom"

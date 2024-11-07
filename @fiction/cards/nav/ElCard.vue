@@ -68,11 +68,11 @@ function close() {
     <div class="x-header-container">
       <div class="relative">
         <nav class="relative flex items-center justify-between gap-12" aria-label="Global">
-          <div v-if="uc.logo" class="flex h-8 mr-4" :class="layoutClass.brand">
+          <div v-if="uc.logo" class="flex h-6 mr-4" :class="layoutClass.brand">
             <CardLink
               :card
               href="/"
-              class="flex x-font-title text-2xl font-medium transition-all hover:opacity-80 hover:-translate-y-0.5 duration-300"
+              class="flex x-font-title text-2xl font-medium transition-all hover:opacity-80 hover:scale-[1.03] duration-300"
             >
               <XLogo :media="uc.logo" alignment-class="justify-start" data-test-id="nav-logo" />
             </CardLink>

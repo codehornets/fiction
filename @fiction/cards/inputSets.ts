@@ -106,8 +106,8 @@ export const standardOption = {
           input: 'group',
           options: [
             new InputOption({ input: 'InputList', key: 'items', label: 'Sub Items', props: { itemName: itemNames[depth + 1] || itemNames.pop() }, options: opts(depth + 1) }),
-            new InputOption({ key: 'itemsTitle', label: 'Sub Items Title', input: 'InputText' }),
-            new InputOption({ key: 'subStyle', label: 'Submenu Style', input: 'InputSelect', list: ['drop', 'mega'] }),
+            new InputOption({ key: 'itemsTitle', label: 'Menu Title', input: 'InputText' }),
+            new InputOption({ key: 'subStyle', label: 'Dropdown Style', input: 'InputSelect', list: ['default', 'mega'] }),
           ],
         }))
       }
@@ -118,9 +118,11 @@ export const standardOption = {
         input: 'group',
         isClosed: true,
         options: [
-          new InputOption({ key: 'desc', label: 'Description', input: 'InputText' }),
           new InputOption({ key: 'target', label: 'Target', input: 'InputSelect', list: [{ name: 'Normal', value: '_self' }, { name: 'New Window', value: '_blank' }] }),
+
+          new InputOption({ key: 'desc', label: 'Description', input: 'InputText' }),
           new InputOption({ key: 'itemStyle', label: 'Style', input: 'InputSelect', list: ['default', 'button', 'user'] }),
+          new InputOption({ key: 'itemTheme', label: 'Theme', input: 'InputSelect', list: colorThemeUser }),
           new InputOption({ key: 'authState', label: 'Auth State', input: 'InputSelect', list: ['default', 'loggedIn', 'loggedOut'] }),
         ],
       }))

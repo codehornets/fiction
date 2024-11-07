@@ -23,10 +23,24 @@ export async function getHeader(args: { factory: CardFactory, site: Site, userCo
         },
         navA: [],
         navB: [
+
+          { name: 'Connect', items: [
+            {
+              name: '@fictionco',
+              href: 'https://www.x.com/fictionco',
+              media: { class: 'i-tabler-brand-x' },
+            },
+            {
+              name: 'GitHub',
+              href: 'https://www.github.com/fiction',
+              media: { class: 'i-tabler-brand-github' },
+            },
+          ] },
           {
             name: 'Contact',
             href: '/contact',
-            itemStyle: 'buttonStandard',
+            itemStyle: 'button',
+            itemTheme: 'primary',
           },
         ],
       } }),

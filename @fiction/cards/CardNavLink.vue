@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { NavItem } from '@fiction/core'
+import type { ColorThemeUser, NavItem } from '@fiction/core'
 import type { Card } from '@fiction/site'
 import { useService, vue } from '@fiction/core'
 import ElAvatar from '@fiction/ui/common/ElAvatar.vue'
@@ -9,7 +9,8 @@ import CardText from './CardText.vue'
 import CardLink from './el/CardLink.vue'
 
 type NavLinkItem = {
-  itemStyle?: 'buttonPrimary' | 'buttonStandard' | 'user' | 'default'
+  itemStyle?: 'button' | 'user' | 'default'
+  itemTheme?: ColorThemeUser
   subStyle?: 'mega' | 'default'
 } & NavItem
 
@@ -31,9 +32,9 @@ const styles = vue.computed(() => {
 
   const componentType = isButton ? CardButton : CardLink
   const hoverEffect = isButton ? undefined : props.hoverEffect
-  const buttonStyle = isButton ? item.itemStyle === 'buttonPrimary' ? 'primary' : 'default' : undefined
+  const theme = item.itemTheme || 'default'
 
-  return { componentType, hoverEffect, buttonStyle }
+  return { componentType, hoverEffect, theme }
 })
 </script>
 
@@ -41,11 +42,11 @@ const styles = vue.computed(() => {
   <component
     :is="styles.componentType"
     :card
-    :theme="styles.buttonStyle"
+    :theme="styles.theme"
     :href="item.href"
     :target="item.target ? item.target : '_self'"
     class="group"
-    :class="!item.href ? 'cursor-s-resize' : 'cursor-pointer'"
+    :class="!item.href ? 'cursor-default' : 'cursor-pointer'"
     :data-el-type="styles.componentType"
   >
     <span class="inline-flex items-center space-x-1 relative whitespace-nowrap">

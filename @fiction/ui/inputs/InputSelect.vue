@@ -35,7 +35,7 @@ const parsedList = vue.computed<ListItem[]>(() => {
       :data-size="uiSize"
       @input="emit('update:modelValue', ($event.target as HTMLSelectElement).value)"
     >
-      <option disabled value>
+      <option value>
         {{ attrs.placeholder || "Select" }}
       </option>
       <template v-for="s in parsedList" :key="s.value">

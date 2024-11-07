@@ -1,4 +1,4 @@
-import { MediaIconSchema, MediaTypographySchema, vue } from '@fiction/core'
+import { colorThemeUser, MediaIconSchema, MediaTypographySchema, vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site/card'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
@@ -10,7 +10,8 @@ const authStateSchema = z.enum(['loggedIn', 'loggedOut', 'default']).optional()
 const navItemSchema = z.object({
   name: z.string().optional(),
   href: z.string().optional(),
-  itemStyle: z.enum(['buttonPrimary', 'buttonStandard', 'user', 'default']).optional(),
+  itemStyle: z.enum(['button', 'user', 'default']).optional(),
+  itemTheme: z.enum(colorThemeUser).optional(),
   subStyle: z.enum(['mega', 'default']).optional(),
   authState: authStateSchema,
   itemsTitle: z.string().optional(),
@@ -66,7 +67,7 @@ const defaultConfig: UserConfig = {
       { name: 'Directorial Works', href: '/filmography/directorial-works', items: [{ name: 'Feature Films', href: '/filmography/directorial-works/feature-films' }, { name: 'Short Films', href: '/filmography/directorial-works/short-films' }] },
     ] },
     { name: 'Awards', href: '/awards' },
-    { name: 'Contact', href: '/contact', itemStyle: 'buttonStandard' },
+    { name: 'Contact', href: '/contact', itemStyle: 'button' },
   ],
   navB: [
     { name: 'Clients', href: '/clients', items: [{ name: 'Project Inquiries', href: '/clients/project-inquiries' }, { name: 'Testimonials', href: '/clients/testimonials' }, { name: 'Client Portal', href: '/clients/portal' }] },

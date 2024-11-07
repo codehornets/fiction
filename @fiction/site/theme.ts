@@ -72,8 +72,7 @@ export class Theme<T extends Record<string, unknown> = Record<string, unknown>> 
           serif: { stack: 'serif' },
           highlight: { fontKey: 'Caveat', stack: 'sans' },
         },
-
-        isLightMode: false,
+        prefersColorScheme: 'dark',
       },
 
     }

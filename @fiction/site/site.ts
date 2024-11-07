@@ -3,6 +3,7 @@ import type { Card, CardTemplate } from './card.js'
 import type { FictionSites, ThemeConfig } from './index.js'
 
 import type { SiteMode } from './load.js'
+import type { prefersColorScheme } from './schema.js'
 import type { CardConfigPortable, PageRegion, TableCardConfig, TableSiteConfig } from './tables.js'
 import type { LayoutOrder } from './utils/layout.js'
 import type { QueryVarHook } from './utils/site.js'
@@ -25,6 +26,7 @@ export type EditorState = {
   savedCardOrder: Record<string, string[]>
   savedEditingStyle: 'clean' | 'quick'
   isDirty: boolean
+  savedPrefersColorScheme: 'light' | 'dark' | '' | 'auto'
 }
 
 export type SiteSettings = {
@@ -129,16 +131,39 @@ export class Site<T extends SiteSettings = SiteSettings> extends FictionObject<T
 
   userFonts = vue.ref<Record<string, FontConfigVal>>({})
   siteFonts = activeSiteFont(this)
-  configLightMode = vue.computed(() => this.fullConfig.value.styling?.isLightMode ?? false)
-  localLightMode = localRef({ key: `fictionIsLightMode`, def: this.configLightMode.value, lifecycle: 'session' })
-  isLightMode = vue.computed({
+  configPrefersColorScheme = vue.computed(() => this.fullConfig.value.styling?.prefersColorScheme || 'auto')
+  userPrefersColorScheme = localRef<typeof prefersColorScheme[number]>({ key: `fictionPrefersColorScheme`, def: '', lifecycle: 'session' })
+  prefersColorScheme = vue.computed<typeof prefersColorScheme[number]>({
     get: () => {
-      return (this.siteMode.value === 'standard') ? this.localLightMode.value : this.configLightMode.value
+      if (this.siteMode.value === 'standard') {
+        return this.userPrefersColorScheme.value || this.configPrefersColorScheme.value
+      }
+      else {
+        return this.editor.value.savedPrefersColorScheme || this.configPrefersColorScheme.value
+      }
     },
     set: (v) => {
-      this.userConfig.value = setNested({ data: this.userConfig.value, path: 'styling.isLightMode', value: v })
       if (this.siteMode.value === 'standard')
-        this.localLightMode.value = v
+        this.userPrefersColorScheme.value = v
+      else
+        this.editor.value.savedPrefersColorScheme = v
+    },
+  })
+
+  isLightMode = vue.computed({
+    get: () => {
+      const scheme = this.prefersColorScheme.value
+
+      // If scheme is auto or empty, use system preference
+      if (scheme === 'auto' || !scheme) {
+        const isClient = typeof window !== 'undefined'
+        return isClient ? window.matchMedia('(prefers-color-scheme: light)').matches : true
+      }
+
+      return scheme === 'light'
+    },
+    set: (v) => {
+      this.prefersColorScheme.value = v ? 'light' : 'dark'
     },
   })
 
@@ -168,6 +193,7 @@ export class Site<T extends SiteSettings = SiteSettings> extends FictionObject<T
     tempPage: {},
     tempSite: {},
     isDirty: false,
+    savedPrefersColorScheme: '',
     ...this.settings.editor,
   })
 
