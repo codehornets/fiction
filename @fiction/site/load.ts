@@ -111,7 +111,7 @@ export async function loadSiteFromCard(args: { cardId: string, siteRouter: Ficti
   if (!tpl)
     throw new Error(`no template found for card ${cardId}`)
 
-  const card = await tpl.settings.demoPage?.({ site })
+  const card = await tpl.settings.demoPage?.({ site, factory: new CardFactory({ site, templates }) })
 
   // local stored config, useful for development
   const staticConfig = await localSiteConfig({ siteId })
