@@ -87,7 +87,7 @@ importers:
         version: 5.4.10(@types/node@22.9.0)(less@4.2.0)
       vitest:
         specifier: ^2.1.4
-        version: 2.1.4(@types/node@22.9.0)(@vitest/browser@2.1.4)(@vitest/ui@2.1.4)(happy-dom@15.10.8)(jsdom@25.0.1)(less@4.2.0)(msw@2.6.1(@types/node@22.9.0)(typescript@5.6.3))
+        version: 2.1.4(@types/node@22.9.0)(@vitest/browser@2.1.4)(@vitest/ui@2.1.4)(happy-dom@15.11.0)(jsdom@25.0.1)(less@4.2.0)(msw@2.6.1(@types/node@22.9.0)(typescript@5.6.3))
       vue:
         specifier: ^3.5.12
         version: 3.5.12(typescript@5.6.3)
@@ -135,8 +135,8 @@ importers:
         specifier: ^9.14.0
         version: 9.14.0(jiti@1.21.6)
       happy-dom:
-        specifier: ^15.10.8
-        version: 15.10.8
+        specifier: ^15.11.0
+        version: 15.11.0
       jsdom:
         specifier: ^25.0.1
         version: 25.0.1
@@ -357,8 +357,8 @@ importers:
         specifier: ^3.2.0
         version: 3.2.0
       '@sinclair/typebox':
-        specifier: ^0.33.19
-        version: 0.33.19
+        specifier: ^0.33.20
+        version: 0.33.20
       '@slack/webhook':
         specifier: ^7.0.3
         version: 7.0.3
@@ -522,8 +522,8 @@ importers:
         specifier: ^4.7.8
         version: 4.7.8
       happy-dom:
-        specifier: ^15.10.8
-        version: 15.10.8
+        specifier: ^15.11.0
+        version: 15.11.0
       helmet:
         specifier: ^8.0.0
         version: 8.0.0
@@ -1206,6 +1206,9 @@ importers:
       '@fiction/theme-fiction':
         specifier: workspace:*
         version: link:../themes/fiction
+      '@fiction/theme-omega':
+        specifier: workspace:*
+        version: link:../themes/omega
       playwright:
         specifier: ^1.48.2
         version: 1.48.2
@@ -3359,8 +3362,8 @@ packages:
   '@shopify/draggable@1.1.3':
     resolution: {integrity: sha512-okZG6FTOX1HpfToN2uFVXTicum+NtHFGEY+0MFkZsdChP5qvLSlkffQormMxoDQVIDsK+jso3yz03tteIJ/A0w==}
 
-  '@sinclair/typebox@0.33.19':
-    resolution: {integrity: sha512-vcnWVOoa+HROcI+3FTyibfo+Sw0KytEpJf1Cm78l4Fn3w0pqHG6tx6+HCBs7eYOUhSUtwVTMzh0tzU7gom9Zpg==}
+  '@sinclair/typebox@0.33.20':
+    resolution: {integrity: sha512-gU8nPAO2A21UjaiUA0kKq47WDs2JcPkUUfXrEc+BuQnsN6ShohgXPqNepVW3VADIsG7Pbt8rzz2zhRlYRdBN9Q==}
 
   '@sindresorhus/is@4.6.0':
     resolution: {integrity: sha512-t09vSN3MdfsyCHoFcTRCH/iUtG7OJ0CsjzB8cjAmKc/va/kIgeDI/TxsigdncE/4be734m0cvIYwNaV4i2XqAw==}
@@ -4990,8 +4993,8 @@ packages:
     resolution: {integrity: sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==}
     engines: {node: '>=6'}
 
-  caniuse-lite@1.0.30001677:
-    resolution: {integrity: sha512-fmfjsOlJUpMWu+mAAtZZZHz7UEwsUxIIvu1TJfO1HqFQvB/B+ii0xr9B5HpbZY/mC4XZ8SvjHJqtAY6pDPQEog==}
+  caniuse-lite@1.0.30001678:
+    resolution: {integrity: sha512-RR+4U/05gNtps58PEBDZcPWTgEO2MBeoPZ96aQcjmfkBWRIDfN451fW2qyDA9/+HohLLIL5GqiMwA+IB1pWarw==}
 
   ccount@1.1.0:
     resolution: {integrity: sha512-vlNK021QdI7PNeiUh/lKkC/mNHHfV0m/Ad5JoI0TYtlBnJAslM/JIkm/tGC88bkLIwO6OQ5uV6ztS6kVAtCDlg==}
@@ -6373,8 +6376,8 @@ packages:
     engines: {node: '>=0.4.7'}
     hasBin: true
 
-  happy-dom@15.10.8:
-    resolution: {integrity: sha512-4kQvlQM+hYoaNp3VQt5Uf/JZK+ATrkasF+7slqpNHRbrdXrT2yBvlgPh+8VUS7AJ916ncDalkwbVqwRxRHFUYA==}
+  happy-dom@15.11.0:
+    resolution: {integrity: sha512-/zyxHbXriYJ8b9Urh43ILk/jd9tC07djURnJuAimJ3tJCOLOzOUp7dEHDwJOZyzROlrrooUhr/0INZIDBj1Bjw==}
     engines: {node: '>=18.0.0'}
 
   hard-rejection@2.1.0:
@@ -10934,7 +10937,7 @@ snapshots:
     dependencies:
       '@codspeed/core': 3.1.1
       vite: 5.4.10(@types/node@22.9.0)(less@4.2.0)
-      vitest: 2.1.4(@types/node@22.9.0)(@vitest/browser@2.1.4)(@vitest/ui@2.1.4)(happy-dom@15.10.8)(jsdom@25.0.1)(less@4.2.0)(msw@2.6.1(@types/node@22.9.0)(typescript@5.6.3))
+      vitest: 2.1.4(@types/node@22.9.0)(@vitest/browser@2.1.4)(@vitest/ui@2.1.4)(happy-dom@15.11.0)(jsdom@25.0.1)(less@4.2.0)(msw@2.6.1(@types/node@22.9.0)(typescript@5.6.3))
     transitivePeerDependencies:
       - debug
 
@@ -12161,7 +12164,7 @@ snapshots:
 
   '@shopify/draggable@1.1.3': {}
 
-  '@sinclair/typebox@0.33.19': {}
+  '@sinclair/typebox@0.33.20': {}
 
   '@sindresorhus/is@4.6.0': {}
 
@@ -13392,7 +13395,7 @@ snapshots:
       msw: 2.6.1(@types/node@22.9.0)(typescript@5.6.3)
       sirv: 3.0.0
       tinyrainbow: 1.2.0
-      vitest: 2.1.4(@types/node@22.9.0)(@vitest/browser@2.1.4)(@vitest/ui@2.1.4)(happy-dom@15.10.8)(jsdom@25.0.1)(less@4.2.0)(msw@2.6.1(@types/node@22.9.0)(typescript@5.6.3))
+      vitest: 2.1.4(@types/node@22.9.0)(@vitest/browser@2.1.4)(@vitest/ui@2.1.4)(happy-dom@15.11.0)(jsdom@25.0.1)(less@4.2.0)(msw@2.6.1(@types/node@22.9.0)(typescript@5.6.3))
       ws: 8.18.0
     optionalDependencies:
       playwright: 1.48.2
@@ -13415,7 +13418,7 @@ snapshots:
       magicast: 0.3.5
       test-exclude: 7.0.1
       tinyrainbow: 1.2.0
-      vitest: 2.1.4(@types/node@22.9.0)(@vitest/browser@2.1.4)(@vitest/ui@2.1.4)(happy-dom@15.10.8)(jsdom@25.0.1)(less@4.2.0)(msw@2.6.1(@types/node@22.9.0)(typescript@5.6.3))
+      vitest: 2.1.4(@types/node@22.9.0)(@vitest/browser@2.1.4)(@vitest/ui@2.1.4)(happy-dom@15.11.0)(jsdom@25.0.1)(less@4.2.0)(msw@2.6.1(@types/node@22.9.0)(typescript@5.6.3))
     transitivePeerDependencies:
       - supports-color
 
@@ -13425,7 +13428,7 @@ snapshots:
       eslint: 9.14.0(jiti@1.21.6)
     optionalDependencies:
       typescript: 5.6.3
-      vitest: 2.1.4(@types/node@22.9.0)(@vitest/browser@2.1.4)(@vitest/ui@2.1.4)(happy-dom@15.10.8)(jsdom@25.0.1)(less@4.2.0)(msw@2.6.1(@types/node@22.9.0)(typescript@5.6.3))
+      vitest: 2.1.4(@types/node@22.9.0)(@vitest/browser@2.1.4)(@vitest/ui@2.1.4)(happy-dom@15.11.0)(jsdom@25.0.1)(less@4.2.0)(msw@2.6.1(@types/node@22.9.0)(typescript@5.6.3))
 
   '@vitest/expect@2.1.4':
     dependencies:
@@ -13471,7 +13474,7 @@ snapshots:
       sirv: 3.0.0
       tinyglobby: 0.2.10
       tinyrainbow: 1.2.0
-      vitest: 2.1.4(@types/node@22.9.0)(@vitest/browser@2.1.4)(@vitest/ui@2.1.4)(happy-dom@15.10.8)(jsdom@25.0.1)(less@4.2.0)(msw@2.6.1(@types/node@22.9.0)(typescript@5.6.3))
+      vitest: 2.1.4(@types/node@22.9.0)(@vitest/browser@2.1.4)(@vitest/ui@2.1.4)(happy-dom@15.11.0)(jsdom@25.0.1)(less@4.2.0)(msw@2.6.1(@types/node@22.9.0)(typescript@5.6.3))
 
   '@vitest/utils@2.1.4':
     dependencies:
@@ -13958,7 +13961,7 @@ snapshots:
   autoprefixer@10.4.20(postcss@8.4.47):
     dependencies:
       browserslist: 4.24.2
-      caniuse-lite: 1.0.30001677
+      caniuse-lite: 1.0.30001678
       fraction.js: 4.3.7
       normalize-range: 0.1.2
       picocolors: 1.1.1
@@ -14096,7 +14099,7 @@ snapshots:
 
   browserslist@4.24.2:
     dependencies:
-      caniuse-lite: 1.0.30001677
+      caniuse-lite: 1.0.30001678
       electron-to-chromium: 1.5.52
       node-releases: 2.0.18
       update-browserslist-db: 1.1.1(browserslist@4.24.2)
@@ -14175,7 +14178,7 @@ snapshots:
 
   camelcase@5.3.1: {}
 
-  caniuse-lite@1.0.30001677: {}
+  caniuse-lite@1.0.30001678: {}
 
   ccount@1.1.0: {}
 
@@ -15781,7 +15784,7 @@ snapshots:
     optionalDependencies:
       uglify-js: 3.19.3
 
-  happy-dom@15.10.8:
+  happy-dom@15.11.0:
     dependencies:
       entities: 4.5.0
       webidl-conversions: 7.0.0
@@ -19456,7 +19459,7 @@ snapshots:
       - typescript
       - universal-cookie
 
-  vitest@2.1.4(@types/node@22.9.0)(@vitest/browser@2.1.4)(@vitest/ui@2.1.4)(happy-dom@15.10.8)(jsdom@25.0.1)(less@4.2.0)(msw@2.6.1(@types/node@22.9.0)(typescript@5.6.3)):
+  vitest@2.1.4(@types/node@22.9.0)(@vitest/browser@2.1.4)(@vitest/ui@2.1.4)(happy-dom@15.11.0)(jsdom@25.0.1)(less@4.2.0)(msw@2.6.1(@types/node@22.9.0)(typescript@5.6.3)):
     dependencies:
       '@vitest/expect': 2.1.4
       '@vitest/mocker': 2.1.4(msw@2.6.1(@types/node@22.9.0)(typescript@5.6.3))(vite@5.4.10(@types/node@22.9.0)(less@4.2.0))
@@ -19482,7 +19485,7 @@ snapshots:
       '@types/node': 22.9.0
       '@vitest/browser': 2.1.4(@types/node@22.9.0)(playwright@1.48.2)(typescript@5.6.3)(vite@5.4.10(@types/node@22.9.0)(less@4.2.0))(vitest@2.1.4)
       '@vitest/ui': 2.1.4(vitest@2.1.4)
-      happy-dom: 15.10.8
+      happy-dom: 15.11.0
       jsdom: 25.0.1
     transitivePeerDependencies:
       - less

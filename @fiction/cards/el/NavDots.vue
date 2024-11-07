@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { twMerge, vue, waitFor } from '@fiction/core'
+import { vue, waitFor } from '@fiction/core'
 
 const props = defineProps({
   items: { type: Array, required: true },
