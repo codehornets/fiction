@@ -57,7 +57,7 @@ const stepConfig: StepConfig = {
         name: `Select Your Theme`,
         desc: 'Your theme is the starting point for your site.',
         key: 'theme',
-        class: 'max-w-screen-xl',
+        class: 'max-w-screen-xl ',
         isNeeded: true,
         isLoading: isLoading.value,
         onClick: () => requestCreateSite(),
@@ -77,8 +77,8 @@ const stepConfig: StepConfig = {
     :vis="vis"
     @update:vis="emit('update:vis', $event)"
   >
-    <ElStepNav v-slot="{ step }" class=" " :step-config="stepConfig" data-test-id="createSiteModal">
-      <div v-if="step.key === 'name'" class="">
+    <ElStepNav v-slot="{ step }" :step-config="stepConfig" data-test-id="createSiteModal">
+      <div v-if="step.key === 'name'">
         <ElInput
           v-model="form.title"
           input="InputText"

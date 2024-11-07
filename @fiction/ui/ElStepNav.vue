@@ -90,7 +90,7 @@ async function next(currentStep: StepItem) {
 </script>
 
 <template>
-  <ElForm id="stepForm" class="h-full py-[12vh] relative">
+  <ElForm id="stepForm" class="h-full py-[10vh] md:px-12 relative">
     <ElStep
       v-slot="{ step }"
       :steps

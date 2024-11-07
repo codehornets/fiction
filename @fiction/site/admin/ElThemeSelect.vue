@@ -45,7 +45,7 @@ function toggleSelected(themeId: string) {
         <div class="mt-4 w-full rounded-b-lg  transition-all origin-bottom flex gap-4 items-center grow justify-between">
           <div class="">
             <div class="font-bold text-xl">
-              {{ theme.settings.title }}
+              {{ theme.title }}
             </div>
             <div class="text-sm text-theme-500 dark:text-theme-400 leading-tight">
               {{ theme.settings.description }}
@@ -63,13 +63,13 @@ function toggleSelected(themeId: string) {
           </div>
         </div>
         <div
-          class="screen rounded-lg group relative transition-all cursor-pointer select-none dark:ring-offset-theme-800 aspect-[3/4]"
+          class="screen rounded-lg group relative transition-all cursor-pointer select-none dark:ring-offset-theme-800 aspect-[5/6]"
           :class="modelValue === theme.themeId ? 'ring-4 ring-offset-4 ring-primary-500' : 'hover:ring-offset-4 hover:ring-4 hover:ring-primary-400'"
           :data-test-id="`theme-${theme.themeId}`"
           :data-test-index="i"
           @click.stop="toggleSelected(theme.themeId)"
         >
-          <img :src="theme.settings.screenshot" class="pointer-events-none shadow-xl rounded-lg object-cover absolute origin-top-left h-full">
+          <img :src="theme.settings.screenshot" class="pointer-events-none shadow-xl rounded-lg object-cover absolute origin-top-left h-full w-full">
         </div>
       </div>
     </div>

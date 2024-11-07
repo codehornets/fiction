@@ -3,7 +3,7 @@ import type { FictionEnv, FictionPluginSettings, ServiceList } from '@fiction/co
 import type { CardTemplate } from './card.js'
 import type { SiteUserConfig } from './schema.js'
 import type { TableCardConfig } from './tables.js'
-import { deepMerge, FictionPlugin, vue } from '@fiction/core'
+import { deepMerge, FictionPlugin, toLabel, vue } from '@fiction/core'
 import { CardFactory } from './cardFactory.js'
 import { Site, type SiteSettings } from './site.js'
 
@@ -34,6 +34,7 @@ export type ThemeSetup = (args: ServiceList & { fictionEnv: FictionEnv, fictionA
 
 export class Theme<T extends Record<string, unknown> = Record<string, unknown>> extends FictionPlugin<ThemeSettings<T>> {
   themeId = this.settings.themeId
+  title = this.settings.title || toLabel(this.themeId)
   templates = this.settings.templates || []
   templateDefaults = vue.computed(() => ({ page: 'wrap', transaction: 'wrap', ...this.settings.templateDefaults }))
 
