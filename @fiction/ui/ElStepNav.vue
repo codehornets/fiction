@@ -90,7 +90,7 @@ async function next(currentStep: StepItem) {
 </script>
 
 <template>
-  <ElForm id="stepForm" class="h-full  py-[12vh] relative">
+  <ElForm id="stepForm" class="h-full py-[12vh] relative">
     <ElStep
       v-slot="{ step }"
       :steps
@@ -112,6 +112,7 @@ async function next(currentStep: StepItem) {
             :loading="step.isLoading"
             :animate="true"
             :data-test-id="`step-button-${step.key}`"
+            icon-after="i-tabler-arrow-right"
             @click.prevent="next(step)"
           >
             {{ step.actionText || "Next" }}

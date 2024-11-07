@@ -54,13 +54,14 @@ const stepConfig: StepConfig = {
         isNeeded: true,
       },
       {
-        name: `Select Theme`,
-        desc: 'A theme provides all the UI and styling for your website.',
+        name: `Select Your Theme`,
+        desc: 'Your theme is the starting point for your site.',
         key: 'theme',
-        class: 'max-w-screen-md',
+        class: 'max-w-screen-xl',
         isNeeded: true,
         isLoading: isLoading.value,
         onClick: () => requestCreateSite(),
+        actionText: 'Create Site',
       },
     ]
 
@@ -71,18 +72,18 @@ const stepConfig: StepConfig = {
 
 <template>
   <ElModal
-    modal-class="max-w-screen-md"
+    modal-class="max-w-screen-xl"
     style-class="pointer-events-none"
     :vis="vis"
     @update:vis="emit('update:vis', $event)"
   >
-    <ElStepNav v-slot="{ step }" :step-config="stepConfig" data-test-id="createSiteModal">
+    <ElStepNav v-slot="{ step }" class=" " :step-config="stepConfig" data-test-id="createSiteModal">
       <div v-if="step.key === 'name'" class="">
         <ElInput
           v-model="form.title"
           input="InputText"
-          placeholder="Site Name"
-          input-class="p-4 text-lg"
+          placeholder="My Awesome Site"
+          ui-size="lg"
           data-test-id="siteName"
         />
       </div>

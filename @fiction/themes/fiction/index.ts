@@ -39,10 +39,6 @@ const socials: NavItem[] = [
   },
 ]
 
-export async function getFactory() {
-
-}
-
 export async function setup(args: { fictionEnv: FictionEnv, fictionStripe?: FictionStripe }) {
   const { fictionEnv, fictionStripe } = args
 

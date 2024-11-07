@@ -18,6 +18,7 @@
     "@fiction/site": "workspace:*",
     "@fiction/theme-fiction": "workspace:*",
     "@fiction/theme-minimal": "workspace:*",
+    "@fiction/theme-omega": "workspace:*",
     "@fiction/ui": "workspace:*",
     "@types/mapbox-gl": "^3.4.1",
     "mapbox-gl": "^3.7.0",

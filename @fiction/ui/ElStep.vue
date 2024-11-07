@@ -42,7 +42,7 @@ const step = vue.computed(() => {
     <div
       v-if="step"
       :key="steps[currentIndex]?.key"
-      class="relative z-10 mx-auto w-full bg-theme-0 dark:bg-theme-950 text-theme-900 dark:text-theme-0 p-12 rounded-xl shadow-xl"
+      class="relative z-10 mx-auto w-full bg-theme-0 dark:bg-theme-950 text-theme-900 dark:text-theme-0 p-10 rounded-xl shadow-xl"
       :class="step.class"
     >
       <div class="relative z-10 mb-4">
@@ -52,10 +52,10 @@ const step = vue.computed(() => {
         >
           {{ sup }}
         </div>
-        <h1 class="x-font-title text-2xl font-semibold">
+        <h1 class="x-font-title text-xl font-bold antialiased">
           {{ step.name }}
         </h1>
-        <div class="text-theme-500 dark:text-theme-300 text-lg mt-1">
+        <div class="text-theme-500 dark:text-theme-400 text-lg antialiased">
           {{ step.desc }}
         </div>
       </div>

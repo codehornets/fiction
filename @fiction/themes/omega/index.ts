@@ -174,9 +174,9 @@ export async function setup(args: { fictionEnv: FictionEnv }) {
   return new Theme({
     fictionEnv,
     root: safeDirname(import.meta.url),
-    themeId: 'minimal',
-    title: 'Minimal',
-    description: 'A basic, clean theme with a focus on typography and whitespace.',
+    themeId: 'omega',
+    title: 'Omega',
+    description: 'A modern, professional theme for leaders and consultants.',
     screenshot: new URL('./img/screenshot.jpg', import.meta.url).href,
     version: '1.0.0',
     templates,

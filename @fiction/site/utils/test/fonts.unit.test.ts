@@ -43,20 +43,20 @@ describe('activeSiteFont', async () => {
 
   it('should correctly handle user-provided font config', async () => {
     site.userFonts.value = {
-      test: { fontKey: 'Roboto', stack: 'sans' },
+      test: { fontKey: 'Space+Mono', stack: 'sans' },
     }
 
     const fontConfig = activeSiteFont(site)
     const result = fontConfig.value
 
-    expect(result.stacks.test).toContain('Roboto')
-    expect(result.fontsUrl).toContain('Roboto')
+    expect(result.stacks.test).toContain('Space+Mono')
+    expect(result.fontsUrl).toContain('Space+Mono')
   })
 
   it('should deduplicate font keys', async () => {
     site.userFonts.value = {
-      test1: { fontKey: 'Roboto', stack: 'sans' },
-      test2: { fontKey: 'Roboto', stack: 'sans' },
+      test1: { fontKey: 'Space+Mono', stack: 'sans' },
+      test2: { fontKey: 'Space+Mono', stack: 'sans' },
     }
 
     const fontConfig = activeSiteFont(site)
@@ -68,24 +68,24 @@ describe('activeSiteFont', async () => {
         "mono": "'DM Mono', 'Nimbus Mono PS', 'Courier New', monospace",
         "sans": "'Plus+Jakarta+Sans', Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif",
         "serif": "Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif",
-        "test1": "'Roboto', Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif",
-        "test2": "'Roboto', Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif",
+        "test1": "'Space+Mono', Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif",
+        "test2": "'Space+Mono', Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif",
         "title": "'Poppins', Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif",
       }
     `)
 
-    expect(fontConfig.value.fontsUrl).toContain('Roboto')
+    expect(fontConfig.value.fontsUrl).toContain('Space+Mono')
   })
 
   it('should handle fonts with spaces in their names', async () => {
     site.userFonts.value = {
-      test: { fontKey: 'Open Sans', stack: 'sans' },
+      test: { fontKey: 'Space Mono', stack: 'sans' },
     }
 
     const fontConfig = activeSiteFont(site)
     const result = fontConfig.value
 
-    expect(result.stacks.test).toContain('Open Sans')
-    expect(result.fontsUrl).toContain('Open+Sans')
+    expect(result.stacks.test).toContain('Space Mono')
+    expect(result.fontsUrl).toContain('Space+Mono')
   })
 })

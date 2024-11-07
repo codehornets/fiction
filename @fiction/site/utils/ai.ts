@@ -3,11 +3,11 @@ import type { Site } from '../site'
 export async function getCardCompletion<T extends Record<string, unknown> = Record<string, unknown>>(args: { site: Site, runPrompt: string, outputFormat?: Record<string, unknown> }) {
   const { site, runPrompt, outputFormat } = args
 
-  const { baseInstruction, objectives } = site.fullConfig.value.ai || {}
+  const { objectives } = site.fullConfig.value.ai || {}
   const fictionEnv = site.fictionSites.settings.fictionEnv
   try {
-    if (!baseInstruction || !objectives || !outputFormat)
-      throw new Error('baseInstruction and objectives required')
+    if (!objectives || !outputFormat)
+      throw new Error(' objectives required')
 
     const result = await site.fictionSites.settings.fictionAi?.requests.AiCompletion.projectRequest({
       _action: 'completion',

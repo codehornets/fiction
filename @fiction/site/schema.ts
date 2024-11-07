@@ -102,7 +102,6 @@ export const SiteUserConfigSchema = z.object({
     gtmContainerId: z.string().optional(),
   }).optional(),
   ai: z.object({
-    baseInstruction: z.string().optional(),
     objectives: z.object({
       about: z.string().optional(),
       targetCustomer: z.string().optional(),
