@@ -59,6 +59,7 @@ describe('refine options with schema', () => {
         "authState",
         "desc",
         "itemStyle",
+        "itemTheme",
         "target",
       ]
     `)
@@ -76,7 +77,7 @@ describe('navItemOptionSet Schema Generation', () => {
 
     expect(option.options.value.length).toBe(2)
     expect(option.options.value[0].options.value[0].key.value).toBe('name')
-    expect(option.options.value[1].options.value[0].key.value).toBe('desc')
+    expect(option.options.value[1].options.value[0].key.value).toBe('target')
   })
 })
 
