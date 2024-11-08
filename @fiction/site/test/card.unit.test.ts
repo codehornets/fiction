@@ -37,7 +37,7 @@ describe('card', async () => {
   it('cardTemplate toCard method generates a card with expected properties', async () => {
     const newCard = await templates.find(t => t.settings.templateId === 'hero')?.toCard({ site })
     expect(newCard?.settings.templateId).toBe('hero')
-    expect(newCard?.settings.title).toBe('Hero')
+    expect(newCard?.settings.title).toBeFalsy()
   })
 
   it('card computes total estimated time correctly', async () => {

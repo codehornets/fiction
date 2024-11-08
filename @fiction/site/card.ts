@@ -86,7 +86,6 @@ export class CardTemplate<
     return new Card({
       cardId: cardId || objectId({ prefix: 'crd' }),
       templateId: this.settings.templateId,
-      title: this.settings.title,
       ...args,
       userConfig: finalUserConfig,
       effects,

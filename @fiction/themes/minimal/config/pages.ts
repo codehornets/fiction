@@ -9,13 +9,13 @@ export async function getPages(args: { factory: CardFactory, site: Site, userCon
   const { factory } = args
 
   return [
-    await factory.create({
+    await factory.fromTemplate({
       slug: '_home',
       cards: [
         await factory.fromTemplate<typeof ProfileTemplate>({ templateId: 'profile' }),
       ],
     }),
-    await factory.create({
+    await factory.fromTemplate({
       slug: 'contact',
       cards: [
         await factory.fromTemplate<typeof heroTemplate>({ templateId: 'hero', userConfig: {
