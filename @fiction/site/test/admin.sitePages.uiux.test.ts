@@ -1,9 +1,9 @@
-import { shortId } from '@fiction/core'
+import { isCi, shortId } from '@fiction/core'
 import { createSiteUiTestingKit } from '@fiction/site/test/testUtils.js'
 import { afterAll, describe, it } from 'vitest'
 
 describe('admin site pages', async () => {
-  const kit = await createSiteUiTestingKit({ initUser: true, headless: false, slowMo: 2000 })
+  const kit = await createSiteUiTestingKit({ initUser: true, headless: false, slowMo: 0 })
 
   const testUtils = kit.testUtils
 
@@ -12,7 +12,7 @@ describe('admin site pages', async () => {
 
   afterAll(async () => kit.close())
 
-  it('page and card ui', { timeout: 80000, retry: 3 }, async () => {
+  it('page and card ui', { timeout: 80000, retry: isCi() ? 3 : 0 }, async () => {
     const initialViewId = 'edit-site'
     const slugId = shortId()
     await kit.performActions({
@@ -20,8 +20,8 @@ describe('admin site pages', async () => {
       path: `/app/${initialViewId}?theme=minimal`,
       actions: [
         { type: 'visible', selector: `[data-view-id="${initialViewId}"]` },
-        { type: 'click', selector: `[data-test-id="tool-button-editPage"]` },
-        { type: 'click', selector: `[data-test-id="add-new-elements"]` },
+        { type: 'click', selector: `[data-test-id="tool-button-editLayout"]` },
+        // { type: 'click', selector: `[data-test-id="add-new-elements"]` },
         { type: 'click', selector: `[data-test-id="add-element-hero"]` },
         { type: 'visible', selector: `[data-test-id="layout-card-hero"]` },
         { type: 'click', selector: `[data-test-id="tool-button-managePages"]` },

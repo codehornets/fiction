@@ -44,7 +44,7 @@ async function addCard(args: { templateId: string }) {
   await props.site.addCard({ templateId, delay: 400 })
 }
 
-const addElementsVisible = vue.ref(false)
+const addElementsVisible = vue.ref(true)
 
 function toggleAddElements() {
   addElementsVisible.value = !addElementsVisible.value
@@ -53,7 +53,7 @@ function toggleAddElements() {
 
 <template>
   <div>
-    <div>
+    <div v-if="false">
       <XButton
         data-test-id="add-new-elements"
         :theme="addElementsVisible ? 'theme' : 'primary'"
