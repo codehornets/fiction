@@ -89,6 +89,7 @@ export class Site<T extends SiteSettings = SiteSettings> extends FictionObject<T
   siteId = this.settings.siteId || objectId({ prefix: 'ste' })
   isProd = vue.ref(this.settings.isProd ?? this.fictionSites.fictionEnv?.isProd.value)
   title = vue.ref(this.settings.title)
+  org = this.settings.org
   status = vue.ref(this.settings.status)
   subDomain = vue.ref(this.settings.subDomain || shortId({ prefix: `${this.title.value || 'site'}-`, len: 3 }))
   customDomains = vue.ref(this.settings.customDomains || [])

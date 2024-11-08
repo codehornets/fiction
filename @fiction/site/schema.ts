@@ -91,6 +91,7 @@ export const SiteUserConfigSchema = z.object({
     icon: MediaDisplaySchema.optional(),
     shareImage: MediaDisplaySchema.optional(),
     logo: MediaDisplaySchema.optional(),
+    primaryColor: ColorThemeSchema.optional(),
   }).optional(),
   seo: z.object({
     title: z.string().optional(),

@@ -9,6 +9,8 @@ import { FrameUtility } from '@fiction/ui/frame/elBrowserFrameUtil'
 import ElSpinner from '@fiction/ui/loaders/ElSpinner.vue'
 import NotifyToaster from '@fiction/ui/notify/NotifyToaster.vue'
 import El404 from '@fiction/ui/page/El404.vue'
+import { getHeadScripts } from './utils/head'
+import { getHeadIconConfig } from './utils/icon'
 
 const props = defineProps({
   themeId: { type: String, default: undefined },
@@ -73,50 +75,7 @@ function getTitleTag() {
   return simpleHandlebarsParser(titleTemplate, { pageTitle, siteTitle })
 }
 
-function getScript(args: { noscript?: boolean } = {}) {
-  const { noscript } = args
-  const gtmContainerId = site.value?.fullConfig.value.customCode?.gtmContainerId
-
-  if (noscript) {
-    return gtmContainerId
-      ? [{ innerHTML: `<iframe src="https://www.googletagmanager.com/ns.html?id=${gtmContainerId}"
-height="0" width="0" style="display:none;visibility:hidden"></iframe>` }]
-      : []
-  }
-  else {
-    const script = [{
-      innerHTML: 'document.addEventListener(\'DOMContentLoaded\', function() { document.documentElement.style.visibility = \'visible\'; });',
-      type: 'text/javascript',
-    }]
-
-    if (gtmContainerId) {
-      script.push({
-        innerHTML: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','${gtmContainerId}');`,
-        type: 'text/javascript',
-      })
-    }
-
-    return script
-  }
-}
-
-const iconUrls = vue.computed(() => {
-  const config = site.value?.fullConfig.value.branding || {}
-  const faviconUrl = config.favicon?.url || ''
-  const iconUrl = config.icon?.url || ''
-  const faviconType = faviconUrl.split('.').pop()?.toLowerCase()
-
-  return {
-    faviconUrl,
-    appleTouchIconUrl: iconUrl || faviconUrl,
-    msTileIconUrl: iconUrl || faviconUrl,
-    faviconType,
-  }
-})
+const iconUrls = vue.computed(() => getHeadIconConfig({ site: site.value }))
 
 unhead.useHead({
   htmlAttrs: { lang: 'en', dir: 'ltr' },
@@ -133,7 +92,7 @@ unhead.useHead({
     { name: 'robots', content: () => (site.value?.userConfig.value.seo?.robotsTxt || 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1') },
     { property: 'og:site_name', content: () => site.value?.title.value || '' },
     { property: 'og:locale', content: () => site.value?.fullConfig.value.seo?.locale || 'en_US' },
-    { property: 'og:image', content: () => site.value?.fullConfig.value.branding?.shareImage?.url || '' },
+    { property: 'og:image', content: () => site.value?.fullConfig.value.branding?.shareImage?.url || iconUrls.value.ogImageUrl },
     { property: 'og:type', content: 'website' },
     { property: 'og:title', content: () => getTitleTag() },
     { property: 'og:url', content: () => site.value?.frame.displayUrl.value },
@@ -144,7 +103,7 @@ unhead.useHead({
     {
       rel: 'shortcut icon',
       href: () => iconUrls.value.faviconUrl,
-      type: () => ({ svg: 'image/svg+xml', png: 'image/png', ico: 'image/x-icon' }[iconUrls.value.faviconType || ''] || ''),
+      type: () => iconUrls.value.faviconType,
       sizes: () => iconUrls.value.faviconType === 'svg' ? 'any' : '',
     },
     { rel: 'apple-touch-icon', sizes: '180x180', href: () => iconUrls.value.appleTouchIconUrl },
@@ -155,13 +114,13 @@ unhead.useHead({
     { key: 'font-static', rel: 'preconnect ', href: 'https://fonts.gstatic.com', crossorigin: 'anonymous' },
     { key: 'font', rel: 'stylesheet', href: () => fonts.value?.fontsUrl, id: 'font-link' },
   ],
-  script: () => getScript(),
+  script: () => getHeadScripts({ site: site.value }),
   style: [
     {
       innerHTML: 'html { opacity: 0; transform: scale(.96); transition: opacity 0.7s, transform 0.7s ease; } body.dark { background: #000; }',
     },
   ],
-  noscript: () => getScript({ noscript: true }),
+  noscript: () => getHeadScripts({ site: site.value, noscript: true }),
 })
 
 vue.onMounted(async () => {
