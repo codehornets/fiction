@@ -8,7 +8,7 @@ type CertificateIssue = {
   expiresAt: string
 }
 
-type CertificateDetails = {
+type CertificateDetails = Partial<{
   configured: boolean
   acmeDnsConfigured: boolean
   acmeAlpnConfigured: boolean
@@ -25,13 +25,16 @@ type CertificateDetails = {
   issued: {
     nodes: CertificateIssue[]
   }
-}
+  test: string
+  _action: string
+}>
 
 interface ManageCertParams {
   _action?: 'create' | 'retrieve' | 'delete' | 'check'
   hostname?: string
   siteId?: string
   appId?: string
+  allowInTest?: boolean
 }
 export class ManageCert extends SitesQuery {
   graphqlEndpoint = 'https://api.fly.io/graphql'
@@ -78,9 +81,20 @@ export class ManageCert extends SitesQuery {
   }
 
   public async run(args: ManageCertParams, _meta: EndpointMeta): Promise<EndpointResponse<CertificateDetails >> {
-    const { _action, hostname } = args
+    const { _action, hostname, allowInTest } = args
 
     let query = ''
+
+    if (this.fictionSites.settings.fictionEnv.isTest.value && !allowInTest) {
+      return {
+        status: 'success',
+        data: {
+          hostname,
+          test: 'cert api did not run due to allowInTest:false',
+          _action,
+        },
+      }
+    }
 
     if (!_action)
       throw new Error('Action is required for managing certificates.')
@@ -118,7 +132,7 @@ export class ManageCert extends SitesQuery {
       }
       // The certificate already exists, return successful query with the existing certificate
       else if (e.message.includes('UNPROCESSABLE')) {
-        const r = await this.run({ _action: 'check', hostname }, _meta)
+        const r = await this.run({ _action: 'check', hostname, allowInTest }, _meta)
 
         return { status: 'success', data: r.data }
       }
@@ -128,7 +142,7 @@ export class ManageCert extends SitesQuery {
       }
     }
 
-    return { status: 'success', data: certificate }
+    return { status: 'success', data: { ...certificate, _action } }
   }
 
   GET_CERTIFICATES_QUERY = `query($appId: String!, $hostname: String!) {

@@ -1,4 +1,4 @@
-import type { ColType } from '@fiction/core'
+import type { ColType, Organization } from '@fiction/core'
 import type { CardGenerationConfig } from './generation.js'
 import type { SiteUserConfig } from './schema.js'
 import type { EditorState } from './site.js'
@@ -13,7 +13,11 @@ type st = { updatedAt?: string, createdAt?: string }
 export const pageRegionIds = ['header', 'main', 'footer', 'aside', 'article', 'section'] as const
 export type PageRegion = typeof pageRegionIds[number] | string
 
-export type TableSiteConfig = Omit<ColType<typeof siteCols>, 'draft' > & st & { pages: CardConfigPortable[], draft?: TableSiteConfig }
+export type TableSiteConfig = Omit<ColType<typeof siteCols>, 'draft' > & st & {
+  pages: CardConfigPortable[]
+  draft?: TableSiteConfig
+  org: Organization
+}
 
 type TablePageCardConfig = Partial<ColType<typeof pageCols>>
 

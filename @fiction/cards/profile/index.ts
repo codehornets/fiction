@@ -87,7 +87,6 @@ function getUserConfig(args: { factory: CardFactory }): UserConfig & SiteUserCon
       { name: 'follow @fictionco on x', href: '#', media: { iconId: 'x' } },
       { name: 'connect with @fictionco on linkedin', href: '#', media: { iconId: 'linkedin' } },
     ],
-    standard: { spacing: { verticalSpacing: 'sm' } },
   }
 }
 

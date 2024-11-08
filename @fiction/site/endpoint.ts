@@ -3,7 +3,7 @@ import type { Knex } from 'knex'
 import type { FictionSites, Site, SitesPluginSettings } from './index.js'
 import type { WhereSite } from './load.js'
 import type { CardConfigPortable, TableCardConfig, TableDomainConfig, TableSiteConfig } from './tables.js'
-import { applyComplexFilters, deepMerge, incrementSlugId, objectId, Query, shortId } from '@fiction/core'
+import { applyComplexFilters, deepMerge, incrementSlugId, objectId, omit, Query, shortId } from '@fiction/core'
 import { abort } from '@fiction/core/utils/error.js'
 import { Card } from './card.js'
 import { t } from './tables.js'
@@ -446,6 +446,8 @@ export class ManageSite extends SitesQuery {
 
     const themeSite = await this.createSiteFromTheme(params, meta)
 
+    const scope = 'publish'
+
     const defaultSubDomain = meta.bearer?.email?.split('@')[0] || 'site'
     const mergedFields = deepMerge([themeSite, { subDomain: `${defaultSubDomain}-${shortId({ len: 4 })}` }, fields])
 
@@ -456,8 +458,11 @@ export class ManageSite extends SitesQuery {
     if (!site?.siteId)
       throw abort('site not created')
 
-    await this.updateSitePages({ siteId: site.siteId, fields: themeSite.pages || [], userId, orgId, scope: 'publish' }, meta)
-    await this.settings.fictionMonitor?.slackNotify({ message: '*New Site Created*', data: site })
+    await this.updateSitePages({ siteId: site.siteId, fields: themeSite.pages || [], userId, orgId, scope }, meta)
+
+    const finalSite = await this.fetchSiteWithDetails({ selector: { siteId: site.siteId }, scope })
+
+    await this.settings.fictionMonitor?.slackNotify({ message: '*New Site Created*', data: finalSite })
 
     return { status: 'success', data: site, message: 'site created' }
   }
@@ -491,8 +496,6 @@ export class ManageSite extends SitesQuery {
     const selector = await this.getSiteSelector(where)
     const prepped = this.settings.fictionDb.prep({ type: 'update', fields, table: t.sites, meta })
 
-    this.log.info('UPDATING SITE', { data: { selector, fields: fields.pages?.find(_ => _.slug === '_home') } })
-
     const db = this.settings.fictionDb.client()
 
     let updatedSite: TableSiteConfig | undefined
@@ -519,7 +522,9 @@ export class ManageSite extends SitesQuery {
       await this.updateSitePages({ siteId: updatedSite.siteId, fields: fields.pages, userId, orgId, scope }, meta)
     }
 
-    return { status: 'success', data: updatedSite, message: 'site saved' }
+    const finalSite = await this.fetchSiteWithDetails({ selector, scope })
+
+    return { status: 'success', data: finalSite, message: 'site saved' }
   }
 
   private async saveDraft(params: ManageSiteParams & { _action: 'saveDraft' }, meta: EndpointMeta): Promise<EndpointResponse<TableSiteConfig>> {
@@ -675,6 +680,7 @@ export class ManageSite extends SitesQuery {
     const { selector, scope = 'publish' } = args
     const db = this.settings.fictionDb.client()
 
+    // Get base site data
     let site = await db
       .select<TableSiteConfig>('*')
       .from(t.sites)
@@ -685,34 +691,81 @@ export class ManageSite extends SitesQuery {
       return undefined
     }
 
-    if (scope === 'draft') {
-      site = deepMerge([site, site.draft as TableSiteConfig])
+    try {
+      // Get organization details using ManageOrganization query
+      const orgResponse = await this.settings.fictionUser?.queries.ManageOrganization.serve(
+        {
+          _action: 'retrieve',
+          where: { orgId: site.orgId },
+        },
+        { server: true },
+      )
+
+      const siteOrg = orgResponse?.data
+
+      if (!siteOrg) {
+        throw new Error('Organization data not found for site')
+      }
+
+      // Apply draft changes if needed
+      if (scope === 'draft') {
+        site = deepMerge([site, site.draft as TableSiteConfig])
+      }
+
+      // Get domains
+      const domains = await db
+        .select()
+        .from(t.domains)
+        .where({ siteId: site.siteId })
+
+      // Get pages
+      const pagesResponse = await this.settings.fictionSites.queries.ManagePage.serve({
+        _action: 'list',
+        orgId: site.orgId,
+        siteId: site.siteId,
+        limit: 200,
+        offset: 0,
+        caller: 'fetchSiteWithDetails',
+        scope,
+      }, { server: true })
+
+      // Assemble final site object
+      const siteData = {
+        ...omit(site, 'draft'), // Remove draft from base
+        customDomains: domains,
+        pages: pagesResponse.data || [],
+        org: siteOrg, // Always include org, even if empty object
+      }
+
+      // Log warning if org data is missing
+      if (!orgResponse?.data) {
+        this.log.warn('Organization data not found for site', {
+          data: {
+            siteId: site.siteId,
+            orgId: site.orgId,
+          },
+        })
+      }
+
+      return siteData
     }
+    catch (error) {
+      this.log.error('Error fetching site details', {
+        error,
+        data: {
+          siteId: site.siteId,
+          orgId: site.orgId,
+        },
+      })
 
-    const domains = await db
-      .select()
-      .from(t.domains)
-      .where({ siteId: site.siteId })
-
-    site.customDomains = domains
-
-    const r = await this.settings.fictionSites.queries.ManagePage.serve({
-      _action: 'list',
-      orgId: site.orgId,
-      siteId: site.siteId,
-      limit: 200,
-      offset: 0,
-      caller: 'fetchSiteWithDetails',
-      scope,
-    }, { server: true })
-
-    // Assign the pages to the site object
-    site.pages = r.data || []
-
-    // remove draft  from the response
-    const { draft, ...final } = site
-
-    return final
+      // Return basic site data with empty org object if error occurs
+      return {
+        ...omit(site, 'draft'),
+        customDomains: [],
+        pages: [],
+        org: {},
+      }
+    }
   }
 
   async createSiteFromTheme(params: ManageSiteParams & { _action: 'create' }, _meta: EndpointMeta): Promise<Partial<TableSiteConfig>> {
@@ -760,7 +813,7 @@ export class ManageSite extends SitesQuery {
     if (Object.values(out).filter(Boolean).length !== 1) {
       this.log.error('Error Loading Site', { data: { out, where, domain } })
 
-      const errorMessage = 'Load Site Error'
+      const errorMessage = `Site not found (where:${JSON.stringify(where)})`
       throw new Error(errorMessage)
     }
 

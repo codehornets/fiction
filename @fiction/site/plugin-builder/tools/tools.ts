@@ -8,7 +8,7 @@ export type ToolKeys = 'managePages' | 'addPage' | 'editPage' | 'editLayout' | '
 export const tools = [
   {
     toolId: 'editLayout',
-    title: 'Edit Layout',
+    title: 'Edit Content and Layout',
     icon: 'i-tabler-square-plus',
     widthClasses: 'w-[430px]',
     el: vue.defineAsyncComponent(async () => import('./ToolPageLayout.vue')),
@@ -60,7 +60,7 @@ export const tools = [
   },
   {
     toolId: 'editCard',
-    title: 'Edit Element',
+    title: 'Element Editor',
     icon: 'i-tabler-edit-circle',
     location: 'context',
     isDefault: true,

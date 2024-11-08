@@ -1,8 +1,8 @@
 import type { InitializedTestUtils } from '@fiction/core/test-utils'
-import type { TableSiteConfig } from '../tables'
 import type { SiteTestUtils } from './testUtils'
-import { objectId } from '@fiction/core'
+import { type EndpointResponse, objectId, type Organization } from '@fiction/core'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { t, type TableSiteConfig } from '../tables'
 import { createSiteTestUtils } from './testUtils'
 
 describe('manageSite query', () => {
@@ -10,12 +10,14 @@ describe('manageSite query', () => {
   let r: InitializedTestUtils
   let userId: string
   let orgId: string
+  let org: Organization
 
   beforeEach(async () => {
     testUtils = await createSiteTestUtils()
     r = await testUtils.init()
     userId = r?.user?.userId ?? ''
     orgId = r?.user?.orgs?.[0]?.orgId ?? ''
+    org = r?.org
   })
 
   afterEach(async () => {
@@ -31,7 +33,7 @@ describe('manageSite query', () => {
   describe('site creation', () => {
     it('should create a new site', async () => {
       const fields = createSiteFields('Test Site')
-      const response = await testUtils.fictionSites.queries.ManageSite.run(
+      const response = await testUtils.fictionSites.queries.ManageSite.serve(
         { _action: 'create', fields, orgId, userId, caller: 'test' },
         { server: true },
       )
@@ -44,7 +46,7 @@ describe('manageSite query', () => {
 
     it('should create a site with default pages', async () => {
       const fields = createSiteFields('Site with Pages')
-      const response = await testUtils.fictionSites.queries.ManageSite.run(
+      const response = await testUtils.fictionSites.queries.ManageSite.serve(
         { _action: 'create', fields, orgId, userId, caller: 'test' },
         { server: true },
       )
@@ -57,36 +59,191 @@ describe('manageSite query', () => {
 
   describe('site retrieval', () => {
     let siteId: string
+    let testingDomain: string
 
     beforeEach(async () => {
-      const fields = createSiteFields('Retrieval Test Site')
-      const response = await testUtils.fictionSites.queries.ManageSite.run(
-        { _action: 'create', fields, orgId, userId, caller: 'test' },
+      testingDomain = `test-${objectId({ prefix: 'dom' })}.fiction.com`
+
+      // Create test site with pages
+      const fields = {
+        ...createSiteFields('Retrieval Test Site'),
+        pages: [
+          {
+            cardId: objectId({ prefix: 'crd' }),
+            templateId: 'wrap',
+            title: 'Test Page',
+            slug: 'test-page',
+          },
+        ],
+        customDomains: [
+          {
+            hostname: testingDomain,
+            isPrimary: true,
+          },
+        ],
+      }
+
+      const response = await testUtils.fictionSites.queries.ManageSite.serve(
+        { _action: 'create', fields, orgId, userId, caller: 'test', isPublishingDomains: true },
         { server: true },
       )
       siteId = response.data?.siteId as string
     })
 
-    it('should retrieve a site by siteId', async () => {
-      const response = await testUtils.fictionSites.queries.ManageSite.run(
-        { _action: 'retrieve', where: { siteId }, orgId, userId, caller: 'test' },
-        { server: true },
-      )
+    describe('basic retrieval', () => {
+      it('should retrieve a complete site by siteId', async () => {
+        const response = await testUtils.fictionSites.queries.ManageSite.serve(
+          { _action: 'retrieve', where: { siteId }, orgId, userId, caller: 'test' },
+          { server: true },
+        )
 
-      expect(response.status).toBe('success')
-      expect(response.data?.siteId).toBe(siteId)
-      expect(response.data?.title).toBe('Retrieval Test Site')
+        expect(response.status).toBe('success')
+        expect(response.data).toMatchObject({
+          siteId,
+          title: 'Retrieval Test Site',
+          orgId,
+          org,
+          pages: expect.arrayContaining([
+            expect.objectContaining({
+              title: 'Test Page',
+              slug: 'test-page',
+            }),
+          ]),
+          customDomains: expect.arrayContaining([
+            expect.objectContaining({
+              hostname: testingDomain,
+              isPrimary: true,
+            }),
+          ]),
+        })
+      })
+
+      it('should return an error for non-existent site', async () => {
+        const nonExistentSiteId = objectId({ prefix: 'sit' })
+        const response = await testUtils.fictionSites.queries.ManageSite.serve(
+          { _action: 'retrieve', where: { siteId: nonExistentSiteId }, orgId, userId, caller: 'test' },
+          { server: true },
+        )
+
+        expect(response.status).toBe('error')
+        expect(response.message).toContain('Site not found')
+      })
+
+      it('should retrieve site by custom domain hostname', async () => {
+        const response = await testUtils.fictionSites.queries.ManageSite.serve(
+          { _action: 'retrieve', where: { hostname: testingDomain }, orgId, caller: 'test' },
+          { server: true },
+        )
+
+        expect(response.status).toBe('success')
+        expect(response.data?.siteId).toBe(siteId)
+      })
     })
 
-    it('should return an error for non-existent site', async () => {
-      const nonExistentSiteId = objectId({ prefix: 'sit' })
-      const response = await testUtils.fictionSites.queries.ManageSite.run(
-        { _action: 'retrieve', where: { siteId: nonExistentSiteId }, orgId, userId, caller: 'test' },
-        { server: true },
-      )
+    describe('draft handling', () => {
+      beforeEach(async () => {
+        // Create drafts for site and page
+        await testUtils.fictionSites.queries.ManageSite.serve(
+          {
+            _action: 'saveDraft',
+            where: { siteId },
+            fields: {
+              title: 'Draft Site Title',
+              userConfig: {
+                seo: { description: 'Draft description' },
+              },
+            },
+            orgId,
+            userId,
+            caller: 'test',
+          },
+          { server: true },
+        )
+      })
 
-      expect(response.status).toBe('error')
-      expect(response.message).toContain('Site not found')
+      it('should return published version by default', async () => {
+        const response = await testUtils.fictionSites.queries.ManageSite.serve(
+          { _action: 'retrieve', where: { siteId }, orgId, userId, caller: 'test' },
+          { server: true },
+        )
+
+        expect(response.status).toBe('success')
+        expect(response.data?.title).toBe('Retrieval Test Site')
+        expect(response.data?.draft).toBeUndefined()
+      })
+
+      it('should return draft version when requested', async () => {
+        const response = await testUtils.fictionSites.queries.ManageSite.serve(
+          { _action: 'retrieve', where: { siteId }, orgId, userId, caller: 'test', scope: 'draft' },
+          { server: true },
+        )
+
+        expect(response.status).toBe('success')
+        expect(response.data?.title).toBe('Draft Site Title')
+        expect(response.data?.userConfig.seo?.description).toBe('Draft description')
+        expect(response.data?.draft).toBeUndefined() // Draft content should be merged but draft field removed
+      })
+    })
+
+    describe('organization details', () => {
+      it('should include complete organization data', async () => {
+        const response = await testUtils.fictionSites.queries.ManageSite.serve(
+          { _action: 'retrieve', where: { siteId }, orgId, userId, caller: 'test' },
+          { server: true },
+        )
+
+        expect(response.status).toBe('success')
+        expect(response.data?.org).toEqual(org)
+        expect(response.data?.org).toEqual(expect.objectContaining({
+          orgId,
+          orgName: expect.any(String),
+          orgEmail: expect.any(String),
+        }))
+      })
+
+      it('should handle nonexistent organization gracefully', async () => {
+        // Create site with non-existent orgId
+        const nonExistentOrgId = objectId({ prefix: 'org' })
+        const fields = createSiteFields('No Org Site')
+
+        const createResponse = await testUtils.fictionSites.queries.ManageSite.serve(
+          { _action: 'create', fields, orgId: nonExistentOrgId, userId, caller: 'test' },
+          { server: true, expectError: true },
+        )
+
+        expect(createResponse.status).toBe('error')
+      })
+    })
+
+    describe('pages and domains', () => {
+      it('should return all pages with site', async () => {
+        const response = await testUtils.fictionSites.queries.ManageSite.serve(
+          { _action: 'retrieve', where: { siteId }, orgId, userId, caller: 'test' },
+          { server: true },
+        )
+
+        expect(response.status).toBe('success')
+        expect(response.data?.pages).toHaveLength(3)
+        expect(response.data?.pages.find(p => p.slug === 'test-page')).toMatchObject({
+          title: 'Test Page',
+          slug: 'test-page',
+          templateId: 'wrap',
+        })
+      })
+
+      it('should return all domains with site', async () => {
+        const response = await testUtils.fictionSites.queries.ManageSite.serve(
+          { _action: 'retrieve', where: { siteId }, orgId, userId, caller: 'test' },
+          { server: true },
+        )
+
+        expect(response.status).toBe('success')
+        expect(response.data?.customDomains).toHaveLength(1)
+        expect(response.data?.customDomains[0]).toMatchObject({
+          hostname: testingDomain,
+          isPrimary: true,
+        })
+      })
     })
   })
 
@@ -95,7 +252,7 @@ describe('manageSite query', () => {
 
     beforeEach(async () => {
       const fields = createSiteFields('Update Test Site')
-      const response = await testUtils.fictionSites.queries.ManageSite.run(
+      const response = await testUtils.fictionSites.queries.ManageSite.serve(
         { _action: 'create', fields, orgId, userId, caller: 'test' },
         { server: true },
       )
@@ -104,7 +261,7 @@ describe('manageSite query', () => {
 
     it('should update an existing site', async () => {
       const updateFields = { title: 'Updated Site Title' }
-      const response = await testUtils.fictionSites.queries.ManageSite.run(
+      const response = await testUtils.fictionSites.queries.ManageSite.serve(
         { _action: 'update', where: { siteId }, fields: updateFields, orgId, userId, caller: 'test' },
         { server: true },
       )
@@ -120,7 +277,7 @@ describe('manageSite query', () => {
         slug: 'new-page',
       }
       const updateFields = { pages: [newPage] }
-      const response = await testUtils.fictionSites.queries.ManageSite.run(
+      const response = await testUtils.fictionSites.queries.ManageSite.serve(
         { _action: 'update', where: { siteId }, fields: updateFields, orgId, userId, caller: 'test' },
         { server: true },
       )
@@ -137,7 +294,7 @@ describe('manageSite query', () => {
 
     beforeEach(async () => {
       const fields = createSiteFields('Draft Test Site')
-      const response = await testUtils.fictionSites.queries.ManageSite.run(
+      const response = await testUtils.fictionSites.queries.ManageSite.serve(
         { _action: 'create', fields, orgId, userId, caller: 'test' },
         { server: true },
       )
@@ -166,7 +323,7 @@ describe('manageSite query', () => {
 
     it('should save a draft for an existing site', async () => {
       const draftFields: Partial<TableSiteConfig> = { title: 'Draft Site Title', userConfig: { draftKey: 'draftValue' } }
-      const response = await testUtils.fictionSites.queries.ManageSite.run(
+      const response = await testUtils.fictionSites.queries.ManageSite.serve(
         { _action: 'saveDraft', where: { siteId }, fields: draftFields, orgId, userId, caller: 'test' },
         { server: true },
       )
@@ -208,7 +365,7 @@ describe('manageSite query', () => {
         { server: true },
       )
 
-      const response = await testUtils.fictionSites.queries.ManageSite.run(
+      const response = await testUtils.fictionSites.queries.ManageSite.serve(
         { _action: 'retrieve', where: { siteId }, orgId, userId, caller: 'test', scope: 'draft' },
         { server: true },
       )
@@ -219,7 +376,7 @@ describe('manageSite query', () => {
 
     it('should not return draft pages when retrieving with publish scope', async () => {
       const draftPage = { cardId, templateId: 'wrap', title: 'Draft Page', slug: 'draft-page' }
-      await testUtils.fictionSites.queries.ManagePage.run(
+      await testUtils.fictionSites.queries.ManagePage.serve(
         {
           _action: 'saveDraft',
           siteId,
@@ -232,7 +389,7 @@ describe('manageSite query', () => {
         { server: true },
       )
 
-      const response = await testUtils.fictionSites.queries.ManageSite.run(
+      const response = await testUtils.fictionSites.queries.ManageSite.serve(
         { _action: 'retrieve', where: { siteId }, orgId, userId, caller: 'test', scope: 'publish' },
         { server: true },
       )
@@ -264,7 +421,7 @@ describe('manageSite query', () => {
         { server: true },
       )
 
-      const response = await testUtils.fictionSites.queries.ManageSite.run(
+      const response = await testUtils.fictionSites.queries.ManageSite.serve(
         { _action: 'retrieve', where: { siteId }, orgId, userId, caller: 'test', scope: 'draft' },
         { server: true },
       )
@@ -332,7 +489,7 @@ describe('manageSite query', () => {
         { server: true },
       )
 
-      const response = await testUtils.fictionSites.queries.ManageSite.run(
+      const response = await testUtils.fictionSites.queries.ManageSite.serve(
         { _action: 'retrieve', where: { siteId }, orgId, userId, caller: 'test', scope: 'draft' },
         { server: true },
       )
@@ -349,7 +506,7 @@ describe('manageSite query', () => {
 
     beforeEach(async () => {
       const fields = createSiteFields('Draft Reversion Test Site')
-      const response = await testUtils.fictionSites.queries.ManageSite.run(
+      const response = await testUtils.fictionSites.queries.ManageSite.serve(
         { _action: 'create', fields, orgId, userId, caller: 'test' },
         { server: true },
       )
@@ -395,7 +552,7 @@ describe('manageSite query', () => {
       )
 
       // Revert drafts
-      const revertResponse = await testUtils.fictionSites.queries.ManageSite.run(
+      const revertResponse = await testUtils.fictionSites.queries.ManageSite.serve(
         { _action: 'revertDraft', where: { siteId }, orgId, userId, caller: 'test' },
         { server: true },
       )
@@ -405,7 +562,7 @@ describe('manageSite query', () => {
       expect(revertResponse.message).toBeTruthy()
 
       // Verify site draft is reverted
-      const siteResponse = await testUtils.fictionSites.queries.ManageSite.run(
+      const siteResponse = await testUtils.fictionSites.queries.ManageSite.serve(
         { _action: 'retrieve', where: { siteId }, orgId, userId, caller: 'test', scope: 'draft' },
         { server: true },
       )
@@ -429,7 +586,7 @@ describe('manageSite query', () => {
     })
 
     it('should handle revert when no drafts exist', async () => {
-      const revertResponse = await testUtils.fictionSites.queries.ManageSite.run(
+      const revertResponse = await testUtils.fictionSites.queries.ManageSite.serve(
         { _action: 'revertDraft', where: { siteId }, orgId, userId, caller: 'test' },
         { server: true },
       )
@@ -441,10 +598,13 @@ describe('manageSite query', () => {
 
     it('should throw an error when reverting non-existent site', async () => {
       const nonExistentSiteId = objectId({ prefix: 'sit' })
-      await expect(testUtils.fictionSites.queries.ManageSite.run(
+      const r = await testUtils.fictionSites.queries.ManageSite.serve(
         { _action: 'revertDraft', where: { siteId: nonExistentSiteId }, orgId, userId, caller: 'test' },
         { server: true },
-      )).rejects.toThrowErrorMatchingInlineSnapshot(`[EndpointError: Site not found]`)
+      )
+
+      expect(r?.status).toBe('error')
+      expect(r?.message).toContain('Site not found')
     })
   })
 
@@ -454,7 +614,7 @@ describe('manageSite query', () => {
 
     beforeEach(async () => {
       const fields = createSiteFields('Draft Clearing Test Site')
-      const response = await testUtils.fictionSites.queries.ManageSite.run(
+      const response = await testUtils.fictionSites.queries.ManageSite.serve(
         { _action: 'create', fields, orgId, userId, caller: 'test' },
         { server: true },
       )
@@ -500,7 +660,7 @@ describe('manageSite query', () => {
       )
 
       // Publish the site
-      const publishResponse = await testUtils.fictionSites.queries.ManageSite.run(
+      const publishResponse = await testUtils.fictionSites.queries.ManageSite.serve(
         { _action: 'update', where: { siteId }, fields: { title: 'Published Site Title' }, orgId, userId, caller: 'test', scope: 'publish' },
         { server: true },
       )
@@ -509,7 +669,7 @@ describe('manageSite query', () => {
       expect(publishResponse.data?.title).toBe('Published Site Title')
 
       // Verify site draft is cleared
-      const siteResponse = await testUtils.fictionSites.queries.ManageSite.run(
+      const siteResponse = await testUtils.fictionSites.queries.ManageSite.serve(
         { _action: 'retrieve', where: { siteId }, orgId, userId, caller: 'test', scope: 'draft' },
         { server: true },
       )
@@ -558,7 +718,7 @@ describe('manageSite query', () => {
       )
 
       // Update the site in draft mode
-      const updateResponse = await testUtils.fictionSites.queries.ManageSite.run(
+      const updateResponse = await testUtils.fictionSites.queries.ManageSite.serve(
         { _action: 'update', where: { siteId }, fields: { title: 'Updated Draft Title' }, orgId, userId, caller: 'test', scope: 'draft' },
         { server: true },
       )
@@ -566,7 +726,7 @@ describe('manageSite query', () => {
       expect(updateResponse.status).toBe('success')
 
       // Verify site draft is not cleared
-      const siteResponse = await testUtils.fictionSites.queries.ManageSite.run(
+      const siteResponse = await testUtils.fictionSites.queries.ManageSite.serve(
         { _action: 'retrieve', where: { siteId }, orgId, userId, caller: 'test', scope: 'draft' },
         { server: true },
       )
@@ -595,19 +755,25 @@ describe('manageSite query', () => {
   describe('edge cases and error handling', () => {
     it('should have correct error message for invalid theme', async () => {
       const fields = { ...createSiteFields('Invalid Theme Site'), themeId: 'non-existent-theme' }
-      await expect(testUtils.fictionSites.queries.ManageSite.run(
+      const response = await testUtils.fictionSites.queries.ManageSite.serve(
         { _action: 'create', fields, orgId, userId, caller: 'test' },
         { server: true },
-      )).rejects.toThrowErrorMatchingInlineSnapshot(`[EndpointError: theme not found - themeId: non-existent-theme - available: empty, minimal, test]`)
+      )
+
+      expect(response.status).toBe('error')
+      expect(response.message).toContain('theme not found')
     })
 
     it('should have correct error message for non-existent site update', async () => {
       const nonExistentSiteId = objectId({ prefix: 'sit' })
       const updateFields = { title: 'Updated Non-existent Site' }
-      await expect(testUtils.fictionSites.queries.ManageSite.run(
+      const response = await testUtils.fictionSites.queries.ManageSite.serve(
         { _action: 'update', where: { siteId: nonExistentSiteId }, fields: updateFields, orgId, userId, caller: 'test' },
         { server: true },
-      )).rejects.toThrowErrorMatchingInlineSnapshot(`[EndpointError: site not found]`)
+      )
+
+      expect(response.status).toBe('error')
+      expect(response.message).toContain('site not found')
     })
   })
 })

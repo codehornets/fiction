@@ -33,8 +33,8 @@ vue.onMounted(async () => {
 <template>
   <div class="minimal-profile" :class="card.classes.value.contentWidth">
     <div>
-      <div class="md:flex gap-8  xl:gap-20" :class="uc.layout === 'right' ? 'md:flex-row-reverse' : ''">
-        <div class="w-full md:w-[40%] xl:w-[50%]">
+      <div class="lg:flex gap-10 md:gap-12 xl:gap-24" :class="uc.layout === 'right' ? 'md:flex-row-reverse' : ''">
+        <div class="w-full max-w-sm xl:max-w-full xl:w-[50%] mb-8 ">
           <div class="relative">
             <EffectGlare wrap-class="rounded-[20px]">
               <div class="aspect-[5/7] relative w-full overflow-x-auto snap-mandatory snap-x flex no-scrollbar clip-path-anim" :class="isVisible ? '[clip-path:inset(0_round_20px)] opacity-100' : '[clip-path:inset(30%)] opacity-50'">
@@ -50,8 +50,8 @@ vue.onMounted(async () => {
             />
           </div>
         </div>
-        <div class="md:w-[60%] xl:w-[50%] mt-6 md:mt-0 flex items-center">
-          <div class="p-6 xl:py-12 flex flex-col justify-center gap-10 2xl:gap-16 " :class="isVisible ? 'translate-y-0' : 'translate-y-[100px]'">
+        <div class="lg:w-[60%] xl:w-[50%] mt-6 md:mt-0 flex items-center">
+          <div class="flex flex-col justify-center gap-10 2xl:gap-16 " :class="isVisible ? 'translate-y-0' : 'translate-y-[100px]'">
             <div class="details">
               <CardText
                 tag="h3"
@@ -85,7 +85,7 @@ vue.onMounted(async () => {
                 placeholder="List Title"
               />
               <div class="flex gap-[10%] gap-y-4 flex-wrap font-sans font-medium">
-                <div v-for="(item, i) in uc.details" :key="i" class="w-[45%] ">
+                <div v-for="(item, i) in uc.details" :key="i" class="w-full md:w-[45%] ">
                   <CardText
                     :card
                     class="font-semibold"

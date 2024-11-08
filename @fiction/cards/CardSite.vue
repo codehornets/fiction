@@ -123,6 +123,11 @@ unhead.useHead({
   title: () => getTitleTag(),
   meta: [
     { charset: 'UTF-8' },
+    { name: 'generator', content: 'Fiction.com Website Builder' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:site', content: '@fiction_com' },
+    { property: 'og:image:width', content: '1200' },
+    { property: 'og:image:height', content: '630' },
     { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
     { name: `description`, content: () => (page.value?.userConfig.value.seo?.description || page.value?.description.value || '') },
     { name: 'robots', content: () => (site.value?.userConfig.value.seo?.robotsTxt || 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1') },
@@ -133,6 +138,7 @@ unhead.useHead({
     { property: 'og:title', content: () => getTitleTag() },
     { property: 'og:url', content: () => site.value?.frame.displayUrl.value },
     { name: 'robots', content: 'index, follow' },
+
   ],
   link: [
     {
