@@ -9,6 +9,48 @@ export function getSiteBrandColors(args: { site?: Site }) {
   return getColorScheme(clr, { outputFormat: 'hex' })
 }
 
+export function getStructuredData(args: { site?: Site }) {
+  const { site } = args
+  if (!site)
+    return '{}'
+
+  const url = site.frame.displayUrl.value
+  const org = site.org
+  const config = site.fullConfig.value
+  const page = site.currentPage.value
+  let slug = page?.slug.value || ''
+
+  slug = slug === '_home' ? '' : slug
+
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      // Primary Person entity
+      {
+        '@type': 'Person',
+        '@id': `${url}/#person`,
+        'name': org?.orgName || site.title.value,
+        'url': url,
+        'image': config.branding?.shareImage?.url || org?.avatar?.url,
+        'description': config.seo?.description,
+      },
+
+      // Current WebPage
+      {
+        '@type': 'WebPage',
+        '@id': `${url}${slug}#webpage`,
+        'url': `${url}${slug || ''}`,
+        'name': page?.title.value,
+        'description': page?.description.value || config.seo?.description,
+        'mainEntity': { '@id': `${url}/#person` },
+        'inLanguage': config.seo?.locale || 'en-US',
+      },
+    ],
+  }
+
+  return JSON.stringify(structuredData)
+}
+
 export function getHeadScripts(args: { site?: Site, noscript?: boolean }) {
   const { site, noscript = false } = args
 
@@ -16,15 +58,26 @@ export function getHeadScripts(args: { site?: Site, noscript?: boolean }) {
 
   if (noscript) {
     return gtmContainerId
-      ? [{ innerHTML: `<iframe src="https://www.googletagmanager.com/ns.html?id=${gtmContainerId}"
-height="0" width="0" style="display:none;visibility:hidden"></iframe>` }]
+      ? [
+          {
+            innerHTML: `<iframe src="https://www.googletagmanager.com/ns.html?id=${gtmContainerId}"
+height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
+            type: '',
+          },
+        ]
       : []
   }
   else {
-    const script = [{
-      innerHTML: 'document.addEventListener(\'DOMContentLoaded\', function() { document.documentElement.style.visibility = \'visible\'; });',
-      type: 'text/javascript',
-    }]
+    const script = [
+      {
+        innerHTML: 'document.addEventListener(\'DOMContentLoaded\', function() { document.documentElement.style.visibility = \'visible\'; });',
+        type: 'text/javascript',
+      },
+      {
+        innerHTML: getStructuredData({ site }),
+        type: 'application/ld+json',
+      },
+    ]
 
     if (gtmContainerId) {
       script.push({
