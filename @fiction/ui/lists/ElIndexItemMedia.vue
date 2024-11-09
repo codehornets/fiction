@@ -8,7 +8,7 @@ const { media, icon } = defineProps<{ media?: MediaObject, icon?: string }>()
 
 const mediaClass = `
   relative
-  bg-theme-50
+  bg-theme-100/60
   dark:bg-theme-600/40
   dark:text-theme-0
   rounded-full

@@ -182,7 +182,7 @@ function toggleSidebar() {
                 @nav="toggleSidebar()"
               />
               <div
-                class="mx-auto bg-theme-50/50 dark:bg-theme-950 grow overflow-scroll w-full"
+                class="mx-auto bg-theme-0 dark:bg-theme-950 grow overflow-scroll w-full"
               >
                 <div
                   v-if="loading"

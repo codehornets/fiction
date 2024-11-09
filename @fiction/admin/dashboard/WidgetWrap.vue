@@ -19,7 +19,7 @@ const widgetDescription = vue.computed(() => props.widget?.settings.description)
 
 <template>
   <div
-    class="drop-target relative flex flex-col transition-all p-4 lg:p-6"
+    class="drop-target relative flex flex-col transition-all p-4 sm:p-6 lg:p-8"
     :draggable="editable"
   >
     <div
