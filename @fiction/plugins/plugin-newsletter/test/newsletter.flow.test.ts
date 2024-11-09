@@ -18,8 +18,8 @@ describe('admin:newsletter', async () => {
       path: '/app',
       actions: [
         { type: 'click', selector: '[data-test-id="dashboard-nav-newsletter"]' },
-        { type: 'hasText', selector: `[data-test-id="newsletter-zero-title"]`, text: 'Your Newsletter' },
-        { type: 'click', selector: `[data-test-id="new-email-button-zero"]` },
+        { type: 'hasText', selector: `[data-test-id="campaign-zero"]`, text: 'Email Marketing Campaigns' },
+        { type: 'click', selector: `[data-test-id="new-campaign-button-zero"]` },
         { type: 'fill', selector: `[data-test-id="email-title-input"] input`, text: 'Test Email' },
         { type: 'click', selector: `[data-test-id="step-button-emailTitle"]` },
         { type: 'click', selector: `[data-test-id="email-schedule-edit-button"]` },
