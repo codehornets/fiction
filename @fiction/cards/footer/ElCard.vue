@@ -93,7 +93,7 @@ vue.onMounted(() => {
         <div :class="layoutClasses.logoClass" class="text-primary-500 dark:text-theme-0">
           <XLogo v-if="uc.logo" :media="uc.logo" class="h-8" alignment-class="md:justify-start justify-center" />
           <CardText
-            class="text-sm text-theme-700 dark:text-theme-500 x-font-title leading-tight text-balance"
+            class="text-sm text-theme-700 dark:text-theme-500 x-font-title leading-tight"
             :card
             tag="h2"
             path="tagline"

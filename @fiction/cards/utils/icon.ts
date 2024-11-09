@@ -22,7 +22,7 @@ function formatColor(color?: string): string {
 
 export function getDefaultIconUrl(args: { site?: Site, options?: Partial<IconOptions> }) {
   const { site, options = {} } = args
-  const siteName = site?.org?.orgName || site?.title.value
+  const siteName = site?.title.value || site?.org?.orgName
 
   if (!siteName) {
     return fictionIcon
@@ -33,7 +33,7 @@ export function getDefaultIconUrl(args: { site?: Site, options?: Partial<IconOpt
   const defaultOptions: IconOptions = {
     'name': siteName,
     'size': 128,
-    'background': formatColor(brandColor[800]),
+    'background': formatColor(brandColor[950]),
     'color': formatColor(brandColor[100]),
     'length': 1,
     'rounded': false,

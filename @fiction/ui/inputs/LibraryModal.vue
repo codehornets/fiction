@@ -198,10 +198,10 @@ function updateCurrentSelection(updates: Partial<MediaObject>) {
           />
           <ElInput
             :model-value="currentSelection.typography?.scale"
-            label="Size"
+            label="Scale"
             input="InputRange"
             data-test-id="typography-scale"
-            :input-props="{ min: .5, max: 2, step: .02, startValue: 1 }"
+            :input-props="{ min: .5, max: 2, step: .01, startValue: 1 }"
             @update:model-value="updateCurrentSelection({ typography: { ...currentSelection.typography, scale: $event }, format: 'typography' })"
           />
         </div>

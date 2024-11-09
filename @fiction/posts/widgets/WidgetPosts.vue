@@ -74,7 +74,7 @@ const list = vue.computed<IndexItem[]>(() => {
   <WidgetWrap :widget :actions>
     <IndexItemList :list :actions>
       <template #subTitle="{ item }">
-        <div class="flex gap-2 flex-wrap leading-[1]">
+        <div class="flex gap-2 flex-wrap ">
           <div class="opacity-80">
             {{ item.desc || 'No excerpt' }}
           </div> &middot;

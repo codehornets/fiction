@@ -13,7 +13,7 @@ const { testId = 'zero-banner', icon, title, description, actions } = defineProp
 </script>
 
 <template>
-  <div class="bg-theme-0 border border-theme-300/70 bg-theme-0  dark:border-theme-700 dark:bg-theme-800/70 relative rounded-lg overflow-hidden ">
+  <div class="bg-theme-0 border border-theme-300/70 bg-theme-50/80  dark:border-theme-700 dark:bg-theme-800/70 relative rounded-lg overflow-hidden ">
     <div class="mx-auto max-w-7xl px-12 py-16">
       <div class="mx-auto max-w-2xl flex-shrink-0 lg:mx-0 lg:max-w-xl flex md:flex-col justify-center ">
         <div class="flex gap-5">

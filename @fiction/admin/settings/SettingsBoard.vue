@@ -68,7 +68,7 @@ const nav = vue.computed<NavItem[]>(() => {
         <CardButtons v-if="navActions?.length" :actions="navActions" :card="card" />
         <ElHeader
           v-if="header"
-          class="dark:bg-theme-700/30 rounded-xl p-4"
+          class="bg-theme-50/20 dark:bg-theme-700/30 rounded-xl p-4"
           :model-value="header"
           @update:model-value="emit('update:header', $event)"
         />
@@ -82,7 +82,7 @@ const nav = vue.computed<NavItem[]>(() => {
           :href="v.href"
           :class="
             v.isActive
-              ? 'active bg-primary-100/50 text-primary-700 hover:text-primary-500 dark:bg-theme-700/70 dark:text-theme-0'
+              ? 'active bg-primary-100/50 text-theme-700 dark:bg-theme-700/70 dark:text-theme-0'
               : 'inactive text-theme-600 dark:text-theme-0 hover:bg-theme-100/30 dark:hover:bg-theme-700/60' "
         >
           <div v-if="v.icon" class="text-[1.5em] xl:text-[1.75em] shrink-0 text-theme-500 dark:text-theme-50" :class="v.icon" />

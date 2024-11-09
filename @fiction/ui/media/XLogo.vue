@@ -40,8 +40,8 @@ const typographyStyle = vue.computed(() => {
     lineHeight: 1.2,
     letterSpacing: typography.letterSpacing,
     fontSize: fontSize.value && fontSize.value > 8 ? `${fontSize.value}px` : 'inherit',
-    // transform: `scale(${scale})`,
-    // transformOrigin: 'center center',
+    transform: `scale(${scale})`,
+    transformOrigin: 'center center',
   }
 })
 
@@ -52,11 +52,9 @@ function adjustFontSize() {
   if (!typography)
     return {}
 
-  const scale = typography?.scale || 1
-
   if (containerRef.value && textRef.value && fontSize.value > 8) {
     const containerHeight = containerRef.value.clientHeight
-    const cHeight = containerHeight * scale
+    const cHeight = containerHeight
     let testSize = cHeight
     textRef.value.style.fontSize = `${testSize}px`
 
