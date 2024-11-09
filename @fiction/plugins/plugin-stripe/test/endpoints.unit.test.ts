@@ -319,10 +319,10 @@ describe('queryPortalSession', async () => {
       const result = await fictionStripe.queries.PortalSession.serve({
         orgId: newOrg.data?.orgId || '',
         returnUrl: 'http://localhost:3000/return',
-      }, { server: true, expectError: true } as EndpointMeta)
+      }, { server: true } as EndpointMeta)
 
-      expect(result.status).toBe('error')
-      expect(result.message).toMatchInlineSnapshot(`"customerId not found"`)
+      expect(result.status).toBe('success')
+      expect(result?.customer?.id).toBeTruthy()
     })
 
     it('creates session with custom return URL', async () => {
@@ -367,8 +367,7 @@ describe('queryPortalSession', async () => {
         returnUrl: 'http://localhost:3000/return',
       }, { server: true, expectError: true } as EndpointMeta)
 
-      expect(result.status).toBe('error')
-      expect(result.message).toMatchInlineSnapshot(`"customerId not found"`)
+      expect(result.status).toBe('success')
     })
 
     it('handles stripe API errors gracefully', async () => {

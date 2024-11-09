@@ -32,8 +32,9 @@ vue.onMounted(() => load())
     :card
     :panel-props="{ }"
     :header="{
-      title: 'Newsletter',
-      subTitle: 'Easily send email updates to your subscribers.',
+      title: 'Email Management',
+      subTitle: 'Create compelling email campaigns to engage your audience. Schedule broadcasts, and track performance metrics.',
+
       media: { class: `i-tabler-mail` },
       actions: [],
     }"

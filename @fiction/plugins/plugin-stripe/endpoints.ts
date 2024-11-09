@@ -8,14 +8,14 @@ import { abort, Query, standardTable } from '@fiction/core'
 type StripeEndpointSettings = StripePluginSettings & { fictionStripe: FictionStripe }
 
 export class QueryPortalSession extends Query<StripeEndpointSettings> {
-  async run(params: { orgId: string, returnUrl?: string }, _meta: EndpointMeta): Promise<EndpointResponse<Stripe.BillingPortal.Session>> {
+  async run(params: { orgId: string, returnUrl?: string }, _meta: EndpointMeta): Promise<EndpointResponse<Stripe.BillingPortal.Session > & { customer?: Stripe.Customer }> {
     const { orgId, returnUrl } = params
     const fictionStripe = this.settings.fictionStripe
     const stripe = fictionStripe.getServerClient()
 
     const r = await fictionStripe.queries.ManageCustomer.serve({ _action: 'retrieve', orgId }, _meta)
-
-    const customerId = r.data?.customer?.id
+    const customer = r.data?.customer
+    const customerId = customer?.id
 
     if (!customerId) {
       return { status: 'error', message: `customerId not found` }
@@ -26,7 +26,7 @@ export class QueryPortalSession extends Query<StripeEndpointSettings> {
         customer: customerId,
         return_url: returnUrl,
       })
-      return { status: 'success', data: session }
+      return { status: 'success', data: session, customer }
     }
     catch (error) {
       this.log.error('Payment API Error: Failed to create portal session', { error })
@@ -230,6 +230,10 @@ export class QueryManageCustomer extends Query<StripeEndpointSettings> {
     const { orgId } = args
     const stripe = this.settings.fictionStripe.getServerClient()
     const org = await this.getStoredCustomerInfo({ orgId, caller: 'getCustomer' })
+
+    if (!org.orgId) {
+      throw new Error(`Organization not found: ${orgId}`)
+    }
 
     let customerId = org?.customerId
 

@@ -90,7 +90,7 @@ const nav = vue.computed<NavItem[]>(() => {
             <div class="font-semibold truncate">
               {{ v.name }}
             </div>
-            <div class="text-theme-500 dark:text-theme-400 truncate">
+            <div class="text-theme-500 dark:text-theme-400 truncate text-sm">
               {{ v.desc }}
             </div>
           </div>

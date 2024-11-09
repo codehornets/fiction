@@ -107,10 +107,10 @@ const quote = vue.computed(() => quotes[Math.floor(Math.random() * quotes.length
       <template #links>
         <div class="text-sm text-theme-500 dark:text-theme-300 font-sans">
           <template v-if="itemId === 'register'">
-            Already have an account? <a data-test-id="to-login" class="text-primary-500 dark:text-primary-400 hover:opacity-80" href="#" @click.prevent="updateItemItemId('login')">Sign in  &rarr;</a>
+            Have an account? <a data-test-id="to-login" class="text-primary-500 dark:text-primary-400 hover:opacity-80" href="#" @click.prevent="updateItemItemId('login')">Sign in to your account &rarr;</a>
           </template>
           <template v-else-if="itemId !== 'confirm'">
-            First time here? <a data-test-id="to-register" class="text-primary-500 dark:text-primary-400 hover:opacity-80" href="#" @click.prevent="updateItemItemId('register')">Sign up for free &rarr;</a>
+            New here? <a data-test-id="to-register" class="text-primary-500 dark:text-primary-400 hover:opacity-80" href="#" @click.prevent="updateItemItemId('register')">Create your account &rarr;</a>
           </template>
         </div>
       </template>
@@ -122,8 +122,8 @@ const quote = vue.computed(() => quotes[Math.floor(Math.random() * quotes.length
             </div>
             <div>
               <div class="text-theme-400 dark:text-theme-200 text-xs font-sans text-balance text-center leading-relaxed">
-                Can't see the email? Please check the spam folder.
-                Wrong email? <a data-test-id="to-last" class="text-primary-500 dark:text-primary-400 hover:opacity-80" href="#" @click.prevent="updateItemItemId('login')">Try Again &rarr;</a>
+                Can't find the email? Check your spam folder or
+                <a data-test-id="to-last" class="text-primary-500 dark:text-primary-400 hover:opacity-80" href="#" @click.prevent="updateItemItemId('login')">try a different email &rarr;</a>
               </div>
             </div>
           </template>
@@ -132,9 +132,9 @@ const quote = vue.computed(() => quotes[Math.floor(Math.random() * quotes.length
               key="inputEmail"
               data-test-id="input-email"
               class="my-6"
-              label="Email Address"
+              label="Email"
               input="InputEmail"
-              :input-props="{ autocomplete: 'email', required: true, placeholder: 'Enter Your Email' }"
+              :input-props="{ autocomplete: 'email', required: true, placeholder: 'your@email.com' }"
               :value="fields.email"
               ui-size="lg"
               @input="fields.email = $event.target.value"
@@ -143,9 +143,9 @@ const quote = vue.computed(() => quotes[Math.floor(Math.random() * quotes.length
             <ElInput
               v-if="itemId === 'register'"
               data-test-id="input-name"
-              label="Your Name"
+              label="Full Name"
               input="InputText"
-              :input-props="{ autocomplete: 'name', required: true, placeholder: 'Full Name' }"
+              :input-props="{ autocomplete: 'name', required: true, placeholder: 'Enter your full name' }"
               ui-size="lg"
               :value="fields.fullName"
               @input="fields.fullName = $event.target.value"
@@ -157,7 +157,7 @@ const quote = vue.computed(() => quotes[Math.floor(Math.random() * quotes.length
               data-test-id="input-password"
               input="InputPassword"
               label="Password"
-              :input-props="{ autocomplete: 'current-password', required: true, placeholder: 'Your Password' }"
+              :input-props="{ autocomplete: 'current-password', required: true, placeholder: 'Enter your password' }"
               ui-size="lg"
               :value="fields.password"
               @input="fields.password = $event.target.value"
@@ -169,9 +169,9 @@ const quote = vue.computed(() => quotes[Math.floor(Math.random() * quotes.length
               data-test-id="input-password"
               class="my-6"
               input="InputPassword"
-              label="Create Password"
-              description="Minimum 6 characters"
-              :input-props="{ autocomplete: 'new-password', required: true, placeholder: 'Create New Password' }"
+              label="Password"
+              description="Must be at least 6 characters long"
+              :input-props="{ autocomplete: 'new-password', required: true, placeholder: 'Create a secure password' }"
               ui-size="lg"
               :value="fields.password"
               @input="fields.password = $event.target.value"
@@ -199,24 +199,24 @@ const quote = vue.computed(() => quotes[Math.floor(Math.random() * quotes.length
                 :loading="sending"
                 icon="i-tabler-sparkles"
               >
-                Email Me a Magic Link
+                Send Secure Login Link
               </XButton>
             </div>
 
             <div class="text-theme-400 dark:text-theme-500 text-xs font-sans text-balance text-center space-y-6">
               <div>
-                You acknowledge that you read, and agree to the
-                <a class="underline text-theme-500 dark:text-theme-400" :href="uc.termsUrl" target="_blank">terms</a>
+                By continuing, you agree to our
+                <a class="underline text-theme-500 dark:text-theme-400" :href="uc.termsUrl" target="_blank">Terms of Service</a>
                 and
-                <a class="underline text-theme-500 dark:text-theme-400" :href="uc.privacyUrl" target="_blank">privacy policy</a>.
+                <a class="underline text-theme-500 dark:text-theme-400" :href="uc.privacyUrl" target="_blank">Privacy Policy</a>
               </div>
 
               <div class="text-xs cursor-pointer hover:opacity-80">
                 <div v-if="itemId === 'login'" class="text-xs cursor-pointer hover:opacity-80" @click="updateItemItemId('password')">
-                  Login with Password
+                  Use Password Instead
                 </div>
                 <div v-else-if="itemId === 'password'" @click="updateItemItemId('login')">
-                  Login with Email
+                  Use Magic Link Instead
                 </div>
               </div>
             </div>

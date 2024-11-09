@@ -53,15 +53,17 @@ export class FictionNewsletter extends FictionPlugin<FictionNewsletterSettings> 
       await factory.create({
         templateId: 'dash',
         slug: 'newsletter',
-        title: 'Newsletter',
+        title: 'Email',
+        description: 'Create and manage your email marketing campaigns',
         cards: [
           await factory.create({
             el: vue.defineAsyncComponent(async () => import('./admin/ViewManageIndex.vue')),
             cards: [
               await factory.create({
                 slug: '_home',
-                title: 'All Emails',
-                description: 'Manage all emails and their settings',
+                title: 'Campaign Library',
+                description: 'View, track, and manage all your email campaigns in one place',
+
                 el: vue.defineAsyncComponent(async () => import('./admin/ViewIndex.vue')),
                 userConfig: { isNavItem: true, navIcon: 'i-tabler-mail', navIconAlt: 'i-tabler-mail-share' },
               }),
@@ -80,15 +82,15 @@ export class FictionNewsletter extends FictionPlugin<FictionNewsletterSettings> 
             cards: [
               await factory.create({
                 slug: '_home',
-                title: 'Overview',
-                description: 'Overview of this campaign.',
+                title: 'Campaign Summary',
+                description: 'Track delivery status, engagement metrics, and campaign performance',
                 el: vue.defineAsyncComponent(async () => import('./admin/ManageOverview.vue')),
                 userConfig: { isNavItem: true, navIcon: 'i-tabler-dashboard', navIconAlt: 'i-tabler-dashboard' },
               }),
               await factory.create({
                 slug: 'analytics',
-                title: 'Analytics',
-                description: 'Data and information about the email',
+                title: 'Performance Analytics',
+                description: 'Monitor open rates, click-through rates, and subscriber engagement',
                 el: vue.defineAsyncComponent(async () => import('./admin/ManageAnalytics.vue')),
                 userConfig: { isNavItem: true, navIcon: 'i-tabler-chart-dots', navIconAlt: 'i-tabler-chart-line' },
               }),
@@ -101,7 +103,8 @@ export class FictionNewsletter extends FictionPlugin<FictionNewsletterSettings> 
       await factory.create({
         templateId: 'dash',
         slug: 'newsletter-composer',
-        title: 'Edit Email',
+        title: 'Campaign Editor',
+        description: 'Design and customize your email campaign',
         cards: [
           await factory.create({
             el: vue.defineAsyncComponent(async () => import('./admin/EmailEditor.vue')),

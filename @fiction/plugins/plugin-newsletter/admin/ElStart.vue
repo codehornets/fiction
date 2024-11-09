@@ -44,8 +44,8 @@ const stepConfig: StepConfig = {
     const out: StepItem[] = [
 
       {
-        name: 'Create New Email',
-        desc: 'Give it a name...',
+        name: 'Create Campaign',
+        desc: 'Start by naming your campaign',
         key: 'emailTitle',
         class: 'max-w-lg',
         isNeeded: true,

@@ -75,7 +75,7 @@ const options = vue.computed(() => {
           testId: 'email-subject-line',
           icon: { class: 'i-tabler-input-spark' },
           label: 'Subject Line',
-          subLabel: 'What the user sees in their inbox',
+          subLabel: 'Write a compelling subject line',
           input: 'InputControl',
           valueDisplay: () => {
             return {
@@ -91,7 +91,7 @@ const options = vue.computed(() => {
           testId: 'email-preview-text',
           icon: { class: 'i-tabler-input-search' },
           label: 'Preview Text',
-          subLabel: 'What the user sees in their inbox',
+          subLabel: 'Add preview text to boost open rates',
           input: 'InputControl',
           valueDisplay: () => {
             return {
@@ -148,13 +148,13 @@ const options = vue.computed(() => {
                 input: 'InputSelectCustom',
                 isRequired: true,
                 list: [
-                  { name: 'Send on Publish', value: 'now' },
-                  { name: 'Send at Scheduled Time', value: 'schedule' },
+                  { name: 'Send immediately after review', value: 'now' },
+                  { name: 'Schedule for later', value: 'schedule' },
                 ],
               }),
               new InputOption({
                 key: 'scheduledAt',
-                label: 'Scheduled Send Time',
+                label: 'Scheduled Delivery Time',
                 input: 'InputDate',
                 isRequired: true,
                 isHidden: input.tempValue.value?.scheduleMode !== 'schedule',

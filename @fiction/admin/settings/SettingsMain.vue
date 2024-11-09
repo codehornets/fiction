@@ -10,11 +10,11 @@ defineProps({
 
 <template>
   <SettingsBoard
-    :card
+    :card="card"
     base-path="/settings"
     :header="{
-      title: 'Settings',
-      subTitle: 'Organization and user settings',
+      title: 'Account & Organization Settings',
+      subTitle: 'Manage your workspace, team, and personal preferences',
     }"
   />
 </template>

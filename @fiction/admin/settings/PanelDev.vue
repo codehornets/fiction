@@ -4,7 +4,6 @@ import { type Organization, useService, vue } from '@fiction/core'
 import { AutosaveUtility } from '@fiction/core/utils/save.js'
 import { InputOption } from '@fiction/ui/index.js'
 import FormEngine from '@fiction/ui/inputs/FormEngine.vue'
-import ElHeader from './ElHeader.vue'
 import InputApiKey from './InputApiKey.vue'
 import SettingsPanel from './SettingsPanel.vue'
 
@@ -16,12 +15,12 @@ const { card } = defineProps<{ card: Card<UserConfig> }>()
 const service = useService()
 
 const loading = vue.ref(true)
-const sending = vue.ref('')
+const saving = vue.ref('')
 
 const org = vue.computed(() => service.fictionUser.activeOrganization.value)
 
 async function save() {
-  sending.value = 'saving'
+  saving.value = 'saving'
   const endpoint = service.fictionUser.requests.ManageOrganization
   const fields = org.value
   const orgId = fields?.orgId
@@ -31,7 +30,7 @@ async function save() {
 
   await endpoint.projectRequest({ _action: 'update', fields, where: { orgId } })
 
-  sending.value = ''
+  saving.value = ''
 }
 
 const saveUtil = new AutosaveUtility({
@@ -40,48 +39,50 @@ const saveUtil = new AutosaveUtility({
 
 function update(orgNew: Organization) {
   service.fictionUser.activeOrganization.value = orgNew
-
   saveUtil.autosave()
 }
 
 const controlOptions = [
   new InputOption({
-    label: 'API Key',
-    subLabel: 'Used for API access',
+    label: 'API Authentication',
+    subLabel: 'Secure access keys for integrating with our API',
     input: 'InputControl',
     valueDisplay: () => {
       const apiSecret = service.fictionUser?.activeOrganization.value?.apiSecret
       return {
         status: apiSecret ? 'ready' : 'incomplete',
-        // show last four characters, adding askerisks for the rest
-        data: apiSecret ? apiSecret.slice(-4).padStart(9, '*') : undefined,
+        data: apiSecret ? `${apiSecret.slice(-4).padStart(9, '*')} (Active)` : 'No API key generated',
       }
     },
     options: [
-      new InputOption({ key: 'apiSecret', label: 'Private API Key', input: InputApiKey, props: { card } }),
+      new InputOption({
+        key: 'apiSecret',
+        label: 'Secret API Key',
+        description: 'Keep this key secure. Do not share or expose it in client-side code.',
+        input: InputApiKey,
+        props: { card },
+      }),
     ],
     modalActions: () => [],
   }),
-
 ]
 
 const options = vue.computed(() => {
   return [
     new InputOption({
       key: 'details',
-      label: 'API Keys',
+      label: 'API Configuration',
       input: 'group',
       options: controlOptions,
       format: 'control',
     }),
-
   ]
 })
 
 const header = vue.computed(() => {
   return {
-    title: 'Developer Tools',
-    subTitle: 'Working with Fiction API',
+    title: 'Developer Resources',
+    subTitle: 'Access API keys, documentation, and integration tools for building with our platform',
     media: {
       class: 'i-tabler-code',
     },
@@ -96,26 +97,35 @@ vue.onMounted(async () => {
 
 <template>
   <SettingsPanel
-    title="Developer and API"
-    :loading
+    title="Developer Portal"
+    :loading="loading"
     :actions="[{
-      name: saveUtil.isDirty.value ? 'Saving...' : 'Saved',
+      name: saveUtil.isDirty.value ? 'Saving changes...' : 'All changes saved',
       onClick: () => save(),
       theme: saveUtil.isDirty.value ? 'primary' : 'default',
-      loading: sending === 'saving',
+      loading: saving === 'saving',
       icon: saveUtil.isDirty.value ? 'i-tabler-upload' : 'i-tabler-check',
     }]"
-    :header
+    :header="header"
   >
-    <FormEngine
-      :model-value="org"
-      state-key="settingsTool"
-      ui-size="lg"
-      :options
-      :card
-      :disable-group-hide="true"
-      :data-value="JSON.stringify(org)"
-      @update:model-value="update($event)"
-    />
+    <div v-if="!loading" class="space-y-6">
+      <FormEngine
+        :model-value="org"
+        state-key="settingsTool"
+        ui-size="lg"
+        :options="options"
+        :card="card"
+        :disable-group-hide="true"
+        :data-value="JSON.stringify(org)"
+        @update:model-value="update($event)"
+      />
+
+      <div class="text-sm text-theme-500 dark:text-theme-400 space-y-2">
+        <p>
+          Need help getting started? Check our
+          <a href="https://docs.fiction.com" target="_blank" class="text-primary-500 hover:underline">API documentation</a> for guides and examples.
+        </p>
+      </div>
+    </div>
   </SettingsPanel>
 </template>

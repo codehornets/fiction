@@ -83,42 +83,66 @@ export class FictionSites extends FictionPlugin<SitesPluginSettings> {
       await factory.create({
         templateId: 'dash',
         slug: 'sites',
-        title: 'Sites',
+        title: 'Websites',
         cards: [
           await factory.create({
             el: vue.defineAsyncComponent(async () => import('./admin/ViewManage.vue')),
             cards: [
               await factory.create({
                 slug: '_home',
-                title: 'All Sites',
-                description: 'Manage all sites and their settings',
+                title: 'Website Dashboard',
+                description: 'View and manage all your websites, domains, and site configurations',
                 el: vue.defineAsyncComponent(async () => import('./admin/ManageIndex.vue')),
-                userConfig: { isNavItem: true, navIcon: 'i-tabler-browser', navIconAlt: 'i-tabler-browser-plus' },
+                userConfig: {
+                  isNavItem: true,
+                  navIcon: 'i-tabler-browser',
+                  navIconAlt: 'i-tabler-browser-plus',
+                },
               }),
               await factory.create({
                 slug: 'analytics',
-                title: 'Traffic Analytics',
-                description: 'Data and information about the site visitors',
+                title: 'Performance Analytics',
+                description: 'Monitor visitor engagement, traffic patterns, and user behavior across all sites',
                 el: vue.defineAsyncComponent(async () => import('./admin/ManageAnalytics.vue')),
-                userConfig: { isNavItem: true, navIcon: 'i-tabler-chart-dots', navIconAlt: 'i-tabler-chart-line' },
+                userConfig: {
+                  isNavItem: true,
+                  navIcon: 'i-tabler-chart-dots',
+                  navIconAlt: 'i-tabler-chart-line',
+                },
               }),
             ],
           }),
         ],
-        userConfig: { isNavItem: true, navIcon: 'i-tabler-browser', navIconAlt: 'i-tabler-browser-plus' },
+        userConfig: {
+          isNavItem: true,
+          navIcon: 'i-tabler-browser',
+          navIconAlt: 'i-tabler-browser-plus',
+        },
       }),
       await factory.create({
         regionId: 'main',
         templateId: 'dash',
         slug: 'edit-site',
-        title: 'Edit Site',
+        title: 'Website Editor',
+        description: 'Customize and configure your website settings',
         cards: [
           await factory.create({
             el: vue.defineAsyncComponent(async () => import('./plugin-builder/SiteEditor.vue')),
-            userConfig: { isNavItem: false, standard: { spacing: { verticalSpacing: 'none' as const } } },
+            userConfig: {
+              isNavItem: false,
+              standard: {
+                spacing: {
+                  verticalSpacing: 'none' as const,
+                },
+              },
+            },
           }),
         ],
-        userConfig: { isNavItem: false, layoutFormat: 'full', navIcon: 'i-tabler-home-plus' },
+        userConfig: {
+          isNavItem: false,
+          layoutFormat: 'full',
+          navIcon: 'i-tabler-home-plus',
+        },
       }),
     ] })
   }

@@ -60,8 +60,8 @@ function getActions(location: 'top' | 'zero') {
   <ElPanel class="p-12 w-full max-w-screen-md mx-auto">
     <div class="pt-8  ">
       <ElIndexGrid
-        :loading="loading"
-        :list="list"
+        :loading
+        :list
         list-title="Sites"
         :index-meta="{}"
         :edit-actions="[]"

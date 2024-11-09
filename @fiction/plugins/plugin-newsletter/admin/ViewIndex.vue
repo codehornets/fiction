@@ -61,12 +61,12 @@ vue.onMounted(async () => {
     <div class="p-12 w-full max-w-screen-md mx-auto">
       <ElIndexGrid
         media-icon="i-tabler-mail"
-        list-title="Newsletter Emails"
+        list-title="Email Campaigns"
         :list="list"
         :loading="loading"
         :actions="[{
-          testId: 'new-email-button-index',
-          name: 'New Email',
+          testId: 'new-campaign-button-index',
+          name: 'Create Campaign',
           icon: 'i-tabler-plus',
           theme: 'primary',
           onClick: () => { showStartModal = true },
@@ -75,7 +75,7 @@ vue.onMounted(async () => {
         <template #item="{ item }">
           <div class="flex -space-x-0.5">
             <dt class="sr-only">
-              Authors
+              Campaign Authors
             </dt>
             <dd v-for="(member, ii) in item.authors" :key="ii">
               <ElAvatar class="h-6 w-6 rounded-full bg-theme-50 ring-2 ring-white" :email="member.email" />
@@ -84,13 +84,13 @@ vue.onMounted(async () => {
         </template>
         <template #zero>
           <ElZeroBanner
-            test-id="newsletter-zero"
-            title="Your Newsletter"
-            description="Quickly craft emails and send them to your subscribers."
+            test-id="campaign-zero"
+            title="Email Marketing Campaigns"
+            description="Create engaging email campaigns to connect with your audience. Design, schedule, and track performance all in one place."
             icon="i-tabler-mail-share"
             :actions="[{
-              testId: 'new-email-button-zero',
-              name: 'New Email',
+              testId: 'new-campaign-button-zero',
+              name: 'Create First Campaign',
               onClick: () => { showStartModal = true },
               theme: 'primary',
               icon: 'i-heroicons-plus',

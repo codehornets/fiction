@@ -55,28 +55,30 @@ export class FictionPosts extends FictionPlugin<FictionPostsSettings> {
       await factory.create({
         templateId: 'dash',
         slug: 'posts',
-        title: 'Posts',
+        title: 'Content',
+        description: 'Create, manage, and schedule your content',
         cards: [
           await factory.create({
             el: vue.defineAsyncComponent(async () => import('./admin/ViewManage.vue')),
             cards: [
               await factory.create({
                 slug: '_home',
-                title: 'Post Index',
-                description: 'Manage your posts and content',
+                title: 'Content Overview',
+                description: 'Manage your articles, updates, and announcements',
                 el: vue.defineAsyncComponent(async () => import('./admin/PagePostIndex.vue')),
-                userConfig: { isNavItem: true, navIcon: 'i-tabler-pin', navIconAlt: 'i-tabler-pin-filled' },
+                userConfig: { isNavItem: true, navIcon: 'i-tabler-stack-push', navIconAlt: 'i-tabler-stack' },
               }),
             ],
           }),
         ],
-        userConfig: { isNavItem: true, navIcon: 'i-tabler-pin', navIconAlt: 'i-tabler-pin-filled' },
+        userConfig: { isNavItem: true, navIcon: 'i-tabler-stack-push', navIconAlt: 'i-tabler-stack' },
       }),
       await factory.create({
         regionId: 'main',
         templateId: 'dash',
         slug: 'edit-post',
-        title: 'Edit Post',
+        title: 'Content Editor',
+        description: 'Create and edit your content with our full-featured editor',
         cards: [await factory.create({
           el: vue.defineAsyncComponent(async () => import('./admin/PagePostEdit.vue')),
           userConfig: { standard: { spacing: { verticalSpacing: 'none' } }, isNavItem: false },
