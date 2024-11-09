@@ -19,15 +19,15 @@ const widgetDescription = vue.computed(() => props.widget?.settings.description)
 
 <template>
   <div
-    class="drop-target border-theme-300/70 shadow-[0px_8px_5px_-8px_rgba(var(--theme-300,.7))] dark:shadow-none bg-theme-0 dark:bg-theme-800/50 dark:border-theme-600 relative flex flex-col rounded-lg border transition-all"
+    class="drop-target relative flex flex-col transition-all p-4 lg:p-6"
     :draggable="editable"
   >
     <div
-      class="border-theme-200 dark:border-theme-600 text-theme-600 dark:text-theme-50 flex items-center justify-between border-b p-2 text-sm"
+      class="text-theme-600 dark:text-theme-50 flex items-center justify-between "
       :class="editable ? 'cursor-move ' : ''"
     >
-      <div class="relative flex items-center px-2">
-        <div class="font-semibold">
+      <div class="relative flex items-center">
+        <div class="font-semibold text-base">
           {{ widgetTitle }}
         </div>
 

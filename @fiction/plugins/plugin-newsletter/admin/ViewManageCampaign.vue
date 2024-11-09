@@ -50,7 +50,6 @@ vue.onMounted(() => load())
     base-path="/manage-newsletter"
     :panel-props="{ campaign }"
     :header="{
-      superTitle: 'Edit Campaign',
       title: campaign?.title.value || 'Untitled',
       subTitle: 'A simple way to send beautiful emails to your email list.',
       media: { class: `i-tabler-mail` },

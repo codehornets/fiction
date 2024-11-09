@@ -75,7 +75,7 @@ async function saveBeforeNavigate(args: { location: string, href: string }) {
             :loading="sending === 'manage-newsletter-back'"
             @click.prevent="saveBeforeNavigate({ location: 'manage-newsletter-back', href: manageLink })"
           >
-            Back
+            Back to Overview
           </CardButton>
         </div>
         <div v-if="campaign" class="flex space-x-1 font-medium">
@@ -85,10 +85,10 @@ async function saveBeforeNavigate(args: { location: string, href: string }) {
             href="/send"
           >
             <span class="i-tabler-mail text-xl inline-block dark:text-theme-500" />
-            <span>Newsletter Composer</span>
+            <span>Campaign Editor</span>
             <span class="i-tabler-slash text-xl dark:text-theme-500" />
           </CardLink>
-          <XText :model-value="campaign?.title.value" class="whitespace-nowrap" :is-editable="true" @update:model-value="campaign && (campaign.title.value = $event)" />
+          <XText :model-value="campaign?.title.value" class="whitespace-nowrap" :is-editable="true" placeholder="Enter campaign name" @update:model-value="campaign && (campaign.title.value = $event)" />
         </div>
       </template>
       <template #headerRight>
@@ -109,7 +109,7 @@ async function saveBeforeNavigate(args: { location: string, href: string }) {
           :loading="sending === 'manage-newsletter-review'"
           @click.prevent="saveBeforeNavigate({ location: 'manage-newsletter-review', href: manageLink })"
         >
-          Review &amp; Send
+          Review Campaign
         </CardButton>
       </template>
       <template #default>

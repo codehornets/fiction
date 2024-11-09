@@ -383,7 +383,6 @@ const header = vue.computed(() => {
   }
 
   const out: PostObject = {
-    superTitle: 'Status',
     title: statusText,
     subTitle: `Status: ${em?.status}`,
     media: { class: 'i-tabler-mail' },
@@ -395,7 +394,7 @@ const header = vue.computed(() => {
 </script>
 
 <template>
-  <SettingsPanel title="Newletter Email Overview" :header>
+  <SettingsPanel :title="card.title.value" :header>
     <div class="my-6 space-y-6">
       <FormEngine
         :model-value="campaign?.toConfig()"

@@ -123,7 +123,7 @@ vue.onMounted(() => {
 </script>
 
 <template>
-  <div class="relative flex h-full flex-col px-3">
+  <div class="relative flex h-full flex-col">
     <div class="flex items-center justify-between py-2">
       <div class="flex items-baseline">
         <div class="text-xl font-bold x-font-title">

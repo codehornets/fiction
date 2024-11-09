@@ -39,7 +39,7 @@ vue.onMounted(async () => {
 
 <template>
   <div>
-    <div class="grid gap-4 lg:gap-[20px] grid-cols-1 md:grid-cols-2 lg:grid-cols-12 grid-rows-[minmax(0,1fr)]">
+    <div class="divide-y divide-theme-200/50 dark:divide-theme-600/50">
       <component
         :is="widget.settings.el"
         v-for="(widget, i) in widgets"

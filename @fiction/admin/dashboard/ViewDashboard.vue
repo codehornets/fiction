@@ -13,12 +13,12 @@ const _x = 1
 </script>
 
 <template>
-  <div class="pt-4 md:pt-8 md:pb-36" :class="card.classes.value.contentWidth">
-    <div class="grid grid-cols-12 gap-4 lg:gap-8">
-      <div class="col-span-8">
+  <div class="">
+    <div class="grid grid-cols-12 divide-x divide-theme-200/50 dark:divide-theme-600/50  h-[calc(100dvh-61px)]">
+      <div class="col-span-8 h-full overflow-scroll">
         <WidgetArea location="homeMain" :card />
       </div>
-      <div class="col-span-4">
+      <div class="col-span-4 h-full overflow-scroll">
         <WidgetArea location="homeSecondary" :card />
       </div>
     </div>

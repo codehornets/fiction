@@ -23,19 +23,18 @@ defineProps({
     </div>
 
     <div v-else-if="!list || list.length === 0">
-      <div class="p-6 text-center">
+      <div class="p-12 text-center">
         <p class="text-theme-400">
           {{ zeroText }}
         </p>
         <ElActions
           class="mt-4 gap-4 flex justify-center"
           :actions="actions"
-          ui-size="sm"
         />
       </div>
     </div>
 
-    <div v-else class="px-6 divide-y divide-theme-100 dark:divide-theme-700">
+    <div v-else class="divide-y divide-theme-100 dark:divide-theme-700">
       <XLink
         v-for="(item, i) in list"
         :key="i"
@@ -52,7 +51,7 @@ defineProps({
             <slot name="details" :item="item" />
           </div>
           <div class="group relative max-w-xl space-y-1.5">
-            <h3 class="text-xl mt-1 font-semibold hover:underline x-font-title leading-tight">
+            <h3 class="text-2xl mt-1 font-medium hover:underline x-font-title">
               {{ item.name }}
             </h3>
             <div
