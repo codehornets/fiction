@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { IndexItem, MediaObject, MemberAccess, NavItem } from '@fiction/core'
+import type { FictionStripe } from '@fiction/plugins/plugin-stripe'
 import type { Card } from '@fiction/site/card'
 import ElEngine from '@fiction/cards/CardEngine.vue'
 import { getAccessLevel, onResetUi, sortPriority, useService, vue } from '@fiction/core'
@@ -31,7 +32,7 @@ const props = defineProps({
 const uc = vue.computed(() => props.card.userConfig.value)
 const loading = vue.ref(true)
 const site = vue.computed(() => props.card.site)
-const { fictionUser } = useService()
+const { fictionUser, fictionStripe } = useService<{ fictionStripe?: FictionStripe }>()
 
 const showMobileNav = vue.ref(false)
 const menuVis = vue.ref(false)
@@ -115,6 +116,9 @@ vue.onMounted(async () => {
     props.card.site?.siteRouter.push(props.card.link(uc.value.authRedirect), { caller: 'DashWrap' })
 
   loading.value = false
+
+  if (fictionStripe)
+    await fictionStripe.customerInitialized({ caller: 'DashWrap' })
 })
 
 function toggleSidebar() {
@@ -169,7 +173,14 @@ function toggleSidebar() {
               v-if="site"
               class="no-scrollbar relative min-h-0 min-w-0 grow flex flex-col h-[100dvh]"
             >
-              <DashBar class="border-theme-300/70 dark:border-theme-700 border-b" :account-menu="accountMenu" :card :site="site" @nav="toggleSidebar()" />
+              <DashBar
+                class="border-theme-300/70 dark:border-theme-700 border-b"
+                :account-menu="accountMenu"
+                :customer="fictionStripe?.activeCustomer.value"
+                :card
+                :site
+                @nav="toggleSidebar()"
+              />
               <div
                 class="mx-auto bg-theme-50/50 dark:bg-theme-950 grow overflow-scroll w-full"
               >

@@ -171,7 +171,7 @@ export class FictionStripe extends FictionPlugin<StripePluginSettings> {
 
   activeCustomer = vue.shallowRef<types.CustomerDetails>()
   private initPromise?: Promise<boolean>
-  private resolveCustomer?: (value: boolean | PromiseLike<boolean>) => void
+  private _resolveCustomer?: (value: boolean | PromiseLike<boolean>) => void
   private initializationError?: Error
 
   async requestSetCustomerData() {
@@ -206,7 +206,7 @@ export class FictionStripe extends FictionPlugin<StripePluginSettings> {
     if (!this.initPromise) {
       this.log.info('initializing customer', { data: { caller } })
       this.initPromise = new Promise(async (resolve, reject) => {
-        this.resolveCustomer = resolve
+        this._resolveCustomer = resolve
         try {
           const result = await this.requestSetCustomerData()
           resolve(true)

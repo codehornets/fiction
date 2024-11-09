@@ -58,7 +58,7 @@ const controlOptions = [
       }
     },
     options: [
-      new InputOption({ key: 'apiSecret', label: 'Private API Key', input: InputApiKey }),
+      new InputOption({ key: 'apiSecret', label: 'Private API Key', input: InputApiKey, props: { card } }),
     ],
     modalActions: () => [],
   }),
@@ -105,14 +105,8 @@ vue.onMounted(async () => {
       loading: sending === 'saving',
       icon: saveUtil.isDirty.value ? 'i-tabler-upload' : 'i-tabler-check',
     }]"
+    :header
   >
-    <div class="p-6">
-      <ElHeader
-        v-if="header"
-        class="dark:bg-theme-700/50 rounded-xl p-8"
-        :model-value="header"
-      />
-    </div>
     <FormEngine
       :model-value="org"
       state-key="settingsTool"

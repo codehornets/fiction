@@ -104,7 +104,7 @@ export class QueryManageCustomer extends Query<StripeEndpointSettings> {
     const { data: customer } = await this.getCustomer({ orgId })
 
     if (!customer || customer?.deleted) {
-      throw abort('Customer not found')
+      throw abort(`Can't update, customer not found`)
     }
 
     await stripe.customers.update(customer.id, { email, name })
@@ -139,7 +139,7 @@ export class QueryManageCustomer extends Query<StripeEndpointSettings> {
     const { data: customer, org } = await this.getCustomer({ orgId })
 
     if (!customer || customer?.deleted) {
-      throw abort('Customer not found')
+      throw abort(`Can't delete, customer not found`)
     }
 
     const stripe = this.settings.fictionStripe.getServerClient()
@@ -231,10 +231,19 @@ export class QueryManageCustomer extends Query<StripeEndpointSettings> {
     const stripe = this.settings.fictionStripe.getServerClient()
     const org = await this.getStoredCustomerInfo({ orgId, caller: 'getCustomer' })
 
-    const customerId = org?.customerId
+    let customerId = org?.customerId
 
     if (!customerId) {
-      return { status: 'error', message: 'Customer not found', org }
+      const r = await this.createCustomer({ orgId, _action: 'create', fields: {
+        email: org?.orgEmail,
+        name: org?.orgName,
+      } }, { caller: 'getCustomer' })
+
+      customerId = r.data?.customer?.id
+    }
+
+    if (!customerId) {
+      throw new Error(`customerId not available`)
     }
 
     let customer: (Stripe.Customer & { deleted?: boolean }) | undefined

@@ -61,7 +61,7 @@ type TupleToObject<T extends [string, any]> = {
 
 export type TemplateUserConfigMap<T extends readonly CardTemplate[]> = TupleToObject<CreateTuple<T>>
 
-export async function getCardTemplates() {
+export async function getCardTemplates(): Promise<CardTemplate<any>[]> {
   return [
     wrap.template,
     transaction.template,

@@ -25,7 +25,7 @@ onResetUi(() => {
 </script>
 
 <template>
-  <div class="relative ml-auto">
+  <div class="relative">
     <div @click.stop="active = !active">
       <div class="group flex cursor-pointer items-center space-x-1 hover:bg-theme-50 dark:border-theme-700 dark:bg-theme-700 dark:hover:bg-theme-700/60 px-1.5 py-1 rounded-full">
         <ElAvatar

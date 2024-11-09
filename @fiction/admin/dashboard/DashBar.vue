@@ -1,23 +1,25 @@
 <script lang="ts" setup>
 import type { NavItem } from '@fiction/core'
+import type { CustomerDetails } from '@fiction/plugins/plugin-stripe'
 import type { Card } from '@fiction/site'
 import type { UserConfig } from './DashWrap.vue'
+import CardButton from '@fiction/cards/CardButton.vue'
 import CardLink from '@fiction/cards/el/CardLink.vue'
 import { vue } from '@fiction/core'
 import XMedia from '@fiction/ui/media/XMedia.vue'
 import DashBarMenu from './DashBarMenu.vue'
 
-const props = defineProps({
-  iconDashboard: { type: String, default: '' },
-  accountMenu: { type: Array as vue.PropType<NavItem[]>, default: () => [] },
-  card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
-})
+const { accountMenu = [], card, customer } = defineProps<{
+  accountMenu: NavItem[]
+  card: Card<UserConfig>
+  customer?: CustomerDetails
+}>()
 
 const emit = defineEmits<{
   (event: 'nav', payload: boolean): void
 }>()
 
-const uc = vue.computed(() => props.card.userConfig.value)
+const uc = vue.computed(() => card.userConfig.value)
 </script>
 
 <template>
@@ -39,7 +41,19 @@ const uc = vue.computed(() => props.card.userConfig.value)
       </div>
       <div />
 
-      <div class="flex h-full justify-end space-x-4 md:min-w-[150px]">
+      <div class="flex h-full justify-end gap-6 md:min-w-[150px]">
+        <div class="flex items-center">
+          <CardButton
+            v-if="customer"
+            :card
+            design="outline"
+            size="sm"
+            theme="primary"
+            href="/settings/billing"
+          >
+            {{ customer?.plan }} plan
+          </CardButton>
+        </div>
         <DashBarMenu
           size="md"
           direction="left"
