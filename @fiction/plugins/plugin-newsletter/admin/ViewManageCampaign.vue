@@ -56,7 +56,7 @@ vue.onMounted(() => load())
     }"
     :nav-actions="[
       {
-        name: 'Index',
+        name: 'All Campaigns',
         theme: 'default',
         size: 'sm',
         href: card.link('/newsletter'),

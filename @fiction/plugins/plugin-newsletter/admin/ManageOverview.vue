@@ -383,8 +383,8 @@ const header = vue.computed(() => {
   }
 
   const out: PostObject = {
-    title: statusText,
-    subTitle: `Status: ${em?.status}`,
+    title: em.title || 'Untitled',
+    subTitle: `${statusText} - Status is "${em?.status}"`,
     media: { class: 'i-tabler-mail' },
     actions,
   }

@@ -57,6 +57,7 @@ export interface CompiledServiceConfig {
     | 'GetDimensionList'
     | 'GetTopValues'
     | 'GetTotalSessions'
+    | 'ManageBrandGuide'
     | 'ManageCampaign'
     | 'ManageCert'
     | 'ManageCustomer'

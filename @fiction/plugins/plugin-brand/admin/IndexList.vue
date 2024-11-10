@@ -10,48 +10,39 @@ import ElZeroBanner from '@fiction/ui/ElZeroBanner.vue'
 import ElIndexGrid from '@fiction/ui/lists/ElIndexGrid.vue'
 import ElStart from './ElStart.vue'
 
-const { card } = defineProps<{ card: Card }>()
+const { card, brandIndex } = defineProps<{ card: Card, brandIndex: TableBrand[] }>()
 
 const { fictionBrand, fictionRouter } = useService<{ fictionBrand: FictionBrand }>()
 
-const brands = vue.shallowRef<TableBrand[]>([])
 const loading = vue.ref(false)
 
 const list = vue.computed<IndexItem[]>(() => {
-  return brands.value.map((brand) => {
+  return brandIndex.map((brand) => {
     return {
       key: brand.brandId,
       name: brand.title || 'Untitled',
       desc: brand.description || 'No description',
       href: card.link(`/manage-brand?brandId=${brand.brandId}`),
-      icon: 'i-tabler-icons',
+      icon: 'i-tabler-briefcase',
     } as IndexItem
   })
 })
 
-async function load() {
-  loading.value = true
-  const createParams = { _action: 'list', fields: { }, loadDraft: true } as const
-  brands.value = []
-  loading.value = false
-}
-
 const showStartModal = vue.ref(false)
-
-vue.onMounted(() => load())
 </script>
 
 <template>
   <SettingsPanel :title="card.title.value">
     <div class="p-12 w-full max-w-screen-md mx-auto">
+      123
       <ElIndexGrid
         media-icon="i-tabler-mail"
-        list-title="Brand Models"
+        list-title="Brand Guidelines"
         :list="list"
         :loading
         :actions="[{
-          testId: 'new-email-button-index',
-          name: 'New Email',
+          testId: 'new-brand-button',
+          name: 'Create Brand Guidelines',
           icon: 'i-tabler-plus',
           theme: 'primary',
           onClick: () => { showStartModal = true },
@@ -70,15 +61,15 @@ vue.onMounted(() => load())
         <template #zero>
           <ElZeroBanner
             test-id="brand-zero"
-            title="Brand Models"
-            description="Brand models are used to creating content and working with AI."
-            icon="i-tabler-icons"
+            title="Create Your First Brand Guidelines"
+            description="Define your brand's voice, style, and content rules to power AI-assisted content creation."
+            icon="i-tabler-briefcase"
             :actions="[{
               testId: 'new-brand-button-zero',
-              name: 'Create Brand',
+              name: 'Get Started',
               onClick: () => { showStartModal = true },
               theme: 'primary',
-              icon: 'i-tabler-icons',
+              icon: 'i-tabler-wand',
             }]"
           />
         </template>

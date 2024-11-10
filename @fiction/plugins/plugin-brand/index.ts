@@ -2,6 +2,7 @@ import type { FictionAdmin } from '@fiction/admin'
 import type { FictionDb, FictionEmail, FictionEnv, FictionMedia, FictionPluginSettings, FictionRouter, FictionServer, FictionUser } from '@fiction/core'
 
 import { FictionPlugin, safeDirname, vue } from '@fiction/core'
+import { ManageBrandGuideQuery } from './endpoint'
 import { brandTable } from './schema'
 
 export type FictionBrandSettings = {
@@ -16,7 +17,9 @@ export type FictionBrandSettings = {
 } & FictionPluginSettings
 
 export class FictionBrand extends FictionPlugin<FictionBrandSettings> {
-  queries = { }
+  queries = {
+    ManageBrandGuide: new ManageBrandGuideQuery({ fictionBrand: this, ...this.settings }),
+  }
 
   requests = this.createRequests({ queries: this.queries, fictionServer: this.settings.fictionServer, fictionUser: this.settings.fictionUser, basePath: '/send' })
 
@@ -42,37 +45,46 @@ export class FictionBrand extends FictionPlugin<FictionBrandSettings> {
             cards: [
               await factory.create({
                 slug: '_home',
-                title: 'All Models',
-                description: 'All brand models you\'ve created',
+                title: 'Brand Library',
+                description: 'Manage your brand guides and AI content models',
                 el: vue.defineAsyncComponent(async () => import('./admin/IndexList.vue')),
-                userConfig: { isNavItem: true, navIcon: 'i-tabler-icons', navIconAlt: 'i-tabler-icons' },
+                userConfig: {
+                  isNavItem: true,
+                  navIcon: 'i-tabler-briefcase',
+                  navIconAlt: 'i-tabler-briefcase-2',
+                },
               }),
             ],
           }),
         ],
-        userConfig: { isNavItem: true, navIcon: 'i-tabler-icons', navIconAlt: 'i-tabler-icons', priority: 200 },
+        userConfig: {
+          isNavItem: true,
+          navIcon: 'i-tabler-briefcase',
+          navIconAlt: 'i-tabler-briefcase-2',
+          priority: 200,
+        },
       }),
       await factory.create({
         templateId: 'dash',
         slug: 'manage-brand',
-        title: 'Manage Brand',
+        title: 'Brand Editor',
         cards: [
           await factory.create({
             el: vue.defineAsyncComponent(async () => import('./admin/ViewManageBrand.vue')),
             cards: [
               await factory.create({
                 slug: '_home',
-                title: 'Guide',
-                description: 'Settings for your brand guide',
+                title: 'Brand Guidelines', // More specific than just 'Guide'
+                description: 'Define your brand identity and style guidelines',
                 el: vue.defineAsyncComponent(async () => import('./admin/ManageOverview.vue')),
-                userConfig: { isNavItem: true, navIcon: 'i-tabler-icons', navIconAlt: 'i-tabler-icons' },
+                userConfig: { isNavItem: true, navIcon: 'i-tabler-arrow-guide' },
               }),
               await factory.create({
                 slug: 'model',
-                title: 'Content Model',
-                description: 'Create AI reference models for your content and information',
+                title: 'AI Knowledge Base', // More intuitive than 'Content Model'
+                description: 'Train AI with your brand voice and content guidelines',
                 el: vue.defineAsyncComponent(async () => import('./admin/ManageModel.vue')),
-                userConfig: { isNavItem: true, navIcon: 'i-tabler-cube', navIconAlt: 'i-tabler-cube-plus' },
+                userConfig: { isNavItem: true, navIcon: 'i-tabler-search' },
               }),
             ],
           }),

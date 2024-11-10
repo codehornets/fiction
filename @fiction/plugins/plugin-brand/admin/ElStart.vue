@@ -15,7 +15,7 @@ const props = defineProps({
 
 const emit = defineEmits(['update:vis'])
 
-const { fictionBrand } = useService<{ fictionBrand: FictionBrand }>()
+const { fictionBrand, fictionEnv, fictionUser } = useService<{ fictionBrand: FictionBrand }>()
 
 const form = vue.ref<Partial<TableBrand>>({
   title: '',
@@ -26,8 +26,23 @@ async function start() {
   isLoading.value = true
   try {
     const fields = form.value
-    const brandId = 'test'
-    await props.card.goto(`/manage-brand?brandId=${brandId}`)
+
+    const response = await fictionBrand.requests.ManageBrandGuide.projectRequest({
+      _action: 'create',
+      fields,
+    })
+
+    const brandId = response.data?.[0].brandId
+
+    if (response.status === 'success' && brandId) {
+      await props.card.goto(`/manage-brand?brandId=${brandId}`)
+    }
+    else {
+      fictionEnv.events.emit('notify', {
+        message: 'Failed to create brand guide',
+        type: 'error',
+      })
+    }
   }
   catch (error) {
     console.error(error)
@@ -43,8 +58,8 @@ const stepConfig: StepConfig = {
     const out: StepItem[] = [
 
       {
-        name: 'Create Brand Model',
-        desc: 'Give it a name...',
+        name: 'Name Your Brand Guide',
+        desc: 'What would you like to call this brand guide?',
         key: 'title',
         class: 'max-w-lg',
         isNeeded: true,
@@ -70,8 +85,9 @@ const stepConfig: StepConfig = {
           v-model="form.title"
           data-test-id="title-input"
           input="InputText"
-          placeholder="Title"
+          placeholder="e.g., My Personal Guidelines"
           ui-size="lg"
+          required
         />
       </div>
     </ElStepNav>

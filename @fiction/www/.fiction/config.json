@@ -137,6 +137,10 @@
       "path": "/api/send/ManageSend"
     },
     {
+      "key": "ManageBrandGuide",
+      "path": "/api/send/ManageBrandGuide"
+    },
+    {
       "key": "posts",
       "path": "/api/widgets/posts"
     },
