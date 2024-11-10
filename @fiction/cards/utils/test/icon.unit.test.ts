@@ -1,5 +1,5 @@
 import fictionIcon from '@fiction/ui/brand/icon.png'
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { getDefaultIconUrl, getHeadIconConfig, getSiteIcons } from '../icon'
 
 describe('icon Utils', () => {

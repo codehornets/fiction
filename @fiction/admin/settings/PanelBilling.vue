@@ -3,7 +3,6 @@ import type { FictionStripe } from '@fiction/plugins/plugin-stripe'
 import type { Card } from '@fiction/site'
 import { standardDate, useService, vue } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
-import XButton from '@fiction/ui/buttons/XButton.vue'
 import FormEngine from '@fiction/ui/inputs/FormEngine.vue'
 import SettingsPanel from './SettingsPanel.vue'
 

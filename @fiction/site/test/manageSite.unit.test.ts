@@ -1,8 +1,8 @@
 import type { InitializedTestUtils } from '@fiction/core/test-utils'
+import type { TableSiteConfig } from '../tables'
 import type { SiteTestUtils } from './testUtils'
-import { type EndpointResponse, objectId, type Organization } from '@fiction/core'
+import { objectId, type Organization } from '@fiction/core'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
-import { t, type TableSiteConfig } from '../tables'
 import { createSiteTestUtils } from './testUtils'
 
 describe('manageSite query', () => {

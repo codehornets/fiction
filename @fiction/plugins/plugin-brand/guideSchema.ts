@@ -1,4 +1,3 @@
-import type { ListItem } from '@fiction/core'
 import { colorThemeBright } from '@fiction/core'
 import { z } from 'zod'
 
