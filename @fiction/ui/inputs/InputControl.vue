@@ -107,6 +107,7 @@ const actions = vue.computed<ActionButton[]>(() => {
         <div class="flex gap-2 items-center mt-3">
           <XButton
             v-if="v?.status"
+            class="shrink-0"
             padding="py-1"
             hover="none"
             design="textOnly"

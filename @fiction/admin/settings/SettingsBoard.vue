@@ -12,6 +12,7 @@ const {
   card,
   basePath,
   panelProps = {},
+  panelEvents = {},
   loading = false,
   header,
   navActions = [],
@@ -19,6 +20,7 @@ const {
   card: Card
   basePath?: string
   panelProps?: Record<string, any>
+  panelEvents?: Record<string, (...args: any[]) => void>
   loading?: boolean
   header?: PostObject
   navActions?: ActionButton[]
@@ -62,8 +64,8 @@ const nav = vue.computed<NavItem[]>(() => {
 </script>
 
 <template>
-  <div class="flex h-[calc(100dvh-61px)]">
-    <div class="w-[32%] shrink-0 rounded-l-md pb-32 p-3 md:p-6 border-r dark:border-theme-600/60 border-theme-300/60 space-y-6">
+  <div class="md:flex h-[calc(100dvh-61px)]">
+    <div class="md:w-[32%] shrink-0 rounded-l-md md:pb-32 p-3 md:p-6 border-r dark:border-theme-600/60 border-theme-300/60 space-y-6">
       <div class="space-y-3">
         <CardButtons v-if="navActions?.length" :actions="navActions" :card="card" />
         <ElHeader
@@ -123,6 +125,7 @@ const nav = vue.computed<NavItem[]>(() => {
             :data-card-type="currentPanel?.templateId.value"
             :card="currentPanel"
             v-bind="panelProps"
+            v-on="panelEvents"
           />
         </div>
       </transition>

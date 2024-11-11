@@ -81,67 +81,60 @@ export const brandArchetypes: { name: string, value: typeof ARCHETYPE_VALUES[num
 
 export const BrandGuideSchema = z.object({
   personality: z.object({
-    archetype: z.enum(ARCHETYPE_VALUES).describe('Select your core personal archetype that authentically reflects your natural way of connecting with others'),
-
-    traits: z.array(z.string()).describe('3-5 distinctive personality traits that make your personal brand uniquely you and resonate with your audience'),
-
+    archetype: z.enum(ARCHETYPE_VALUES).optional().describe('Select your core personal archetype that authentically reflects your natural way of connecting with others'),
+    traits: z.string().optional().describe('distinctive personality traits that make your personal brand uniquely you'),
     voice: z.object({
-      tone: z.string().describe('Your authentic communication style and how you naturally express yourself to your audience'),
-      guidelines: z.string().describe('Specific examples of language, phrases, and communication approaches that reflect your personal brand voice'),
-    }),
-    story: z.object({
-      journey: z.string().describe('Your authentic personal narrative - the experiences and lessons that shaped who you are today'),
-      pivotalMoments: z.array(z.string()).describe('Key transformational moments in your journey that demonstrate your growth and credibility'),
-    }),
-  }),
+      tone: z.string().optional().describe('Your authentic communication style and how you naturally express yourself to your audience'),
+      guidelines: z.string().optional().describe('Specific examples of language, phrases, and communication approaches that reflect your personal brand voice'),
+    }).optional(),
+  }).optional(),
 
   purpose: z.object({
-    mission: z.string().describe('Your core motivation for building a personal brand - what drives you to share and serve others'),
-    vision: z.string().describe('The lasting impact you want your personal brand to have on your audience and industry'),
-    positioning: z.string().describe('Your unique perspective or approach that sets you apart in your field'),
+    mission: z.string().optional().describe('Your core motivation for building a personal brand - what drives you to share and serve others'),
+    vision: z.string().optional().describe('The lasting impact you want your personal brand to have on your audience and industry'),
+    positioning: z.string().optional().describe('Your unique perspective or approach that sets you apart in your field'),
     values: z.array(z.object({
-      value: z.string(),
-      description: z.string(),
-      inPractice: z.string().describe('Specific examples of how you demonstrate this value through your content and interactions'),
-    })).describe('Core personal values that guide your decisions and content creation'),
-  }),
+      title: z.string().optional(),
+      description: z.string().optional(),
+      inPractice: z.string().optional().describe('Specific examples of how you demonstrate this value through your content and interactions'),
+    })).optional().describe('Core personal values that guide your decisions and content creation'),
+  }).optional(),
 
   communities: z.array(z.object({
-    name: z.string().describe('Specific segment of your audience with shared characteristics'),
-    interests: z.array(z.string()).describe('Specific topics and themes that deeply matter to this audience segment'),
-    challenges: z.array(z.string()).describe('Real pain points and obstacles this audience faces that you can help solve'),
-    content: z.array(z.string()).describe('Content formats and topics proven to resonate with this specific audience'),
-  })),
+    name: z.string().optional().describe('Specific segment of your audience with shared characteristics'),
+    interests: z.string().optional().describe('Specific topics and themes that deeply matter to this audience segment'),
+    challenges: z.string().optional().describe('Real pain points and obstacles this audience faces that you can help solve'),
+    content: z.string().optional().describe('Content formats and topics proven to resonate with this specific audience'),
+  })).optional(),
 
   pillars: z.array(z.object({
-    topic: z.string().describe('Key area of expertise or value you consistently deliver'),
-    description: z.string().describe('How this content theme serves your audience and supports your mission'),
-    examples: z.array(z.string()).describe('Specific content ideas and formats that showcase your expertise in this area'),
-    audiences: z.array(z.string()).describe('Which audience segments this content pillar primarily serves'),
-  })),
+    topic: z.string().optional().describe('Key area of expertise or value you consistently deliver'),
+    description: z.string().optional().describe('How this content theme serves your audience and supports your mission'),
+    examples: z.string().optional().describe('Specific content ideas and formats that showcase your expertise in this area'),
+    audiences: z.string().optional().describe('Which audience segments this content pillar primarily serves'),
+  })).optional(),
 
   futurePacing: z.object({
-    declaration: z.string().describe('Powerful vision of your evolved personal brand written as if already achieved - be specific and ambitious'),
-
+    declaration: z.string().optional().describe('Powerful vision of your evolved personal brand written as if already achieved - be specific and ambitious'),
     nextSteps: z.array(z.object({
-      statement: z.string().describe('Specific milestone or achievement needed to realize your vision'),
-      action: z.string().describe('Clear, measurable action you will take to reach this milestone'),
-      deadline: z.string().describe('Realistic but ambitious timeframe for completing this action'),
-    })),
-  }).describe('Strategic roadmap for evolving your personal brand with clear actions and accountability'),
+      statement: z.string().optional().describe('Specific milestone or achievement needed to realize your vision'),
+      action: z.string().optional().describe('Clear, measurable action you will take to reach this milestone'),
+      deadline: z.string().optional().describe('Realistic but ambitious timeframe for completing this action'),
+    })).optional(),
+  }).optional().describe('Strategic roadmap for evolving your personal brand with clear actions and accountability'),
 
   visuals: z.object({
-    primaryColor: z.enum(colorThemeBright).describe('Signature color that reflects your personal brand personality'),
+    primaryColor: z.enum(colorThemeBright).optional().describe('Signature color that reflects your personal brand personality'),
     typography: z.object({
-      title: z.string(),
-      body: z.string(),
-    }),
-    imageStyle: z.string().describe('Guidelines for visual content that authentically represents your personal brand'),
-  }),
+      title: z.string().optional(),
+      body: z.string().optional(),
+    }).optional(),
+    imageStyle: z.string().optional().describe('Guidelines for visual content that authentically represents your personal brand'),
+  }).optional(),
 
-  systemMessage: z.string().describe('Detailed instructions for maintaining consistency in your personal brand voice across all content'),
+  systemMessage: z.string().optional().describe('Detailed instructions for maintaining consistency in your personal brand voice across all content'),
 
-  version: z.string().default('1.0.0').describe('Version number for tracking evolution of your personal brand guidelines'),
-}).describe('Comprehensive personal brand strategy framework for authentic content creation and brand growth')
+  version: z.string().default('1.0.0').optional().describe('Version number for tracking evolution of your personal brand guidelines'),
+}).optional().describe('Comprehensive personal brand strategy framework for authentic content creation and brand growth')
 
 export type BrandGuide = z.infer<typeof BrandGuideSchema>

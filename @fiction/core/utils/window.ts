@@ -43,7 +43,7 @@ export async function initializeResetUi(args: { fictionRouter: FictionRouter, fi
   }
 
   window.addEventListener('keydown', (e: KeyboardEvent) => {
-    if (e.key === 'Escape' || e.key === 'Tab')
+    if (e.key === 'Escape')
       res({ scope: 'all', cause: 'escape', trigger: 'escape' })
   })
 

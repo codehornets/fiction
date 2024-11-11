@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import type { AutosaveUtility } from '@fiction/core/utils/save'
 import type { Card } from '@fiction/site'
 import type { BrandGuide } from '../guideSchema'
 import type { TableBrand } from '../schema'
@@ -8,12 +9,15 @@ import { InputOption } from '@fiction/ui'
 import FormEngine from '@fiction/ui/inputs/FormEngine.vue'
 import { brandArchetypes } from '../guideSchema'
 
-const { card, brand } = defineProps<{
+const { card, brand, saveUtil } = defineProps<{
   card: Card
   brand?: TableBrand
+  saveUtil?: AutosaveUtility
 }>()
 
-const guide = vue.computed(() => brand?.guide)
+const emit = defineEmits<{
+  (event: 'update:brand', payload: TableBrand): void
+}>()
 
 function getWordCount(text?: string) {
   if (!text)
@@ -21,7 +25,15 @@ function getWordCount(text?: string) {
   return text.split(/\s+/).length
 }
 
+function updateBrand(brandNew?: TableBrand) {
+  const final = { ...brand, ...brandNew }
+
+  emit('update:brand', final)
+}
+
 const options = vue.computed(() => {
+  const guide = brand?.guide
+
   return [
     // Brand Personality Section
     new InputOption({
@@ -31,13 +43,12 @@ const options = vue.computed(() => {
       options: [
         new InputOption({
           testId: 'brand-archetype',
-          key: 'archetype',
           icon: { class: 'i-tabler-mask' },
           label: 'Brand Archetype',
           subLabel: 'Select your core archetype that reflects how you connect with others',
           input: 'InputControl',
           valueDisplay: ({ input }) => {
-            const selected = brandArchetypes.find(a => a.value === guide.value?.personality?.archetype)
+            const selected = brandArchetypes.find(a => a.value === guide?.personality?.archetype)
             return {
               status: selected ? 'ready' : 'incomplete',
               data: selected ? `${selected.name} - ${selected.desc}` : 'Select an archetype',
@@ -45,14 +56,10 @@ const options = vue.computed(() => {
           },
           options: [
             new InputOption({
-              key: 'archetype',
+              key: 'guide.personality.archetype',
               label: 'Brand Archetype',
               input: 'InputSelectCustom',
-              list: brandArchetypes.map(a => ({
-                name: a.name,
-                value: a.value,
-                description: a.desc,
-              })),
+              list: brandArchetypes,
               isRequired: true,
             }),
           ],
@@ -60,43 +67,39 @@ const options = vue.computed(() => {
 
         new InputOption({
           testId: 'brand-traits',
-          key: 'traits',
           icon: { class: 'i-tabler-list-details' },
           label: 'Brand Traits',
-          subLabel: 'Define 3-5 distinctive personality traits',
+          subLabel: 'Define distinctive traits',
           input: 'InputControl',
           valueDisplay: ({ input }) => {
-            const traits = guide.value?.personality?.traits || []
+            const traits = guide?.personality?.traits || ''
+
+            const wordCount = getWordCount(traits)
+            const minWords = 15
             return {
-              status: traits.length >= 3 && traits.length <= 5 ? 'ready' : 'incomplete',
-              data: traits.length ? traits.join(', ') : 'Add personality traits',
-              message: traits.length < 3 ? 'Add at least 3 traits' : traits.length > 5 ? 'Maximum 5 traits' : undefined,
+              status: wordCount > minWords ? 'ready' : 'incomplete',
+              data: traits.length ? traits : 'Add personality traits',
+              message: wordCount && wordCount < minWords ? `Should be at least ${minWords} words` : undefined,
             }
           },
           options: [
             new InputOption({
-              key: 'traits',
+              key: 'guide.personality.traits',
               label: 'Brand Traits',
-              input: 'InputList',
-              props: {
-                minItems: 3,
-                maxItems: 5,
-                placeholder: 'Enter a trait',
-              },
+              input: 'InputTextarea',
             }),
           ],
         }),
 
         new InputOption({
           testId: 'brand-voice',
-          key: 'voice',
           icon: { class: 'i-tabler-message-circle' },
           label: 'Brand Voice',
           subLabel: 'Define your communication style',
           input: 'InputControl',
           valueDisplay: ({ input }) => {
-            const tone = guide.value?.personality?.voice?.tone
-            const guidelines = guide.value?.personality?.voice?.guidelines
+            const tone = guide?.personality?.voice?.tone
+            const guidelines = guide?.personality?.voice?.guidelines
             const hasVoice = tone && getWordCount(tone) >= 10 && guidelines && getWordCount(guidelines) >= 20
             return {
               status: hasVoice ? 'ready' : 'incomplete',
@@ -105,14 +108,14 @@ const options = vue.computed(() => {
           },
           options: [
             new InputOption({
-              key: 'voice.tone',
+              key: 'guide.personality.voice.tone',
               label: 'Tone of Voice',
               input: 'InputTextarea',
               isRequired: true,
               placeholder: 'Describe your authentic communication style...',
             }),
             new InputOption({
-              key: 'voice.guidelines',
+              key: 'guide.personality.voice.guidelines',
               label: 'Voice Guidelines',
               input: 'InputTextarea',
               isRequired: true,
@@ -121,48 +124,12 @@ const options = vue.computed(() => {
           ],
         }),
 
-        new InputOption({
-          testId: 'brand-story',
-          key: 'story',
-          icon: { class: 'i-tabler-book' },
-          label: 'Brand Story',
-          subLabel: 'Share your journey and key moments',
-          input: 'InputControl',
-          valueDisplay: ({ input }) => {
-            const journey = guide.value?.personality?.story?.journey
-            const moments = guide.value?.personality?.story?.pivotalMoments || []
-            const hasStory = journey && getWordCount(journey) >= 50 && moments.length >= 2
-            return {
-              status: hasStory ? 'ready' : 'incomplete',
-              data: hasStory ? `${getWordCount(journey)} words, ${moments.length} key moments` : 'Complete your story',
-            }
-          },
-          options: [
-            new InputOption({
-              key: 'story.journey',
-              label: 'Your Journey',
-              input: 'InputTextarea',
-              isRequired: true,
-              placeholder: 'Share your authentic personal narrative...',
-            }),
-            new InputOption({
-              key: 'story.pivotalMoments',
-              label: 'Pivotal Moments',
-              input: 'InputList',
-              props: {
-                minItems: 2,
-                placeholder: 'Describe a key moment in your journey',
-              },
-            }),
-          ],
-        }),
       ],
       format: 'control',
     }),
 
     // Brand Purpose Section
     new InputOption({
-      key: 'purpose',
       label: 'Brand Purpose',
       input: 'group',
       options: [
@@ -174,17 +141,18 @@ const options = vue.computed(() => {
           subLabel: 'Define your core motivation',
           input: 'InputControl',
           valueDisplay: ({ input }) => {
-            const mission = guide.value?.purpose?.mission
+            const mission = guide?.purpose?.mission
             const wordCount = getWordCount(mission)
+            const minWords = 15
             return {
-              status: wordCount >= 15 ? 'ready' : 'incomplete',
+              status: wordCount >= minWords ? 'ready' : 'incomplete',
               data: mission || 'Define your mission',
-              message: wordCount < 15 ? 'Mission should be at least 15 words' : undefined,
+              message: wordCount && wordCount < minWords ? `Should be at least ${minWords} words` : undefined,
             }
           },
           options: [
             new InputOption({
-              key: 'mission',
+              key: 'guide.purpose.mission',
               label: 'Mission Statement',
               input: 'InputTextarea',
               isRequired: true,
@@ -195,50 +163,50 @@ const options = vue.computed(() => {
 
         new InputOption({
           testId: 'brand-vision',
-          key: 'vision',
           icon: { class: 'i-tabler-eye' },
           label: 'Brand Vision',
           subLabel: 'Define the lasting impact you want to have',
           input: 'InputControl',
           valueDisplay: ({ input }) => {
-            const vision = guide.value?.purpose?.vision
+            const vision = guide?.purpose?.vision
             const wordCount = getWordCount(vision)
+            const minWords = 10
             return {
-              status: wordCount >= 20 ? 'ready' : 'incomplete',
+              status: wordCount >= minWords ? 'ready' : 'incomplete',
               data: vision || 'Define your vision',
-              message: wordCount < 20 ? 'Vision should be at least 20 words' : undefined,
+              message: wordCount && wordCount < minWords ? `Should be at least ${minWords} words` : undefined,
             }
           },
           options: [
             new InputOption({
-              key: 'vision',
+              key: 'guide.purpose.vision',
               label: 'Vision Statement',
               input: 'InputTextarea',
               isRequired: true,
-              placeholder: 'What lasting impact do you want your brand to have?',
+              placeholder: 'What lasting impact do you want to have?',
             }),
           ],
         }),
 
         new InputOption({
           testId: 'brand-positioning',
-          key: 'positioning',
           icon: { class: 'i-tabler-chart-dots' },
           label: 'Brand Positioning',
           subLabel: 'Define your unique perspective',
           input: 'InputControl',
           valueDisplay: ({ input }) => {
-            const positioning = guide.value?.purpose?.positioning
+            const positioning = guide?.purpose?.positioning
             const wordCount = getWordCount(positioning)
+            const minWords = 15
             return {
-              status: wordCount >= 15 ? 'ready' : 'incomplete',
+              status: wordCount >= minWords ? 'ready' : 'incomplete',
               data: positioning || 'Define your positioning',
-              message: wordCount < 15 ? 'Positioning should be at least 15 words' : undefined,
+              message: wordCount && wordCount < minWords ? `Positioning should be at least ${minWords} words` : undefined,
             }
           },
           options: [
             new InputOption({
-              key: 'positioning',
+              key: 'guide.purpose.positioning',
               label: 'Positioning Statement',
               input: 'InputTextarea',
               isRequired: true,
@@ -249,37 +217,33 @@ const options = vue.computed(() => {
 
         new InputOption({
           testId: 'brand-values',
-          key: 'values',
           icon: { class: 'i-tabler-heart' },
           label: 'Brand Values',
           subLabel: 'Define your core values and how you demonstrate them',
           input: 'InputControl',
           valueDisplay: ({ input }) => {
-            const values = guide.value?.purpose?.values || []
+            const values = guide?.purpose?.values || []
+            const totalValues = values.length
             return {
-              status: values.length >= 3 ? 'ready' : 'incomplete',
-              data: values.length ? `${values.length} core values defined` : 'Add core values',
-              message: values.length < 3 ? 'Define at least 3 core values' : undefined,
+              status: totalValues >= 3 ? 'ready' : 'incomplete',
+              data: totalValues ? values.map(_ => _.title).join(', ') : 'Add core values',
+              message: totalValues && totalValues < 3 ? `Added ${totalValues} of 3+ core values` : undefined,
             }
           },
           options: [
             new InputOption({
-              key: 'values',
+              key: 'guide.purpose.values',
               label: 'Core Values',
               input: 'InputList',
               props: {
-                template: {
-                  value: '',
-                  description: '',
-                  inPractice: '',
-                },
-                minItems: 3,
-                itemFormat: [
-                  { key: 'value', label: 'Value', input: 'InputText', placeholder: 'Core value name' },
-                  { key: 'description', label: 'Description', input: 'InputTextarea', placeholder: 'What this value means to you' },
-                  { key: 'inPractice', label: 'In Practice', input: 'InputTextarea', placeholder: 'How you demonstrate this value' },
-                ],
+                itemName: 'Core Value',
+                uiSize: 'lg',
               },
+              options: [
+                new InputOption({ key: 'title', label: 'Title', input: 'InputText', placeholder: 'Core value name' }),
+                new InputOption({ key: 'description', label: 'Description', input: 'InputTextarea', placeholder: 'What this value means to you' }),
+                new InputOption({ key: 'inPractice', label: 'In Practice', input: 'InputTextarea', placeholder: 'How you demonstrate this value' }),
+              ],
             }),
           ],
         }),
@@ -288,19 +252,17 @@ const options = vue.computed(() => {
     }),
     // Communities Section
     new InputOption({
-      key: 'communities',
       label: 'Target Communities',
       input: 'group',
       options: [
         new InputOption({
           testId: 'audience-segments',
-          key: 'communities',
           icon: { class: 'i-tabler-users' },
           label: 'Audience Segments',
           subLabel: 'Define your key audience segments',
           input: 'InputControl',
           valueDisplay: ({ input }) => {
-            const communities = guide.value?.communities || []
+            const communities = guide?.communities || []
             const isComplete = communities.every(c =>
               c.interests?.length && c.challenges?.length && c.content?.length,
             )
@@ -312,24 +274,15 @@ const options = vue.computed(() => {
           },
           options: [
             new InputOption({
-              key: 'communities',
+              key: 'guide.communities',
               label: 'Audience Segments',
               input: 'InputList',
-              props: {
-                template: {
-                  name: '',
-                  interests: [],
-                  challenges: [],
-                  content: [],
-                },
-                minItems: 1,
-                itemFormat: [
-                  { key: 'name', label: 'Segment Name', input: 'InputText', placeholder: 'Name this audience segment' },
-                  { key: 'interests', label: 'Interests', input: 'InputList', placeholder: 'Add topics that matter to this audience' },
-                  { key: 'challenges', label: 'Challenges', input: 'InputList', placeholder: 'Add pain points this audience faces' },
-                  { key: 'content', label: 'Content Types', input: 'InputList', placeholder: 'Add content formats that resonate' },
-                ],
-              },
+              options: [
+                new InputOption({ key: 'name', label: 'Segment Name', input: 'InputText', placeholder: 'Name this audience segment' }),
+                new InputOption({ key: 'interests', label: 'Interests', input: 'InputText', placeholder: 'Add topics that matter to this audience' }),
+                new InputOption({ key: 'challenges', label: 'Challenges', input: 'InputText', placeholder: 'Add pain points this audience faces' }),
+                new InputOption({ key: 'content', label: 'Content Types', input: 'InputText', placeholder: 'Add content formats that resonate' }),
+              ],
             }),
           ],
         }),
@@ -338,21 +291,19 @@ const options = vue.computed(() => {
     }),
 
     new InputOption({
-      key: 'pillars',
       label: 'Content Pillars',
       input: 'group',
       options: [
         new InputOption({
           testId: 'content-pillars',
-          key: 'pillars',
           icon: { class: 'i-tabler-layout-columns' },
           label: 'Content Themes',
           subLabel: 'Define your key content areas',
           input: 'InputControl',
           valueDisplay: ({ input }) => {
-            const pillars = guide.value?.pillars || []
+            const pillars = guide?.pillars || []
             const isComplete = pillars.every(p =>
-              getWordCount(p.description) >= 20 && p.examples?.length >= 3 && p.audiences?.length >= 1,
+              getWordCount(p.description) >= 20 && (p.examples?.length || 0) >= 3 && (p.audiences?.length || 0) >= 1,
             )
             return {
               status: pillars.length >= 3 && isComplete ? 'ready' : 'incomplete',
@@ -362,24 +313,15 @@ const options = vue.computed(() => {
           },
           options: [
             new InputOption({
-              key: 'pillars',
+              key: 'guide.pillars',
               label: 'Content Pillars',
               input: 'InputList',
-              props: {
-                template: {
-                  topic: '',
-                  description: '',
-                  examples: [],
-                  audiences: [],
-                },
-                minItems: 3,
-                itemFormat: [
-                  { key: 'topic', label: 'Topic', input: 'InputText', placeholder: 'Content theme name' },
-                  { key: 'description', label: 'Description', input: 'InputTextarea', placeholder: 'How this theme serves your audience' },
-                  { key: 'examples', label: 'Content Examples', input: 'InputList', placeholder: 'Add specific content ideas', minItems: 3 },
-                  { key: 'audiences', label: 'Target Audiences', input: 'InputList', placeholder: 'Add audience segments this serves', minItems: 1 },
-                ],
-              },
+              options: [
+                new InputOption({ key: 'topic', label: 'Topic', input: 'InputText', placeholder: 'Content theme name' }),
+                new InputOption({ key: 'description', label: 'Description', input: 'InputTextarea', placeholder: 'How this theme serves your audience' }),
+                new InputOption({ key: 'examples', label: 'Content Examples', input: 'InputList', placeholder: 'Add specific content ideas' }),
+                new InputOption({ key: 'audiences', label: 'Target Audiences', input: 'InputList', placeholder: 'Add audience segments this serves' }),
+              ],
             }),
           ],
         }),
@@ -389,7 +331,6 @@ const options = vue.computed(() => {
 
     // Future Pacing Section
     new InputOption({
-      key: 'futurePacing',
       label: 'Future Vision',
       input: 'group',
       options: [
@@ -401,7 +342,7 @@ const options = vue.computed(() => {
           subLabel: 'Write your vision as if already achieved',
           input: 'InputControl',
           valueDisplay: ({ input }) => {
-            const declaration = guide.value?.futurePacing?.declaration
+            const declaration = guide?.futurePacing?.declaration
             const wordCount = getWordCount(declaration)
             return {
               status: wordCount >= 50 ? 'ready' : 'incomplete',
@@ -411,7 +352,7 @@ const options = vue.computed(() => {
           },
           options: [
             new InputOption({
-              key: 'declaration',
+              key: 'guide.futurePacing.declaration',
               label: 'Vision Statement',
               input: 'InputTextarea',
               isRequired: true,
@@ -422,13 +363,12 @@ const options = vue.computed(() => {
 
         new InputOption({
           testId: 'next-steps',
-          key: 'nextSteps',
           icon: { class: 'i-tabler-list-check' },
           label: 'Action Plan',
           subLabel: 'Define concrete steps to achieve your vision',
           input: 'InputControl',
           valueDisplay: ({ input }) => {
-            const steps = guide.value?.futurePacing?.nextSteps || []
+            const steps = guide?.futurePacing?.nextSteps || []
             const isComplete = steps.every(s => s.statement && s.action && s.deadline)
             return {
               status: steps.length >= 3 && isComplete ? 'ready' : 'incomplete',
@@ -438,9 +378,14 @@ const options = vue.computed(() => {
           },
           options: [
             new InputOption({
-              key: 'nextSteps',
+              key: 'guide.futurePacing.nextSteps',
               label: 'Action Steps',
               input: 'InputList',
+              options: [
+                new InputOption({ key: 'statement', label: 'Milestone', input: 'InputText', placeholder: 'What you want to achieve' }),
+                new InputOption({ key: 'action', label: 'Action', input: 'InputTextarea', placeholder: 'Specific action to take' }),
+                new InputOption({ key: 'deadline', label: 'Deadline', input: 'InputText', placeholder: 'When you\'ll achieve this' }),
+              ],
               props: {
                 template: {
                   statement: '',
@@ -463,19 +408,17 @@ const options = vue.computed(() => {
 
     // Visuals Section
     new InputOption({
-      key: 'visuals',
       label: 'Visual Identity',
       input: 'group',
       options: [
         new InputOption({
           testId: 'brand-color',
-          key: 'primaryColor',
           icon: { class: 'i-tabler-palette' },
           label: 'Brand Color',
           subLabel: 'Choose your signature color',
           input: 'InputControl',
           valueDisplay: ({ input }) => {
-            const color = guide.value?.visuals?.primaryColor
+            const color = guide?.visuals?.primaryColor
             return {
               status: color ? 'ready' : 'incomplete',
               data: color || 'Select primary color',
@@ -483,7 +426,7 @@ const options = vue.computed(() => {
           },
           options: [
             new InputOption({
-              key: 'primaryColor',
+              key: 'guide.visuals.primaryColor',
               label: 'Primary Color',
               input: 'InputColor',
               isRequired: true,
@@ -493,13 +436,12 @@ const options = vue.computed(() => {
 
         new InputOption({
           testId: 'typography',
-          key: 'typography',
           icon: { class: 'i-tabler-typography' },
           label: 'Typography',
           subLabel: 'Define your brand fonts',
           input: 'InputControl',
           valueDisplay: ({ input }) => {
-            const typography = guide.value?.visuals?.typography
+            const typography = guide?.visuals?.typography
             return {
               status: typography?.title && typography?.body ? 'ready' : 'incomplete',
               data: typography?.title ? `${typography.title} / ${typography.body}` : 'Set brand typography',
@@ -507,13 +449,13 @@ const options = vue.computed(() => {
           },
           options: [
             new InputOption({
-              key: 'typography.title',
+              key: 'guide.visuals.typography.title',
               label: 'Heading Font',
               input: 'InputFont',
               isRequired: true,
             }),
             new InputOption({
-              key: 'typography.body',
+              key: 'guide.visuals.typography.body',
               label: 'Body Font',
               input: 'InputFont',
               isRequired: true,
@@ -523,13 +465,12 @@ const options = vue.computed(() => {
 
         new InputOption({
           testId: 'image-style',
-          key: 'imageStyle',
           icon: { class: 'i-tabler-photo' },
           label: 'Image Style',
           subLabel: 'Define your visual guidelines',
           input: 'InputControl',
           valueDisplay: ({ input }) => {
-            const style = guide.value?.visuals?.imageStyle
+            const style = guide?.visuals?.imageStyle
             const wordCount = getWordCount(style)
             return {
               status: wordCount >= 30 ? 'ready' : 'incomplete',
@@ -539,7 +480,7 @@ const options = vue.computed(() => {
           },
           options: [
             new InputOption({
-              key: 'imageStyle',
+              key: 'guide.visuals.imageStyle',
               label: 'Image Guidelines',
               input: 'InputTextarea',
               isRequired: true,
@@ -564,20 +505,28 @@ function updateGuide(value: Partial<BrandGuide>) {
     :title="card?.title.value"
     :header="{
       title: brand?.title || 'Untitled',
-      subTitle: 'Your brand guidelines helps you create assets and content that aligns with your goals',
+      subTitle: 'As you build your influence, a consistent and intentional brand will be the foundation of your success.',
       media: { class: `i-tabler-briefcase` },
       actions: [],
     }"
+    :actions="[{
+      testId: 'brand-save-button',
+      name: saveUtil?.isDirty.value ? 'Saving...' : 'Saved',
+      onClick: () => updateBrand(),
+      theme: saveUtil?.isDirty.value ? 'green' : 'default',
+      icon: saveUtil?.isDirty.value ? 'i-tabler-upload' : 'i-tabler-check',
+      size: 'sm',
+    }]"
   >
     <div class="my-6 space-y-6">
       <FormEngine
-        :model-value="guide"
+        :model-value="brand"
         state-key="settingsTool"
         ui-size="lg"
         :options="options"
         :card="card"
         format="control"
-        @update:model-value="updateGuide"
+        @update:model-value="updateBrand($event as TableBrand)"
       />
     </div>
   </SettingsPanel>

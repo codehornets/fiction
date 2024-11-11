@@ -8,12 +8,14 @@ import FormEngine from './FormEngine.vue'
 
 export type BasicItem = Record<string, unknown> & { _key?: string }
 
-const { modelValue = [], options = [], itemName = 'Item', depth = 0, inputClass = '' } = defineProps<{
+const { modelValue = [], options = [], itemName = 'Item', depth = 0, inputClass = '', min = 0, max = 100 } = defineProps<{
   modelValue?: BasicItem[]
   options?: InputOption[]
   itemName?: string
   inputClass?: string
   depth?: number
+  min?: number
+  max?: number
 }>()
 
 const emit = defineEmits<{
@@ -59,14 +61,14 @@ async function updateOrder() {
   listKey.value++ // Increment the key to force re-render
 }
 
-function updateInputValue(args: { index: number, key: string, value: unknown }) {
-  const { index, key, value } = args
+// function updateInputValue(args: { index: number, key: string, value: unknown }) {
+//   const { index, key, value } = args
 
-  const val = [...modelValue]
-  val[index] = setNested({ path: key, data: val[index], value })
+//   const val = [...modelValue]
+//   val[index] = setNested({ path: key, data: val[index], value })
 
-  updateModelValue(val)
-}
+//   updateModelValue(val)
+// }
 
 function updateIndexValue(index: number, value: Record<string, unknown>) {
   const val = [...modelValue]
