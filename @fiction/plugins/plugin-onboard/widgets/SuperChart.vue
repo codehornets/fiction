@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { ComparePeriods, DataCompared, DataPointChart, TimeLineInterval } from '@fiction/analytics/types'
-import type { NumberFormats } from '@fiction/platform'
+import type { NumberFormats } from '@fiction/core'
 import { computed, onMounted, ref } from 'vue'
 
 const {
@@ -29,25 +29,14 @@ const container = ref<HTMLDivElement>()
 const chartRef = ref<SVGElement>()
 const dimensions = ref({ width: 0, height: 0 })
 
-const defaultColors = {
-  line: '#2151F5',
-  area: '#2151F5',
-  dots: '#1E2025',
-}
-
-const chartColors = computed(() => ({
-  ...defaultColors,
-  ...colors,
-}))
-
 const margin = { top: 2, right: 2, bottom: 2, left: 2 }
-
 const points = computed(() => data?.main || [])
 
 // Generate unique IDs for patterns and gradients
 const uniqueId = Math.random().toString(36).substr(2, 9)
 const patternId = `sparklineDots-${uniqueId}`
 const gradientId = `sparklineGradient-${uniqueId}`
+const maskId = `sparklineMask-${uniqueId}`
 
 const pathData = computed(() => {
   const values = points.value.map(p => Number(p[valueKey] || 0))
@@ -102,7 +91,6 @@ onMounted(() => {
   }
 })
 
-// Expose the SVG element for external manipulation if needed
 defineExpose({
   chartElement: chartRef,
 })
@@ -114,11 +102,10 @@ defineExpose({
       ref="chartRef"
       :width="dimensions.width"
       :height="dimensions.height"
-      class="absolute inset-0"
+      class="absolute inset-0 text-primary-500 dark:text-primary-400"
       :viewBox="`0 0 ${dimensions.width} ${dimensions.height}`"
       preserveAspectRatio="none"
     >
-      <!-- Background pattern -->
       <defs>
         <pattern
           :id="patternId"
@@ -131,24 +118,34 @@ defineExpose({
             cx="1"
             cy="1"
             r="1"
-            :fill="chartColors.dots"
-            fill-opacity="0.3"
+            class="text-primary-500 dark:text-primary-400"
+            style="fill: currentColor; opacity: 0.2;"
           />
         </pattern>
 
         <!-- Area gradient -->
         <linearGradient :id="gradientId" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" :stop-color="chartColors.area" stop-opacity="0.2" />
-          <stop offset="100%" :stop-color="chartColors.area" stop-opacity="0" />
+          <stop offset="0%" class="text-primary-500 dark:text-primary-400" style="stop-color: currentColor; stop-opacity: 0.2" />
+          <stop offset="100%" class="text-primary-500 dark:text-primary-400" style="stop-color: currentColor; stop-opacity: 0" />
         </linearGradient>
+
+        <!-- Mask for dots to only show under the area -->
+        <mask :id="maskId">
+          <path
+            v-if="pathData.area"
+            :d="pathData.area"
+            fill="white"
+          />
+        </mask>
       </defs>
 
-      <!-- Background pattern -->
+      <!-- Background pattern (masked to only show under the area) -->
       <rect
         v-if="showDots"
         width="100%"
         height="100%"
         :fill="`url(#${patternId})`"
+        :mask="`url(#${maskId})`"
       />
 
       <!-- Area fill -->
@@ -162,7 +159,7 @@ defineExpose({
       <path
         v-if="pathData.line"
         :d="pathData.line"
-        :stroke="chartColors.line"
+        class="stroke-primary-500 dark:stroke-primary-400"
         stroke-width="1.5"
         stroke-linecap="round"
         stroke-linejoin="round"

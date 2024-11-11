@@ -10,6 +10,8 @@ import XIcon from '../media/XIcon.vue'
 import ElInput from './ElInput.vue'
 import ElToolSep from './ElToolSep.vue'
 
+defineOptions({ name: 'FormEngine' })
+
 const {
   options,
   stateKey = 'formEngine',
