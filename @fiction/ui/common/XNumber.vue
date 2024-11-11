@@ -3,12 +3,14 @@ import type { NumberFormats } from '@fiction/core'
 import { shortId, vue } from '@fiction/core'
 import { animateNumber } from '../anim'
 
-const props = defineProps({
-  tag: { type: String as vue.PropType<'h1' | 'h2' | 'h3' | 'div' | 'span' | 'p' | 'a'>, default: 'div' },
-  modelValue: { type: Number, default: 0 },
-  animate: { type: [Boolean] as vue.PropType< boolean>, default: undefined },
-  format: { type: String as vue.PropType<NumberFormats>, default: 'abbreviated' },
-})
+const { tag = 'div', modelValue = 0, animate = false, format = 'abbreviated', prefix, suffix } = defineProps<{
+  tag?: 'h1' | 'h2' | 'h3' | 'div' | 'span' | 'p' | 'a'
+  modelValue: number
+  animate?: boolean
+  format?: NumberFormats
+  prefix?: string
+  suffix?: string
+}>()
 
 const randomId = shortId()
 
@@ -20,21 +22,25 @@ function loadAnimation() {
   if (!xNumber.value)
     return
 
-  animateNumber(xNumber.value, props.modelValue, props.format)
+  animateNumber(xNumber.value, modelValue, format, { prefix, suffix })
 }
 
 vue.onMounted(() => {
-  if (props.animate)
+  if (animate)
     loadAnimation()
   else
     loaded.value = true
 
-  vue.watch(() => props.modelValue, () => {
-    if (props.animate)
+  vue.watch(() => modelValue, () => {
+    if (animate)
       loadAnimation()
     else
       loaded.value = true
   })
+})
+
+const displayValue = vue.computed(() => {
+  return `${prefix || ''}${modelValue}${suffix || ''}`
 })
 </script>
 
@@ -45,6 +51,6 @@ vue.onMounted(() => {
     ref="xNumber"
     :class="loaded ? '' : 'invisible'"
     class="focus:outline-none "
-    v-html="modelValue"
+    v-html="displayValue"
   />
 </template>

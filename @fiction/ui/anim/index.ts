@@ -201,24 +201,86 @@ export function splitLetters(args: { selector?: string, el?: HTMLElement }): voi
   }
 }
 
-export function animateNumber(element: HTMLElement, finalValue: number | string, format?: NumberFormats) {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
+type EasingPreset = 'smooth' | 'accelerate' | 'decelerate' | 'emphasize'
+
+type AnimateNumberOptions = {
+  duration?: number
+  delay?: number
+  easingPreset?: EasingPreset
+  startValue?: number
+  decimals?: number
+  threshold?: number
+  prefix?: string
+  suffix?: string
+  onStart?: () => void
+  onComplete?: () => void
+}
+
+const EASING_CURVES: Record<EasingPreset, string> = {
+  smooth: 'cubicBezier(0.4, 0.0, 0.2, 1)',
+  accelerate: 'cubicBezier(0.4, 0.0, 1, 1)',
+  decelerate: 'cubicBezier(0.0, 0.0, 0.2, 1)',
+  emphasize: 'cubicBezier(0.0, 0.0, 0.15, 0.95)',
+}
+
+export function animateNumber(
+  element: HTMLElement,
+  finalValue: number | string,
+  format?: NumberFormats,
+  {
+    duration = 1000,
+    delay = 0,
+    easingPreset = 'smooth',
+    startValue = 0,
+    decimals = 0,
+    threshold = 0.1,
+    prefix = '',
+    suffix = '',
+    onStart,
+    onComplete,
+  }: AnimateNumberOptions = {},
+) {
+  const numericFinal = typeof finalValue === 'string' ? Number.parseFloat(finalValue) : finalValue
+  const scaleFactor = Math.min(Math.max(1, Math.log10(Math.abs(numericFinal - startValue)) / 3), 1.5)
+
+  const formatValue = (value: number) => {
+    const formattedNum = format
+      ? formatNumber(value, format)
+      : decimals > 0
+        ? value.toFixed(decimals)
+        : Math.round(value).toString()
+
+    return `${prefix}${formattedNum}${suffix}`
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const entry = entries[0]
+      if (entry?.isIntersecting && entry.intersectionRatio >= threshold) {
+        onStart?.()
+
         anime({
-          targets: element,
-          innerHTML: [0, finalValue],
-          easing: 'easeOutQuad',
-          round: 1,
-          duration: 2000,
-          update(anim) {
-            element.innerHTML = formatNumber(anim.animations[0]?.currentValue, format) as string
+          targets: { value: startValue },
+          value: numericFinal,
+          easing: EASING_CURVES[easingPreset],
+          duration: Math.round(duration * scaleFactor),
+          delay,
+          round: 10 ** decimals,
+          update: (anim) => {
+            element.innerHTML = formatValue(+(anim.animations[0]?.currentValue ?? '0'))
+          },
+          complete: () => {
+            element.innerHTML = formatValue(numericFinal)
+            onComplete?.()
           },
         })
-        observer.unobserve(element)
+
+        observer.disconnect()
       }
-    })
-  })
+    },
+    { threshold: [threshold] },
+  )
 
   observer.observe(element)
+  return observer.disconnect.bind(observer)
 }

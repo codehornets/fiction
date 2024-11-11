@@ -2,6 +2,7 @@
 import type { Widget } from '@fiction/admin/dashboard/widget'
 import type { DataCompared, DataPointChart } from '@fiction/analytics/types'
 import WidgetWrap from '@fiction/admin/dashboard/WidgetWrap.vue'
+import XNumber from '@fiction/ui/common/XNumber.vue'
 import { ref } from 'vue'
 import SuperChart from './SuperChart.vue'
 
@@ -45,8 +46,8 @@ function generateTimeSeriesData(args: {
 const metrics = ref([
   {
     title: 'Site Traffic',
-    value: '14,423',
-    change: '+12.8%',
+    value: 14423,
+    change: 2000,
     period: '30 day avg',
     icon: 'i-tabler-world',
     chart: {
@@ -61,8 +62,8 @@ const metrics = ref([
   },
   {
     title: 'Words Published',
-    value: '24.5K',
-    change: '+2.1K',
+    value: 24500,
+    change: 2100,
     period: 'This week',
     icon: 'i-tabler-file-text',
     chart: {
@@ -91,10 +92,10 @@ const chartData = ref<DataCompared<DataPointChart>>({
 // Growth platforms data with more realistic numbers
 const platforms = ref([
   {
-    name: 'Twitter',
-    followers: '2,847',
-    growth: '27.01%',
-    icon: 'i-tabler-brand-twitter',
+    name: 'X Platform',
+    followers: 2837,
+    growth: 27.0,
+    icon: 'i-tabler-brand-x',
     chart: {
       main: generateTimeSeriesData({
         days: 30,
@@ -107,8 +108,8 @@ const platforms = ref([
   },
   {
     name: 'LinkedIn',
-    followers: '1,234',
-    growth: '12.77%',
+    followers: 1234,
+    growth: 12.7,
     icon: 'i-tabler-brand-linkedin',
     chart: {
       main: generateTimeSeriesData({
@@ -121,9 +122,9 @@ const platforms = ref([
     } satisfies DataCompared<DataPointChart>,
   },
   {
-    name: 'Newsletter',
+    name: 'Email List',
     followers: '492',
-    growth: '31.30%',
+    growth: 31.3,
     icon: 'i-tabler-mail',
     chart: {
       main: generateTimeSeriesData({
@@ -151,7 +152,12 @@ const platforms = ref([
               <span>Total Audience</span>
             </div>
             <div class="flex items-baseline gap-2">
-              <span class="text-5xl font-medium tracking-tight x-font-title">{{ chartData.mainTotals?.count }}</span>
+              <XNumber
+                format="number"
+                :animate="true"
+                class="text-5xl font-medium tracking-tight x-font-title"
+                :model-value="+(chartData.mainTotals?.count || 0)"
+              />
               <span class="text-theme-500 dark:text-theme-400">followers</span>
             </div>
           </div>
@@ -184,9 +190,13 @@ const platforms = ref([
               <div class="text-sm text-theme-500 dark:text-theme-400">
                 {{ metric.title }}
               </div>
-              <div class="text-2xl text-white font-medium x-font-title">
-                {{ metric.value }}
-              </div>
+              <XNumber
+                format="number"
+                :animate="true"
+                class="text-2xl text-white font-medium x-font-title"
+                :data-value="metric.value"
+                :model-value="+(metric.value || 0)"
+              />
             </div>
           </div>
           <div class="text-right flex justify-end items-center gap-6">
@@ -201,9 +211,7 @@ const platforms = ref([
               />
             </div>
             <div class=" space-y-1">
-              <div class="text-green-400 text-lg x-font-title">
-                {{ metric.change }}
-              </div>
+              <XNumber class="text-green-400 text-lg x-font-title" :model-value="metric.change" :animate="true" prefix="+" />
               <div class="text-sm text-theme-500 dark:text-theme-400">
                 {{ metric.period }}
               </div>
@@ -223,12 +231,19 @@ const platforms = ref([
             <i class="text-lg text-primary-400" :class="[platform.icon]" />
             <span class="text-sm text-theme-500">{{ platform.name }}</span>
           </div>
-          <div class="text-lg text-white font-bold">
-            {{ platform.followers }}
-          </div>
-          <div class="text-sm text-green-400">
-            ↑ {{ platform.growth }}
-          </div>
+          <XNumber
+            class="text-xl font-medium x-font-title"
+            :model-value="+(platform.followers || 0)"
+            :animate="true"
+            format="number"
+          />
+          <XNumber
+            class="text-sm text-green-400 "
+            :model-value="+(platform.growth || 0)"
+            :animate="true"
+            prefix="↑"
+            suffix="%"
+          />
           <!-- Platform Sparkline -->
           <div class="h-[20px] w-full mt-2">
             <SuperChart

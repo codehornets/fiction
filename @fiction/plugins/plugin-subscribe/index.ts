@@ -49,7 +49,7 @@ export class FictionSubscribe extends FictionPlugin<FictionSubscribeSettings> {
 
     fictionAdmin.widgetRegister.value.push(...Object.values(this.widgets))
 
-    fictionAdmin.addToWidgetArea('homeSecondary', [{ key: 'subscribers' }, { key: 'unsubscribes' }])
+    fictionAdmin.addToWidgetArea('homeSecondary', [])
     fictionAdmin.addToWidgetArea('subscriberIndex', [{ key: 'subscribers' }, { key: 'unsubscribes' }, { key: 'cleaned' }])
 
     fictionAdmin.addAdminPages({
