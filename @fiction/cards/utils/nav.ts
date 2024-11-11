@@ -3,13 +3,15 @@ import { shortId } from '@fiction/core'
 
 export function processNavItems<T extends NavItem = NavItem>(args: {
   fictionUser: FictionUser
-  fictionRouter: FictionRouter
+  fictionRouter?: FictionRouter
   items: T[]
   basePathPrefix: string
 }): T[] {
   const { items, basePathPrefix, fictionUser, fictionRouter } = args
   const loggedIn = fictionUser.activeUser.value !== undefined
-  const currentPath = fictionRouter.current.value.path
+  const current = fictionRouter?.current.value
+
+  const currentPath = current?.fullPath
   return items.map((item, index) => {
     const isHidden = !!((item.authState === 'loggedIn' && !loggedIn) || (item.authState === 'loggedOut' && loggedIn))
     return {
@@ -18,6 +20,7 @@ export function processNavItems<T extends NavItem = NavItem>(args: {
       isHidden,
       basePath: `${basePathPrefix}.${index}`,
       id: shortId(),
+      desc: currentPath,
       items: item.items
         ? processNavItems({
           fictionUser,

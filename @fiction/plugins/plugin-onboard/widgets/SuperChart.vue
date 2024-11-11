@@ -102,7 +102,7 @@ defineExpose({
       ref="chartRef"
       :width="dimensions.width"
       :height="dimensions.height"
-      class="absolute inset-0 text-primary-500 dark:text-primary-400"
+      class="absolute inset-0 text-primary-500 "
       :viewBox="`0 0 ${dimensions.width} ${dimensions.height}`"
       preserveAspectRatio="none"
     >
@@ -118,15 +118,15 @@ defineExpose({
             cx="1"
             cy="1"
             r="1"
-            class="text-primary-500 dark:text-primary-400"
+            class="text-primary-500 "
             style="fill: currentColor; opacity: 0.2;"
           />
         </pattern>
 
         <!-- Area gradient -->
         <linearGradient :id="gradientId" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" class="text-primary-500 dark:text-primary-400" style="stop-color: currentColor; stop-opacity: 0.2" />
-          <stop offset="100%" class="text-primary-500 dark:text-primary-400" style="stop-color: currentColor; stop-opacity: 0" />
+          <stop offset="0%" class="text-primary-500 " style="stop-color: currentColor; stop-opacity: 0.2" />
+          <stop offset="100%" class="text-primary-500 " style="stop-color: currentColor; stop-opacity: 0" />
         </linearGradient>
 
         <!-- Mask for dots to only show under the area -->
@@ -159,7 +159,7 @@ defineExpose({
       <path
         v-if="pathData.line"
         :d="pathData.line"
-        class="stroke-primary-500 dark:stroke-primary-400"
+        class="stroke-primary-500"
         stroke-width="1.5"
         stroke-linecap="round"
         stroke-linejoin="round"

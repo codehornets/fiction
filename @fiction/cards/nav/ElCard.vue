@@ -10,17 +10,17 @@ import CardLink from '../el/CardLink.vue'
 import { processNavItems } from '../utils/nav'
 import XNav from './XNav.vue'
 
-const props = defineProps({
-  card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
-})
-const { fictionRouter, fictionUser } = useService()
+const { card } = defineProps<{ card: Card<UserConfig> }>()
 
-const uc = vue.computed(() => props.card.userConfig.value || {})
+const { fictionUser } = useService()
+
+const uc = vue.computed(() => card.userConfig.value || {})
 
 const nav = vue.computed(() => {
+  const siteRouter = card.site?.siteRouter
   const n = {
-    navA: processNavItems<SchemaNavItem>({ items: uc.value.navA || [], basePathPrefix: 'navA', fictionRouter, fictionUser }),
-    navB: processNavItems<SchemaNavItem>({ items: uc.value.navB || [], fictionRouter, basePathPrefix: 'navB', fictionUser }),
+    navA: processNavItems<SchemaNavItem>({ items: uc.value.navA || [], basePathPrefix: 'navA', fictionRouter: siteRouter, fictionUser }),
+    navB: processNavItems<SchemaNavItem>({ items: uc.value.navB || [], fictionRouter: siteRouter, basePathPrefix: 'navB', fictionUser }),
   }
 
   return n
