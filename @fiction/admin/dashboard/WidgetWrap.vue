@@ -19,11 +19,12 @@ const widgetDescription = vue.computed(() => props.widget?.settings.description)
 
 <template>
   <div
-    class="drop-target relative flex flex-col transition-all p-4 sm:p-6 lg:p-8"
+    class="drop-target relative flex flex-col transition-all p-4 sm:p-6 xl:p-7"
     :draggable="editable"
   >
     <div
-      class="text-theme-600 dark:text-theme-50 flex items-center justify-between "
+      v-if="widgetTitle"
+      class="text-theme-600 dark:text-theme-50 flex items-center justify-between mb-3"
       :class="editable ? 'cursor-move ' : ''"
     >
       <div class="relative flex items-center">

@@ -13,12 +13,12 @@ import { FictionBrand } from '@fiction/plugin-brand'
 import { FictionExtend } from '@fiction/plugin-extend/index.js'
 import { FictionMonitor } from '@fiction/plugin-monitor/index.js'
 import { FictionNewsletter } from '@fiction/plugin-newsletter'
+import { FictionOnboard } from '@fiction/plugin-onboard'
 import { FictionStripe } from '@fiction/plugin-stripe/index.js'
 import { FictionSubscribe } from '@fiction/plugin-subscribe/index.js'
 import { FictionTransactions } from '@fiction/plugin-transactions'
 import { FictionPosts } from '@fiction/posts'
 import { FictionSites } from '@fiction/site/index.js'
-
 import { FictionUi } from '@fiction/ui/index.js'
 import { version } from '../package.json'
 import { commands } from './commands.js'
@@ -129,6 +129,8 @@ const fictionAdmin = new FictionAdmin({ ...basicService, fictionTransactions, fi
 
 const s = { ...basicService, fictionCache, fictionAppSites, fictionRouterSites, fictionAws, fictionMedia, fictionAi, fictionTransactions, fictionAdmin }
 
+const fictionOnboard = new FictionOnboard({ ...s })
+
 const fictionStripe = new FictionStripe({
   ...s,
   secretKeyLive: fictionEnv.var('STRIPE_SECRET_KEY_PROD'),
@@ -178,13 +180,12 @@ const fictionSites = new FictionSites({ ...s, fictionAnalytics, fictionAppSites,
 const fictionTeam = new FictionTeam({ ...s })
 const fictionForms = new FictionForms({ ...s, fictionSites })
 const fictionUi = new FictionUi({ fictionEnv, apps: [fictionApp, fictionAppSites] })
-
 const fictionSubscribe = new FictionSubscribe(s)
 const fictionPosts = new FictionPosts(s)
 const fictionNewsletter = new FictionNewsletter({ fictionPosts, fictionSubscribe, ...s })
 const fictionBrand = new FictionBrand({ ...s })
 
-const baseService = { ...s, fictionForms, fictionBrand, fictionAnalytics, fictionSites, fictionTeam, fictionUi, fictionStripe, fictionSubscribe, fictionNewsletter, fictionPosts }
+const baseService = { ...s, fictionForms, fictionBrand, fictionAnalytics, fictionSites, fictionTeam, fictionUi, fictionStripe, fictionSubscribe, fictionNewsletter, fictionPosts, fictionOnboard }
 
 export type SpecificService = typeof baseService
 

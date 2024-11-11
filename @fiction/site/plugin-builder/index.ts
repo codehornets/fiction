@@ -22,6 +22,6 @@ export class FictionSiteBuilder extends FictionPlugin<FictionSiteBuilderSettings
     const widgets = getWidgets(this.settings)
     const w = Object.values(widgets)
     fictionAdmin.widgetRegister.value.push(...w)
-    fictionAdmin.addToWidgetArea('homeMain', w.map(widget => widget.key))
+    fictionAdmin.addToWidgetArea('homeMain', w.map(widget => ({ key: widget.key })))
   }
 }

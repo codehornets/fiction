@@ -16,10 +16,11 @@ export function getWidgetMap(args: { fictionAdmin: FictionAdmin }): Record<strin
   const widgetRegister = fictionAdmin.widgetRegister.value
   const widgetMap: Record<string, Widget[]> = {}
   for (const [widgetArea, widgetKeys] of Object.entries(widgetMapRaw)) {
-    widgetMap[widgetArea] = widgetKeys.map((key) => {
-      const w = widgetRegister.find(widget => widget.key === key)
+    const sortedWidgetKeys = widgetKeys.sort((a, b) => (a.priority ?? 100) - (b.priority ?? 100))
+    widgetMap[widgetArea] = sortedWidgetKeys.map((entry) => {
+      const w = widgetRegister.find(widget => widget.key === entry.key)
       if (!w) {
-        fictionAdmin.log.warn(`Widget not found for key: ${key}`)
+        fictionAdmin.log.warn(`Widget not found for key: ${entry.key}`)
       }
 
       return w

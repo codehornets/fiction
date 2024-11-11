@@ -32,6 +32,8 @@ type FictionAdminSettings = {
 
 type PageLoader = (args: { factory: CardFactory }) => (Promise<TableCardConfig[]> | TableCardConfig[])
 
+export type WidgetFactoryEntry = { key: string, priority?: number }
+
 export class FictionAdmin extends FictionPlugin<FictionAdminSettings> {
   widgetRequests?: ReturnType<typeof createWidgetEndpoints>
   constructor(settings: FictionAdminSettings) {
@@ -41,8 +43,8 @@ export class FictionAdmin extends FictionPlugin<FictionAdminSettings> {
   emailActions = getEmails({ fictionAdmin: this })
 
   widgetRegister = vue.shallowRef<Widget[]>([])
-  widgetMapRaw = vue.shallowRef<Record<string, string[]>>({})
-  addToWidgetArea<T extends string[] = string[]>(widgetArea: WidgetLocation, widgetKeys: T) {
+  widgetMapRaw = vue.shallowRef<Record<string, WidgetFactoryEntry[]>>({})
+  addToWidgetArea<T extends WidgetFactoryEntry[] = WidgetFactoryEntry[]>(widgetArea: WidgetLocation, widgetKeys: T) {
     this.widgetMapRaw.value[widgetArea] = this.widgetMapRaw.value[widgetArea] ?? []
     this.widgetMapRaw.value[widgetArea]?.push(...widgetKeys)
   }

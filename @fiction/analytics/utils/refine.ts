@@ -16,7 +16,7 @@ export function refineTimelineData<T extends DataPointChart>(args: {
   const timeEndAt = dayjs(timeEndAtIso).tz(timeZone).endOf(interval)
   const now = nowIso ? dayjs(nowIso) : dayjs()
 
-  const newData: { date: string, [key: string]: any }[] = withRollup ? [{ label: 'Totals', tense: 'past', ...data[0] }] : []
+  const newData: { date?: string, [key: string]: any }[] = withRollup ? [{ label: 'Totals', tense: 'past', ...data[0] }] : []
 
   let loopTime = timeStartAt.clone()
 

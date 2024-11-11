@@ -50,7 +50,7 @@ export type DataPoint<T extends string = string> = {
 }
 
 export type DataPointChart<T extends string = string> = {
-  date: string
+  date?: string
   label?: string
   tense?: 'past' | 'present' | 'future'
 } & DataPoint<T>

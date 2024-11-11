@@ -10,7 +10,7 @@ const props = defineProps({
 
 <template>
   <WidgetWrap :widget>
-    <div class="overflow-hidden rounded-b-md">
+    <div class="overflow-hidden rounded-b-md pt-3">
       <iframe
         width="100%"
         class="aspect-video"

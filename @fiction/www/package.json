@@ -13,6 +13,7 @@
     "@fiction/plugin-monitor": "workspace:*",
     "@fiction/plugin-newsletter": "workspace:*",
     "@fiction/plugin-stripe": "workspace:*",
+    "@fiction/plugin-onboard": "workspace:*",
     "@fiction/plugin-transactions": "workspace:*",
     "@fiction/posts": "workspace:*",
     "@fiction/site": "workspace:*",
