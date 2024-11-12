@@ -631,7 +631,27 @@ export class ManageSite extends SitesQuery {
 
     const selector = await this.getSiteSelector(where)
 
-    const [deletedSite] = await db(t.sites).where({ orgId, ...selector }).delete().returning<TableSiteConfig[]>('*')
+    // Use a transaction to ensure both operations succeed or fail together
+    const deletedSite = await db.transaction(async (trx) => {
+      // First delete all pages associated with the site
+      await trx(t.pages)
+        .where({
+          siteId: selector.siteId,
+          orgId,
+        })
+        .delete()
+
+      // Then delete the site itself
+      const [site] = await trx(t.sites)
+        .where({
+          orgId,
+          ...selector,
+        })
+        .delete()
+        .returning<TableSiteConfig[]>('*')
+
+      return site
+    })
 
     if (!deletedSite)
       throw abort('site not found')

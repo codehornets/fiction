@@ -30,6 +30,126 @@ describe('manageSite query', () => {
     subDomain: `test-${objectId({ prefix: 'sub' })}`,
   })
 
+  describe('site deletion', () => {
+    let siteId: string
+    let cardId: string
+
+    beforeEach(async () => {
+      // Create a test site with pages
+      const fields = createSiteFields('Deletion Test Site')
+      const response = await testUtils.fictionSites.queries.ManageSite.serve(
+        { _action: 'create', fields, orgId, userId, caller: 'test' },
+        { server: true },
+      )
+      siteId = response.data?.siteId as string
+      cardId = objectId({ prefix: 'card' })
+
+      // Add some pages to the site
+      await testUtils.fictionSites.queries.ManagePage.serve(
+        {
+          _action: 'upsert',
+          siteId,
+          fields: [
+            { cardId, templateId: 'wrap', title: 'Test Page', slug: 'test-page' },
+            { cardId: objectId({ prefix: 'card' }), templateId: 'wrap', title: 'Another Page', slug: 'another-page' },
+          ],
+          orgId,
+          userId,
+          caller: 'test',
+          scope: 'publish',
+        },
+        { server: true },
+      )
+    })
+
+    it('should successfully delete a site and its associated pages', async () => {
+      // Delete the site
+      const deleteResponse = await testUtils.fictionSites.queries.ManageSite.serve(
+        { _action: 'delete', where: { siteId }, orgId, userId, caller: 'test' },
+        { server: true },
+      )
+
+      expect(deleteResponse.status).toBe('success')
+      expect(deleteResponse.message).toBe('site deleted')
+
+      // Verify site is deleted
+      const siteResponse = await testUtils.fictionSites.queries.ManageSite.serve(
+        { _action: 'retrieve', where: { siteId }, orgId, userId, caller: 'test' },
+        { server: true },
+      )
+      expect(siteResponse.status).toBe('error')
+      expect(siteResponse.message).toContain('Site not found')
+
+      // Verify pages are deleted
+      const pageResponse = await testUtils.fictionSites.queries.ManagePage.serve(
+        {
+          _action: 'retrieve',
+          where: [{ cardId }],
+          siteId,
+          orgId,
+          caller: 'test',
+          scope: 'publish',
+        },
+        { server: true },
+      )
+      expect(pageResponse.status).toBe('error')
+      expect(pageResponse.data).toHaveLength(0)
+    })
+
+    it('should handle deletion of site with no pages', async () => {
+      // Create a site without pages
+      const emptyFields = createSiteFields('Empty Site For Deletion')
+      const emptyResponse = await testUtils.fictionSites.queries.ManageSite.serve(
+        { _action: 'create', fields: emptyFields, orgId, userId, caller: 'test' },
+        { server: true },
+      )
+      const emptySiteId = emptyResponse.data?.siteId as string
+
+      // Delete the empty site
+      const deleteResponse = await testUtils.fictionSites.queries.ManageSite.serve(
+        { _action: 'delete', where: { siteId: emptySiteId }, orgId, userId, caller: 'test' },
+        { server: true },
+      )
+
+      expect(deleteResponse.status).toBe('success')
+      expect(deleteResponse.message).toBe('site deleted')
+    })
+
+    it('should fail gracefully when deleting non-existent site', async () => {
+      const nonExistentSiteId = objectId({ prefix: 'sit' })
+      const response = await testUtils.fictionSites.queries.ManageSite.serve(
+        { _action: 'delete', where: { siteId: nonExistentSiteId }, orgId, userId, caller: 'test' },
+        { server: true },
+      )
+
+      expect(response.status).toBe('error')
+      expect(response.message).toContain('site not found')
+    })
+
+    it('should delete all associated resources', async () => {
+      // First verify site has associated resources
+      const initialSite = await testUtils.fictionSites.queries.ManageSite.serve(
+        { _action: 'retrieve', where: { siteId }, orgId, userId, caller: 'test' },
+        { server: true },
+      )
+      expect(initialSite.data?.pages?.length).toBeGreaterThan(0)
+
+      // Delete the site
+      await testUtils.fictionSites.queries.ManageSite.serve(
+        { _action: 'delete', where: { siteId }, orgId, userId, caller: 'test' },
+        { server: true },
+      )
+
+      // Check that pages were deleted using direct DB query
+      const remainingPages = await testUtils.fictionDb.client()
+        .select('*')
+        .from('fiction_site_pages')
+        .where({ site_id: siteId })
+
+      expect(remainingPages).toHaveLength(0)
+    })
+  })
+
   describe('site creation', () => {
     it('should create a new site', async () => {
       const fields = createSiteFields('Test Site')

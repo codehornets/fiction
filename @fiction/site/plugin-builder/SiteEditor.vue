@@ -16,11 +16,8 @@ import { activeSiteDisplayUrl } from '../utils/site'
 import SiteEditorFrame from './SiteEditorFrame.vue'
 import { adminEditorController } from './tools/tools'
 
-type UserConfig = {
-  isNavItem: boolean
-}
 defineProps({
-  card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
+  card: { type: Object as vue.PropType<Card>, required: true },
 })
 
 const service = useService<{ fictionSites: FictionSites, fictionRouterSites: FictionRouter, fictionAppSites: FictionApp }>()
@@ -130,11 +127,11 @@ async function resetToPublished() {
     </div>
 
     <template v-else>
-      <ViewEditor :tool-props="{ site }" :controller="adminEditorController">
+      <ViewEditor :tool-props="{ site }" :controller="adminEditorController" :card>
         <template #headerLeft>
           <div>
-            <CardButton :card theme="primary" design="outline" href="/" icon="i-tabler-arrow-left">
-              Home
+            <CardButton :card theme="primary" design="outline" href="/sites" icon="i-tabler-arrow-left">
+              Back
             </CardButton>
           </div>
           <div class="flex space-x-1 font-medium">

@@ -3,7 +3,7 @@ import type { Site } from '../../site'
 import { AdminEditorController } from '@fiction/admin'
 import { vue } from '@fiction/core'
 
-export type ToolKeys = 'managePages' | 'addPage' | 'editPage' | 'editLayout' | 'ai' | 'global' | 'publish' | 'editCard' | 'styling'
+export type ToolKeys = 'managePages' | 'addPage' | 'editPage' | 'editLayout' | 'siteSettings' | 'global' | 'publish' | 'editCard' | 'styling'
 
 export const tools = [
   {
@@ -42,6 +42,14 @@ export const tools = [
     isPrimary: true,
     widthClasses: 'w-[500px]',
     el: vue.defineAsyncComponent(async () => import('./ToolPageGlobal.vue')),
+  },
+  {
+    toolId: 'siteSettings',
+    title: 'Settings',
+    icon: 'i-tabler-settings',
+    isPrimary: 'bottom',
+    widthClasses: 'w-[500px]',
+    el: vue.defineAsyncComponent(async () => import('./ToolPageSettings.vue')),
   },
   {
     toolId: 'styling',

@@ -68,22 +68,6 @@ export class FictionPosts extends FictionPlugin<FictionPostsSettings> {
                 el: vue.defineAsyncComponent(async () => import('./admin/PagePostIndex.vue')),
                 userConfig: { isNavItem: true, navIcon: 'i-tabler-stack-push', navIconAlt: 'i-tabler-stack' },
               }),
-              await factory.create({
-                slug: 'social',
-                title: 'Social Media Posts',
-                description: 'Create and schedule posts for your social media platforms',
-                el: vue.defineAsyncComponent(async () => import('./admin/PageSocial.vue')),
-                userConfig: { isNavItem: true, navIcon: 'i-tabler-social' },
-
-              }),
-              await factory.create({
-                slug: 'calendar',
-                title: 'Content Calendar',
-                description: 'Plan and schedule all your content with our visual calendar interface',
-                el: vue.defineAsyncComponent(async () => import('./admin/PageCalendar.vue')),
-                userConfig: { isNavItem: true, navIcon: 'i-tabler-calendar', navIconAlt: 'i-tabler-calendar-cog' },
-
-              }),
             ],
           }),
         ],

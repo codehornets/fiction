@@ -22,7 +22,7 @@ export type EditorTool<T extends string = string, U extends Record<string, any> 
   title?: string
   icon: string
   el?: vue.Component
-  isPrimary?: boolean
+  isPrimary?: boolean | 'top' | 'bottom'
   isDefault?: boolean
   location?: 'primary' | 'context'
   props?: (args: U) => vue.ComputedRef<Record<string, unknown>>

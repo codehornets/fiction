@@ -42,7 +42,7 @@ vue.onMounted(async () => {
 
 const actions: ActionButton[] = [
   {
-    name: 'View All Posts',
+    name: 'All Posts',
     icon: 'i-tabler-list',
     href: props.card.link('/posts'),
   },

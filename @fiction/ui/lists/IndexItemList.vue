@@ -14,7 +14,7 @@ defineProps({
 </script>
 
 <template>
-  <div>
+  <div class="@container">
     <div
       v-if="loading"
       class="p-12 flex justify-center text-theme-400 dark:text-theme-500"
@@ -41,7 +41,7 @@ defineProps({
         class="relative isolate flex gap-6 items-center hover:opacity-90 cursor-pointer py-6"
         :href="item.href"
       >
-        <ElIndexItemMedia class="size-16" :media="item.media" :icon="item.icon" />
+        <ElIndexItemMedia class="size-12 @md:size-16" :media="item.media" :icon="item.icon" />
 
         <div>
           <div
@@ -51,7 +51,7 @@ defineProps({
             <slot name="details" :item="item" />
           </div>
           <div class="group relative max-w-xl space-y-1.5">
-            <h3 class="text-2xl mt-1 font-semibold hover:underline x-font-title">
+            <h3 class="text-lg @md:text-xl mt-1 font-medium hover:underline x-font-title">
               {{ item.name }}
             </h3>
             <div
