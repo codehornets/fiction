@@ -25,14 +25,10 @@ describe('brand guide endpoint', async () => {
   const sampleBrandGuide: BrandGuide = {
     personality: {
       archetype: 'creator' as const,
-      traits: ['innovative', 'authentic', 'approachable'],
+      traits: 'innovative',
       voice: {
         tone: 'Friendly but professional',
         guidelines: 'Use clear, simple language. Be direct but warm.',
-      },
-      story: {
-        journey: 'Started as a solo creator, evolved into a community builder',
-        pivotalMoments: ['First workshop launch', 'Community milestone reached'],
       },
     },
     purpose: {
@@ -40,22 +36,22 @@ describe('brand guide endpoint', async () => {
       vision: 'Empower 1000 creators to achieve financial freedom',
       positioning: 'Practical, experience-based guidance for creators',
       values: [{
-        value: 'Authenticity',
+        title: 'Authenticity',
         description: 'Being genuine in all interactions',
         inPractice: 'Sharing both successes and failures openly',
       }],
     },
     communities: [{
       name: 'Early-stage creators',
-      interests: ['personal branding', 'content strategy'],
-      challenges: ['finding their voice', 'building audience'],
-      content: ['tutorials', 'case studies'],
+      interests: 'personal branding',
+      challenges: 'finding their voice',
+      content: 'tutorials',
     }],
     pillars: [{
       topic: 'Brand Building',
       description: 'Developing a strong personal brand',
-      examples: ['Brand voice workshop', 'Visual identity guide'],
-      audiences: ['creators', 'small business owners'],
+      examples: 'Brand voice workshop',
+      audiences: 'creators',
     }],
     futurePacing: {
       declaration: 'I am the go-to resource for creator branding',
@@ -134,9 +130,9 @@ describe('brand guide endpoint', async () => {
 
     expect(r.status).toBe('success')
     expect(r.data?.length).toBe(1)
-    expect(r.data?.[0].guide?.personality.archetype).toBe('creator')
-    expect(r.data?.[0].guide?.purpose.mission).toBeDefined()
-    expect(r.data?.[0].guide?.futurePacing.declaration).toBeDefined()
+    expect(r.data?.[0].guide?.personality?.archetype).toBe('creator')
+    expect(r.data?.[0].guide?.purpose?.mission).toBeDefined()
+    expect(r.data?.[0].guide?.futurePacing?.declaration).toBeDefined()
 
     const r2 = await fictionBrand.queries.ManageBrandGuide.serve({
       _action: 'create',
@@ -173,11 +169,11 @@ describe('brand guide endpoint', async () => {
         guide: {
           ...sampleBrandGuide,
           personality: {
-            ...sampleBrandGuide.personality,
-            traits: ['bold', 'innovative', 'trustworthy'],
+            ...sampleBrandGuide?.personality,
+            traits: 'bold',
           },
           futurePacing: {
-            ...sampleBrandGuide.futurePacing,
+            ...sampleBrandGuide?.futurePacing,
             declaration: 'I am the leading voice in creator education',
           },
         },
@@ -186,8 +182,8 @@ describe('brand guide endpoint', async () => {
 
     expect(r.status).toBe('success')
     expect(r.data?.length).toBe(1)
-    expect(r.data?.[0].guide?.personality.traits).toContain('bold')
-    expect(r.data?.[0].guide?.futurePacing.declaration).toContain('leading voice')
+    expect(r.data?.[0].guide?.personality?.traits).toContain('bold')
+    expect(r.data?.[0].guide?.futurePacing?.declaration).toContain('leading voice')
   })
 
   it('handles invalid requests', async () => {
@@ -198,7 +194,7 @@ describe('brand guide endpoint', async () => {
         guide: {
           ...sampleBrandGuide,
           personality: {
-            ...sampleBrandGuide.personality,
+            ...sampleBrandGuide?.personality,
             // @ts-expect-error test
             archetype: 'InvalidArchetype', // Invalid archetype
           },

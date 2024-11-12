@@ -85,7 +85,7 @@ vue.onMounted(async () => {
         <template #zero>
           <ElZeroBanner
             data-test-id="campaign-zero"
-            title="Email Marketing Campaigns"
+            title="Email Your Audience"
             description="Create engaging email campaigns to connect with your audience. Design, schedule, and track performance all in one place."
             icon="i-tabler-mail-share"
             :actions="[{

@@ -76,7 +76,7 @@ export class FictionBrand extends FictionPlugin<FictionBrandSettings> {
                 slug: '_home',
                 title: 'Brand Guidelines', // More specific than just 'Guide'
                 description: 'Define your brand identity and style guidelines',
-                el: vue.defineAsyncComponent(async () => import('./admin/ManageOverview.vue')),
+                el: vue.defineAsyncComponent(() => import('./admin/ManageOverview.vue')),
                 userConfig: { isNavItem: true, navIcon: 'i-tabler-arrow-guide' },
               }),
               await factory.create({
