@@ -38,16 +38,16 @@ const options = vue.computed(() => {
     // Brand Personality Section
     new InputOption({
       key: 'personality',
-      label: 'Brand Personality',
+      label: 'Personality',
       input: 'group',
       options: [
         new InputOption({
-          testId: 'brand-archetype',
+          testId: 'personality-archetype',
           icon: { class: 'i-tabler-mask' },
-          label: 'Brand Archetype',
+          label: 'Personality Archetype',
           subLabel: 'Select your core archetype that reflects how you connect with others',
           input: 'InputControl',
-          valueDisplay: ({ input }) => {
+          valueDisplay: () => {
             const selected = brandArchetypes.find(a => a.value === guide?.personality?.archetype)
             return {
               status: selected ? 'ready' : 'incomplete',
@@ -57,7 +57,7 @@ const options = vue.computed(() => {
           options: [
             new InputOption({
               key: 'guide.personality.archetype',
-              label: 'Brand Archetype',
+              label: 'Personality Archetype',
               input: 'InputSelectCustom',
               list: brandArchetypes,
               isRequired: true,
@@ -68,10 +68,10 @@ const options = vue.computed(() => {
         new InputOption({
           testId: 'brand-traits',
           icon: { class: 'i-tabler-list-details' },
-          label: 'Brand Traits',
+          label: 'Character Traits',
           subLabel: 'Define distinctive traits',
           input: 'InputControl',
-          valueDisplay: ({ input }) => {
+          valueDisplay: () => {
             const traits = guide?.personality?.traits || ''
 
             const wordCount = getWordCount(traits)
@@ -85,8 +85,10 @@ const options = vue.computed(() => {
           options: [
             new InputOption({
               key: 'guide.personality.traits',
-              label: 'Brand Traits',
+              label: 'Character Traits',
+              subLabel: 'List aspects of your personality that are unique',
               input: 'InputTextarea',
+              placeholder: 'Describe your distinctive traits...',
             }),
           ],
         }),
@@ -94,16 +96,20 @@ const options = vue.computed(() => {
         new InputOption({
           testId: 'brand-voice',
           icon: { class: 'i-tabler-message-circle' },
-          label: 'Brand Voice',
+          label: 'Communication Style',
           subLabel: 'Define your communication style',
           input: 'InputControl',
-          valueDisplay: ({ input }) => {
+          valueDisplay: () => {
             const tone = guide?.personality?.voice?.tone
             const guidelines = guide?.personality?.voice?.guidelines
-            const hasVoice = tone && getWordCount(tone) >= 10 && guidelines && getWordCount(guidelines) >= 20
+            const toneWords = getWordCount(tone)
+            const guideWords = getWordCount(guidelines)
+            const minWords = 10
+            const hasVoice = toneWords >= minWords && guideWords >= minWords
             return {
               status: hasVoice ? 'ready' : 'incomplete',
-              data: hasVoice ? `${getWordCount(tone)} words tone, ${getWordCount(guidelines)} words guidelines` : 'Complete voice details',
+              data: hasVoice ? 'Tone and guidelines defined' : 'Define your tone and guidelines',
+              message: !hasVoice ? `${toneWords} of ${minWords}+ words tone, ${guideWords} of ${minWords}+ words guidelines` : undefined,
             }
           },
           options: [
@@ -112,14 +118,14 @@ const options = vue.computed(() => {
               label: 'Tone of Voice',
               input: 'InputTextarea',
               isRequired: true,
-              placeholder: 'Describe your authentic communication style...',
+              placeholder: 'Describe the tone of your communication...',
             }),
             new InputOption({
               key: 'guide.personality.voice.guidelines',
-              label: 'Voice Guidelines',
+              label: 'Communication Guidelines',
               input: 'InputTextarea',
               isRequired: true,
-              placeholder: 'Specific examples of language and phrases...',
+              placeholder: 'List your do\'s and don\'ts for meaningful communication',
             }),
           ],
         }),
@@ -130,17 +136,17 @@ const options = vue.computed(() => {
 
     // Brand Purpose Section
     new InputOption({
-      label: 'Brand Purpose',
+      label: 'Purpose',
       input: 'group',
       options: [
         new InputOption({
           testId: 'brand-mission',
           key: 'mission',
           icon: { class: 'i-tabler-target' },
-          label: 'Brand Mission',
+          label: 'Purpose & Mission',
           subLabel: 'Define your core motivation',
           input: 'InputControl',
-          valueDisplay: ({ input }) => {
+          valueDisplay: () => {
             const mission = guide?.purpose?.mission
             const wordCount = getWordCount(mission)
             const minWords = 15
@@ -156,7 +162,7 @@ const options = vue.computed(() => {
               label: 'Mission Statement',
               input: 'InputTextarea',
               isRequired: true,
-              placeholder: 'What drives you to share and serve others?',
+              placeholder: 'What drives and motivates you?',
             }),
           ],
         }),
@@ -164,10 +170,10 @@ const options = vue.computed(() => {
         new InputOption({
           testId: 'brand-vision',
           icon: { class: 'i-tabler-eye' },
-          label: 'Brand Vision',
-          subLabel: 'Define the lasting impact you want to have',
+          label: 'Vision',
+          subLabel: 'Define the future you want to create',
           input: 'InputControl',
-          valueDisplay: ({ input }) => {
+          valueDisplay: () => {
             const vision = guide?.purpose?.vision
             const wordCount = getWordCount(vision)
             const minWords = 10
@@ -191,10 +197,10 @@ const options = vue.computed(() => {
         new InputOption({
           testId: 'brand-positioning',
           icon: { class: 'i-tabler-chart-dots' },
-          label: 'Brand Positioning',
-          subLabel: 'Define your unique perspective',
+          label: 'Positioning',
+          subLabel: 'Define the unique niche you can own',
           input: 'InputControl',
-          valueDisplay: ({ input }) => {
+          valueDisplay: () => {
             const positioning = guide?.purpose?.positioning
             const wordCount = getWordCount(positioning)
             const minWords = 15
@@ -218,10 +224,10 @@ const options = vue.computed(() => {
         new InputOption({
           testId: 'brand-values',
           icon: { class: 'i-tabler-heart' },
-          label: 'Brand Values',
+          label: 'Core Values',
           subLabel: 'Define your core values and how you demonstrate them',
           input: 'InputControl',
-          valueDisplay: ({ input }) => {
+          valueDisplay: () => {
             const values = guide?.purpose?.values || []
             const totalValues = values.length
             return {
@@ -252,7 +258,7 @@ const options = vue.computed(() => {
     }),
     // Communities Section
     new InputOption({
-      label: 'Target Communities',
+      label: 'Target and Niche',
       input: 'group',
       options: [
         new InputOption({
@@ -261,7 +267,7 @@ const options = vue.computed(() => {
           label: 'Audience Segments',
           subLabel: 'Define your key audience segments',
           input: 'InputControl',
-          valueDisplay: ({ input }) => {
+          valueDisplay: () => {
             const communities = guide?.communities || []
             const isComplete = communities.every(c =>
               c.interests?.length && c.challenges?.length && c.content?.length,
@@ -298,9 +304,9 @@ const options = vue.computed(() => {
           testId: 'content-pillars',
           icon: { class: 'i-tabler-layout-columns' },
           label: 'Content Themes',
-          subLabel: 'Define your key content areas',
+          subLabel: 'The core topics that guide your content strategy',
           input: 'InputControl',
-          valueDisplay: ({ input }) => {
+          valueDisplay: () => {
             const pillars = guide?.pillars || []
             const isComplete = pillars.every(p =>
               getWordCount(p.description) >= 20 && (p.examples?.length || 0) >= 3 && (p.audiences?.length || 0) >= 1,
@@ -319,8 +325,8 @@ const options = vue.computed(() => {
               options: [
                 new InputOption({ key: 'topic', label: 'Topic', input: 'InputText', placeholder: 'Content theme name' }),
                 new InputOption({ key: 'description', label: 'Description', input: 'InputTextarea', placeholder: 'How this theme serves your audience' }),
-                new InputOption({ key: 'examples', label: 'Content Examples', input: 'InputList', placeholder: 'Add specific content ideas' }),
-                new InputOption({ key: 'audiences', label: 'Target Audiences', input: 'InputList', placeholder: 'Add audience segments this serves' }),
+                new InputOption({ key: 'examples', label: 'Content Examples', input: 'InputTextarea', placeholder: 'Add specific content ideas' }),
+                new InputOption({ key: 'audiences', label: 'Target Audiences', input: 'InputText', placeholder: 'Add audience segments this serves' }),
               ],
             }),
           ],
@@ -341,7 +347,7 @@ const options = vue.computed(() => {
           label: 'Future Vision',
           subLabel: 'Write your vision as if already achieved',
           input: 'InputControl',
-          valueDisplay: ({ input }) => {
+          valueDisplay: () => {
             const declaration = guide?.futurePacing?.declaration
             const wordCount = getWordCount(declaration)
             return {
@@ -364,16 +370,18 @@ const options = vue.computed(() => {
         new InputOption({
           testId: 'next-steps',
           icon: { class: 'i-tabler-list-check' },
-          label: 'Action Plan',
+          label: 'Next Actions',
           subLabel: 'Define concrete steps to achieve your vision',
           input: 'InputControl',
-          valueDisplay: ({ input }) => {
-            const steps = guide?.futurePacing?.nextSteps || []
-            const isComplete = steps.every(s => s.statement && s.action && s.deadline)
+          valueDisplay: () => {
+            const steps = guide?.futurePacing?.nextSteps
+            const totalSteps = steps?.length || 0
+            const isComplete = steps && steps.every(s => s.statement && s.action && s.deadline)
+            const minSteps = 1
             return {
-              status: steps.length >= 3 && isComplete ? 'ready' : 'incomplete',
-              data: steps.length ? `${steps.length} action steps defined` : 'Add action steps',
-              message: steps.length < 3 ? 'Define at least 3 steps' : !isComplete ? 'Complete all step details' : undefined,
+              status: totalSteps >= minSteps && isComplete ? 'ready' : 'incomplete',
+              data: totalSteps ? `${totalSteps} action steps defined` : 'Add action steps',
+              message: totalSteps && totalSteps < minSteps ? `Define at least ${minSteps} steps` : !isComplete ? 'Complete all step details' : undefined,
             }
           },
           options: [
@@ -383,8 +391,8 @@ const options = vue.computed(() => {
               input: 'InputList',
               options: [
                 new InputOption({ key: 'statement', label: 'Milestone', input: 'InputText', placeholder: 'What you want to achieve' }),
-                new InputOption({ key: 'action', label: 'Action', input: 'InputTextarea', placeholder: 'Specific action to take' }),
-                new InputOption({ key: 'deadline', label: 'Deadline', input: 'InputText', placeholder: 'When you\'ll achieve this' }),
+                new InputOption({ key: 'action', label: 'Next Action', input: 'InputTextarea', placeholder: 'Specific and actionable next step to take' }),
+                new InputOption({ key: 'deadline', label: 'Deadline', input: 'InputDate', placeholder: 'When you\'ll achieve this' }),
               ],
               props: {
                 template: {
@@ -417,7 +425,7 @@ const options = vue.computed(() => {
           label: 'Brand Color',
           subLabel: 'Choose your signature color',
           input: 'InputControl',
-          valueDisplay: ({ input }) => {
+          valueDisplay: () => {
             const color = guide?.visuals?.primaryColor
             return {
               status: color ? 'ready' : 'incomplete',
@@ -440,11 +448,11 @@ const options = vue.computed(() => {
           label: 'Typography',
           subLabel: 'Define your brand fonts',
           input: 'InputControl',
-          valueDisplay: ({ input }) => {
+          valueDisplay: () => {
             const typography = guide?.visuals?.typography
             return {
-              status: typography?.title && typography?.body ? 'ready' : 'incomplete',
-              data: typography?.title ? `${typography.title} / ${typography.body}` : 'Set brand typography',
+              status: typography?.title || typography?.body ? 'ready' : 'incomplete',
+              data: typography?.title ? `Title: ${typography.title || 'Default'} / Body: ${typography.body || 'Default'}` : 'Set brand typography',
             }
           },
           options: [
@@ -469,13 +477,14 @@ const options = vue.computed(() => {
           label: 'Image Style',
           subLabel: 'Define your visual guidelines',
           input: 'InputControl',
-          valueDisplay: ({ input }) => {
+          valueDisplay: () => {
             const style = guide?.visuals?.imageStyle
             const wordCount = getWordCount(style)
+            const minWords = 15
             return {
-              status: wordCount >= 30 ? 'ready' : 'incomplete',
+              status: wordCount >= minWords ? 'ready' : 'optional',
               data: style ? `${wordCount} words of guidelines` : 'Define image guidelines',
-              message: wordCount < 30 ? 'Guidelines should be at least 30 words' : undefined,
+              message: minWords && wordCount < minWords ? `Should be at least ${minWords} words` : undefined,
             }
           },
           options: [
@@ -494,10 +503,6 @@ const options = vue.computed(() => {
 
   ]
 })
-
-function updateGuide(value: Partial<BrandGuide>) {
-  //
-}
 </script>
 
 <template>

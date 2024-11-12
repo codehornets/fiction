@@ -4,7 +4,7 @@ import { getColorScheme } from '@fiction/core'
 export function getSiteBrandColors(args: { site?: Site }) {
   const { site } = args
 
-  const clr = site?.fullConfig.value.branding?.primaryColor || 'blue'
+  const clr = site?.fullConfig.value.branding?.primaryColor || 'slate'
 
   return getColorScheme(clr, { outputFormat: 'hex' })
 }

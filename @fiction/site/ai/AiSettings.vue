@@ -27,21 +27,6 @@ const options: InputOption[] = [
         placeholder: 'A portfolio website for a freelance web designer...',
         props: { rows: 3 },
       }),
-      new InputOption({
-        key: 'userConfig.ai.objectives.imageStyle',
-        label: 'Image Style',
-        input: 'InputSelectCustom',
-        list: imageStyle,
-      }),
-      new InputOption({
-        key: 'userConfig.ai.objectives.imageStyle',
-        label: 'Image Style',
-        description: 'When generating placeholder images for your site, what style would be best?',
-        input: 'InputTextarea',
-        placeholder: 'realistic, highly professional',
-        props: { rows: 3 },
-      }),
-
     ],
   }),
 

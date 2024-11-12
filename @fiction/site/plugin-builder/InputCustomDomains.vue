@@ -111,6 +111,7 @@ const showInstructions = vue.ref(false)
                   :icon="item.isPrimary ? 'i-tabler-check' : 'i-tabler-switch-horizontal'"
                   theme="primary"
                   rounding="full"
+                  :design="item.isPrimary ? 'solid' : 'outline'"
                   :title="item.isPrimary ? 'This is your main domain' : 'Make this your main domain'"
                   @click.prevent="setPrimary(i)"
                 >
