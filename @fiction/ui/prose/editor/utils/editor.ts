@@ -53,29 +53,61 @@ export function generateAutocompleteObjectives(supplementary: EditorSupplementar
   return objectives
 }
 
-export function shouldSuggest(args: { previousText: string, nextText: string }): EndpointResponse {
-  const { previousText, nextText } = args
+export function shouldSuggest(args: {
+  previousText: string
+  nextText: string
+  minContextLength?: number
+}): EndpointResponse {
+  const {
+    previousText,
+    nextText,
+    minContextLength = 12,
+  } = args
 
-  if (previousText.trim().length < 5) {
-    return { status: 'error', message: 'Not suggesting: insufficient context.' }
+  // Check for minimum context
+  if (previousText.trim().length < minContextLength) {
+    return {
+      status: 'error',
+      message: 'Not suggesting: insufficient context.',
+    }
   }
 
-  if (/\w$/.test(previousText) && /^\w/.test(nextText)) {
-    return { status: 'error', message: 'Not suggesting: cursor is in the middle of a word.' }
+  // Rule 1: Don't suggest if cursor is between parts of a word
+  const isBetweenWord = /\w$/.test(previousText) && /^\w/.test(nextText)
+  if (isBetweenWord) {
+    return {
+      status: 'error',
+      message: '(mid word) Not suggesting: cursor is in the middle of a word.',
+    }
   }
 
-  const atWordBoundary = /\w+[.,;!?]?$/.test(previousText)
-  const hasSpacesBetween = /\s$/.test(previousText) || /^\s/.test(nextText)
-  const atNewLine = previousText.endsWith('\n')
+  // Rule 3: Only suggest when cursor is at specific positions
+  const nextParagraph = nextText.split('\n')[0]
+  const isEndOfLine = nextParagraph.trim().length === 0
+  const isAtNewLine = previousText.endsWith('\n')
+  const data = { nextParagraphLength: nextParagraph.trim().length, isAtNewLine }
 
-  if (atWordBoundary || hasSpacesBetween || atNewLine) {
-    const reason = atNewLine
-      ? 'cursor is at a new line'
-      : atWordBoundary
-        ? 'cursor is at the end of a word'
-        : 'cursor is between words'
-    return { status: 'success', message: `Suggesting: ${reason}.` }
+  // Check if we're at a valid suggestion point
+  if (isAtNewLine) {
+    return {
+      status: 'success',
+      message: 'Suggesting(new line): cursor is at a new line',
+      data,
+    }
   }
 
-  return { status: 'error', message: 'Not suggesting: conditions not met for suggestion.' }
+  if (isEndOfLine) {
+    return {
+      status: 'success',
+      message: 'Suggesting(end of line): cursor is at the end of a line with no additional text before next paragraph.',
+      data,
+    }
+  }
+
+  // If none of the valid suggestion conditions are met
+  return {
+    status: 'error',
+    message: 'Not suggesting: cursor is not at a valid suggestion point.',
+    data,
+  }
 }

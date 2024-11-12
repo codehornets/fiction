@@ -85,7 +85,7 @@ async function getUserConfig(): Promise<UserConfig & SiteUserConfig> {
           bg: {
             ...stockMediaHandler.getRandomByTags(['aspect:landscape', 'video', 'background']),
             overlay: {
-              opacity: 0.80,
+              opacity: 80,
               color: 'black',
             },
           },

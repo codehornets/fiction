@@ -37,7 +37,7 @@ vue.onMounted(async () => {
         <div class="w-full max-w-sm xl:max-w-full xl:w-[50%] mb-8 ">
           <div class="relative">
             <EffectGlare wrap-class="rounded-[20px]">
-              <div class="aspect-[5/7] relative w-full overflow-x-auto snap-mandatory snap-x flex no-scrollbar clip-path-anim" :class="isVisible ? '[clip-path:inset(0_round_20px)] opacity-100' : '[clip-path:inset(30%)] opacity-50'">
+              <div class="aspect-[5/7] relative w-full overflow-x-auto snap-mandatory snap-x touch-pan-x overscroll-none flex no-scrollbar clip-path-anim" :class="isVisible ? '[clip-path:inset(0_round_20px)] opacity-100' : '[clip-path:inset(30%)] opacity-50'">
                 <XMedia v-for="(item, i) in mediaItems" :key="i" :media="item.media" class="relative slide w-full h-full snap-center shrink-0" />
               </div>
             </EffectGlare>

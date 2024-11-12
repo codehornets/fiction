@@ -50,87 +50,126 @@ describe('generateAutocompleteObjectives', () => {
 
     expect(Object.keys(objectives).length).toBe(0)
   })
-}) // Adjust the import path as necessary
+})
 
 describe('shouldSuggest function', () => {
-  it('should suggest when at the end of a word mid-sentence', () => {
+  it('should not suggest when in middle of text, even at word boundaries', () => {
     const result = shouldSuggest({
       previousText: 'This is a sentence',
       nextText: ' with more words',
     })
-    expect(result.status, 'Should return success status when at the end of a word mid-sentence').toBe('success')
-    expect(result.message, 'Should return a string message').toBeTypeOf('string')
+    expect(result.status, 'Should return error status when in middle of text').toBe('error')
+    expect(result.message).toContain('not at a valid suggestion point')
   })
 
-  it('should suggest when at the end of a word followed by a space', () => {
+  it('should not suggest with space between words mid-text', () => {
     const result = shouldSuggest({
       previousText: 'This is a sentence ',
       nextText: 'with more words',
     })
-    expect(result.status, 'Should return success status when at the end of a word followed by a space').toBe('success')
-    expect(result.message, 'Should return a string message').toBeTypeOf('string')
+    expect(result.status, 'Should return error status when between words').toBe('error')
+    expect(result.message).toContain('not at a valid suggestion point')
   })
 
-  it('should suggest when on a new line, even without punctuation', () => {
+  it('should suggest when at a new line', () => {
     const result = shouldSuggest({
-      previousText: 'This is a line without punctuation\n',
+      previousText: 'This is a complete line.\n',
       nextText: '',
     })
-    expect(result.status, 'Should return success status when on a new line without punctuation').toBe('success')
-    expect(result.message, 'Should return a string message').toBeTypeOf('string')
+    expect(result).toMatchInlineSnapshot(`
+      {
+        "data": {
+          "isAtNewLine": true,
+          "nextParagraphLength": 0,
+        },
+        "message": "Suggesting(new line): cursor is at a new line",
+        "status": "success",
+      }
+    `)
+    expect(result.status, 'Should return success status at new line').toBe('success')
+    expect(result.message).toContain('new line')
   })
 
-  it('should suggest when all conditions are met with punctuation', () => {
+  it('should suggest at end of line with no text before next paragraph', () => {
     const result = shouldSuggest({
-      previousText: 'This is a complete sentence. ',
-      nextText: '\n',
+      previousText: 'This is a complete line.',
+      nextText: '   \nNext paragraph starts here',
     })
-    expect(result.status, 'Should return success status when all conditions are met').toBe('success')
-    expect(result.message, 'Should return a string message').toBeTypeOf('string')
+    expect(result.status, 'Should return success at end of line before paragraph').toBe('success')
+    expect(result.message).toContain('end of a line')
   })
 
   it('should not suggest when in the middle of a word', () => {
     const result = shouldSuggest({
-      previousText: 'This is an incomple',
-      nextText: 'te word',
+      previousText: 'This is incomple',
+      nextText: 'te text',
     })
-    expect(result.status, 'Should return error status when in the middle of a word').toBe('error')
-    expect(result.message, 'Should return a string message').toBeTypeOf('string')
+    expect(result.status, 'Should return error status in middle of word').toBe('error')
+    expect(result.message).toContain('middle of a word')
   })
 
-  it('should not suggest when there is insufficient context', () => {
+  it('should not suggest with insufficient context', () => {
     const result = shouldSuggest({
       previousText: 'Hi',
-      nextText: ' ',
+      nextText: ' there',
     })
-    expect(result.status, 'Should return error status when context is too short').toBe('error')
-    expect(result.message, 'Should return a string message').toBeTypeOf('string')
+    expect(result.status, 'Should return error status with short context').toBe('error')
+    expect(result.message).toContain('insufficient context')
   })
 
-  it('should suggest with comma as clause break', () => {
+  it('should not suggest with comma in middle of text', () => {
     const result = shouldSuggest({
       previousText: 'After a clause,',
-      nextText: ' more text',
+      nextText: ' more text continues',
     })
-    expect(result.status, 'Should return success status with comma').toBe('success')
-    expect(result.message, 'Should return a string message').toBeTypeOf('string')
+    expect(result.status, 'Should return error status with comma mid-text').toBe('error')
+    expect(result.message).toContain('not at a valid suggestion point')
   })
 
-  it('should suggest when next text is empty string', () => {
+  it('should suggest at true end of text', () => {
     const result = shouldSuggest({
-      previousText: 'End of text',
+      previousText: 'This is the end of the text.',
       nextText: '',
     })
-    expect(result.status, 'Should return success status with empty next text').toBe('success')
-    expect(result.message, 'Should return a string message').toBeTypeOf('string')
+    expect(result.status, 'Should return success at true end of text').toBe('success')
+    expect(result.message).toContain('end of a line')
   })
 
-  it('should suggest with multiple spaces after a word', () => {
+  it('should not suggest with multiple spaces between words', () => {
     const result = shouldSuggest({
       previousText: 'Multiple spaces   ',
-      nextText: 'continue',
+      nextText: 'continue here',
     })
-    expect(result.status, 'Should return success status with multiple spaces after a word').toBe('success')
-    expect(result.message, 'Should return a string message').toBeTypeOf('string')
+    expect(result.status, 'Should return error status with spaces between words').toBe('error')
+    expect(result.message).toContain('not at a valid suggestion point')
+  })
+
+  it('should suggest with proper minimum context at new line', () => {
+    const result = shouldSuggest({
+      previousText: 'This is enough context for suggestion.\n',
+      nextText: '',
+      minContextLength: 12,
+    })
+    expect(result.status, 'Should return success with sufficient context at new line').toBe('success')
+    expect(result.message).toContain('new line')
+  })
+
+  it('should suggest at end of paragraph with next paragraph', () => {
+    const result = shouldSuggest({
+      previousText: 'End of first paragraph.',
+      nextText: '\nStart of second paragraph.',
+    })
+    expect(result.status, 'Should return success at paragraph boundary').toBe('success')
+    expect(result.message).toContain('end of a line')
+  })
+
+  it('should handle custom minimum context length', () => {
+    const result = shouldSuggest({
+      previousText: 'Short.',
+      nextText: '\nNext line',
+      minContextLength: 20,
+    })
+    expect(result.status, 'Should return error with custom minimum context').toBe('error')
+    expect(result.message).toContain('insufficient context')
   })
 })
