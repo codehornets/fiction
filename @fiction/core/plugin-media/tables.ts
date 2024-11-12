@@ -40,5 +40,7 @@ export const mediaTable = new FictionDbTable({
   tableKey: t.media,
   timestamps: true,
   cols: mediaColumns,
-  onCreate: t => t.unique(['org_id', 'hash']),
+  constraints: [
+    { type: 'unique', columns: ['org_id', 'hash'] },
+  ],
 })

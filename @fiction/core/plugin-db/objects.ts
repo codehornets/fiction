@@ -37,13 +37,18 @@ export class Col<U extends string = string, T extends ColDefaultValue = ColDefau
   }
 }
 
+export type TableConstraint = {
+  type: 'unique' | 'index' | 'foreign' | 'check'
+  columns: string[]
+  name?: string
+}
+
 export interface FictionDbTableSettings {
   tableKey: string
   timestamps?: boolean
   cols?: readonly Col<any, any>[]
   dependsOn?: string[]
-  onCreate?: (t: Knex.AlterTableBuilder) => void
-  uniqueOn?: string[]
+  constraints?: TableConstraint[]
 }
 
 export class FictionDbTable {
@@ -53,17 +58,15 @@ export class FictionDbTable {
   log: LogHelper
   timestamps: boolean
   dependsOn: string[]
-  onCreate?: (t: Knex.AlterTableBuilder) => void
-  uniqueOn?: string[]
+  constraints: TableConstraint[] = []
   constructor(params: FictionDbTableSettings) {
     this.tableKey = params.tableKey
     this.pgTableKey = toSnake(params.tableKey)
     this.log = log.contextLogger(`FictionDbTable:${this.tableKey}`)
     this.timestamps = params.timestamps ?? false
-    this.onCreate = params.onCreate
     this.cols = this.addStandardCols((params.cols || []) as Col[])
     this.dependsOn = params.dependsOn ?? []
-    this.uniqueOn = params.uniqueOn ?? []
+    this.constraints = params.constraints ?? []
   }
 
   settingsKeys() {
@@ -101,28 +104,48 @@ export class FictionDbTable {
   }
 
   async create(db: Knex): Promise<void> {
-    const tableExists = await db.schema.hasTable(this.pgTableKey)
-    if (tableExists) {
-      await this.createColumns(db)
-    }
-    else {
-      this.log.info(`creating table: ${this.pgTableKey}`)
-      const promise = new Promise<void>(async (resolve) => {
-        await db.schema.createTable(this.pgTableKey, async () => {
-          await this.createColumns(db)
-          resolve()
-        })
-      })
+    try {
+      const tableExists = await db.schema.hasTable(this.pgTableKey)
 
-      await promise
-
-      const u = this.uniqueOn
-      if (u && u.length > 0) {
-        await db.schema.table(this.pgTableKey, t => t.unique(u))
+      if (!tableExists) {
+        this.log.info(`creating table: ${this.pgTableKey}`)
+        await db.schema.createTable(this.pgTableKey, () => {})
       }
 
-      if (this.onCreate) {
-        await db.schema.table(this.pgTableKey, t => this.onCreate?.(t))
+      await this.createColumns(db)
+      await this.ensureConstraints(db)
+    }
+    catch (error) {
+      this.log.error(`Error creating/updating table ${this.pgTableKey}`, { error })
+      throw error
+    }
+  }
+
+  async ensureConstraints(db: Knex): Promise<void> {
+    for (const constraint of this.constraints) {
+      const colsList = constraint.columns.map(c => toSnake(c))
+      const constraintName = constraint.name || `${this.pgTableKey}_${colsList.join('_')}_${constraint.type}`
+
+      // Check if constraint exists
+      const [existingConstraint] = await db
+        .select('constraint_name')
+        .from('information_schema.table_constraints')
+        .where({
+          table_name: this.pgTableKey,
+          constraint_name: constraintName,
+        })
+
+      if (!existingConstraint) {
+        this.log.info(`Adding missing constraint: ${constraintName}`)
+
+        switch (constraint.type) {
+          case 'unique':
+            await db.schema.alterTable(this.pgTableKey, (table) => {
+              table.unique(colsList, { indexName: constraintName })
+            })
+            break
+          // Add other constraint types as needed
+        }
       }
     }
   }

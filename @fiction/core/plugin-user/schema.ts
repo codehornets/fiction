@@ -96,10 +96,32 @@ export const taxonomyCols = [
   new Col({ key: 'priority', sch: () => z.number().int().optional(), make: ({ s, col }) => s.integer(col.k).defaultTo(0) }),
 ] as const
 
-export const userTable = new FictionDbTable({ tableKey: 'fiction_user', timestamps: true, cols: userColumns })
-export const membersTable = new FictionDbTable({ tableKey: 'fiction_org_user', timestamps: true, cols: membersColumns, uniqueOn: ['org_id', 'user_id'] })
-export const orgTable = new FictionDbTable({ tableKey: 'fiction_org', timestamps: true, cols: orgColumns })
-export const taxonomyTable = new FictionDbTable({ tableKey: t.taxonomy, timestamps: true, cols: taxonomyCols, uniqueOn: ['org_id', 'slug', 'context'] })
+export const userTable = new FictionDbTable({
+  tableKey: 'fiction_user',
+  timestamps: true,
+  cols: userColumns,
+})
+export const membersTable = new FictionDbTable({
+  tableKey: 'fiction_org_user',
+  timestamps: true,
+  cols: membersColumns,
+  constraints: [
+    { type: 'unique', columns: ['org_id', 'user_id'] },
+  ],
+})
+export const orgTable = new FictionDbTable({
+  tableKey: 'fiction_org',
+  timestamps: true,
+  cols: orgColumns,
+})
+export const taxonomyTable = new FictionDbTable({
+  tableKey: t.taxonomy,
+  timestamps: true,
+  cols: taxonomyCols,
+  constraints: [
+    { type: 'unique', columns: ['org_id', 'slug', 'context'] },
+  ],
+})
 
 export function getAdminTables() {
   return [userTable, orgTable, membersTable, taxonomyTable]

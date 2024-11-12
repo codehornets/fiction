@@ -97,7 +97,25 @@ export const domainCols = [
 ] as const
 
 export const tables = [
-  new FictionDbTable({ tableKey: t.sites, timestamps: true, cols: siteCols }),
-  new FictionDbTable({ tableKey: t.pages, timestamps: true, cols: pageCols, onCreate: t => t.unique(['site_id', 'slug']) }),
-  new FictionDbTable({ tableKey: t.domains, timestamps: true, cols: domainCols, onCreate: t => t.unique(['site_id', 'hostname']) }),
+  new FictionDbTable({
+    tableKey: t.sites,
+    timestamps: true,
+    cols: siteCols,
+  }),
+  new FictionDbTable({
+    tableKey: t.pages,
+    timestamps: true,
+    cols: pageCols,
+    constraints: [
+      { type: 'unique', columns: ['site_id', 'slug'] },
+    ],
+  }),
+  new FictionDbTable({
+    tableKey: t.domains,
+    timestamps: true,
+    cols: domainCols,
+    constraints: [
+      { type: 'unique', columns: ['site_id', 'hostname'] },
+    ],
+  }),
 ]

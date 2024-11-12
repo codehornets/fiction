@@ -48,10 +48,16 @@ export const tables = [
     tableKey: t.subscribe,
     timestamps: true,
     cols: subscribeColumns,
-    onCreate: (t) => {
-      t.unique(['user_id', 'org_id'])
-      t.unique(['email', 'org_id'])
-    },
+    constraints: [
+      { type: 'unique', columns: ['userId', 'orgId'] },
+      { type: 'unique', columns: ['email', 'orgId'] },
+    ],
   }),
-  new FictionDbTable({ tableKey: t.subscribeTaxonomy, cols: subscribeTaxonomyCols, uniqueOn: ['subscription_id', 'taxonomy_id'] }),
+  new FictionDbTable({
+    tableKey: t.subscribeTaxonomy,
+    cols: subscribeTaxonomyCols,
+    constraints: [
+      { type: 'unique', columns: ['subscription_id', 'taxonomy_id'] },
+    ],
+  }),
 ]

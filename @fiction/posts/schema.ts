@@ -74,7 +74,25 @@ export const postSiteCols = [
 
 export const tables = [
   new FictionDbTable({ tableKey: t.posts, cols: postCols }),
-  new FictionDbTable({ tableKey: t.postTaxonomies, cols: postTaxonomyCols, uniqueOn: ['post_id', 'taxonomy_id'] }),
-  new FictionDbTable({ tableKey: t.postAuthor, cols: postAuthorCols, uniqueOn: ['post_id', 'user_id'] }),
-  new FictionDbTable({ tableKey: t.postSite, cols: postSiteCols, uniqueOn: ['post_id', 'site_id'] }),
+  new FictionDbTable({
+    tableKey: t.postTaxonomies,
+    cols: postTaxonomyCols,
+    constraints: [
+      { type: 'unique', columns: ['post_id', 'taxonomy_id'] },
+    ],
+  }),
+  new FictionDbTable({
+    tableKey: t.postAuthor,
+    cols: postAuthorCols,
+    constraints: [
+      { type: 'unique', columns: ['post_id', 'user_id'] },
+    ],
+  }),
+  new FictionDbTable({
+    tableKey: t.postSite,
+    cols: postSiteCols,
+    constraints: [
+      { type: 'unique', columns: ['post_id', 'site_id'] },
+    ],
+  }),
 ]
