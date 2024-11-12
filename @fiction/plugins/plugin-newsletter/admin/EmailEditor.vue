@@ -62,7 +62,7 @@ async function saveBeforeNavigate(args: { location: string, href: string }) {
 
 <template>
   <div>
-    <ViewEditor :tool-props="{ card, campaign }" :controller="emailComposeController" :loading>
+    <ViewEditor :tool-props="{ card, campaign }" :controller="emailComposeController" :loading :card>
       <template #headerLeft>
         <div class="flex space-x-2 items-center">
           <CardButton

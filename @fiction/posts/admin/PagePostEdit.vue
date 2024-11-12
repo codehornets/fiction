@@ -86,7 +86,7 @@ async function resetToPublished() {
 
 <template>
   <div>
-    <ViewEditor :tool-props="{ post, card }" :controller="postEditController" :loading="loading">
+    <ViewEditor :tool-props="{ post, card }" :controller="postEditController" :loading="loading" :card>
       <template #headerLeft>
         <XButton theme="primary" :href="card.link('/')" class="shrink-0" icon="i-tabler-home" design="outline">
           Home
