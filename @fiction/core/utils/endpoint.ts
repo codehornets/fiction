@@ -9,11 +9,13 @@ import type { User } from '../plugin-user/types'
 import type { Query } from '../query'
 import type { EndpointResponse } from '../types'
 import path from 'node:path'
+import nodeFetch from 'node-fetch'
 import { log } from '../plugin-log'
 import { axios, vue } from './libraries'
 import { deepMergeAll } from './obj'
 import { flatParse, flatStringify } from './stringify'
 import { waitFor } from './utils'
+import { isNode } from './vars'
 
 type EndpointServerUrl = (() => string | undefined) | string | vue.ComputedRef<string> | undefined
 
@@ -318,17 +320,17 @@ export class Endpoint<T extends Query = Query, U extends string = string> {
 
     const { orgId, userId } = userInfo
 
-    data.append('orgId', orgId)
-    data.append('userId', userId)
+    data.append('orgId', orgId || '')
+    data.append('userId', userId || '')
     data.append('_params', flatStringify(params))
+
+    const fileFetch = (isNode() ? nodeFetch : window.fetch) as typeof fetch
 
     /**
      * TODO - FormData is not recommended, upgrade to BodyInit
      */
     const body = data as unknown as BodyInit
-
-    const resp = await fetch(url, { method: 'POST', body, headers })
-
+    const resp = await fileFetch(url, { method: 'POST', body, headers })
     const response = await resp.json() as ReturnType<T['run']>
 
     return response

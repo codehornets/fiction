@@ -327,8 +327,6 @@ export class FictionUser extends FictionPlugin<UserPluginSettings> {
 
     this.events.emit('currentUser', { user })
 
-    this.log.debug('user loaded', { data: { user } })
-
     return user
   }
 

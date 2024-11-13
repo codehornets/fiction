@@ -97,19 +97,19 @@ export class FictionServer extends FictionPlugin<FictionServerSettings> {
         endpoints: this.endpoints,
         fictionUser,
         url: this.serverUrl.value,
-        middleware: (app) => {
-          app.use(
-            bodyParser.json({
-              limit: '10mb',
-              verify: (req, res, buf) => {
-                // only include raw body if 'hook' is in the request url
-                // this has a performance hit
-                if (req.url?.includes('hook'))
-                  req.rawBody = buf
-              },
-            }),
-          )
-        },
+        // middleware: (app) => {
+        //   app.use(
+        //     bodyParser.json({
+        //       limit: '10mb',
+        //       verify: (req, res, buf) => {
+        //         // only include raw body if 'hook' is in the request url
+        //         // this has a performance hit
+        //         if (req.url?.includes('hook'))
+        //           req.rawBody = buf
+        //       },
+        //     }),
+        //   )
+        // },
       })
 
       await endpointServer.configure()

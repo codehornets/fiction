@@ -75,8 +75,7 @@ export abstract class Query<T extends QueryConfig = QueryConfig> {
     }
     catch (error: unknown) {
       const e = error as ErrorConfig
-
-      this.log.error(`ServeError: ${e.message}`, { error: e, data: { errorData: e.data, params, meta } })
+      this.log.error(`ServeError: ${e.message}`, { error: e, data: { errorData: e.data, params } })
 
       const response = {
         status: 'error',

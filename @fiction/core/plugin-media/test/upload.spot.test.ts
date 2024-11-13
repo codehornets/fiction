@@ -1,6 +1,5 @@
 /**
  * @vitest-environment happy-dom
- * https://vitest.dev/config/#environment
  */
 import type { EndpointMeta } from '@fiction/core/utils'
 import type { TestUtils } from '../../test-utils/init'

@@ -1,3 +1,4 @@
+import type express from 'express'
 import type { FictionPluginSettings } from '../plugin.js'
 import type { FictionAws } from '../plugin-aws/index.js'
 import type { FictionDb } from '../plugin-db/index.js'
@@ -8,6 +9,7 @@ import { FormData } from 'formdata-node'
 import multer from 'multer'
 import { FictionPlugin } from '../plugin.js'
 import { EnvVar, vars } from '../plugin-env/index.js'
+import { log } from '../plugin-log/index.js'
 import { appOrgId } from '../utils/index.js'
 import { QueryManageMedia, QueryMediaIndex, QuerySaveMedia } from './queries.js'
 import { mediaTable, type TableMediaConfig } from './tables.js'
@@ -37,6 +39,56 @@ export interface UploadConfig {
   formData?: FormData
 }
 
+// Create a debug middleware to inspect the request before and after multer
+function debugMulter(args: { fieldName: string, debug?: boolean }) {
+  const { fieldName, debug = false } = args
+  const logger = log.contextLogger('debugMulter')
+
+  const pre = (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    logger.info('Pre-multer request state:', {
+      data: {
+        contentType: req.headers['content-type'],
+        hasBody: !!req.body,
+        bodyType: typeof req.body,
+        bodyKeys: Object.keys(req.body || {}),
+        isMultipart: req.headers['content-type']?.includes('multipart/form-data'),
+        boundary: req.headers['content-type']?.split('boundary=')[1],
+      },
+    })
+    next()
+  }
+
+  const post = (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    logger.info('Post-multer request state:', {
+      data: {
+        hasFile: !!req.file,
+        fileFields: req.file ? Object.keys(req.file) : [],
+        bodyFields: Object.keys(req.body || {}),
+        fileDetails: req.file
+          ? {
+              fieldname: req.file.fieldname,
+              originalname: req.file.originalname,
+              mimetype: req.file.mimetype,
+              size: req.file.size,
+            }
+          : null,
+      },
+    })
+    next()
+  }
+
+  const multerMiddleware = multer({ storage: multer.memoryStorage(), limits: {
+    fileSize: 10 * 1024 * 1024, // 10MB
+  } }).single(fieldName)
+
+  if (debug) {
+    return [pre, multerMiddleware, post]
+  }
+  else {
+    return [multerMiddleware]
+  }
+}
+
 export class FictionMedia extends FictionPlugin<FictionMediaSettings> {
   imageFieldName = 'imageFile'
   queries = {
@@ -50,7 +102,7 @@ export class FictionMedia extends FictionPlugin<FictionMediaSettings> {
     basePath: '/media',
     fictionServer: this.settings.fictionServer,
     fictionUser: this.settings.fictionUser,
-    middleware: () => [multer().single(this.imageFieldName)],
+    middleware: () => debugMulter({ fieldName: this.imageFieldName }),
   })
 
   cache: Record<string, TableMediaConfig> = {}
