@@ -8,10 +8,10 @@ import ElStepNav from '@fiction/ui/ElStepNav.vue'
 import ElInput from '@fiction/ui/inputs/ElInput.vue'
 import { type FictionPosts, managePost, type Post } from '..'
 
-const props = defineProps({
-  card: { type: Object as vue.PropType<Card>, required: true },
-  vis: { type: Boolean, default: false },
-})
+const { card, vis = false } = defineProps<{
+  card: Card
+  vis?: boolean
+}>()
 
 const emit = defineEmits(['update:vis'])
 
@@ -19,48 +19,59 @@ const serv = useService<{ fictionPosts: FictionPosts }>()
 
 const { fictionPosts, fictionEnv } = serv
 
-const form = vue.ref<Partial<TableSiteConfig>>({ title: '', userConfig: { } })
-const isLoading = vue.ref(false)
-const post = vue.shallowRef<Post | undefined>()
+const postDetails = vue.ref<Partial<TableSiteConfig>>({
+  title: '',
+  userConfig: {},
+})
+const isSubmitting = vue.ref(false)
+const draftPost = vue.shallowRef<Post | undefined>()
 
-async function requestCreate() {
-  isLoading.value = true
+async function createNewPost() {
+  isSubmitting.value = true
   try {
-    const createParams = { _action: 'create', fields: { title: form.value.title || '' } } as const
-    post.value = await managePost({ fictionPosts, params: createParams })
+    const createParams = {
+      _action: 'create',
+      fields: { title: postDetails.value.title || '' },
+    } as const
 
-    const postId = post.value?.postId
+    draftPost.value = await managePost({ fictionPosts, params: createParams })
 
+    const postId = draftPost.value?.postId
     if (!postId) {
-      fictionEnv.events.emit('notify', { type: 'error', message: 'There was a problem.' })
+      fictionEnv.events.emit('notify', {
+        type: 'error',
+        message: 'Unable to create post. Please try again.',
+      })
       return
     }
 
-    await props.card.goto({ path: '/edit-post', query: { postId } })
+    await card.goto({ path: '/edit-post', query: { postId } })
   }
   catch (error) {
-    fictionEnv.events.emit('notify', { type: 'error', message: 'There was a problem.' })
-
-    resetUi({ scope: 'all', cause: 'post creation error', trigger: 'manualReset' })
-    console.error(error)
+    fictionEnv.events.emit('notify', {
+      type: 'error',
+      message: 'Unable to create post. Please try again later.',
+    })
+    resetUi({ scope: 'all', cause: 'post creation failed', trigger: 'manualReset' })
+    console.error('Post creation failed:', error)
   }
   finally {
-    isLoading.value = false
+    isSubmitting.value = false
   }
 }
 const stepConfig: StepConfig = {
   onComplete: async () => {},
-  form,
+  form: postDetails,
   steps: vue.computed<StepItem[]>(() => {
     const out: StepItem[] = [
       {
-        name: 'Create A New Post',
-        desc: 'Give it a title...',
+        name: 'Start a New Post',
+        desc: 'Enter a title for your post',
         key: 'postTitle',
         class: 'max-w-lg',
-        isLoading: isLoading.value,
-        onClick: () => requestCreate(),
-        actionText: 'Create Post',
+        isLoading: isSubmitting.value,
+        onClick: () => createNewPost(),
+        actionText: 'Continue to Editor',
       },
     ]
 
@@ -79,9 +90,12 @@ const stepConfig: StepConfig = {
     <ElStepNav v-slot="{ step }" :step-config="stepConfig" data-test-id="createPostModal">
       <div v-if="step.key === 'postTitle'" class="">
         <ElInput
-          v-model="form.title"
+          v-model="postDetails.title"
           input="InputText"
-          :input-props="{ placeholder: 'Post Title' }"
+          :input-props="{
+            'placeholder': 'What would you like to write about?',
+            'aria-label': 'Post title',
+          }"
           data-test-id="postTitleInput"
           ui-size="lg"
         />

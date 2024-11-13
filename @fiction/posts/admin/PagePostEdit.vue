@@ -88,8 +88,8 @@ async function resetToPublished() {
   <div>
     <ViewEditor :tool-props="{ post, card }" :controller="postEditController" :loading="loading" :card>
       <template #headerLeft>
-        <XButton theme="primary" :href="card.link('/')" class="shrink-0" icon="i-tabler-home" design="outline">
-          Home
+        <XButton theme="primary" :href="card.link('/posts')" class="shrink-0" icon="i-tabler-arrow-left" design="outline">
+          Back
         </XButton>
         <div class="flex space-x-1 font-medium">
           <RouterLink

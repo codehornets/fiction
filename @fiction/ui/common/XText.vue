@@ -24,6 +24,7 @@ const emit = defineEmits<{
   (event: 'isEditing', payload: boolean): void
 }>()
 
+const attrs = vue.useAttrs()
 const randomId = shortId()
 const elementRef = vue.ref<HTMLElement>()
 const loaded = vue.ref(false)
@@ -182,10 +183,18 @@ function render() {
       }
     : {}
 
-  return vue.h(props.tag, {
-    ...baseProps,
-    ...editingProps,
-  })
+  const mergedProps = {
+    ...attrs, // Spread all inherited attributes first
+    ...baseProps, // Spread our base props
+    ...editingProps, // Spread editing-related props
+    // Merge classes properly if there are external classes
+    class: [
+      baseProps.class,
+      attrs.class,
+    ].flat().filter(Boolean),
+  }
+
+  return vue.h(props.tag, mergedProps)
 }
 </script>
 
