@@ -1,5 +1,4 @@
 import type { EndpointMeta, EndpointResponse } from '@fiction/core'
-
 import type { SitesQuerySettings } from './endpoint.js'
 import { SitesQuery } from './endpoint.js'
 
@@ -36,21 +35,72 @@ interface ManageCertParams {
   appId?: string
   allowInTest?: boolean
 }
+
 export class ManageCert extends SitesQuery {
   graphqlEndpoint = 'https://api.fly.io/graphql'
   fictionSites = this.settings.fictionSites
   flyApiToken = this.fictionSites.settings.flyApiToken
   flyAppId = this.fictionSites.settings.flyAppId
+  requestId = Math.random().toString(36).substring(7)
+  isAuthenticated = false
 
   constructor(settings: SitesQuerySettings) {
     super(settings)
 
     if (!this.settings.fictionEnv.isApp.value) {
-      if (!this.flyApiToken)
-        throw new Error('Fly.io API token is required for managing certificates.')
+      if (!this.flyApiToken || this.flyApiToken.trim() === '')
+        throw new Error('[CERTS-INIT] Fly.io API token is required for managing certificates.')
 
       if (!this.flyAppId)
-        throw new Error('Fly.io App ID is required for managing certificates.')
+        throw new Error('[CERTS-INIT] Fly.io App ID is required for managing certificates.')
+
+      this.verifyAuthentication().catch((error) => {
+        this.log.error('[CERTS-AUTH] Failed to verify API token', { data: {
+          requestId: this.requestId,
+          appId: this.flyAppId,
+          apiTokenLast4: this.flyApiToken.slice(-4),
+          error: error instanceof Error ? error.message : 'Unknown error',
+        } })
+      })
+    }
+  }
+
+  private readonly AUTH_CHECK_QUERY = `
+    query {
+      viewer {
+        id
+      }
+    }
+  `
+
+  async verifyAuthentication(): Promise<boolean> {
+    try {
+      this.log.info('[CERTS-AUTH] Verifying API token', { data: {
+        requestId: this.requestId,
+        appId: this.flyAppId,
+      } })
+
+      const client = await this.getClient()
+      await client.request(this.AUTH_CHECK_QUERY)
+
+      this.isAuthenticated = true
+      this.log.info('[CERTS-AUTH] API token verified successfully', { data: {
+        requestId: this.requestId,
+        appId: this.flyAppId,
+      } })
+
+      return true
+    }
+    catch (error) {
+      this.isAuthenticated = false
+      this.log.error('[CERTS-AUTH] API token verification failed', { data: {
+        requestId: this.requestId,
+        appId: this.flyAppId,
+        error: error instanceof Error ? error.message : 'Unknown error',
+        stack: error instanceof Error ? error.stack : undefined,
+      } })
+
+      throw new Error('[CERTS-AUTH] Invalid or expired API token')
     }
   }
 
@@ -64,23 +114,71 @@ export class ManageCert extends SitesQuery {
   }
 
   private async graphqlRequest(query: string, args: ManageCertParams): Promise<CertificateDetails> {
+    if (!this.isAuthenticated && !this.settings.fictionEnv.isApp.value) {
+      this.log.warn('[CERTS-REQUEST] Making request without verified authentication', { data: {
+        requestId: this.requestId,
+        action: args._action,
+      } })
+    }
+
     const v = { appId: this.settings.flyAppId, ...args }
+    this.log.info(`[CERTS-${args._action?.toUpperCase()}] Starting request`, { data: {
+      requestId: this.requestId,
+      hostname: args.hostname,
+      action: args._action,
+      isAuthenticated: this.isAuthenticated,
+    } })
+
     const client = await this.getClient()
     const response = await client.request<{ [key: string]: { certificate: CertificateDetails } }>(query, v)
 
-    // Extract the first property (key) from the response
     const firstKey = Object.keys(response)[0]
     const certificateContainer = response[firstKey]
 
-    // Ensure the 'certificate' property exists and return it
+    this.log.info(`[CERTS-${args._action?.toUpperCase()}] Request completed`, { data: {
+      requestId: this.requestId,
+      hostname: args.hostname,
+      certificateId: certificateContainer?.certificate?.id,
+    } })
+
     if (certificateContainer && certificateContainer.certificate)
       return certificateContainer.certificate
-
     else
-      throw new Error('Certificate not found in response')
+      throw new Error(`[CERTS-${args._action?.toUpperCase()}] Certificate not found in response`)
   }
 
-  public async run(args: ManageCertParams, _meta: EndpointMeta): Promise<EndpointResponse<CertificateDetails >> {
+  private async verifyCertificateCreation(hostname: string): Promise<CertificateDetails | undefined> {
+    try {
+      this.log.info('[CERTS-VERIFY] Running post-creation verification', { data: {
+        requestId: this.requestId,
+        hostname,
+      } })
+
+      const verificationResult = await this.graphqlRequest(this.CHECK_CERTIFICATE_QUERY, {
+        _action: 'check',
+        hostname,
+      })
+
+      this.log.info('[CERTS-VERIFY] Verification completed', { data: {
+        requestId: this.requestId,
+        hostname,
+        status: verificationResult.clientStatus,
+        configured: verificationResult.configured,
+      } })
+
+      return verificationResult
+    }
+    catch (error) {
+      this.log.error('[CERTS-VERIFY] Verification failed', { data: {
+        requestId: this.requestId,
+        hostname,
+        error: error instanceof Error ? error.message : 'Unknown error',
+      } })
+      return undefined
+    }
+  }
+
+  public async run(args: ManageCertParams, _meta: EndpointMeta): Promise<EndpointResponse<CertificateDetails>> {
     const { _action, hostname, allowInTest } = args
 
     let query = ''
@@ -97,10 +195,10 @@ export class ManageCert extends SitesQuery {
     }
 
     if (!_action)
-      throw new Error('Action is required for managing certificates.')
+      throw new Error('[CERTS-RUN] Action is required for managing certificates.')
 
     if (!hostname)
-      throw new Error('Hostname is required for getting a certificate.')
+      throw new Error('[CERTS-RUN] Hostname is required for getting a certificate.')
 
     switch (_action) {
       case 'retrieve':
@@ -116,28 +214,49 @@ export class ManageCert extends SitesQuery {
         query = this.CHECK_CERTIFICATE_QUERY
         break
       default:
-        throw new Error('Invalid action.')
+        throw new Error('[CERTS-RUN] Invalid action.')
     }
 
     let certificate: CertificateDetails
     try {
       certificate = await this.graphqlRequest(query, args)
+
+      if (_action === 'create') {
+        const verifiedCert = await this.verifyCertificateCreation(hostname)
+        if (verifiedCert) {
+          certificate = { ...certificate, ...verifiedCert }
+        }
+      }
     }
     catch (error) {
       const e = error as Error & { code: string }
 
-      // The certificate doesn't exist, return successful query but undefined data
       if (e.message.includes('NOT_FOUND')) {
+        this.log.info('[CERTS-ERROR] Certificate not found', { data: {
+          requestId: this.requestId,
+          hostname,
+          action: _action,
+        } })
         return { status: 'success', data: undefined }
       }
-      // The certificate already exists, return successful query with the existing certificate
       else if (e.message.includes('UNPROCESSABLE')) {
+        this.log.info('[CERTS-ERROR] Certificate already exists', { data: {
+          requestId: this.requestId,
+          hostname,
+          action: _action,
+        } })
         const r = await this.run({ _action: 'check', hostname, allowInTest }, _meta)
-
         return { status: 'success', data: r.data }
       }
       else {
-        this.log.error(`Error in GraphQL Request`, { error })
+        this.log.error('[CERTS-ERROR] GraphQL request failed', { data: {
+          requestId: this.requestId,
+          hostname,
+          action: _action,
+          error: e.message,
+          code: e.code,
+          stack: e.stack,
+        } })
         return { status: 'error', message: 'API error', error }
       }
     }
@@ -147,87 +266,87 @@ export class ManageCert extends SitesQuery {
 
   GET_CERTIFICATES_QUERY = `query($appId: String!, $hostname: String!) {
     app(name: $appId) {
-        certificate(hostname: $hostname) {
-            configured
-            acmeDnsConfigured
-            acmeAlpnConfigured
-            certificateAuthority
-            createdAt
-            dnsProvider
-            dnsValidationInstructions
-            dnsValidationHostname
-            dnsValidationTarget
-            hostname
-            id
-            source
-            clientStatus
-            issued {
-                nodes {
-                    type
-                    expiresAt
-                }
-            }
+      certificate(hostname: $hostname) {
+        configured
+        acmeDnsConfigured
+        acmeAlpnConfigured
+        certificateAuthority
+        createdAt
+        dnsProvider
+        dnsValidationInstructions
+        dnsValidationHostname
+        dnsValidationTarget
+        hostname
+        id
+        source
+        clientStatus
+        issued {
+          nodes {
+            type
+            expiresAt
+          }
         }
+      }
     }
   }`
 
   ADD_CERTIFICATE_MUTATION = `
-  mutation($appId: ID!, $hostname: String!) {
-    addCertificate(appId: $appId, hostname: $hostname) {
+    mutation($appId: ID!, $hostname: String!) {
+      addCertificate(appId: $appId, hostname: $hostname) {
         certificate {
-            configured
-            acmeDnsConfigured
-            acmeAlpnConfigured
-            certificateAuthority
-            certificateRequestedAt
-            dnsProvider
-            dnsValidationInstructions
-            dnsValidationHostname
-            dnsValidationTarget
-            hostname
-            id
-            source
+          configured
+          acmeDnsConfigured
+          acmeAlpnConfigured
+          certificateAuthority
+          certificateRequestedAt
+          dnsProvider
+          dnsValidationInstructions
+          dnsValidationHostname
+          dnsValidationTarget
+          hostname
+          id
+          source
         }
-    }
-  }`
+      }
+    }`
 
   DELETE_CERTIFICATE_MUTATION = `mutation($appId: ID!, $hostname: String!) {
     deleteCertificate(appId: $appId, hostname: $hostname) {
-        app {
-            name
-        }
-        certificate {
-            hostname
-            id
-        }
+      app {
+        name
+      }
+      certificate {
+        hostname
+        id
+      }
     }
   }`
 
   CHECK_CERTIFICATE_QUERY = `
-  query($appId: String!, $hostname: String!) {
-    app(name: $appId) {
+    query($appId: String!, $hostname: String!) {
+      app(name: $appId) {
         certificate(hostname: $hostname) {
-            check
-            configured
-            acmeDnsConfigured
-            acmeAlpnConfigured
-            certificateAuthority
-            createdAt
-            dnsProvider
-            dnsValidationInstructions
-            dnsValidationHostname
-            dnsValidationTarget
-            hostname
-            id
-            source
-            clientStatus
-            issued {
-                nodes {
-                    type
-                    expiresAt
-                }
+          check
+          configured
+          acmeDnsConfigured
+          acmeAlpnConfigured
+          certificateAuthority
+          createdAt
+          dnsProvider
+          dnsValidationInstructions
+          dnsValidationHostname
+          dnsValidationTarget
+          hostname
+          id
+          source
+          clientStatus
+          issued {
+            nodes {
+              type
+              expiresAt
             }
+          }
         }
-    }
-  }`
+      }
+    }`
 }

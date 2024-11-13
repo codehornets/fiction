@@ -34,7 +34,7 @@ async function createNewPost() {
       fields: { title: postDetails.value.title || '' },
     } as const
 
-    draftPost.value = await managePost({ fictionPosts, params: createParams })
+    draftPost.value = await managePost({ fictionPosts, params: createParams, caller: 'postStart' })
 
     const postId = draftPost.value?.postId
     if (!postId) {

@@ -26,6 +26,7 @@ vue.onMounted(async () => {
     const data = await managePostIndex({
       fictionPosts: service.fictionPosts,
       params: { _action: 'list', limit: 5 },
+      caller: 'WidgetPosts',
     })
 
     if (data) {

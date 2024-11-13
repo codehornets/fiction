@@ -55,7 +55,7 @@ async function load() {
   }
   else {
     const editParams = { _action: 'get', where: { postId }, loadDraft: true } as const
-    post.value = await managePost({ fictionPosts: service.fictionPosts, params: editParams })
+    post.value = await managePost({ fictionPosts: service.fictionPosts, params: editParams, caller: 'postEdit' })
   }
   loading.value = false
 }

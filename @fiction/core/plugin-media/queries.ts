@@ -282,18 +282,19 @@ abstract class MediaQuery extends Query<SaveMediaSettings> {
 
 export class QuerySaveMedia extends MediaQuery {
   async run(
-    _params: Record<string, unknown>,
+    params: Record<string, unknown>,
     meta: EndpointMeta,
   ): Promise<EndpointResponse<TableMediaConfig>> {
+    const { caller } = params
     // created by multer
     const file = meta.request?.file
     const userId = meta.request?.body.userId
     const orgId = meta.request?.body.orgId
 
     if (!file)
-      throw abort('no file provided to endpoint by request')
+      throw abort(`no file provided to endpoint by request (caller: ${caller})`)
     if (!userId || !orgId)
-      throw abort('no userId or orgId')
+      throw abort(`no userId or orgId (caller: ${caller})`)
 
     const media = await this.createAndSaveMedia({ file, userId, orgId }, meta)
 

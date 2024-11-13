@@ -62,7 +62,7 @@ async function uploadFiles(files?: FileList | null) {
   }
 
   try {
-    const result = await fictionMedia.uploadFile({ file })
+    const result = await fictionMedia.uploadFile({ file, caller: 'InputMediaUpload' })
     log.info('mediaUpload', 'upload result', { data: result })
 
     if (result?.status === 'success' && result.data) {

@@ -38,7 +38,7 @@ async function uploadFiles(files?: FileList | null) {
     return
 
   uploading.value = true
-  const result = await fictionMedia.uploadFile({ file })
+  const result = await fictionMedia.uploadFile({ file, caller: 'InputImage' })
   logger.info(`upload result`, { data: result })
 
   if (!result)

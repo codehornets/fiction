@@ -17,7 +17,7 @@ describe('post utils', async () => {
   })
 
   it('managePost', async () => {
-    const post = await managePost({ fictionPosts, params: { _action: 'create', fields: { title: 'test', content: 'hello world' } } })
+    const post = await managePost({ fictionPosts, params: { _action: 'create', fields: { title: 'test', content: 'hello world' } }, caller: 'managePostTest' })
 
     expect(snap(post?.toConfig())).toMatchInlineSnapshot(`
       {
@@ -55,7 +55,7 @@ describe('post utils', async () => {
   })
 
   it('managePostIndex', async () => {
-    const postIndex = await managePostIndex({ fictionPosts, params: { _action: 'list' } })
+    const postIndex = await managePostIndex({ fictionPosts, params: { _action: 'list' }, caller: 'test-managePostIndex' })
     expect(postIndex.length).toBe(1)
   })
 })

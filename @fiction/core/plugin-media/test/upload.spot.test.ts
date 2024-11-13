@@ -91,7 +91,7 @@ describe('media upload/download tests', async () => {
     formData.append('field2', 'val2')
     formData.append('imageFile', f)
 
-    const r = await testUtils?.fictionMedia?.uploadFile({ formData })
+    const r = await testUtils?.fictionMedia?.uploadFile({ formData, caller: 'testUploadsAFile' })
 
     expect(r?.data?.mediaId).toBeDefined()
 

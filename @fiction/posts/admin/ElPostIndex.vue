@@ -47,7 +47,7 @@ const loading = vue.ref(true)
 async function load() {
   loading.value = true
   const createParams = { _action: 'list', fields: { }, loadDraft: true } as const
-  posts.value = await managePostIndex({ fictionPosts, params: createParams })
+  posts.value = await managePostIndex({ fictionPosts, params: createParams, caller: 'postIndex' })
   loading.value = false
 }
 

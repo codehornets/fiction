@@ -1,6 +1,3 @@
-/**
- * @vitest-environment happy-dom
- */
 import type { SiteTestUtils } from './testUtils'
 import { isCi } from '@fiction/core'
 import { snap } from '@fiction/core/test-utils'
@@ -14,6 +11,118 @@ describe('manageCertificates', { retry: isCi() ? 3 : 0 }, () => {
   beforeAll(async () => {
     testUtils = await createSiteTestUtils()
     await testUtils.init()
+  })
+
+  describe('error handling', () => {
+    it('should handle missing action parameter', async () => {
+      const r1 = await testUtils.fictionSites.requests.ManageCert.request({
+        hostname: 'example.com',
+        allowInTest: true,
+      })
+      expect(r1.status).toBe('error')
+      expect(r1.reason).toContain('Action is required')
+    })
+
+    it('should handle missing hostname parameter', async () => {
+      const r1 = await testUtils.fictionSites.requests.ManageCert.request({
+        _action: 'create',
+        allowInTest: true,
+      })
+      expect(r1.status).toBe('error')
+      expect(r1.reason).toBe('[CERTS-RUN] Hostname is required for getting a certificate.')
+    })
+
+    it('should handle invalid action parameter', async () => {
+      const r1 = await testUtils.fictionSites.requests.ManageCert.request({
+        // @ts-expect-error testing invalid action
+        _action: 'invalid',
+        hostname: 'example.com',
+        allowInTest: true,
+      })
+      expect(r1.status).toBe('error')
+      expect(r1.reason).toBe('[CERTS-RUN] Invalid action.')
+    })
+  })
+
+  describe('authentication', () => {
+    it('should handle authentication failure', async () => {
+      // Temporarily invalidate token
+      const originalToken = testUtils.fictionSites.settings.flyApiToken
+      testUtils.fictionSites.settings.flyApiToken = 'invalid-token'
+
+      await expect(testUtils.fictionSites.queries.ManageCert.verifyAuthentication()).rejects.toThrowErrorMatchingInlineSnapshot(`[Error: [CERTS-AUTH] Invalid or expired API token]`)
+
+      // Restore token
+      testUtils.fictionSites.settings.flyApiToken = originalToken
+    })
+  })
+
+  describe('allowInTest behavior', () => {
+    it('should return test message when allowInTest is false', async () => {
+      const r1 = await testUtils.fictionSites.requests.ManageCert.request({
+        _action: 'create',
+        hostname: 'example.com',
+        allowInTest: false,
+      })
+
+      expect(r1.status).toBe('success')
+      expect(r1.data).toEqual({
+        hostname: 'example.com',
+        test: 'cert api did not run due to allowInTest:false',
+        _action: 'create',
+      })
+    })
+  })
+
+  describe('certificate lifecycle', () => {
+    it('should handle already existing certificate', async () => {
+      // Create certificate first
+      await testUtils.fictionSites.requests.ManageCert.request({
+        _action: 'create',
+        hostname: 'duplicate.com',
+        allowInTest: true,
+      })
+
+      // Try to create again
+      const r1 = await testUtils.fictionSites.requests.ManageCert.request({
+        _action: 'create',
+        hostname: 'duplicate.com',
+        allowInTest: true,
+      })
+
+      expect(r1.status).toBe('success')
+      expect(r1.data?.clientStatus).toMatchInlineSnapshot(`"Awaiting configuration"`)
+
+      // Clean up
+      await testUtils.fictionSites.requests.ManageCert.request({
+        _action: 'delete',
+        hostname: 'duplicate.com',
+        allowInTest: true,
+      })
+    })
+
+    it('should verify certificate after creation', async () => {
+      const r1 = await testUtils.fictionSites.requests.ManageCert.request({
+        _action: 'create',
+        hostname: 'verify-test.com',
+        allowInTest: true,
+      })
+
+      expect(r1.status).toBe('success')
+      expect(r1.data?.configured).toBeDefined()
+      expect(r1.data?.clientStatus).toBeDefined()
+    })
+
+    it('should handle certificate not found during retrieval', async () => {
+      const r1 = await testUtils.fictionSites.requests.ManageCert.request({
+        _action: 'retrieve',
+        hostname: 'nonexistent.com',
+        allowInTest: true,
+      })
+
+      expect(r1.status).toBe('success')
+      expect(r1.data).toBeUndefined()
+    })
   })
 
   it('should set certificates', async () => {
@@ -73,13 +182,19 @@ describe('manageCertificates', { retry: isCi() ? 3 : 0 }, () => {
         "acmeDnsConfigured": false,
         "certificateAuthority": "lets_encrypt",
         "certificateRequestedAt": null,
+        "check": false,
+        "clientStatus": "Awaiting configuration",
         "configured": false,
+        "createdAt": "[dateTime:]",
         "dnsProvider": "icann",
         "dnsValidationHostname": "_acme-challenge.example.com",
         "dnsValidationInstructions": "**MASKED**",
         "dnsValidationTarget": "**MASKED**",
         "hostname": "example.com",
         "id": "**MASKED**",
+        "issued": {
+          "nodes": "**MASKED**",
+        },
         "source": "fly",
       }
     `)

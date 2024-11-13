@@ -68,7 +68,7 @@ async function loadGlobal() {
     nextPost.value = getNextPost({ single: singlePost.value, posts: posts.value })
   }
   else {
-    const r = await fictionPosts.getPostIndex({ card, limit: 5, orgId })
+    const r = await fictionPosts.getPostIndex({ card, limit: 5, orgId, caller: 'ElMagazine' })
     posts.value = r.posts
     indexMeta.value = { ...indexMeta.value, ...r.indexMeta }
   }

@@ -65,13 +65,13 @@ export class FictionMedia extends FictionPlugin<FictionMediaSettings> {
     })
   }
 
-  async uploadFile(params: { file?: File, formData?: FormData }): Promise<EndpointResponse<TableMediaConfig>> {
-    const { file, formData = new FormData() } = params
+  async uploadFile(params: { file?: File, formData?: FormData, caller: string }): Promise<EndpointResponse<TableMediaConfig>> {
+    const { file, formData = new FormData(), caller = 'unknown' } = params
 
     if (file)
       formData.append(this.imageFieldName, file)
 
-    const r = await this.requests.SaveMedia.upload({ data: formData, params: {} })
+    const r = await this.requests.SaveMedia.upload({ data: formData, params: { caller } })
 
     return r
   }

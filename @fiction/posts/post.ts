@@ -112,7 +112,7 @@ export class Post extends FictionObject<PostConfig> {
 
     this.clearAutosave()
     const params = { _action, where: { postId: this.postId }, fields } as const
-    const p = await managePost({ fictionPosts: this.settings.fictionPosts, params })
+    const p = await managePost({ fictionPosts: this.settings.fictionPosts, params, caller: 'savePost' })
 
     if (mode !== 'draft')
       this.update(p?.toConfig() || {}, { caller: 'savePost' })
@@ -122,7 +122,7 @@ export class Post extends FictionObject<PostConfig> {
 
   async delete() {
     this.log.info('Deleting post')
-    await managePost({ fictionPosts: this.settings.fictionPosts, params: { _action: 'delete', where: { postId: this.postId } } })
+    await managePost({ fictionPosts: this.settings.fictionPosts, params: { _action: 'delete', where: { postId: this.postId } }, caller: 'deletePost' })
     this.settings.fictionPosts.cacheKey.value++
   }
 
