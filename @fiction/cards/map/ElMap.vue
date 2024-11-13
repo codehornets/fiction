@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import type mapboxgl from 'mapbox-gl'
 import type { MapSchemaConfig } from '.'
 import { isDarkOrLightMode, vue } from '@fiction/core'
 import AnimClipPath from '@fiction/ui/anim/AnimClipPath.vue'
@@ -64,7 +63,7 @@ const cleanups: (() => void)[] = []
 async function renderMap() {
   const { default: mapboxgl } = await import('mapbox-gl')
 
-  mapboxgl.accessToken = props.mapboxAccessToken || 'pk.eyJ1IjoicmF5bG9wZXphbGVtYW4iLCJhIjoiY2trcHc3ODY4MGNycTJwcGE0MW5pcDNnMSJ9.gHtN2ew2g26gY7KSMzFBpw'
+  mapboxgl.accessToken = props.mapboxAccessToken || 'pk.eyJ1IjoiYXJwb3dlcnMiLCJhIjoiY20zZmo0ZGZ5MG9xODJpcHM1NDVjc2tidCJ9.8l3PsNnml2bsfa8oqAaXMg'
 
   const c = fullMapConfig.value
 
@@ -197,5 +196,4 @@ vue.onUnmounted(() => {
     display: none;
   }
 }
-</style>import { watch } from 'fs-extra'
-import { onMounted } from 'vue'
+</style>

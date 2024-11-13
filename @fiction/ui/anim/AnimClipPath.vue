@@ -4,7 +4,7 @@ import { useElementVisible } from '.'
 
 defineOptions({ name: 'AnimClipPath' })
 
-const { animate, rounded, caller = 'unknown' } = defineProps<{
+const { animate, rounded = true, caller = 'unknown' } = defineProps<{
   animate: 'swipe' | 'expand' | '' | boolean
   rounded?: boolean
   caller: string

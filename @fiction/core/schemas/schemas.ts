@@ -185,6 +185,7 @@ export const PostSchema = z.object({
   status: PostStatusSchema.optional().describe('Status of the post'),
   media: MediaDisplaySchema.optional().describe('Featured Media for the post'),
   slug: z.string().optional().describe('Slug of the post page'),
+  href: z.string().optional().describe('Link to the post page'),
   tags: z.array(z.string()).optional().describe('Tags for the post'),
   categories: z.array(z.string()).optional().describe('Categories for the post'),
   authors: z.array(UserSchema).optional(),

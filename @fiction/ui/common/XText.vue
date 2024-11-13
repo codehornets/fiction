@@ -25,7 +25,7 @@ const emit = defineEmits<{
 }>()
 
 const randomId = shortId()
-
+const elementRef = vue.ref<HTMLElement>()
 const loaded = vue.ref(false)
 const isEditing = vue.ref<string | undefined>()
 const textValue = vue.ref('')
@@ -127,13 +127,23 @@ vue.onMounted(() => {
   })
 })
 
+// Clean up pasted content
 function onPaste(event: ClipboardEvent) {
-  event.preventDefault() // Prevent the default paste action
-  const text = event.clipboardData?.getData('text/plain') || '' // Get plain text from clipboard
-  textValue.value = text // Clean and set the updated value
-  updateValue.value = textValue.value // Update the value
-  emit('input', getValue(updateValue.value)) // Emit input event
-  emitValue() // Emit value update
+  event.preventDefault()
+
+  const selection = window.getSelection()
+  const range = selection?.getRangeAt(0)
+  if (!selection || !range)
+    return
+
+  range.deleteContents()
+  range.insertNode(document.createTextNode(event.clipboardData?.getData('text/plain') || ''))
+  selection.removeAllRanges()
+
+  const updatedContent = (event.target as HTMLElement).innerHTML
+  updateValue.value = inputValidations(updatedContent)
+  emit('input', getValue(updateValue.value))
+  emitValue()
 }
 
 function setIsEditing(type: 'click' | 'focus') {
@@ -141,25 +151,46 @@ function setIsEditing(type: 'click' | 'focus') {
     isEditing.value = type
   }
 }
+
+/**
+ * Use render to control SSR which struggles with custom tag, etc.
+ */
+function render() {
+  if (!((isContentEditable.value && props.placeholder) || textValue.value || props.fallback)) {
+    return null
+  }
+
+  // Base props that are always needed
+  const baseProps = {
+    'ref': elementRef,
+    'data-anim-id': randomId,
+    'class': ['focus:outline-none xtext', loaded.value ? '' : 'invisible'],
+    'innerHTML': textValue.value || props.fallback,
+  }
+
+  // Editing-related props
+  const editingProps = isContentEditable.value
+    ? {
+        contenteditable: 'true',
+        spellcheck: 'false',
+        placeholder: props.placeholder,
+        onInput: (event: Event) => onInput(event),
+        onPaste: (event: ClipboardEvent) => onPaste(event),
+        onClick: () => setIsEditing('click'),
+        onFocus: () => setIsEditing('focus'),
+        onBlur: handleBlur,
+      }
+    : {}
+
+  return vue.h(props.tag, {
+    ...baseProps,
+    ...editingProps,
+  })
+}
 </script>
 
 <template>
-  <component
-    :is="tag"
-    v-if="(isContentEditable && placeholder) || textValue || fallback"
-    :data-anim-id="randomId"
-    class="focus:outline-none xtext"
-    :class="loaded ? '' : 'invisible'"
-    :contenteditable="isContentEditable ? 'true' : 'false'"
-    spellcheck="false"
-    :placeholder="placeholder"
-    @input="onInput($event)"
-    @paste="onPaste($event)"
-    @click="setIsEditing('click')"
-    @focus="setIsEditing('focus')"
-    @blur="handleBlur()"
-    v-html="textValue || fallback"
-  />
+  <render />
 </template>
 
 <style lang="less">

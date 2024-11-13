@@ -6,7 +6,7 @@ import { Fitty } from './utilFitText.js'
 const props = defineProps({
   wrapClass: { type: String, default: '' },
   minSize: { type: Number, default: 16 },
-  maxSize: { type: Number, default: 512 },
+  maxSize: { type: Number, default: 350 },
   multiLine: { type: Boolean, default: true },
   lines: { type: Number, default: 1 },
   observeMutations: { type: [Boolean, Object], default: true },

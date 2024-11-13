@@ -228,7 +228,7 @@ vue.onMounted(() => {
       <div
         class="x-engine"
       >
-        <div v-if="loading" class="text-theme-300 dark:text-theme-0 flex justify-center pt-32">
+        <div v-if="loading" class="text-theme-300 dark:text-theme-500 flex justify-center pt-32">
           <ElSpinner class="h-12 w-12" />
         </div>
 
