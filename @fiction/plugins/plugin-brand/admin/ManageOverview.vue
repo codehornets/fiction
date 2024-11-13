@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import type { AutosaveUtility } from '@fiction/core/utils/save'
 import type { Card } from '@fiction/site'
-import type { BrandGuide } from '../guideSchema'
 import type { TableBrand } from '../schema'
 import SettingsPanel from '@fiction/admin/settings/SettingsPanel.vue'
 import { vue } from '@fiction/core'

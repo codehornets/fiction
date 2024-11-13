@@ -4,7 +4,6 @@ import type { DataCompared, DataPointChart, StandardPeriod } from '@fiction/anal
 import type { NumberFormats } from '@fiction/core'
 import WidgetWrap from '@fiction/admin/dashboard/WidgetWrap.vue'
 import XNumber from '@fiction/ui/common/XNumber.vue'
-import XIcon from '@fiction/ui/media/XIcon.vue'
 import { computed } from 'vue'
 import SuperChart from './SuperChart.vue'
 import { generateTimeSeriesData } from './utils'

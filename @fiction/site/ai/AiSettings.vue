@@ -5,7 +5,6 @@ import { InputOption } from '@fiction/ui'
 import ElForm from '@fiction/ui/inputs/ElForm.vue'
 import ElInput from '@fiction/ui/inputs/ElInput.vue'
 import FormEngine from '@fiction/ui/inputs/FormEngine.vue'
-import { imageStyle } from '../util'
 
 const props = defineProps({
   site: { type: Object as vue.PropType<Site>, required: true },

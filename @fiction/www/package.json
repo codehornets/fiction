@@ -12,8 +12,8 @@
     "@fiction/plugin-highlight-code": "workspace:*",
     "@fiction/plugin-monitor": "workspace:*",
     "@fiction/plugin-newsletter": "workspace:*",
-    "@fiction/plugin-stripe": "workspace:*",
     "@fiction/plugin-onboard": "workspace:*",
+    "@fiction/plugin-stripe": "workspace:*",
     "@fiction/plugin-transactions": "workspace:*",
     "@fiction/posts": "workspace:*",
     "@fiction/site": "workspace:*",
@@ -22,8 +22,8 @@
     "@fiction/theme-omega": "workspace:*",
     "@fiction/ui": "workspace:*",
     "@types/mapbox-gl": "^3.4.1",
-    "mapbox-gl": "^3.7.0",
-    "postcss": "^8.4.48",
+    "mapbox-gl": "^3.8.0",
+    "postcss": "^8.4.49",
     "tailwindcss": "^3.4.14"
   },
   "devDependencies": {

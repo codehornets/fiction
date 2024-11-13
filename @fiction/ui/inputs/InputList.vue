@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { Sortable } from '@shopify/draggable'
 import type { InputOption } from '.'
-import { setNested, shortId, vue, waitFor } from '@fiction/core'
+import { shortId, vue, waitFor } from '@fiction/core'
 import TransitionSlide from '../anim/TransitionSlide.vue'
 import XButton from '../buttons/XButton.vue'
 import FormEngine from './FormEngine.vue'
