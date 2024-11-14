@@ -1,5 +1,7 @@
 import type { EndpointMeta, EndpointResponse } from '@fiction/core'
 import type { SitesQuerySettings } from './endpoint.js'
+import { isNode } from '@fiction/core'
+import nodeFetch from 'node-fetch'
 import { SitesQuery } from './endpoint.js'
 
 type CertificateIssue = {
@@ -100,13 +102,14 @@ export class ManageCert extends SitesQuery {
         stack: error instanceof Error ? error.stack : undefined,
       } })
 
-      throw new Error('[CERTS-AUTH] Invalid or expired API token')
+      throw new Error('[CERTS-AUTH] API token verification failed')
     }
   }
 
   async getClient() {
     const { GraphQLClient } = await import('graphql-request')
     return new GraphQLClient(this.graphqlEndpoint, {
+      fetch: isNode() ? nodeFetch : fetch as any,
       headers: {
         Authorization: `Bearer ${this.fictionSites.settings.flyApiToken}`,
       },

@@ -21,9 +21,7 @@ const vis = vue.ref(false)
 const v = vue.computed(() => modelValue || {})
 const hasMedia = vue.computed(() => v.value.url || v.value.html)
 
-function openMediaSelector() {
-  vis.value = true
-}
+function openMediaSelector() { vis.value = true }
 
 function handleMediaUpdate(newValue: MediaObject) {
   const newMedia = removeUndefined(newValue, { removeNull: true })

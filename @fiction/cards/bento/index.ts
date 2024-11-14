@@ -28,6 +28,31 @@ const schema = z.object({
 export type BentoItem = z.infer<typeof BentoItemSchema>
 export type UserConfig = z.infer<typeof schema>
 
+const options: InputOption[] = [
+  new InputOption({
+    key: 'items',
+    label: 'Bento Items',
+    input: 'InputList',
+    options: [
+      new InputOption({ key: 'cols', label: 'Columns', input: 'InputNumber', props: { min: 1, max: 12 } }),
+      new InputOption({ key: 'rows', label: 'Rows', input: 'InputNumber', props: { min: 1, max: 12 } }),
+      new InputOption({ key: 'superTitle', label: 'Super Title', input: 'InputText' }),
+      new InputOption({ key: 'superIcon', label: 'Super Icon', input: 'InputIcon' }),
+      new InputOption({ key: 'superColor', label: 'Super Color', input: 'InputSelect', props: { list: colorTheme } }),
+      new InputOption({ key: 'title', label: 'Title', input: 'InputText' }),
+      new InputOption({ key: 'content', label: 'Content', input: 'InputTextarea' }),
+      new InputOption({ key: 'actions', label: 'Actions', input: 'InputActions' }),
+      new InputOption({ key: 'media', label: 'Media', input: 'InputMedia' }),
+      new InputOption({ key: 'bg', label: 'Background', input: 'InputMedia', props: { isBackground: true } }),
+      new InputOption({ key: 'href', label: 'Link URL', input: 'InputUrl' }),
+      new InputOption({ key: 'theme', label: 'Theme', input: 'InputSelect', props: { list: colorTheme } }),
+      new InputOption({ key: 'themeMode', label: 'Theme Mode', input: 'InputSelect', props: { list: ['light', 'dark', 'auto'] } }),
+      new InputOption({ key: 'verticalPosition', label: 'Vertical Position', input: 'InputSelect', props: { list: ['top', 'center', 'bottom'] } }),
+      new InputOption({ key: 'horizontalPosition', label: 'Horizontal Position', input: 'InputSelect', props: { list: ['left', 'center', 'right'] } }),
+    ],
+  }),
+]
+
 async function getDefaultConfig(args: { factory: CardFactory }): Promise<UserConfig> {
   const { factory } = args
 
@@ -341,25 +366,6 @@ async function getDefaultConfig(args: { factory: CardFactory }): Promise<UserCon
 
   return uc
 }
-
-const options: InputOption[] = [
-  new InputOption({
-    key: 'items',
-    label: 'Bento Items',
-    input: 'InputList',
-    options: [
-      new InputOption({ key: 'cols', label: 'Columns', input: 'InputNumber', props: { min: 1, max: 12 } }),
-      new InputOption({ key: 'rows', label: 'Rows', input: 'InputNumber', props: { min: 1, max: 12 } }),
-      new InputOption({ key: 'superTitle', label: 'Super Title', input: 'InputText' }),
-      new InputOption({ key: 'superIcon', label: 'Super Icon', input: 'InputIcon' }),
-      new InputOption({ key: 'superColor', label: 'Super Color', input: 'InputSelect', props: { list: colorTheme } }),
-      new InputOption({ key: 'title', label: 'Title', input: 'InputText' }),
-      new InputOption({ key: 'content', label: 'Content', input: 'InputTextarea' }),
-      new InputOption({ key: 'media', label: 'Media', input: 'InputMedia' }),
-      new InputOption({ key: 'href', label: 'Link URL', input: 'InputUrl' }),
-    ],
-  }),
-]
 
 export const template = cardTemplate({
   templateId: 'bento',
