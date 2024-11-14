@@ -1,172 +1,124 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 import type { Card } from '@fiction/site'
-import type { UserConfig } from './index'
+import type { BentoItem, UserConfig } from './index'
 import { vue } from '@fiction/core'
 import { animateItemEnter } from '@fiction/ui/anim'
 import XButton from '@fiction/ui/buttons/XButton.vue'
+import XIcon from '@fiction/ui/media/XIcon.vue'
+import XLogo from '@fiction/ui/media/XLogo.vue'
 import XMedia from '@fiction/ui/media/XMedia.vue'
+import {
+  getContentMaxWidth,
+  getContentStyles,
+  getGradientStyle,
+  getGridStyle,
+  getItemStyles,
+  getPositionStyles,
+  getTextOverlayStyles,
+} from './utils'
 
-const props = defineProps({
-  card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
-})
+const props = defineProps<{
+  card: Card<UserConfig>
+}>()
 
 const uc = vue.computed(() => props.card.userConfig.value)
 
-// Function to generate grid-area style for each item
-function getGridArea(cols: number, rows: number): string {
-  return `span ${rows} / span ${cols}`
-}
-
-function getContentClasses(args: {
-  verticalPosition: 'top' | 'center' | 'bottom'
-  horizontalPosition: 'left' | 'center' | 'right'
-}): string {
-  const { verticalPosition, horizontalPosition } = args
-  const baseClasses = 'absolute inset-0 p-6 flex'
-
-  const verticalClasses = {
-    top: 'items-start',
-    center: 'items-center',
-    bottom: 'items-end',
-  }
-
-  const horizontalClasses = {
-    left: 'justify-start text-left',
-    center: 'justify-center text-center',
-    right: 'justify-end text-right',
-  }
-
-  return `${baseClasses} ${verticalClasses[verticalPosition]} ${horizontalClasses[horizontalPosition]}`
-}
-
-function handleItemClick(href: string | undefined) {
-  if (href) {
-    props.card.goto(href)
-  }
-}
-
 vue.onMounted(() => {
-  animateItemEnter({
-    targets: '.bento-item',
-    themeId: 'fade',
-    totalTime: 1000,
-  })
+  animateItemEnter({ targets: '.bento-item', themeId: 'fade', totalTime: 1200 })
 })
 </script>
 
 <template>
-  <div
-    class="max-w-7xl mx-auto"
-    :style="{
-      padding: `${uc.containerPadding || 4}px`,
-    }"
-  >
-    <div
-      class="grid"
-      :style="{
-        gap: `${uc.gap || 4}px`,
-        gridTemplateColumns: 'repeat(12, 1fr)',
-      }"
-    >
+  <div :class="card.classes.value.contentWidth">
+    <div class="grid grid-cols-12 gap-6 auto-rows-[200px]">
       <div
         v-for="(item, index) in uc.items"
         :key="index"
-        class="bento-item relative overflow-hidden group"
-        :class="[item.href ? 'cursor-pointer' : '']"
-        :style="{
-          gridArea: getGridArea(item.cols, item.rows),
-          padding: item.style?.padding ? `${item.style.padding}px` : undefined,
-          borderRadius: item.style?.borderRadius ? `${item.style.borderRadius}px` : undefined,
-        }"
-        @click="handleItemClick(item.href)"
+        class="bento-item relative overflow-hidden group rounded-3xl transition-all duration-300 @container"
+        :style="[getGridStyle(item).style, getItemStyles(item)]"
+        :class="getGridStyle(item).class"
       >
-        <!-- Media Background -->
-        <XMedia
-          :media="item.media"
-          class="absolute inset-0"
-          :animate="true"
-          image-mode="cover"
-        />
-
-        <!-- Content Overlay -->
         <div
-          class="transition-opacity duration-300"
-          :class="[
-            getContentClasses(item),
-            item.style?.overlay ? 'bg-black/50 opacity-0 group-hover:opacity-100' : '',
+          class="relative h-full px-6 py-8 @xs:px-8 @xs:py-10 @2xl:p-12 flex flex-col z-10"
+          :style="[
+            getPositionStyles(item),
+            item.bg ? getTextOverlayStyles(item) : {},
           ]"
         >
           <div
-            class="max-w-md space-y-3"
-            :class="{
-              'text-white': item.style?.overlay,
-              'bg-black/50 p-4 rounded-xl': ['background', 'slider'].includes(item.contentType) && !item.style?.overlay,
-            }"
+            class="flex flex-col gap-1"
+            :style="getContentMaxWidth(item)"
           >
-            <!-- Super Title -->
-            <div
-              v-if="item.superTitle"
-              class="text-sm font-medium uppercase tracking-wide opacity-80"
-            >
-              {{ item.superTitle }}
+            <XLogo
+              v-if="item.media && (!item.verticalPosition || item.verticalPosition !== 'top')"
+              :media="item.media"
+              class="max-w-full mb-6"
+              :style="{ width: item.media.displayWidthPercent ? `${item.media.displayWidthPercent}%` : 'auto' }"
+            />
+            <div v-if="item.superTitle || item.superIcon" class="flex gap-3 items-center">
+              <div v-if="item.superIcon" class="size-10 rounded-full flex items-center justify-center">
+                <XIcon :media="item.superIcon" class="size-6" />
+              </div>
+              <div
+                class="text-sm @lg:text-base font-medium opacity-90 font-sans"
+                :style="getContentStyles(item, 'super')"
+              >
+                {{ item.superTitle }}
+              </div>
             </div>
 
-            <!-- Title -->
             <h3
               v-if="item.title"
-              class="text-2xl font-semibold x-font-title"
+              class="text-2xl @xs:text-3xl @xl:text-4xl @5xl:text-6xl @xl:mb-2 @5xl:mb-4 text-balance font-medium @2xl:font-semibold  x-font-title"
+              :style="getContentStyles(item, 'text')"
             >
               {{ item.title }}
             </h3>
 
-            <!-- Subtitle -->
-            <div
-              v-if="item.subTitle"
-              class="text-lg font-medium opacity-90"
-            >
-              {{ item.subTitle }}
-            </div>
-
-            <!-- Content -->
             <p
               v-if="item.content"
-              class="line-clamp-3 opacity-80"
+              class="line-clamp-3 opacity-90 @xs:text-lg @xl:text-xl @5xl:text-2xl"
+              :style="getContentStyles(item, 'sub')"
             >
               {{ item.content }}
             </p>
 
-            <!-- Tags -->
-            <div
-              v-if="item.tags?.length"
-              class="flex flex-wrap gap-2"
-            >
-              <span
-                v-for="tag in item.tags"
-                :key="tag"
-                class="text-xs px-2 py-1 bg-black/30 rounded-full"
-              >
-                {{ tag }}
-              </span>
-            </div>
-
-            <!-- Actions -->
-            <div
-              v-if="item.actions?.length"
-              class="flex gap-2 pt-2"
-              :class="{
-                'justify-start': item.horizontalPosition === 'left',
-                'justify-center': item.horizontalPosition === 'center',
-                'justify-end': item.horizontalPosition === 'right',
-              }"
-            >
+            <div v-if="item.actions?.length" class="flex gap-2 mt-4">
               <XButton
                 v-for="(action, actionIndex) in item.actions"
                 :key="actionIndex"
                 v-bind="action"
               />
             </div>
+
+            <XLogo
+              v-if="item.media && item.verticalPosition === 'top'"
+              :media="item.media"
+              class="max-w-full mt-6"
+              :style="{ width: item.media.displayWidthPercent ? `${item.media.displayWidthPercent}%` : 'auto' }"
+            />
           </div>
         </div>
+
+        <a
+          v-if="item.href"
+          :href="item.href"
+          class="absolute inset-0 z-20"
+          @click="card.goto(item.href)"
+        />
+
+        <div
+          v-if="item.bg"
+          class="z-[5] absolute inset-0 mix-blend-multiply"
+          :style="getGradientStyle(item)"
+        />
+
+        <XMedia
+          v-if="item.bg"
+          :media="item.bg"
+          class="absolute inset-0 z-0"
+          image-mode="cover"
+        />
       </div>
     </div>
   </div>

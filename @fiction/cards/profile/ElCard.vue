@@ -9,15 +9,12 @@ import CardText from '../CardText.vue'
 import CardSocials from '../el/CardSocials.vue'
 import NavDots from '../el/NavDots.vue'
 
-const props = defineProps({
-  card: {
-    type: Object as vue.PropType<Card<UserConfig>>,
-    required: true,
-  },
-})
+const { card } = defineProps<{
+  card: Card<UserConfig>
+}>()
 
 const uc = vue.computed(() => {
-  return props.card.userConfig.value || {}
+  return card.userConfig.value || {}
 })
 
 const mediaItems = vue.computed(() => {

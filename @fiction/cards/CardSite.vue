@@ -264,21 +264,21 @@ body,
 .x-site{
   .x-font-title {
     font-family: var(--font-family-title, unset);
-    &.font-semibold {
-      font-weight: var(--font-weight-title, 600);
-    }
-    &.font-bold {
-      font-weight: var(--font-weight-title, 700);
-    }
-    &.font-light {
-      font-weight: var(--font-weight-title, 300);
-    }
-    &.font-normal {
-      font-weight: var(--font-weight-title, 400);
-    }
-    &.font-medium {
-      font-weight: var(--font-weight-title, 500);
-    }
+    // &.font-semibold {
+    //   font-weight: var(--font-weight-title, 600);
+    // }
+    // &.font-bold {
+    //   font-weight: var(--font-weight-title, 700);
+    // }
+    // &.font-light {
+    //   font-weight: var(--font-weight-title, 300);
+    // }
+    // &.font-normal {
+    //   font-weight: var(--font-weight-title, 400);
+    // }
+    // &.font-medium {
+    //   font-weight: var(--font-weight-title, 500);
+    // }
   }
   .x-font-highlight {
     font-family: var(--font-family-highlight, unset);

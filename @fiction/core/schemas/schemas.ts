@@ -138,6 +138,8 @@ export const MediaDisplaySchema = MediaContentSchema.extend({
   overlay: OverlaySettingSchema.optional(),
   width: z.number().optional(),
   height: z.number().optional(),
+  displayWidthPercent: z.number().optional(),
+  displayHeightPercent: z.number().optional(),
   modify: z.object({
     flip: z.enum(['horizontal', 'vertical']).optional(),
   }).optional(),

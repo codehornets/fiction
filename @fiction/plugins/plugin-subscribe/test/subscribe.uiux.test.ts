@@ -6,7 +6,7 @@ import { afterAll, describe, expect, it } from 'vitest'
 import { setup } from './kit.main.js'
 
 describe('subscribe uiux', { retry: isCi() ? 3 : 0 }, async () => {
-  const kit = await createUiTestingKit({ headless: false, setup, slowMo: 4000 })
+  const kit = await createUiTestingKit({ headless: false, setup, slowMo: 0 })
 
   afterAll(async () => kit?.close())
   const testUtils = kit.testUtils
