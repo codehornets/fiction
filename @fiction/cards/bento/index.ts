@@ -1,7 +1,8 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
-import { ActionButtonSchema, colorTheme, MediaDisplaySchema, MediaIconSchema, vue } from '@fiction/core'
+import { ActionButtonSchema, colorTheme, MediaDisplaySchema, MediaIconSchema, SizeSchema, vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site'
 import { InputOption } from '@fiction/ui'
+import { animate } from '@fiction/ui/anim/gradientUtil'
 import { z } from 'zod'
 
 const BentoItemSchema = z.object({
@@ -24,6 +25,8 @@ const BentoItemSchema = z.object({
 
 const schema = z.object({
   items: z.array(BentoItemSchema),
+  gapSize: SizeSchema.optional(),
+  animate: z.enum(['expand', 'swipe', '']).optional(),
 })
 export type BentoItem = z.infer<typeof BentoItemSchema>
 export type UserConfig = z.infer<typeof schema>
@@ -51,12 +54,16 @@ const options: InputOption[] = [
       new InputOption({ key: 'horizontalPosition', label: 'Horizontal Position', input: 'InputSelect', props: { list: ['left', 'center', 'right'] } }),
     ],
   }),
+  new InputOption({ key: 'gapSize', label: 'Gap', input: 'InputSelect', props: { list: ['none', 'xs', 'sm', 'md', 'lg', 'xl'] } }),
+  new InputOption({ key: 'animate', label: 'Animation', input: 'InputSelect', props: { list: ['expand', 'swipe'] } }),
 ]
 
 async function getDefaultConfig(args: { factory: CardFactory }): Promise<UserConfig> {
   const { factory } = args
 
   const uc: UserConfig = {
+    animate: 'expand',
+    gapSize: '2xl',
     items: [
       {
         cols: 12,

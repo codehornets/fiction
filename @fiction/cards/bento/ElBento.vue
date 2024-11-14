@@ -3,6 +3,7 @@ import type { Card } from '@fiction/site'
 import type { BentoItem, UserConfig } from './index'
 import { vue } from '@fiction/core'
 import { animateItemEnter } from '@fiction/ui/anim'
+import ClipPathAnim from '@fiction/ui/anim/AnimClipPath.vue'
 import XButton from '@fiction/ui/buttons/XButton.vue'
 import XIcon from '@fiction/ui/media/XIcon.vue'
 import XLogo from '@fiction/ui/media/XLogo.vue'
@@ -26,14 +27,30 @@ const uc = vue.computed(() => props.card.userConfig.value)
 vue.onMounted(() => {
   animateItemEnter({ targets: '.bento-item', themeId: 'fade', totalTime: 1200 })
 })
+
+const gapClass = vue.computed(() => {
+  const gapMap = {
+    'xxs': 'gap-1',
+    'xs': 'gap-2',
+    'sm': 'gap-4',
+    'md': 'gap-6',
+    'lg': 'gap-8',
+    'xl': 'gap-12',
+    '2xl': 'gap-16',
+  }
+
+  return gapMap[uc.value.gapSize || 'md']
+})
 </script>
 
 <template>
   <div :class="card.classes.value.contentWidth">
-    <div class="grid grid-cols-12 gap-6 auto-rows-[200px]">
-      <div
+    <div class="grid grid-cols-12 auto-rows-[200px]" :class="[gapClass]">
+      <ClipPathAnim
         v-for="(item, index) in uc.items"
         :key="index"
+        :animate="uc.animate || ''"
+        caller="bento"
         class="bento-item relative overflow-hidden group rounded-3xl transition-all duration-300 @container"
         :style="[getGridStyle(item).style, getItemStyles(item)]"
         :class="getGridStyle(item).class"
@@ -119,7 +136,7 @@ vue.onMounted(() => {
           class="absolute inset-0 z-0"
           image-mode="cover"
         />
-      </div>
+      </ClipPathAnim>
     </div>
   </div>
 </template>
