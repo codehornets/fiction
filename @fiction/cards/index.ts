@@ -66,11 +66,6 @@ const templates = {
   },
 } as const
 
-// Export test templates (if needed for testing)
-export const testCardTemplates = [
-  (await templates.layout.nav()).template,
-] as const
-
 // Type utilities for template configuration
 type TemplateModule = { template: CardTemplate<any> }
 

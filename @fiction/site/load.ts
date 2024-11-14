@@ -168,7 +168,7 @@ export async function loadSite(args: { fictionSites: FictionSites, siteRouter: F
 
     if (themeId) {
       site = await loadSiteFromTheme({ fictionOrgId, fictionSiteId, themeId, siteRouter, fictionSites, siteMode, caller })
-      logger.debug('Loading site from theme', { data: { themeId, site } })
+      logger.debug('Loading site from theme', { data: { themeId, site: site.toConfig() } })
     }
     else if (cardId) {
       logger.debug('Loading site from card template', { data: { cardId } })
