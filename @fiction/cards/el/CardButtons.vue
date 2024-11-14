@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import type { ColorThemeUser } from '@fiction/core'
 import type { ActionButton } from '@fiction/core/schemas/schemas.js'
 import type { Card } from '@fiction/site'
 import type { UiElementSize } from '@fiction/ui/utils'
@@ -6,30 +7,32 @@ import { shortId, vue } from '@fiction/core'
 import { animateItemEnter, useElementVisible } from '@fiction/ui/anim'
 import CardButton from '../CardButton.vue'
 
-const props = defineProps({
-  card: { type: Object as vue.PropType<Card>, required: true },
-  actions: { type: Array as vue.PropType<ActionButton[]>, default: () => [] },
-  uiSize: { type: String as vue.PropType<UiElementSize>, default: 'md' },
-  animate: { type: String as vue.PropType<'fade' | 'slide' | 'pop' | 'rise' | 'none'>, default: 'none' },
-  isOverlay: { type: Boolean, default: false },
-})
+const { card, actions = [], uiSize = 'md', animate = 'none', isOverlay = false, theme = 'default', design } = defineProps<{
+  card: Card
+  actions: ActionButton[]
+  uiSize?: UiElementSize
+  animate?: 'fade' | 'slide' | 'pop' | 'rise' | 'none'
+  isOverlay?: boolean
+  theme?: ColorThemeUser
+  design?: ActionButton['design']
+}>()
 
 const randomId = shortId()
 
 vue.onMounted(() => {
-  if (props.animate !== 'none') {
+  if (animate !== 'none') {
     useElementVisible({
       caller: 'actionButtons',
       selector: `#${randomId}`,
       onVisible: async () => {
-        await animateItemEnter({ targets: `#${randomId} .x-action-item`, themeId: props.animate, config: { overallDelay: 400 } })
+        await animateItemEnter({ targets: `#${randomId} .x-action-item`, themeId: animate, config: { overallDelay: 400 } })
       },
     })
   }
 })
 
 function getButtonType(action: ActionButton) {
-  if (props.isOverlay) {
+  if (isOverlay) {
     return 'overlay'
   }
   else {
@@ -45,7 +48,8 @@ function getButtonType(action: ActionButton) {
       :key="i"
       :card
       class="x-action-item"
-      :theme="getButtonType(action) || 'default'"
+      :theme="getButtonType(action) || theme"
+      :design="action.design || design"
       :href="action.href"
       :size="action.size || uiSize"
       :icon="action.icon"

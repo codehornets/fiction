@@ -34,7 +34,7 @@ const activeItem = vue.ref(0)
           </div>
         </div>
         <div class="flex-col justify-center sm:text-balance">
-          <div class="min-w-0 text-left sm:text-center text-4xl lg:text-6xl !leading-[1.2]">
+          <div class="min-w-0 text-left sm:text-center text-4xl lg:text-5xl !leading-[1.2] x-font-title">
             <CardText
               tag="span"
               :card
@@ -45,7 +45,7 @@ const activeItem = vue.ref(0)
             />
           </div>
         </div>
-        <div v-if="quote?.author?.name" class="mt-4 md:mt-8 flex items-center justify-start sm:justify-center gap-4 md:gap-8">
+        <div v-if="quote?.author?.name" class="mt-4 md:mt-8 flex items-center justify-start sm:justify-center gap-4 ">
           <div
             v-if="hasAuthorImage(quote)"
             class="relative aspect-square h-10 md:h-14 overflow-hidden rounded-full dark:ring-2 dark:ring-theme-0 m-1"
@@ -56,7 +56,7 @@ const activeItem = vue.ref(0)
             />
           </div>
           <div class="text-left  space-y-0.5" :class="hasAuthorImage(quote) ? 'text-left' : 'md:text-center'">
-            <CardText :card :path="`quotes.${i}.author.name`" class="text-lg md:text-3xl font-bold" animate="fade" />
+            <CardText :card :path="`quotes.${i}.author.name`" class="text-lg md:text-2xl font-medium" animate="fade" />
             <CardText class="font-sans text-sm md:text-xl text-theme-500 dark:text-theme-400" :card :path="`quotes.${i}.author.title`" animate="fade" />
           </div>
         </div>

@@ -31,7 +31,7 @@ const overlayBg = vue.computed(() => {
 </script>
 
 <template>
-  <div id="test-buttons" class="wrap min-h-[100dvh] relative pb-36">
+  <div id="test-buttons" class="wrap min-h-[100dvh] relative pb-36 bg-theme-0 dark:bg-theme-800 text-theme-900 dark:text-theme-0">
     <div class="mb-4 sticky top-0 p-4 bg-theme-0 dark:bg-theme-900 z-10 border-b border-theme-200 dark:border-theme-700">
       <div class="max-w-screen-2xl mx-auto flex gap-4">
         <XButton @click="toggleDarkMode">

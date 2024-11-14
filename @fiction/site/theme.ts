@@ -13,22 +13,25 @@ export type ThemeConfig = {
   sections: Record<string, TableCardConfig>
 }
 
-export type ThemeSettings<T extends Record<string, unknown> = Record<string, unknown>> = {
+export type ThemeMeta = {
   root: string
   themeId: string
   title?: string
   version?: string
   description?: string
-  screenshot?: string
-  templates?: readonly CardTemplate<any>[] | CardTemplate<any>[]
+  screenshots?: { light?: { desktop?: string, mobile?: string }, dark?: { desktop?: string, mobile?: string } }
   isPublic?: boolean
+}
+
+export type ThemeSettings<T extends Record<string, unknown> = Record<string, unknown>> = {
+  templates?: readonly CardTemplate<any>[] | CardTemplate<any>[]
   userConfig?: Partial<SiteUserConfig> & T
   getConfig: (args: { site: Site, factory: CardFactory, userConfig: SiteUserConfig }) => Promise<ThemeConfig>
   templateDefaults?: {
     page?: string
     transaction?: string
   }
-} & FictionPluginSettings
+} & FictionPluginSettings & ThemeMeta
 
 export type ThemeSetup = (args: ServiceList & { fictionEnv: FictionEnv, fictionAdmin: FictionAdmin }) => Promise<Theme>
 

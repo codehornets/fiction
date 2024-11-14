@@ -21,27 +21,17 @@ export async function getHeader(args: { factory: CardFactory, site: Site, userCo
             weight: userConfig.styling?.fonts?.title.weight || '600',
           },
         },
-        navA: [],
+        navA: [
+          { name: 'Home', href: '/' },
+          { name: 'Blog', href: '/blog' },
+        ],
         navB: [
 
           { name: 'Connect', items: [
-            {
-              name: '@fictionco',
-              href: 'https://www.x.com/fictionco',
-              media: { class: 'i-tabler-brand-x' },
-            },
-            {
-              name: 'GitHub',
-              href: 'https://www.github.com/fiction',
-              media: { class: 'i-tabler-brand-github' },
-            },
+            { name: '@fictionco', href: 'https://www.x.com/fictionco', media: { class: 'i-tabler-brand-x' } },
+            { name: 'GitHub', href: 'https://www.github.com/fiction', media: { class: 'i-tabler-brand-github' } },
           ] },
-          {
-            name: 'Contact',
-            href: '/contact',
-            itemStyle: 'button',
-            itemTheme: 'primary',
-          },
+          { name: 'Contact', href: '/contact', itemStyle: 'button', itemTheme: 'primary' },
         ],
       } }),
     ],

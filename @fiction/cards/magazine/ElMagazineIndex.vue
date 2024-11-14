@@ -99,7 +99,7 @@ function changePage(newPage: number) {
         </div>
       </CardLink>
     </div>
-    <El404 v-else super-heading="Index" heading="No Posts Found" sub-heading="Nothing to show here." :actions="[{ name: 'Go to Home', href: '/' }]" />
+    <El404 v-else super-heading="Posts" heading="No Posts Available" sub-heading="Check back later for new content" :actions="[{ name: 'Return to Homepage', href: '/', theme: 'primary' }]" />
 
     <!-- Pagination -->
     <div v-if="totalPages > 1" class="mt-12 flex justify-center items-center gap-6">
@@ -111,7 +111,7 @@ function changePage(newPage: number) {
       >
         Previous
       </XButton>
-      <span class="font-sans text-xs text-theme-500 dark:text-theme-400">Page {{ currentPage }} <span class="italic font-serif">of</span> {{ totalPages }}</span>
+      <span class="font-sans text-xs text-theme-500 dark:text-theme-400">{{ currentPage }} / {{ totalPages }}</span>
       <XButton
         :disabled="currentPage === totalPages"
         size="sm"

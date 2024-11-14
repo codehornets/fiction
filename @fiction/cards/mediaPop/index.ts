@@ -9,10 +9,6 @@ const schema = z.object({ })
 
 export type UserConfig = z.infer<typeof schema>
 
-const options: InputOption[] = [
-  new InputOption({ key: 'items', label: 'Tour Items', input: 'InputList', options: [] }),
-]
-
 export const template = cardTemplate({
   templateId,
   category: ['basic'],
@@ -22,6 +18,5 @@ export const template = cardTemplate({
   isPublic: false,
   schema,
   el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
-  options,
-
+  options: [],
 })

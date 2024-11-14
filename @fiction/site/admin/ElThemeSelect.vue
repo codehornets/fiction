@@ -42,16 +42,24 @@ function toggleSelected(themeId: string) {
   <div class="relative my-12 antialiased">
     <div class="grid grid-cols-2 lg:grid-cols-3 gap-12" @click="emit('update:modelValue', '')">
       <div v-for="(theme, i) in themes" :key="i" class="relative space-y-4">
-        <div class="mt-4 w-full rounded-b-lg  transition-all origin-bottom flex gap-4 items-center grow justify-between">
+        <div class="mt-4 w-full rounded-b-lg  transition-all origin-bottom flex gap-4 items-center grow justify-between ">
           <div class="">
             <div class="font-bold text-xl">
               {{ theme.title }}
             </div>
-            <div class="text-sm text-theme-500 dark:text-theme-400 leading-tight">
+            <div class="text-xs text-theme-500 dark:text-theme-400 leading-tight line-clamp-2">
               {{ theme.settings.description }}
             </div>
           </div>
-          <div class="flex justify-end items-center">
+          <div class="flex justify-end items-center gap-1.5">
+            <XButton
+              theme="default"
+              size="sm"
+              href="#"
+              target="_blank"
+            >
+              Preview
+            </XButton>
             <XButton
               theme="primary"
               :design="modelValue === theme.themeId ? 'outline' : 'solid'"
@@ -63,13 +71,13 @@ function toggleSelected(themeId: string) {
           </div>
         </div>
         <div
-          class="screen rounded-lg group relative transition-all cursor-pointer select-none dark:ring-offset-theme-800 aspect-[5/6]"
-          :class="modelValue === theme.themeId ? 'ring-4 ring-offset-4 ring-primary-500' : 'hover:ring-offset-4 hover:ring-4 hover:ring-primary-400'"
+          class="screen rounded-lg group relative transition-all cursor-pointer select-none dark:ring-offset-theme-900 aspect-[9/16] ring-4 ring-offset-4 border border-theme-200/70 dark:border-theme-600/50"
+          :class="modelValue === theme.themeId ? 'ring-primary-500' : 'ring-theme-200/0 dark:ring-theme-700/0 hover:ring-primary-400'"
           :data-test-id="`theme-${theme.themeId}`"
           :data-test-index="i"
           @click.stop="toggleSelected(theme.themeId)"
         >
-          <img :src="theme.settings.screenshot" class="pointer-events-none shadow-xl rounded-lg object-cover absolute origin-top-left h-full w-full">
+          <img :src="theme.settings.screenshots?.dark?.desktop" class="pointer-events-none shadow-xl rounded-lg object-cover absolute origin-top-left h-full w-full">
         </div>
       </div>
     </div>

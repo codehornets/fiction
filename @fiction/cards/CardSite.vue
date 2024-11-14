@@ -83,21 +83,20 @@ unhead.useHead({
   meta: [
     { charset: 'UTF-8' },
     { name: 'generator', content: 'Fiction.com Website Builder' },
+    { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
+    { name: 'description', content: () => page.value?.userConfig.value.seo?.description || page.value?.description.value || '' },
+    { name: 'robots', content: () => site.value?.userConfig.value.seo?.robotsTxt || 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' },
+    // Social media tags
     { name: 'twitter:card', content: 'summary_large_image' },
     { name: 'twitter:site', content: '@fiction_com' },
-    { property: 'og:image:width', content: '1200' },
-    { property: 'og:image:height', content: '630' },
-    { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
-    { name: `description`, content: () => (page.value?.userConfig.value.seo?.description || page.value?.description.value || '') },
-    { name: 'robots', content: () => (site.value?.userConfig.value.seo?.robotsTxt || 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1') },
+    { property: 'og:type', content: 'website' },
+    { property: 'og:title', content: getTitleTag },
+    { property: 'og:url', content: () => site.value?.frame.displayUrl.value },
     { property: 'og:site_name', content: () => site.value?.title.value || '' },
     { property: 'og:locale', content: () => site.value?.fullConfig.value.seo?.locale || 'en_US' },
     { property: 'og:image', content: () => site.value?.fullConfig.value.branding?.shareImage?.url || iconUrls.value.ogImageUrl },
-    { property: 'og:type', content: 'website' },
-    { property: 'og:title', content: () => getTitleTag() },
-    { property: 'og:url', content: () => site.value?.frame.displayUrl.value },
-    { name: 'robots', content: 'index, follow' },
-
+    { property: 'og:image:width', content: '1200' },
+    { property: 'og:image:height', content: '630' },
   ],
   link: [
     {
@@ -242,7 +241,11 @@ vue.onMounted(() => {
         </template>
         <template v-else>
           <div class="h-dvh w-full grid min-h-full place-items-center bg-theme-900 text-white px-6 py-24 sm:py-32 lg:px-8">
-            <El404 heading="No Site Found" sub-heading="No site was found at this URL" />
+            <El404
+              super-heading="404"
+              heading="No Site Available"
+              sub-heading="Nothing was found at this URL. Please check back later."
+            />
           </div>
         </template>
       </div>

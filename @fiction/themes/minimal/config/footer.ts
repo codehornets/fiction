@@ -1,5 +1,6 @@
 import type { template as areaTemplate } from '@fiction/cards/area'
 import type { template as footerTemplate } from '@fiction/cards/footer'
+import type { template as TickerTemplate } from '@fiction/cards/ticker'
 import type { Site } from '@fiction/site'
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { SiteUserConfig } from '@fiction/site/schema'
@@ -12,6 +13,11 @@ export async function getFooter(args: { factory: CardFactory, site: Site, userCo
     regionId: 'footer',
     templateId: 'area',
     cards: [
+      await factory.fromTemplate<typeof TickerTemplate>({ templateId: 'ticker', userConfig: {
+        items: [
+          { text: 'Get the newsletter &rarr;', speed: 3 },
+        ],
+      } }),
       await factory.fromTemplate<typeof footerTemplate>({ templateId: 'footer', userConfig: {
         logo: {
           format: 'typography',

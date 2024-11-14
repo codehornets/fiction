@@ -1,5 +1,5 @@
 import type { BentoItem } from './index'
-import { colorList, getColorScheme } from '@fiction/core'
+import { colorList, getColorScheme, isDarkOrLightMode } from '@fiction/core'
 
 type ThemeMode = 'light' | 'dark' | 'auto'
 
@@ -62,7 +62,7 @@ export function getGradientStyle(item: BentoItem) {
     gradients.push(`radial-gradient(
       circle at ${position},
       rgba(${clr} / .7) 0%,
-      rgba(${clr} / 0.4) 30%,
+      rgba(${clr} / 0.6) 30%,
       rgba(${clr} / 0.2) 70%,
       transparent 100%
     )`)
@@ -82,27 +82,33 @@ export function getContentMaxWidth(item: BentoItem) {
   return {}
 }
 
-export function getThemeColors(item: BentoItem) {
-  const { theme = 'slate', themeMode = 'dark' } = item
+export function getThemeColors(item: BentoItem, el: HTMLElement | null = null) {
+  const { theme = 'slate', themeMode = 'auto' } = item
 
-  const colors = getColorScheme(theme, { outputFormat: 'hex' })
-  const isDark = themeMode === 'dark' || (themeMode === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+  const colors = getColorScheme(theme, { outputFormat: 'rgb' })
+  const prefersScheme = isDarkOrLightMode(el)
+  const isDark = themeMode === 'dark' || (themeMode === 'auto' && prefersScheme === 'dark')
+  const isOverlay = themeMode === 'auto' && item.bg?.url
 
-  if (isDark) {
-    return {
-      background: colors[600],
+  let colorItems: Record<string, string> = {}
+  if (isDark || isOverlay) {
+    colorItems = {
+      background: `rgba(${colors[800]} / ${prefersScheme === 'dark' ? 0.2 : 0.9})`,
       text: '#ffffff',
-      subtext: colors[50],
-      supertext: colors[100],
+      subtext: `rgba(${colors[50]} / 1)`,
+      supertext: `rgba(${colors[100]} / 1)`,
+    }
+  }
+  else {
+    colorItems = {
+      background: `rgba(${colors[100]} / 0.7)`,
+      text: `rgba(${colors[950]} / 1)`,
+      subtext: `rgba(${colors[800]} / 1)`,
+      supertext: `rgba(${colors[600]} / 1)`,
     }
   }
 
-  return {
-    background: colors[50],
-    text: colors[950],
-    subtext: colors[800],
-    supertext: colors[600],
-  }
+  return colorItems
 }
 
 const colSpanMap = {
@@ -131,16 +137,16 @@ export function getGridStyle(item: BentoItem) {
   }
 }
 
-export function getItemStyles(item: BentoItem) {
-  const colors = getThemeColors(item)
+export function getItemStyles(item: BentoItem, el: HTMLElement | null) {
+  const colors = getThemeColors(item, el)
   return {
     backgroundColor: colors.background,
     color: colors.text,
   }
 }
 
-export function getContentStyles(item: BentoItem, type: 'text' | 'super' | 'sub') {
-  const colors = getThemeColors(item)
+export function getContentStyles(item: BentoItem, type: 'text' | 'super' | 'sub', el: HTMLElement | null) {
+  const colors = getThemeColors(item, el)
   return {
     color: type === 'text' ? colors.text : type === 'super' ? colors.supertext : colors.subtext,
   }

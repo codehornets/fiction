@@ -1,16 +1,23 @@
 import type { FictionEnv } from '@fiction/core'
 import { getCardTemplates } from '@fiction/cards/index.js'
 import { safeDirname } from '@fiction/core'
-import { Theme } from '@fiction/site/theme.js'
+import { Theme, type ThemeMeta } from '@fiction/site/theme.js'
 
-// Export minimal theme metadata for theme selector/admin
-export const meta = {
+export const meta: ThemeMeta = {
   root: safeDirname(import.meta.url),
-  name: 'Minimal',
+  title: 'Minimal',
   themeId: 'minimal',
   description: 'A basic, clean theme with a focus on typography and whitespace.',
   version: '1.0.0',
-  screenshot: new URL('./img/screenshot.jpg', import.meta.url).href,
+  screenshots: {
+    light: {
+      desktop: new URL('./img/light-desktop.png', import.meta.url).href,
+    },
+    dark: {
+      desktop: new URL('./img/dark-desktop.png', import.meta.url).href,
+    },
+  },
+
   isPublic: true,
 } as const
 

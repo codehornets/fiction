@@ -16,6 +16,7 @@ const TickerSchema = z.object({
   rotateX: z.number().optional().describe('The rotation angle around the X-axis for 3D effects'),
   rotateY: z.number().optional().describe('The rotation angle around the Y-axis for 3D effects'),
   rotateZ: z.number().optional().describe('The rotation angle around the Z-axis for 3D effects'),
+  href: z.string().optional().describe('The URL to navigate to when the ticker is clicked'),
 }).describe('Schema for individual ticker item configuration')
 
 export const UserConfigSchema = z.object({
@@ -90,7 +91,7 @@ export const template = cardTemplate({
   description: 'Side-scrolling ticker of text and images.',
   icon: 'i-tabler-quote',
   colorTheme: 'green',
-  el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
+  el: vue.defineAsyncComponent(() => import('./ElCard.vue')),
   isPublic: true,
   options,
   schema: UserConfigSchema,

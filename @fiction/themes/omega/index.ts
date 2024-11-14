@@ -3,8 +3,25 @@ import type { Site } from '@fiction/site/site.js'
 import { getCardTemplates } from '@fiction/cards/index.js'
 import { safeDirname } from '@fiction/core'
 import { CardFactory } from '@fiction/site/cardFactory.js'
-import { Theme } from '@fiction/site/theme.js'
+import { Theme, type ThemeMeta } from '@fiction/site/theme.js'
 import { stockMediaHandler } from '@fiction/ui/stock/index.js'
+
+export const meta: ThemeMeta = {
+  root: safeDirname(import.meta.url),
+  themeId: 'omega',
+  description: 'A modern, professional theme for leaders and consultants.',
+  version: '1.0.0',
+  screenshots: {
+    light: {
+      desktop: new URL('./img/light-desktop.png', import.meta.url).href,
+    },
+    dark: {
+      desktop: new URL('./img/dark-desktop.png', import.meta.url).href,
+    },
+  },
+
+  isPublic: true,
+} as const
 
 async function getTemplates() {
   const t = await getCardTemplates()
@@ -173,14 +190,8 @@ export async function setup(args: { fictionEnv: FictionEnv }) {
 
   return new Theme({
     fictionEnv,
-    root: safeDirname(import.meta.url),
-    themeId: 'omega',
-    title: 'Omega',
-    description: 'A modern, professional theme for leaders and consultants.',
-    screenshot: new URL('./img/screenshot.jpg', import.meta.url).href,
-    version: '1.0.0',
+    ...meta,
     templates,
-    isPublic: true,
     getConfig: async ({ site }) => {
       const factory = new CardFactory({ templates, site })
       return {

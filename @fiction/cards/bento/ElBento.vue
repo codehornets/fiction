@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import type { Card } from '@fiction/site'
-import type { BentoItem, UserConfig } from './index'
+import type { UserConfig } from './index'
 import { vue } from '@fiction/core'
-import { animateItemEnter } from '@fiction/ui/anim'
 import ClipPathAnim from '@fiction/ui/anim/AnimClipPath.vue'
-import XButton from '@fiction/ui/buttons/XButton.vue'
 import XIcon from '@fiction/ui/media/XIcon.vue'
 import XLogo from '@fiction/ui/media/XLogo.vue'
 import XMedia from '@fiction/ui/media/XMedia.vue'
+import CardButtons from '../el/CardButtons.vue'
 import {
   getContentMaxWidth,
   getContentStyles,
@@ -23,20 +22,16 @@ const props = defineProps<{
 }>()
 
 const uc = vue.computed(() => props.card.userConfig.value)
-
-vue.onMounted(() => {
-  animateItemEnter({ targets: '.bento-item', themeId: 'fade', totalTime: 1200 })
-})
-
+const bentoWrapEl = vue.ref<HTMLElement | null>(null)
 const gapClass = vue.computed(() => {
   const gapMap = {
     'xxs': 'gap-1',
-    'xs': 'gap-2',
+    'xs': 'gap-3',
     'sm': 'gap-4',
-    'md': 'gap-6',
-    'lg': 'gap-10',
-    'xl': 'gap-14',
-    '2xl': 'gap-20',
+    'md': 'gap-4 lg:gap-8',
+    'lg': 'gap-4 lg:gap-12',
+    'xl': 'gap-4 lg:gap-16',
+    '2xl': 'gap-4 lg:gap-24',
   }
 
   return gapMap[uc.value.gapSize || 'md']
@@ -45,21 +40,21 @@ const gapClass = vue.computed(() => {
 
 <template>
   <div :class="card.classes.value.contentWidth">
-    <div class="grid grid-cols-12 auto-rows-[200px]" :class="[gapClass]">
+    <div ref="bentoWrapEl" class="grid grid-cols-12 auto-rows-[200px]" :class="[gapClass]">
       <ClipPathAnim
         v-for="(item, index) in uc.items"
         :key="index"
-        :animate="uc.animate || ''"
+        :animate="uc.animate || 'expand'"
         caller="bento"
         class="bento-item relative overflow-hidden group rounded-3xl transition-all duration-300 @container"
-        :style="[getGridStyle(item).style, getItemStyles(item)]"
+        :style="[getGridStyle(item).style, getItemStyles(item, bentoWrapEl)]"
         :class="getGridStyle(item).class"
       >
         <div
           class="relative h-full px-6 py-8 @xs:px-8 @xs:py-10 @2xl:p-12 flex flex-col z-10"
           :style="[
             getPositionStyles(item),
-            item.bg ? getTextOverlayStyles(item) : {},
+            item.bg?.url ? getTextOverlayStyles(item) : {},
           ]"
         >
           <div
@@ -78,7 +73,7 @@ const gapClass = vue.computed(() => {
               </div>
               <div
                 class="text-sm @lg:text-base font-medium opacity-90 font-sans"
-                :style="getContentStyles(item, 'super')"
+                :style="getContentStyles(item, 'super', bentoWrapEl)"
               >
                 {{ item.superTitle }}
               </div>
@@ -87,7 +82,7 @@ const gapClass = vue.computed(() => {
             <h3
               v-if="item.title"
               class="text-2xl @xs:text-3xl @xl:text-4xl @5xl:text-6xl @xl:mb-2 @5xl:mb-4 text-balance font-medium @2xl:font-semibold  x-font-title"
-              :style="getContentStyles(item, 'text')"
+              :style="getContentStyles(item, 'text', bentoWrapEl)"
             >
               {{ item.title }}
             </h3>
@@ -95,18 +90,19 @@ const gapClass = vue.computed(() => {
             <p
               v-if="item.content"
               class="line-clamp-3 opacity-90 @xs:text-lg @xl:text-xl @5xl:text-2xl"
-              :style="getContentStyles(item, 'sub')"
+              :style="getContentStyles(item, 'sub', bentoWrapEl)"
             >
               {{ item.content }}
             </p>
 
-            <div v-if="item.actions?.length" class="flex gap-2 mt-4">
-              <XButton
-                v-for="(action, actionIndex) in item.actions"
-                :key="actionIndex"
-                v-bind="action"
-              />
-            </div>
+            <CardButtons
+              v-if="item.actions?.length"
+              :card
+              class="flex gap-3 mt-4"
+              :actions="item.actions"
+              :theme="item.theme || (item.bg?.url ? 'overlay' : 'default')"
+              design="outline"
+            />
 
             <XLogo
               v-if="item.media && item.verticalPosition === 'top'"
