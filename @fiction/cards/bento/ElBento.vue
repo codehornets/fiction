@@ -34,9 +34,9 @@ const gapClass = vue.computed(() => {
     'xs': 'gap-2',
     'sm': 'gap-4',
     'md': 'gap-6',
-    'lg': 'gap-8',
-    'xl': 'gap-12',
-    '2xl': 'gap-16',
+    'lg': 'gap-10',
+    'xl': 'gap-14',
+    '2xl': 'gap-20',
   }
 
   return gapMap[uc.value.gapSize || 'md']

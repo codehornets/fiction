@@ -63,7 +63,7 @@ async function getDefaultConfig(args: { factory: CardFactory }): Promise<UserCon
 
   const uc: UserConfig = {
     animate: 'expand',
-    gapSize: '2xl',
+    gapSize: 'lg',
     items: [
       {
         cols: 12,
