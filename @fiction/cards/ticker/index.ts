@@ -6,18 +6,25 @@ import { z } from 'zod'
 const templateId = 'ticker'
 
 const TickerSchema = z.object({
+  // Content
   text: z.string().describe('The text to display in the ticker'),
+  href: z.string().optional().describe('The URL to navigate to when the ticker is clicked'),
+
+  // Animation
   speed: z.number().min(0).max(10).optional().describe('The speed of the scrolling text'),
   direction: z.enum(['left', 'right']).optional().describe('The direction of the ticker scroll'),
+
+  // Appearance
   font: z.string().optional().describe('The google font family of the text'),
   bgColor: z.string().optional().describe('The color background of the ticker'),
   bgColorDark: z.string().optional().describe('The color background of the ticker in dark mode'),
   outline: z.boolean().optional().describe('Whether to add an outline to the text'),
-  rotateX: z.number().optional().describe('The rotation angle around the X-axis for 3D effects'),
-  rotateY: z.number().optional().describe('The rotation angle around the Y-axis for 3D effects'),
-  rotateZ: z.number().optional().describe('The rotation angle around the Z-axis for 3D effects'),
-  href: z.string().optional().describe('The URL to navigate to when the ticker is clicked'),
-}).describe('Schema for individual ticker item configuration')
+
+  // 3D Transform
+  rotateX: z.number().optional().describe('3D rotation around X-axis (degrees)'),
+  rotateY: z.number().optional().describe('3D rotation around Y-axis (degrees)'),
+  rotateZ: z.number().optional().describe('3D rotation around Z-axis (degrees)'),
+})
 
 export const UserConfigSchema = z.object({
   items: z.array(TickerSchema).describe('Array of ticker items [ai label=Tickers]').optional(),
@@ -34,56 +41,26 @@ const options: InputOption[] = [
     input: 'InputList',
     key: `items`,
     options: [
-      new InputOption({ key: 'text', label: 'Ticker Text', input: 'InputText' }),
-      new InputOption({ key: 'direction', label: 'Direction', input: 'InputSelect', props: { options: ['left', 'right'] } }),
-      new InputOption({ key: 'font', label: 'Font', input: 'InputFont' }),
-      new InputOption({ key: 'bgColor', label: 'Background Color', input: 'InputColor' }),
-      new InputOption({ key: 'bgColorDark', label: 'Background Color (Dark Mode)', input: 'InputColor' }),
-      new InputOption({ key: 'outline', label: 'Outline', input: 'InputToggle' }),
+      new InputOption({ key: 'text', label: 'Text', input: 'InputText' }),
+      new InputOption({ key: 'href', label: 'Link URL', input: 'InputText' }),
+
+      // Animation
       new InputOption({ key: 'speed', label: 'Speed', input: 'InputRange', props: { min: 0, max: 100 } }),
-      new InputOption({ key: 'rotateX', label: 'Rotate X', input: 'InputRange', props: { min: -30, max: 30 } }),
-      new InputOption({ key: 'rotateY', label: 'Rotate Y', input: 'InputRange', props: { min: -30, max: 30 } }),
-      new InputOption({ key: 'rotateZ', label: 'Rotate Z', input: 'InputRange', props: { min: -30, max: 30 } }),
+      new InputOption({ key: 'direction', label: 'Direction', input: 'InputSelect', props: { options: ['left', 'right'] } }),
+
+      // Appearance
+      new InputOption({ key: 'font', label: 'Font', input: 'InputFont' }),
+      new InputOption({ key: 'bgColor', label: 'Background', input: 'InputColor' }),
+      new InputOption({ key: 'bgColorDark', label: 'Background (Dark)', input: 'InputColor' }),
+      new InputOption({ key: 'outline', label: 'Outline', input: 'InputToggle' }),
+
+      // 3D Transform
+      new InputOption({ key: 'rotateX', label: 'Tilt Forward/Back', input: 'InputRange', props: { min: -30, max: 30 } }),
+      new InputOption({ key: 'rotateY', label: 'Tilt Left/Right', input: 'InputRange', props: { min: -30, max: 30 } }),
+      new InputOption({ key: 'rotateZ', label: 'Rotate', input: 'InputRange', props: { min: -30, max: 30 } }),
     ],
   }),
 ]
-
-const defaultConfig: UserConfig = {
-  items: [{
-    text: 'Non nobis solum nati sumus.',
-    rotateX: 5,
-    rotateY: 5,
-    rotateZ: -2,
-    speed: 30,
-  }, {
-    text: 'Non nobis solum nati sumus.',
-    rotateX: 5,
-    rotateY: -5,
-    rotateZ: 2,
-    direction: 'right',
-    outline: true,
-    speed: 50,
-  }],
-}
-
-const demoCard2: UserConfig = {
-  fontSize: 6,
-  items: [
-    {
-      text: 'Non nobis solum nati sumus.',
-      direction: 'left',
-      bgColor: '#000',
-      bgColorDark: '#FFF',
-    },
-    {
-      text: 'Non nobis solum nati sumus.',
-      direction: 'right',
-      font: 'highlight',
-      bgColor: '#586cb2',
-      bgColorDark: '#1e2f69',
-    },
-  ],
-}
 
 export const template = cardTemplate({
   templateId,
@@ -95,11 +72,14 @@ export const template = cardTemplate({
   isPublic: true,
   options,
   schema: UserConfigSchema,
-  getUserConfig: () => defaultConfig,
-  demoPage: async () => {
-    return { cards: [
-      { templateId, userConfig: { ...defaultConfig } },
-      { templateId, userConfig: { ...demoCard2 } },
-    ] }
+  getUserConfig: async (args) => {
+    const { getUserConfig } = await import('./config')
+
+    return getUserConfig({ templateId, ...args })
+  },
+  demoPage: async (args) => {
+    const { getDemo } = await import('./config')
+
+    return getDemo({ templateId, ...args })
   },
 })

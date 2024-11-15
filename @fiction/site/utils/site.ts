@@ -20,6 +20,8 @@ export function setupRouteWatcher(args: {
   if (typeof window === 'undefined')
     return
 
+  const fictionEnv = site.fictionSites.fictionEnv
+
   // Filter out hooks with duplicate keys and register new ones
   const uniqueHooks = queryVarHooks.filter((hook) => {
     if (site.registeredHookKeys.has(hook.key)) {
@@ -34,45 +36,39 @@ export function setupRouteWatcher(args: {
   if (!uniqueHooks.length)
     return
 
-  const watcher = vue.watch(
+  const sw = vue.watch(
     () => site.siteRouter.current.value,
     async (route) => {
       if (!route)
         return
-      const routeVars = { ...route.params, ...route.query } as Record<string, string>
 
-      await Promise.all(uniqueHooks.map(async ({ key, callback }) => {
-        const value = routeVars[key]
-        if (!value)
-          return
+      await waitFor(50)
 
-        try {
-          const result = await callback({ site, value })
-          const url = new URL(window.location.href)
-          url.searchParams.delete(key)
+      const routeVars = { ...route.params, ...route.query } as Record<string, string | undefined>
+
+      for (const hook of queryVarHooks) {
+        const { key } = hook
+        if (typeof routeVars[key] !== 'undefined') {
+          const result = await hook.callback({ site, value: routeVars[key] })
+          // Create new query parameters excluding the current hook key
+          const newQuery = { ...route.query }
+          delete newQuery[key]
+          await site.siteRouter.replace({
+            path: route.path,
+            query: newQuery,
+            hash: route.hash,
+          }, { caller: 'setupRouteWatcher:update' })
 
           if (result?.reload) {
-            window.location.href = url.toString()
-          }
-          else {
-            window.history.replaceState({}, '', url.toString())
+            window.location.reload()
           }
         }
-        catch (error) {
-          console.error(`[Site ${site.siteId}] Error processing hook "${key}":`, error)
-        }
-      }))
+      }
     },
     { immediate: true },
   )
 
-  // Add cleanup to site's environment cleanup callbacks
-  const cleanup = () => {
-    uniqueHooks.forEach(hook => site.registeredHookKeys.delete(hook.key))
-    watcher()
-  }
-
-  site.fictionSites.fictionEnv.cleanupCallbacks.push(cleanup)
+  fictionEnv.cleanupCallbacks.push(() => sw())
 }
 
 export function setSections(args: { site: Site, sections?: Record<string, CardConfigPortable>, themeSections?: Record<string, CardConfigPortable> }) {

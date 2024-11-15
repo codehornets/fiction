@@ -15,7 +15,11 @@ export async function getFooter(args: { factory: CardFactory, site: Site, userCo
     cards: [
       await factory.fromTemplate<typeof TickerTemplate>({ templateId: 'ticker', userConfig: {
         items: [
-          { text: 'Get the newsletter &rarr;', speed: 3 },
+          {
+            text: 'Get the newsletter &rarr;',
+            speed: 3,
+            href: '?_subscribe',
+          },
         ],
       } }),
       await factory.fromTemplate<typeof footerTemplate>({ templateId: 'footer', userConfig: {

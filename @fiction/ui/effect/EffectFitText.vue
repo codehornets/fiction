@@ -3,15 +3,16 @@ import { vue, waitFor } from '@fiction/core'
 import { twMerge } from 'tailwind-merge'
 import { Fitty } from './utilFitText.js'
 
-const props = defineProps({
-  wrapClass: { type: String, default: '' },
-  minSize: { type: Number, default: 16 },
-  maxSize: { type: Number, default: 350 },
-  multiLine: { type: Boolean, default: true },
-  lines: { type: Number, default: 1 },
-  observeMutations: { type: [Boolean, Object], default: true },
-  content: { type: String, required: true },
-})
+const { wrapClass = '', minSize = 16, maxSize = 350, multiLine = true, lines = 1, observeMutations = true, content = '', tag = 'div' } = defineProps<{
+  wrapClass?: string
+  minSize?: number
+  maxSize?: number
+  multiLine?: boolean
+  lines?: number
+  observeMutations?: boolean | { subtree: boolean, childList: boolean, characterData: boolean }
+  content: string
+  tag?: 'div' | 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+}>()
 
 const fittyRef = vue.ref<HTMLElement | null>(null)
 const containerRef = vue.ref<HTMLElement | null>(null)
@@ -22,13 +23,13 @@ function initFitty() {
   if (fittyRef.value) {
     fitty.value = new Fitty({ debug: false })
     fitty.value.fit(fittyRef.value, {
-      minSize: props.minSize,
-      maxSize: props.maxSize,
-      multiLine: props.multiLine,
-      lines: props.lines,
-      observeMutations: props.observeMutations === true
+      minSize,
+      maxSize,
+      multiLine,
+      lines,
+      observeMutations: observeMutations === true
         ? { subtree: true, childList: true, characterData: true }
-        : props.observeMutations,
+        : observeMutations,
     })
   }
 }
@@ -67,7 +68,7 @@ vue.onBeforeUnmount(() => {
 })
 
 vue.watch(
-  () => [props.content, props.minSize, props.maxSize, props.multiLine, props.lines],
+  () => [content, minSize, maxSize, multiLine, lines],
   () => {
     isTextVisible.value = false // Hide text before refitting
     refitText()
@@ -75,7 +76,7 @@ vue.watch(
   { deep: true, immediate: true },
 )
 
-const cls = vue.computed(() => twMerge(props.wrapClass))
+const cls = vue.computed(() => twMerge(wrapClass))
 
 // Expose a method to force recalculation
 function forceRecalculate() {
@@ -91,16 +92,16 @@ defineExpose({ forceRecalculate })
 // Compute an initial font size based on container size
 const initialFontSize = vue.computed(() => {
   if (!containerRef.value)
-    return `${props.minSize}px`
+    return `${minSize}px`
   const containerWidth = containerRef.value.clientWidth
   const containerHeight = containerRef.value.clientHeight
-  const initialSize = Math.min(containerWidth / 10, containerHeight / 2, props.maxSize)
-  return `${Math.max(initialSize, props.minSize)}px`
+  const initialSize = Math.min(containerWidth / 10, containerHeight / 2, maxSize)
+  return `${Math.max(initialSize, minSize)}px`
 })
 </script>
 
 <template>
-  <div ref="containerRef" :class="cls">
+  <component :is="tag" ref="containerRef" :class="cls">
     <div
       ref="fittyRef"
       class="w-full h-full transition-opacity duration-300"
@@ -113,5 +114,5 @@ const initialFontSize = vue.computed(() => {
     >
       <slot />
     </div>
-  </div>
+  </component>
 </template>

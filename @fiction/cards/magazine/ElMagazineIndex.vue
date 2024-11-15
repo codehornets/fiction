@@ -34,7 +34,7 @@ function getItemClasses(index: number): string {
   if (index === 0)
     out.push('col-span-1 lg:col-span-2 row-span-2 rounded-lg min-h-[400px]')
   else
-    out.push('col-span-1 row-span-1 aspect-[4/3]')
+    out.push('col-span-1 row-span-1 flex flex-col')
 
   return out.join(' ')
 }
@@ -51,7 +51,7 @@ function changePage(newPage: number) {
 <template>
   <div :class="card.classes.value.contentWidth">
     <!-- Grid Container -->
-    <div v-if="posts.length" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
+    <div v-if="posts.length" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 auto-rows-[minmax(280px,20vh)]">
       <!-- Loop through posts -->
       <CardLink
         v-for="(post, i) in posts"
@@ -62,8 +62,8 @@ function changePage(newPage: number) {
         :data-link-slug="post.slug.value"
         :data-link-href="post.href.value"
       >
-        <EffectGlare class="relative" wrap-class="rounded-[20px]" :class="i === 0 ? 'w-full h-full' : 'aspect-[4/3]'">
-          <XMedia class="bg-theme-50 dark:bg-theme-700/70" :animate="true" :media="post.media.value" :class="i === 0 ? 'w-full h-full' : 'aspect-[4/3]'" />
+        <EffectGlare class="relative" wrap-class="rounded-[20px]" :class="i === 0 ? 'w-full h-full' : 'w-full h-full'">
+          <XMedia class="bg-theme-50 dark:bg-theme-700/70" :animate="true" :media="post.media.value" :class="i === 0 ? 'w-full h-full' : 'w-full h-full'" />
           <div v-if="i === 0" class="py-8 px-5 space-y-4 absolute top-0 z-10">
             <div class="mb-4 space-x-2">
               <CardButton
@@ -77,14 +77,14 @@ function changePage(newPage: number) {
                 :href="taxonomyLink({ card, taxonomy: 'category', term: cat })"
               />
             </div>
-            <CardTextPost :data-post-title="post.title.value" :post path="title" tag="h2" class="text-2xl md:text-3xl font-semibold x-font-title text-balance max-w-[80%]" />
+            <CardTextPost :data-post-title="post.title.value" :post path="title" tag="h2" class="text-2xl md:text-3xl font-medium x-font-title text-balance max-w-[80%]" />
             <ElAuthor v-for="(author, ii) in post.authors.value || []" :key="ii" :user="author" :date-at="post.dateAt.value" />
           </div>
           <div class="overlay absolute w-full h-full z-0 pointer-events-none inset-0 bg-[radial-gradient(circle_at_0%_100%,rgba(0,0,0,.5)_0,rgba(0,0,0,.3)_40%,transparent_70%)]" />
         </EffectGlare>
 
         <div v-if="i !== 0" class="pt-4">
-          <CardTextPost :post path="title" tag="h2" class="text-lg font-medium x-font-title !leading-[1.3]" />
+          <CardTextPost :post path="title" tag="h2" class="text-xl font-medium x-font-title !leading-[1.3]" />
           <div class="mt-2 space-x-2">
             <CardButton
               v-for="(cat, ii) in post.categories.value?.slice(0, 2)"

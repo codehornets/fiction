@@ -3,6 +3,7 @@ import type { Card } from '@fiction/site'
 import type { UserConfig } from './index.js'
 import { vue } from '@fiction/core'
 import { useElementVisible } from '@fiction/ui/anim'
+import EffectFitText from '@fiction/ui/effect/EffectFitText.vue'
 import EffectGlare from '@fiction/ui/effect/EffectGlare.vue'
 import XMedia from '@fiction/ui/media/XMedia.vue'
 import CardText from '../CardText.vue'
@@ -57,13 +58,15 @@ vue.onMounted(async () => {
                 path="superTitle"
                 animate="rise"
               />
-              <CardText
+              <EffectFitText
                 tag="h1"
-                :card
-                class="heading text-4xl font-semibold md:text-4xl lg:text-5xl x-font-title lg:leading-[1.2] text-balance"
-                path="title"
-                animate="rise"
-              />
+                :content="uc.title || ''"
+                class="heading text-4xl font-semibold md:text-4xl lg:text-5xl x-font-title lg:leading-[1.2] "
+                :lines="3"
+              >
+                <CardText :card tag="span" path="title" animate="rise" />
+              </EffectFitText>
+
               <CardText
                 tag="div"
                 :card

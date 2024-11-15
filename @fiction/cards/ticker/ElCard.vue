@@ -3,6 +3,7 @@ import type { Card } from '@fiction/site'
 import type { FontConfigVal } from '@fiction/site/utils/fonts'
 import type { Ticker, UserConfig } from '.'
 import CardText from '@fiction/cards/CardText.vue'
+import CardLink from '@fiction/cards/el/CardLink.vue'
 import { getTextColorBasedOnBackground, isDarkOrLightMode, vue } from '@fiction/core'
 import { fontFamilyByKey } from '@fiction/site/utils/fonts'
 
@@ -91,9 +92,10 @@ function getAnimationDuration(speed?: number): string {
 <template>
   <div class="">
     <div ref="tickerWrap" class="x-font-title font-bold [perspective:1000px] " :style="{ perspective: '1000px' }">
-      <div
+      <CardLink
         v-for="(item, i) in items"
         :key="i"
+        :card
         :style="{
           'fontFamily': fontFamilyByKey(item.font),
           'fontSize': item.fontSize,
@@ -103,7 +105,9 @@ function getAnimationDuration(speed?: number): string {
           '-webkit-text-fill-color': item.outline ? 'transparent' : '',
           'line-height': '1.2',
         }"
-        class=""
+        class="transition-all"
+        :class="item.href ? 'hover:opacity-80' : ''"
+        :href="item.href"
       >
         <div
           class="flex whitespace-nowrap"
@@ -114,7 +118,7 @@ function getAnimationDuration(speed?: number): string {
             <span v-for="ii in 30" :key="ii" class="font-bold"><CardText tag="span" :card :path="`items.${i}.text`" />&nbsp;</span>
           </div>
         </div>
-      </div>
+      </CardLink>
     </div>
   </div>
 </template>

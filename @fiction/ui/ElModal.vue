@@ -1,17 +1,19 @@
 <script lang="ts" setup>
 import { onResetUi, resetUi, vue, waitFor } from '@fiction/core'
 import { PopupUtility } from './anim/popupUtil'
+import ElClose from './common/ElClose.vue'
 
 defineOptions({ name: 'ElModal' })
 
-const props = defineProps({
-  vis: { type: Boolean, default: false },
-  title: { type: String, default: '' },
-  sub: { type: String, default: '' },
-  modalClass: { type: String, default: undefined },
-  styleClass: { type: String, default: undefined },
-  fullScreen: { type: Boolean, default: false },
-})
+const { vis = false, title = '', sub = '', modalClass, styleClass, fullScreen = false, hasClose = false } = defineProps<{
+  vis?: boolean
+  title?: string
+  sub?: string
+  modalClass?: string
+  styleClass?: string
+  fullScreen?: boolean
+  hasClose?: boolean
+}>()
 
 const emit = defineEmits(['update:vis', 'close', 'escape'])
 const popupUtil = new PopupUtility()
@@ -23,10 +25,10 @@ function close(args: { reason: 'escape' | 'reset' }): void {
     emit('escape', true)
 }
 
-const cls = props.modalClass ? [props.modalClass] : ['max-w-screen-md p-24']
-const styleClass = props.styleClass ? [props.styleClass] : ['bg-white text-theme-900 dark:bg-theme-900 dark:text-theme-0', 'shadow-xl']
+const cls = modalClass ? [modalClass] : ['max-w-screen-md p-24']
+const defaultStyleClass = styleClass ? [styleClass] : ['bg-white text-theme-900 dark:bg-theme-900 dark:text-theme-0', 'shadow-xl']
 
-if (props.fullScreen)
+if (fullScreen)
   cls.push('fixed inset-0')
 else
   cls.push('rounded-xl my-6 mx-3')
@@ -38,14 +40,14 @@ const classes = [
   'transition-all',
   'w-full',
   ...cls,
-  ...styleClass,
+  ...defaultStyleClass,
 ]
 
 const afterVisible = vue.ref(false)
 const cleanups = [] as (() => void)[]
 vue.onMounted(async () => {
   const unwatch = vue.watch(
-    () => props.vis,
+    () => vis,
     (vis) => {
       if (vis) {
         popupUtil.activate()
@@ -128,6 +130,9 @@ export default {
               class="click-stop"
               @click.stop="resetUi({ scope: 'inputs', cause: `modalClick`, trigger: 'elementClick' })"
             >
+              <div v-if="hasClose" class="absolute top-0 right-0">
+                <ElClose @click.stop="close({ reason: 'escape' })" />
+              </div>
               <slot />
             </div>
           </transition>

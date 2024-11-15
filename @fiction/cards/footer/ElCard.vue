@@ -91,7 +91,7 @@ vue.onMounted(() => {
     <div class=" px-4 lg:px-0">
       <div :class="layoutClasses.wrapClass">
         <div :class="layoutClasses.logoClass" class="text-primary-500 dark:text-theme-0">
-          <XLogo v-if="uc.logo" :media="uc.logo" class="h-8" alignment-class="md:justify-start justify-center" />
+          <XLogo v-if="uc.logo" :media="uc.logo" class="h-8" alignment-class="lg:justify-start justify-center" />
           <CardText
             class="text-sm text-theme-700 dark:text-theme-500 x-font-title leading-tight"
             :card
