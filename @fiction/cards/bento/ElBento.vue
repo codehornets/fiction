@@ -51,14 +51,14 @@ const gapClass = vue.computed(() => {
         :class="getGridStyle(item).class"
       >
         <div
-          class="relative h-full px-6 py-8 @xs:px-8 @xs:py-10 @2xl:p-12 flex flex-col z-10"
+          class="relative h-full px-6 py-8 @xs:px-8 @xs:py-10 @2xl:p-12 @4xl:p-16 flex flex-col z-10"
           :style="[
             getPositionStyles(item),
             item.bg?.url ? getTextOverlayStyles(item) : {},
           ]"
         >
           <div
-            class="flex flex-col gap-1"
+            class="flex flex-col gap-1 @2xl:gap-3"
             :style="getContentMaxWidth(item)"
           >
             <XLogo
@@ -67,12 +67,12 @@ const gapClass = vue.computed(() => {
               class="max-w-full mb-6"
               :style="{ width: item.media.displayWidthPercent ? `${item.media.displayWidthPercent}%` : 'auto' }"
             />
-            <div v-if="item.superTitle || item.superIcon" class="flex gap-3 items-center">
+            <div v-if="item.superTitle || item.superIcon" class="flex gap-3  items-center">
               <div v-if="item.superIcon" class="size-10 rounded-full flex items-center justify-center">
                 <XIcon :media="item.superIcon" class="size-6" />
               </div>
               <div
-                class="text-sm @lg:text-base font-medium opacity-90 font-sans"
+                class="text-sm @lg:text-base @2xl:text-lg font-medium opacity-90 font-sans"
                 :style="getContentStyles(item, 'super', bentoWrapEl)"
               >
                 {{ item.superTitle }}

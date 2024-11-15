@@ -1,8 +1,12 @@
 <script lang="ts" setup>
-import type { Card } from '@fiction/site'
+import type { Card, Site } from '@fiction/site'
 import type { UserConfig } from '.'
 import { localRef, useService, vue } from '@fiction/core'
+import { type QueryVarHook, setupRouteWatcher } from '@fiction/site/utils/site'
+import ElClose from '@fiction/ui/common/ElClose.vue'
+import ElModal from '@fiction/ui/ElModal.vue'
 import CardText from '../CardText.vue'
+import { MediaEmbedder } from '../mediaPop/mediaEmbedder'
 import EffectScrollModal from './EffectScrollModal.vue'
 import EmailForm from './EmailForm.vue'
 
@@ -19,11 +23,23 @@ const subscribed = localRef({ key: `capture-subscribed`, def: '', lifecycle: 'lo
 const dismissedLoad = localRef({ key: `capture-dismissed-load`, def: false, lifecycle: 'session' })
 const dismissedScroll = localRef({ key: `capture-dismissed-scroll`, def: false, lifecycle: 'session' })
 
-vue.onMounted(async () => {
-  await Promise.all([
-    service.fictionUser.userInitialized(),
+const modalState = vue.ref<'subscribeModal' | 'confirmModal' | ''>('')
 
-  ])
+vue.onMounted(async () => {
+  vue.watch(() => props.card.site, (v) => {
+    if (v) {
+      const queryVarHooks: QueryVarHook[] = [{
+        key: '_subscribe',
+        callback: async (args: { site: Site, value: string }) => {
+          const { value } = args
+
+          modalState.value = 'subscribeModal'
+          return {}
+        },
+      }]
+      setupRouteWatcher({ site: v, queryVarHooks })
+    }
+  }, { immediate: true })
   loading.value = false
 })
 
@@ -64,27 +80,36 @@ export default {
   <div :data-value="JSON.stringify({ subscribed })" :data-wrap-mode="uc.presentationMode">
     <template v-if="uc.presentationMode !== 'inline'">
       <teleport v-if="uc.presentationMode === 'onLoad'" to=".x-site">
-        <div v-if="showCard && !dismissedLoad" :data-mode="uc.presentationMode" class=" pointer-events-none z-[45] text-theme-800 dark:text-theme-0 fixed left-0 top-0 flex h-[100dvh] w-[100dvw] items-center justify-center bg-theme-0 dark:bg-theme-900">
+        <div v-if="showCard && !dismissedLoad" :data-mode="uc.presentationMode" class="pointer-events-none z-[45] text-theme-800 dark:text-theme-0 fixed left-0 top-0 flex h-[100dvh] w-[100dvw] items-center justify-center bg-theme-0 dark:bg-theme-900">
           <div class="fixed inset-0 z-10 overflow-y-auto">
-            <div class="flex min-h-full flex-col items-center justify-center p-4 text-center sm:items-center sm:p-0">
-              <div class="relative w-full overflow-hidden rounded-lg px-4 md:px-8 py-10 text-left transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-12">
-                <EmailForm
-                  class="pointer-events-auto"
-                  :animate="false"
-                  :card
-                  v-bind="attrs"
-                  :show-dismiss="true"
-                  @update:subscribed="subscribed = $event"
-                  @update:dismissed="dismissedLoad = $event"
+            <div class="flex min-h-full flex-col items-center justify-center  ">
+              <div class="absolute right-3 top-3 pointer-events-auto">
+                <ElClose
+                  @click.prevent="dismissedLoad = true"
                 />
               </div>
+              <EmailForm
+                class="pointer-events-auto p-8 py-12 md:p-16"
+                :animate="false"
+                :card
+                v-bind="attrs"
+                :show-dismiss="true"
+                @update:subscribed="subscribed = $event"
+                @update:dismissed="dismissedLoad = $event"
+              />
             </div>
           </div>
         </div>
       </teleport>
       <EffectScrollModal v-if="uc.presentationMode === 'onScroll' && showCard && !dismissedScroll">
-        <div class="px-4 md:px-8 py-10" :data-mode="uc.presentationMode">
+        <div :data-mode="uc.presentationMode">
+          <div class="absolute right-3 top-3">
+            <ElClose
+              @click.prevent="dismissedScroll = true"
+            />
+          </div>
           <EmailForm
+            class="p-8 py-12 md:p-16"
             :card
             v-bind="attrs"
             :show-dismiss="true"
@@ -99,7 +124,13 @@ export default {
       <EmailForm :animate="true" :card :subscribed @update:subscribed="subscribed = $event" />
     </div>
     <div v-else class="p-4 text-center bg-theme-50 dark:bg-theme-700/60 dark:text-theme-500 max-w-sm mx-auto rounded-full">
-      <CardText tag="h2" class="font-normal x-font-title text-balance" :card path="thanksText" fallback="Thanks for subscribing! Please confirm via email." />
+      <CardText
+        tag="h2"
+        class="font-normal x-font-title text-balance"
+        :card
+        path="thanksText"
+        fallback="Congratulations, you've subscribed! Please confirm via email."
+      />
     </div>
   </div>
 </template>

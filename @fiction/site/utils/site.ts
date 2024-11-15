@@ -11,43 +11,68 @@ export type QueryVarHook = {
 }
 
 // This function encapsulates the watcher logic
-export function setupRouteWatcher(args: { site: Site, queryVarHooks: QueryVarHook[] }): CleanupCallback {
+export function setupRouteWatcher(args: {
+  site: Site
+  queryVarHooks: QueryVarHook[]
+}): void {
   const { site, queryVarHooks } = args
-  const fictionEnv = site.fictionSites.fictionEnv
-  if (typeof window === 'undefined') {
-    return
-  }
 
-  const sw = vue.watch(
+  if (typeof window === 'undefined')
+    return
+
+  // Filter out hooks with duplicate keys and register new ones
+  const uniqueHooks = queryVarHooks.filter((hook) => {
+    if (site.registeredHookKeys.has(hook.key)) {
+      console.warn(`[Site ${site.siteId}] Hook with key "${hook.key}" is already registered`)
+      return false
+    }
+    site.registeredHookKeys.add(hook.key)
+    return true
+  })
+
+  // Only set up watcher if we have valid hooks
+  if (!uniqueHooks.length)
+    return
+
+  const watcher = vue.watch(
     () => site.siteRouter.current.value,
     async (route) => {
       if (!route)
         return
+      const routeVars = { ...route.params, ...route.query } as Record<string, string>
 
-      const routeVars = { ...route.params, ...route.query } as Record<string, string | undefined>
+      await Promise.all(uniqueHooks.map(async ({ key, callback }) => {
+        const value = routeVars[key]
+        if (!value)
+          return
 
-      for (const hook of queryVarHooks) {
-        const { key } = hook
-        if (routeVars[key]) {
-          const result = await hook.callback({ site, value: routeVars[key] })
+        try {
+          const result = await callback({ site, value })
+          const url = new URL(window.location.href)
+          url.searchParams.delete(key)
+
           if (result?.reload) {
-            const url = new URL(window.location.href)
-            url.searchParams.delete(key)
             window.location.href = url.toString()
           }
           else {
-            // remove from query params
-            const url = new URL(window.location.href)
-            url.searchParams.delete(key)
             window.history.replaceState({}, '', url.toString())
           }
         }
-      }
+        catch (error) {
+          console.error(`[Site ${site.siteId}] Error processing hook "${key}":`, error)
+        }
+      }))
     },
     { immediate: true },
   )
 
-  fictionEnv.cleanupCallbacks.push(() => sw())
+  // Add cleanup to site's environment cleanup callbacks
+  const cleanup = () => {
+    uniqueHooks.forEach(hook => site.registeredHookKeys.delete(hook.key))
+    watcher()
+  }
+
+  site.fictionSites.fictionEnv.cleanupCallbacks.push(cleanup)
 }
 
 export function setSections(args: { site: Site, sections?: Record<string, CardConfigPortable>, themeSections?: Record<string, CardConfigPortable> }) {

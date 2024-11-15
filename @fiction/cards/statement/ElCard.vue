@@ -49,7 +49,7 @@ function onSlideChange(index: number) {
               />
             </div>
 
-            <CardButtons :card class="mt-12" :actions="(slide as Statement).actions" ui-size="2xl" animate="rise" />
+            <CardButtons :card class="mt-12" :actions="(slide as Statement).actions || []" ui-size="2xl" animate="rise" />
           </div>
         </div>
       </template>

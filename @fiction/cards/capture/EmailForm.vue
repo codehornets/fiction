@@ -4,9 +4,10 @@ import type { Card } from '@fiction/site'
 import type { UserConfig } from '.'
 import { useService, vue } from '@fiction/core'
 import XButton from '@fiction/ui/buttons/XButton.vue'
+import ElClose from '@fiction/ui/common/ElClose.vue'
 import ElForm from '@fiction/ui/inputs/ElForm.vue'
 import ElEmail from '@fiction/ui/inputs/InputEmail.vue'
-import XMedia from '@fiction/ui/media/XMedia.vue'
+import XLogo from '@fiction/ui/media/XLogo.vue'
 import CardText from '../CardText.vue'
 
 const props = defineProps({
@@ -68,28 +69,38 @@ async function createSubscription() {
 </script>
 
 <template>
-  <div>
-    <div class="max-w-md mx-auto space-y-8">
-      <div class="mx-auto  text-center">
+  <div class="relative ">
+    <div class="space-y-6 max-w-lg mx-auto">
+      <div class="mx-auto text-left">
         <div v-if="uc.media" class="mb-3 md:mb-6 text-center">
           <div class="relative inline-block dark:text-theme-0">
-            <XMedia :animate="animate ? 'swipe' : false" class="h-10 md:h-20 aspect-[2/1] object-contain" :media="uc.media" />
+            <XLogo :animate="animate ? 'swipe' : false" class="h-10 md:h-16 aspect-[2/1] object-contain" :media="uc.media" />
           </div>
         </div>
-        <CardText :animate="animate" path="superHeading" :card class="font-sans text-sm text-theme-400/80 font-medium  text-balance mb-3" />
-        <CardText :animate="animate" path="heading" :card class="x-font-title text-xl md:text-2xl font-semibold  text-balance" />
-        <CardText :animate="animate" path="subHeading" :card class="text-sm md:text-base text-theme-500 dark:text-theme-300 text-balance my-3" />
+        <CardText :animate="animate" path="superHeading" :card class="font-sans text-sm text-theme-400/80 font-medium  mb-3" />
+        <CardText :animate="animate" path="heading" :card class="x-font-title text-xl md:text-2xl font-semibold x-font-title" />
+        <CardText :animate="animate" path="subHeading" :card class="text-sm md:text-base text-theme-500 dark:text-theme-300 my-3" />
       </div>
-      <ElForm class="flex gap-2 mx-auto max-w-xs md:max-w-sm" @submit="createSubscription()">
-        <ElEmail v-model="email" data-test-id="email" />
-        <XButton data-test-id="submit" theme="primary" class="shrink-0" type="submit" :loading="loading">
+      <ElForm class="flex flex-col gap-4  " @submit="createSubscription()">
+        <ElEmail
+          v-model="email"
+          data-test-id="email"
+          input-class="bg-theme-50 dark:bg-theme-600/50 dark:ring-theme-400/70"
+          ui-size="lg"
+        />
+        <XButton
+          data-test-id="submit"
+          theme="primary"
+          class="shrink-0"
+          type="submit"
+          rounding="md"
+          :loading="loading"
+          format="block"
+          size="lg"
+        >
           {{ uc.buttonText || 'Subscribe' }}
         </XButton>
       </ElForm>
-
-      <div v-if="showDismiss" class=" text-xs font-sans antialiased font-medium text-center">
-        <a data-test-id="dismiss" href="#" class="text-theme-300 dark:text-theme-400 hover:opacity-80 cursor-pointer select-none" @click.prevent="emit('update:dismissed', true)">{{ uc.dismissText }} &rarr;</a>
-      </div>
     </div>
   </div>
 </template>

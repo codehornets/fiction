@@ -50,7 +50,6 @@ export async function setup(args: { fictionEnv: FictionEnv, fictionStripe?: Fict
     themeId: 'fiction',
     title: 'Fiction',
     description: 'Fiction\'s actual website',
-    screenshot: new URL('./img/screenshot.jpg', import.meta.url).href,
     version: '1.0.0',
     templates,
     isPublic: false,

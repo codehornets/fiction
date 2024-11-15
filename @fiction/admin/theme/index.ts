@@ -108,7 +108,6 @@ export async function setup(args: { fictionEnv: FictionEnv, fictionAdmin: Fictio
     root: safeDirname(import.meta.url),
     themeId: 'admin',
     title: 'Admin',
-    screenshot: '#',
     version: '1.0.0',
     templates,
     isPublic: false,

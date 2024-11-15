@@ -45,14 +45,15 @@ export async function setup(args: { fictionEnv: FictionEnv }) {
         import('./config/pages').then(m => m.getPages(args)),
         import('./config/header').then(m => m.getHeader(args)),
         import('./config/footer').then(m => m.getFooter(args)),
+        import('./config/sections').then(m => m.getHidden(args)),
       ])
 
-      const [pages, header, footer] = configs
+      const [pages, header, footer, hidden] = configs
 
       return {
         pages,
-        sections: { header, footer },
-      }
+        sections: { header, footer, hidden },
+      } as const
     },
 
   })

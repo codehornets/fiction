@@ -64,16 +64,16 @@ vue.onUnmounted(() => {
   <teleport to=".x-site">
     <div v-if="modalVisible">
       <div
-        class="fixed inset-0 z-30 bg-theme-800/80 dark:bg-theme-400/50 will-change-scroll "
+        class="fixed inset-0 z-30 bg-theme-800/80 dark:bg-theme-600/80 backdrop-blur-sm will-change-scroll "
         :style="{ opacity: backdropOpacity }"
       />
       <div
         ref="modal"
-        class="left-1/2 transform -translate-x-1/2 z-40 w-full max-w-lg p-4"
+        class="left-1/2 transform -translate-x-1/2 z-40 w-full max-w-lg p-3"
         :class="{ 'fixed top-1/2 -translate-y-1/2': modalFixed, 'absolute': !modalFixed }"
         :style="{ top: modalFixed ? '50%' : `${calculateTop()}px` }"
       >
-        <div class="rounded-2xl p-4 md:p-8 bg-theme-0 dark:bg-theme-800 ring-1 ring-inset ring-theme-200 dark:ring-theme-600 shadow-lg">
+        <div class="rounded-2xl  bg-theme-0 dark:bg-theme-800 ring-1 ring-inset ring-theme-200 dark:ring-theme-600 shadow-lg">
           <slot />
         </div>
       </div>

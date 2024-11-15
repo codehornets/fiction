@@ -48,7 +48,6 @@ export async function setup(args: { fictionEnv: FictionEnv }) {
     themeId: 'test',
     title: 'Standard',
     description: 'Standard and minimal',
-    screenshot: new URL('./img/screenshot.jpg', import.meta.url).href,
     version: '1.0.0',
     templates,
     getConfig: async (args) => {

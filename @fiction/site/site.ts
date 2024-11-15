@@ -66,6 +66,7 @@ export class Site<T extends SiteSettings = SiteSettings> extends FictionObject<T
     this.watchers()
   }
 
+  registeredHookKeys = new Set<string>()
   watchers() {
     if (typeof window === 'undefined') {
       return
