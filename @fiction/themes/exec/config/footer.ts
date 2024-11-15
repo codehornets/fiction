@@ -12,7 +12,7 @@ export async function getFooter(args: { factory: CardFactory, site: Site, userCo
     regionId: 'footer',
     templateId: 'area',
     cards: [
-      await factory.fromTemplate<typeof footerTemplate>({ templateId: 'footer', userConfig: {
+      await factory.fromTemplate<typeof footerTemplate>({ templateId: 'footerPro', userConfig: {
         logo: {
           format: 'typography',
           typography: { text: 'Minimal', font, weight },

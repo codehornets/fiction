@@ -207,7 +207,7 @@ export async function setup(args: { fictionEnv: FictionEnv, fictionStripe?: Fict
           footer: await factory.create({
             cards: [
               await factory.create({
-                templateId: 'footer',
+                templateId: 'footerPro',
                 userConfig: {
                   logo: {
                     format: 'html',
