@@ -1,6 +1,5 @@
 import { vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site'
-import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
 const templateId = 'mediaPop'

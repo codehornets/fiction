@@ -7,8 +7,8 @@
     "@pinecone-database/pinecone": "^4.0.0",
     "ai": "^3.4.33",
     "openai": "^4.72.0",
-    "tailwindcss": "^3.4.14",
-    "vue": "^3.5.12"
+    "tailwindcss": "^3.4.15",
+    "vue": "^3.5.13"
   },
   "gitHead": "b257411e1c6c32b52b444cc6f1518bf1bee1e480",
   "license": "MIT",

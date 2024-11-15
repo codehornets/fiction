@@ -1,6 +1,6 @@
 import type { Site, SiteSettings } from '../index.js'
 import type { CardConfigPortable, TableSiteConfig } from '../tables.js'
-import { type CleanupCallback, toCamel, vue, waitFor } from '@fiction/core'
+import { toCamel, vue, waitFor } from '@fiction/core'
 import { Card } from '../card.js'
 import { setPages } from './page.js'
 

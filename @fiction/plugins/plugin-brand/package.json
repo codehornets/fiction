@@ -7,7 +7,7 @@
     "@fiction/posts": "workspace:*",
     "@fiction/site": "workspace:*",
     "@fiction/ui": "workspace:*",
-    "vue": "^3.5.12"
+    "vue": "^3.5.13"
   },
   "gitHead": "b257411e1c6c32b52b444cc6f1518bf1bee1e480",
   "license": "MIT",

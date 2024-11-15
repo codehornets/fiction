@@ -1,5 +1,5 @@
 import type { BentoItem } from './index'
-import { colorList, getColorScheme, isDarkOrLightMode } from '@fiction/core'
+import { getColorScheme, isDarkOrLightMode } from '@fiction/core'
 
 type ThemeMode = 'light' | 'dark' | 'auto'
 
