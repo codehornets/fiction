@@ -4,8 +4,9 @@ import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 import { standardOption } from '../inputSets'
 
-const templateId = 'footer'
+const templateId = 'footerPro'
 
+// Navigation item schema with clear type hierarchy
 const navItemSchema = z.object({
   name: z.string().optional(),
   href: z.string().optional(),
@@ -23,26 +24,43 @@ const navItemSchema = z.object({
   target: z.string().optional(),
 })
 
-export type SchemaNavItem = z.infer<typeof navItemSchema> & { isActive?: boolean, isHidden?: boolean, basePath?: string, items?: SchemaNavItem[] }
+export type SchemaNavItem = z.infer<typeof navItemSchema> & {
+  isActive?: boolean
+  isHidden?: boolean
+  basePath?: string
+  items?: SchemaNavItem[]
+}
 
-const layoutKeys = ['columns', 'centered'] as const
+// Clear layout options
+const layoutTypes = ['columns', 'centered'] as const
+
+// Main schema with grouped related fields
 const schema = z.object({
+  // Branding section
   logo: MediaTypographySchema.optional(),
   tagline: z.string().optional(),
   starline: z.string().optional(),
-  layout: z.enum(layoutKeys).optional(),
+  layout: z.enum(layoutTypes).optional(),
+
+  // Navigation section
   nav: z.array(navItemSchema).optional(),
+
+  // Legal information
   legal: z.object({
     privacyPolicyUrl: z.string().optional(),
     termsOfServiceUrl: z.string().optional(),
     copyrightText: z.string().optional(),
   }).optional(),
+
+  // Social media links
   socials: z.array(z.object({
     href: z.string().optional(),
     target: z.string().optional(),
     name: z.string().optional(),
     media: MediaIconSchema.optional(),
   })).optional(),
+
+  // Trust indicators
   badges: z.array(z.object({
     href: z.string().optional(),
     target: z.string().optional(),
@@ -53,91 +71,173 @@ const schema = z.object({
 
 export type UserConfig = z.infer<typeof schema>
 
+// Input options organized by section with clear descriptions
 const options: InputOption[] = [
-  new InputOption({ key: 'logo', label: 'Logo', input: 'InputLogo' }),
-  new InputOption({ key: 'layout', label: 'Layout', input: 'InputSelect', list: layoutKeys }),
-  new InputOption({ key: 'tagline', label: 'Tagline', input: 'InputText', description: 'A catchy phrase or description of what you do.' }),
-  standardOption.navItems({ key: 'nav', maxDepth: 2, itemNames: ['Column', 'Nav Item', 'Sub Nav Item'] }),
-  new InputOption({ key: 'legal', label: 'Legal', input: 'group', options: [
-    new InputOption({ key: 'legal.privacyPolicyUrl', label: 'Privacy Policy URL', input: 'InputText' }),
-    new InputOption({ key: 'legal.termsOfServiceUrl', label: 'Terms of Service URL', input: 'InputText' }),
-    new InputOption({ key: 'legal.copyrightText', label: 'Copyright Text', input: 'InputText' }),
-  ] }),
-  new InputOption({ key: 'socials', label: 'Socials', input: 'InputList', props: { itemName: 'Social' }, options: [
-    new InputOption({ key: 'name', label: 'Name', input: 'InputText' }),
-    new InputOption({ key: 'href', label: 'URL', input: 'InputText' }),
-    new InputOption({ key: 'media', label: 'Icon', input: 'InputIcon' }),
-    new InputOption({ key: 'target', label: 'Target', input: 'InputSelect', list: ['_blank', '_self'] }),
-  ] }),
-  new InputOption({ key: 'badges', label: 'Badges', input: 'group', options: [
-    new InputOption({ key: 'starline', label: 'Starline', input: 'InputText', description: 'Show 5 stars and add information about satisfaction or reviews.' }),
+  // Branding options
+  new InputOption({
+    key: 'logo',
+    label: 'Brand Logo',
+    input: 'InputLogo',
+  }),
+  new InputOption({
+    key: 'layout',
+    label: 'Footer Layout',
+    input: 'InputSelect',
+    list: layoutTypes,
+    description: 'Choose between a multi-column or centered layout',
+  }),
+  new InputOption({
+    key: 'tagline',
+    label: 'Brand Tagline',
+    input: 'InputText',
+    description: 'A brief description of your brand or mission statement',
+  }),
 
-    new InputOption({ key: 'badges', label: 'Badges', description: 'Add certifications or other graphics to build your authority', input: 'InputList', props: { itemName: 'Badge' }, options: [
-      new InputOption({ key: 'name', label: 'Name', input: 'InputText' }),
-      new InputOption({ key: 'href', label: 'URL', input: 'InputText' }),
-      new InputOption({ key: 'media', label: 'Media', input: 'InputMedia' }),
-      new InputOption({ key: 'target', label: 'Target', input: 'InputSelect', list: ['_blank', '_self'] }),
-    ] }),
-  ] }),
+  // Navigation structure
+  standardOption.navItems({
+    key: 'nav',
+    maxDepth: 2,
+    itemNames: ['Section', 'Primary Link', 'Secondary Link'],
+  }),
+
+  // Legal information
+  new InputOption({
+    key: 'legal',
+    label: 'Legal Information',
+    input: 'group',
+    options: [
+      new InputOption({
+        key: 'legal.privacyPolicyUrl',
+        label: 'Privacy Policy Link',
+        input: 'InputText',
+        description: 'URL to your privacy policy',
+      }),
+      new InputOption({
+        key: 'legal.termsOfServiceUrl',
+        label: 'Terms of Service Link',
+        input: 'InputText',
+        description: 'URL to your terms of service',
+      }),
+      new InputOption({
+        key: 'legal.copyrightText',
+        label: 'Copyright Notice',
+        input: 'InputText',
+        description: 'Your copyright statement',
+      }),
+    ],
+  }),
+
+  // Social media links
+  new InputOption({
+    key: 'socials',
+    label: 'Social Media Links',
+    input: 'InputList',
+    props: { itemName: 'Social Profile' },
+    description: 'Add links to your social media profiles',
+    options: [
+      new InputOption({ key: 'name', label: 'Platform Name', input: 'InputText' }),
+      new InputOption({ key: 'href', label: 'Profile URL', input: 'InputText' }),
+      new InputOption({ key: 'media', label: 'Platform Icon', input: 'InputIcon' }),
+      new InputOption({
+        key: 'target',
+        label: 'Link Behavior',
+        input: 'InputSelect',
+        list: ['_blank', '_self'],
+        description: '_blank opens in new tab, _self opens in same tab',
+      }),
+    ],
+  }),
+
+  // Trust indicators section
+  new InputOption({
+    key: 'badges',
+    label: 'Trust Indicators',
+    input: 'group',
+    options: [
+      new InputOption({
+        key: 'starline',
+        label: 'Rating Display',
+        input: 'InputText',
+        description: 'Display customer satisfaction or review information',
+      }),
+      new InputOption({
+        key: 'badges',
+        label: 'Trust Badges',
+        description: 'Add certifications, awards, or other trust indicators',
+        input: 'InputList',
+        props: { itemName: 'Badge' },
+        options: [
+          new InputOption({ key: 'name', label: 'Badge Name', input: 'InputText' }),
+          new InputOption({ key: 'href', label: 'Verification URL', input: 'InputText' }),
+          new InputOption({ key: 'media', label: 'Badge Image', input: 'InputMedia' }),
+          new InputOption({
+            key: 'target',
+            label: 'Link Behavior',
+            input: 'InputSelect',
+            list: ['_blank', '_self'],
+            description: '_blank opens in new tab, _self opens in same tab',
+          }),
+        ],
+      }),
+    ],
+  }),
 ]
 
-// Example default configuration for a movie actor or director's personal website
+// Example configuration with meaningful default content
 const defaultConfig: UserConfig = {
   logo: {
     format: 'typography',
     typography: {
-      text: 'Your Name',
+      text: 'Your Brand Name',
       font: 'Poppins',
     },
   },
   nav: [
     {
-      name: 'Explore',
+      name: 'Products & Services',
       items: [
-        { href: '/projects', name: 'Projects' },
-        { href: '/awards', name: 'Awards' },
+        { href: '/products', name: 'Our Products' },
+        { href: '/services', name: 'Services' },
       ],
     },
     {
-      name: 'About Me',
+      name: 'Company',
       items: [
+        { href: '/about', name: 'About Us' },
         { href: '/contact', name: 'Contact' },
-        { href: `/speaking`, name: 'Talks', target: '_blank' },
       ],
     },
     {
-      name: 'More',
+      name: 'Resources',
       items: [
-        { href: `#`, name: 'Hire Me', target: '_blank' },
         { href: '/blog', name: 'Blog' },
+        { href: '/support', name: 'Support' },
       ],
     },
   ],
   legal: {
-    copyrightText: `Your Company or Name, Inc.`,
+    copyrightText: '© 2024 Your Company Name. All rights reserved.',
   },
   socials: [
     {
-      href: 'https://www.linkedin.com/company/fictionco',
+      href: 'https://www.linkedin.com/',
       target: '_blank',
       name: 'LinkedIn',
-      media: { iconId: `linkedin` },
+      media: { iconId: 'linkedin' },
     },
     {
-      href: 'https://github.com/fictionco',
+      href: 'https://github.com/',
       target: '_blank',
       name: 'Github',
-      media: { iconId: `github` },
+      media: { iconId: 'github' },
     },
     {
-      href: 'https://www.twitter.com/fictionco',
+      href: 'https://twitter.com/',
       target: '_blank',
-      name: 'X',
-      media: { iconId: `x` },
+      name: 'X (Twitter)',
+      media: { iconId: 'x' },
     },
-
   ],
-
   badges: [],
 }
 
@@ -148,7 +248,7 @@ export const template = cardTemplate({
   category: ['navigation'],
   icon: 'i-tabler-box-align-bottom',
   colorTheme: 'green',
-  description: 'A professional footer for your website',
+  description: 'A professional and customizable footer for your website',
   isPublic: true,
   el,
   getUserConfig: () => defaultConfig,
@@ -156,9 +256,11 @@ export const template = cardTemplate({
   options,
   title: 'Footer Pro',
   demoPage: async () => {
-    return { cards: [
-      { templateId, userConfig: { ...defaultConfig, layout: 'columns' as const } },
-      { templateId, userConfig: { ...defaultConfig, layout: 'centered' as const } },
-    ] }
+    return {
+      cards: [
+        { templateId, userConfig: { ...defaultConfig, layout: 'columns' as const } },
+        { templateId, userConfig: { ...defaultConfig, layout: 'centered' as const } },
+      ],
+    }
   },
 })

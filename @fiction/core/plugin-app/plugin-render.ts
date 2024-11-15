@@ -320,6 +320,7 @@ export class FictionRender extends FictionPlugin<FictionRenderSettings> {
         {
           root,
           build: {
+
             emptyOutDir: true,
             outDir: distFolderServer,
             ssr: true,

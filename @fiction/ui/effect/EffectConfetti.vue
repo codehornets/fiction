@@ -1,6 +1,6 @@
 <script lang="ts" setup>
+import type confetti from 'canvas-confetti'
 import { vue, waitFor } from '@fiction/core'
-import confetti from 'canvas-confetti'
 
 type ConfettiMode = 'default' | 'firework' | 'snow'
 
@@ -57,9 +57,11 @@ const fireworkDefaults = {
   origin: { x: 0.5, y: 0.5 },
 }
 
-function createConfettiInstance() {
+async function createConfettiInstance() {
   if (!canvasContainer.value || instanceCreated.value)
     return false
+
+  const { default: confetti } = await import('canvas-confetti')
 
   const canvas = document.createElement('canvas')
   canvas.className = 'pointer-events-none fixed inset-0 z-[100] w-full h-full'
@@ -142,7 +144,7 @@ function startSnowfall() {
 async function fireConfetti(x = 0.5, y = 0.5) {
   // Only create instance when needed
   if (!instanceCreated.value) {
-    const created = createConfettiInstance()
+    const created = await createConfettiInstance()
     if (!created)
       return
 
