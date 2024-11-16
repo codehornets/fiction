@@ -103,7 +103,7 @@ export class CardFactory<U extends readonly CardTemplate<any>[] = readonly CardT
     // Ensure that 'templates' contains 'templateId'
     if (!template) {
       log.error('CardFactory', `Template with key "${templateId}" not found in provided templates.`)
-      throw new Error(`CardFactory: Template not found: "${templateId}"`)
+      return { templateId: 'hero', userConfig: { heading: `Template not found (${templateId})` } }
     }
 
     const createdCard = await template.toCard({ ...args, inlineTemplate, site: this.settings.site, userConfig, baseConfig })
@@ -132,7 +132,7 @@ export class CardFactory<U extends readonly CardTemplate<any>[] = readonly CardT
     // Ensure that 'templates' contains 'templateId'
     if (!template) {
       log.error('CardFactory', `Template with key "${templateId}" not found in provided templates.`)
-      throw new Error(`CardFactory: Template not found: "${templateId}"`)
+      return { templateId: 'hero', userConfig: { heading: `Template not found (${templateId})` } }
     }
 
     const createdCard = await template.toCard({ ...args, inlineTemplate, site: this.settings.site, userConfig, baseConfig })

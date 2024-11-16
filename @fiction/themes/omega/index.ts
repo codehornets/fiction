@@ -216,7 +216,7 @@ export async function setup(args: { fictionEnv: FictionEnv }) {
             regionId: 'footer',
             templateId: 'area',
             cards: [
-              await factory.create({ templateId: 'footer', userConfig: {
+              await factory.create({ templateId: 'footerPro', userConfig: {
                 logo: { format: 'typography', typography: { text: 'Your Name', font: 'Poppins' } },
                 nav: [
                   {

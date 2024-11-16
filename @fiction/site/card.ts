@@ -322,7 +322,7 @@ export class Card<
     }
     const templateId = this.tpl.value?.settings.templateId
     if (!templateId) {
-      throw new Error('Template not found')
+      throw new Error('CardRequest: Template not found')
     }
     const fictionSites = site.fictionSites
     const themeId = site.theme.value?.themeId

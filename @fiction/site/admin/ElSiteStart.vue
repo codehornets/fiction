@@ -28,7 +28,14 @@ async function requestCreateSite() {
   isLoading.value = true
   try {
     const fields = form.value
-    const { site } = await requestManageSite({ _action: 'create', fields, fictionSites, siteRouter: fictionRouterSites, caller: 'ElSiteStart', siteMode: 'editable' })
+    const { site, response } = await requestManageSite({ _action: 'create', fields, fictionSites, siteRouter: fictionRouterSites, caller: 'ElSiteStart', siteMode: 'editable' })
+
+    if (response?.status !== 'success' || !site?.siteId) {
+      console.error('requestManageSite error', response)
+      fictionEnv.events.emit('notify', { type: 'error', message: 'There was a problem.' })
+      return
+    }
+
     await props.card.goto({ path: '/edit-site', query: { siteId: site?.siteId } })
   }
   catch (error) {
