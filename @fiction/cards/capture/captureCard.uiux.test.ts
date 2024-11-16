@@ -2,7 +2,7 @@ import { createSiteUiTestingKit } from '@fiction/site/test/testUtils.js'
 import { afterAll, describe, expect, it } from 'vitest'
 
 describe('hero: card', async () => {
-  const kit = await createSiteUiTestingKit({ headless: false, slowMo: 0 })
+  const kit = await createSiteUiTestingKit({ headless: false, slowMo: 3000 })
 
   afterAll(async () => kit?.close())
 

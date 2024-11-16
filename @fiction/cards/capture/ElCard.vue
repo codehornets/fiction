@@ -3,6 +3,8 @@ import type { Card, Site } from '@fiction/site'
 import type { UserConfig } from '.'
 import { localRef, useService, vue } from '@fiction/core'
 import { type QueryVarHook, setupRouteWatcher } from '@fiction/site/utils/site'
+import XButton from '@fiction/ui/buttons/XButton.vue'
+import ElClose from '@fiction/ui/common/ElClose.vue'
 import ConfettiEffect from '@fiction/ui/effect/EffectConfetti.vue'
 import ElModal from '@fiction/ui/ElModal.vue'
 import CardText from '../CardText.vue'
@@ -135,6 +137,17 @@ vue.watchEffect(() => {
                 @update:subscribed="handleSubscribe"
                 @update:dismissed="dismissedLoad = $event"
               />
+              <XButton
+                data-test-id="dismiss"
+                size="xs"
+                design="textOnly"
+                theme="theme"
+                class=" pointer-events-auto cursor-pointer"
+                icon="i-tabler-x"
+                @click.prevent="dismissedLoad = true"
+              >
+                Continue to site
+              </XButton>
             </div>
           </div>
         </div>
@@ -142,6 +155,12 @@ vue.watchEffect(() => {
 
       <EffectScrollModal v-if="uc.presentationMode === 'onScroll' && showCard && !dismissedScroll">
         <div :data-mode="uc.presentationMode">
+          <div class="absolute right-3 top-3">
+            <ElClose
+              data-test-id="dismiss"
+              @click.prevent="dismissedScroll = true"
+            />
+          </div>
           <EmailForm
             class="p-8 py-12 md:p-16"
             :card="card"
