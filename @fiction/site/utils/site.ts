@@ -42,13 +42,14 @@ export function setupRouteWatcher(args: {
       if (!route)
         return
 
-      await waitFor(50)
-
       const routeVars = { ...route.params, ...route.query } as Record<string, string | undefined>
 
       for (const hook of queryVarHooks) {
         const { key } = hook
+
         if (typeof routeVars[key] !== 'undefined') {
+          // prevent clicks propagating and closing modals
+          await waitFor(30)
           const result = await hook.callback({ site, value: routeVars[key] })
           // Create new query parameters excluding the current hook key
           const newQuery = { ...route.query }

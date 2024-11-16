@@ -108,6 +108,7 @@ function getAnimationDuration(speed?: number): string {
         class="transition-all"
         :class="item.href ? 'hover:opacity-80' : ''"
         :href="item.href"
+        @click.stop
       >
         <div
           class="flex whitespace-nowrap"

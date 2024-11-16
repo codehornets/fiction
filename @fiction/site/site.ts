@@ -76,10 +76,11 @@ export class Site<T extends SiteSettings = SiteSettings> extends FictionObject<T
       key: '_scheme',
       callback: (args: { site: Site, value: string }) => {
         const { value } = args
+        const pref = this.prefersColorScheme.value
         if (value === 'toggle')
-          this.isLightMode.value = !this.isLightMode.value
+          this.prefersColorScheme.value = pref === 'light' ? 'dark' : 'light'
         else if (value)
-          this.isLightMode.value = value === 'light'
+          this.prefersColorScheme.value = value as typeof prefersColorScheme[number]
 
         return { reload: true }
       },

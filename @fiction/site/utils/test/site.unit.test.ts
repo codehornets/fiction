@@ -4,7 +4,7 @@
 
 import type { EditorState } from '../../site.js'
 import FSite from '@fiction/cards/CardSite.vue'
-import { AppRoute, shortId } from '@fiction/core'
+import { AppRoute, shortId, waitFor } from '@fiction/core'
 import { describe, expect, it } from 'vitest'
 import { requestManageSite } from '../../load.js'
 import { Site } from '../../site.js'
@@ -140,9 +140,13 @@ describe('query var', async () => {
 
     await site.siteRouter.push({ query: { _scheme: 'dark' } }, { caller: 'test' })
 
+    await waitFor(50)
+
     expect(site.isLightMode.value).toBe(false)
 
     await site.siteRouter.push({ query: { _scheme: 'light' } }, { caller: 'test' })
+
+    await waitFor(50)
 
     expect(site.isLightMode.value).toBe(true)
   })
