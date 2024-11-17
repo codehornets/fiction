@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { AdminEditorController } from '@fiction/admin'
+import type { InputOption } from '@fiction/ui'
 import type { FictionSites } from '../..'
 import type { Site } from '../../site'
 import type { TableCardConfig } from '../../tables'
@@ -18,8 +19,10 @@ useService<{ fictionSites: FictionSites }>()
 
 const tool = { toolId: 'settings', icon: 'i-tabler-settings', title: 'Settings' }
 
-const options = vue.computed(() => {
-  return getCardOptionConfig({ card: props.site?.activeCard.value }).value || []
+const options = vue.shallowRef<InputOption[]>([])
+
+vue.watch(() => props.site?.activeCard.value, async () => {
+  options.value = await getCardOptionConfig({ card: props.site?.activeCard.value }) || []
 })
 
 function setActiveCardConfig(config: Partial<TableCardConfig>) {

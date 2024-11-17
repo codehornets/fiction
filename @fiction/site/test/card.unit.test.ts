@@ -46,7 +46,7 @@ describe('card', async () => {
     await waitFor(50)
 
     // Assuming options have been set up to produce a known total time
-    const totalEstimatedTime = generation.totalEstimatedTime.value
+    const totalEstimatedTime = await generation.getTotalEstimatedTime()
     expect(totalEstimatedTime).toBe(8)
     // Update the expected time based on your options setup
     expect(totalEstimatedTime).toMatchInlineSnapshot(`8`)
@@ -69,17 +69,17 @@ describe('card', async () => {
     expect(prompt.toLowerCase()).toContain('updated card')
   })
 
-  it('should compute total estimated time correctly', () => {
+  it('should compute total estimated time correctly', async () => {
     generation.fieldsUserConfig.value = { heading: { isUserEnabled: true }, subHeading: { isUserEnabled: true } }
 
-    const totalEstimatedTime = generation.totalEstimatedTime.value
+    const totalEstimatedTime = generation.getTotalEstimatedTime()
 
     expect(totalEstimatedTime).toMatchInlineSnapshot(`8`)
     expect(totalEstimatedTime).toBe(8)
   })
 
-  it('should have correct generations settings', () => {
-    const inputConfig = generation.jsonPropConfig.value
+  it('should have correct generations settings', async () => {
+    const inputConfig = await generation.getJsonPropConfig()
 
     expect(inputConfig).toEqual(expect.objectContaining({
       heading: expect.any(Object),

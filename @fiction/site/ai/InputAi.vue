@@ -22,6 +22,16 @@ const props = defineProps({
 const loading = vue.ref(false)
 const card = vue.computed<Card | undefined>(() => props.site.activeCard.value)
 const genUtil = vue.computed(() => card.value ? new CardGeneration({ card: card.value }) : undefined)
+const genConfig = vue.ref<Awaited<ReturnType<
+  typeof CardGeneration.prototype.getConfig
+>>>()
+
+vue.watch(() => card.value, async () => {
+  if (!card.value)
+    return
+
+  genConfig.value = await genUtil.value?.getConfig()
+})
 
 const completion = vue.ref<Record<string, unknown>>()
 const accept = vue.ref<Record<string, boolean>>({})
@@ -151,13 +161,13 @@ async function applyChanges() {
             </div>
             <div class="flex justify-between">
               <div class="text-xs font-medium text-center">
-                Fields to Generate <span class="text-xs opacity-50 text-theme-500">( {{ genUtil.totalEstimatedTime.value }} seconds)</span>
+                Fields to Generate <span class="text-xs opacity-50 text-theme-500">( {{ genConfig?.totalEstimatedTime }} seconds)</span>
               </div>
             </div>
-            <div v-if=" Object.keys(genUtil?.jsonPropConfig.value || {}).length === 0 " class="p-6 text-center text-sm bg-theme-50/60 rounded-md dark:bg-theme-700/40">
+            <div v-if=" Object.keys(genConfig?.jsonPropConfig || {}).length === 0 " class="p-6 text-center text-sm bg-theme-50/60 rounded-md dark:bg-theme-700/40">
               This element has no fields to generate.
             </div>
-            <div v-for="(opt, key) in genUtil?.jsonPropConfig.value" v-else :key="key" class="text-xs space-y-1">
+            <div v-for="(opt, key) in genConfig?.jsonPropConfig" v-else :key="key" class="text-xs space-y-1">
               <div class="flex gap-2 items-center">
                 <div class="">
                   <InputToggle :id="`opt-${key}`" :model-value="opt.isUserEnabled" input-class="bg-theme-0 dark:bg-theme-600" @update:model-value="updateGeneration(opt, { isUserEnabled: $event })" />
@@ -180,9 +190,9 @@ async function applyChanges() {
               size="md"
               :loading="loading"
               icon="i-tabler-sparkles"
-              :disabled="!Object.keys(genUtil?.outputProps.value).length"
+              :disabled="!Object.keys(genConfig?.outputProps || {}).length"
               rounding="full"
-              :title="!Object.keys(genUtil?.outputProps.value).length ? 'No fields selected for generation' : ''"
+              :title="!Object.keys(genConfig?.outputProps || {}).length ? 'No fields selected for generation' : ''"
             >
               Generate Content...
             </XButton>

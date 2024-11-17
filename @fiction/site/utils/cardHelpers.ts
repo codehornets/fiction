@@ -1,23 +1,21 @@
 import type { Card } from '../card'
-import { vue } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { standardCardOptions } from '../cardStandard'
 
-export function getCardOptionConfig(args: { card?: Card }) {
+export async function getCardOptionConfig(args: { card?: Card }) {
   const { card } = args
-  return vue.computed(() => {
-    if (!card)
-      return []
+  if (!card)
+    return []
+  const site = card.site
 
-    const tpl = card?.tpl.value
-    const tplOptions = tpl?.settings.options || []
-    const out = []
-    if (tplOptions) {
-      out.push(new InputOption({ key: 'specific', label: 'Element Options', input: 'group', options: tplOptions }))
-    }
+  const tpl = card?.tpl.value
+  const config = await tpl?.getConfig?.({ site })
+  const out = []
+  if (config?.options) {
+    out.push(new InputOption({ key: 'specific', label: 'Element Options', input: 'group', options: config?.options }))
+  }
 
-    out.push(standardCardOptions({ card }))
+  out.push(standardCardOptions({ card }))
 
-    return out as InputOption[]
-  })
+  return out as InputOption[]
 }

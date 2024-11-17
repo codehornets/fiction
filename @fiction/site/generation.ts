@@ -35,29 +35,69 @@ export class CardGeneration extends FictionObject<CardGenerationSettings> {
 
   tpl = vue.computed(() => this.card.tpl.value)
   site = this.card.site
-  jsonSchema = vue.computed(() => {
-    if (!this.tpl.value?.settings?.schema)
+  // jsonSchema = vue.computed(() => {
+  //   if (!this.tpl.value?.settings?.schema)
+  //     return undefined
+
+  //   const schema = this.tpl.value.settings.schema
+  //   const jsonSchema = zodToJsonSchema(schema) as JsonSchema7ObjectType
+
+  //   return jsonSchema
+  // })
+
+  // jsonPropConfig = vue.computed(() => generateJsonPropConfig({ jsonSchema: this.jsonSchema.value, userPropConfig: this.fieldsUserConfig.value }))
+  // outputProps = vue.computed(() => generateOutputProps({ jsonSchema: this.jsonSchema.value, jsonPropConfig: this.jsonPropConfig.value }))
+
+  // outputSchema = vue.computed(() => {
+  //   const fullSchema = { ...this.jsonSchema.value }
+
+  //   if (!fullSchema)
+  //     return undefined
+
+  //   fullSchema.properties = this.outputProps.value || {}
+
+  //   return fullSchema
+  // })
+
+  async getJsonPropConfig() {
+    const jsonSchema = await this.getJsonSchema()
+    return generateJsonPropConfig({ jsonSchema, userPropConfig: this.fieldsUserConfig.value })
+  }
+
+  async getJsonSchema() {
+    const config = await this.tpl.value?.getConfig?.({ site: this.site })
+    return config?.schema ? zodToJsonSchema(config?.schema) as JsonSchema7ObjectType : undefined
+  }
+
+  async getOutputProps() {
+    const jsonSchema = await this.getJsonSchema()
+    const jsonPropConfig = await this.getJsonPropConfig()
+    return generateOutputProps({ jsonSchema, jsonPropConfig })
+  }
+
+  async getOutputSchema() {
+    const jsonSchema = await this.getJsonSchema()
+    if (!jsonSchema)
       return undefined
 
-    const schema = this.tpl.value.settings.schema
-    const jsonSchema = zodToJsonSchema(schema) as JsonSchema7ObjectType
+    jsonSchema.properties = await this.getOutputProps()
 
     return jsonSchema
-  })
+  }
 
-  jsonPropConfig = vue.computed(() => generateJsonPropConfig({ jsonSchema: this.jsonSchema.value, userPropConfig: this.fieldsUserConfig.value }))
-  outputProps = vue.computed(() => generateOutputProps({ jsonSchema: this.jsonSchema.value, jsonPropConfig: this.jsonPropConfig.value }))
+  async getTotalEstimatedTime() {
+    const jsonPropConfig = await this.getJsonPropConfig()
+    return calculateTotalEstimatedTimeSeconds({ jsonPropConfig })
+  }
 
-  outputSchema = vue.computed(() => {
-    const fullSchema = { ...this.jsonSchema.value }
-
-    if (!fullSchema)
-      return undefined
-
-    fullSchema.properties = this.outputProps.value || {}
-
-    return fullSchema
-  })
+  async getConfig() {
+    return {
+      jsonPropConfig: await this.getJsonPropConfig(),
+      outputProps: await this.getOutputProps(),
+      outputSchema: await this.getOutputSchema(),
+      totalEstimatedTime: await this.getTotalEstimatedTime(),
+    }
+  }
 
   defaultPrompt = vue.computed(() => {
     const c = this.card
@@ -68,7 +108,7 @@ export class CardGeneration extends FictionObject<CardGenerationSettings> {
   userPrompt = vue.ref(this.savedSettings.prompt || '')
   prompt = vue.computed(() => this.userPrompt.value || this.defaultPrompt.value)
 
-  totalEstimatedTime = vue.computed(() => calculateTotalEstimatedTimeSeconds({ jsonPropConfig: this.jsonPropConfig.value }))
+  // totalEstimatedTime = vue.computed(() => calculateTotalEstimatedTimeSeconds({ jsonPropConfig: this.jsonPropConfig.value }))
 
   progress = vue.ref<ProgressState>({ percent: 0, status: '' })
 
@@ -89,19 +129,24 @@ export class CardGeneration extends FictionObject<CardGenerationSettings> {
     if (!this.site || !this.tpl.value)
       throw new Error('site and template required')
 
-    if (!this.outputSchema.value)
+    const jsonPropConfig = await this.getJsonPropConfig()
+    const outputSchema = await this.getOutputSchema()
+    const outputProps = await this.getOutputProps()
+    const totalEstimatedTime = await this.getTotalEstimatedTime()
+
+    if (!outputSchema)
       throw new Error('missing schema')
 
-    if (!Object.keys(this.outputProps.value).length)
+    if (!Object.keys(outputProps).length)
       throw new Error('no fields to generate')
 
-    const completionArgs = { runPrompt: this.prompt.value, outputFormat: this.outputSchema.value, site: this.site }
+    const completionArgs = { runPrompt: this.prompt.value, outputFormat: outputSchema, site: this.site }
 
     this.log.info('RUNNING COMPLETION', { data: completionArgs })
 
     const progress = simulateProgress({
-      totalEstimatedTime: this.totalEstimatedTime.value,
-      jsonPropConfig: this.jsonPropConfig.value,
+      totalEstimatedTime,
+      jsonPropConfig,
       updateProgress: (state: ProgressState) => (this.progress.value = state),
     })
 

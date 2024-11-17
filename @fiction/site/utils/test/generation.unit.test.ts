@@ -1,6 +1,7 @@
 import type { JsonSchema7ObjectType } from 'zod-to-json-schema'
 import { getCardTemplates } from '@fiction/cards'
 import { shortId } from '@fiction/core'
+import { CardFactory } from '@fiction/site/cardFactory'
 import { describe, expect, it, vi } from 'vitest'
 import zodToJsonSchema from 'zod-to-json-schema'
 import { Card } from '../../card'
@@ -19,8 +20,8 @@ describe('generation utils', async () => {
     inlineTemplate,
     title: 'Test Card',
   })
-
-  const zodSchema = card.tpl.value?.settings.schema
+  const conf = await card.tpl.value?.settings.getConfig?.({ site })
+  const zodSchema = conf?.schema
   if (!zodSchema)
     throw new Error('No schema found')
 

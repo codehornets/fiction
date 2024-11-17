@@ -1,5 +1,6 @@
 import type { colorTheme, MediaObject, Query, vueRouter } from '@fiction/core'
 import type { InputOption } from '@fiction/ui'
+import type { S } from 'vitest/dist/chunks/config.Cy0C388Z.js'
 import type { CardQuerySettings } from './cardQuery.js'
 import type { CardOptionsWithStandard, SiteUserConfig } from './schema.js'
 import type { Site } from './site.js'
@@ -36,7 +37,13 @@ interface CardTemplateSettings<
   S extends CardTemplateSurfaceDefault = CardTemplateSurfaceDefault,
 > {
   root?: string
+
   templateId: CardTemplateSurface<S>[ 'templateId' ]
+  title?: string
+  description?: string
+  category?: CardCategory[]
+  icon?: string
+  colorTheme?: typeof colorTheme[number]
   el: CardTemplateSurface<S>[ 'component' ]
   isPublic?: boolean
   isEffect?: boolean
@@ -46,6 +53,13 @@ interface CardTemplateSettings<
   options?: InputOption[]
   schema?: CardTemplateSurface<S>[ 'schema' ]
   sections?: Record<string, CardConfigPortable>
+  getConfig?: (args: { site?: Site }) => Promise<{
+    schema?: CardTemplateSurface<S>[ 'schema' ]
+    options?: InputOption[]
+    userConfig?: CardTemplateUserConfigAll<S>
+    effects?: TableCardConfig[]
+    demoPage?: { cards: (CardConfigPortable< CardTemplateUserConfigAll<S>> & { el?: vue.Component })[] }
+  }>
   getBaseConfig?: (args: { site?: Site }) => CardTemplateUserConfigAll<S>
   getUserConfig?: (args: ConfigArgs) => Promise<CardTemplateUserConfigAll<S>> | (CardTemplateUserConfigAll<S>)
   getEffects?: (args: ConfigArgs) => Promise<TableCardConfig[]>
@@ -55,13 +69,7 @@ interface CardTemplateSettings<
   getQueries?: (args: CardQuerySettings) => CardTemplateSurface<S>[ 'queries' ]
   getSitemapPaths?: (args: { site: Site, card: Card<CardTemplateUserConfigAll<S>>, pagePath: string }) => Promise<string[]>
   singleCard?: (args: { card: Card }) => CardConfigPortable
-  title?: string
-  description?: string
-  category?: CardCategory[]
-  icon?: string
-  colorTheme?: typeof colorTheme[number]
-  thumb?: MediaObject
-  getStandardOptions?: (args: { card: Card<CardTemplateUserConfigAll<S>> }) => InputOption
+
 }
 
 export class CardTemplate<
@@ -73,15 +81,40 @@ export class CardTemplate<
 
   getBaseConfig = this.settings.getBaseConfig || (() => ({ }))
 
+  async getConfig(args: { site?: Site }) {
+    if (this.settings.getConfig) {
+      return this.settings.getConfig(args)
+    }
+    else {
+      const { site } = args
+      const factory = new CardFactory({ site, templates: site?.theme.value?.templates || [] })
+      const a = { site, factory }
+      return {
+        schema: this.settings.schema,
+        options: this.settings.options,
+        userConfig: await this.settings.getUserConfig?.(a) || {},
+        effects: await this.settings.getEffects?.(a) || [],
+        demoPage: await this.settings.demoPage?.(a),
+      }
+    }
+  }
+
   async toCard(args: { cardId?: string, site?: Site, userConfig?: CardTemplateUserConfigAll<S>, baseConfig?: CardTemplateUserConfigAll<S> } & CardSettings) {
     const { cardId, site, baseConfig = {}, userConfig } = args
-    const { getUserConfig = () => {}, getEffects = () => [] } = this.settings
+    const { getUserConfig = () => {}, getEffects, getConfig } = this.settings
     const factory = new CardFactory({ site, templates: [this] })
     const templateBaseConfig = this.getBaseConfig({ site })
+    const config = getConfig ? await getConfig({ site }) : {}
     const asyncUserConfig = (await getUserConfig({ site, factory })) || {}
-    const effects = (await getEffects({ site, factory })) || []
+    const effects = getEffects ? (await getEffects({ site, factory })) : []
 
-    const finalUserConfig = deepMerge([templateBaseConfig, baseConfig, asyncUserConfig, userConfig])
+    const finalUserConfig = deepMerge([
+      templateBaseConfig,
+      baseConfig,
+      asyncUserConfig,
+      config.userConfig,
+      userConfig,
+    ].filter(Boolean))
 
     return new Card({
       cardId: cardId || objectId({ prefix: 'crd' }),
@@ -100,10 +133,10 @@ export function cardTemplate<
   TQueries extends Record<string, Query> = Record<string, Query>,
 >(settings: CardTemplateSettings<{
   templateId: TTemplateId
-  userConfig: z.infer<TSchema>
-  schema: TSchema
   component: TComponent
   queries: TQueries
+  userConfig: z.infer<TSchema>
+  schema: TSchema
 }>) {
   return new CardTemplate<{
     templateId: TTemplateId
