@@ -37,7 +37,7 @@ export async function getUserConfig(args: { factory: CardFactory, templateId: st
         title: 'Card With Media',
         content: 'Add media or background images to create visual interest.',
         bg: {
-          url: factory.stock.getRandomByTags(['background']).url,
+          url: (await factory.stock.getRandomByTags(['background'])).url,
           overlay: { opacity: 0.4 }, // Adjust overlay opacity: 0-1
         },
         verticalPosition: 'center', // Try: top, center, bottom
@@ -64,7 +64,7 @@ export async function getDemoUserConfig(args: { factory: CardFactory }): Promise
         verticalPosition: 'bottom',
         horizontalPosition: 'left',
         bg: {
-          url: factory.stock.getRandomByTags(['person', 'aspect:landscape']).url,
+          url: (await factory.stock.getRandomByTags(['person', 'aspect:landscape'])).url,
           overlay: { opacity: 0.2 },
         },
       },
@@ -76,7 +76,7 @@ export async function getDemoUserConfig(args: { factory: CardFactory }): Promise
         theme: 'blue',
         themeMode: 'dark',
         bg: {
-          url: factory.stock.getRandomByTags(['background']).url,
+          url: (await factory.stock.getRandomByTags(['background'])).url,
           overlay: { opacity: 0.4 },
         },
       },
@@ -88,7 +88,7 @@ export async function getDemoUserConfig(args: { factory: CardFactory }): Promise
         content: 'When seconds count and ideas flow, you need tools that keep up with your imagination.',
         theme: 'emerald',
         themeMode: 'light',
-        media: factory.stock.getRandomByTags(['person']),
+        media: await factory.stock.getRandomByTags(['person']),
       },
       {
         cols: 3,
@@ -98,7 +98,7 @@ export async function getDemoUserConfig(args: { factory: CardFactory }): Promise
         theme: 'rose',
         themeMode: 'dark',
         bg: {
-          url: factory.stock.getRandomByTags(['background']).url,
+          url: (await factory.stock.getRandomByTags(['background'])).url,
           overlay: { opacity: 0.5 },
         },
       },
@@ -127,7 +127,7 @@ export async function getDemoUserConfig(args: { factory: CardFactory }): Promise
         theme: 'cyan',
         themeMode: 'dark',
         bg: {
-          url: factory.stock.getRandomByTags(['background']).url,
+          url: (await factory.stock.getRandomByTags(['background'])).url,
           overlay: { opacity: 0.6 },
         },
       },
@@ -141,7 +141,7 @@ export async function getDemoUserConfig(args: { factory: CardFactory }): Promise
         verticalPosition: 'bottom',
         horizontalPosition: 'right',
         bg: {
-          url: factory.stock.getRandomByTags(['background']).url,
+          url: (await factory.stock.getRandomByTags(['background'])).url,
           overlay: { opacity: 0.2 },
         },
       },
@@ -160,7 +160,7 @@ export async function getDemoUserConfig(args: { factory: CardFactory }): Promise
           html: `<svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 512 506.522"><path fill="currentColor" fill-rule="nonzero" d="M0 392.217h13.513c.973 17.285 6.086 29.337 15.338 36.153 9.251 6.818 23.98 10.226 44.188 10.226h99.697l-.73-24.468c-38.711-7.791-74.013-29.337-105.906-64.639-31.893-35.302-47.84-79.855-47.84-133.66 0-59.648 22.216-110.531 66.647-152.65C129.339 21.06 187.344.001 258.922 0c69.386.001 126.112 19.904 170.179 59.709 44.066 39.807 66.099 90.75 66.1 152.833-.001 50.397-13.695 93.185-41.084 128.365-27.39 35.18-64.457 59.587-111.201 73.221l-3.652 24.468h101.523c23.129 0 38.406-4.382 45.832-13.147 7.425-8.764 11.381-19.842 11.869-33.232H512v114.305H307.492l9.495-110.288c62.813-19.72 94.219-77.786 94.22-174.197-.001-63.056-15.399-111.383-46.197-144.981-30.798-33.598-66.891-50.396-108.28-50.397-44.066.001-80.525 17.834-109.375 53.501-28.85 35.667-43.275 81.256-43.275 136.764 0 40.172 6.452 76.752 19.355 109.741 12.904 32.989 37.615 56.178 74.134 69.569l6.939 110.288H0V392.217z"/></svg>`,
         },
         bg: {
-          url: factory.stock.getRandomByTags(['background']).url,
+          url: (await factory.stock.getRandomByTags(['background'])).url,
           overlay: { opacity: 0.3 },
         },
       },
@@ -175,7 +175,7 @@ export async function getDemoUserConfig(args: { factory: CardFactory }): Promise
         verticalPosition: 'center',
         horizontalPosition: 'center',
         bg: {
-          url: factory.stock.getRandomByTags(['background']).url,
+          url: (await factory.stock.getRandomByTags(['background'])).url,
           overlay: { opacity: 0.4 },
         },
       },
@@ -230,7 +230,7 @@ export async function getDemoUserConfig(args: { factory: CardFactory }): Promise
         verticalPosition: 'center',
         horizontalPosition: 'center',
         bg: {
-          url: factory.stock.getRandomByTags(['background']).url,
+          url: (await factory.stock.getRandomByTags(['background'])).url,
           overlay: { opacity: 0.5 },
         },
       },
@@ -244,7 +244,7 @@ export async function getDemoUserConfig(args: { factory: CardFactory }): Promise
         verticalPosition: 'bottom',
         horizontalPosition: 'left',
         bg: {
-          url: factory.stock.getRandomByTags(['background']).url,
+          url: (await factory.stock.getRandomByTags(['background'])).url,
           overlay: { opacity: 0.3 },
         },
       },

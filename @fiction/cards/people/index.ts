@@ -57,7 +57,7 @@ async function defaultConfig(): Promise<UserConfig> {
       name: 'Tony Stark',
       title: 'Iron Man',
       desc: 'Genius, billionaire, playboy, philanthropist. Known for his high-tech suits and saving the world.',
-      media: stockMediaHandler.getRandomByTags(['person', 'aspect:landscape', 'man']),
+      media: await stockMediaHandler.getRandomByTags(['person', 'aspect:landscape', 'man']),
       social: [{
         icon: 'i-tabler-brand-linkedin',
         href: 'https://www.linkedin.com/in/[username]',
@@ -69,7 +69,7 @@ async function defaultConfig(): Promise<UserConfig> {
       name: 'Natasha Romanoff',
       title: 'Black Widow',
       desc: 'Master spy and expert in hand-to-hand combat. A critical member of the Avengers team.',
-      media: stockMediaHandler.getRandomByTags(['person', 'aspect:landscape', 'woman']),
+      media: await stockMediaHandler.getRandomByTags(['person', 'aspect:landscape', 'woman']),
       social: [{
         icon: 'i-tabler-brand-linkedin',
         href: 'https://www.linkedin.com/in/[username]',
@@ -81,7 +81,7 @@ async function defaultConfig(): Promise<UserConfig> {
       name: 'Thor Odinson',
       title: 'God of Thunder',
       desc: 'Asgardian prince with the power to control lightning and wield Mjölnir, his magical hammer.',
-      media: stockMediaHandler.getRandomByTags(['person', 'aspect:landscape', 'man']),
+      media: await stockMediaHandler.getRandomByTags(['person', 'aspect:landscape', 'man']),
       social: [{
         icon: 'i-tabler-brand-linkedin',
         href: 'https://www.linkedin.com/in/[username]',
@@ -93,7 +93,7 @@ async function defaultConfig(): Promise<UserConfig> {
       name: 'Steve Rogers',
       title: 'Captain America',
       desc: 'The First Avenger. Known for his unwavering moral compass, super strength, and indestructible shield.',
-      media: stockMediaHandler.getRandomByTags(['person', 'aspect:landscape', 'man']),
+      media: await stockMediaHandler.getRandomByTags(['person', 'aspect:landscape', 'man']),
       social: [{
         icon: 'i-tabler-brand-linkedin',
         href: 'https://www.linkedin.com/in/[username]',

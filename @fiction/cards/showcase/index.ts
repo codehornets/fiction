@@ -24,18 +24,21 @@ const options = [
 ] as InputOption[]
 
 export async function getDefaultConfig(): Promise<UserConfig> {
+  const _p = Array.from({ length: 13 }, async (_, i) => ({
+    title: `Item ${i + 1}`,
+    subTitle: `Subtitle for Item ${i + 1}`,
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    media: await stockMediaHandler.getRandomByTags(['aspect:portrait', 'object']),
+    slug: `item-${i + 1}`,
+  }))
+  const entries = await Promise.all(_p)
+
   return {
     aspect: 'portrait',
     gridColsMax: '4',
     posts: {
       format: 'local',
-      entries: Array.from({ length: 13 }, (_, i) => ({
-        title: `Item ${i + 1}`,
-        subTitle: `Subtitle for Item ${i + 1}`,
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        media: stockMediaHandler.getRandomByTags(['aspect:portrait', 'object']),
-        slug: `item-${i + 1}`,
-      })),
+      entries,
     },
   }
 }

@@ -70,8 +70,7 @@ export function getOptions(): InputOption[] {
 // Demo page configuration
 async function getDemoPage(args: { templateId: string }) {
   const { templateId } = args
-  const splash = (aspect: 'aspect:square' | 'aspect:portrait' = 'aspect:square') =>
-    stockMediaHandler.getRandomByTags(['object', aspect])
+  const splash = async (aspect: 'aspect:square' | 'aspect:portrait' = 'aspect:square') => stockMediaHandler.getRandomByTags(['object', aspect])
 
   const subHeading = 'lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
 
@@ -89,7 +88,7 @@ async function getDemoPage(args: { templateId: string }) {
         userConfig: {
           ...defaultContent,
           layout: 'justify' as const,
-          splash: splash(),
+          splash: await splash(),
           superColor: 'purple' as const,
         },
       },
@@ -98,7 +97,7 @@ async function getDemoPage(args: { templateId: string }) {
         userConfig: {
           ...defaultContent,
           layout: 'right' as const,
-          splash: splash('aspect:portrait'),
+          splash: await splash('aspect:portrait'),
           subHeading,
           superColor: 'red' as const,
         },
@@ -108,7 +107,7 @@ async function getDemoPage(args: { templateId: string }) {
         userConfig: {
           ...defaultContent,
           layout: 'left' as const,
-          splash: splash('aspect:portrait'),
+          splash: await splash('aspect:portrait'),
           subHeading,
           superColor: 'indigo' as const,
         },

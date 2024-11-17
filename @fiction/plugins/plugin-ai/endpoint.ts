@@ -155,7 +155,7 @@ export abstract class QueryAi extends Query<QueryAiSettings> {
       args.referenceInfo += searchResultText
     }
 
-    const messages = contentCommandUtil.getMessages(args)
+    const messages = await contentCommandUtil.getMessages(args)
 
     const generateArgs = {
       system: messages.map(m => `content(${m.role}): ${m.content}`).join('\n'),

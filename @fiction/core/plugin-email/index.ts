@@ -57,7 +57,7 @@ export class FictionEmail extends FictionPlugin<FictionEmailSettings> {
     const emailRenderer = await this.getRenderer()
 
     if (fields.bodyHtml && !fields.bodyMarkdown) {
-      fields.bodyMarkdown = toMarkdown(fields.bodyHtml, { keep: ['figure', 'figcaption', 'sup', 'sub', 'ins', 'del', 'mark', 'abbr', 'dfn', 'var', 'samp', 'kbd', 'q', 'cite', 'time', 'address', 'dl', 'dt', 'dd'] })
+      fields.bodyMarkdown = await toMarkdown(fields.bodyHtml, { keep: ['figure', 'figcaption', 'sup', 'sub', 'ins', 'del', 'mark', 'abbr', 'dfn', 'var', 'samp', 'kbd', 'q', 'cite', 'time', 'address', 'dl', 'dt', 'dd'] })
     }
 
     const template = await emailRenderer.render('EmailStandard.vue', { props: fields })

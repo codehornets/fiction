@@ -19,7 +19,8 @@ const templates = {
     wrap: () => import('./wrap'),
     area: () => import('./area'),
     nav: () => import('./nav'),
-    footer: () => import('./footer'),
+    footer: () => import('./footerPro'),
+    footerAlpha: () => import('./footerAlpha'),
   },
   content: {
     hero: () => import('./hero'),

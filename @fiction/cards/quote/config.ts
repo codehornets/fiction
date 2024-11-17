@@ -8,7 +8,7 @@ export async function getUserConfig(_args: { factory: CardFactory, templateId: s
     author: {
       name: 'Benjamin Franklin',
       title: 'Founding Father',
-      image: factory.stock.getRandomByAspectRatio('aspect:square', { tags: ['people', 'man'] }),
+      image: await factory.stock.getRandomByAspectRatio('aspect:square', { tags: ['people', 'man'] }),
     },
     org: {
       name: 'Fiction',
@@ -28,7 +28,7 @@ export async function getUserConfig(_args: { factory: CardFactory, templateId: s
     author: {
       name: 'Socrates',
       title: 'Philosopher',
-      image: factory.stock.getRandomByAspectRatio('aspect:square', { tags: ['people', 'man'] }),
+      image: await factory.stock.getRandomByAspectRatio('aspect:square', { tags: ['people', 'man'] }),
     },
     org: {
       name: 'Dialectic',

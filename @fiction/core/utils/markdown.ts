@@ -1,13 +1,10 @@
 import type { MarkedOptions } from 'marked'
+import type TurndownService from 'turndown'
 import type { Component } from 'vue'
-import Frontmatter from 'front-matter'
-import { marked } from 'marked'
-import { gfmHeadingId } from 'marked-gfm-heading-id'
-import removeMarkdownUtility from 'remove-markdown'
-// import type { NodeHtmlMarkdownOptions } from 'node-html-markdown'
-// import { NodeHtmlMarkdown } from 'node-html-markdown'
 
-import TurndownService from 'turndown'
+import Frontmatter from 'front-matter'
+import removeMarkdownUtility from 'remove-markdown'
+
 import { fastHash } from './utils'
 
 export type PostOrPage = {
@@ -36,28 +33,31 @@ export interface MarkdownFile {
   attributes: PostOrPage
 }
 
-marked.use({ gfm: true })
-marked.use(gfmHeadingId())
-
 type MarkdownOptions = MarkedOptions & {
   async: true
 }
 
-export function getMarkdownUtility() {
+export async function getMarkdownUtility() {
+  const { marked } = await import('marked')
+  const { gfmHeadingId } = await import('marked-gfm-heading-id')
+  marked.use({ gfm: true })
+  marked.use(gfmHeadingId())
   return marked
 }
 
-export function toHtml(markdown?: string) {
-  const util = getMarkdownUtility()
+export async function toHtml(markdown?: string) {
+  const util = await getMarkdownUtility()
 
   const result = util.parse(markdown || '')
 
   return (result as string).trim()
 }
 
-export function toMarkdown(html: string, options: TurndownService.Options & { keep?: (keyof HTMLElementTagNameMap)[] } = {}) {
+export async function toMarkdown(html: string, options: TurndownService.Options & { keep?: (keyof HTMLElementTagNameMap)[] } = {}) {
   if (!html)
     return ''
+
+  const { default: TurndownService } = await import('turndown')
 
   const turndownService = new TurndownService({ headingStyle: 'atx', hr: '---', ...options })
 
@@ -71,7 +71,7 @@ export function toMarkdown(html: string, options: TurndownService.Options & { ke
  * Convert markdown into HTML
  */
 export async function renderMarkdown(content = '', options?: MarkdownOptions): Promise<string> {
-  const util = getMarkdownUtility()
+  const util = await getMarkdownUtility()
 
   if (typeof content !== 'string')
     return ''

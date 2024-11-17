@@ -20,7 +20,7 @@ const containerScenarios = [
   { name: 'No Height Specified', class: '' },
 ]
 
-function generateMediaObjects(): MediaObject[] {
+async function generateMediaObjects(): Promise<MediaObject[]> {
   return [
     // Typography examples
     {
@@ -62,20 +62,20 @@ function generateMediaObjects(): MediaObject[] {
     { iconId: 'github', format: 'iconId' },
     // Image example
     {
-      url: stockMediaHandler.getRandomByAspectRatio('aspect:wide', { format: 'image' }).url,
+      url: (await stockMediaHandler.getRandomByAspectRatio('aspect:wide', { format: 'image' })).url,
       alt: 'Wide image logo',
       format: 'image',
     },
     // Video example
-    { url: stockMediaHandler.getRandomMedia({ format: 'video' }).url, format: 'video' },
+    { url: (await stockMediaHandler.getRandomMedia({ format: 'video' })).url, format: 'video' },
   ]
 }
 
-const mediaObjects = vue.ref(generateMediaObjects())
+const mediaObjects = vue.ref<MediaObject[]>([])
 
-function refreshMedia() {
+async function refreshMedia() {
   stockMediaHandler.resetUsedMedia()
-  mediaObjects.value = generateMediaObjects()
+  mediaObjects.value = await generateMediaObjects()
 }
 
 // Grid layout example
@@ -94,6 +94,10 @@ const heightExamples = [
   { name: 'Viewport Height (25vh)', class: 'h-[15vh]' },
   { name: 'Min Height (100px)', class: 'min-h-[100px]' },
 ]
+
+vue.onMounted(async () => {
+  mediaObjects.value = await generateMediaObjects()
+})
 </script>
 
 <template>

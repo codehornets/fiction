@@ -34,13 +34,15 @@ const options = [
 
 async function getDefaultUserConfig(args: { tags: Tag[] }): Promise<UserConfig> {
   const { tags = ['person'] } = args
-  const urls = [
+  const urlPromises = [
     stockMediaHandler.getRandomByTags(['aspect:portrait', ...tags]),
     stockMediaHandler.getRandomByTags(['aspect:portrait', ...tags]),
     stockMediaHandler.getRandomByTags(['aspect:portrait', ...tags]),
     stockMediaHandler.getRandomByTags(['aspect:portrait', ...tags]),
     stockMediaHandler.getRandomByTags(['aspect:portrait', ...tags]),
   ]
+
+  const urls = await Promise.all(urlPromises)
 
   return {
     items: [

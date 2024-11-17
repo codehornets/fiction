@@ -61,7 +61,7 @@ const options: InputOption[] = [
   ] }),
 ]
 
-function getUserConfig(args: { factory: CardFactory }): UserConfig & SiteUserConfig {
+async function getUserConfig(args: { factory: CardFactory }): Promise<UserConfig & SiteUserConfig> {
   const { factory } = args
   return {
     superTitle: 'Name or Tagline',
@@ -70,10 +70,10 @@ function getUserConfig(args: { factory: CardFactory }): UserConfig & SiteUserCon
 <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>`,
     mediaItems: [
       {
-        media: factory.stock.getRandomByTags(['aspect:portrait', 'person']),
+        media: await factory.stock.getRandomByTags(['aspect:portrait', 'person']),
       },
       {
-        media: factory.stock.getRandomByTags(['aspect:portrait', 'person']),
+        media: await factory.stock.getRandomByTags(['aspect:portrait', 'person']),
       },
     ],
     detailsTitle: 'Let\'s Connect',
@@ -103,8 +103,8 @@ export const template = cardTemplate({
   schema,
   demoPage: async (args) => {
     return { cards: [
-      { templateId, userConfig: { ...getUserConfig(args) } },
-      { templateId, userConfig: { ...getUserConfig(args), layout: 'left' as const } },
+      { templateId, userConfig: { ...(await getUserConfig(args)) } },
+      { templateId, userConfig: { ...(await getUserConfig(args)), layout: 'left' as const } },
     ] }
   },
 })

@@ -13,7 +13,7 @@ describe('minimalProfile', async () => {
     if (!tpl)
       throw new Error('no template')
 
-    const conf = refineOptions({
+    const conf = await refineOptions({
       options: tpl.settings.options || [],
       schema: tpl.settings.schema,
       templateId: tpl.settings.templateId,

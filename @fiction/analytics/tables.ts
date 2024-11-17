@@ -1,3 +1,4 @@
+/* server-only-file */
 import { dayjs } from '@fiction/core'
 import { z } from 'zod'
 import { standardUrl } from './plugin-beacon/utils/index.js'

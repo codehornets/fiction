@@ -65,7 +65,7 @@ export async function page(args: { site: Site, factory: CardFactory }) {
                 {
                   title: 'Hugo Rebora',
                   subTitle: 'Podcaster',
-                  media: stockMediaHandler.getAssetBySlug('rebora'),
+                  media: await stockMediaHandler.getAssetBySlug('rebora'),
                   href: '#',
                 },
                 {
@@ -79,13 +79,13 @@ export async function page(args: { site: Site, factory: CardFactory }) {
                 {
                   title: 'Olivia Alani',
                   subTitle: 'Fashion Designer',
-                  media: stockMediaHandler.getAssetBySlug('olivia'),
+                  media: await stockMediaHandler.getAssetBySlug('olivia'),
                   href: '#',
                 },
                 {
                   title: 'Gabriel Torres',
                   subTitle: 'Coach',
-                  media: stockMediaHandler.getAssetBySlug('abgcuk'),
+                  media: await stockMediaHandler.getAssetBySlug('abgcuk'),
                   href: '#',
                 },
 
@@ -99,7 +99,7 @@ export async function page(args: { site: Site, factory: CardFactory }) {
                 {
                   title: 'Sarah Bands',
                   subTitle: 'Director',
-                  media: stockMediaHandler.getAssetBySlug('bands'),
+                  media: await stockMediaHandler.getAssetBySlug('bands'),
                   href: '#',
                 },
                 {

@@ -24,7 +24,7 @@ vue.onMounted(async () => {
     heading: 'Welcome to Fiction',
     subHeading: 'Please confirm your email address',
     // bodyMarkdown: 'Please confirm your email address by clicking the button below.',
-    bodyMarkdown: toMarkdown(sampleHtml),
+    bodyMarkdown: await toMarkdown(sampleHtml),
     actions: [
       {
         theme: 'primary',

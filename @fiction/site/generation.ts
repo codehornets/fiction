@@ -3,7 +3,6 @@ import type { Card } from './index.js'
 import type { InputOptionGeneration, ProgressState } from './utils/generation.js'
 
 import { FictionObject, setNested, toLabel, vue } from '@fiction/core'
-import zodToJsonSchema from 'zod-to-json-schema'
 import { getCardCompletion } from './utils/ai.js'
 import { calculateTotalEstimatedTimeSeconds, generateJsonPropConfig, generateOutputProps, simulateProgress } from './utils/generation.js'
 
@@ -66,6 +65,7 @@ export class CardGeneration extends FictionObject<CardGenerationSettings> {
 
   async getJsonSchema() {
     const config = await this.tpl.value?.getConfig?.({ site: this.site })
+    const { default: zodToJsonSchema } = await import('zod-to-json-schema')
     return config?.schema ? zodToJsonSchema(config?.schema) as JsonSchema7ObjectType : undefined
   }
 

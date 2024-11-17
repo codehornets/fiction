@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { shortId, toHtml, toMarkdown, vue } from '@fiction/core'
+import { shortId, vue } from '@fiction/core'
 import { animateItemEnter, splitLetters, useElementVisible } from '../anim'
 
 export type InputModes = 'text' | 'markdown' | 'html' | 'number' | 'email' | 'url' | 'password' | 'phone' | 'date'
@@ -9,7 +9,6 @@ const props = defineProps({
   placeholder: { type: String, default: '' },
   isEditable: { type: Boolean, default: false },
   modelValue: { type: String, default: '' },
-  isMarkdown: { type: Boolean, default: false },
   animate: { type: [String, Boolean] as vue.PropType<'rise' | 'fade' | boolean>, default: undefined },
   prefix: { type: String, default: '' },
   suffix: { type: String, default: '' },
@@ -33,9 +32,7 @@ const textValue = vue.ref('')
 const updateValue = vue.ref('')
 
 function getValue(rawValue: string) {
-  const v = props.isMarkdown ? toMarkdown(rawValue) : rawValue
-
-  return v
+  return rawValue
 }
 
 const isContentEditable = vue.computed(() => {
@@ -50,9 +47,8 @@ function setTextValue() {
 
 function valueFromModelValue() {
   const v = props.modelValue || ''
-  const out = props.isMarkdown ? toHtml(v) : v
 
-  return `${props.prefix}${out}${props.suffix}`
+  return `${props.prefix}${v}${props.suffix}`
 }
 
 function handleBlur() {

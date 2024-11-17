@@ -1,63 +1,63 @@
 import { describe, expect, it } from 'vitest'
 import { excerpt, renderMarkdown, stripMarkdown, toHtml, toMarkdown } from '../markdown'
 
-describe('toHtml (Markdown to HTML)', () => {
-  it('converts basic markdown to HTML', () => {
+describe('toHtml (Markdown to HTML)', async () => {
+  it('converts basic markdown to HTML', async () => {
     const markdown = '**bold** and _italic_'
     const html = '<p><strong>bold</strong> and <em>italic</em></p>'
-    expect(toHtml(markdown)).toMatchInlineSnapshot(`"<p><strong>bold</strong> and <em>italic</em></p>"`)
-    expect(toHtml(markdown)).toBe(html)
+    expect(await toHtml(markdown)).toMatchInlineSnapshot(`"<p><strong>bold</strong> and <em>italic</em></p>"`)
+    expect(await toHtml(markdown)).toBe(html)
   })
 
-  it('converts markdown headers to HTML headers', () => {
+  it('converts markdown headers to HTML headers', async () => {
     const markdown = '# Header 1\n## Header 2'
     const html = '<h1 id="header-1">Header 1</h1>\n<h2 id="header-2">Header 2</h2>'
-    expect(toHtml(markdown)).toBe(html)
+    expect(await toHtml(markdown)).toBe(html)
   })
 
   // Add more tests for lists, links, images, etc.
 
-  it('returns an empty string when provided an empty input', () => {
+  it('returns an empty string when provided an empty input', async () => {
     const markdown = ''
     const html = ''
-    expect(toHtml(markdown)).toBe(html)
+    expect(await toHtml(markdown)).toBe(html)
   })
 
-  it('handles null or undefined input gracefully', () => {
+  it('handles null or undefined input gracefully', async () => {
     // @ts-expect-error test
-    expect(toHtml(null)).toBe('')
-    expect(toHtml(undefined)).toBe('')
+    expect(await toHtml(null)).toBe('')
+    expect(await toHtml(undefined)).toBe('')
   })
 
   // Add tests for any edge cases or specific behavior of your Markdown parser
 })
 
 describe('toMarkdown (HTML to Markdown)', () => {
-  it('converts basic HTML to markdown', () => {
+  it('converts basic HTML to markdown', async () => {
     const html = '<strong>bold</strong> and <em>italic</em>'
     const markdown = '**bold** and _italic_'
-    expect(toMarkdown(html)).toBe(markdown)
+    expect(await toMarkdown(html)).toBe(markdown)
   })
 
-  it('converts HTML headers to markdown headers', () => {
+  it('converts HTML headers to markdown headers', async () => {
     const html = '<h1>Header 1</h1><h2>Header 2</h2>'
     const markdown = '# Header 1\n\n## Header 2'
-    expect(toMarkdown(html)).toBe(markdown)
+    expect(await toMarkdown(html)).toBe(markdown)
   })
 
   // Add more tests for lists, links, images, etc.
 
-  it('returns an empty string when provided an empty input', () => {
+  it('returns an empty string when provided an empty input', async () => {
     const html = ''
     const markdown = ''
-    expect(toMarkdown(html)).toBe(markdown)
+    expect(await toMarkdown(html)).toBe(markdown)
   })
 
-  it('handles null or undefined input gracefully', () => {
+  it('handles null or undefined input gracefully', async () => {
     // @ts-expect-error test
-    expect(toMarkdown(null)).toBe('')
+    expect(await toMarkdown(null)).toBe('')
     // @ts-expect-error test
-    expect(toMarkdown(undefined)).toBe('')
+    expect(await toMarkdown(undefined)).toBe('')
   })
 
   // Add tests for any edge cases or specific behavior of your HTML to Markdown parser

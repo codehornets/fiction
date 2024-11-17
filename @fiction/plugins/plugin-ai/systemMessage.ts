@@ -1,6 +1,5 @@
 import type { AiCompletionSettings, CommandMessage } from './endpoint.js'
 import { z } from 'zod'
-import zodToJsonSchema from 'zod-to-json-schema'
 
 type Objectives = Record<string, string>
 
@@ -10,7 +9,7 @@ type FormatGuidelines = {
 }
 
 export class ContentCommand {
-  public getMessages(args: AiCompletionSettings): CommandMessage[] {
+  public async getMessages(args: AiCompletionSettings): Promise<CommandMessage[]> {
     const { format, referenceInfo, runPrompt } = args
 
     let formatGuidelines: FormatGuidelines
@@ -20,7 +19,7 @@ export class ContentCommand {
         formatGuidelines = this.getWebsiteCopyGuidelines(args)
         break
       case 'contentAutocomplete':
-        formatGuidelines = this.getAutocompleteGuidelines(args)
+        formatGuidelines = await this.getAutocompleteGuidelines(args)
         break
       default:
         throw new Error(`Unsupported system message format: ${format}`)
@@ -102,9 +101,9 @@ export class ContentCommand {
     }
   }
 
-  private getAutocompleteGuidelines(args: AiCompletionSettings & { format: 'contentAutocomplete' }): FormatGuidelines {
+  private async getAutocompleteGuidelines(args: AiCompletionSettings & { format: 'contentAutocomplete' }): Promise<FormatGuidelines> {
     const { objectives } = args
-
+    const { default: zodToJsonSchema } = await import('zod-to-json-schema')
     return {
       outputFormat: zodToJsonSchema(z.object({
         suggestion1: z.string().min(3).max(200),

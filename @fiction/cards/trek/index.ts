@@ -40,24 +40,24 @@ async function defaultConfig(): Promise<UserConfig> {
       {
         title: `Title Goes Here`,
         content: `Content or tagline goes here.`,
-        media: stockMediaHandler.getRandomByTags(['background', 'video']),
+        media: await stockMediaHandler.getRandomByTags(['background', 'video']),
         actions: [{ name: 'Button Label', href: '#' }],
       },
       {
         title: `Another Title`,
         content: `Secondary content or brief description.`,
-        media: stockMediaHandler.getRandomByTags(['background', 'video']),
+        media: await stockMediaHandler.getRandomByTags(['background', 'video']),
         actions: [{ name: 'Button Label', href: '#' }],
       },
       {
         title: 'Exhibit Title Here',
         content: 'Brief description of the exhibit or event.',
-        media: stockMediaHandler.getRandomByTags(['background', 'video']),
+        media: await stockMediaHandler.getRandomByTags(['background', 'video']),
       },
       {
         title: `Call to Action Title`,
         content: `Encouraging statement or invitation to connect.`,
-        media: stockMediaHandler.getRandomByTags(['background', 'video']),
+        media: await stockMediaHandler.getRandomByTags(['background', 'video']),
         actions: [{ name: 'Button Label', href: '#' }],
       },
     ],

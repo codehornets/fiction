@@ -19,18 +19,18 @@ const containerScenarios = [
   { name: 'Thumbnail', class: 'h-16' },
 ]
 
-function generateMediaObjects(): MediaObject[] {
+async function generateMediaObjects(): Promise<MediaObject[]> {
   return [
     // Image
     {
-      url: stockMediaHandler.getRandomByAspectRatio('aspect:square', { format: 'image' }).url,
+      url: (await stockMediaHandler.getRandomByAspectRatio('aspect:square', { format: 'image' })).url,
       alt: 'Square image',
       format: 'image',
       blurhash: 'L6PZfSi_.AyE_3t7t7R**0o#DgR4',
     },
     // Video
     {
-      url: stockMediaHandler.getRandomMedia({ format: 'video' }).url,
+      url: (await stockMediaHandler.getRandomMedia({ format: 'video' })).url,
       format: 'video',
       blurhash: 'L6PZfSi_.AyE_3t7t7R**0o#DgR4',
     },
@@ -49,11 +49,11 @@ function generateMediaObjects(): MediaObject[] {
   ]
 }
 
-const mediaObjects = vue.ref(generateMediaObjects())
+const mediaObjects = vue.ref<MediaObject[]>([])
 
-function refreshMedia() {
+async function refreshMedia() {
   stockMediaHandler.resetUsedMedia()
-  mediaObjects.value = generateMediaObjects()
+  mediaObjects.value = await generateMediaObjects()
 }
 
 const filters: ImageFilterConfig[] = [
@@ -67,6 +67,10 @@ const overlays = [
   { color: 'rgba(255, 0, 0, 0.5)', opacity: 0.5 },
   { gradient: { angle: 45, stops: [{ color: '#00ff00', percent: 0 }, { color: '#0000ff', percent: 100 }] }, opacity: 0.7 },
 ]
+
+vue.onMounted(async () => {
+  mediaObjects.value = await generateMediaObjects()
+})
 </script>
 
 <template>

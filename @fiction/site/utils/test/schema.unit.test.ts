@@ -60,8 +60,8 @@ describe('schema tools', () => {
     }),
   })
 
-  it('rectifies options with schema', () => {
-    const out = refineOptions({ options, schema })
+  it('rectifies options with schema', async () => {
+    const out = await refineOptions({ options, schema })
 
     expect(out.dotRecord).toMatchInlineSnapshot(`
       {
@@ -89,7 +89,7 @@ describe('schema tools', () => {
 
     expect(out.hiddenOptions.length, 'no hidden options').toBe(0)
 
-    const out2 = refineOptions({ options, schema: schema2 })
+    const out2 = await refineOptions({ options, schema: schema2 })
 
     expect(out2.unusedSchema).toMatchInlineSnapshot(`
       {
@@ -102,8 +102,8 @@ describe('schema tools', () => {
     expect(out2.hiddenOptions).toMatchInlineSnapshot(`[]`)
   })
 
-  it('handles duplicated nested options', () => {
-    const s = zodToSimpleSchema(UserConfigSchema)
+  it('handles duplicated nested options', async () => {
+    const s = await zodToSimpleSchema(UserConfigSchema)
 
     expect(s).toMatchInlineSnapshot(`
       {
@@ -142,7 +142,7 @@ describe('schema tools', () => {
       ] }),
     ]
 
-    const r = refineOptions({ options: ops, schema: UserConfigSchema })
+    const r = await refineOptions({ options: ops, schema: UserConfigSchema })
 
     expect(r.unusedSchema).toMatchInlineSnapshot(`{}`)
 
@@ -169,7 +169,7 @@ describe('schema tools', () => {
       ]
     `)
   })
-  it('creates a dot record from schema', () => {
+  it('creates a dot record from schema', async () => {
     const schema = z.object({
       heading: z.string().optional().describe('Primary headline for profile 3 to 8 words'),
       subHeading: z.string().optional().describe('Formatted markdown of profile with paragraphs, 30 to 60 words, 2 paragraphs'),
@@ -192,7 +192,7 @@ describe('schema tools', () => {
 
     })
 
-    const simple = zodToSimpleSchema(schema)
+    const simple = await zodToSimpleSchema(schema)
 
     expect(simple).toMatchInlineSnapshot(`
       {

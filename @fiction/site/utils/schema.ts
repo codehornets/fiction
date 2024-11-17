@@ -1,7 +1,6 @@
 import type { InputOption } from '@fiction/ui/index.js'
 import type { z } from 'zod'
 import type { JsonSchema7ObjectType, JsonSchema7Type } from 'zod-to-json-schema'
-import { zodToJsonSchema } from 'zod-to-json-schema'
 
 type RefineOptionsResult = {
   options: InputOption[]
@@ -9,18 +8,18 @@ type RefineOptionsResult = {
   hiddenOptions: string[]
   dotRecord?: Record<string, string>
 }
-export function refineOptions<T extends z.AnyZodObject>(args: {
+export async function refineOptions<T extends z.AnyZodObject>(args: {
   options: InputOption[]
   schema?: T
   templateId?: string
-}): RefineOptionsResult {
+}): Promise<RefineOptionsResult> {
   const { options, schema } = args
 
   // Return early if no schema is available
   if (!schema)
     return { options, unusedSchema: undefined, hiddenOptions: [] }
 
-  const dotRecord = zodSchemaToDotPathRecord(schema)
+  const dotRecord = await zodSchemaToDotPathRecord(schema)
 
   const hiddenOptions: string[] = []
 
@@ -99,7 +98,12 @@ export function refineOptions<T extends z.AnyZodObject>(args: {
     return option
   }
 
-  return { options: options.map(_ => refineOptionRecursive(_)), unusedSchema: dotRecord, dotRecord: zodSchemaToDotPathRecord(schema), hiddenOptions }
+  return {
+    options: options.map(_ => refineOptionRecursive(_)),
+    unusedSchema: dotRecord,
+    dotRecord: await zodSchemaToDotPathRecord(schema),
+    hiddenOptions,
+  }
 }
 
 export function collectKeysFromOptions(inputOptions: InputOption[] | readonly InputOption[]): string[] {
@@ -189,10 +193,12 @@ export function createDotPathRecord(schema: JsonSchema7ObjectType, options: DotP
   return flatSchema
 }
 
-export function zodToSimpleSchema<T extends z.AnyZodObject>(schema: T): SimpleSchema {
+export async function zodToSimpleSchema<T extends z.AnyZodObject>(schema: T): Promise<SimpleSchema> {
+  const { default: zodToJsonSchema } = await import('zod-to-json-schema')
   return simplifySchema(zodToJsonSchema(schema, { $refStrategy: 'none' }) as JsonSchema7ObjectType)
 }
 
-export function zodSchemaToDotPathRecord<T extends z.AnyZodObject>(schema: T, options: DotPathOptions = {}): Record<string, string> {
+export async function zodSchemaToDotPathRecord<T extends z.AnyZodObject>(schema: T, options: DotPathOptions = {}): Promise<Record<string, string>> {
+  const { default: zodToJsonSchema } = await import('zod-to-json-schema')
   return createDotPathRecord(zodToJsonSchema(schema, { $refStrategy: 'none' }) as JsonSchema7ObjectType, options)
 }

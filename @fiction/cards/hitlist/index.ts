@@ -57,10 +57,10 @@ function isThisYouConfig(): UserConfig {
   }
 }
 
-function imagineConfig(): UserConfig {
+async function imagineConfig(): Promise<UserConfig> {
   return {
     title: 'Imagine If...',
-    media: stockMediaHandler.getRandomByTags(['person', 'aspect:portrait']),
+    media: await stockMediaHandler.getRandomByTags(['person', 'aspect:portrait']),
 
     items: [
       {
@@ -85,10 +85,10 @@ function imagineConfig(): UserConfig {
   }
 }
 
-function getUserConfig(): UserConfig {
+async function getUserConfig(): Promise<UserConfig> {
   return {
     title: 'Introducing Fiction',
-    media: stockMediaHandler.getRandomByTags(['person', 'aspect:portrait']),
+    media: await stockMediaHandler.getRandomByTags(['person', 'aspect:portrait']),
 
     items: [
       {
@@ -130,11 +130,11 @@ export const template = cardTemplate({
       cards: [
         { templateId, userConfig: isThisYouConfig() },
         { templateId, userConfig: {
-          ...imagineConfig(),
+          ...(await imagineConfig()),
           layout: 'left' as const,
         } },
         { templateId, userConfig: {
-          ...getUserConfig(),
+          ...(await getUserConfig()),
           layout: 'right' as const,
         } },
       ],

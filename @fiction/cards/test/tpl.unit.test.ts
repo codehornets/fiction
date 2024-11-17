@@ -14,8 +14,8 @@ describe('verify template settings config', async () => {
     const factory = new CardFactory({ site, templates })
     const demoPages = await getDemoPages({ templates, site, factory })
 
-    const templatesOptionConfig = templates.map((_) => {
-      const conf = refineOptions({
+    const templatesOptionConfigPromises = templates.map(async (_) => {
+      const conf = await refineOptions({
         options: _.settings.options || [],
         schema: _.settings.schema,
         templateId: _.settings.templateId,
@@ -27,6 +27,8 @@ describe('verify template settings config', async () => {
         hasDemo: !!(_.settings.demoPage || demoPages.some(d => d.slug === `card-${_.settings.templateId}`)),
       }
     })
+
+    const templatesOptionConfig = await Promise.all(templatesOptionConfigPromises)
 
     expect(templatesOptionConfig, 'snapshot').toMatchInlineSnapshot(`
       [

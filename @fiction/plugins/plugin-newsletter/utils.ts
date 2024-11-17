@@ -50,7 +50,7 @@ export async function getEmailForCampaign(args: {
     subject: campaignConfig.subject || (withDefaults ? 'No Subject' : ''),
     heading: campaignConfig.post?.title || (withDefaults ? 'No Title' : ''),
     subHeading: campaignConfig.post?.subTitle || (withDefaults ? 'No Subtitle' : ''),
-    bodyMarkdown: toMarkdown(campaignConfig.post?.content || (withDefaults ? 'No content' : '')),
+    bodyMarkdown: await toMarkdown(campaignConfig.post?.content || (withDefaults ? 'No content' : '')),
     actions: campaignConfig.userConfig?.actions || [],
     mediaSuper: { media: { url: avatar?.url }, name: orgName, href: url },
     mediaFooter: { media: { url: img.footer.url }, name: 'Powered by Fiction', href: 'https://www.fiction.com' },

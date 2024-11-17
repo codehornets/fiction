@@ -4,7 +4,7 @@ import { z } from 'zod'
 import { standardOption } from '../inputSets'
 
 describe('refine options with schema', () => {
-  it('refines options', () => {
+  it('refines options', async () => {
     const schema = z.object({
       heading: z.string().optional().describe('Primary headline for profile 3 to 8 words'),
       subHeading: z.string().optional().describe('Formatted markdown of profile with paragraphs, 30 to 60 words, 2 paragraphs'),
@@ -18,7 +18,7 @@ describe('refine options with schema', () => {
     })
 
     const navItemOptions = standardOption.navItems({ label: 'Details', key: 'details', maxDepth: 0 })
-    const { options, unusedSchema } = refineOptions({ options: [
+    const { options, unusedSchema } = await refineOptions({ options: [
       standardOption.headers(),
       navItemOptions,
     ], schema })

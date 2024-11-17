@@ -9,7 +9,6 @@ import utc from 'dayjs/plugin/utc.js'
 import weekOfYear from 'dayjs/plugin/weekOfYear.js'
 import createDOMPurify from 'dompurify'
 import knex from 'knex'
-import { twMerge } from 'tailwind-merge'
 import * as vue from 'vue'
 import * as vueRouter from 'vue-router'
 
@@ -45,4 +44,4 @@ function clean(text: unknown) {
   // Sanitize the text
   return DOMPurify.sanitize(text, config)
 }
-export { axios, chalk, clean, dayjs, knex, twMerge, unhead, vue, vueRouter }
+export { axios, chalk, clean, dayjs, knex, unhead, vue, vueRouter }
