@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { Card } from '@fiction/site/card'
-import type { UserConfig } from './index.js'
+import type { UserConfig } from './config.js'
 import { dayjs, useService, vue, waitFor } from '@fiction/core'
 import { animateItemEnter, useElementVisible } from '@fiction/ui/anim'
 import XLogo from '@fiction/ui/media/XLogo.vue'

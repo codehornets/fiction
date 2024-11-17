@@ -20,7 +20,7 @@ describe('generation utils', async () => {
     inlineTemplate,
     title: 'Test Card',
   })
-  const conf = await card.tpl.value?.settings.getConfig?.({ site })
+  const conf = await card.tpl.value?.getConfig?.({ site })
   const zodSchema = conf?.schema
   if (!zodSchema)
     throw new Error('No schema found')

@@ -72,7 +72,7 @@ describe('card', async () => {
   it('should compute total estimated time correctly', async () => {
     generation.fieldsUserConfig.value = { heading: { isUserEnabled: true }, subHeading: { isUserEnabled: true } }
 
-    const totalEstimatedTime = generation.getTotalEstimatedTime()
+    const totalEstimatedTime = await generation.getTotalEstimatedTime()
 
     expect(totalEstimatedTime).toMatchInlineSnapshot(`8`)
     expect(totalEstimatedTime).toBe(8)

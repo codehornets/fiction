@@ -3,7 +3,7 @@ import { cardTemplate } from '@fiction/site'
 import { InputOption } from '@fiction/ui'
 import { stockMediaHandler } from '@fiction/ui/stock/index.js'
 import { z } from 'zod'
-import { options as heroOptions, schema as heroSchema } from '../hero/index'
+import { getOptions as getHeroOptions, schema as heroSchema } from '../hero/config'
 
 const templateId = 'tour'
 
@@ -14,7 +14,7 @@ const schema = z.object({
 export type UserConfig = z.infer<typeof schema>
 
 const options: InputOption[] = [
-  new InputOption({ key: 'items', label: 'Tour Items', input: 'InputList', options: heroOptions }),
+  new InputOption({ key: 'items', label: 'Tour Items', input: 'InputList', options: getHeroOptions() }),
 ]
 
 async function defaultConfig(): Promise<UserConfig> {

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { UserConfig } from '.'
-import type { UserConfig as HeroUserConfig } from '../hero'
+import type { UserConfig as HeroUserConfig } from '../hero/config'
 import { vue } from '@fiction/core'
 import { Card } from '@fiction/site'
 import ElHero from '../hero/ElHero.vue'

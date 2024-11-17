@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { Card } from '@fiction/site'
-import type { OverlayConfig, UserConfig } from './index.js'
+import type { OverlayConfig, UserConfig } from './config.js'
 import { vue } from '@fiction/core'
 import EffectParallax from '@fiction/ui/effect/EffectParallax.vue'
 import XMedia from '@fiction/ui/media/XMedia.vue'
