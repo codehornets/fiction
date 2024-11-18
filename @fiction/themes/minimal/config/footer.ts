@@ -1,4 +1,5 @@
 import type { template as areaTemplate } from '@fiction/cards/area'
+import type { template as footerOmegaTemplate } from '@fiction/cards/footerOmega'
 import type { template as footerTemplate } from '@fiction/cards/footerPro'
 import type { template as TickerTemplate } from '@fiction/cards/ticker'
 import type { Site } from '@fiction/site'
@@ -22,24 +23,7 @@ export async function getFooter(args: { factory: CardFactory, site: Site, userCo
           },
         ],
       } }),
-      await factory.fromTemplate<typeof footerTemplate>({ templateId: 'footerPro', userConfig: {
-        logo: {
-          format: 'typography',
-          typography: { text: 'Minimal', font, weight },
-        },
-        nav: [
-          { name: 'Home', href: '/' },
-          { name: 'Contact', href: '/contact' },
-        ],
-        legal: {
-          copyrightText: `Your Company or Name, Inc.`,
-        },
-        socials: [
-          { href: '#', target: '_blank', name: 'LinkedIn', media: { iconId: `linkedin` } },
-          { href: '#', target: '_blank', name: 'X', media: { iconId: 'x' } },
-        ],
-
-      } }),
+      await factory.fromTemplate<typeof footerOmegaTemplate>({ templateId: 'footerOmega', userConfig: { } }),
     ],
   })
 }

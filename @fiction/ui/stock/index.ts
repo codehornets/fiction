@@ -20,6 +20,7 @@ type MediaCollection = MediaItem[]
 type GetMediaArgs = {
   format?: MediaFormat
   tags?: Tag[]
+  caller?: string
 }
 
 export class StockMedia {
@@ -35,7 +36,8 @@ export class StockMedia {
 
   private async filterMedia(args: GetMediaArgs = {}): Promise<MediaItem[]> {
     const media = await this.getMediaCollection()
-    return media.filter((item) => {
+
+    const r = media.filter((item) => {
       if (this.usedMedia.has(item.url))
         return false
       if (args.format && item.format !== args.format)
@@ -44,6 +46,8 @@ export class StockMedia {
         return false
       return true
     })
+
+    return r
   }
 
   private markAsUsed(item: MediaItem): void {
@@ -64,7 +68,7 @@ export class StockMedia {
     }
 
     if (filteredMedia.length === 0) {
-      logger.error('No media items available', { data: { args, filteredMedia } })
+      logger.error('No media items available', { data: { args, filteredMedia, usedMediaSize: this.usedMedia.size } })
       const m = await this.getMediaCollection()
       return m[0] ?? {}
     }

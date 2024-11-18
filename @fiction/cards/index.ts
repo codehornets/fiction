@@ -20,7 +20,7 @@ const templates = {
     area: () => import('./area'),
     nav: () => import('./nav'),
     footer: () => import('./footerPro'),
-    footerAlpha: () => import('./footerAlpha'),
+    footerAlpha: () => import('./footerOmega'),
   },
   content: {
     hero: () => import('./hero'),
@@ -175,14 +175,11 @@ export async function getDemoPages(args: {
   const demoTemplatesList = Object.values(demoTemplates).map(createDemoTemplate)
   const allTemplates = [...demoTemplatesList, ...args.templates]
 
-  const demoPages = await Promise.all(
-    allTemplates
-      .filter(t => t.settings.demoPage)
-      .map(async (template) => {
-        const card = await template.settings.demoPage?.(args) as CardConfigPortable
-        return createDemoPage({ site: args.site, template, card })
-      }),
-  )
+  const demoPagePromises = allTemplates.map(async (template) => {
+    const config = await template.getConfig(args)
+    const demoCard = config.demoPage || {}
+    return createDemoPage({ site: args.site, template, card: demoCard })
+  })
 
-  return demoPages
+  return await Promise.all(demoPagePromises)
 }

@@ -8,11 +8,9 @@ import CardButton from './CardButton.vue'
 import CardText from './CardText.vue'
 import CardLink from './el/CardLink.vue'
 
-type NavLinkItem = {
-  itemStyle?: 'button' | 'user' | 'default'
-  itemTheme?: ColorThemeUser
-  subStyle?: 'mega' | 'default'
-} & NavItem
+defineOptions({
+  name: 'CardNavLink',
+})
 
 const props = defineProps({
   item: { type: Object as vue.PropType<NavLinkItem>, required: true },
@@ -22,6 +20,12 @@ const props = defineProps({
   hoverEffect: { type: String as vue.PropType<'underline'>, default: undefined },
   animate: { type: String as vue.PropType<'rise' | 'fade'>, default: undefined },
 })
+
+type NavLinkItem = {
+  itemStyle?: 'button' | 'user' | 'default'
+  itemTheme?: ColorThemeUser
+  subStyle?: 'mega' | 'default'
+} & NavItem
 
 const service = useService()
 
@@ -49,7 +53,7 @@ const styles = vue.computed(() => {
     :class="!item.href ? 'cursor-default' : 'cursor-pointer'"
     :data-el-type="styles.componentType"
   >
-    <span class="inline-flex items-center space-x-1 relative whitespace-nowrap">
+    <span class="inline-flex items-center space-x-1.5 relative whitespace-nowrap truncate w-full">
       <ElAvatar v-if="item.itemStyle === 'user' && service.fictionUser.activeUser.value" class=" size-[1.4em] mr-1.5 rounded-full ring-2 ring-theme-200 dark:ring-theme-0" :email="service.fictionUser.activeUser?.value?.email" />
       <XIcon v-else-if="item.media" :media="item.media" class="size-[1.1em] mr-1" />
       <CardText
@@ -57,7 +61,7 @@ const styles = vue.computed(() => {
         :card
         :path="`${item.basePath}.name`"
         tag="span"
-        class="block relative"
+        class="block relative truncate"
         :class="[
           styles.hoverEffect === 'underline' && card.link(item.href) ? 'menu-text after:border-t-2 after:border-primary-500 dark:after:border-primary-400 after:rounded-lg' : '',
           item.isActive ? 'active' : '',

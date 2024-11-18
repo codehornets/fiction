@@ -147,6 +147,30 @@ export const MediaDisplaySchema = MediaContentSchema.extend({
 })
 export type MediaObject = z.infer<typeof MediaDisplaySchema & typeof MediaTypographySchema & typeof MediaIconSchema>
 
+// First define base schema without recursive parts
+const BaseNavListItemSchema = z.object({
+  testId: z.string().optional(),
+  title: z.string().optional(),
+  name: z.string().optional(),
+  desc: z.string().optional(),
+  media: MediaIconSchema.optional(),
+  href: z.string().optional(),
+  priority: z.number().optional(),
+  target: z.string().optional(),
+  itemsTitle: z.string().optional(),
+  authState: z.enum(['loggedIn', 'loggedOut', 'default']).optional(),
+})
+
+// Define the complete type including recursive items property
+export type NavListItem = z.infer<typeof BaseNavListItemSchema> & {
+  items?: NavListItem[]
+}
+
+// Create the full schema with recursion
+export const NavListItemSchema: z.ZodType<NavListItem> = BaseNavListItemSchema.extend({
+  items: z.lazy(() => NavListItemSchema.array()).optional(),
+})
+
 export const ActionButtonSchema = z.object({
   name: z.string().optional(),
   href: z.string().optional(),
