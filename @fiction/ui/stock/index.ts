@@ -25,17 +25,13 @@ type GetMediaArgs = {
 
 export class StockMedia {
   private usedMedia: Set<string> = new Set()
-
-  constructor() {
+  media: MediaCollection
+  constructor(args: { media: MediaCollection }) {
+    this.media = args.media
   }
 
-  async getMediaCollection(): Promise<MediaCollection> {
-    const { default: MediaCollection } = await import('./mediaItems.json')
-    return MediaCollection as MediaCollection
-  }
-
-  private async filterMedia(args: GetMediaArgs = {}): Promise<MediaItem[]> {
-    const media = await this.getMediaCollection()
+  private filterMedia(args: GetMediaArgs = {}): MediaItem[] {
+    const media = this.media
 
     const r = media.filter((item) => {
       if (this.usedMedia.has(item.url))
@@ -59,17 +55,17 @@ export class StockMedia {
     this.usedMedia.add(item.url)
   }
 
-  async getRandomMedia(args: GetMediaArgs = {}): Promise<MediaItem> {
-    let filteredMedia = await this.filterMedia(args)
+  getRandomMedia(args: GetMediaArgs = {}): MediaItem {
+    let filteredMedia = this.filterMedia(args)
 
     if (filteredMedia.length === 0 && this.usedMedia.size > 0) {
       this.resetUsedMedia()
-      filteredMedia = await this.filterMedia(args)
+      filteredMedia = this.filterMedia(args)
     }
 
     if (filteredMedia.length === 0) {
       logger.error('No media items available', { data: { args, filteredMedia, usedMediaSize: this.usedMedia.size } })
-      const m = await this.getMediaCollection()
+      const m = this.media
       return m[0] ?? {}
     }
 
@@ -86,15 +82,15 @@ export class StockMedia {
     return selectedItem
   }
 
-  async getAllMedia(args: GetMediaArgs = {}): Promise<MediaItem[]> {
+  getAllMedia(args: GetMediaArgs = {}): MediaItem[] {
     return this.filterMedia(args)
   }
 
-  async getRandomByTags(tags: Tag[], args: Omit<GetMediaArgs, 'tags'> = {}): Promise<MediaItem > {
+  getRandomByTags(tags: Tag[], args: Omit<GetMediaArgs, 'tags'> = {}): MediaItem {
     return this.getRandomMedia({ ...args, tags })
   }
 
-  async getRandomByAspectRatio(aspectRatio?: Extract<Tag, `aspect${string}`> | 'portrait' | 'landscape' | 'squarish', args: GetMediaArgs = {}): Promise<MediaItem> {
+  getRandomByAspectRatio(aspectRatio?: Extract<Tag, `aspect${string}`> | 'portrait' | 'landscape' | 'squarish', args: GetMediaArgs = {}): MediaItem {
     let aspectTag: Tag
     if (aspectRatio === 'portrait') {
       aspectTag = 'aspect:portrait'
@@ -112,18 +108,18 @@ export class StockMedia {
     return this.getRandomMedia({ ...args, tags: [aspectTag, ...(args.tags || [])] })
   }
 
-  async getAssetBySlug(partialSlug: string): Promise<MediaItem | undefined> {
+  getAssetBySlug(partialSlug: string): MediaItem | undefined {
     const normalizedPartialSlug = partialSlug.toLowerCase()
-    const media = await this.getMediaCollection()
+    const media = this.media
     return media.find(item =>
       item.slug.toLowerCase().includes(normalizedPartialSlug),
     )
   }
 
   // New method to get all assets matching a partial slug
-  async getAllAssetsBySlug(partialSlug: string): Promise<MediaItem[]> {
+  getAllAssetsBySlug(partialSlug: string): MediaItem[] {
     const normalizedPartialSlug = partialSlug.toLowerCase()
-    const media = await this.getMediaCollection()
+    const media = this.media
     return media.filter(item =>
       item.slug.toLowerCase().includes(normalizedPartialSlug),
     )
@@ -134,4 +130,7 @@ export class StockMedia {
   }
 }
 
-export const stockMediaHandler = new StockMedia()
+export async function createStockMediaHandler(): Promise<StockMedia> {
+  const { default: MediaCollection } = await import('./mediaItems.json')
+  return new StockMedia({ media: MediaCollection as MediaCollection })
+}

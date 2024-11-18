@@ -1,8 +1,66 @@
+import type { ConfigResponse } from '@fiction/site/card.js'
 import type { CardFactory } from '@fiction/site/cardFactory'
-import type { UserConfig } from './index.js'
+import type { StockMedia } from '@fiction/ui/stock/index.js'
+import { ActionButtonSchema, colorTheme, colorThemeUser, MediaDisplaySchema, MediaIconSchema, SizeSchema } from '@fiction/core'
+import { InputOption } from '@fiction/ui'
+import { z } from 'zod'
 
-export async function getUserConfig(args: { factory: CardFactory, templateId: string }): Promise<UserConfig> {
-  const { factory } = args
+const BentoItemSchema = z.object({
+  cols: z.number().min(1).max(12).optional(),
+  rows: z.number().min(1).max(12).optional(),
+  superTitle: z.string().optional(),
+  superIcon: MediaIconSchema.optional(),
+  superColor: z.enum(colorThemeUser).optional(),
+  title: z.string().optional(),
+  content: z.string().optional(),
+  media: MediaDisplaySchema.optional(),
+  bg: MediaDisplaySchema.optional(),
+  href: z.string().optional(),
+  actions: z.array(ActionButtonSchema).optional(),
+  theme: z.enum(colorThemeUser).optional(),
+  themeMode: z.enum(['light', 'dark', 'auto']).optional(),
+  verticalPosition: z.enum(['top', 'center', 'bottom']).optional(),
+  horizontalPosition: z.enum(['left', 'center', 'right']).optional(),
+})
+
+const schema = z.object({
+  items: z.array(BentoItemSchema),
+  gapSize: SizeSchema.optional(),
+  animate: z.enum(['expand', 'swipe', '']).optional(),
+})
+
+export type BentoItem = z.infer<typeof BentoItemSchema>
+export type UserConfig = z.infer<typeof schema>
+
+const options: InputOption[] = [
+  new InputOption({
+    key: 'items',
+    label: 'Bento Items',
+    input: 'InputList',
+    options: [
+      new InputOption({ key: 'cols', label: 'Columns', input: 'InputNumber', props: { min: 1, max: 12 } }),
+      new InputOption({ key: 'rows', label: 'Rows', input: 'InputNumber', props: { min: 1, max: 12 } }),
+      new InputOption({ key: 'superTitle', label: 'Super Title', input: 'InputText' }),
+      new InputOption({ key: 'superIcon', label: 'Super Icon', input: 'InputIcon' }),
+      new InputOption({ key: 'superColor', label: 'Super Color', input: 'InputSelect', props: { list: colorTheme } }),
+      new InputOption({ key: 'title', label: 'Title', input: 'InputText' }),
+      new InputOption({ key: 'content', label: 'Content', input: 'InputTextarea' }),
+      new InputOption({ key: 'actions', label: 'Actions', input: 'InputActions' }),
+      new InputOption({ key: 'media', label: 'Media', input: 'InputMedia' }),
+      new InputOption({ key: 'bg', label: 'Background', input: 'InputMedia', props: { isBackground: true } }),
+      new InputOption({ key: 'href', label: 'Link URL', input: 'InputUrl' }),
+      new InputOption({ key: 'theme', label: 'Theme', input: 'InputSelect', props: { list: colorTheme } }),
+      new InputOption({ key: 'themeMode', label: 'Theme Mode', input: 'InputSelect', props: { list: ['light', 'dark', 'auto'] } }),
+      new InputOption({ key: 'verticalPosition', label: 'Vertical Position', input: 'InputSelect', props: { list: ['top', 'center', 'bottom'] } }),
+      new InputOption({ key: 'horizontalPosition', label: 'Horizontal Position', input: 'InputSelect', props: { list: ['left', 'center', 'right'] } }),
+    ],
+  }),
+  new InputOption({ key: 'gapSize', label: 'Gap', input: 'InputSelect', props: { list: ['none', 'xs', 'sm', 'md', 'lg', 'xl'] } }),
+  new InputOption({ key: 'animate', label: 'Animation', input: 'InputSelect', props: { list: ['expand', 'swipe'] } }),
+]
+
+export async function getUserConfig(args: { factory: CardFactory, templateId: string, stock: StockMedia }): Promise<UserConfig> {
+  const { factory, stock } = args
   const actions = [
     { name: 'Learn More', href: '#', design: 'solid' as const },
     { name: 'Get Started', href: '#' },
@@ -37,7 +95,7 @@ export async function getUserConfig(args: { factory: CardFactory, templateId: st
         title: 'Card With Media',
         content: 'Add media or background images to create visual interest.',
         bg: {
-          url: (await factory.stock.getRandomByTags(['background'])).url,
+          url: (stock.getRandomByTags(['background'])).url,
           overlay: { opacity: 0.4 }, // Adjust overlay opacity: 0-1
         },
         verticalPosition: 'center', // Try: top, center, bottom
@@ -48,8 +106,8 @@ export async function getUserConfig(args: { factory: CardFactory, templateId: st
   }
 }
 
-export async function getDemoUserConfig(args: { factory: CardFactory }): Promise<UserConfig> {
-  const { factory } = args
+export async function getDemoUserConfig(args: { factory: CardFactory, stock: StockMedia }): Promise<UserConfig> {
+  const { factory, stock } = args
 
   const uc: UserConfig = {
     animate: 'expand',
@@ -64,7 +122,7 @@ export async function getDemoUserConfig(args: { factory: CardFactory }): Promise
         verticalPosition: 'bottom',
         horizontalPosition: 'left',
         bg: {
-          url: (await factory.stock.getRandomByTags(['person', 'aspect:landscape'])).url,
+          url: (stock.getRandomByTags(['person', 'aspect:landscape'])).url,
           overlay: { opacity: 0.2 },
         },
       },
@@ -76,7 +134,7 @@ export async function getDemoUserConfig(args: { factory: CardFactory }): Promise
         theme: 'blue',
         themeMode: 'dark',
         bg: {
-          url: (await factory.stock.getRandomByTags(['background'])).url,
+          url: (stock.getRandomByTags(['background'])).url,
           overlay: { opacity: 0.4 },
         },
       },
@@ -88,7 +146,7 @@ export async function getDemoUserConfig(args: { factory: CardFactory }): Promise
         content: 'When seconds count and ideas flow, you need tools that keep up with your imagination.',
         theme: 'emerald',
         themeMode: 'light',
-        media: await factory.stock.getRandomByTags(['person']),
+        media: stock.getRandomByTags(['person']),
       },
       {
         cols: 3,
@@ -98,7 +156,7 @@ export async function getDemoUserConfig(args: { factory: CardFactory }): Promise
         theme: 'rose',
         themeMode: 'dark',
         bg: {
-          url: (await factory.stock.getRandomByTags(['background'])).url,
+          url: (stock.getRandomByTags(['background'])).url,
           overlay: { opacity: 0.5 },
         },
       },
@@ -127,7 +185,7 @@ export async function getDemoUserConfig(args: { factory: CardFactory }): Promise
         theme: 'cyan',
         themeMode: 'dark',
         bg: {
-          url: (await factory.stock.getRandomByTags(['background'])).url,
+          url: (stock.getRandomByTags(['background'])).url,
           overlay: { opacity: 0.6 },
         },
       },
@@ -141,7 +199,7 @@ export async function getDemoUserConfig(args: { factory: CardFactory }): Promise
         verticalPosition: 'bottom',
         horizontalPosition: 'right',
         bg: {
-          url: (await factory.stock.getRandomByTags(['background'])).url,
+          url: (stock.getRandomByTags(['background'])).url,
           overlay: { opacity: 0.2 },
         },
       },
@@ -160,7 +218,7 @@ export async function getDemoUserConfig(args: { factory: CardFactory }): Promise
           html: `<svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 512 506.522"><path fill="currentColor" fill-rule="nonzero" d="M0 392.217h13.513c.973 17.285 6.086 29.337 15.338 36.153 9.251 6.818 23.98 10.226 44.188 10.226h99.697l-.73-24.468c-38.711-7.791-74.013-29.337-105.906-64.639-31.893-35.302-47.84-79.855-47.84-133.66 0-59.648 22.216-110.531 66.647-152.65C129.339 21.06 187.344.001 258.922 0c69.386.001 126.112 19.904 170.179 59.709 44.066 39.807 66.099 90.75 66.1 152.833-.001 50.397-13.695 93.185-41.084 128.365-27.39 35.18-64.457 59.587-111.201 73.221l-3.652 24.468h101.523c23.129 0 38.406-4.382 45.832-13.147 7.425-8.764 11.381-19.842 11.869-33.232H512v114.305H307.492l9.495-110.288c62.813-19.72 94.219-77.786 94.22-174.197-.001-63.056-15.399-111.383-46.197-144.981-30.798-33.598-66.891-50.396-108.28-50.397-44.066.001-80.525 17.834-109.375 53.501-28.85 35.667-43.275 81.256-43.275 136.764 0 40.172 6.452 76.752 19.355 109.741 12.904 32.989 37.615 56.178 74.134 69.569l6.939 110.288H0V392.217z"/></svg>`,
         },
         bg: {
-          url: (await factory.stock.getRandomByTags(['background'])).url,
+          url: (stock.getRandomByTags(['background'])).url,
           overlay: { opacity: 0.3 },
         },
       },
@@ -175,7 +233,7 @@ export async function getDemoUserConfig(args: { factory: CardFactory }): Promise
         verticalPosition: 'center',
         horizontalPosition: 'center',
         bg: {
-          url: (await factory.stock.getRandomByTags(['background'])).url,
+          url: (stock.getRandomByTags(['background'])).url,
           overlay: { opacity: 0.4 },
         },
       },
@@ -230,7 +288,7 @@ export async function getDemoUserConfig(args: { factory: CardFactory }): Promise
         verticalPosition: 'center',
         horizontalPosition: 'center',
         bg: {
-          url: (await factory.stock.getRandomByTags(['background'])).url,
+          url: (stock.getRandomByTags(['background'])).url,
           overlay: { opacity: 0.5 },
         },
       },
@@ -244,7 +302,7 @@ export async function getDemoUserConfig(args: { factory: CardFactory }): Promise
         verticalPosition: 'bottom',
         horizontalPosition: 'left',
         bg: {
-          url: (await factory.stock.getRandomByTags(['background'])).url,
+          url: (stock.getRandomByTags(['background'])).url,
           overlay: { opacity: 0.3 },
         },
       },
@@ -254,8 +312,18 @@ export async function getDemoUserConfig(args: { factory: CardFactory }): Promise
   return uc
 }
 
-export async function getDemo(args: { factory: CardFactory, templateId: string }) {
-  const { templateId } = args
-  const uc = await getDemoUserConfig(args)
+export async function getDemo(args: { factory: CardFactory, templateId: string, stock: StockMedia }) {
+  const { templateId, stock } = args
+  const uc = await getDemoUserConfig({ ...args, stock })
   return { cards: [{ templateId, userConfig: uc }] }
+}
+
+export async function getConfig(args: { templateId: string, factory: CardFactory }): Promise<ConfigResponse> {
+  const stock = await args.factory.getStockMedia()
+  return {
+    schema,
+    options,
+    userConfig: await getUserConfig({ ...args, stock }),
+    demoPage: await getDemo({ ...args, stock }),
+  }
 }

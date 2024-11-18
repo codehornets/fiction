@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { PostHandlingObject } from '@fiction/core'
 import { shortId, vue } from '@fiction/core'
-import { stockMediaHandler } from '../stock'
+import { createStockMediaHandler } from '../stock'
 import FormEngine from './FormEngine.vue'
 import { InputOption } from './index.js'
 
@@ -119,7 +119,7 @@ const globalQueryOptions: InputOption[] = [
 const localPostOptions: InputOption[] = [
   new InputOption({ key: 'slug', label: 'Slug', input: 'InputText', getDefaultValue: () => shortId() }),
   new InputOption({ key: 'title', label: 'Title', input: 'InputText', getDefaultValue: () => 'New Post' }),
-  new InputOption({ key: 'media', label: 'Media', input: 'InputMedia', getDefaultValue: () => stockMediaHandler.getRandomMedia() }),
+  new InputOption({ key: 'media', label: 'Media', input: 'InputMedia', getDefaultValue: async () => (await createStockMediaHandler()).getRandomMedia() }),
   new InputOption({ key: 'content', label: 'Content', input: 'InputProse' }),
   new InputOption({ key: 'tags', label: 'Tags', input: 'InputItems' }),
   new InputOption({ key: 'categories', label: 'Categories', input: 'InputItems' }),

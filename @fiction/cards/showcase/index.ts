@@ -1,7 +1,7 @@
 import { PostHandlingSchema, vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site'
 import { InputOption } from '@fiction/ui'
-import { stockMediaHandler } from '@fiction/ui/stock/index.js'
+import { createStockMediaHandler } from '@fiction/ui/stock/index.js'
 import { z } from 'zod'
 
 const el = vue.defineAsyncComponent(async () => import('./ElShowcase.vue'))
@@ -24,11 +24,12 @@ const options = [
 ] as InputOption[]
 
 export async function getDefaultConfig(): Promise<UserConfig> {
+  const stock = await createStockMediaHandler()
   const _p = Array.from({ length: 13 }, async (_, i) => ({
     title: `Item ${i + 1}`,
     subTitle: `Subtitle for Item ${i + 1}`,
     content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    media: await stockMediaHandler.getRandomByTags(['aspect:portrait', 'object']),
+    media: stock.getRandomByTags(['aspect:portrait', 'object']),
     slug: `item-${i + 1}`,
   }))
   const entries = await Promise.all(_p)

@@ -63,7 +63,7 @@ export function getButtonClasses(args: {
     'md': 'rounded-lg',
     'lg': 'rounded-lg',
     'xl': 'rounded-xl',
-    '2xl': 'rounded-2xl',
+    '2xl': 'rounded-xl',
   }
 
   const shadows: Record<ButtonShadow, string> = {

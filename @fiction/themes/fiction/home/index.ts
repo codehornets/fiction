@@ -1,6 +1,6 @@
 import type { CardFactory } from '@fiction/site/cardFactory.js'
 import type { Site } from '@fiction/site/site.js'
-import { stockMediaHandler } from '@fiction/ui/stock/index.js'
+import { createStockMediaHandler } from '@fiction/ui/stock/index.js'
 import andrew from './img/andrew.jpg'
 import dean from './img/dean2.jpg'
 import obama from './img/obama.webp'
@@ -9,6 +9,8 @@ import selena from './img/selena.jpg'
 
 export async function page(args: { site: Site, factory: CardFactory }) {
   const { factory } = args
+
+  const stock = await createStockMediaHandler()
 
   return factory.create({
     regionId: 'main',
@@ -65,7 +67,7 @@ export async function page(args: { site: Site, factory: CardFactory }) {
                 {
                   title: 'Hugo Rebora',
                   subTitle: 'Podcaster',
-                  media: await stockMediaHandler.getAssetBySlug('rebora'),
+                  media: stock.getAssetBySlug('rebora'),
                   href: '#',
                 },
                 {
@@ -79,13 +81,13 @@ export async function page(args: { site: Site, factory: CardFactory }) {
                 {
                   title: 'Olivia Alani',
                   subTitle: 'Fashion Designer',
-                  media: await stockMediaHandler.getAssetBySlug('olivia'),
+                  media: stock.getAssetBySlug('olivia'),
                   href: '#',
                 },
                 {
                   title: 'Gabriel Torres',
                   subTitle: 'Coach',
-                  media: await stockMediaHandler.getAssetBySlug('abgcuk'),
+                  media: stock.getAssetBySlug('abgcuk'),
                   href: '#',
                 },
 
@@ -99,7 +101,7 @@ export async function page(args: { site: Site, factory: CardFactory }) {
                 {
                   title: 'Sarah Bands',
                   subTitle: 'Director',
-                  media: await stockMediaHandler.getAssetBySlug('bands'),
+                  media: stock.getAssetBySlug('bands'),
                   href: '#',
                 },
                 {

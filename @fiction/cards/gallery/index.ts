@@ -2,7 +2,7 @@ import type { SiteUserConfig } from '@fiction/site/schema'
 import { MediaBasicSchema, vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site'
 import { InputOption } from '@fiction/ui'
-import { stockMediaHandler } from '@fiction/ui/stock/index.js'
+import { createStockMediaHandler } from '@fiction/ui/stock/index.js'
 import { z } from 'zod'
 
 const templateId = 'gallery'
@@ -41,12 +41,13 @@ const options: InputOption[] = [
 ]
 
 async function getUserConfig(): Promise<UserConfig & SiteUserConfig> {
+  const stock = await createStockMediaHandler()
   return {
     items: [
       {
         title: 'Item Title',
         content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies.',
-        media: await stockMediaHandler.getRandomByTags(['object', 'aspect:portrait']),
+        media: stock.getRandomByTags(['object', 'aspect:portrait']),
         columns: '1',
         rows: '2',
       },
@@ -54,88 +55,88 @@ async function getUserConfig(): Promise<UserConfig & SiteUserConfig> {
       {
         title: 'Item Title',
         content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies.',
-        media: await stockMediaHandler.getRandomByTags(['object', 'aspect:square']),
+        media: stock.getRandomByTags(['object', 'aspect:square']),
         columns: '2',
         rows: '3',
       },
       {
         title: 'Item Title',
         content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies.',
-        media: await stockMediaHandler.getRandomByTags(['object', 'aspect:portrait']),
+        media: stock.getRandomByTags(['object', 'aspect:portrait']),
         columns: '1',
         rows: '2',
       },
       {
         title: 'Item Title',
         content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies.',
-        media: await stockMediaHandler.getRandomByTags(['object', 'aspect:square']),
+        media: stock.getRandomByTags(['object', 'aspect:square']),
         columns: '1',
         rows: '1',
       },
       {
         title: 'Item Title',
         content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies.',
-        media: await stockMediaHandler.getRandomByTags(['object', 'aspect:square']),
+        media: stock.getRandomByTags(['object', 'aspect:square']),
         columns: '1',
         rows: '1',
       },
       {
         title: 'Item Title',
         content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies.',
-        media: await stockMediaHandler.getRandomByTags(['object', 'aspect:landscape']),
+        media: stock.getRandomByTags(['object', 'aspect:landscape']),
         columns: '3',
         rows: '2',
       },
       {
         title: 'Item Title',
         content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies.',
-        media: await stockMediaHandler.getRandomByTags(['object', 'aspect:square']),
+        media: stock.getRandomByTags(['object', 'aspect:square']),
         columns: '2',
         rows: '2',
       },
       {
         title: 'Item Title',
         content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies.',
-        media: await stockMediaHandler.getRandomByTags(['object', 'aspect:wide']),
+        media: stock.getRandomByTags(['object', 'aspect:wide']),
         columns: '2',
       },
       {
         title: 'Item Title',
         content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies.',
-        media: await stockMediaHandler.getRandomByTags(['object', 'aspect:wide']),
+        media: stock.getRandomByTags(['object', 'aspect:wide']),
         columns: '2',
       },
       {
         title: 'Item Title',
         content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies.',
-        media: await stockMediaHandler.getRandomByTags(['object', 'aspect:tall']),
+        media: stock.getRandomByTags(['object', 'aspect:tall']),
         columns: '1',
         rows: '2',
       },
       {
         title: 'Item Title',
         content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies.',
-        media: await stockMediaHandler.getRandomByTags(['object', 'aspect:tall']),
+        media: stock.getRandomByTags(['object', 'aspect:tall']),
         columns: '1',
         rows: '2',
       },
       {
         title: 'Item Title',
         content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies.',
-        media: await stockMediaHandler.getRandomByTags(['object', 'aspect:landscape']),
+        media: stock.getRandomByTags(['object', 'aspect:landscape']),
         columns: '2',
       },
       {
         title: 'Item Title',
         content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies.',
-        media: await stockMediaHandler.getRandomByTags(['object', 'aspect:square']),
+        media: stock.getRandomByTags(['object', 'aspect:square']),
         columns: '2',
         rows: '2',
       },
       {
         title: 'Item Title',
         content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies. Donec nec nunc tincidunt ultricies.',
-        media: await stockMediaHandler.getRandomByTags(['object', 'aspect:portrait']),
+        media: stock.getRandomByTags(['object', 'aspect:portrait']),
         columns: '1',
         rows: '3',
       },

@@ -13,8 +13,8 @@ export const template = cardTemplate({
   el: vue.defineAsyncComponent(async () => import('./ElHero.vue')),
 
   // New async getConfig implementation
-  async getConfig() {
+  async getConfig(args) {
     const { getHeroConfig } = await import('./config')
-    return getHeroConfig({ templateId })
+    return getHeroConfig({ templateId, ...args })
   },
 })

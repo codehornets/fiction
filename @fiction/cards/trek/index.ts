@@ -1,7 +1,7 @@
 import { colorThemeUser, MediaBasicSchema, vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site'
 import { InputOption } from '@fiction/ui'
-import { stockMediaHandler } from '@fiction/ui/stock/index.js'
+import { createStockMediaHandler } from '@fiction/ui/stock/index.js'
 import { z } from 'zod'
 
 const templateId = 'trek'
@@ -35,29 +35,30 @@ const options: InputOption[] = [
 ]
 
 async function defaultConfig(): Promise<UserConfig> {
+  const stock = await createStockMediaHandler()
   return {
     items: [
       {
         title: `Title Goes Here`,
         content: `Content or tagline goes here.`,
-        media: await stockMediaHandler.getRandomByTags(['background', 'video']),
+        media: stock.getRandomByTags(['background', 'video']),
         actions: [{ name: 'Button Label', href: '#' }],
       },
       {
         title: `Another Title`,
         content: `Secondary content or brief description.`,
-        media: await stockMediaHandler.getRandomByTags(['background', 'video']),
+        media: stock.getRandomByTags(['background', 'video']),
         actions: [{ name: 'Button Label', href: '#' }],
       },
       {
         title: 'Exhibit Title Here',
         content: 'Brief description of the exhibit or event.',
-        media: await stockMediaHandler.getRandomByTags(['background', 'video']),
+        media: stock.getRandomByTags(['background', 'video']),
       },
       {
         title: `Call to Action Title`,
         content: `Encouraging statement or invitation to connect.`,
-        media: await stockMediaHandler.getRandomByTags(['background', 'video']),
+        media: stock.getRandomByTags(['background', 'video']),
         actions: [{ name: 'Button Label', href: '#' }],
       },
     ],

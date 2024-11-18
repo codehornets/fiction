@@ -1,7 +1,7 @@
 import { vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site'
 import { InputOption } from '@fiction/ui'
-import { stockMediaHandler } from '@fiction/ui/stock/index.js'
+import { createStockMediaHandler } from '@fiction/ui/stock/index.js'
 import { z } from 'zod'
 import { getOptions as getHeroOptions, schema as heroSchema } from '../hero/config'
 
@@ -18,16 +18,17 @@ const options: InputOption[] = [
 ]
 
 async function defaultConfig(): Promise<UserConfig> {
+  const stock = await createStockMediaHandler()
   return {
     items: [
       {
         heading: 'Catchy Headline',
         subHeading: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        splash: await stockMediaHandler.getRandomByTags(['object', 'aspect:landscape']),
+        splash: stock.getRandomByTags(['object', 'aspect:landscape']),
         layout: 'left' as const,
         overlays: [
-          { media: await stockMediaHandler.getRandomByTags(['object', 'aspect:landscape']), position: 'bottomLeft' },
-          { media: await stockMediaHandler.getRandomByTags(['object', 'aspect:landscape']), position: 'topRight' },
+          { media: stock.getRandomByTags(['object', 'aspect:landscape']), position: 'bottomLeft' },
+          { media: stock.getRandomByTags(['object', 'aspect:landscape']), position: 'topRight' },
         ],
         actions: [
           { name: 'View Projects', href: '#', theme: 'primary' },
@@ -38,9 +39,9 @@ async function defaultConfig(): Promise<UserConfig> {
       {
         heading: 'Another Catchy Headline',
         subHeading: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        splash: await stockMediaHandler.getRandomByTags(['object', 'aspect:landscape']),
+        splash: stock.getRandomByTags(['object', 'aspect:landscape']),
         layout: 'right' as const,
-        overlays: [{ media: await stockMediaHandler.getRandomByTags(['aspect:square']), position: 'bottomLeft' }],
+        overlays: [{ media: stock.getRandomByTags(['aspect:square']), position: 'bottomLeft' }],
         actions: [
           { name: 'Explore Work', href: '#', theme: 'primary' },
           { name: 'UX Insights', href: '#', theme: 'naked' as const },
@@ -50,11 +51,11 @@ async function defaultConfig(): Promise<UserConfig> {
       {
         heading: 'Yet Another Catchy Headline',
         subHeading: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        splash: await stockMediaHandler.getRandomByTags(['background', 'aspect:landscape', 'video']),
+        splash: stock.getRandomByTags(['background', 'aspect:landscape', 'video']),
         overlays: [
-          { media: await stockMediaHandler.getRandomByTags(['object', 'aspect:landscape']) },
-          { media: await stockMediaHandler.getRandomByTags(['object', 'aspect:square']), position: 'bottomLeft' },
-          { media: await stockMediaHandler.getRandomByTags(['object', 'aspect:portrait']), position: 'topRight', widthPercent: 15 },
+          { media: stock.getRandomByTags(['object', 'aspect:landscape']) },
+          { media: stock.getRandomByTags(['object', 'aspect:square']), position: 'bottomLeft' },
+          { media: stock.getRandomByTags(['object', 'aspect:portrait']), position: 'topRight', widthPercent: 15 },
         ],
         actions: [
           { name: 'View Campaigns', href: '#', theme: 'primary' },

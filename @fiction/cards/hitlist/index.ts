@@ -1,7 +1,9 @@
+import type { CardFactory } from '@fiction/site/cardFactory'
+import type { StockMedia } from '@fiction/ui/stock/index.js'
 import { vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site'
 import { InputOption } from '@fiction/ui'
-import { stockMediaHandler } from '@fiction/ui/stock/index.js'
+import { createStockMediaHandler } from '@fiction/ui/stock/index.js'
 import { z } from 'zod'
 
 const templateId = 'hitlist'
@@ -57,10 +59,10 @@ function isThisYouConfig(): UserConfig {
   }
 }
 
-async function imagineConfig(): Promise<UserConfig> {
+async function imagineConfig(args: { factory: CardFactory, stock: StockMedia }): Promise<UserConfig> {
   return {
     title: 'Imagine If...',
-    media: await stockMediaHandler.getRandomByTags(['person', 'aspect:portrait']),
+    media: args.stock.getRandomByTags(['person', 'aspect:portrait']),
 
     items: [
       {
@@ -85,10 +87,10 @@ async function imagineConfig(): Promise<UserConfig> {
   }
 }
 
-async function getUserConfig(): Promise<UserConfig> {
+async function getUserConfig(args: { factory: CardFactory, stock: StockMedia }): Promise<UserConfig> {
   return {
     title: 'Introducing Fiction',
-    media: await stockMediaHandler.getRandomByTags(['person', 'aspect:portrait']),
+    media: args.stock.getRandomByTags(['person', 'aspect:portrait']),
 
     items: [
       {
@@ -125,16 +127,17 @@ export const template = cardTemplate({
   options,
   isPublic: true,
   getUserConfig: async () => isThisYouConfig(),
-  demoPage: async () => {
+  demoPage: async (args) => {
+    const stock = await args.factory.getStockMedia()
     return {
       cards: [
         { templateId, userConfig: isThisYouConfig() },
         { templateId, userConfig: {
-          ...(await imagineConfig()),
+          ...(await imagineConfig({ ...args, stock })),
           layout: 'left' as const,
         } },
         { templateId, userConfig: {
-          ...(await getUserConfig()),
+          ...(await getUserConfig({ ...args, stock })),
           layout: 'right' as const,
         } },
       ],

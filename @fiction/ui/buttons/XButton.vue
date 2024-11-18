@@ -127,8 +127,7 @@ const linkProps = vue.computed(() => {
       class="absolute left-0 flex w-full items-center justify-center transition-all duration-500 ease-[cubic-bezier(0.25,1,0.33,1)]"
     >
       <svg
-        class="h-4 w-4"
-        :class="loading ? 'animate-spin' : ''"
+        :class="[loading ? 'animate-spin' : '', ['2xl', 'xl'].includes(size || '') ? 'size-6' : 'size-4']"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"

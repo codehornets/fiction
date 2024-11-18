@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Card } from '@fiction/site'
-import type { UserConfig } from './index'
+import type { UserConfig } from './config'
 import { vue } from '@fiction/core'
 import ClipPathAnim from '@fiction/ui/anim/AnimClipPath.vue'
 import XIcon from '@fiction/ui/media/XIcon.vue'

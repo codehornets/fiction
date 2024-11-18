@@ -4,7 +4,7 @@ import { vue } from '@fiction/core'
 import FictionLogo from '../brand/FictionLogo.vue'
 import XButton from '../buttons/XButton.vue'
 import XMedia from '../media/XMedia.vue'
-import { stockMediaHandler } from '../stock/index.js'
+import { createStockMediaHandler } from '../stock/index.js'
 
 const darkMode = vue.ref(false)
 
@@ -19,18 +19,26 @@ const containerScenarios = [
   { name: 'Thumbnail', class: 'h-16' },
 ]
 
+const stock = vue.ref<Awaited<ReturnType<typeof createStockMediaHandler>>>()
+
 async function generateMediaObjects(): Promise<MediaObject[]> {
+  if (!stock.value) {
+    stock.value = await createStockMediaHandler()
+  }
+  else {
+    stock.value.resetUsedMedia()
+  }
   return [
     // Image
     {
-      url: (await stockMediaHandler.getRandomByAspectRatio('aspect:square', { format: 'image' })).url,
+      url: (stock.value.getRandomByAspectRatio('aspect:square', { format: 'image' })).url,
       alt: 'Square image',
       format: 'image',
       blurhash: 'L6PZfSi_.AyE_3t7t7R**0o#DgR4',
     },
     // Video
     {
-      url: (await stockMediaHandler.getRandomMedia({ format: 'video' })).url,
+      url: (stock.value.getRandomMedia({ format: 'video' })).url,
       format: 'video',
       blurhash: 'L6PZfSi_.AyE_3t7t7R**0o#DgR4',
     },
@@ -52,7 +60,6 @@ async function generateMediaObjects(): Promise<MediaObject[]> {
 const mediaObjects = vue.ref<MediaObject[]>([])
 
 async function refreshMedia() {
-  stockMediaHandler.resetUsedMedia()
   mediaObjects.value = await generateMediaObjects()
 }
 

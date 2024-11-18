@@ -63,6 +63,7 @@ const options: InputOption[] = [
 
 async function getUserConfig(args: { factory: CardFactory }): Promise<UserConfig & SiteUserConfig> {
   const { factory } = args
+  const stock = await factory.getStockMedia()
   return {
     superTitle: 'Name or Tagline',
     title: 'A Few Words That Describe What You Do',
@@ -70,10 +71,10 @@ async function getUserConfig(args: { factory: CardFactory }): Promise<UserConfig
 <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>`,
     mediaItems: [
       {
-        media: await factory.stock.getRandomByTags(['aspect:portrait', 'person']),
+        media: stock.getRandomByTags(['aspect:portrait', 'person']),
       },
       {
-        media: await factory.stock.getRandomByTags(['aspect:portrait', 'person']),
+        media: stock.getRandomByTags(['aspect:portrait', 'person']),
       },
     ],
     detailsTitle: 'Let\'s Connect',

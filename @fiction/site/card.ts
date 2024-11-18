@@ -32,6 +32,14 @@ type CardTemplateUserConfigAll<T extends CardTemplateSurfaceDefault> = SiteUserC
 
 type ConfigArgs = { site?: Site, factory: CardFactory }
 
+export type ConfigResponse<S extends CardTemplateSurfaceDefault = CardTemplateSurfaceDefault> = {
+  schema?: CardTemplateSurface<S>[ 'schema' ]
+  options?: InputOption[]
+  userConfig?: CardTemplateUserConfigAll<S>
+  effects?: TableCardConfig[]
+  demoPage?: { cards: (CardConfigPortable< CardTemplateUserConfigAll<S>> & { el?: vue.Component })[] }
+}
+
 interface CardTemplateSettings<
   S extends CardTemplateSurfaceDefault = CardTemplateSurfaceDefault,
 > {
@@ -52,13 +60,7 @@ interface CardTemplateSettings<
   options?: InputOption[]
   schema?: CardTemplateSurface<S>[ 'schema' ]
   sections?: Record<string, CardConfigPortable>
-  getConfig?: (args: { site?: Site }) => Promise<{
-    schema?: CardTemplateSurface<S>[ 'schema' ]
-    options?: InputOption[]
-    userConfig?: CardTemplateUserConfigAll<S>
-    effects?: TableCardConfig[]
-    demoPage?: { cards: (CardConfigPortable< CardTemplateUserConfigAll<S>> & { el?: vue.Component })[] }
-  }>
+  getConfig?: (args: ConfigArgs) => Promise<ConfigResponse<S>>
   getBaseConfig?: (args: { site?: Site }) => CardTemplateUserConfigAll<S>
   getUserConfig?: (args: ConfigArgs) => Promise<CardTemplateUserConfigAll<S>> | (CardTemplateUserConfigAll<S>)
   getEffects?: (args: ConfigArgs) => Promise<TableCardConfig[]>
@@ -103,7 +105,7 @@ export class CardTemplate<
     const { getUserConfig = () => {}, getEffects, getConfig } = this.settings
     const factory = new CardFactory({ site, templates: [this] })
     const templateBaseConfig = this.getBaseConfig({ site })
-    const config = getConfig ? await getConfig({ site }) : {}
+    const config = getConfig ? await getConfig({ site, factory }) : {}
     const asyncUserConfig = (await getUserConfig({ site, factory })) || {}
     const effects = getEffects ? (await getEffects({ site, factory })) : []
 

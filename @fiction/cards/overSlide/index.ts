@@ -1,7 +1,7 @@
 import { MediaBasicSchema, vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site'
 import { InputOption } from '@fiction/ui'
-import { stockMediaHandler } from '@fiction/ui/stock/index.js'
+import { createStockMediaHandler } from '@fiction/ui/stock/index.js'
 import { z } from 'zod'
 
 const templateId = 'overSlide'
@@ -34,6 +34,7 @@ const options: InputOption[] = [
 ]
 
 async function getDefaultConfig(): Promise<UserConfig> {
+  const stock = await createStockMediaHandler()
   return {
     autoSlide: true,
     slides: [
@@ -41,25 +42,25 @@ async function getDefaultConfig(): Promise<UserConfig> {
         title: 'First and Last Name',
         subTitle: 'Author and Speaker',
         textBlend: 'difference' as const,
-        media: await stockMediaHandler.getRandomByTags(['person', 'aspect:landscape']),
+        media: stock.getRandomByTags(['person', 'aspect:landscape']),
       },
       {
         title: 'Clever Headline',
         subTitle: 'Clever Headline Subtitle',
         textBlend: 'difference' as const,
-        media: await stockMediaHandler.getRandomByTags(['person', 'aspect:landscape', 'video']),
+        media: stock.getRandomByTags(['person', 'aspect:landscape', 'video']),
       },
       {
         title: 'Upcoming Event',
         subTitle: 'Speaking at Global Leadership Summit',
         textBlend: 'difference' as const,
-        media: await stockMediaHandler.getRandomByTags(['aspect:landscape']),
+        media: stock.getRandomByTags(['aspect:landscape']),
       },
       {
         title: 'Design Your Future',
         subTitle: 'Join My Coaching Program',
         textBlend: 'difference' as const,
-        media: await stockMediaHandler.getRandomByTags(['aspect:landscape']),
+        media: stock.getRandomByTags(['aspect:landscape']),
       },
     ],
   }

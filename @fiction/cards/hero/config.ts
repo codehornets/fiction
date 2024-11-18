@@ -1,8 +1,6 @@
-// config.ts
-// -------------------------------------------
+import type { CardFactory } from '@fiction/site/cardFactory'
 import { colorTheme, MediaBasicSchema, MediaIconSchema, XButtonSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
-import { stockMediaHandler } from '@fiction/ui/stock/index.js'
 import { z } from 'zod'
 
 // Schema definitions
@@ -68,9 +66,10 @@ export function getOptions(): InputOption[] {
 }
 
 // Demo page configuration
-async function getDemoPage(args: { templateId: string }) {
-  const { templateId } = args
-  const splash = async (aspect: 'aspect:square' | 'aspect:portrait' = 'aspect:square') => stockMediaHandler.getRandomByTags(['object', aspect])
+async function getDemoPage(args: { templateId: string, factory: CardFactory }) {
+  const { templateId, factory } = args
+  const stock = await factory.getStockMedia()
+  const splash = (aspect: 'aspect:square' | 'aspect:portrait' = 'aspect:square') => stock.getRandomByTags(['object', aspect])
 
   const subHeading = 'lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
 
@@ -88,7 +87,7 @@ async function getDemoPage(args: { templateId: string }) {
         userConfig: {
           ...defaultContent,
           layout: 'justify' as const,
-          splash: await splash(),
+          splash: splash(),
           superColor: 'purple' as const,
         },
       },
@@ -97,7 +96,7 @@ async function getDemoPage(args: { templateId: string }) {
         userConfig: {
           ...defaultContent,
           layout: 'right' as const,
-          splash: await splash('aspect:portrait'),
+          splash: splash('aspect:portrait'),
           subHeading,
           superColor: 'red' as const,
         },
@@ -107,7 +106,7 @@ async function getDemoPage(args: { templateId: string }) {
         userConfig: {
           ...defaultContent,
           layout: 'left' as const,
-          splash: await splash('aspect:portrait'),
+          splash: splash('aspect:portrait'),
           subHeading,
           superColor: 'indigo' as const,
         },
@@ -116,8 +115,7 @@ async function getDemoPage(args: { templateId: string }) {
   }
 }
 
-// Main config getter
-export async function getHeroConfig(args: { templateId: string }) {
+export async function getHeroConfig(args: { templateId: string, factory: CardFactory }) {
   return {
     schema,
     options: getOptions(),

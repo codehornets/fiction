@@ -4,7 +4,7 @@ import type { FictionAi, FictionAiSettings } from '.'
 import type { SourceItem } from './tables'
 import { abort, objectId, Query, Shortcodes } from '@fiction/core'
 
-import { stockMediaHandler } from '@fiction/ui/stock'
+import { createStockMediaHandler } from '@fiction/ui/stock'
 import { Pinecone } from '@pinecone-database/pinecone'
 import { generateText } from 'ai'
 import { Document, TextSplitter } from './splitter'
@@ -192,7 +192,9 @@ export abstract class QueryAi extends Query<QueryAiSettings> {
       const orientation = attributes?.orientation || 'squarish'
       const subject = attributes?.subject || 'person'
 
-      const mediaItem = await stockMediaHandler.getRandomByAspectRatio(orientation, { tags: ['object', 'image'] })
+      const stock = await createStockMediaHandler()
+
+      const mediaItem = stock.getRandomByAspectRatio(orientation, { tags: ['object', 'image'] })
 
       //  const search = attributes?.search || ''
       // const description = attributes?.description || ''

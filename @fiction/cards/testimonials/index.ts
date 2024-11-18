@@ -2,7 +2,7 @@ import type { SiteUserConfig } from '@fiction/site/schema'
 import { MediaBasicSchema, vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site'
 import { InputOption } from '@fiction/ui'
-import { stockMediaHandler } from '@fiction/ui/stock/index.js'
+import { createStockMediaHandler } from '@fiction/ui/stock/index.js'
 import { z } from 'zod'
 
 const templateId = 'testimonials'
@@ -47,26 +47,27 @@ const options: InputOption[] = [
 ]
 
 async function getUserConfig(): Promise<UserConfig & SiteUserConfig> {
+  const stock = await createStockMediaHandler()
   return {
     items: [
       {
         title: 'Agent to the Stars',
         content: `This platform revolutionized my online presence. Through my site and newsletter I've radically changed my business.`,
-        media: await stockMediaHandler.getRandomByTags(['person', 'aspect:landscape', 'woman', 'silhouette']),
+        media: stock.getRandomByTags(['person', 'aspect:landscape', 'woman', 'silhouette']),
         user: {
           fullName: 'Amida Cheng',
-          avatar: await stockMediaHandler.getRandomByTags(['person', 'aspect:square', 'silhouette', 'woman']),
+          avatar: stock.getRandomByTags(['person', 'aspect:square', 'silhouette', 'woman']),
           title: 'Celebrity Agent',
         },
       },
       {
         title: `Winner Best Director '22`,
         content: `Fiction helps me stay connected with my audience like no other tool. It does the work of an entire PR agency, but better.`,
-        media: await stockMediaHandler.getRandomByTags(['person', 'aspect:landscape', 'midshot', 'man']),
+        media: stock.getRandomByTags(['person', 'aspect:landscape', 'midshot', 'man']),
 
         user: {
           fullName: 'Xavier Williams',
-          avatar: await stockMediaHandler.getRandomByTags(['person', 'aspect:square', 'silhouette', 'man']),
+          avatar: stock.getRandomByTags(['person', 'aspect:square', 'silhouette', 'man']),
           title: 'Director',
         },
       },
@@ -74,30 +75,30 @@ async function getUserConfig(): Promise<UserConfig & SiteUserConfig> {
       {
         title: '',
         content: `I'm not a tech person, but Fiction made it easy for me to create a beautiful online presence that I can manage myself.`,
-        media: await stockMediaHandler.getRandomByTags(['person', 'aspect:landscape', 'midshot', 'woman']),
+        media: stock.getRandomByTags(['person', 'aspect:landscape', 'midshot', 'woman']),
         user: {
           fullName: 'Forest MontClair',
-          avatar: await stockMediaHandler.getRandomByTags(['person', 'aspect:square', 'silhouette', 'woman']),
+          avatar: stock.getRandomByTags(['person', 'aspect:square', 'silhouette', 'woman']),
           title: 'Influencer',
         },
       },
       {
         title: '',
         content: `I didn't know what I was missing until I started using Fiction. It's like having a personal assistant for my online presence.`,
-        media: await stockMediaHandler.getRandomByTags(['person', 'aspect:landscape', 'midshot', 'woman']),
+        media: stock.getRandomByTags(['person', 'aspect:landscape', 'midshot', 'woman']),
         user: {
           fullName: 'Casey Moreau',
-          avatar: await stockMediaHandler.getRandomByTags(['person', 'aspect:square', 'silhouette', 'woman']),
+          avatar: stock.getRandomByTags(['person', 'aspect:square', 'silhouette', 'woman']),
           title: 'Fashion Designer',
         },
       },
       {
         title: '10k+ followers gained in 3 months',
         content: `I used to struggle with all the tools needed to market myself. I haven't had a problem since using Fiction.`,
-        media: await stockMediaHandler.getRandomByTags(['person', 'aspect:landscape', 'midshot', 'man']),
+        media: stock.getRandomByTags(['person', 'aspect:landscape', 'midshot', 'man']),
         user: {
           fullName: 'Darius Ahmadi',
-          avatar: await stockMediaHandler.getRandomByTags(['person', 'aspect:square', 'silhouette', 'man']),
+          avatar: stock.getRandomByTags(['person', 'aspect:square', 'silhouette', 'man']),
           title: 'Author / Coach',
         },
 

@@ -151,6 +151,7 @@ export type MediaObject = z.infer<typeof MediaDisplaySchema & typeof MediaTypogr
 const BaseNavListItemSchema = z.object({
   testId: z.string().optional(),
   title: z.string().optional(),
+  content: z.string().optional(),
   name: z.string().optional(),
   desc: z.string().optional(),
   media: MediaIconSchema.optional(),

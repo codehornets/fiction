@@ -1,14 +1,15 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { Quote, UserConfig } from './index.js'
 
-export async function getUserConfig(_args: { factory: CardFactory, templateId: string }): Promise<UserConfig> {
-  const { factory } = _args
+export async function getUserConfig(args: { factory: CardFactory, templateId: string }): Promise<UserConfig> {
+  const { factory } = args
+  const stock = await factory.getStockMedia()
   const defaultQuote: Quote[] = [{
     text: 'An investment in knowledge pays the best interest.',
     author: {
       name: 'Benjamin Franklin',
       title: 'Founding Father',
-      image: await factory.stock.getRandomByAspectRatio('aspect:square', { tags: ['people', 'man'] }),
+      image: stock.getRandomByAspectRatio('aspect:square', { tags: ['man'] }),
     },
     org: {
       name: 'Fiction',
@@ -28,7 +29,7 @@ export async function getUserConfig(_args: { factory: CardFactory, templateId: s
     author: {
       name: 'Socrates',
       title: 'Philosopher',
-      image: await factory.stock.getRandomByAspectRatio('aspect:square', { tags: ['people', 'man'] }),
+      image: stock.getRandomByAspectRatio('aspect:square', { tags: ['man'] }),
     },
     org: {
       name: 'Dialectic',

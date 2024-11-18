@@ -3,7 +3,7 @@ import type { CardConfigPortable, PageRegion, Site, TableCardConfig } from './in
 import type { SiteUserConfig } from './schema.js'
 import type { ComponentConstructor } from './type-utils.js'
 import { FictionObject, log } from '@fiction/core'
-import { stockMediaHandler } from '@fiction/ui/stock'
+import { createStockMediaHandler } from '@fiction/ui/stock'
 import { CardTemplate } from './card.js'
 
 type CreateTuple<T extends readonly CardTemplate[]> = {
@@ -84,8 +84,8 @@ export class CardFactory<U extends readonly CardTemplate<any>[] = readonly CardT
     this.templates = this.settings.templates
   }
 
-  get stock() {
-    return stockMediaHandler
+  async getStockMedia() {
+    return createStockMediaHandler()
   }
 
   async fromTemplate<T extends CardTemplate<any> = CardTemplate<any>>(args: CardMakeArgs<T>): Promise<TableCardConfig> {

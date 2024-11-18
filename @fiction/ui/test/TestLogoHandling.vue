@@ -3,7 +3,7 @@ import type { MediaObject } from '@fiction/core'
 import { vue } from '@fiction/core'
 import XButton from '../buttons/XButton.vue'
 import XLogo from '../media/XLogo.vue'
-import { stockMediaHandler } from '../stock/index.js'
+import { createStockMediaHandler } from '../stock/index.js'
 
 const darkMode = vue.ref(false)
 
@@ -20,7 +20,15 @@ const containerScenarios = [
   { name: 'No Height Specified', class: '' },
 ]
 
+const stock = vue.ref<Awaited<ReturnType<typeof createStockMediaHandler>>>()
+
 async function generateMediaObjects(): Promise<MediaObject[]> {
+  if (!stock.value) {
+    stock.value = await createStockMediaHandler()
+  }
+  else {
+    stock.value.resetUsedMedia()
+  }
   return [
     // Typography examples
     {
@@ -62,19 +70,18 @@ async function generateMediaObjects(): Promise<MediaObject[]> {
     { iconId: 'github', format: 'iconId' },
     // Image example
     {
-      url: (await stockMediaHandler.getRandomByAspectRatio('aspect:wide', { format: 'image' })).url,
+      url: (stock.value.getRandomByAspectRatio('aspect:wide', { format: 'image' })).url,
       alt: 'Wide image logo',
       format: 'image',
     },
     // Video example
-    { url: (await stockMediaHandler.getRandomMedia({ format: 'video' })).url, format: 'video' },
+    { url: (stock.value.getRandomMedia({ format: 'video' })).url, format: 'video' },
   ]
 }
 
 const mediaObjects = vue.ref<MediaObject[]>([])
 
 async function refreshMedia() {
-  stockMediaHandler.resetUsedMedia()
   mediaObjects.value = await generateMediaObjects()
 }
 

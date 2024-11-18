@@ -4,7 +4,7 @@ import { ButtonDesignSchema, colorThemeUser, vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site'
 import { CardFactory } from '@fiction/site/cardFactory'
 import { InputOption } from '@fiction/ui'
-import { stockMediaHandler } from '@fiction/ui/stock/index.js'
+import { createStockMediaHandler } from '@fiction/ui/stock/index.js'
 import { z } from 'zod'
 import { getCardTemplates } from '../index.js'
 
@@ -61,6 +61,7 @@ async function getEffects(args: { site?: Site }): Promise<TableCardConfig[]> {
 }
 
 async function getUserConfig(): Promise<UserConfig & SiteUserConfig> {
+  const stock = await createStockMediaHandler()
   return {
     items: [
       {
@@ -83,7 +84,7 @@ async function getUserConfig(): Promise<UserConfig & SiteUserConfig> {
       scheme: {
         base: {
           bg: {
-            ...(await stockMediaHandler.getRandomByTags(['aspect:landscape', 'video', 'background'])),
+            ...(stock.getRandomByTags(['aspect:landscape', 'video', 'background'])),
             overlay: {
               opacity: 80,
               color: 'black',

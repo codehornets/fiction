@@ -2,7 +2,7 @@ import type { Tag } from '@fiction/ui/stock/index.js'
 import { MediaBasicSchema, vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site'
 import { InputOption } from '@fiction/ui'
-import { stockMediaHandler } from '@fiction/ui/stock/index.js'
+import { createStockMediaHandler } from '@fiction/ui/stock/index.js'
 import { z } from 'zod'
 
 const el = vue.defineAsyncComponent(async () => import('./ElMarquee.vue'))
@@ -33,13 +33,14 @@ const options = [
 ] as InputOption[]
 
 async function getDefaultUserConfig(args: { tags: Tag[] }): Promise<UserConfig> {
+  const stock = await createStockMediaHandler()
   const { tags = ['person'] } = args
   const urlPromises = [
-    stockMediaHandler.getRandomByTags(['aspect:portrait', ...tags]),
-    stockMediaHandler.getRandomByTags(['aspect:portrait', ...tags]),
-    stockMediaHandler.getRandomByTags(['aspect:portrait', ...tags]),
-    stockMediaHandler.getRandomByTags(['aspect:portrait', ...tags]),
-    stockMediaHandler.getRandomByTags(['aspect:portrait', ...tags]),
+    stock.getRandomByTags(['aspect:portrait', ...tags]),
+    stock.getRandomByTags(['aspect:portrait', ...tags]),
+    stock.getRandomByTags(['aspect:portrait', ...tags]),
+    stock.getRandomByTags(['aspect:portrait', ...tags]),
+    stock.getRandomByTags(['aspect:portrait', ...tags]),
   ]
 
   const urls = await Promise.all(urlPromises)

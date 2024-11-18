@@ -50,6 +50,7 @@ const templates = {
     map: () => import('./map'),
     pricing: () => import('./pricing'),
     tour: () => import('./tour'),
+    ctaAlpha: () => import('./ctaAlpha'),
   },
   effects: {
     effectShape: () => import('./effect-shape'),
