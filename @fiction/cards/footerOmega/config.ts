@@ -1,5 +1,4 @@
 // config.ts
-import { MediaIconSchema } from '@fiction/core'
 import { NavListItemSchema } from '@fiction/core/schemas/schemas'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'

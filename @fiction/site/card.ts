@@ -1,6 +1,5 @@
-import type { colorTheme, MediaObject, Query, vueRouter } from '@fiction/core'
+import type { colorTheme, Query, vueRouter } from '@fiction/core'
 import type { InputOption } from '@fiction/ui'
-import type { S } from 'vitest/dist/chunks/config.Cy0C388Z.js'
 import type { CardQuerySettings } from './cardQuery.js'
 import type { CardOptionsWithStandard, SiteUserConfig } from './schema.js'
 import type { Site } from './site.js'
@@ -82,13 +81,13 @@ export class CardTemplate<
   getBaseConfig = this.settings.getBaseConfig || (() => ({ }))
 
   async getConfig(args: { site?: Site }) {
+    const { site } = args
+    const factory = new CardFactory({ site, templates: site?.theme.value?.templates || [] })
+    const a = { site, factory }
     if (this.settings.getConfig) {
-      return this.settings.getConfig(args)
+      return this.settings.getConfig(a)
     }
     else {
-      const { site } = args
-      const factory = new CardFactory({ site, templates: site?.theme.value?.templates || [] })
-      const a = { site, factory }
       return {
         schema: this.settings.schema,
         options: this.settings.options,

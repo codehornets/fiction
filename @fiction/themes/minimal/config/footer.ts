@@ -1,6 +1,5 @@
 import type { template as areaTemplate } from '@fiction/cards/area'
 import type { template as footerOmegaTemplate } from '@fiction/cards/footerOmega'
-import type { template as footerTemplate } from '@fiction/cards/footerPro'
 import type { template as TickerTemplate } from '@fiction/cards/ticker'
 import type { Site } from '@fiction/site'
 import type { CardFactory } from '@fiction/site/cardFactory'

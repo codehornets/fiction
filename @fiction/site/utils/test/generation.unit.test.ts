@@ -1,7 +1,6 @@
 import type { JsonSchema7ObjectType } from 'zod-to-json-schema'
 import { getCardTemplates } from '@fiction/cards'
 import { shortId } from '@fiction/core'
-import { CardFactory } from '@fiction/site/cardFactory'
 import { describe, expect, it, vi } from 'vitest'
 import zodToJsonSchema from 'zod-to-json-schema'
 import { Card } from '../../card'

@@ -1,5 +1,4 @@
 import type { FictionEnv } from '@fiction/core'
-import type { CardConfigPortable } from '@fiction/site'
 import type { CardTemplate } from '@fiction/site/card'
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { Site } from '@fiction/site/site.js'
