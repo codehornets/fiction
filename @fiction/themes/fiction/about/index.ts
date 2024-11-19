@@ -1,4 +1,4 @@
-import type { MapSchemaConfig } from '@fiction/cards/map'
+import type { MapConfig } from '@fiction/cards/maps/config'
 import type { CardFactory } from '@fiction/site/cardFactory.js'
 import type { Site } from '@fiction/site/site.js'
 import ap from './ap.webp'
@@ -60,7 +60,7 @@ export async function page(args: { site: Site, factory: CardFactory }) {
     },
   })
 
-  const mapIrvine: MapSchemaConfig = {
+  const mapIrvine: MapConfig = {
     lat: 33.5427,
     lng: -117.7854,
     zoom: 15,
@@ -69,7 +69,7 @@ export async function page(args: { site: Site, factory: CardFactory }) {
     mapStyle: 'satellite' as const,
   }
 
-  const mapSaltLake: MapSchemaConfig = {
+  const mapSaltLake: MapConfig = {
     lat: 40.7608,
     lng: -111.8910,
     zoom: 8,

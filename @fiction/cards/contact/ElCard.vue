@@ -4,6 +4,7 @@ import type { UserConfig } from '.'
 import { vue } from '@fiction/core'
 import CardForm from '@fiction/forms/deck/CardForm.vue'
 import { useElementVisible } from '@fiction/ui/anim'
+import EffectFitText from '@fiction/ui/effect/EffectFitText.vue'
 import XIcon from '@fiction/ui/media/XIcon.vue'
 import CardText from '../CardText.vue'
 import CardSocials from '../el/CardSocials.vue'
@@ -33,7 +34,7 @@ vue.onMounted(async () => {
     <div class="text-center">
       <div class="md:flex gap-8 sm:gap-16 lg:gap-28 justify-center" :class="uc.layout === 'left' ? 'md:flex-row-reverse' : ''">
         <div class="w-full md:w-[50%]  ">
-          <div v-if="card.site" class="overflow-hidden relative border border-theme-200 dark:border-theme-700 rounded-xl h-full bg-theme-50 dark:bg-theme-800/50">
+          <div v-if="card.site" class="overflow-hidden relative border border-theme-300/70 dark:border-theme-700 rounded-xl h-full bg-theme-100/40 dark:bg-theme-800/50">
             <CardForm
               :site="card.site"
               :config="{
@@ -46,7 +47,9 @@ vue.onMounted(async () => {
             />
           </div>
         </div>
-        <div class="md:w-[50%] mt-6 md:mt-0 flex items-center text-left">
+        <div class="md:w-[50%] mt-6 md:mt-0 flex flex-col justify-center text-left gap-6 md:gap-10">
+          <CardText :card tag="h2" path="title" animate="rise" class=" md:text-3xl x-font-title font-medium" />
+
           <div class="flex flex-col w-full gap-10 2xl:gap-12 " :class="isVisible ? 'translate-y-0' : 'translate-y-[100px]'">
             <div v-for="(item, i) in items" :key="i" class="list space-y-6">
               <div class="flex gap-2 items-center">
@@ -74,7 +77,7 @@ vue.onMounted(async () => {
               </div>
             </div>
 
-            <CardSocials :card :socials="uc.socials || []" class="mt-8 flex gap-2 text-2xl justify-center md:justify-start" />
+            <CardSocials :card :socials="uc.socials || []" class="flex gap-2 text-2xl justify-center md:justify-start" />
           </div>
         </div>
       </div>

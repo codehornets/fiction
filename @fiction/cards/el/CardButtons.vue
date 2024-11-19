@@ -7,6 +7,8 @@ import { shortId, vue } from '@fiction/core'
 import { animateItemEnter, useElementVisible } from '@fiction/ui/anim'
 import CardButton from '../CardButton.vue'
 
+defineOptions({ name: 'CardButtons' })
+
 const { card, actions = [], uiSize = 'md', animate = 'none', isOverlay = false, theme = 'default', design } = defineProps<{
   card: Card
   actions: ActionButton[]

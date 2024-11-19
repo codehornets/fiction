@@ -47,7 +47,7 @@ const templates = {
   interactive: {
     capture: () => import('./capture'),
     contact: () => import('./contact'),
-    map: () => import('./map'),
+    map: () => import('./maps'),
     pricing: () => import('./pricing'),
     tour: () => import('./tour'),
     ctaAlpha: () => import('./callToAction'),

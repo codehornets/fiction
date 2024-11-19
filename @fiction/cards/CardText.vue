@@ -4,6 +4,8 @@ import type { InputModes } from '@fiction/ui/common/XText.vue'
 import { getNested, setNested, vue } from '@fiction/core'
 import XText from '@fiction/ui/common/XText.vue'
 
+defineOptions({ name: 'CardText' })
+
 const props = defineProps({
   card: { type: Object as vue.PropType<Card>, required: true },
   tag: { type: String as vue.PropType<'h1' | 'h2' | 'h3' | 'h4' | 'div' | 'span' | 'p' | 'a' | 'RouterLink'>, default: 'div' },

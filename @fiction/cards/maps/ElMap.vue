@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { MapSchemaConfig } from '.'
+import type { MapConfig } from './config'
 import { isDarkOrLightMode, vue } from '@fiction/core'
 import AnimClipPath from '@fiction/ui/anim/AnimClipPath.vue'
 
@@ -8,7 +8,7 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 
 const props = defineProps({
   container: { type: String, default: 'mapbox' },
-  mapConfig: { type: Object as vue.PropType<MapSchemaConfig>, default: () => ({}) },
+  mapConfig: { type: Object as vue.PropType<MapConfig>, default: () => ({}) },
   mapboxAccessToken: { type: String, default: '' },
   animate: { type: Boolean, default: true },
 })
@@ -167,7 +167,7 @@ vue.onUnmounted(() => {
     >
       <ElSpinner class="h-12 w-12" />
     </div>
-    <AnimClipPath :animate="animate" class="w-full h-full outline-none focus:outline-none focus:ring-0 " caller="ElMap">
+    <AnimClipPath :animate="animate" class="w-full h-full outline-none focus:outline-none focus:ring-0 drop-shadow-md" caller="ElMap">
       <div
         :id="container"
         class="h-full cursor-auto text-black font-bold font-sans text-xs"

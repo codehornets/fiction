@@ -7,6 +7,7 @@ const templateId = 'contact'
 
 export const UserConfigSchema = z.object({
   layout: z.enum(['left', 'right']).optional().describe('Layout of the card, image on left or right'),
+  title: z.string().optional().describe('Title for the card'),
   items: z.array(z.object({
     title: z.string().optional().describe('Title for list of details'),
     items: z.array(z.object({
@@ -50,6 +51,7 @@ const options = [
 function getDefaultConfig(): UserConfig {
   return {
     layout: 'right',
+    title: 'Ways to get in touch',
     items: [
       {
         title: 'Message',
