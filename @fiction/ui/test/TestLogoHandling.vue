@@ -70,12 +70,12 @@ async function generateMediaObjects(): Promise<MediaObject[]> {
     { iconId: 'github', format: 'iconId' },
     // Image example
     {
-      url: (stock.value.getRandomByAspectRatio('aspect:wide', { format: 'image' })).url,
+      ...stock.value.getRandomByAspectRatio('aspect:wide', { format: 'image' }),
       alt: 'Wide image logo',
       format: 'image',
     },
     // Video example
-    { url: (stock.value.getRandomMedia({ format: 'video' })).url, format: 'video' },
+    { ...stock.value.getRandomMedia({ format: 'video' }), format: 'video' },
   ]
 }
 

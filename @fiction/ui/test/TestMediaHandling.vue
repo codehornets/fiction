@@ -31,14 +31,14 @@ async function generateMediaObjects(): Promise<MediaObject[]> {
   return [
     // Image
     {
-      url: (stock.value.getRandomByAspectRatio('aspect:square', { format: 'image' })).url,
+      ...stock.value.getRandomByAspectRatio('aspect:square', { format: 'image' }),
       alt: 'Square image',
       format: 'image',
       blurhash: 'L6PZfSi_.AyE_3t7t7R**0o#DgR4',
     },
     // Video
     {
-      url: (stock.value.getRandomMedia({ format: 'video' })).url,
+      ...stock.value.getRandomMedia({ format: 'video' }),
       format: 'video',
       blurhash: 'L6PZfSi_.AyE_3t7t7R**0o#DgR4',
     },

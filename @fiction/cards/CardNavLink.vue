@@ -53,7 +53,7 @@ const styles = vue.computed(() => {
     :class="!item.href ? 'cursor-default' : 'cursor-pointer'"
     :data-el-type="styles.componentType"
   >
-    <span class="inline-flex items-center space-x-1.5 relative whitespace-nowrap truncate w-full">
+    <span class="inline-flex items-center space-x-1.5 relative whitespace-nowrap w-full">
       <ElAvatar v-if="item.itemStyle === 'user' && service.fictionUser.activeUser.value" class=" size-[1.4em] mr-1.5 rounded-full ring-2 ring-theme-200 dark:ring-theme-0" :email="service.fictionUser.activeUser?.value?.email" />
       <XIcon v-else-if="item.media" :media="item.media" class="size-[1.1em] mr-1" />
       <CardText

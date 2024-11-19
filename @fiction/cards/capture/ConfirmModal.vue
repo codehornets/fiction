@@ -1,12 +1,11 @@
 <script lang="ts" setup>
 import type { Card } from '@fiction/site'
-import type { UserConfig } from '.'
 import { vue } from '@fiction/core'
 import ConfettiEffect from '@fiction/ui/effect/EffectConfetti.vue'
 import ElModal from '@fiction/ui/ElModal.vue'
 
 const { withConfetti = true, vis, confirmText = { title: 'Congratulations!', content: 'Check your email to confirm.' } } = defineProps<{
-  card: Card<UserConfig>
+  card: Card
   vis: boolean
   withConfetti?: boolean
   confirmText?: { title: string, content: string }

@@ -15,13 +15,6 @@ const {
   size?: 'sm' | 'md' | 'lg'
 }>()
 
-// Base size mapped to Tailwind classes
-const sizeClass = {
-  sm: 'h-3 text-sm',
-  md: 'h-4 text-base',
-  lg: 'h-6 text-lg',
-}[size]
-
 const stock = vue.shallowRef<Awaited<ReturnType<typeof createStockMediaHandler>>>()
 vue.onMounted(async () => {
   stock.value = await createStockMediaHandler()
@@ -29,7 +22,7 @@ vue.onMounted(async () => {
 </script>
 
 <template>
-  <div v-if="stock" class="flex items-center gap-4" :class="[sizeClass]">
+  <div v-if="stock" class="flex items-center gap-4">
     <div class="flex">
       <div
         v-for="i in thumbCount"
@@ -47,7 +40,7 @@ vue.onMounted(async () => {
         class="font-sans rounded-full bg-theme-500 dark:bg-theme-700 text-white ring-4 ring-white dark:ring-theme-800 -ml-2 flex items-center justify-center font-medium aspect-square px-2"
         :class="size === 'sm' ? 'h-4' : size === 'lg' ? 'h-8' : 'h-8'"
         :model-value="count"
-        prefix="+"
+        suffix="+"
         format="abbreviated"
         :animate="true"
       />

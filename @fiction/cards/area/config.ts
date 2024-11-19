@@ -168,7 +168,7 @@ export async function getConfig(args: { templateId: string, factory: CardFactory
   return {
     schema: z.object({}),
     options: [],
-    userConfig: demoConfigs.modern,
+    userConfig: {},
     demoPage: {
       cards: [
         // Modern bases

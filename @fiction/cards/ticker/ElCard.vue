@@ -47,15 +47,15 @@ const items = vue.computed(() => {
 const tickerWrap = vue.ref<HTMLElement>()
 
 function getColorStyle(ticker: Ticker) {
-  const backgroundColor = ticker.backgroundColor
-  const backgroundColorDark = ticker.backgroundColorDark || backgroundColor
+  const bgColor = ticker.backgroundColor
+  const bgColorDark = ticker.backgroundColorDark || bgColor
 
   if (!tickerWrap.value)
     return {}
 
   const isDark = isDarkOrLightMode(tickerWrap.value) === 'dark'
 
-  const backgroundColor = isDark ? backgroundColorDark : backgroundColor
+  const backgroundColor = isDark ? bgColorDark : bgColor
 
   if (!backgroundColor) {
     return { }

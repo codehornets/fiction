@@ -84,7 +84,7 @@ async function getUserConfig(): Promise<UserConfig & SiteUserConfig> {
       scheme: {
         base: {
           bg: {
-            ...(stock.getRandomByTags(['aspect:landscape', 'video', 'background'])),
+            ...stock.getRandomByTags(['aspect:landscape', 'video', 'background']),
             overlay: {
               opacity: 80,
               color: 'black',
