@@ -127,7 +127,7 @@ export async function useElementVisible(args: { caller: string, selector: string
       }
     }
   }, {
-    threshold: 0.05, // Customize the threshold as needed
+    threshold: 0.01, // Customize the threshold as needed
   })
 
   let count = 0

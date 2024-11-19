@@ -22,7 +22,7 @@ function handleMouseMove(event: MouseEvent) {
   const x = ((event.clientX - rect.left) / rect.width - 0.5) * 2
   const y = ((event.clientY - rect.top) / rect.height - 0.5) * 2
 
-  const maxTilt = 10
+  const maxTilt = 6
   const tiltMagnitude = Math.min(Math.sqrt(x * x + y * y), 1)
   const tiltAngle = Math.atan2(y, x)
 

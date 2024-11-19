@@ -60,10 +60,9 @@ const options: InputOption[] = [
 ]
 
 export async function getUserConfig(args: { factory: CardFactory, templateId: string, stock: StockMedia }): Promise<UserConfig> {
-  const { factory, stock } = args
+  const { stock } = args
   const actions = [
-    { name: 'Learn More', href: '#', design: 'solid' as const },
-    { name: 'Get Started', href: '#' },
+    { name: 'Learn More', href: '#' },
   ]
   return {
     items: [

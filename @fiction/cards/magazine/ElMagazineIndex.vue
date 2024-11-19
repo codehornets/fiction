@@ -64,7 +64,7 @@ function changePage(newPage: number) {
       >
         <EffectGlare class="relative" wrap-class="rounded-[20px]" :class="i === 0 ? 'w-full h-full' : 'w-full h-full'">
           <XMedia class="bg-theme-50 dark:bg-theme-700/70" :animate="true" :media="post.media.value" :class="i === 0 ? 'w-full h-full' : 'w-full h-full'" />
-          <div v-if="i === 0" class="py-8 px-5 space-y-4 absolute top-0 z-10">
+          <div v-if="i === 0" class="py-8 px-5 space-y-4 absolute top-0 z-10 text-white">
             <div class="mb-4 space-x-2">
               <CardButton
                 v-for="(cat, ii) in post.categories.value?.slice(0, 2)"
@@ -80,7 +80,7 @@ function changePage(newPage: number) {
             <CardTextPost :data-post-title="post.title.value" :post path="title" tag="h2" class="text-2xl md:text-3xl font-medium x-font-title text-balance max-w-[80%]" />
             <ElAuthor v-for="(author, ii) in post.authors.value || []" :key="ii" :user="author" :date-at="post.dateAt.value" />
           </div>
-          <div class="overlay absolute w-full h-full z-0 pointer-events-none inset-0 bg-[radial-gradient(circle_at_0%_100%,rgba(0,0,0,.5)_0,rgba(0,0,0,.3)_40%,transparent_70%)]" />
+          <div v-if="i === 0" class="overlay absolute w-full h-full z-0 pointer-events-none inset-0 bg-[radial-gradient(circle_at_0%_100%,rgba(0,0,0,.5)_0,rgba(0,0,0,.3)_40%,transparent_70%)]" />
         </EffectGlare>
 
         <div v-if="i !== 0" class="pt-4">

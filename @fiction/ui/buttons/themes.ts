@@ -114,9 +114,9 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
 
   green: {
     solid: {
-      base: 'bg-green-500 dark:bg-green-700/70 text-green-50 dark:text-green-50',
-      border: 'border-green-600/80 dark:border-green-600',
-      hover: 'hover:bg-green-600 dark:hover:bg-green-800',
+      base: 'bg-green-600 dark:bg-green-700/70 text-green-50 dark:text-green-50',
+      border: 'border-green-700 dark:border-green-600',
+      hover: 'hover:bg-green-700 dark:hover:bg-green-800',
       icon: 'text-green-50 dark:text-green-50',
     },
     ghost: {

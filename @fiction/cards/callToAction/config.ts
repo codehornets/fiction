@@ -194,7 +194,6 @@ export function getDefaultConfig(): UserConfig {
     super: {
       text: 'Customizable CTA Section',
       icon: { class: 'i-tabler-star' },
-      color: 'red',
     },
     title: 'Design Your Perfect Call-to-Action',
     subTitle: 'This template helps you create compelling CTAs. Edit the content below to match your goals - whether it\'s growing your newsletter, showcasing benefits, or driving conversions.',
