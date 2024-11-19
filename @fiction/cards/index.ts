@@ -33,7 +33,7 @@ const templates = {
     metrics: () => import('./metrics'),
     people: () => import('./people'),
     logos: () => import('./logos'),
-    hitlist: () => import('./hitlist'),
+    numberedList: () => import('./numberedList'),
     bento: () => import('./bento'),
   },
   media: {

@@ -23,8 +23,8 @@ function updateBackground(updates: Partial<MediaObject>) {
       <ElInput
         label="Background Colors"
         input="InputGradient"
-        :model-value="modelValue.bgGradient"
-        @update:model-value="updateBackground({ bgGradient: $event })"
+        :model-value="modelValue.gradient"
+        @update:model-value="updateBackground({ gradient: $event })"
       />
 
       <ElInput

@@ -122,11 +122,11 @@ function createGradientString(gradient: GradientSetting): string {
 }
 
 const bgStyle = vue.computed(() => ({
-  backgroundColor: props.media?.bgColor || undefined,
-  backgroundImage: props.media?.bgGradient ? createGradientString(props.media.bgGradient) : undefined,
-  backgroundRepeat: props.media?.bgRepeat || undefined,
-  backgroundPosition: props.media?.bgPosition || undefined,
-  backgroundSize: props.media?.bgSize || undefined,
+  backgroundColor: props.media?.backgroundColor || undefined,
+  backgroundImage: props.media?.gradient ? createGradientString(props.media.gradient) : undefined,
+  backgroundRepeat: props.media?.backgroundRepeat || undefined,
+  backgroundPosition: props.media?.backgroundPosition || undefined,
+  backgroundSize: props.media?.backgroundSize || undefined,
 }))
 
 const overlayStyle = vue.computed(() => {

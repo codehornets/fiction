@@ -85,17 +85,19 @@ export type NumberFormats = typeof numberFormats[number]
 /**
  * Fancy number formatter supporting various formats
  */
-export function formatNumber(value: number | string | undefined, format?: NumberFormats): string | number | undefined {
+export function formatNumber(value: number | string | undefined, format?: NumberFormats, opts: { prefix?: string, suffix?: string } = {}): string | number | undefined {
+  const { prefix = '', suffix = '' } = opts
+  let out: string | number | undefined = undefined
   if (!isNumeric(value) || value === undefined)
     return value
 
   value = +value
   if (format === 'percent' || format === 'rawPercent') {
     value = format === 'rawPercent' ? value * 100 : value
-    return `${Math.round(value * 10) / 10}%`
+    out = `${Math.round(value * 10) / 10}%`
   }
   else if (format === 'dollar') {
-    return value.toLocaleString('en-US', {
+    out = value.toLocaleString('en-US', {
       style: 'currency',
       currency: 'USD',
       minimumFractionDigits: 0,
@@ -104,17 +106,19 @@ export function formatNumber(value: number | string | undefined, format?: Number
     })
   }
   else if (format === 'duration' || format === 'microDuration') {
-    return durationFormatter(value, format === 'microDuration' ? 'ms' : 's')
+    out = durationFormatter(value, format === 'microDuration' ? 'ms' : 's')
   }
   else if (format === 'abbreviated') {
-    return numberFormatter(value)
+    out = numberFormatter(value)
   }
   else if (format === 'abbreviatedDollar') {
-    return `$${numberFormatter(value)}`
+    out = `$${numberFormatter(value)}`
   }
   else {
-    return value.toLocaleString()
+    out = value.toLocaleString()
   }
+
+  return prefix || suffix ? `${prefix}${out}${suffix}` : out
 }
 
 export function formatBytes(bytes: number, decimals: number = 2) {

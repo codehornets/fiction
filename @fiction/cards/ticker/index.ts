@@ -16,8 +16,8 @@ const TickerSchema = z.object({
 
   // Appearance
   font: z.string().optional().describe('The google font family of the text'),
-  bgColor: z.string().optional().describe('The color background of the ticker'),
-  bgColorDark: z.string().optional().describe('The color background of the ticker in dark mode'),
+  backgroundColor: z.string().optional().describe('The color background of the ticker'),
+  backgroundColorDark: z.string().optional().describe('The color background of the ticker in dark mode'),
   outline: z.boolean().optional().describe('Whether to add an outline to the text'),
 
   // 3D Transform
@@ -50,8 +50,8 @@ const options: InputOption[] = [
 
       // Appearance
       new InputOption({ key: 'font', label: 'Font', input: 'InputFont' }),
-      new InputOption({ key: 'bgColor', label: 'Background', input: 'InputColor' }),
-      new InputOption({ key: 'bgColorDark', label: 'Background (Dark)', input: 'InputColor' }),
+      new InputOption({ key: 'backgroundColor', label: 'Background', input: 'InputColor' }),
+      new InputOption({ key: 'backgroundColorDark', label: 'Background (Dark)', input: 'InputColor' }),
       new InputOption({ key: 'outline', label: 'Outline', input: 'InputToggle' }),
 
       // 3D Transform

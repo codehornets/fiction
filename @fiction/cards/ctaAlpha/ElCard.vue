@@ -9,6 +9,7 @@ import ElInput from '@fiction/ui/inputs/ElInput.vue'
 import XIcon from '@fiction/ui/media/XIcon.vue'
 import CaptureAction from '../capture/CaptureAction.vue'
 import CardText from '../CardText.vue'
+import CommunityJoin from './CommunityJoin.vue'
 
 defineOptions({ name: 'CtaAlpha' })
 
@@ -51,8 +52,8 @@ vue.onMounted(() => {
   <div :id="card.cardId" class="relative overflow-hidden bg-theme-50/50 dark:bg-theme-950/50">
     <div :class="card.classes.value.contentWidth">
       <div class="px-6 lg:px-0 py-16 lg:py-24">
-        <div class="grid lg:grid-cols-2 gap-12 xl:gap-24">
-          <div class="gap-8 xl:gap-10 flex flex-col justify-center">
+        <div class="grid gap-20 xl:gap-32" :class="uc.benefits?.length ? 'lg:grid-cols-12' : ''">
+          <div class="gap-8 xl:gap-10 flex flex-col justify-center xl:col-span-6 md:col-span-7">
             <div class="space-y-4 xl:space-y-6">
               <CardText
                 v-if="uc.kicker"
@@ -85,29 +86,25 @@ vue.onMounted(() => {
             <div class="max-w-xl animate-item">
               <CaptureAction :card />
             </div>
+
+            <div><CommunityJoin text="Join 12030 visionaries" /></div>
           </div>
 
           <!-- Benefits Grid -->
-          <div v-if="uc.benefits?.length" class="flex flex-col gap-4 lg:gap-6 justify-center items-center">
-            <CardText :card path="benefitsTitle" class="text-theme-400 dark:text-theme-500 font-sans text-lg" />
+          <div v-if="uc.benefits?.length" class="flex flex-col gap-4 lg:gap-6 justify-center xl:col-span-6 md:col-span-5">
+            <CardText :card path="benefitsTitle" class="text-theme-400 dark:text-theme-500 text-xl x-font-title" />
             <div
               v-for="(benefit, i) in uc.benefits"
               :key="i"
-              class="flex gap-4 lg:gap-6 animate-item max-w-md"
+              class="flex gap-4  animate-item max-w-sm items-center justify-start w-full"
             >
               <XIcon v-if="benefit.media" :media="benefit.media" class="size-12 text-theme-400/70 dark:text-theme-500/70" />
-              <div>
+              <div class="grow w-full">
                 <CardText
                   tag="h3"
                   :card
                   :path="`benefits.${i}.title`"
-                  class="font-semibold mb-1 text-lg x-font-title"
-                />
-                <CardText
-                  tag="p"
-                  :card
-                  :path="`benefits.${i}.content`"
-                  class="text-theme-500 dark:text-theme-300 text-lg"
+                  class="font-semibold mb-1 text-xl x-font-title"
                 />
               </div>
             </div>

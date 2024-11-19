@@ -35,7 +35,7 @@ const availableTools = [
 
 export type LibraryTool = typeof availableTools[number]['value']
 
-const currentSelection = vue.ref<MediaObject>({ bgColor: 'rgba(50 50 50 / .1)', format: 'url' })
+const currentSelection = vue.ref<MediaObject>({ backgroundColor: 'rgba(50 50 50 / .1)', format: 'url' })
 
 function getDefaultTool() {
   const format = currentSelection.value.format

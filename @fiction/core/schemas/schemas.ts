@@ -130,11 +130,11 @@ export const MediaContentSchema = MediaIconSchema.extend({
 
 // MediaDisplaySchema (extends MediaContent with display properties)
 export const MediaDisplaySchema = MediaContentSchema.extend({
-  bgColor: z.string().optional(),
-  bgGradient: GradientSettingSchema.optional(),
-  bgRepeat: BackgroundRepeatSchema.optional(),
-  bgPosition: BackgroundPositionSchema.optional(),
-  bgSize: BackgroundSizeSchema.optional(),
+  backgroundColor: z.string().optional(),
+  gradient: GradientSettingSchema.optional(),
+  backgroundRepeat: BackgroundRepeatSchema.optional(),
+  backgroundPosition: BackgroundPositionSchema.optional(),
+  backgroundSize: BackgroundSizeSchema.optional(),
   filters: z.array(ImageFilterConfigSchema).optional(),
   overlay: OverlaySettingSchema.optional(),
   width: z.number().optional(),

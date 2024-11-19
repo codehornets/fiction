@@ -25,15 +25,15 @@ const demoCard2: UserConfig = {
     {
       text: 'Non nobis solum nati sumus.',
       direction: 'left',
-      bgColor: '#000',
-      bgColorDark: '#FFF',
+      backgroundColor: '#000',
+      backgroundColorDark: '#FFF',
     },
     {
       text: 'Non nobis solum nati sumus.',
       direction: 'right',
       font: 'highlight',
-      bgColor: '#586cb2',
-      bgColorDark: '#1e2f69',
+      backgroundColor: '#586cb2',
+      backgroundColorDark: '#1e2f69',
     },
   ],
 }

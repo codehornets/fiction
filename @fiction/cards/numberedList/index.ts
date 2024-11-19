@@ -1,25 +1,25 @@
 import { vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site/card'
 
-export const templateId = 'ctaAlpha'
+const templateId = 'numberedList'
 
 // Main template definition with minimal synchronous code
 export const template = cardTemplate({
   templateId,
-  category: ['navigation'],
-  icon: 'i-tabler-layout-bottombar',
-  title: 'Call To Action',
-  colorTheme: 'red',
-  description: 'A call-to-action card bullets and persuasion techniques to drive user action.',
+  category: ['marketing'],
+  description: 'Engaging list of key points with optional media',
+  icon: 'i-tabler-list-numbers',
+  colorTheme: 'rose',
+  title: 'Numbered List',
   isPublic: true,
   el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
 
   // Config implementation
-  getConfig: async () => {
+  getConfig: async (args) => {
     const { getConfig } = await import('./config')
-    return getConfig({ templateId })
+    return getConfig({ templateId, ...args })
   },
 })
 
-// Optional: Export type for use in other components
+// Export type for use in other components
 export type { UserConfig } from './config'

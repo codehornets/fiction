@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { NumberFormats } from '@fiction/core'
-import { shortId, vue } from '@fiction/core'
+import { formatNumber, shortId, vue } from '@fiction/core'
 import { animateNumber } from '../anim'
 
 const { tag = 'div', modelValue = 0, animate = false, format = 'abbreviated', prefix, suffix } = defineProps<{
@@ -16,6 +16,7 @@ const randomId = shortId()
 
 const loaded = vue.ref(false)
 const xNumber = vue.ref<HTMLElement | undefined>()
+
 function loadAnimation() {
   loaded.value = true
 
@@ -40,7 +41,7 @@ vue.onMounted(() => {
 })
 
 const displayValue = vue.computed(() => {
-  return `${prefix || ''}${modelValue}${suffix || ''}`
+  return !animate ? formatNumber(modelValue, format, { prefix, suffix }) : `${prefix || ''}${modelValue}${suffix || ''}`
 })
 </script>
 

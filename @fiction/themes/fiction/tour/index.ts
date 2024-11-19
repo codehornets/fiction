@@ -195,7 +195,7 @@ export async function getPage(args: { factory: CardFactory }) {
                 primary: 'blue',
                 theme: 'blue',
                 bg: {
-                  bgGradient: { angle: 45, stops: [
+                  gradient: { angle: 45, stops: [
                     { theme: 'blue', scale: 950, opacity: 0, percent: 50 },
                     { theme: 'blue', scale: 950, opacity: 0.8, percent: 100 },
                   ] },

@@ -129,7 +129,7 @@ export function tailwindVarColorScheme(args: {
   const entries = Object.entries(scheme || {}).map(([key, value]) => {
     const defaultValue = value.includes('#') ? hexToRgbString(value) : value
     const clr = variable ? `var(--${variable}-${key}, ${defaultValue})` : defaultValue
-    return [Number.parseInt(key), `rgb(${clr} / <alpha-value>)`]
+    return [Number.parseInt(key), `rgb(${clr} / var(--${variable}-${key}-alpha, <alpha-value>))`]
   })
 
   const out = Object.fromEntries(entries) as Record<ColorScale | 'DEFAULT', string>
@@ -160,6 +160,7 @@ export function getColorScheme(schemeIdWithInvert: ColorThemeWithInvert, options
   const schemeId = schemeIdWithInvert.replace('Inverted', '') as ColorTheme
 
   const scheme = colorList[schemeId] || colorList.gray
+
   const format = options.outputFormat || 'rgb'
 
   const invert = options.invert || schemeIdWithInvert.endsWith('Inverted')
