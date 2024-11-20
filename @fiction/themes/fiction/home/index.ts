@@ -19,8 +19,8 @@ export async function page(args: { site: Site, factory: CardFactory }) {
     title: 'Home',
     userConfig: {
       seo: {
-        title: 'Fiction - Market Yourself Online',
-        description: 'A platform to build your personal brand, powered by AI.',
+        title: 'Fiction - Personal Branding Platform',
+        description: 'Transform your expertise into influence using Fiction\'s AI-powered personal branding platform. Create authentic content, grow your audience, and build authority - all guided by intelligent automation.',
       },
     },
     cards: [

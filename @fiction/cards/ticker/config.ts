@@ -1,4 +1,3 @@
-import type { CardFactory } from '@fiction/site/cardFactory'
 import { colorThemeUser } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'

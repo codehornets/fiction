@@ -2,7 +2,6 @@
 import type { Card } from '@fiction/site'
 import type { UserConfig } from '.'
 import { vue } from '@fiction/core'
-import ElActions from '@fiction/ui/buttons/ElActions.vue'
 import CardText from '../CardText.vue'
 import CardButtons from '../el/CardButtons.vue'
 

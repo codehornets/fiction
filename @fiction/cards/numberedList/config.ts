@@ -1,5 +1,4 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
-import type { StockMedia } from '@fiction/ui/stock'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 

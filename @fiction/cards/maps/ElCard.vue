@@ -2,7 +2,6 @@
 import type { Card } from '@fiction/site/card'
 import type { MapConfig, UserConfig } from './config'
 import { vue } from '@fiction/core'
-import CardText from '../CardText.vue'
 import ElMap from './ElMap.vue'
 
 const props = defineProps({

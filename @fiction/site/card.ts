@@ -11,7 +11,29 @@ import { CardFactory } from './cardFactory.js'
 import { getContentWidthClass, getSpacingClass } from './styling.js'
 import { siteGoto, siteLink } from './utils/manage.js'
 
-export const CardCategorySchema = z.enum(['basic', 'posts', 'theme', 'stats', 'marketing', 'content', 'layout', 'media', 'navigation', 'social', 'commerce', 'form', 'other', 'special', 'portfolio', 'advanced', 'effect'])
+export const CardCategorySchema = z.enum([
+  'basic',
+  'posts',
+  'theme',
+  'stats',
+  'marketing',
+  'content',
+  'layout',
+  'media',
+  'navigation',
+  'social',
+  'commerce',
+  'form',
+  'other',
+  'special',
+  'portfolio',
+  'advanced',
+  'effect',
+  'conversion',
+  'engagement',
+  'traffic',
+  'awareness',
+])
 
 type CardCategory = z.infer<typeof CardCategorySchema>
 
@@ -47,6 +69,7 @@ interface CardTemplateSettings<
 
   templateId: CardTemplateSurface<S>[ 'templateId' ]
   title?: string
+  subTitle?: string
   description?: string
   category?: CardCategory[]
   icon?: string

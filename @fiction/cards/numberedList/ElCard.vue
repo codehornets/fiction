@@ -4,7 +4,6 @@ import type { UserConfig } from './config'
 import CardText from '@fiction/cards/CardText.vue'
 import { vue } from '@fiction/core'
 import { animateItemEnter, useElementVisible } from '@fiction/ui/anim'
-import EffectFitText from '@fiction/ui/effect/EffectFitText.vue'
 import XMedia from '@fiction/ui/media/XMedia.vue'
 
 const props = defineProps<{
