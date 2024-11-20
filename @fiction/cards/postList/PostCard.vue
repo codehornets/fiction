@@ -10,7 +10,7 @@ import PostCardContent from './PostCardContent.vue'
 
 defineProps<{
   card: Card<any>
-  post: Post
+  post?: Post
   display: DisplayUserConfig
   style?: Record<string, string>
 }>()
@@ -18,6 +18,7 @@ defineProps<{
 
 <template>
   <CardLink
+    v-if="post"
     :card="card"
     :href="post.href.value"
     class="group relative block"

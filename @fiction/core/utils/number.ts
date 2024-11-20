@@ -5,23 +5,37 @@ const SCALES = [
   [1e3, 'k'],
 ] as const
 
-/**
- * Formats numbers with consistent decimal places within scale ranges
- * e.g. "4.1k" and "4.0k" instead of "4k" and "4.1k"
- */
-export function numberFormatter(num: number | string): string | number {
+type NumberFormatterOptions = {
+  /** Keep one decimal place for scaled values (e.g. 4.0k vs 4k) */
+  forceDecimal?: boolean
+}
+
+export function numberFormatter(num: number | string, { forceDecimal = true }: NumberFormatterOptions = {}): string | number {
   const value = typeof num === 'string' ? Number.parseFloat(num) : num
   if (!Number.isFinite(value))
     return num
 
+  // For 100-999, return whole number
+  if (value >= 100 && value < 1000)
+    return Math.round(value)
+
   const scale = SCALES.find(([threshold]) => Math.abs(value) >= threshold)
   if (!scale)
-    return value
+    return value.toFixed(1)
 
   const [threshold, suffix] = scale
   const scaled = value / threshold
 
-  return `${scaled.toFixed(1)}${suffix}`
+  // Don't show decimal for multiples of 100
+  if (scaled >= 100 || (scaled % 100 === 0))
+    return `${Math.floor(scaled)}${suffix}`
+
+  // When not forcing decimal, only show it if there is one
+  const formatted = forceDecimal
+    ? scaled.toFixed(1)
+    : (scaled % 1 === 0 ? Math.floor(scaled).toString() : scaled.toFixed(1))
+
+  return `${formatted}${suffix}`
 }
 /**
  * Formats raw number of seconds into a nice duration

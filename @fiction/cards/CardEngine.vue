@@ -26,7 +26,7 @@ const renderCards = vue.computed(() => {
 
   return tag === 'main'
     ? c.filter((c) => {
-      const uc = c.userConfig.value
+      const uc = c.fullConfig.value
       const showOnSingle = uc.standard?.handling?.showOnSingle
       const hideOnPage = uc.standard?.handling?.hideOnPage
       return (currentItemId && showOnSingle) || (!currentItemId && !hideOnPage)
@@ -36,7 +36,7 @@ const renderCards = vue.computed(() => {
 </script>
 
 <template>
-  <component :is="tag" class="card-engine">
+  <component :is="tag" class="card-engine" :data-total-cards="card?.cards.value.length">
     <EffectTransitionCardList>
       <CardWrap
         v-for="(subCard) in renderCards"

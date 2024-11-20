@@ -59,11 +59,13 @@ async function initFlickity() {
     })
   }
 
+  await waitFor(200) // attempt better height calculation
+
   loading.value = false
 }
 
 vue.onMounted(async () => {
-  await waitFor(500) // attempt better height calculation
+  await waitFor(300) // attempt better height calculation
   await initFlickity()
 })
 
@@ -87,7 +89,7 @@ vue.watch(() => props.activeIndex, (newIndex) => {
 </script>
 
 <template>
-  <div ref="carouselRef" class="carousel" :class="loading ? 'opacity-0' : 'opacity-100'">
+  <div ref="carouselRef" class="carousel transition-opacity duration-700" :class="loading ? 'opacity-0 min-h-[60vh]' : 'opacity-100'">
     <slot v-for="(slide, index) in slides" :key="index" :slide="slide" :index="index" />
   </div>
 </template>

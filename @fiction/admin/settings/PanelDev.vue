@@ -120,10 +120,10 @@ vue.onMounted(async () => {
         @update:model-value="update($event)"
       />
 
-      <div class="text-sm text-theme-500 dark:text-theme-400 space-y-2">
+      <div class="text-sm text-theme-600 dark:text-theme-200 space-y-2 p-6">
         <p>
           Need help getting started? Check our
-          <a href="https://docs.fiction.com" target="_blank" class="text-primary-500 hover:underline">API documentation</a> for guides and examples.
+          <a href="https://docs.fiction.com" target="_blank" class="text-primary-500 dark:text-primary-400 hover:underline">API documentation</a> for guides and examples.
         </p>
       </div>
     </div>

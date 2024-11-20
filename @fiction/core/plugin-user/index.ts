@@ -389,20 +389,26 @@ export class FictionUser extends FictionPlugin<UserPluginSettings> {
   async ensureAppOrgId(args: { context?: 'node' | 'app', defaultId?: string }) {
     const { context = 'node', defaultId = 'admin' } = args
 
-    if (context === 'node' && !crossVar.has('FICTION_ORG_ID')) {
+    if (context === 'node') {
+      const appOrgId = crossVar.get('FICTION_ORG_ID')
       const { fictionEnv } = this.settings
-      const { email, name } = fictionEnv.meta.app || {}
+      if (!appOrgId) {
+        const { email, name } = fictionEnv.meta.app || {}
 
-      if (!email || !name)
-        throw new Error('No email or name for app')
+        if (!email || !name)
+          throw new Error('No email or name for app')
 
-      const { org } = await this?.ensureUserAndOrganization({ orgName: name, email, orgId: defaultId })
+        const { org } = await this?.ensureUserAndOrganization({ orgName: name, email, orgId: defaultId })
 
-      if (!org.orgId)
-        throw new Error('No orgId')
+        if (!org.orgId)
+          throw new Error('No orgId')
 
-      crossVar.set('FICTION_ORG_ID', org.orgId)
-      fictionEnv.log.info(`Setting app FICTION_ORG_ID to '${org.orgId}'`)
+        crossVar.set('FICTION_ORG_ID', org.orgId)
+        fictionEnv.log.info(`Setting app FICTION_ORG_ID to '${org.orgId}'`)
+      }
+      else {
+        fictionEnv.log.info(`Setting app FICTION_ORG_ID to '${appOrgId}' (already set)`)
+      }
     }
 
     return crossVar.get('FICTION_ORG_ID')

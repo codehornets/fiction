@@ -238,7 +238,7 @@ export const GlobalQuerySchema = z.object({
 
 // Updated PostHandlingSchema
 export const PostHandlingSchema = z.object({
-  format: z.enum(['standard', 'local']).default('local').describe('Either get from global posts or inline entries, AI always uses local'),
+  format: z.enum(['standard', 'local']).optional().describe('Either get from global posts or inline entries, AI always uses local'),
   limit: z.number().optional().describe('Limit the number of posts to show - default is 12'),
   offset: z.number().optional().describe('Offset the number of posts to show'),
   entries: z.array(PostSchema).optional().describe('Inline post entries for local format'),

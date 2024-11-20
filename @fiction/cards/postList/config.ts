@@ -1,14 +1,13 @@
-// config.ts
-import type { ConfigResponse } from '@fiction/site/card'
 import type { CardFactory } from '@fiction/site/cardFactory'
+import type { SiteUserConfig } from '@fiction/site/schema'
 import { PostHandlingSchema, SizeSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import z from 'zod'
+import { getDemoPosts } from '../utils/post'
 
 export const displaySchema = z.object({
   layout: z.enum(['grid', 'scroll']).optional(),
-  size: z.enum(['compact', 'regular', 'expanded']).optional(),
-  proportions: z.enum(['short', 'medium', 'tall', 'wide', 'thin']).optional(),
+  proportions: z.enum(['wide', 'standard', 'portrait', 'square', 'cinema']).optional(),
   gap: SizeSchema.optional(),
   showAuthor: z.boolean().optional(),
   showDate: z.boolean().optional(),
@@ -20,216 +19,346 @@ export const displaySchema = z.object({
 export const schema = z.object({
   display: displaySchema.optional(),
   posts: PostHandlingSchema.optional().describe('Posts configuration'),
+  routeBasePath: z.string().optional(),
 })
 
-export type UserConfig = z.infer<typeof schema>
+export type UserConfig = z.infer<typeof schema> & SiteUserConfig
 export type DisplayUserConfig = z.infer<typeof displaySchema>
 
-export async function getConfig(args: { templateId: string, factory: CardFactory }): Promise<ConfigResponse> {
+const options: InputOption[] = [
+  new InputOption({
+    key: 'display',
+    label: 'Layout & Display',
+    input: 'group',
+    options: [
+      new InputOption({
+        key: 'layout',
+        label: 'Layout Style',
+        input: 'InputRadio',
+        description: 'Choose how posts are arranged on the page',
+        props: {
+          options: [
+            {
+              label: 'Grid Layout',
+              value: 'grid',
+              description: 'Organize posts in a responsive grid pattern',
+            },
+            {
+              label: 'Scroll Layout',
+              value: 'scroll',
+              description: 'Create an interactive horizontal scroll gallery',
+            },
+          ],
+        },
+      }),
+      new InputOption({
+        key: 'proportions',
+        label: 'Card Proportions',
+        input: 'InputRadioButton',
+        description: 'Set the aspect ratio for post cards',
+        props: {
+          options: [
+            {
+              label: 'Cinema',
+              value: 'cinema',
+              description: '21:9 ratio - Perfect for dramatic landscape visuals',
+              icon: 'i-tabler-rectangle-vertical',
+            },
+            {
+              label: 'Wide',
+              value: 'wide',
+              description: '16:9 ratio - Ideal for landscape images and video content',
+              icon: 'i-tabler-rectangle',
+            },
+            {
+              label: 'Standard',
+              value: 'standard',
+              description: '4:3 ratio - Classic blog post format',
+              icon: 'i-tabler-rectangle',
+            },
+            {
+              label: 'Square',
+              value: 'square',
+              description: '1:1 ratio - Perfect for social media style layouts',
+              icon: 'i-tabler-square',
+            },
+            {
+              label: 'Portrait',
+              value: 'portrait',
+              description: '3:4 ratio - Great for mobile and vertical content',
+              icon: 'i-tabler-rectangle-vertical',
+            },
+          ],
+        },
+      }),
+
+      // Grid Layout Options
+      new InputOption({
+        key: 'itemsPerRow',
+        label: 'Items Per Row',
+        subLabel: 'Number of posts to display in each row (Grid Layout)',
+        input: 'InputNumber',
+        props: {
+          min: 1,
+          max: 6,
+          step: 1,
+        },
+      }),
+      new InputOption({
+        key: 'gap',
+        label: 'Grid Spacing',
+        subLabel: 'Space between posts in the grid',
+        input: 'InputSelect',
+        props: {
+          options: [
+            { label: 'Minimal', value: 'sm' },
+            { label: 'Standard', value: 'md' },
+            { label: 'Comfortable', value: 'lg' },
+            { label: 'Spacious', value: 'xl' },
+            { label: 'Extra Spacious', value: '2xl' },
+          ],
+        },
+      }),
+      new InputOption({
+        key: 'maxRows',
+        label: 'Maximum Rows',
+        subLabel: 'Limit the number of rows displayed (Grid Layout)',
+        input: 'InputNumber',
+        props: {
+          min: 1,
+          max: 6,
+          step: 1,
+        },
+      }),
+    ],
+  }),
+
+  // Content Display Options
+  new InputOption({
+    key: 'display',
+    label: 'Content Display',
+    input: 'group',
+    options: [
+      new InputOption({
+        key: 'showAuthor',
+        label: 'Show Author',
+        subLabel: 'Display author information on post cards',
+        input: 'InputToggle',
+      }),
+      new InputOption({
+        key: 'showDate',
+        label: 'Show Date',
+        subLabel: 'Display publication date on post cards',
+        input: 'InputToggle',
+      }),
+      new InputOption({
+        key: 'showExcerpt',
+        label: 'Show Excerpt',
+        subLabel: 'Display post excerpt on cards',
+        input: 'InputToggle',
+      }),
+    ],
+  }),
+
+  // Post Selection & Filtering
+  new InputOption({
+    key: 'posts',
+    label: 'Post Configuration',
+    input: 'group',
+    options: [
+      new InputOption({
+        key: 'posts',
+        label: 'Posts',
+        subLabel: 'Configure post selection and filtering',
+        input: 'InputPosts',
+        description: 'Choose between global posts or specify local entries',
+      }),
+      new InputOption({
+        key: 'routeBasePath',
+        label: 'Route Base Path',
+        subLabel: 'Base URL path for blog posts (e.g., /blog)',
+        input: 'InputText',
+        props: {
+          placeholder: '/blog',
+        },
+      }),
+    ],
+  }),
+]
+
+export async function getConfig(args: { templateId: string, factory: CardFactory }) {
   const { templateId, factory } = args
-
   const stock = await factory.getStockMedia()
-  const options: InputOption[] = [
-    new InputOption({
-      key: 'display',
-      label: 'Display Settings',
-      input: 'group',
-      options: [
-        new InputOption({
-          key: 'layout',
-          label: 'Layout',
-          input: 'InputRadio',
-          props: {
-            options: [
-              { label: 'Grid Layout', value: 'grid' },
-              { label: 'Scroll Layout', value: 'scroll' },
-            ],
-          },
-        }),
-        new InputOption({
-          key: 'size',
-          label: 'Card Size',
-          input: 'InputRadio',
-          props: {
-            options: [
-              { label: 'Compact', value: 'compact' },
-              { label: 'Regular', value: 'regular' },
-              { label: 'Expanded', value: 'expanded' },
-            ],
-          },
-        }),
-        new InputOption({
-          key: 'proportions',
-          label: 'Height Proportions',
-          input: 'InputRadio',
-          props: {
-            options: [
-              { label: 'Short', value: 'short' },
-              { label: 'Medium', value: 'medium' },
-              { label: 'Tall', value: 'tall' },
-              { label: 'Wide', value: 'wide' },
-              { label: 'Thin', value: 'thin' },
-            ],
-          },
-        }),
-        new InputOption({
-          key: 'itemsPerRow',
-          label: 'Items Per Row',
-          input: 'InputNumber',
-          props: { min: 1, max: 6 },
-        }),
-        new InputOption({
-          key: 'gap',
-          label: 'Grid Spacing',
-          input: 'InputSelect',
-          list: SizeSchema.options,
-        }),
 
-        new InputOption({
-          key: 'maxRows',
-          label: 'Maximum Rows',
-          input: 'InputNumber',
-          props: { min: 1, max: 6 },
-        }),
-        new InputOption({
-          key: 'showAuthor',
-          label: 'Show Author',
-          input: 'InputToggle',
-        }),
-        new InputOption({
-          key: 'showDate',
-          label: 'Show Date',
-          input: 'InputToggle',
-        }),
-        new InputOption({
-          key: 'showExcerpt',
-          label: 'Show Excerpt',
-          input: 'InputToggle',
-        }),
-      ],
-    }),
-    new InputOption({ key: 'posts', label: 'Posts', input: 'InputPosts' }),
-  ]
-
+  // Default configuration focused on instruction
   const userConfig: UserConfig = {
+    standard: {
+      handling: { showOnSingle: true },
+      headers: {
+        title: 'Blog Posts',
+        subTitle: 'Showcase your content in an engaging format',
+      },
+    },
     display: {
       layout: 'grid',
-      size: 'regular',
-      proportions: 'medium',
+      proportions: 'standard',
       showAuthor: true,
       showDate: true,
-      showExcerpt: false,
+      showExcerpt: true,
       itemsPerRow: 3,
-      maxRows: 2,
+      gap: 'lg',
     },
     posts: {
       format: 'standard',
       limit: 12,
+      query: {
+        sortBy: 'dateAt',
+        sortOrder: 'desc',
+      },
     },
   }
 
-  // Demo posts showing different content types and use cases
-  const demoPosts = [
-    {
-      title: 'Getting Started with Our Platform',
-      subTitle: 'A Complete Guide for New Users',
-      slug: 'getting-started-guide',
-      authors: [{ fullName: 'Maya Rodriguez', title: 'Lead Product Specialist', email: 'maya@example.com' }],
-      content: 'Essential guide covering key features, best practices, and common workflows. Perfect for new users looking to get up to speed quickly.',
-      categories: ['Guides', 'Tutorial'],
-      tags: ['beginners', 'tutorial'],
-      media: stock.getRandomByTags(['people']),
-    },
-    {
-      title: 'Case Study: Enterprise Implementation',
-      subTitle: 'How TechCorp Scaled Their Operations',
-      slug: 'enterprise-case-study',
-      authors: [{ fullName: 'Alex Chen', title: 'Solutions Architect', email: 'alex@example.com' }],
-      content: 'Detailed analysis of a successful enterprise implementation, including challenges faced and solutions deployed.',
-      categories: ['Case Study', 'Enterprise'],
-      tags: ['success-stories', 'enterprise'],
-      media: stock.getRandomByTags(['people']),
-    },
-    {
-      title: '10 Advanced Tips & Tricks',
-      subTitle: 'Boost Your Productivity',
-      slug: 'advanced-tips',
-      authors: [{ fullName: 'Sarah West', title: 'Senior Developer', email: 'sarah@example.com' }],
-      content: 'Advanced techniques and hidden features that will take your workflow to the next level.',
-      categories: ['Tips', 'Advanced'],
-      tags: ['productivity', 'advanced'],
-      media: stock.getRandomByTags(['people']),
-    },
-    {
-      title: 'Product Update: New Features',
-      subTitle: 'Latest Improvements and Additions',
-      slug: 'product-updates',
-      authors: [{ fullName: 'James Liu', title: 'Product Manager', email: 'james@example.com' }],
-      content: 'Comprehensive overview of our latest feature releases and improvements.',
-      categories: ['Updates', 'Features'],
-      tags: ['new-features', 'product'],
-      media: stock.getRandomByTags(['people']),
-    },
-    {
-      title: 'Security Best Practices',
-      subTitle: 'Keeping Your Data Safe',
-      slug: 'security-practices',
-      authors: [{ fullName: 'Emma Clark', title: 'Security Specialist', email: 'emma@example.com' }],
-      content: 'Essential security guidelines and best practices for protecting your data.',
-      categories: ['Security', 'Guide'],
-      tags: ['security', 'best-practices'],
-      media: stock.getRandomByTags(['people']),
-    },
-    {
-      title: 'Community Spotlight',
-      subTitle: 'Meet Our Power Users',
-      slug: 'community-spotlight',
-      authors: [{ fullName: 'David Kumar', title: 'Community Manager', email: 'david@example.com' }],
-      content: 'Featuring outstanding members of our community and their innovative use cases.',
-      categories: ['Community', 'Stories'],
-      tags: ['community', 'spotlight'],
-      media: stock.getRandomByTags(['people']),
-    },
-  ]
+  const demoPosts = await getDemoPosts({ stock })
 
-  // Different demo configurations to showcase layout possibilities
   return {
     schema,
     options,
     userConfig,
     demoPage: {
       cards: [
-        // Scroll layout with varying proportions
+        // Featured Posts Layout
         {
           templateId,
           userConfig: {
-            display: { layout: 'scroll', size: 'expanded', proportions: 'tall' },
-            posts: { format: 'local', limit: 6, entries: demoPosts },
+            standard: {
+              headers: {
+                title: 'Featured Stories',
+                subTitle: 'Showcase your best content in a cinematic scroll',
+              },
+            },
+            display: {
+              layout: 'scroll',
+              proportions: 'cinema',
+              showExcerpt: true,
+              showAuthor: true,
+              showDate: true,
+            },
+            posts: {
+              format: 'local',
+              limit: 3,
+              entries: demoPosts.map(p => ({
+                ...p,
+                media: stock.getRandomByTags(['object']),
+              })),
+            },
           },
         },
-        // Grid layout with regular sizing
         {
           templateId,
           userConfig: {
-            display: { layout: 'grid', size: 'regular', proportions: 'medium', showExcerpt: true },
-            posts: { format: 'local', limit: 3, entries: demoPosts },
+            standard: {
+              headers: {
+                title: 'Featured Stories',
+                subTitle: 'Showcase your best content in a cinematic scroll',
+              },
+            },
+            display: {
+              layout: 'scroll',
+              proportions: 'portrait',
+              showExcerpt: true,
+              showAuthor: true,
+              showDate: true,
+            },
+            posts: {
+              format: 'local',
+              limit: 3,
+              entries: demoPosts.map(p => ({
+                ...p,
+                media: stock.getRandomByTags(['object']),
+              })),
+            },
           },
         },
-
-        // Compact grid for news-style layout
+        // Latest Posts Grid
         {
           templateId,
           userConfig: {
-            display: { layout: 'grid', size: 'compact', proportions: 'short', itemsPerRow: 4 },
-            posts: { format: 'local', limit: 8, entries: demoPosts },
+            standard: {
+              headers: {
+                title: 'Latest Updates',
+                subTitle: 'Stay current with our newest content',
+              },
+            },
+            display: {
+              layout: 'grid',
+              proportions: 'standard',
+              showExcerpt: true,
+              itemsPerRow: 3,
+              gap: 'xl',
+            },
+            posts: {
+              format: 'local',
+              limit: 6,
+              entries: demoPosts.map(p => ({
+                ...p,
+                media: stock.getRandomByTags(['object']),
+              })),
+            },
           },
         },
-        // Magazine-style mixed layout
+        // Featured Category
         {
           templateId,
           userConfig: {
-            display: { layout: 'grid', size: 'regular', proportions: 'wide', showExcerpt: true },
-            posts: { format: 'standard', limit: 6 },
+            standard: {
+              headers: {
+                title: 'Tutorial Collection',
+                subTitle: 'Learn and grow with our educational content',
+              },
+            },
+            display: {
+              layout: 'grid',
+              proportions: 'portrait',
+              itemsPerRow: 4,
+              showExcerpt: false,
+              showDate: false,
+            },
+            posts: {
+              format: 'local',
+              limit: 4,
+              entries: demoPosts.map(p => ({
+                ...p,
+                media: stock.getRandomByTags(['object']),
+              })),
+            },
+          },
+        },
+        // Visual Stories
+        {
+          templateId,
+          userConfig: {
+            standard: {
+              headers: {
+                title: 'Visual Stories',
+                subTitle: 'Engage with our media-rich content',
+              },
+            },
+            display: {
+              layout: 'grid',
+              proportions: 'square',
+              itemsPerRow: 2,
+              showExcerpt: true,
+              gap: '2xl',
+            },
+            posts: {
+              format: 'local',
+              limit: 4,
+              entries: demoPosts.map(p => ({
+                ...p,
+                media: stock.getRandomByTags(['object']),
+                categories: ['Visual'],
+              })),
+            },
           },
         },
       ],

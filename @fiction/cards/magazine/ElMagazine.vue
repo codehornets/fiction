@@ -8,6 +8,7 @@ import { unhead, useService, vue } from '@fiction/core'
 import { Post } from '@fiction/posts'
 import ElMagazineIndex from './ElMagazineIndex.vue'
 import ElMagazineSingle from './ElMagazineSingle.vue'
+import { getNextPost } from './utils'
 
 const { card } = defineProps<{ card: Card<UserConfig> }>()
 
@@ -41,18 +42,6 @@ async function loadPosts() {
   else {
     await loadGlobal()
   }
-}
-
-function getNextPost(args: { single?: Post, posts?: Post[] }) {
-  const { single, posts = [] } = args
-  if (!single)
-    return undefined
-
-  const index = posts.findIndex(p => p.slug.value === single.slug.value)
-  if (index === -1)
-    return undefined
-
-  return posts[index + 1] || posts[index - 1] || undefined
 }
 
 async function loadGlobal() {

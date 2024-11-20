@@ -1,6 +1,6 @@
 import type { FictionAdmin } from '@fiction/admin'
 
-import type { FictionDb, FictionPluginSettings, FictionServer, FictionUser } from '@fiction/core'
+import type { ComplexDataFilter, FictionDb, FictionPluginSettings, FictionServer, FictionUser } from '@fiction/core'
 import type { Card } from '@fiction/site'
 import { FictionPlugin, safeDirname, vue } from '@fiction/core'
 import { QueryManagePost, type WherePost } from './endpoint'
@@ -113,12 +113,20 @@ export class FictionPosts extends FictionPlugin<FictionPostsSettings> {
     return r.data ? new Post({ card, fictionPosts: this, sourceMode: 'standard', ...postConfig }) : undefined
   }
 
-  async getPostIndex(args: { orgId: string, limit?: number, offset?: number, card: Card, caller: string }) {
-    const { orgId, limit = 20, offset, card, caller = 'unknown' } = args
+  async getPostIndex(args: {
+    orgId: string
+    limit?: number
+    offset?: number
+    filters?: ComplexDataFilter[]
+    card: Card
+    routeBasePath?: string
+    caller: string
+  }) {
+    const { orgId, limit = 20, offset, card, caller = 'unknown', routeBasePath, filters = [] } = args
 
-    const r = await this.requests.ManagePost.request({ _action: 'list', where: { orgId }, limit, offset }, { caller: `getPostIndex-${caller}` })
+    const r = await this.requests.ManagePost.request({ _action: 'list', where: { orgId }, limit, offset, filters }, { caller: `getPostIndex-${caller}` })
 
-    const posts = r.data?.length ? r.data.map(p => new Post({ card, fictionPosts: this, sourceMode: 'standard', ...p })) : []
+    const posts = r.data?.length ? r.data.map(p => new Post({ card, fictionPosts: this, sourceMode: 'standard', routeBasePath, ...p })) : []
 
     return { posts, indexMeta: r.indexMeta }
   }

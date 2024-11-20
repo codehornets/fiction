@@ -1,22 +1,19 @@
-// ElCard.vue
 <script lang="ts" setup>
 import type { IndexMeta } from '@fiction/core'
-import type { FictionPosts } from '@fiction/posts'
+import type { FictionPosts, Post } from '@fiction/posts'
 import type { Card } from '@fiction/site'
 import type { DisplayUserConfig, UserConfig } from './config'
 import NavDots from '@fiction/cards/el/NavDots.vue'
 import { useService, vue } from '@fiction/core'
-import { Post, taxonomyLink } from '@fiction/posts'
 import EffectCarousel from '@fiction/ui/effect/EffectCarousel.vue'
-import EffectGlare from '@fiction/ui/effect/EffectGlare.vue'
 import ElSpinner from '@fiction/ui/loaders/ElSpinner.vue'
-import XMedia from '@fiction/ui/media/XMedia.vue'
 import El404 from '@fiction/ui/page/El404.vue'
 import CardButton from '../CardButton.vue'
-import CardTextPost from '../CardTextPost.vue'
-import CardLink from '../el/CardLink.vue'
+import ElMagazineSingle from '../magazine/ElMagazineSingle.vue'
+import { loadPosts } from '../utils/post'
 import PostCard from './PostCard.vue'
-import PostCardContent from './PostCardContent.vue'
+
+defineOptions({ name: 'PostList' })
 
 const { card } = defineProps<{
   card: Card<UserConfig>
@@ -24,66 +21,27 @@ const { card } = defineProps<{
 
 const { fictionPosts } = useService<{ fictionPosts: FictionPosts }>()
 
-// Reactive refs
+// State
 const activeItem = vue.ref(0)
 const loading = vue.ref(false)
 const posts = vue.shallowRef<Post[]>([])
-const indexMeta = vue.ref<IndexMeta>({
-  offset: 0,
-  limit: 12,
-  count: 0,
-})
+const indexMeta = vue.ref<IndexMeta>({ offset: 0, limit: 12, count: 0 })
+const singlePost = vue.shallowRef<Post>()
+const nextPost = vue.shallowRef<Post>()
 
-// Computed properties
+// Computed
+const routeSlug = vue.computed(() => card.site?.siteRouter.params.value.itemId as string | undefined)
 const uc = vue.computed(() => card.userConfig.value || {})
 
-const displayConfig = vue.computed<DisplayUserConfig>(() => {
-  const display = uc.value.display || {}
-  return {
-    layout: display.layout || 'grid',
-    size: display.size || 'regular',
-    proportions: display.proportions || 'medium',
-    showAuthor: display.showAuthor ?? true,
-    showDate: display.showDate ?? true,
-    showExcerpt: display.showExcerpt ?? false,
-    itemsPerRow: display.itemsPerRow || 3,
-    maxRows: display.maxRows || 2,
-  }
-})
-
-const heightClass = vue.computed(() => {
-  const size = displayConfig.value.size || 'regular'
-  const proportions = displayConfig.value.proportions || 'medium'
-
-  // Base heights adjusted by size
-  const baseHeights = {
-    compact: {
-      short: 'h-[30vh]',
-      medium: 'h-[40vh]',
-      tall: 'h-[50vh]',
-      wide: 'h-[35vh]',
-      thin: 'h-[25vh]',
-    },
-    regular: {
-      short: 'h-[40vh]',
-      medium: 'h-[50vh]',
-      tall: 'h-[60vh]',
-      wide: 'h-[45vh]',
-      thin: 'h-[35vh]',
-    },
-    expanded: {
-      short: 'h-[50vh]',
-      medium: 'h-[60vh]',
-      tall: 'h-[70vh]',
-      wide: 'h-[55vh]',
-      thin: 'h-[45vh]',
-    },
-  }
-
-  const maxHeight = 'max-h-[600px]'
-
-  return `${baseHeights[size][proportions]} ${maxHeight}`
-})
+const displayConfig = vue.computed<DisplayUserConfig>(() => ({
+  layout: uc.value.display?.layout || 'grid',
+  proportions: uc.value.display?.proportions || 'standard',
+  showAuthor: uc.value.display?.showAuthor ?? true,
+  showDate: uc.value.display?.showDate ?? true,
+  showExcerpt: uc.value.display?.showExcerpt ?? false,
+  itemsPerRow: uc.value.display?.itemsPerRow || 3,
+  maxRows: uc.value.display?.maxRows || 2,
+}))
 
 const gridClass = vue.computed(() => {
   if (displayConfig.value.layout === 'scroll')
@@ -92,28 +50,67 @@ const gridClass = vue.computed(() => {
   return `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${cols} gap-6 lg:gap-10`
 })
 
-const totalPages = vue.computed(() => Math.ceil((indexMeta.value.count || 0) / (indexMeta.value.limit || 12)))
-const currentPage = vue.computed(() => Math.floor((indexMeta.value.offset || 0) / (indexMeta.value.limit || 12)) + 1)
+const pagination = vue.computed(() => ({
+  totalPages: Math.ceil((indexMeta.value.count || 0) / (indexMeta.value.limit || 12)),
+  currentPage: Math.floor((indexMeta.value.offset || 0) / (indexMeta.value.limit || 12)) + 1,
+}))
+
+// Visual dimensions for layouts
+const dimensions = vue.computed(() => {
+  const proportions = displayConfig.value.proportions || 'standard'
+  const heightMap: Record<string, string> = {
+    wide: 'h-[45vh]',
+    standard: 'h-[50vh]',
+    portrait: 'h-[60vh]',
+    square: 'h-[55vh]',
+    cinema: 'h-[40vh]',
+  }
+  const widthMap: Record<string, string> = {
+    wide: 'w-[75%]',
+    standard: 'w-[65%]',
+    portrait: 'w-[45%]',
+    square: 'w-[55%]',
+    cinema: 'w-[85%]',
+  }
+  const mobileWidthMap: Record<string, string> = {
+    wide: 'w-[85%]',
+    standard: 'w-[80%]',
+    portrait: 'w-[70%]',
+    square: 'w-[75%]',
+    cinema: 'w-[90%]',
+  }
+
+  return {
+    height: `${heightMap[proportions]} max-h-[600px]`,
+    width: {
+      mobile: mobileWidthMap[proportions],
+      desktop: widthMap[proportions],
+    },
+  }
+})
+
+const postConfigs = vue.computed(() => posts.value.map(_ => _.toConfig()))
 
 // Methods
-function changePage(newPage: number) {
-  if (newPage < 1 || newPage > totalPages.value)
+async function fetchPosts() {
+  if (!fictionPosts)
     return
 
-  const newOffset = (newPage - 1) * (indexMeta.value.limit || 12)
-  indexMeta.value = { ...indexMeta.value, offset: newOffset }
-  loadPosts()
-}
-
-async function loadPosts() {
   loading.value = true
   try {
-    if (uc.value.posts?.format === 'local') {
-      await loadLocal()
-    }
-    else {
-      await loadGlobal()
-    }
+    const result = await loadPosts({
+      fictionPosts,
+      card,
+      postConfig: uc.value.posts || {},
+      routeSlug: routeSlug.value,
+      indexMeta: { ...indexMeta.value, limit: uc.value.posts?.limit },
+      routeBasePath: uc.value.routeBasePath,
+    })
+
+    posts.value = result.posts
+    indexMeta.value = result.indexMeta
+    singlePost.value = result.singlePost
+    nextPost.value = result.nextPost
   }
   catch (error) {
     console.error('Error loading posts:', error)
@@ -123,52 +120,25 @@ async function loadPosts() {
   }
 }
 
-async function loadLocal() {
-  const entries = uc.value.posts?.entries || []
-  const { offset = 0, limit = 12 } = uc.value.posts || {}
-
-  indexMeta.value.count = entries.length
-
-  const start = offset
-  const end = offset + limit
-  posts.value = entries.slice(start, end).map((p, i) => new Post({
-    fictionPosts,
-    card,
-    ...p,
-    sourceMode: 'local',
-    localSourcePath: `posts.entries.${i + start}`,
-  }))
-}
-
-async function loadGlobal() {
-  const orgId = card.site?.settings.orgId
-  if (!orgId) {
-    console.error('No organization ID found')
+function changePage(newPage: number) {
+  if (newPage < 1 || newPage > pagination.value.totalPages)
     return
-  }
 
-  const response = await fictionPosts?.getPostIndex({
-    card,
-    limit: indexMeta.value.limit,
-    offset: indexMeta.value.offset,
-    orgId,
-    caller: 'PostListCard',
-  })
-
-  if (response) {
-    posts.value = response.posts
-    indexMeta.value = { ...indexMeta.value, ...response.indexMeta }
-  }
+  const newOffset = (newPage - 1) * (indexMeta.value.limit || 12)
+  indexMeta.value = { ...indexMeta.value, offset: newOffset }
+  fetchPosts()
 }
 
 // Lifecycle
-vue.onMounted(async () => {
-  await loadPosts()
+vue.onMounted(() => {
+  fetchPosts()
+
+  vue.watch(() => [routeSlug.value, uc.value.posts?.format], () => {
+    fetchPosts()
+  })
 })
 
-function onSlideChange(index: number) {
-  activeItem.value = index
-}
+vue.onServerPrefetch(() => fetchPosts())
 </script>
 
 <template>
@@ -178,16 +148,25 @@ function onSlideChange(index: number) {
       <ElSpinner class="h-8 w-8 text-theme-500" />
     </div>
 
+    <ElMagazineSingle
+      v-else-if="routeSlug"
+      :key="routeSlug"
+      :card="card"
+      :loading="loading"
+      :post="singlePost"
+      :next-post="nextPost"
+    />
+
     <!-- Grid Layout -->
     <div
       v-else-if="displayConfig.layout === 'grid'"
       :class="[
         gridClass,
-        displayConfig.gap === 'sm' ? 'gap-4' : '',
-        displayConfig.gap === 'md' ? 'gap-6' : '',
-        displayConfig.gap === 'lg' ? 'gap-8' : '',
-        displayConfig.gap === 'xl' ? 'gap-10' : '',
-        displayConfig.gap === '2xl' ? 'gap-12' : '',
+        displayConfig.gap === 'sm' && 'gap-4',
+        displayConfig.gap === 'md' && 'gap-6',
+        displayConfig.gap === 'lg' && 'gap-8',
+        displayConfig.gap === 'xl' && 'gap-10',
+        displayConfig.gap === '2xl' && 'gap-12',
       ]"
     >
       <PostCard
@@ -196,22 +175,29 @@ function onSlideChange(index: number) {
         :card="card"
         :post="post"
         :display="displayConfig"
-        :class="heightClass"
+        :class="dimensions.height"
       />
     </div>
 
     <!-- Scroll Layout -->
-    <div v-else class="relative ">
-      <EffectCarousel v-model:active-index="activeItem" :slides="posts" :options="{}" @slide-change="onSlideChange">
+    <div v-else class="relative">
+      <EffectCarousel
+        v-model:active-index="activeItem"
+        :slides="postConfigs"
+        :options="{}"
+      >
         <template #default="{ slide }">
           <PostCard
-            :key="slide.slug.value"
+            :key="slide.slug"
             :card="card"
-            :post="slide"
+            :post="posts.find(_ => _.slug.value === slide.slug)"
             :display="displayConfig"
-            class="carousel-cell w-[80%] md:w-[55%] lg:w-[30%] max-w-[600px] mr-6 lg:mr-10 max-h-[600px]"
-            :class="[heightClass]"
-            :style="{ width: `${90 / (displayConfig.itemsPerRow || 3)}%` }"
+            class="carousel-cell mr-6 lg:mr-10"
+            :class="[
+              dimensions.height,
+              dimensions.width.mobile,
+              `md:${dimensions.width.desktop}`,
+            ]"
           />
         </template>
       </EffectCarousel>
@@ -233,40 +219,30 @@ function onSlideChange(index: number) {
 
     <!-- Pagination -->
     <div
-      v-if="totalPages > 1 && displayConfig.layout === 'grid'"
+      v-if="pagination.totalPages > 1 && displayConfig.layout === 'grid'"
       class="mt-12 flex justify-center items-center gap-6"
     >
       <CardButton
         :card="card"
-        :disabled="currentPage === 1"
+        :disabled="pagination.currentPage === 1"
         size="sm"
         rounding="full"
-        @click="changePage(currentPage - 1)"
+        @click="changePage(pagination.currentPage - 1)"
       >
         Previous
       </CardButton>
       <span class="font-sans text-xs text-theme-500 dark:text-theme-400">
-        {{ currentPage }} / {{ totalPages }}
+        {{ pagination.currentPage }} / {{ pagination.totalPages }}
       </span>
       <CardButton
         :card="card"
-        :disabled="currentPage === totalPages"
+        :disabled="pagination.currentPage === pagination.totalPages"
         size="sm"
         rounding="full"
-        @click="changePage(currentPage + 1)"
+        @click="changePage(pagination.currentPage + 1)"
       >
         Next
       </CardButton>
     </div>
   </div>
 </template>
-
-<style lang="less" scoped>
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-}
-</style>

@@ -32,9 +32,6 @@ export const template = cardTemplate({
   isPublic: true,
   options,
   schema,
-  singleCard: () => {
-    return { cards: [{ templateId }] }
-  },
   demoPage: async (args) => {
     const { getDemo } = await import('./config.js')
     return await getDemo({ ...args, templateId })

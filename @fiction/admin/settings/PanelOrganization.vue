@@ -283,7 +283,7 @@ const options = vue.computed(() => {
 const header = vue.computed(() => {
   return {
     title: org.value?.orgName,
-    subTitle: 'Organization Details',
+    subTitle: `Organization Details - id:${org.value?.orgId}`,
     media: avatarUrl.value,
   }
 })
