@@ -36,10 +36,13 @@ const templates = {
     numberedList: () => import('./numberedList'),
     bento: () => import('./bento'),
   },
+  posts: {
+    postList: () => import('./postList'),
+    magazine: () => import('./magazine'),
+  },
   media: {
     cinema: () => import('./cinema'),
     gallery: () => import('./gallery'),
-    magazine: () => import('./magazine'),
     mediaGrid: () => import('./media-grid'),
     mediaPop: () => import('./mediaPop'),
     showcase: () => import('./showcase'),

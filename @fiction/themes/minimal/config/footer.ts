@@ -15,10 +15,11 @@ export async function getFooter(args: { factory: CardFactory, site: Site, userCo
     templateId: 'area',
     cards: [
       await factory.fromTemplate<typeof TickerTemplate>({ templateId: 'ticker', userConfig: {
+        settings: { scrollEffect: true, scrollIntensity: 35 },
         items: [
           {
-            text: 'Get the newsletter &rarr;',
-            speed: 3,
+            text: 'Get the newsletter ✌️',
+            speed: 30,
             href: '?_subscribe',
           },
         ],

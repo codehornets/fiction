@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { Card } from '@fiction/site'
 import type { FontConfigVal } from '@fiction/site/utils/fonts'
-import type { Ticker, UserConfig } from '.'
+import type { TickerConfig, UserConfig } from './config'
 import CardText from '@fiction/cards/CardText.vue'
 import CardLink from '@fiction/cards/el/CardLink.vue'
 import { getTextColorBasedOnBackground, isDarkOrLightMode, vue } from '@fiction/core'
@@ -12,7 +12,10 @@ const props = defineProps({
 })
 
 const uc = vue.computed(() => props.card.userConfig.value || {})
+const tickerWrap = vue.ref<HTMLElement>()
+const scrollTranslate = vue.ref(0)
 
+// Font registration
 vue.watch(() => uc.value.items, () => {
   const items = uc.value.items || []
   const fonts = items.map(item => item.font).filter(Boolean) as string[]
@@ -23,7 +26,6 @@ vue.watch(() => uc.value.items, () => {
   }, {} as Record<string, FontConfigVal>)
 
   const site = props.card.site
-
   if (site) {
     site.userFonts.value = { ...site.userFonts.value, ...fontObject }
   }
@@ -34,8 +36,8 @@ const items = vue.computed(() => {
   const initItems = conf.items || []
   return initItems.map(item => ({
     font: 'inherit',
-    fontSize: `${conf.fontSize || '8'}vw`,
-    direction: 'left',
+    fontSize: `${conf.settings?.fontSize || '8'}vw`,
+    direction: 'left' as const,
     speed: 50,
     rotateX: 0,
     rotateY: 0,
@@ -44,9 +46,38 @@ const items = vue.computed(() => {
   }))
 })
 
-const tickerWrap = vue.ref<HTMLElement>()
+// Smooth scroll handling
+vue.onMounted(() => {
+  if (!tickerWrap.value)
+    return
 
-function getColorStyle(ticker: Ticker) {
+  const updateTransform = () => {
+    if (!tickerWrap.value)
+      return
+    const rect = tickerWrap.value.getBoundingClientRect()
+    const viewportHeight = window.innerHeight
+
+    // Calculate progress through viewport
+    const progress = (viewportHeight - rect.top) / (viewportHeight + rect.height)
+    const clampedProgress = Math.max(0, Math.min(1, progress))
+
+    // Create a smooth translation effect
+    scrollTranslate.value = clampedProgress * 25
+  }
+
+  const onScroll = () => {
+    window.requestAnimationFrame(updateTransform)
+  }
+
+  updateTransform() // Initial position
+  window.addEventListener('scroll', onScroll, { passive: true })
+
+  vue.onUnmounted(() => {
+    window.removeEventListener('scroll', onScroll)
+  })
+})
+
+function getColorStyle(ticker: TickerConfig) {
   const bgColor = ticker.backgroundColor
   const bgColorDark = ticker.backgroundColorDark || bgColor
 
@@ -54,38 +85,45 @@ function getColorStyle(ticker: Ticker) {
     return {}
 
   const isDark = isDarkOrLightMode(tickerWrap.value) === 'dark'
-
   const backgroundColor = isDark ? bgColorDark : bgColor
 
-  if (!backgroundColor) {
-    return { }
-  }
-
-  const color = getTextColorBasedOnBackground(backgroundColor)
+  if (!backgroundColor)
+    return {}
 
   return {
     backgroundColor,
-    color,
+    color: getTextColorBasedOnBackground(backgroundColor),
   }
 }
 
 function getAnimationDuration(speed?: number): string {
-  if (speed === undefined) {
+  if (speed === undefined)
     speed = 50
-  }
-
-  if (speed === 0) {
+  if (speed === 0)
     return '100000s'
+
+  speed = Math.max(0, Math.min(100, speed))
+  return `${1000 * Math.exp(-0.0462 * speed)}s`
+}
+
+function getTransformStyle(item: TickerConfig) {
+  const direction = item.direction === 'right' ? -1 : 1
+  const translateAmount = scrollTranslate.value * direction
+
+  const out = [`translateX(${translateAmount}%)`]
+
+  if (item.transform?.rotateX)
+    out.push(`rotateX(${item.transform.rotateX}deg)`)
+
+  if (item.transform?.rotateY)
+    out.push(`rotateY(${item.transform.rotateY}deg)`)
+
+  if (item.transform?.rotateZ)
+    out.push(`rotateZ(${item.transform.rotateZ}deg)`)
+
+  return {
+    transform: out.join(' '),
   }
-
-  if (speed < 0)
-    speed = 0
-  if (speed > 100)
-    speed = 100
-
-  const duration = 1000 * Math.exp(-0.0462 * speed)
-
-  return `${duration}s`
 }
 </script>
 
@@ -99,11 +137,12 @@ function getAnimationDuration(speed?: number): string {
         :style="{
           'fontFamily': fontFamilyByKey(item.font),
           'fontSize': item.fontSize,
-          'transform': `rotateX(${item.rotateX}deg) rotateY(${item.rotateY}deg) rotateZ(${item.rotateZ}deg)`,
+          ...getTransformStyle(item),
           '-webkit-text-stroke-width': item.outline ? '1px' : '',
           '-webkit-text-stroke-color': item.outline ? 'inherit' : '',
           '-webkit-text-fill-color': item.outline ? 'transparent' : '',
           'line-height': '1.2',
+          'transition': 'transform 0.1s linear',
         }"
         class="transition-all"
         :class="item.href ? 'hover:opacity-80' : ''"
@@ -115,8 +154,10 @@ function getAnimationDuration(speed?: number): string {
           :class="`animate-scroll-${item.direction}`"
           :style="{ animationDuration: getAnimationDuration(item.speed) }"
         >
-          <div :style="{ ...getColorStyle(item as Ticker) }">
-            <span v-for="ii in 30" :key="ii" class="font-bold"><CardText tag="span" :card :path="`items.${i}.text`" />&nbsp;</span>
+          <div :style="{ ...getColorStyle(item) }">
+            <span v-for="ii in 30" :key="ii" class="font-bold">
+              <CardText tag="span" :card :path="`items.${i}.text`" />&nbsp;
+            </span>
           </div>
         </div>
       </CardLink>

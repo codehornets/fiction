@@ -35,13 +35,13 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
   },
   overlay: {
     solid: {
-      base: 'bg-white/100 text-black backdrop-blur-sm shadow-sm mix-blend-overlay',
+      base: 'bg-white/100 text-black backdrop-blur-sm shadow-sm mix-blend-overlay [text-shadow:_0_1px_1px_rgb(255_255_255_/_100%)]',
       border: 'border-white/100',
       hover: 'hover:bg-white/70 ',
       icon: 'text-black',
     },
     ghost: {
-      base: 'bg-white/100 text-black backdrop-blur-sm shadow-sm [text-shadow:_0_0.5px_0_rgb(0_0_0_/_40%)] mix-blend-overlay',
+      base: 'bg-white/70 text-black backdrop-blur-sm shadow-sm mix-blend-overlay [text-shadow:_0_1px_1px_rgb(255_255_255_/_100%)]',
       border: 'border-white/100',
       hover: 'hover:bg-white/70 ',
       icon: 'text-black',
@@ -49,7 +49,7 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
     outline: {
       base: 'bg-white/10 text-white backdrop-blur-sm shadow-sm [text-shadow:_0_0.5px_0_rgb(0_0_0_/_40%)]',
       border: 'border-white',
-      hover: 'hover:border-white/80 bg-white/30',
+      hover: 'hover:border-white/80',
       icon: 'text-white',
     },
     textOnly: {

@@ -46,7 +46,7 @@ const padClasses: Record<SizeWithNone, string> = {
   'xxs': 'px-2 sm:px-4',
   'xs': 'px-6 sm:px-14',
   'sm': 'px-6 sm:px-14',
-  'md': 'px-6 sm:px-14 lg:px-20', // Updated to match your specification
+  'md': 'px-6 sm:px-14 lg:px-20',
   'lg': 'px-6 sm:px-14 lg:px-20',
   'xl': 'px-6 sm:px-14 lg:px-20',
   '2xl': 'px-6 sm:px-14 lg:px-20',
