@@ -143,6 +143,8 @@ async function loadGlobalPosts(args: {
       orgId,
     })
 
+    card.slug.value = routeSlug
+
     // Get list of posts for finding next post
     const postList = await fictionPosts.getPostIndex({
       card,

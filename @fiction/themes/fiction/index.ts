@@ -118,13 +118,24 @@ export async function setup(args: { fictionEnv: FictionEnv, fictionStripe?: Fict
                         {
                           name: 'Content',
                           items: [
-                            { name: 'Statement', href: '/demo-statement' },
+                            { name: 'Bento', href: '/demo-bento' },
+                            { name: 'Trek', href: '/demo-trek' },
+                            { name: 'Numbered List', href: '/demo-numberedList' },
+                            { name: 'People', href: '/demo-people' },
+                            { name: 'Features', href: '/demo-features' },
                             { name: 'Tour', href: '/demo-tour' },
                             { name: 'Hero', href: '/demo-hero' },
-                            { name: 'Trek', href: '/demo-trek' },
-                            { name: 'Testimonials', href: '/demo-testimonials' },
-                            { name: 'Numbered List', href: '/demo-numberedList' },
-                            { name: 'Bento', href: '/demo-bento' },
+                            { name: 'Statement', href: '/demo-statement' },
+                          ],
+                        },
+                        {
+                          name: 'Conversion',
+                          items: [
+                            { name: 'Capture', href: '/demo-capture' },
+                            { name: 'Call to Action', href: '/demo-callToAction' },
+                            { name: 'Pricing', href: '/demo-pricing' },
+                            { name: 'Contact', href: '/demo-contact' },
+                            { name: 'FAQ / List', href: '/demo-faq' },
                           ],
                         },
                         {
@@ -136,8 +147,10 @@ export async function setup(args: { fictionEnv: FictionEnv, fictionStripe?: Fict
                             { name: 'Marquee', href: '/demo-marquee' },
                             { name: 'Logos', href: '/demo-logos' },
                             { name: 'Metrics', href: '/demo-metrics' },
+                            { name: 'Testimonials', href: '/demo-testimonials' },
                           ],
                         },
+
                         {
                           name: 'Site',
                           items: [
@@ -145,7 +158,7 @@ export async function setup(args: { fictionEnv: FictionEnv, fictionStripe?: Fict
                             { name: 'Footer', href: '/demo-footerPro' },
                             { name: 'Maps', href: '/demo-maps' },
                             { name: 'Area', href: '/demo-area' },
-                            { name: 'Contact', href: '/demo-contact' },
+
                           ],
                         },
                         {
@@ -161,6 +174,7 @@ export async function setup(args: { fictionEnv: FictionEnv, fictionStripe?: Fict
                           name: 'Posts',
                           items: [
                             { name: 'Magazine', href: '/demo-magazine' },
+                            { name: 'Post List', href: '/demo-postList' },
                           ],
                         },
                         {
@@ -171,16 +185,7 @@ export async function setup(args: { fictionEnv: FictionEnv, fictionStripe?: Fict
                             { name: 'Story', href: '/demo-story' },
                           ],
                         },
-                        {
-                          name: 'More',
-                          items: [
-                            { name: 'Capture', href: '/demo-capture' },
-                            { name: 'Pricing', href: '/demo-pricing' },
-                            { name: 'People', href: '/demo-people' },
-                            { name: 'Features', href: '/demo-features' },
-                            { name: 'FAQ / List', href: '/demo-faq' },
-                          ],
-                        },
+
                         {
                           name: 'Standard UI',
                           items: [

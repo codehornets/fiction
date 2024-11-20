@@ -61,7 +61,7 @@ interface CardTemplateSettings<
   schema?: CardTemplateSurface<S>[ 'schema' ]
   sections?: Record<string, CardConfigPortable>
   getConfig?: (args: ConfigArgs) => Promise<ConfigResponse<S>>
-  getBaseConfig?: (args: { site?: Site, userConfig: CardTemplateUserConfigAll<S> }) => CardTemplateUserConfigAll<S>
+  getBaseConfig?: (args: CardSettings<CardTemplateUserConfigAll<S>>) => CardTemplateUserConfigAll<S>
   getUserConfig?: (args: ConfigArgs) => Promise<CardTemplateUserConfigAll<S>> | (CardTemplateUserConfigAll<S>)
   getEffects?: (args: ConfigArgs) => Promise<TableCardConfig[]>
   demoPage?: (args: ConfigArgs) => Promise<{
@@ -100,14 +100,19 @@ export class CardTemplate<
     }
   }
 
-  async toCard(args: { cardId?: string, site?: Site, userConfig?: CardTemplateUserConfigAll<S>, baseConfig?: CardTemplateUserConfigAll<S> } & CardSettings) {
+  async toCard(args: {
+    cardId?: string
+    site?: Site
+    userConfig?: CardTemplateUserConfigAll<S>
+    baseConfig?: CardTemplateUserConfigAll<S>
+  } & CardSettings) {
     const { cardId, site, baseConfig = {}, userConfig } = args
-    const { getUserConfig = () => {}, getEffects, getConfig } = this.settings
+    const { getUserConfig, getEffects, getConfig } = this.settings
     const factory = new CardFactory({ site, templates: [this] })
 
-    const config = getConfig ? await getConfig({ site, factory }) : {}
-    const asyncUserConfig = (await getUserConfig({ site, factory })) || {}
-    const effects = getEffects ? (await getEffects({ site, factory })) : []
+    const config = getConfig ? await getConfig({ ...args, factory }) : {}
+    const asyncUserConfig = getUserConfig ? await getUserConfig({ ...args, factory }) : {}
+    const effects = getEffects ? (await getEffects({ ...args, factory })) : []
 
     const specificUserConfig = deepMerge([
       baseConfig,
@@ -117,7 +122,7 @@ export class CardTemplate<
     ].filter(Boolean))
 
     // pass user defined values to base config, allowing for adjustments
-    const templateBaseConfig = this.getBaseConfig({ site, userConfig: specificUserConfig })
+    const templateBaseConfig = this.getBaseConfig({ ...args, userConfig: specificUserConfig })
 
     const finalUserConfig = deepMerge([templateBaseConfig, specificUserConfig].filter(Boolean))
 
@@ -197,7 +202,7 @@ export class Card<
   userConfig = vue.shallowRef(this.settings.userConfig || {} as T) as vue.Ref<vue.UnwrapRef<T>> // allow passing of components and other complex objects
   fullConfig = vue.computed(() => (deepMerge([
     this.site?.fullConfig.value,
-    this.tpl.value?.getBaseConfig({ site: this.site, userConfig: this.userConfig.value }) || {},
+    this.tpl.value?.getBaseConfig(this.settings) || {},
     this.userConfig.value as SiteUserConfig & T,
   ]) as SiteUserConfig & T))
 

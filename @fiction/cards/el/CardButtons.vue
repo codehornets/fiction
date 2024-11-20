@@ -50,7 +50,7 @@ function getButtonType(action: ActionButton) {
       :key="i"
       :card
       class="x-action-item"
-      :theme="getButtonType(action) || theme"
+      :theme="action.theme || theme"
       :design="action.design || design"
       :href="action.href"
       :size="action.size || uiSize"

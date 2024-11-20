@@ -30,7 +30,7 @@ const uc = vue.computed(() => props.card.userConfig.value || {})
         <CardText animate="fade" :card :path="`profiles.${i}.name`" tag="h3" class="lg:mt-6 text-lg lg:text-3xl x-font-title font-semibold leading-8" />
         <CardText animate="fade" :card :path="`profiles.${i}.title`" tag="p" class="text-base dark:text-theme-400 text-theme-500 x-font-title" />
         <CardText animate="fade" :card :path="`profiles.${i}.desc`" tag="p" class="mt-4 text-lg " />
-        <CardSocials v-if="profile.social" :card class="mt-6 justify-center md:justify-center" :socials="profile.social" />
+        <CardSocials v-if="profile.social" :card class="mt-6 justify-center md:justify-start" :socials="profile.social" />
       </div>
     </li>
   </ul>

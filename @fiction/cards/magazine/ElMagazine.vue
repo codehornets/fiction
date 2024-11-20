@@ -1,125 +1,69 @@
 <script lang="ts" setup>
 import type { IndexMeta } from '@fiction/core'
-
-import type { FictionPosts } from '@fiction/posts'
+import type { FictionPosts, Post } from '@fiction/posts'
 import type { Card } from '@fiction/site'
-import type { UserConfig } from './index.js'
-import { unhead, useService, vue } from '@fiction/core'
-import { Post } from '@fiction/posts'
+import type { UserConfig } from './config'
+import { useService, vue } from '@fiction/core'
+import ElSpinner from '@fiction/ui/loaders/ElSpinner.vue'
+import El404 from '@fiction/ui/page/El404.vue'
+import { loadPosts } from '../utils/post'
 import ElMagazineIndex from './ElMagazineIndex.vue'
 import ElMagazineSingle from './ElMagazineSingle.vue'
-import { getNextPost } from './utils'
 
 const { card } = defineProps<{ card: Card<UserConfig> }>()
-
 const { fictionPosts } = useService<{ fictionPosts: FictionPosts }>()
 
-const uc = vue.computed(() => card.userConfig.value || {})
-const posts = vue.shallowRef<Post[]>([])
-const singlePost = vue.shallowRef<Post | undefined>()
-const nextPost = vue.shallowRef<Post | undefined>()
 const loading = vue.ref(false)
-const routeSlug = vue.computed(() => card.site?.siteRouter.params.value.itemId as string | undefined)
-
+const posts = vue.shallowRef<Post[]>([])
+const singlePost = vue.shallowRef()
+const nextPost = vue.shallowRef()
 const indexMeta = vue.ref<IndexMeta>({
   offset: 0,
-  limit: uc.value.posts?.limit || 10,
+  limit: card.userConfig.value.posts?.limit || 12,
   count: 0,
-  order: 'desc',
-  orderBy: 'dateAt',
 })
+
+const routeSlug = vue.computed(() => card.site?.siteRouter.params.value.itemId as string)
+const uc = vue.computed(() => card.userConfig.value || {})
+
+async function fetchPosts() {
+  if (!fictionPosts)
+    return
+
+  loading.value = true
+  try {
+    const result = await loadPosts({
+      fictionPosts,
+      card,
+      postConfig: uc.value.posts || {},
+      routeSlug: routeSlug.value,
+      indexMeta: indexMeta.value,
+    })
+
+    posts.value = result.posts
+    indexMeta.value = result.indexMeta
+    singlePost.value = result.singlePost
+    nextPost.value = result.nextPost
+  }
+  finally {
+    loading.value = false
+  }
+}
 
 function updateIndexMeta(newMeta: IndexMeta) {
   indexMeta.value = newMeta
-  // Trigger re-fetching of posts with the new offset
-  loadPosts()
+  fetchPosts()
 }
 
-async function loadPosts() {
-  if (uc.value.posts?.format === 'local') {
-    await loadLocal()
-  }
-  else {
-    await loadGlobal()
-  }
-}
-
-async function loadGlobal() {
-  loading.value = true
-  const orgId = card.site?.settings.orgId
-
-  if (!orgId)
-    throw new Error('No fiction orgId found')
-
-  if (routeSlug.value) {
-    singlePost.value = await fictionPosts.getPost({ card, where: { slug: routeSlug.value }, orgId })
-
-    nextPost.value = getNextPost({ single: singlePost.value, posts: posts.value })
-  }
-  else {
-    const r = await fictionPosts.getPostIndex({ card, limit: 5, orgId, caller: 'ElMagazine' })
-    posts.value = r.posts
-    indexMeta.value = { ...indexMeta.value, ...r.indexMeta }
-  }
-
-  loading.value = false
-}
-
-async function loadLocal() {
-  const common = { fictionPosts, card, sourceMode: 'local' } as const
-  const ps = uc.value.posts?.entries || []
-  posts.value = ps.map((p, i) => new Post({ ...common, ...p, localSourcePath: `posts.entries.${i}` }))
-
-  if (routeSlug.value) {
-    const p = ps.find(p => p.slug === routeSlug.value)
-    const localSourcePath = `posts.entries.${ps.findIndex(p => p.slug === routeSlug.value)}`
-    singlePost.value = new Post({ ...common, ...p, localSourcePath })
-    nextPost.value = getNextPost({ single: singlePost.value, posts: ps.map(p => new Post({ ...common, ...p })) })
-  }
-  else {
-    const { offset = 0, limit = 10 } = indexMeta.value
-    const start = offset
-    const end = offset + limit
-    posts.value = ps.slice(start, end).map((p, i) => new Post({ ...common, ...p, localSourcePath: `posts.entries.${i + start}` }))
-    indexMeta.value = {
-      ...indexMeta.value,
-      count: ps.length,
-      offset,
-      limit,
-    }
-  }
-}
-
-vue.onServerPrefetch(async () => {
-  await loadPosts()
+vue.onMounted(() => {
+  vue.watch(() => [routeSlug.value, uc.value.posts?.format], fetchPosts, { immediate: true })
 })
 
-vue.onMounted(async () => {
-  vue.watch(() => [routeSlug.value, uc.value.posts?.format], async () => {
-    await loadPosts()
-  }, { immediate: true })
-})
-
-const head = vue.computed(() => {
-  const uc = singlePost.value?.userConfig.value
-  const single = singlePost.value
-  return {
-    title: uc?.seo?.title || single?.title.value || 'Untitled Post',
-    description: uc?.seo?.description || single?.subTitle.value || 'No description',
-  }
-})
-
-// render as usual for main page
-if (routeSlug.value) {
-  unhead.useHead({
-    title: () => head.value.title,
-    meta: [{ name: `description`, content: () => head.value.description }],
-  })
-}
+vue.onServerPrefetch(fetchPosts)
 </script>
 
 <template>
-  <div :data-route-slug="routeSlug">
+  <div :class="card.classes.value.contentWidth">
     <transition
       enter-active-class="ease-out duration-200"
       enter-from-class="opacity-0 translate-y-10"
@@ -129,21 +73,32 @@ if (routeSlug.value) {
       leave-to-class="opacity-0 -translate-y-10"
       mode="out-in"
     >
+      <div v-if="loading" class="flex justify-center py-12">
+        <ElSpinner class="size-8 text-theme-500" />
+      </div>
+
       <ElMagazineSingle
-        v-if="routeSlug"
+        v-else-if="routeSlug && singlePost"
         :key="routeSlug"
-        :card
-        :loading="loading"
+        :card="card"
         :post="singlePost"
         :next-post="nextPost"
+        :loading
       />
+
       <ElMagazineIndex
-        v-else
-        :card
-        :loading="loading"
+        v-else-if="posts.length"
+        :card="card"
         :posts="posts"
         :index-meta="indexMeta"
+        :loading
         @update:index-meta="updateIndexMeta"
+      />
+
+      <El404
+        v-else-if="!loading && !posts.length"
+        heading="No Posts Available"
+        sub-heading="Check back later for new content"
       />
     </transition>
   </div>

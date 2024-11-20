@@ -4,6 +4,7 @@ import type { Post } from '@fiction/posts'
 import type { Card } from '@fiction/site'
 import type { DisplayUserConfig } from './config'
 import { taxonomyLink } from '@fiction/posts'
+import XMedia from '@fiction/ui/media/XMedia.vue'
 import CardButton from '../CardButton.vue'
 import CardTextPost from '../CardTextPost.vue'
 
@@ -42,12 +43,12 @@ const props = defineProps<{
     </div>
 
     <div v-if="props.display.showAuthor" class="mt-3 flex items-center gap-2 text-xs font-sans">
-      <img
+      <XMedia
         v-if="props.post.authors.value?.[0]?.avatar?.url"
-        :src="props.post.authors.value[0].avatar.url"
+        :media="props.post.authors.value[0].avatar"
         :alt="props.post.authors.value[0].fullName"
-        class="w-5 h-5 rounded-full"
-      >
+        class="size-5 rounded-full overflow-hidden ring-1 ring-white"
+      />
       <span>{{ props.post.authors.value?.[0]?.fullName }}</span>
       <span v-if="props.display.showDate" class="text-white/70">·</span>
       <time v-if="props.display.showDate" class="text-white/70">

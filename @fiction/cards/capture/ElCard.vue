@@ -155,7 +155,7 @@ vue.watchEffect(() => {
 
       <EffectScrollModal v-if="uc.presentationMode === 'onScroll' && showCard && !dismissedScroll">
         <div :data-mode="uc.presentationMode">
-          <div class="absolute right-3 top-3">
+          <div class="absolute right-3 top-3 pointer-events-auto z-10">
             <ElClose
               data-test-id="dismiss"
               @click.prevent="dismissedScroll = true"

@@ -361,7 +361,7 @@ export async function getConfig(args: { templateId: string, factory: CardFactory
             },
           },
         },
-      ],
+      ] satisfies { templateId: string, userConfig: UserConfig }[],
     },
   }
 }
