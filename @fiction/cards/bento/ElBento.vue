@@ -100,7 +100,7 @@ const gapClass = vue.computed(() => {
               :card
               class="flex gap-3 mt-4"
               :actions="item.actions"
-              :theme="item.theme || (item.bg?.url ? 'overlay' : 'default')"
+              :theme="(item.bg?.url ? 'overlay' : (item.theme || 'default'))"
               design="outline"
             />
 

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { Card, Site } from '@fiction/site'
-import type { UserConfig } from '.'
+import type { UserConfig } from './config'
 import { localRef, useService, vue } from '@fiction/core'
 import { type QueryVarHook, setupRouteWatcher } from '@fiction/site/utils/site'
 import XButton from '@fiction/ui/buttons/XButton.vue'
@@ -158,6 +158,7 @@ vue.watchEffect(() => {
           <div class="absolute right-3 top-3 pointer-events-auto z-10">
             <ElClose
               data-test-id="dismiss"
+              color-mode="auto"
               @click.prevent="dismissedScroll = true"
             />
           </div>

@@ -6,9 +6,11 @@ const templateId = 'area'
 // Main template definition with minimal synchronous code
 export const template = cardTemplate({
   templateId,
-  category: ['basic'],
-  description: 'Container for other elements',
-  icon: 'i-tabler-box-padding',
+  category: ['layout', 'basic'], // Added layout category for better organization
+  title: 'Content Area',
+  description: 'A flexible container that groups and styles content elements. Perfect for creating distinct sections within your page.',
+  subTitle: 'Group and style content elements with custom backgrounds, spacing, and layouts',
+  icon: 'i-tabler-layout-board',
   colorTheme: 'blue',
   isContainer: true, // ui drawer
   isPublic: true,

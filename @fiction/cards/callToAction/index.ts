@@ -7,10 +7,14 @@ export const templateId = 'callToAction'
 export const template = cardTemplate({
   templateId,
   category: ['navigation'],
-  icon: 'i-tabler-layout-bottombar',
+  icon: 'i-tabler-megaphone',
   title: 'Call To Action',
   colorTheme: 'red',
-  description: 'A call-to-action card bullets and persuasion techniques to drive user action.',
+  subTitle: 'Convert visitors into subscribers, customers, or leads with compelling offers',
+  description: `Create high-converting sections that drive user action through clear value propositions,
+social proof, and benefit-focused content. Includes multiple layouts for email capture, product trials,
+demo requests, and other conversion goals. Features customizable messaging, benefit highlights, and
+community social proof to boost conversion rates.`,
   isPublic: true,
   el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
 

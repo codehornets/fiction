@@ -32,19 +32,10 @@ vue.onMounted(() => {
     })
   }
 })
-
-function getButtonType(action: ActionButton) {
-  if (isOverlay) {
-    return 'overlay'
-  }
-  else {
-    return action.theme
-  }
-}
 </script>
 
 <template>
-  <div v-if="actions?.length" :id="randomId">
+  <div v-if="actions?.length" :id="randomId" :data-base-theme="theme">
     <CardButton
       v-for="(action, i) in actions"
       :key="i"

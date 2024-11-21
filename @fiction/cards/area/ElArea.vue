@@ -19,6 +19,8 @@ vue.onMounted(() => {
     class="engine-container relative"
     :class="[loaded ? 'loaded' : '']"
     data-test-id="area-container"
+    :aria-label="card.title?.value || 'Content Area'"
+    role="region"
   >
     <ElEngine
       tag="div"

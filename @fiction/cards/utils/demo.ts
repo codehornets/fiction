@@ -29,7 +29,7 @@ export async function createDemoPage(args: { site: Site, template: CardTemplate<
         userConfig: {
           superHeading: template.settings.category?.join(', ').toUpperCase(),
           heading: template.settings.title,
-          subHeading: template.settings.description,
+          subHeading: template.settings.subTitle || template.settings.description?.slice(0, 100),
           actions: [],
           superColor: template.settings.colorTheme,
           superIcon: { format: 'iconClass', class: template.settings.icon },

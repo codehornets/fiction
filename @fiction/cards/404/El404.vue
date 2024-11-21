@@ -5,12 +5,9 @@ import type { Card } from '@fiction/site'
 import type { UserConfig } from './index.js'
 import El404 from '@fiction/ui/page/El404.vue'
 
-defineProps({
-  card: {
-    type: Object as vue.PropType<Card<UserConfig>>,
-    required: true,
-  },
-})
+defineProps<{
+  card: Card<UserConfig>
+}>()
 </script>
 
 <template>

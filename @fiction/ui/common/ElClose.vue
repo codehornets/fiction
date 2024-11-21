@@ -2,6 +2,10 @@
 import { shortId, vue } from '@fiction/core'
 import { useElementVisible } from '../anim'
 
+const { colorMode = 'light' } = defineProps<{
+  colorMode?: 'light' | 'dark' | 'auto'
+}>()
+
 const inView = vue.ref(false)
 const randomId = shortId()
 let close = () => {}
@@ -25,6 +29,14 @@ vue.onBeforeUnmount(() => {
   inView.value = false
   close()
 })
+
+const lineClass = vue.computed(() => {
+  if (colorMode === 'light')
+    return 'bg-theme-0'
+  if (colorMode === 'dark')
+    return 'bg-theme-950'
+  else return 'bg-theme-950 dark:bg-theme-0'
+})
 </script>
 
 <template>
@@ -32,8 +44,8 @@ vue.onBeforeUnmount(() => {
     <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60px] h-[60px] rounded-full transition-all" />
     <span class="close-wrap overflow-hidden top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[28px] h-[28px] absolute">
 
-      <span class="close-line close-line1 h-full w-[3px] bg-theme-0 absolute rounded-[5px] left-[13px] transition-all" />
-      <span class="close-line close-line2 h-full w-[3px] bg-theme-0 absolute rounded-[5px] left-[13px] transition-all" />
+      <span :class="lineClass" class="close-line close-line1 h-full w-[3px] absolute rounded-[5px] left-[13px] transition-all" />
+      <span :class="lineClass" class="close-line close-line2 h-full w-[3px] absolute rounded-[5px] left-[13px] transition-all" />
     </span>
   </a>
 </template>

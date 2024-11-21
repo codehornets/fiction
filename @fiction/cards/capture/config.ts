@@ -1,6 +1,51 @@
+import type { ConfigResponse } from '@fiction/site/card'
 import type { CardFactory } from '@fiction/site/cardFactory'
-import type { UserConfig } from './index.js'
-import { vue } from '@fiction/core'
+import { MediaBasicSchema, vue } from '@fiction/core'
+import { InputOption } from '@fiction/ui/index.js'
+import { z } from 'zod'
+import { standardOption } from '../inputSets.js'
+
+const schema = z.object({
+  superHeading: z.string().describe('Social proof Metric or KPI for the newsletter, e.g. "22,300+ subscribers"').optional(),
+  heading: z.string().describe('Newsletter hook header 5 words or so').optional(),
+  subHeading: z.string().describe('Specific benefits of subscribing').optional(),
+  media: MediaBasicSchema.optional().describe('Image or video for the form'),
+  presentationMode: z.enum(['inline', 'onScroll', 'onLoad']).optional(),
+  buttonText: z.string().optional().describe('Text on the subscribe button'),
+  thanksText: z.string().optional().describe('Text on the thank you message'),
+})
+
+export type UserConfig = z.infer<typeof schema>
+
+const options: InputOption[] = [
+  new InputOption({
+    key: 'presentationMode',
+    label: 'Display Mode',
+    input: 'InputSelect',
+    list: ['inline', 'onScroll', 'onLoad'],
+    description: 'Choose how to show your form: within content, as a scroll popup, or immediately on page load',
+  }),
+  standardOption.headers(),
+  new InputOption({
+    key: 'media',
+    label: 'Featured Media',
+    input: 'InputMedia',
+  }),
+  new InputOption({
+    key: 'buttonText',
+    label: 'Sign Up Button Text',
+    input: 'InputText',
+    placeholder: 'Get the Guide',
+    description: 'Compelling call-to-action for your submit button',
+  }),
+  new InputOption({
+    key: 'thanksText',
+    label: 'Success Message',
+    input: 'InputText',
+    placeholder: 'Welcome aboard! Check your inbox.',
+    description: 'Confirmation message after successful signup',
+  }),
+]
 
 export async function getUserConfig(args: { factory: CardFactory, templateId: string }) {
   const demoUserConfig: UserConfig = {
@@ -27,13 +72,59 @@ export async function getUserConfig(args: { factory: CardFactory, templateId: st
 
 export async function getDemo(args: { factory: CardFactory, templateId: string }) {
   const { templateId } = args
-  const userConfig = await getUserConfig(args)
+  const baseConfig = await getUserConfig(args)
+
   return {
     cards: [
-      { templateId, userConfig: { presentationMode: 'inline' as const, ...userConfig } },
-      { templateId: 'demoProse', el: vue.defineAsyncComponent(async () => import('./DemoProse.vue')) },
-      { templateId, userConfig: { presentationMode: 'onLoad' as const, ...userConfig } },
-      { templateId, userConfig: { presentationMode: 'onScroll' as const, ...userConfig } },
+      // Inline form example
+      {
+        templateId,
+        userConfig: {
+          ...baseConfig,
+          presentationMode: 'inline',
+          heading: 'Subscribe to Our Weekly Insights',
+          subHeading: 'Join thousands of marketers getting actionable tips every Tuesday',
+        },
+      },
+      // Content separator for demo
+      {
+        templateId: 'demoProse',
+        el: vue.defineAsyncComponent(async () => import('./DemoProse.vue')),
+      },
+      {
+        templateId,
+        userConfig: {
+          ...baseConfig,
+          presentationMode: 'onLoad',
+          superHeading: 'Limited Time Offer',
+          heading: 'Get Our 2024 Growth Guide',
+          subHeading: 'Download our proven framework for scaling startups to 7-figures. Available free for a limited time.',
+          buttonText: 'Download Free Guide',
+          thanksText: 'Your guide is on its way! Check your inbox in the next 2 minutes.',
+        },
+      },
+      // Scroll trigger example
+      {
+        templateId,
+        userConfig: {
+          ...baseConfig,
+          presentationMode: 'onScroll',
+          heading: 'Want More Growth Tips?',
+          subHeading: 'Get weekly insights from industry experts',
+          buttonText: 'Join the Community',
+        },
+      },
     ],
+  }
+}
+
+export async function getConfig(args: { factory: CardFactory, templateId: string }): Promise<ConfigResponse> {
+  const userConfig = await getUserConfig(args)
+  const demoPage = await getDemo(args)
+  return {
+    schema,
+    options,
+    userConfig,
+    demoPage,
   }
 }

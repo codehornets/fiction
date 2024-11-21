@@ -98,9 +98,9 @@ const layout = vue.computed(() => {
           animate="fade"
         />
       </div>
-      <div class="max-w-screen-lg" :class="layout === 'justify' ? 'lg:max-w-[50%]' : 'mx-auto'">
+      <div class="max-w-screen-md" :class="layout === 'justify' ? 'lg:max-w-[50%]' : 'mx-auto'">
         <CardText
-          tag="div"
+          tag="h3"
           :card
           class="mt-8 text-xl lg:text-2xl !leading-[1.5] md:text-balance text-theme-700 dark:text-theme-300/90"
           :class="layout === 'justify' ? 'lg:text-right' : ''"
