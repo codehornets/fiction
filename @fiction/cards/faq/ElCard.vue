@@ -1,40 +1,136 @@
 <script lang="ts" setup>
 import type { Card } from '@fiction/site'
-import type { UserConfig } from './index.js'
+import type { UserConfig } from './config.js'
 import { vue } from '@fiction/core'
-import XText from '@fiction/ui/common/XText.vue'
-
+import TransitionSlide from '@fiction/ui/anim/TransitionSlide.vue'
+import XIcon from '@fiction/ui/media/XIcon.vue'
+import XMedia from '@fiction/ui/media/XMedia.vue'
 import CardText from '../CardText.vue'
+import CardButtons from '../el/CardButtons.vue'
 
 const props = defineProps({
   card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
 })
 
-const uc = vue.computed(() => {
-  return props.card.userConfig.value || {}
-})
+const uc = vue.computed(() => props.card.userConfig.value || {})
+const layout = vue.computed(() => uc.value.layout || 'accordion')
+
+// Track open state for accordion/toggle layouts
+const openItems = vue.ref<Set<number>>(new Set())
+
+function toggleItem(index: number) {
+  if (layout.value === 'accordion') {
+    openItems.value = new Set(openItems.value.has(index) ? [] : [index])
+  }
+  else if (layout.value === 'toggle') {
+    const newSet = new Set(openItems.value)
+    if (newSet.has(index)) {
+      newSet.delete(index)
+    }
+    else {
+      newSet.add(index)
+    }
+    openItems.value = newSet
+  }
+}
+
+function isItemOpen(index: number) {
+  return layout.value === 'visible' || openItems.value.has(index)
+}
 </script>
 
 <template>
-  <div :class="card.classes.value.contentWidth" class="space-y-6 sm:space-y-12">
-    <div class="space-y-6 text-left md:text-balance max-w-md text-theme-500 dark:text-theme-400">
-      <CardText animate="fade" :card path="heading" class="text-xl sm:text-4xl x-font-title font-medium" />
-      <CardText v-if="uc.subHeading" animate="fade" :card path="subHeading" class="text-lg sm:text-2xl " />
-    </div>
-    <div>
+  <div :class="card.classes.value.contentWidth" :data-layout-mode="layout">
+    <!-- FAQ Items List -->
+    <div class="max-w-screen-lg mx-auto space-y-4">
       <div
         v-for="(item, i) in uc.items"
         :key="i"
+        class="group rounded-xl ring ring-theme-300/30 dark:ring-theme-600/30"
+        :class="[layout !== 'visible' ? 'cursor-pointer hover:ring-theme-300/50 dark:hover:ring-theme-600/60' : '']"
       >
-        <div class="divider h-[1px] dark:bg-theme-0/10 bg-theme-200 my-3 sm:my-6" />
-        <div class="py-6 flex flex-col-reverse lg:flex-row justify-between gap-6 lg:items-center ">
-          <div class="space-y-4 max-w-screen-md">
-            <CardText :card :path="`items.${i}.name`" animate="fade" class="text-2xl sm:text-3xl lg:text-5xl x-font-title font-semibold !leading-[1.2]" />
-            <CardText :card :path="`items.${i}.desc`" animate="fade" class="text-lg sm:text-xl lg:text-3xl leading-relaxed lg:leading-relaxed text-theme-600 dark:text-theme-100" />
+        <!-- Question/Title Row -->
+        <div
+          class="relative p-4 lg:p-6 xl:p-8 flex items-start gap-5"
+          @click="layout !== 'visible' && toggleItem(i)"
+        >
+          <!-- Icon -->
+          <XIcon
+            v-if="item.icon"
+            :media="item.icon"
+            class="flex-shrink-0 size-7 text-primary-500 dark:text-primary-400"
+          />
+
+          <div class="flex-grow">
+            <div class="flex justify-between">
+              <CardText
+                :card
+                :path="`items.${i}.title`"
+                class="x-font-title text-xl lg:text-2xl font-semibold text-theme-900 dark:text-theme-100 transition-colors"
+                :class="[
+                  isItemOpen(i) && 'text-primary-600 dark:text-primary-400',
+                ]"
+              />
+              <!-- Toggle Button -->
+              <button
+                v-if="layout !== 'visible'"
+                type="button"
+                class="flex-shrink-0 "
+                @click.stop="toggleItem(i)"
+              >
+                <XIcon
+                  :media="{ class: 'i-tabler-chevron-down' }"
+                  class="size-6 text-theme-400 transition-transform duration-200"
+                  :class="isItemOpen(i) && 'rotate-180'"
+                />
+              </button>
+            </div>
+
+            <!-- Content Area -->
+            <TransitionSlide>
+              <div v-show="isItemOpen(i)" class="relative">
+                <div
+                  class="space-y-4 py-2"
+                >
+                  <!-- Media if present -->
+                  <XMedia
+                    v-if="item.media"
+                    :media="item.media"
+                    class="rounded-lg overflow-hidden bg-theme-100 dark:bg-theme-800 aspect-video w-96 my-6"
+                  />
+
+                  <!-- Content -->
+                  <CardText
+                    :card
+                    :path="`items.${i}.content`"
+                    class="prose prose-theme dark:prose-invert prose prose-lg md:prose-2xl "
+                  />
+                </div>
+              </div>
+            </TransitionSlide>
           </div>
-          <XText animate="rise" :model-value="String(i + 1).padStart(2, '0')" class="text-5xl lg:text-8xl font-sans font-bold antialiased text-primary-500/20" />
         </div>
       </div>
+    </div>
+
+    <!-- Support Section -->
+    <div
+      v-if="uc.support?.text || uc.support?.actions?.length"
+      class="mt-10 text-center max-w-[768px] mx-auto space-y-6"
+    >
+      <CardText
+        v-if="uc.support.text"
+        :card
+        path="support.text"
+        class="text-lg text-theme-600 dark:text-theme-400 x-font-title"
+      />
+
+      <CardButtons
+        v-if="uc.support.actions?.length"
+        :card
+        :actions="uc.support.actions"
+        class="justify-center gap-4 flex"
+      />
     </div>
   </div>
 </template>

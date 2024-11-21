@@ -193,6 +193,7 @@ export async function setup(args: { fictionEnv: FictionEnv, fictionStripe?: Fict
                             { name: 'Inputs', href: '/demo-xinput' },
                             { name: 'Media', href: '/demo-xmedia' },
                             { name: 'Logo', href: '/demo-xlogo' },
+                            { name: 'Shapes', href: '/demo-effectShape' },
                           ],
                         },
                       ],

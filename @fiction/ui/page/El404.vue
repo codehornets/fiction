@@ -8,10 +8,10 @@ const {
   subHeading,
   actions = [{ name: 'Go Home', icon: 'i-tabler-home', href: '/', theme: 'primary' }],
 } = defineProps<{
-  superHeading: string | undefined
-  heading: string | undefined
-  subHeading: string | undefined
-  actions: ActionButton[] | undefined
+  superHeading?: string | undefined
+  heading?: string | undefined
+  subHeading?: string | undefined
+  actions?: ActionButton[] | undefined
 }>()
 </script>
 

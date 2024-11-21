@@ -1,59 +1,22 @@
-import { BlendModesSchema, UiOriginSchema, vue } from '@fiction/core'
+import { vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site'
-import { InputOption } from '@fiction/ui'
-import { z } from 'zod'
 
 const templateId = 'effectShape'
-
-const ShapeSchema = z.object({
-  shape: z.enum(['square', 'circle', 'triangle', 'hexagon', 'star', 'heart', 'pentagon', 'diamond', 'cross', 'octagon']).optional(),
-  opacity: z.number().min(0).max(100).optional(),
-  color: z.string().optional(),
-  rotation: z.string().optional(),
-  scale: z.number().positive().optional(),
-  position: z.object({
-    origin: UiOriginSchema.optional(),
-    offsetX: z.number().default(0).optional(),
-    offsetY: z.number().default(0).optional(),
-  }),
-  blendMode: BlendModesSchema.optional(),
-})
-
-export type Shape = z.infer<typeof ShapeSchema>
-
-const UserConfigSchema = z.object({
-  shapes: z.array(ShapeSchema).optional(),
-})
-
-export type UserConfig = z.infer<typeof UserConfigSchema>
-
-async function getUserConfig(): Promise<UserConfig> {
-  return { }
-}
-
-const options: InputOption[] = [
-  new InputOption({
-    input: 'InputList',
-    key: `shapes`,
-    options: [
-    ],
-  }),
-]
 
 export const template = cardTemplate({
   templateId,
   category: ['effect'],
-  description: 'Shape background effect',
-  icon: 'i-tabler-message-bolt',
+  title: 'Shape Background',
+  subTitle: 'Add depth and visual interest with animated geometric shapes',
+  description: `Create engaging visual depth with floating geometric shapes that respond to user interaction.
+Perfect for enhancing hero sections, testimonials, or content areas with subtle animation and movement.
+Features include customizable shapes, colors, animations, and interactive effects.`,
+  icon: 'i-tabler-shape',
   colorTheme: 'emerald',
   el: vue.defineAsyncComponent(async () => import('./ElEffect.vue')),
   isPublic: false,
-  options,
-  schema: UserConfigSchema,
-  getBaseConfig: () => ({ }),
-  getUserConfig: async () => getUserConfig(),
-  demoPage: async () => {
-    const userConfig = await getUserConfig()
-    return { cards: [{ templateId, userConfig }] }
+  getConfig: async () => {
+    const { getConfig } = await import('./config')
+    return getConfig({ templateId })
   },
 })

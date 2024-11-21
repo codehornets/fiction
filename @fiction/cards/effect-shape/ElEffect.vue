@@ -1,28 +1,30 @@
 <script lang="ts" setup>
 import type { Card } from '@fiction/site'
-import type { Shape, UserConfig } from './index.js'
+import type { Shape, UserConfig } from './config'
 import { isDarkOrLightMode, normalizeColor, vue } from '@fiction/core'
 
 const props = defineProps({
   card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
 })
 
-const shapes = vue.computed(() => props.card.fullConfig.value?.shapes || [])
+const config = vue.computed(() => props.card.fullConfig.value || {})
+const shapes = vue.computed(() => config.value.shapes || [])
+const containerRef = vue.ref<HTMLElement | null>(null)
+const isHovering = vue.ref(false)
+const mousePos = vue.ref({ x: 0, y: 0 })
 
+// SVG path definitions for each shape type
 const SHAPE_PATHS: Record<NonNullable<Shape['shape']>, string> = {
-  square: 'M0 0h100v100H0z',
   circle: 'M50 0a50 50 0 100 100A50 50 0 0050 0z',
+  square: 'M0 0h100v100H0z',
   triangle: 'M50 0L100 100H0z',
   hexagon: 'M25 0L75 0L100 50L75 100L25 100L0 50Z',
-  star: 'M50 0L61 35H97L68 57L79 91L50 70L21 91L32 57L3 35H39Z',
-  pentagon: 'M50 0L100 38L81 100H19L0 38Z',
-  octagon: 'M29.3 0H70.7L100 29.3V70.7L70.7 100H29.3L0 70.7V29.3L29.3 0Z',
   diamond: 'M50 0L100 50L50 100L0 50Z',
-  cross: 'M35 0H65V35H100V65H65V100H35V65H0V35H35V0Z',
-  heart: 'M50 90C22.4 69.5 0 51.6 0 29.9 0 13.5 12.4 0 27.6 0 36.5 0 45.1 4.2 50 11.9 54.9 4.2 63.5 0 72.4 0 87.6 0 100 13.5 100 29.9 100 51.6 77.6 69.5 50 90Z',
+  star: 'M50 0L61 35H97L68 57L79 91L50 70L21 91L32 57L3 35H39Z',
 }
 
-const ORIGIN_TRANSFORMS: Record<NonNullable<Shape['position']['origin']>, { x: number, y: number, translate: { x: number, y: number }, transformOrigin?: string }> = {
+// Position transformation mappings
+const ORIGIN_TRANSFORMS: Record<string, { x: number, y: number, translate: { x: number, y: number } }> = {
   topLeft: { x: 0, y: 0, translate: { x: 0, y: 0 } },
   topCenter: { x: 50, y: 0, translate: { x: -50, y: 0 } },
   topRight: { x: 100, y: 0, translate: { x: -100, y: 0 } },
@@ -34,43 +36,156 @@ const ORIGIN_TRANSFORMS: Record<NonNullable<Shape['position']['origin']>, { x: n
   bottomRight: { x: 100, y: 100, translate: { x: -100, y: -100 } },
 }
 
-function getShapeStyle(shape: Shape) {
-  const { position, scale = 1, rotation = 0, blendMode } = shape
-  const { x = 0, y = 0, translate, transformOrigin } = ORIGIN_TRANSFORMS[position.origin || 'topRight']
-  const { offsetX = 0, offsetY = 0 } = position
-  const transform = [
-    `translate(${translate.x || 0}%, ${translate.y}%)`,
-    `scale(${scale})`,
-    `rotate(${rotation}deg)`,
+// Viewport-based responsive scaling
+const responsiveScale = vue.computed(() => {
+  if (typeof window === 'undefined')
+    return 1
 
-  ].filter(Boolean).join(' ')
+  const { mobileScale = 1, tabletScale = 1 } = config.value.responsive || {}
+  if (window.innerWidth < 768)
+    return mobileScale
+  if (window.innerWidth < 1024)
+    return tabletScale
+  return 1
+})
 
-  const ss = {
-    transform,
-    transformOrigin,
-    left: `${x + offsetX}%`,
-    top: `${y + offsetY}%`,
-    mixBlendMode: blendMode || 'normal',
+// Split the styles into position/scale and rotation
+function getShapeStyles(shape: Shape, index: number) {
+  const { style = {}, position = {}, animation = {} } = shape
+  const { origin = 'topRight', offsetX = 0, offsetY = 0, zIndex = 0 } = position
+  const { scale = 1, blendMode = 'multiply' } = style
+  const { rotate = 0, duration = 30, delay = 0 } = animation
+
+  const baseTransform = ORIGIN_TRANSFORMS[origin]
+  const finalScale = scale * responsiveScale.value
+
+  // Calculate position with mouse follow effect if enabled
+  let finalX = baseTransform.x + offsetX
+  let finalY = baseTransform.y + offsetY
+
+  if (config.value.interaction?.mouseFollow && isHovering.value) {
+    const mouseInfluence = 0.15
+    finalX += (mousePos.value.x - finalX) * mouseInfluence
+    finalY += (mousePos.value.y - finalY) * mouseInfluence
   }
 
-  return ss
+  // Hover effects
+  const hoverScale = isHovering.value && config.value.interaction?.hoverEffect === 'scale' ? 1.05 : 1
+  const hoverRotate = isHovering.value && config.value.interaction?.hoverEffect === 'rotate' ? 5 : 0
+
+  return {
+    container: {
+      left: `${finalX}%`,
+      top: `${finalY}%`,
+      zIndex,
+      opacity: isHovering.value && config.value.interaction?.hoverEffect === 'fade'
+        ? 0.7
+        : style.opacity ? style.opacity / 100 : 0.1,
+    },
+    wrapper: {
+      transform: `translate(${baseTransform.translate.x}%, ${baseTransform.translate.y}%) scale(${finalScale * hoverScale}) rotate(${hoverRotate}deg)`,
+      mixBlendMode: blendMode,
+    },
+    rotator: {
+      animation: rotate ? `spin${rotate < 0 ? 'Reverse' : ''} ${duration}s linear infinite ${delay}s` : 'none',
+    },
+  }
 }
 
-const wrapperRef = vue.ref<HTMLElement | null>(null)
-
+// Get shape color with theme support
 function getShapeColor(shape: Shape): string {
-  const mode = isDarkOrLightMode(wrapperRef.value)
-  const defaultColor = mode === 'dark' ? '#ffffff' : '#000000'
-  const color = shape.color || defaultColor
-  const opacity = shape.opacity || 1
-  return normalizeColor({ color, opacity })
+  const { style = {} } = shape
+  const { color, theme } = style
+
+  // Use specified color or theme color
+  if (color)
+    return color
+  if (theme) {
+    const themeColor = props.card.site?.theme.value?.name === theme ? 'theme' : 'primary'
+    return `var(--${themeColor}-500)`
+  }
+
+  // Default colors based on mode
+  const isLight = isDarkOrLightMode(containerRef.value) === 'light'
+  return isLight ? '#f8fafc' : '#1e293b' // gray-50 : gray-800
 }
+
+// Event handlers for mouse interaction
+function handleMouseMove(event: MouseEvent) {
+  if (!config.value.interaction?.mouseFollow)
+    return
+
+  const rect = containerRef.value?.getBoundingClientRect()
+  if (rect) {
+    mousePos.value = {
+      x: ((event.clientX - rect.left) / rect.width) * 100,
+      y: ((event.clientY - rect.top) / rect.height) * 100,
+    }
+  }
+}
+
+// Clean up event listeners
+vue.onMounted(() => {
+  if (config.value.interaction?.mouseFollow) {
+    window.addEventListener('mousemove', handleMouseMove)
+  }
+})
+
+vue.onUnmounted(() => {
+  window.removeEventListener('mousemove', handleMouseMove)
+})
 </script>
 
 <template>
-  <div v-for="(shape, i) in shapes" :key="i" :style="getShapeStyle(shape)" class="absolute z-[-4] size-[15vw] md:size-[10vw] xl:size-[5vw]">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
-      <path :d="SHAPE_PATHS[shape.shape || 'circle']" :fill="getShapeColor(shape)" />
-    </svg>
+  <div
+    ref="containerRef"
+    class="absolute inset-0 pointer-events-none z-[-1]"
+    @mouseenter="isHovering = true"
+    @mouseleave="isHovering = false"
+  >
+    <div
+      v-for="(shape, i) in shapes"
+      :key="i"
+      class="absolute pointer-events-none select-none will-change-transform size-[calc(2.5rem+4.5vw)]"
+      :style="getShapeStyles(shape, i).container"
+    >
+      <!-- Wrapper for scale and position -->
+      <div
+        class="w-full h-full transition-transform duration-300"
+        :style="getShapeStyles(shape, i).wrapper"
+      >
+        <!-- Rotator element -->
+        <div
+          class="w-full h-full"
+          :style="getShapeStyles(shape, i).rotator"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 100 100"
+            width="100%"
+            height="100%"
+            preserveAspectRatio="xMidYMid meet"
+          >
+            <path
+              :d="SHAPE_PATHS[shape.shape || 'circle']"
+              :fill="getShapeColor(shape)"
+              class="transition-colors duration-300"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
+
+<style>
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spinReverse {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+</style>

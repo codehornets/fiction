@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { FictionSubscribe } from '@fiction/plugin-subscribe'
 import type { Card } from '@fiction/site'
-import type { UserConfig } from '.'
+import type { UserConfig } from './config'
 import { useService, vue } from '@fiction/core'
 import XButton from '@fiction/ui/buttons/XButton.vue'
 import ElForm from '@fiction/ui/inputs/ElForm.vue'
