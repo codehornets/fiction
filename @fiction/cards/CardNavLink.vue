@@ -61,7 +61,7 @@ const styles = vue.computed(() => {
         :card
         :path="`${item.basePath}.name`"
         tag="span"
-        class="block relative truncate"
+        class="block relative hover:text-primary-600 dark:hover:text-primary-500 transition-all"
         :class="[
           styles.hoverEffect === 'underline' && card.link(item.href) ? 'menu-text after:border-t-2 after:border-primary-500 dark:after:border-primary-400 after:rounded-lg' : '',
           item.isActive ? 'active' : '',
