@@ -19,7 +19,7 @@ const templates = {
     area: () => import('./area'),
     nav: () => import('./nav'),
     footer: () => import('./footerPro'),
-    footerAlpha: () => import('./footerOmega'),
+    footerX: () => import('./footerX'),
   },
   content: {
     hero: () => import('./hero'),

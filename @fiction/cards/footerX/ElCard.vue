@@ -7,7 +7,7 @@ import EffectFitText from '@fiction/ui/effect/EffectFitText.vue'
 import CardNavLink from '../CardNavLink.vue'
 import CardText from '../CardText.vue'
 
-defineOptions({ name: 'FooterOmega' })
+defineOptions({ name: 'FooterX' })
 
 const props = defineProps<{
   card: Card<UserConfig>
@@ -17,7 +17,7 @@ const uc = vue.computed(() => props.card.userConfig.value)
 
 vue.onMounted(() => {
   useElementVisible({
-    caller: 'footerOmega',
+    caller: 'footerX',
     selector: `#${props.card.cardId}`,
     onVisible: async () => {
       await animateItemEnter({

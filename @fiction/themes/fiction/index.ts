@@ -155,10 +155,10 @@ export async function setup(args: { fictionEnv: FictionEnv, fictionStripe?: Fict
                           name: 'Site',
                           items: [
                             { name: 'Nav', href: '/demo-nav' },
-                            { name: 'Footer', href: '/demo-footerPro' },
+                            { name: 'Footer Pro', href: '/demo-footerPro' },
+                            { name: 'Footer X', href: '/demo-footerX' },
                             { name: 'Maps', href: '/demo-maps' },
                             { name: 'Area', href: '/demo-area' },
-
                           ],
                         },
                         {

@@ -1,6 +1,6 @@
 import type { template as areaTemplate } from '@fiction/cards/area'
 import type { template as callToActionTemplate } from '@fiction/cards/callToAction'
-import type { template as footerOmegaTemplate } from '@fiction/cards/footerOmega'
+import type { template as footerXTemplate } from '@fiction/cards/footerX'
 import type { template as TickerTemplate } from '@fiction/cards/ticker'
 import type { Site } from '@fiction/site'
 import type { CardFactory } from '@fiction/site/cardFactory'
@@ -27,7 +27,7 @@ export async function getFooter(args: { factory: CardFactory, site: Site, userCo
       await factory.fromTemplate<typeof callToActionTemplate>({ templateId: 'callToAction', userConfig: {
         standard: { spacing: { verticalSpacing: 'sm' } },
       } }),
-      await factory.fromTemplate<typeof footerOmegaTemplate>({ templateId: 'footerOmega', userConfig: { } }),
+      await factory.fromTemplate<typeof footerXTemplate>({ templateId: 'footerX', userConfig: { } }),
     ],
   })
 }

@@ -1,16 +1,20 @@
 import { vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site/card'
 
-const templateId = 'footerOmega'
+const templateId = 'footerX'
 
 // Main template definition with minimal synchronous code
 export const template = cardTemplate({
   templateId,
   category: ['navigation'],
   icon: 'i-tabler-layout-bottombar',
-  title: 'Omega Footer',
-  colorTheme: 'slate',
-  description: 'Modern personal footer with contact information and useful links',
+  title: 'Footer X',
+  colorTheme: 'violet',
+  subTitle: 'Create a lasting impression with a thoughtfully designed footer',
+  description: `Transform your site's footer into a powerful navigation hub and brand anchor.
+    This versatile footer adapts to various brand personalities - from corporate polish to creative flair.
+    Features animated reveal effects, smart content sections, and seamless dark mode support.
+    Perfect for multi-section navigation, contact information, and legal requirements.`,
   isPublic: true,
   el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
 

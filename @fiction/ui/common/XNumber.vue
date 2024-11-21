@@ -3,6 +3,8 @@ import type { NumberFormats } from '@fiction/core'
 import { formatNumber, shortId, vue } from '@fiction/core'
 import { animateNumber } from '../anim'
 
+defineOptions({ name: 'XNumber' })
+
 const { tag = 'div', modelValue = 0, animate = false, format = 'abbreviated', prefix, suffix } = defineProps<{
   tag?: 'h1' | 'h2' | 'h3' | 'div' | 'span' | 'p' | 'a'
   modelValue: number
