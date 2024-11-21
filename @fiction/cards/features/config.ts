@@ -221,7 +221,7 @@ function getMasonryDemo(): UserConfig {
       {
         title: 'Brand Voice',
         description: 'Feel how your unique tone shines through?',
-        icon: { iconId: 'megaphone' },
+        icon: { iconId: 'speakerphone' },
         color: 'rose',
         columns: '2',
       },

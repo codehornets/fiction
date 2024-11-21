@@ -38,8 +38,8 @@ const colorStyle = vue.computed(() => {
 
   const r = getColorThemeStyles(uc.value.superColor || 'theme')
   return {
-    icon: [r.bg, r.text, r.border].join(' '),
-    text: r.text,
+    icon: [r?.bg, r?.text, r?.border].join(' '),
+    text: r?.text,
   }
 })
 

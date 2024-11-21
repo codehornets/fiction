@@ -239,7 +239,7 @@ export const systemIcons = [
   { name: 'Podcast', iconId: 'podcast', iconClass: 'i-tabler-podcast' },
   { name: 'Radio', iconId: 'radio', iconClass: 'i-tabler-radio' },
   { name: 'Newspaper', iconId: 'newspaper', iconClass: 'i-tabler-news' },
-  { name: 'Megaphone', iconId: 'megaphone', iconClass: 'i-tabler-speakerphone' },
+  { name: 'Speakerphone', iconId: 'speakerphone', iconClass: 'i-tabler-speakerphone' },
   { name: 'Presentation', iconId: 'presentation', iconClass: 'i-tabler-presentation' },
   { name: 'Projector', iconId: 'projector', iconClass: 'i-tabler-device-projector' },
   { name: 'Video Camera', iconId: 'video-camera', iconClass: 'i-tabler-video' },

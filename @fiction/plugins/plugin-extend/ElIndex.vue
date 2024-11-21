@@ -22,7 +22,7 @@ const list = vue.computed(() => {
 function getStyle(theme: ColorThemeUser) {
   const s = getColorThemeStyles(theme)
 
-  return [s.bg, s.text, s.ring, 'ring-1'].join(' ')
+  return [s?.bg, s?.text, s?.ring, 'ring-1'].join(' ')
 }
 </script>
 

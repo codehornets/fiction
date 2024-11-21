@@ -7,7 +7,7 @@ export const templateId = 'callToAction'
 export const template = cardTemplate({
   templateId,
   category: ['navigation'],
-  icon: 'i-tabler-megaphone',
+  icon: 'i-tabler-speakerphone',
   title: 'Call To Action',
   colorTheme: 'red',
   subTitle: 'Convert visitors into subscribers, customers, or leads with compelling offers',

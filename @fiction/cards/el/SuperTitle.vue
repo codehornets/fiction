@@ -24,8 +24,8 @@ const colorStyle = vue.computed(() => {
 
   const styles = getColorThemeStyles(color)
   return {
-    icon: [styles.bg, styles.text, styles.border].join(' '),
-    text: styles.text,
+    icon: [styles?.bg, styles?.text, styles?.border].join(' '),
+    text: styles?.text,
   }
 })
 </script>
