@@ -180,7 +180,7 @@ vue.onBeforeUnmount(() => {
               :class="currentItem?.textBlend === 'difference' ? 'mix-blend-difference text-white dark:text-black' : '[text-shadow:_1px_1px_2px_rgba(0,0,0,0.1)]'"
             >
               <EffectFitText
-                :lines="3"
+                :lines="2"
                 :content="currentItem?.title || ''"
                 class="x-font-title z-20 font-bold md:w-[170%]"
                 :min-size="40"
@@ -189,7 +189,7 @@ vue.onBeforeUnmount(() => {
               </EffectFitText>
               <EffectFitText
                 v-if="currentItem?.subTitle"
-                :lines="2"
+                :lines="1"
                 :min-size="28"
                 :content="currentItem?.subTitle || ''"
                 class="x-font-title z-20 font-medium md:w-[160%] mt-4 !leading-[1.4]"

@@ -62,7 +62,8 @@ vue.onMounted(async () => {
                 tag="h1"
                 :content="uc.title || ''"
                 class="heading text-4xl font-semibold md:text-4xl lg:text-5xl x-font-title lg:leading-[1.2] "
-                :lines="3"
+                :lines="2"
+                :min-size="40"
               >
                 <CardText :card tag="span" path="title" animate="rise" />
               </EffectFitText>

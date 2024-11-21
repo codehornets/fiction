@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { ActionButton, vue } from '@fiction/core'
+import type { ActionButton } from '@fiction/core'
 import XButton from '../buttons/XButton.vue'
 
 const {

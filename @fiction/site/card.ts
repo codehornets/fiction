@@ -33,6 +33,7 @@ export const CardCategorySchema = z.enum([
   'engagement',
   'traffic',
   'awareness',
+  'typography',
 ])
 
 type CardCategory = z.infer<typeof CardCategorySchema>

@@ -6,7 +6,6 @@ import CardForm from '@fiction/forms/deck/CardForm.vue'
 import { animateItemEnter, useElementVisible } from '@fiction/ui/anim'
 import XIcon from '@fiction/ui/media/XIcon.vue'
 import CardText from '../CardText.vue'
-import CardSocials from '../el/CardSocials.vue'
 
 const props = defineProps({
   card: {

@@ -1,7 +1,7 @@
 import type { ConfigResponse } from '@fiction/site'
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { SiteUserConfig } from '@fiction/site/schema'
-import { ActionButtonSchema, MediaBasicSchema, vue } from '@fiction/core'
+import { ActionButtonSchema, MediaBasicSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 // Import media assets

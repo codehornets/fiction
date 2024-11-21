@@ -1,5 +1,5 @@
 import type { ConfigResponse } from '@fiction/site/card'
-import { BlendModesSchema, type ColorThemeUser, MediaIconSchema, UiOriginSchema, type User } from '@fiction/core'
+import { BlendModesSchema, UiOriginSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 

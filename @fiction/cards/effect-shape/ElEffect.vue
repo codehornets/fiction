@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { Card } from '@fiction/site'
 import type { Shape, UserConfig } from './config'
-import { isDarkOrLightMode, normalizeColor, vue } from '@fiction/core'
+import { isDarkOrLightMode, vue } from '@fiction/core'
 
 const props = defineProps({
   card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },

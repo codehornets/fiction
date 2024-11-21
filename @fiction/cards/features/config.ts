@@ -1,7 +1,6 @@
 import type { ConfigResponse } from '@fiction/site/card'
 import type { CardFactory } from '@fiction/site/cardFactory'
-import { get } from 'node:http'
-import { ActionButtonSchema, colorThemeUser, MediaBasicSchema, MediaIconSchema, SizeSchema } from '@fiction/core'
+import { ActionButtonSchema, colorThemeUser, MediaIconSchema, SizeSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 

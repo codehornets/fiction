@@ -1,37 +1,54 @@
 <script lang="ts" setup>
 import type { Card } from '@fiction/site'
-import type { UserConfig } from './index.js'
+import type { UserConfig } from './config'
 import { vue } from '@fiction/core'
 import { fontFamilyByKey } from '@fiction/site/utils/fonts'
 import EffectFitText from '@fiction/ui/effect/EffectFitText.vue'
 import CardText from '../CardText.vue'
 
-const props = defineProps({
-  card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
-})
+const props = defineProps<{
+  card: Card<UserConfig>
+}>()
 
 const uc = vue.computed(() => props.card.userConfig.value)
 
-const opts = vue.computed(() => ({
+// Core text fitting options
+const fitOpts = vue.computed(() => ({
   minSize: uc.value.minFontSize || 16,
   maxSize: uc.value.maxFontSize || 512,
-  lines: uc.value.lines,
+  lines: uc.value.lines || 1,
 }))
 
-vue.watch(() => uc.value.font, () => {
-  const f = uc.value.font
+// Typography styles
+const textStyles = vue.computed(() => ({
+  fontFamily: fontFamilyByKey(uc.value.font),
+  textAlign: uc.value.align || 'inherit',
+  fontWeight: uc.value.weight || 'inherit',
+}))
 
-  const site = props.card.site
+// Register font when changed
+vue.watch(() => uc.value.font, (newFont) => {
+  if (!newFont || !props.card.site)
+    return
 
-  if (site && f) {
-    const fontObject = { [f]: { fontKey: f, stack: 'sans' as const } }
-    site.userFonts.value = { ...site.userFonts.value, ...fontObject }
+  props.card.site.userFonts.value = {
+    ...props.card.site.userFonts.value,
+    [newFont]: { fontKey: newFont, stack: 'sans' as const },
   }
-})
+}, { immediate: true })
 </script>
 
 <template>
-  <EffectFitText class="p-12 text-center" v-bind="opts" :content="uc.text || ''">
-    <CardText :card tag="span" path="text" animate="rise" :style="{ fontFamily: fontFamilyByKey(uc.font) }" />
-  </EffectFitText>
+  <div :class="card.classes.value.contentWidth">
+    <EffectFitText v-bind="fitOpts" :content="uc.text || ''">
+      <CardText
+        :card="card"
+        tag="span"
+        path="text"
+        animate="rise"
+        :style="textStyles"
+        class="block leading-tight"
+      />
+    </EffectFitText>
+  </div>
 </template>

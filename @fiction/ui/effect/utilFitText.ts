@@ -208,7 +208,7 @@ export class Fitty {
     while (low <= high) {
       const mid = Math.floor((low + high) / 2)
       f.element.style.fontSize = `${mid}px`
-      f.element.style.whiteSpace = f.lines === 1 ? 'nowrap' : (f.multiLine ? 'normal' : 'nowrap')
+      f.element.style.whiteSpace = 'normal'
       f.element.style.display = 'block'
 
       const lineHeight = this.calculateLineHeight(mid)
@@ -245,14 +245,9 @@ export class Fitty {
     const computedLineHeight = fontSize * lineHeight
     const maxLines = f.lines || 1
 
-    if (maxLines === 1) {
-      return f.element.scrollWidth <= f.availableWidth
-    }
-    else {
-      const maxHeight = maxLines * computedLineHeight
-      if (f.element.scrollHeight > maxHeight) {
-        return false
-      }
+    const maxHeight = (maxLines + 1) * computedLineHeight
+    if (f.element.scrollHeight > maxHeight) {
+      return false
     }
 
     if (f.maxCharsPerLine && !this.respectsMaxCharsPerLine(f.element, f.maxCharsPerLine)) {
