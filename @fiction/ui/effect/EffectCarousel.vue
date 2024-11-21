@@ -30,7 +30,7 @@ async function initFlickity() {
     flkty = new Flickity(carouselRef.value, {
       selectedAttraction: 0.03, // Default is 0.025
       friction: 0.3, // Default is 0.28
-      accessibility: true,
+      accessibility: false,
       adaptiveHeight: false,
 
       // groupCells: false,

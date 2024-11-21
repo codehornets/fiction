@@ -1,73 +1,37 @@
 <script lang="ts" setup>
-import type { ColorThemeUser } from '@fiction/core'
 import type { Card } from '@fiction/site'
-import type { UserConfig } from './index.js'
+import type { UserConfig } from './config'
 import { vue } from '@fiction/core'
-import XIcon from '@fiction/ui/media/XIcon.vue'
-import { getColorThemeStyles } from '@fiction/ui/utils'
-import CardText from '../CardText.vue'
+import FeaturesCarousel from './FeaturesCarousel.vue'
+import FeaturesGrid from './FeaturesGrid.vue'
+import FeaturesMasonry from './FeaturesMasonry.vue'
 
 const props = defineProps({
   card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
 })
 
-const uc = vue.computed(() => {
-  return props.card.userConfig.value || {}
-})
+const uc = vue.computed(() => props.card.userConfig.value || {})
 
-function getColorStyle(color?: ColorThemeUser) {
-  if (!color) {
-    return {
-      icon: ' ',
-      text: 'bg-theme-100 dark:bg-theme-700/70 text-primary-500 dark:text-theme-500',
-    }
-  }
-
-  const r = getColorThemeStyles(color || 'theme')
-
-  if (!r) {
-    return { icon: '', text: '' }
-  }
-
+const LayoutComponent = vue.computed(() => {
+  const layoutStyle = uc.value.layout?.style || 'grid'
   return {
-    icon: [r.bg, r.text, r.border, r.text].join(' '),
-    text: r.text,
-  }
-}
-
-const colorStyle = vue.computed(() => {
-  const color = uc.value.superColor
-  return getColorStyle(color)
+    grid: FeaturesGrid,
+    cards: FeaturesGrid,
+    carousel: FeaturesCarousel,
+    masonry: FeaturesMasonry,
+  }[layoutStyle] || FeaturesGrid
 })
 </script>
 
 <template>
-  <div class="space-y-6 lg:space-y-12" :class="card.classes.value.contentWidth">
-    <div class=" space-y-4 items-start">
-      <div v-if="uc.superHeading || uc.superIcon" class="flex gap-3 items-center mb-6" :class="[colorStyle.text]">
-        <div v-if="uc.superIcon" :class="colorStyle.icon" class="size-14 rounded-full flex items-center justify-center">
-          <XIcon class="size-8" :media="uc.superIcon" />
-        </div>
-        <CardText
-          tag="h3"
-          :card
-          class=" font-sans text-sm lg:text-lg font-medium antialiased"
-          path="superHeading"
-          placeholder="Super Heading"
-          animate="fade"
-        />
-      </div>
-      <CardText animate="fade" :card path="heading" class="x-font-title max-w-full text-4xl font-semibold md:text-balance" />
-      <CardText animate="fade" :card path="subHeading" class="text-xl lg:text-2xl lg:leading-snug w-full text-balance mt-4 lg:max-w-xl " />
-    </div>
-    <div class="grid-cols-1 md:grid-cols-3 gap-8 md:gap-16 text-left  grid ">
-      <div v-for="(item, i) in uc.items" :key="i">
-        <div v-if="item.icon" :class="getColorStyle(item.color).icon" class="mb-3 size-14 rounded-full flex items-center justify-center">
-          <XIcon class="size-8" :media="item.icon" />
-        </div>
-        <CardText animate="fade" :card class="text-3xl font-semibold x-font-title" :path="`items.${i}.name`" />
-        <CardText animate="fade" :card class="mt-4 text-xl text-theme-500 dark:text-theme-200" :path="`items.${i}.desc`" />
-      </div>
-    </div>
+  <div class="space-y-12" :class="[card.classes.value.contentWidth]" :data-layout-style="uc.layout?.style">
+    <!-- Features Layout -->
+    <component
+      :is="LayoutComponent"
+      :card="card"
+      :features="uc.features || []"
+      :layout="uc.layout || {}"
+      :style="uc.style || {}"
+    />
   </div>
 </template>

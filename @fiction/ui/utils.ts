@@ -31,7 +31,8 @@ export function getColorThemeStyles(theme: ColorThemeUser = 'theme') {
     fuchsia: { text: 'text-fuchsia-500 dark:text-fuchsia-400', bg: 'bg-fuchsia-100 dark:bg-fuchsia-400/10', ring: 'ring-fuchsia-500/50 dark:ring-fuchsia-400/20', border: 'border-fuchsia-500/50 dark:border-fuchsia-400/20', hover: 'hover:bg-fuchsia-100 dark:hover:bg-fuchsia-700', active: 'active:bg-fuchsia-200 dark:active:bg-fuchsia-600' },
   } as const
 
-  return cls[theme as keyof typeof cls]
+  const v = cls[theme as keyof typeof cls]
+  return v as typeof v | undefined
 }
 
 export function getBadgeClasses(args: { theme?: ColorThemeUser, uiSize?: UiElementSize, isLink?: boolean, isActive?: boolean }) {
