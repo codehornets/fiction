@@ -87,33 +87,38 @@ function previousItem() {
       <div
         v-if="activeItem"
         ref="lightboxRef"
-        class="fixed inset-0 z-40 flex items-center justify-center bg-black bg-opacity-90"
+        class="fixed inset-0 z-40 flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm"
         @click="close"
       >
         <!-- Next and Previous buttons -->
         <ElClose class="absolute right-2 top-2 z-40" />
 
+        <div v-if="items && items.length > 1" class="absolute inset-y-0 left-0 flex items-center mix-blend-difference">
+          <button class=" text-white/70 p-2 md:p-4 rounded-r hover:text-white active:text-white/50 " @click.stop="previousItem">
+            <div class="i-tabler-chevron-left text-3xl lg:text-5xl" />
+          </button>
+        </div>
+        <div v-if="items && items.length > 1" class="absolute inset-y-0 right-0 flex items-center mix-blend-difference">
+          <button class=" text-white/70 p-2 md:p-4 rounded-l hover:text-white active:text-white/50" @click.stop="nextItem">
+            <div class="i-tabler-chevron-right text-3xl lg:text-5xl" />
+          </button>
+        </div>
+
         <AnimClipPath animate="expand" caller="lightbox">
-          <div ref="animatedDivRef" class="relative  h-[80vh] w-[90vw] md:w-[80dvw] flex flex-col gap-6 overflow-hidden rounded-xl">
-            <div class="grow relative" @click.stop>
-              <XMedia ref="mediaRef" class="absolute inset-0" :media="activeItem.media" image-mode="contain" />
-              <div v-if="items && items.length > 1" class="absolute inset-y-0 left-0 flex items-center mix-blend-difference">
-                <button class=" text-white/70 p-2 md:p-4 rounded-r hover:text-white" @click.stop="previousItem">
-                  <div class="i-tabler-chevron-left text-3xl" />
-                </button>
-              </div>
-              <div v-if="items && items.length > 1" class="absolute inset-y-0 right-0 flex items-center mix-blend-difference">
-                <button class=" text-white/70 p-2 md:p-4 rounded-l hover:text-white" @click.stop="nextItem">
-                  <div class="i-tabler-chevron-right text-3xl" />
-                </button>
+          <div ref="animatedDivRef" class="relative  h-[80vh] w-[80vw] md:w-[80dvw] flex flex-col gap-6 overflow-hidden rounded-xl justify-center">
+            <div class="relative">
+              <XMedia ref="mediaRef" class="w-full max-h-[70vh] mx-auto overflow-hidden flex justify-center" image-mode="inline" :media="activeItem.media" />
+              <div class="absolute inset-0 grid grid-cols-2 z-10">
+                <div class="active:bg-white/5" @click.stop="previousItem" />
+                <div class="active:bg-white/5" @click.stop="nextItem" />
               </div>
             </div>
 
-            <div ref="contentRef" class=" space-y-2 text-white md:p-8 max-w-screen-sm mx-auto" @click.stop>
-              <h3 class="text-xl font-semibold x-font-title">
+            <div ref="contentRef" class=" space-y-2 text-white md:p-8 max-w-2xl mx-auto">
+              <h3 class="text-xl lg:text-2xl font-semibold x-font-title">
                 {{ activeItem?.title }}
               </h3>
-              <p class="text-theme-200  ">
+              <p class="text-theme-200 text-lg lg:text-xl leading-relaxed">
                 {{ activeItem?.content }}
               </p>
             </div>

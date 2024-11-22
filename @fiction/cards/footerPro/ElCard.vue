@@ -1,187 +1,171 @@
 <script lang="ts" setup>
 import type { Card } from '@fiction/site/card'
-import type { UserConfig } from './config.js'
-import { dayjs, useService, vue, waitFor } from '@fiction/core'
+import type { UserConfig } from './config'
+import { vue } from '@fiction/core'
 import { animateItemEnter, useElementVisible } from '@fiction/ui/anim'
+import XIcon from '@fiction/ui/media/XIcon.vue'
 import XLogo from '@fiction/ui/media/XLogo.vue'
-import XMedia from '@fiction/ui/media/XMedia.vue'
 import CardNavLink from '../CardNavLink.vue'
 import CardText from '../CardText.vue'
-import CardSocials from '../el/CardSocials.vue'
-import { processNavItems } from '../utils/nav'
+import CardButtons from '../el/CardButtons.vue'
 
-const props = defineProps({
-  card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
-})
+defineOptions({ name: 'FooterPro' })
 
-const uc = vue.computed(() => props.card.userConfig.value || {})
+const props = defineProps<{
+  card: Card<UserConfig>
+}>()
 
-const { fictionUser, fictionRouter } = useService()
-
-const nav = vue.computed(() => {
-  const n = uc.value.nav || []
-
-  return processNavItems({ items: n, fictionUser, fictionRouter, basePathPrefix: 'nav' })
-})
-
-const layoutClasses = vue.computed(() => {
-  const l = uc.value.layout || 'columns'
-
-  const hasSubnav = nav.value.some(n => n.items?.length)
-
-  const gapClasses = hasSubnav ? 'md:gap-x-20 xl:gap-x-36 pt-2 gap-y-12' : 'pt-2 gap-y-4'
-
-  if (l === 'centered') {
-    return {
-      wrapClass: 'flex flex-col items-center gap-12',
-      logoClass: 'order-3 flex flex-col items-center gap-4 lg:gap-6 text-center',
-      navClass: `order-1 flex flex-col lg:flex-row flex-wrap items-center lg:items-start justify-center gap-x-8 ${gapClasses} `,
-      badgeClass: 'order-2',
-      badgeWrap: `items-center`,
-      socials: `justify-center md:justify-center`,
-    }
-  }
-  else {
-    return {
-      wrapClass: 'flex flex-col items-center  lg:items-start lg:flex-row gap-12',
-      logoClass: 'w-60 lg:basis-[270px] flex flex-col items-center lg:items-start gap-4 lg:gap-6 text-center lg:text-left',
-      navClass: `grid grid-cols-2 md:flex flex-row flex-wrap items-start my-8 lg:my-0 justify-center gap-x-8 ${gapClasses}  basis-[80%] grow`,
-      badgeClass: `text-sm lg:flex-row lg:items-center lg:justify-between lg:basis-[250px]`,
-      badgeWrap: `items-center lg:items-end`,
-      socials: `justify-center lg:justify-end`,
-    }
-  }
-})
-
-const loaded = vue.ref(false)
-
-const highlightStar = vue.ref(-1)
-
-function startHighlightStar() {
-  let dur = 225
-
-  if (highlightStar.value > 5) {
-    highlightStar.value = -1
-    dur = 15000
-  }
-
-  setTimeout(() => {
-    highlightStar.value = highlightStar.value + 1
-    startHighlightStar()
-  }, dur)
-}
+const uc = vue.computed(() => props.card.userConfig.value)
 
 vue.onMounted(() => {
   useElementVisible({
-    caller: 'footerCard',
+    caller: 'footerPro',
     selector: `#${props.card.cardId}`,
     onVisible: async () => {
-      await animateItemEnter({ targets: `#${props.card.cardId} .x-action-item`, themeId: 'pop', config: { overallDelay: 200 } })
-      loaded.value = true
-
-      await waitFor(1000)
-      startHighlightStar()
+      await animateItemEnter({
+        targets: `#${props.card.cardId} .animate-item`,
+        themeId: 'fade',
+        config: { overallDelay: 150 },
+      })
     },
   })
 })
 </script>
 
 <template>
-  <div class="z-10" :class="card.classes.value.contentWidth">
-    <div class=" px-4 lg:px-0">
-      <div :class="layoutClasses.wrapClass">
-        <div :class="layoutClasses.logoClass" class="text-primary-500 dark:text-theme-0">
-          <XLogo v-if="uc.logo" :media="uc.logo" class="h-8" alignment-class="lg:justify-start justify-center" />
-          <CardText
-            class="text-sm text-theme-700 dark:text-theme-500 x-font-title leading-tight"
-            :card
-            tag="h2"
-            path="tagline"
-            animate="rise"
-          />
-        </div>
-        <div :class="layoutClasses.navClass">
-          <div
-            v-for="(col, i) in nav"
-            :key="i"
-          >
-            <CardText
-              class="mb-3 md:mb-4 text-left font-sans text-sm  font-semibold"
-              :class="[
-                col.href ? 'hover:text-primary-500 dark:hover:text-primary-400' : '',
-                col.items ? 'text-theme-300 dark:text-theme-600' : '',
-              ]"
-              :card
-              :tag="col.href && !col.href.includes('http') && !col.href.includes('_reload') ? 'RouterLink' : col.href ? 'a' : 'h3'"
-              :path="`nav.${i}.name`"
-              animate="fade"
-              :to="col.href"
-              :href="col.href"
-              :title="col.desc"
+  <div :id="card.cardId">
+    <div :class="card.classes.value.contentWidth">
+      <div class="px-6 lg:px-0 border-t border-theme-200 dark:border-theme-700/80 pt-16 mt-16">
+        <!-- Main grid layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          <!-- Brand section -->
+          <div class="lg:col-span-4 space-y-6">
+            <XLogo
+              v-if="uc.brand?.logo"
+              :media="uc.brand.logo"
+              class="h-12 text-theme-900 dark:text-white animate-item"
             />
-            <ul v-if="col.items" class="space-y-3">
-              <li
-                v-for="(item, ii) in col.items"
-                :key="ii"
-                class="text-left"
+            <div class="space-y-4">
+              <CardText
+                tag="h2"
+                :card
+                path="brand.title"
+                class="text-2xl font-medium x-font-title animate-item"
+                animate="fade"
+              />
+              <CardText
+                tag="p"
+                :card
+                path="brand.subTitle"
+                class="text-lg text-theme-600 dark:text-theme-400 animate-item"
+                animate="fade"
+              />
+            </div>
+            <CardButtons
+              v-if="uc.brand?.actions?.length"
+              :card
+              :actions="uc.brand.actions"
+              class="flex gap-4 animate-item"
+              animate="fade"
+              design="solid"
+            />
+          </div>
+
+          <!-- Navigation Columns -->
+          <div class="lg:col-span-8">
+            <div class="flex flex-wrap gap-x-16 gap-y-8 justify-end">
+              <div
+                v-for="(column, i) in uc.columns"
+                :key="i"
+                class="grow-0 basis-40 animate-item"
               >
-                <CardNavLink
+                <CardText
+                  tag="h3"
                   :card
-                  :item
-                  class="hover:text-primary-500 text-theme-800 dark:text-theme-50 dark:hover:text-theme-300 font-sans text-sm font-semibold"
+                  :path="`columns.${i}.title`"
+                  class="text-lg font-medium x-font-title text-theme-500 dark:text-theme-400 mb-4"
                   animate="fade"
                 />
-              </li>
-            </ul>
+                <ul class="space-y-3">
+                  <li v-for="(item, ii) in column.items" :key="ii">
+                    <CardNavLink
+                      :card
+                      :item="{
+                        ...item,
+                        basePath: `columns.${i}.items.${ii}`,
+                      }"
+                      class="hover:text-primary-500 dark:hover:text-primary-400 font-sans transition-colors"
+                    />
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
-        <div :class="layoutClasses.badgeClass">
-          <CardSocials v-if="uc.socials" :card :class="layoutClasses.socials" :socials="uc.socials" />
 
-          <div v-if="uc.badges?.length" :class="layoutClasses.badgeWrap" class="text-theme-400 dark:text-theme-50 mt-5 text-right text-xs flex flex-col items-center gap-4  ">
-            <template v-for="(badge, i) in uc.badges" :key="i">
-              <a :href="card.link(badge.href)" :title="badge.name" class="inline-block">
-                <XMedia :media="badge.media" image-mode="inline" />
+        <!-- Bottom Section -->
+        <div class="mt-16 pt-8 border-t border-theme-200 dark:border-theme-800">
+          <div class="flex flex-col gap-8 md:flex-row justify-between items-start">
+            <CardButtons
+              v-if="uc.badges?.actions"
+              :card
+              :actions="uc.badges?.actions"
+              class="flex flex-wrap gap-6"
+              animate="fade"
+              design="ghost"
+            />
+
+            <!-- Social -->
+            <div class="flex items-center gap-6">
+              <a
+                v-for="(social, i) in uc.additional?.social"
+                :key="i"
+                :href="social.href"
+                :title="social.name"
+                class="text-theme-400 hover:text-primary-500 dark:text-theme-600 dark:hover:text-primary-400 transition-colors animate-item"
+              >
+                <XIcon
+                  v-if="social.media"
+                  :media="social.media"
+                  class="size-7"
+                />
               </a>
-            </template>
-          </div>
-        </div>
-      </div>
-
-      <div class="mt-20">
-        <div v-if="uc.starline" class="flex flex-col gap-2 mb-4 justify-center items-center">
-          <div class="flex gap-1 justify-center items-center">
-            <div v-for="(s) in 5" :key="s" class="">
-              <div :class="highlightStar === s ? 'scale-150 dark:text-yellow-500 text-yellow-600' : 'dark:text-yellow-800/80 dark:hover:text-yellow-500 text-yellow-500'" class="text-xl i-tabler-star-filled hover:scale-125 transition-all" />
             </div>
           </div>
 
-          <CardText
-            class="text-xs font-sans text-theme-400 dark:text-theme-600"
-            :card
-            tag="div"
-            path="starline"
-            animate="rise"
-          />
+          <!-- Links and Logo -->
+          <div class="mt-8 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="flex flex-wrap gap-x-8 gap-y-4">
+              <CardNavLink
+                v-for="(item, i) in uc.additional?.links"
+                :key="i"
+                :card
+                :item="{
+                  ...item,
+                  basePath: `additional.links.${i}`,
+                }"
+                class="text-sm text-theme-600 hover:text-primary-500 dark:text-theme-400 dark:hover:text-primary-400 font-sans transition-colors animate-item"
+              />
+            </div>
+
+            <!-- Fiction Attribution -->
+            <div class="text-center animate-item">
+              <a
+                href="https://www.fiction.com"
+                title="Built with Fiction"
+                class="text-theme-300/30 dark:text-theme-600/60 dark:hover:text-primary-400 hover:text-primary-500 transition-all"
+              >
+                <XLogo
+                  :media="{
+                    format: 'html',
+                    html: `<svg width='42' height='42' preserveAspectRatio='xMidYMid meet' viewBox='0 0 42 42' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M34.5005 41H17.187C16.0637 41 15.0057 40.5523 14.211 39.7352L1.01935 26.2084C0.0221016 25.1882 -0.272797 23.6627 0.265224 22.3287C0.805496 20.9924 2.06388 20.1269 3.47534 20.1269H19.6407V3.55352C19.6407 2.11105 20.4827 0.820906 21.7838 0.266998C23.0647 -0.279986 24.591 0.0315868 25.5702 1.03554L38.7686 14.5671C39.5633 15.3864 40 16.4688 40 17.6182V35.364C39.9977 38.4728 37.5328 41 34.5005 41ZM17.9119 34.9024H34.0525V18.3544L25.5882 9.67651V26.2245H9.4476L17.9119 34.9024Z' fill='currentColor'/></svg>`,
+                  }"
+                  class="h-8"
+                />
+              </a>
+            </div>
+          </div>
         </div>
-        <div class="text-theme-300 dark:text-theme-600 my-6 text-center text-xs font-sans flex flex-wrap leading-relaxed items-center justify-center">
-          <span class="inline-flex gap-1">
-            <span class="">&copy; {{ dayjs().format('YYYY') }}</span> <CardText :card tag="span" path="legal.copyrightText" />
-          </span>
-          <template v-if="uc.legal?.termsOfServiceUrl">
-            <span class="opacity-70 mx-1 i-tabler-slash" />
-            <a class="dark:hover:text-theme-100" :href="uc.legal?.termsOfServiceUrl">Terms of Service</a>
-          </template>
-          <template v-if="uc.legal?.privacyPolicyUrl">
-            <span class="opacity-70 mx-1 i-tabler-slash" />
-            <a class="dark:hover:text-theme-100" :href="uc.legal?.privacyPolicyUrl">Privacy Policy</a>
-          </template>
-        </div>
-      </div>
-      <div class="text-center">
-        <a href="https://www.fiction.com" title="Powered by Fiction.com" class="text-theme-300/80 dark:text-theme-600/80 dark:hover:text-primary-400 hover:text-primary-500 transition-all">
-          <svg class="size-8 inline-block" preserveAspectRatio="xMidYMid meet" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M34.5005 41H17.187C16.0637 41 15.0057 40.5523 14.211 39.7352L1.01935 26.2084C0.0221016 25.1882 -0.272797 23.6627 0.265224 22.3287C0.805496 20.9924 2.06388 20.1269 3.47534 20.1269H19.6407V3.55352C19.6407 2.11105 20.4827 0.820906 21.7838 0.266998C23.0647 -0.279986 24.591 0.0315868 25.5702 1.03554L38.7686 14.5671C39.5633 15.3864 40 16.4688 40 17.6182V35.364C39.9977 38.4728 37.5328 41 34.5005 41ZM17.9119 34.9024H34.0525V18.3544L25.5882 9.67651V26.2245H9.4476L17.9119 34.9024Z" fill="currentColor" /></svg>
-        </a>
       </div>
     </div>
   </div>

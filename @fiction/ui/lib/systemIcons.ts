@@ -143,6 +143,8 @@ export const systemIcons = [
   { name: 'Graduation Cap', iconId: 'graduation-cap', iconClass: 'i-tabler-school' },
   { name: 'Globe', iconId: 'globe', iconClass: 'i-tabler-world' },
   { name: 'Planet', iconId: 'planet', iconClass: 'i-tabler-planet' },
+  { name: 'Activity', iconId: 'activity', iconClass: 'i-tabler-activity' },
+  { name: 'News', iconId: 'news', iconClass: 'i-tabler-news' },
   { name: 'Atom', iconId: 'atom', iconClass: 'i-tabler-atom' },
   { name: 'Experiment', iconId: 'experiment', iconClass: 'i-tabler-test-pipe' },
   { name: 'Microscope', iconId: 'microscope', iconClass: 'i-tabler-microscope' },
