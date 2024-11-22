@@ -10,8 +10,6 @@ const props = defineProps({
 const config = vue.computed(() => props.card.fullConfig.value || {})
 const shapes = vue.computed(() => config.value.shapes || [])
 const containerRef = vue.ref<HTMLElement | null>(null)
-const isHovering = vue.ref(false)
-const mousePos = vue.ref({ x: 0, y: 0 })
 
 // SVG path definitions for each shape type
 const SHAPE_PATHS: Record<NonNullable<Shape['shape']>, string> = {
@@ -60,27 +58,19 @@ function getShapeStyles(shape: Shape, index: number) {
   const finalScale = scale * responsiveScale.value
 
   // Calculate position with mouse follow effect if enabled
-  let finalX = baseTransform.x + offsetX
-  let finalY = baseTransform.y + offsetY
-
-  if (config.value.interaction?.mouseFollow && isHovering.value) {
-    const mouseInfluence = 0.15
-    finalX += (mousePos.value.x - finalX) * mouseInfluence
-    finalY += (mousePos.value.y - finalY) * mouseInfluence
-  }
+  const finalX = baseTransform.x + offsetX
+  const finalY = baseTransform.y + offsetY
 
   // Hover effects
-  const hoverScale = isHovering.value && config.value.interaction?.hoverEffect === 'scale' ? 1.05 : 1
-  const hoverRotate = isHovering.value && config.value.interaction?.hoverEffect === 'rotate' ? 5 : 0
+  const hoverScale = 1
+  const hoverRotate = 0
 
   return {
     container: {
       left: `${finalX}%`,
       top: `${finalY}%`,
       zIndex,
-      opacity: isHovering.value && config.value.interaction?.hoverEffect === 'fade'
-        ? 0.7
-        : style.opacity ? style.opacity / 100 : 0.1,
+      opacity: style.opacity ? style.opacity / 100 : 0.1,
     },
     wrapper: {
       transform: `translate(${baseTransform.translate.x}%, ${baseTransform.translate.y}%) scale(${finalScale * hoverScale}) rotate(${hoverRotate}deg)`,
@@ -109,39 +99,12 @@ function getShapeColor(shape: Shape): string {
   const isLight = isDarkOrLightMode(containerRef.value) === 'light'
   return isLight ? '#f8fafc' : '#1e293b' // gray-50 : gray-800
 }
-
-// Event handlers for mouse interaction
-function handleMouseMove(event: MouseEvent) {
-  if (!config.value.interaction?.mouseFollow)
-    return
-
-  const rect = containerRef.value?.getBoundingClientRect()
-  if (rect) {
-    mousePos.value = {
-      x: ((event.clientX - rect.left) / rect.width) * 100,
-      y: ((event.clientY - rect.top) / rect.height) * 100,
-    }
-  }
-}
-
-// Clean up event listeners
-vue.onMounted(() => {
-  if (config.value.interaction?.mouseFollow) {
-    window.addEventListener('mousemove', handleMouseMove)
-  }
-})
-
-vue.onUnmounted(() => {
-  window.removeEventListener('mousemove', handleMouseMove)
-})
 </script>
 
 <template>
   <div
     ref="containerRef"
     class="absolute inset-0 pointer-events-none z-[-1]"
-    @mouseenter="isHovering = true"
-    @mouseleave="isHovering = false"
   >
     <div
       v-for="(shape, i) in shapes"

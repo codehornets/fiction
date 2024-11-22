@@ -17,6 +17,7 @@ const { card, actions = [], uiSize = 'md', animate = 'none', isOverlay = false, 
   isOverlay?: boolean
   theme?: ColorThemeUser
   design?: ActionButton['design']
+  hover?: ActionButton['hover']
 }>()
 
 const randomId = shortId()
@@ -41,6 +42,7 @@ vue.onMounted(() => {
       :key="i"
       :card
       class="x-action-item"
+      :hover="action.hover || hover"
       :theme="action.theme || theme"
       :design="action.design || design"
       :href="action.href"

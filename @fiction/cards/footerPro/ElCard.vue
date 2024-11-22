@@ -37,16 +37,17 @@ vue.onMounted(() => {
     <div :class="card.classes.value.contentWidth">
       <div class="px-6 lg:px-0 border-t border-theme-200 dark:border-theme-700/80 pt-16 mt-16">
         <!-- Main grid layout -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div class="grid grid-cols-1 xl:grid-cols-12 gap-12">
           <!-- Brand section -->
-          <div class="lg:col-span-4 space-y-6">
-            <XLogo
-              v-if="uc.brand?.logo"
-              :media="uc.brand.logo"
-              class="h-12 text-theme-900 dark:text-white animate-item"
-            />
+          <div class="xl:col-span-4 space-y-6">
             <div class="space-y-4">
+              <XLogo
+                v-if="uc.brand?.logo"
+                :media="uc.brand.logo"
+                class="w-32 text-theme-900 dark:text-white animate-item justify-start"
+              />
               <CardText
+                v-else
                 tag="h2"
                 :card
                 path="brand.title"
@@ -57,7 +58,7 @@ vue.onMounted(() => {
                 tag="p"
                 :card
                 path="brand.subTitle"
-                class="text-lg text-theme-600 dark:text-theme-400 animate-item"
+                class="text-lg text-theme-600 dark:text-theme-400 animate-item x-font-title"
                 animate="fade"
               />
             </div>
@@ -72,18 +73,18 @@ vue.onMounted(() => {
           </div>
 
           <!-- Navigation Columns -->
-          <div class="lg:col-span-8">
-            <div class="flex flex-wrap gap-x-16 gap-y-8 justify-end">
+          <div class="xl:col-span-8">
+            <div class="flex flex-wrap gap-x-16 gap-y-8 justify-start xl:justify-end">
               <div
                 v-for="(column, i) in uc.columns"
                 :key="i"
-                class="grow-0 basis-40 animate-item"
+                class="grow-0 basis-44 animate-item"
               >
                 <CardText
                   tag="h3"
                   :card
                   :path="`columns.${i}.title`"
-                  class="text-lg font-medium x-font-title text-theme-500 dark:text-theme-400 mb-4"
+                  class="text-lg x-font-title text-theme-400 dark:text-theme-500 mb-4"
                   animate="fade"
                 />
                 <ul class="space-y-3">
@@ -94,7 +95,8 @@ vue.onMounted(() => {
                         ...item,
                         basePath: `columns.${i}.items.${ii}`,
                       }"
-                      class="hover:text-primary-500 dark:hover:text-primary-400 font-sans transition-colors"
+                      hover-effect="underline"
+                      class="hover:underline md:text-lg font-sans transition-colors"
                     />
                   </li>
                 </ul>

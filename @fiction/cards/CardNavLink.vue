@@ -31,73 +31,129 @@ const service = useService()
 
 const styles = vue.computed(() => {
   const item = props.item
-
   const isButton = item.itemStyle?.includes('button')
-
   const componentType = isButton ? CardButton : CardLink
   const hoverEffect = isButton ? undefined : props.hoverEffect
   const theme = item.itemTheme || 'default'
 
   return { componentType, hoverEffect, theme }
 })
+
+const hoverClass = 'group-hover/nav-link:text-theme-500 dark:group-hover/nav-link:text-theme-200 transition-colors duration-300'
 </script>
 
 <template>
   <component
     :is="styles.componentType"
-    :card
+    :card="card"
     :theme="styles.theme"
     :href="item.href"
     :target="item.target ? item.target : '_self'"
-    class="group"
+    class="group/nav-link"
     :class="!item.href ? 'cursor-default' : 'cursor-pointer'"
     :data-el-type="styles.componentType"
   >
     <span class="inline-flex items-center space-x-1.5 relative whitespace-nowrap w-full">
-      <ElAvatar v-if="item.itemStyle === 'user' && service.fictionUser.activeUser.value" class=" size-[1.4em] mr-1.5 rounded-full ring-2 ring-theme-200 dark:ring-theme-0" :email="service.fictionUser.activeUser?.value?.email" />
-      <XIcon v-else-if="item.media" :media="item.media" class="size-[1.1em] mr-1" />
+      <!-- User Avatar -->
+      <ElAvatar
+        v-if="item.itemStyle === 'user' && service.fictionUser.activeUser.value"
+        class="size-[1.4em] mr-1.5 rounded-full ring-2 ring-theme-200 dark:ring-theme-0"
+        :email="service.fictionUser.activeUser?.value?.email"
+      />
+
+      <!-- Icon -->
+      <XIcon
+        v-else-if="item.media"
+        :media="item.media"
+        :class="hoverClass"
+        class="size-[1.1em] mr-1"
+      />
+
+      <!-- Text Content -->
       <CardText
         v-if="item.basePath"
-        :card
+        :card="card"
         :path="`${item.basePath}.name`"
         tag="span"
-        class="block relative hover:text-primary-600 dark:hover:text-primary-500 transition-all"
+        class="block relative"
         :class="[
-          styles.hoverEffect === 'underline' && card.link(item.href) ? 'menu-text after:border-t-2 after:border-primary-500 dark:after:border-primary-400 after:rounded-lg' : '',
-          item.isActive ? 'active' : '',
+          hoverClass,
+          styles.hoverEffect === 'underline' && (card.link(item.href) || item.onClick)
+            ? 'nav-link-underline'
+            : '',
+          item.isActive ? 'is-active' : '',
         ]"
-        :animate
+        :animate="animate"
       />
-      <span v-else-if="$slots.default" class="block"><slot /></span>
-      <span v-else class="block" v-html="item.name" />
-      <span v-if="item.target === '_blank'" class="block opacity-30 group-hover:translate-x-[1px] group-hover:-translate-y-[1px] transition-all">
+      <span
+        v-else-if="$slots.default"
+        class="block"
+      >
+        <slot />
+      </span>
+      <span
+        v-else
+        class="block"
+        v-html="item.name"
+      />
+
+      <!-- External Link Indicator -->
+      <span
+        v-if="item.target === '_blank'"
+        class="block opacity-30 group-hover:translate-x-[1px] group-hover:-translate-y-[1px] transition-all"
+      >
         <span class="block i-heroicons-arrow-up-right-20-solid" />
       </span>
-      <span v-else-if="item.items?.length && depth === 0" class="block opacity-30 group-hover:opacity-60 transition-all i-tabler-chevron-down" />
 
+      <!-- Dropdown Indicator -->
+      <span
+        v-else-if="item.items?.length && depth === 0"
+        class="block opacity-30 group-hover:opacity-60 transition-all i-tabler-chevron-down"
+      />
     </span>
   </component>
 </template>
 
 <style lang="less">
-.menu-text:after{
-  transition: transform .2s ease-out,border-color .2s ease-out;
-  position: absolute;
-  display: block;
-  bottom: -6px;
-  left: 0;
-  width: 100%;
-  transform: scaleX(0);
-  content: "";
-  padding-bottom: inherit;
+.nav-link-underline {
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -0.2em;
+    left: 0;
+    right: 0;
+    height: 2px;
+    border-radius: 5px;
+    @apply bg-primary-500 dark:bg-primary-400;
+    transform: scaleX(0);
+    transform-origin: right top;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  // Hover: animate in from right
+  &:hover::after {
+    transform: scaleX(1) scaleY(1.2);
+    transform-origin: left top;
+    height: 2px;
+  }
+
+  // Exit: animate out to left
+  &:not(:hover)::after {
+    transform: scaleX(0) scaleY(0);
+    transform-origin: right top;
+    height: 2px;
+  }
+
+  // Active state
+  &.is-active::after {
+    transform: scaleX(1);
+  }
 }
 
-.menu-text{
-  &:hover, &.active{
-    &:after{
-      transform: scaleX(1);
-    }
-
+// Prevent transition flash on page load
+@media (prefers-reduced-motion: no-preference) {
+  .nav-link-underline::after {
+    transition-delay: 0.1s;
   }
 }
 </style>

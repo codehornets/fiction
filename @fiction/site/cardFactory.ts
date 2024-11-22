@@ -76,7 +76,7 @@ type CardMakeArgs<T extends CardTemplate> = {
 } & BaseCardConfig
 
 export class CardFactory<U extends readonly CardTemplate<any>[] = readonly CardTemplate<any>[]> extends FictionObject<CardFactorySettings<U>> {
-  private templates: U
+  templates: U
 
   constructor(settings: CardFactorySettings<U>) {
     super('CardFactory', settings)

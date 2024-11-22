@@ -139,6 +139,7 @@ export const MediaDisplaySchema = MediaContentSchema.extend({
   overlay: OverlaySettingSchema.optional(),
   width: z.number().optional(),
   height: z.number().optional(),
+  tags: z.array(z.string()).optional(),
   displayWidthPercent: z.number().optional(),
   displayHeightPercent: z.number().optional(),
   modify: z.object({
@@ -187,6 +188,7 @@ export const ActionButtonSchema = z.object({
   onClick: ClickHandlerSchema.optional(),
   testId: z.string().optional(),
   target: z.enum(['_blank', '_self']).optional(),
+  hover: ButtonHoverSchema.optional(),
 })
 
 export type ActionButton = z.infer<typeof ActionButtonSchema>

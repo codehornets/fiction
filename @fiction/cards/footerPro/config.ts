@@ -1,3 +1,5 @@
+import type { CardFactory } from '@fiction/site/cardFactory'
+import type { StockMedia } from '@fiction/ui/stock'
 import { ActionButtonSchema, MediaDisplaySchema, MediaIconSchema, MediaTypographySchema, NavListItemSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
@@ -235,18 +237,19 @@ function getOptions(): InputOption[] {
   ]
 }
 
-async function getDemoConfig(args: { templateId: string }): Promise<{ templateId: string, userConfig: UserConfig }[]> {
-  const { templateId } = args
+async function getDemoConfig(args: { templateId: string, stock: StockMedia }): Promise<{ templateId: string, userConfig: UserConfig }[]> {
+  const { templateId, stock } = args
   return [
     {
       templateId,
       userConfig: {
         brand: {
+          logo: stock.getLocalMedia({ key: 'lorem1' }),
           title: 'CloudFlow',
           subTitle: 'Simplify Your Cloud Infrastructure',
           actions: [
-            { name: 'Start Free', theme: 'primary' },
-            { name: 'Talk to Sales', theme: 'default' },
+            { name: 'Start Free', theme: 'primary', icon: { iconId: 'bolt' } },
+            { name: 'Talk to Sales', theme: 'default', icon: { iconId: 'phone' } },
           ],
         },
         columns: [
@@ -280,16 +283,19 @@ async function getDemoConfig(args: { templateId: string }): Promise<{ templateId
           title: 'Certifications',
           actions: [
             {
-              icon: { iconId: 'shield' },
-              name: 'SOC 2 Type II',
+              icon: { iconId: 'star' },
+              name: 'Read Reviews',
+              theme: 'yellow',
             },
             {
-              icon: { iconId: 'shield' },
-              name: 'GDPR Compliant',
+              icon: { iconId: 'users' },
+              name: 'Read Testimonials',
+              theme: 'blue',
             },
             {
-              icon: { iconId: 'shield' },
-              name: 'ISO 27001',
+              icon: { iconId: 'check' },
+              name: 'Satisfaction Guaranteed',
+              theme: 'green',
             },
           ],
         },
@@ -316,14 +322,15 @@ async function getDemoConfig(args: { templateId: string }): Promise<{ templateId
   ]
 }
 
-export async function getConfig(args: { templateId: string }) {
-  const { templateId } = args
+export async function getConfig(args: { templateId: string, factory: CardFactory }) {
+  const { templateId, factory } = args
+  const stock = await factory.getStockMedia()
   return {
     schema,
     options: getOptions(),
     userConfig: getDefaultConfig(),
     demoPage: {
-      cards: await getDemoConfig({ templateId }),
+      cards: await getDemoConfig({ templateId, stock }),
     },
   }
 }

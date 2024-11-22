@@ -20,7 +20,7 @@ export const template = cardTemplate({
 
   async getConfig(args) {
     const { getConfig } = await import('./config')
-    return getConfig({ templateId })
+    return getConfig({ templateId, ...args })
   },
 })
 

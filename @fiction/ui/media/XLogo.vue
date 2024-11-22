@@ -3,198 +3,218 @@ import type { MediaObject } from '@fiction/core'
 import { determineMediaFormat, vue } from '@fiction/core'
 import { googleFontsUtility } from '@fiction/core/utils/fonts'
 import { twMerge } from 'tailwind-merge'
+import EffectFitText from '../effect/EffectFitText.vue'
 import XIcon from '../media/XIcon.vue'
 
 defineOptions({ name: 'XLogo' })
 
-const {
-  media,
-  alt = '',
-  alignmentClass = 'justify-center',
-  addGoogleFont,
-} = defineProps<{
+const props = defineProps<{
   media: MediaObject
   alt?: string
-  alignmentClass?: string
-  addGoogleFont?: (family: string) => void
+  wrapClass?: string
+  width?: number
+  height?: number
 }>()
 
 const containerRef = vue.ref<HTMLElement | null>(null)
-const textRef = vue.ref<HTMLElement | null>(null)
-const htmlContentRef = vue.ref<HTMLElement | null>(null)
-const fontSize = vue.ref(16) // Default font size
+const imageRef = vue.ref<HTMLImageElement | null>(null)
+const svgRef = vue.ref<SVGElement | null>(null)
 
-const mediaFormat = vue.computed(() => {
-  return determineMediaFormat(media)
-})
+const mediaFormat = vue.computed(() => determineMediaFormat(props.media))
 
-const typographyStyle = vue.computed(() => {
-  const typography = media.typography
-  if (!typography)
-    return {}
-
-  const scale = typography?.scale || 1
-  return {
-    fontFamily: typography.font,
-    fontWeight: typography.weight,
-    lineHeight: 1.2,
-    letterSpacing: typography.letterSpacing,
-    fontSize: fontSize.value && fontSize.value > 8 ? `${fontSize.value}px` : 'inherit',
-    transform: `scale(${scale})`,
-    transformOrigin: 'center center',
-  }
-})
-
-const MIN_FONT_SIZE = 10 // Minimum font size in pixels
-
-function adjustFontSize() {
-  const typography = media.typography
-  if (!typography)
-    return {}
-
-  if (containerRef.value && textRef.value && fontSize.value > 8) {
-    const containerHeight = containerRef.value.clientHeight
-    const cHeight = containerHeight
-    let testSize = cHeight
-    textRef.value.style.fontSize = `${testSize}px`
-
-    while (textRef.value.scrollHeight > cHeight && testSize > MIN_FONT_SIZE) {
-      testSize -= 1
-      textRef.value.style.fontSize = `${testSize}px`
+// Load Google Fonts for typography format
+vue.watch(
+  () => props.media.typography?.font,
+  async (font) => {
+    if (font) {
+      await googleFontsUtility.loadFont(font)
     }
+  },
+  { immediate: true },
+)
 
-    fontSize.value = testSize
+// Handle container classes
+const containerClass = vue.computed(() => {
+  const classes = [
+    'relative',
+    'inline-flex',
+    'items-center',
+    'justify-center',
+    'overflow-hidden',
+  ]
+  return twMerge(classes.join(' '), props.wrapClass)
+})
+
+// Handle content classes for different formats
+const contentClass = vue.computed(() => {
+  const classes = [
+    'max-w-full',
+    'max-h-full',
+    'object-contain',
+    'transition-all',
+    'duration-200',
+  ]
+
+  // Add format-specific classes
+  if (mediaFormat.value === 'image' || mediaFormat.value === 'url') {
+    classes.push('w-auto h-auto')
+  }
+
+  return classes.join(' ')
+})
+
+// Handle SVG specific sizing and scaling
+function handleSvgContent() {
+  if (mediaFormat.value === 'html' && svgRef.value) {
+    const svg = svgRef.value
+    svg.setAttribute('preserveAspectRatio', 'xMidYMid meet')
+    svg.setAttribute('width', '100%')
+    svg.setAttribute('height', '100%')
+
+    // Remove fixed dimensions if present
+    svg.removeAttribute('width')
+    svg.removeAttribute('height')
   }
 }
 
-vue.onMounted(() => {
-  vue.watch(() => media.typography?.font, async (newFont) => {
-    if (newFont) {
-      if (addGoogleFont) {
-        addGoogleFont(newFont)
-      }
-      else {
-        await googleFontsUtility.loadFont(newFont)
-      }
-    }
-  }, { immediate: true })
+// Image load handler to ensure proper sizing
+function handleImageLoad() {
+  if (imageRef.value && containerRef.value) {
+    const img = imageRef.value
+    const container = containerRef.value
+    const imgRatio = img.naturalWidth / img.naturalHeight
+    const containerRatio = container.clientWidth / container.clientHeight
 
-  const resizeObserver = new ResizeObserver(() => {
-    if (mediaFormat.value === 'typography') {
-      adjustFontSize()
+    if (imgRatio > containerRatio) {
+      // Image is wider than container
+      img.style.width = '100%'
+      img.style.height = 'auto'
+    }
+    else {
+      // Image is taller than container
+      img.style.width = 'auto'
+      img.style.height = '100%'
+    }
+  }
+}
+
+// Typography styles based on media config
+const typographyStyle = vue.computed(() => {
+  const typography = props.media.typography
+  if (!typography)
+    return {}
+
+  return {
+    fontFamily: typography.font,
+    fontWeight: typography.weight,
+    lineHeight: typography.lineHeight || '1.2',
+    letterSpacing: typography.letterSpacing,
+  }
+})
+
+// ResizeObserver for container size changes
+let resizeObserver: ResizeObserver | undefined
+vue.onMounted(() => {
+  handleSvgContent()
+
+  resizeObserver = new ResizeObserver(() => {
+    if (mediaFormat.value === 'image' || mediaFormat.value === 'url') {
+      handleImageLoad()
     }
   })
 
   if (containerRef.value) {
     resizeObserver.observe(containerRef.value)
   }
-
-  vue.onUnmounted(() => {
-    resizeObserver.disconnect()
-  })
-
-  if (mediaFormat.value === 'html' && htmlContentRef.value) {
-    const svg = htmlContentRef.value.querySelector('svg')
-    if (svg) {
-      svg.setAttribute('width', '100%')
-      svg.setAttribute('height', '100%')
-      svg.style.maxWidth = '100%'
-      svg.style.maxHeight = '100%'
-    }
-  }
 })
 
-// Watch for changes in media format and adjust font size if necessary
-vue.watch(() => mediaFormat.value, (newFormat, oldFormat) => {
-  if (newFormat === 'typography' || oldFormat === 'typography') {
-    vue.nextTick(() => {
-      adjustFontSize()
-    })
-  }
-})
-
-const containerClass = vue.computed(() => {
-  const classes = ['inline-flex items-center w-full']
-  classes.push(alignmentClass)
-  return twMerge(classes.join(' '))
-})
-
-const contentClass = vue.computed(() => {
-  return ['max-h-full object-contain']
-})
-
-const htmlWrapperClass = vue.computed(() => {
-  const classes = ['inline-flex items-center h-full']
-  classes.push(alignmentClass)
-  return classes
-})
-
-const iconStyling = vue.computed(() => {
-  return {
-    classes: ['h-full w-auto aspect-square'],
-  }
-})
-
-const isSvgContent = vue.computed(() => {
-  return media.html?.trim().startsWith('<svg')
+vue.onBeforeUnmount(() => {
+  resizeObserver?.disconnect()
 })
 </script>
 
 <template>
-  <div ref="containerRef" class="xlogo" :class="containerClass">
-    <template v-if="mediaFormat === 'image' || mediaFormat === 'url'">
-      <img v-if="media.url" :src="media.url" :alt="alt || media.alt" :class="contentClass">
-    </template>
+  <div
+    ref="containerRef"
+    class="xlogo"
+    :class="containerClass"
+    :style="{
+      width: width ? `${width}px` : undefined,
+      height: height ? `${height}px` : undefined,
+    }"
+  >
+    <!-- Image/URL Format -->
+    <img
+      v-if="(mediaFormat === 'image' || mediaFormat === 'url') && media.url"
+      ref="imageRef"
+      :src="media.url"
+      :alt="alt || media.alt || ''"
+      :class="contentClass"
+      @load="handleImageLoad"
+    >
 
-    <template v-else-if="mediaFormat === 'html'">
-      <span :class="htmlWrapperClass">
-        <span
-          ref="htmlContentRef"
-          class="inline-block h-full html-wrapper"
-          :class="{ 'w-full': isSvgContent, 'w-auto': !isSvgContent }"
-          v-html="media.html"
-        />
-      </span>
-    </template>
-
-    <template v-else-if="mediaFormat === 'typography'">
+    <!-- HTML/SVG Format -->
+    <div
+      v-else-if="mediaFormat === 'html'"
+      class="w-full h-full flex items-center justify-center"
+    >
       <div
-        ref="textRef"
-        class="whitespace-nowrap h-full flex items-center justify-center"
-        :style="typographyStyle"
-        data-test-id="typography-text"
-      >
-        {{ media.typography?.text }}
-      </div>
-    </template>
+        ref="svgRef"
+        class="svg-wrapper w-full h-full"
+        v-html="media.html"
+      />
+    </div>
 
-    <template v-else-if="mediaFormat === 'iconId'">
-      <XIcon :media :class="iconStyling.classes" />
-    </template>
+    <!-- Typography Format -->
+    <EffectFitText
+      v-else-if="mediaFormat === 'typography'"
+      :content="media.typography?.text || ''"
+      class="w-full h-full"
+      :style="typographyStyle"
+    >
+      {{ media.typography?.text }}
+    </EffectFitText>
 
-    <template v-else-if="mediaFormat === 'video'">
-      <video :src="media.url" :class="contentClass" controls playsinline>
-        Your browser does not support the video tag.
-      </video>
-    </template>
+    <!-- Icon Format -->
+    <XIcon
+      v-else-if="mediaFormat === 'iconId'"
+      :media="media"
+      class="w-full h-full"
+    />
 
-    <template v-else-if="mediaFormat === 'component'">
-      <component :is="media.el" v-bind="media" :class="contentClass" />
-    </template>
+    <!-- Component Format -->
+    <component
+      :is="media.el"
+      v-else-if="mediaFormat === 'component'"
+      v-bind="media"
+      :class="contentClass"
+    />
 
-    <template v-else>
-      <span class="text-theme-500 dark:text-theme-400">Invalid Media Format</span>
-    </template>
+    <!-- Fallback -->
+    <span
+      v-else
+      class="text-theme-500 dark:text-theme-400 text-sm"
+    >
+      Invalid Media Format
+    </span>
   </div>
 </template>
 
 <style scoped>
-.html-wrapper {
+.xlogo {
   display: inline-flex;
   align-items: center;
-  justify-content: inherit;
+  justify-content: center;
 }
-.html-wrapper > * {
+
+.svg-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.svg-wrapper :deep(svg) {
+  width: 100%;
   height: 100%;
   max-width: 100%;
   max-height: 100%;

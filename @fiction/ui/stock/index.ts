@@ -1,5 +1,6 @@
+import type { LocalMediaKeys } from './localMedia'
 import type { tagSet } from './tags'
-import { log } from '@fiction/core'
+import { log, type MediaObject } from '@fiction/core'
 
 const logger = log.contextLogger('stockMedia')
 
@@ -8,7 +9,7 @@ export type Tag = typeof tagSet[TagCategory][number]
 
 type MediaFormat = 'image' | 'video'
 
-type MediaItem = {
+export type MediaItem = {
   format: MediaFormat
   url: string
   tags: Tag[]
@@ -26,8 +27,10 @@ type GetMediaArgs = {
 export class StockMedia {
   private usedMedia: Set<string> = new Set()
   media: MediaCollection
-  constructor(args: { media: MediaCollection }) {
+  localMedia: Record<LocalMediaKeys, MediaObject>
+  constructor(args: { media: MediaCollection, localMedia: Record<LocalMediaKeys, MediaObject> }) {
     this.media = args.media
+    this.localMedia = args.localMedia
   }
 
   private filterMedia(args: GetMediaArgs = {}): MediaItem[] {
@@ -128,9 +131,16 @@ export class StockMedia {
   resetUsedMedia(): void {
     this.usedMedia.clear()
   }
+
+  getLocalMedia(args: { key: LocalMediaKeys }): MediaObject {
+    const { key } = args
+    const media = this.localMedia[key]
+    return media
+  }
 }
 
 export async function createStockMediaHandler(): Promise<StockMedia> {
   const { default: MediaCollection } = await import('./mediaItems.json')
-  return new StockMedia({ media: MediaCollection as MediaCollection })
+  const { localMedia } = await import('./localMedia')
+  return new StockMedia({ media: MediaCollection as MediaCollection, localMedia })
 }
