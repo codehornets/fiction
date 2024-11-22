@@ -3,7 +3,7 @@ import { colorTheme, MediaBasicSchema, MediaIconSchema, XButtonSchema } from '@f
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
-// Schema definitions
+// Schema for visual layer overlays that enhance the hero's depth
 const LayerMediaScheme = z.object({
   media: z.object({ url: z.string().optional() }).optional(),
   opacity: z.number().optional(),
@@ -11,111 +11,196 @@ const LayerMediaScheme = z.object({
   widthPercent: z.number().optional(),
 })
 
+// Core schema defining all hero section capabilities
 export const schema = z.object({
-  layout: z.enum(['justify', 'center', 'left', 'right']).optional().describe('Alignment style of text and images'),
-  heading: z.string().optional().describe('Primary hero headline, 3 to 13 words [ai]'),
-  subHeading: z.string().optional().describe('Secondary hero headline, 10 to 30 words [ai]'),
-  superHeading: z.string().optional().describe('Shorter badge above headline, 2 to 5 words [ai]'),
-  superIcon: MediaIconSchema.optional().describe('Icon for the super heading [ai]'),
-  superColor: z.enum(colorTheme).optional().describe('change color of super heading [ai]'),
-  splash: MediaBasicSchema.optional().describe('Splash picture for hero [ai]'),
-  caption: z.string().optional().describe('Caption for the splash image'),
-  actions: z.array(XButtonSchema).optional().describe('List of link buttons'),
-  overlays: z.array(LayerMediaScheme).optional().describe('Overlays to be placed on top of the splash image [ai]'),
+  layout: z.enum(['justify', 'center', 'left', 'right']).optional().describe('Visual arrangement of content - affects text and image positioning'),
+  heading: z.string().optional().describe('Primary headline that captures attention (3-13 words) [ai]'),
+  subHeading: z.string().optional().describe('Supporting message that explains your value proposition (10-30 words) [ai]'),
+  superHeading: z.string().optional().describe('Eyebrow text to categorize or emphasize (2-5 words) [ai]'),
+  superIcon: MediaIconSchema.optional().describe('Visual accent icon above the headline [ai]'),
+  superColor: z.enum(colorTheme).optional().describe('Accent color for the super heading [ai]'),
+  splash: MediaBasicSchema.optional().describe('Hero\'s focal image or illustration [ai]'),
+  caption: z.string().optional().describe('Optional text description for the splash image'),
+  actions: z.array(XButtonSchema).optional().describe('Call-to-action buttons'),
+  overlays: z.array(LayerMediaScheme).optional().describe('Decorative image layers for visual depth [ai]'),
 })
 
 type UserConfig = z.infer<typeof schema>
 
-// Default configuration
+// Default configuration showcasing best practices
 const defaultContent: UserConfig = {
-  heading: 'Short Catchy Heading',
-  subHeading: 'Description of the heading. Typically a sentence or two.',
-  superHeading: 'Category or Tagline',
-  actions: [],
+  heading: 'Transform Your Ideas Into Reality',
+  subHeading: 'Start your journey with our intuitive platform. We help creators, entrepreneurs, and visionaries bring their digital dreams to life.',
+  superHeading: 'Build With Confidence',
+  superIcon: { class: 'i-tabler-rocket' },
+  superColor: 'blue',
+  actions: [
+    { name: 'Get Started', theme: 'primary', design: 'solid', size: 'xl' },
+    { name: 'Watch Demo', theme: 'default', design: 'ghost', size: 'xl' },
+  ],
 }
 
-// Input options
+// Structured input options for the design interface
 export function getOptions(): InputOption[] {
   return [
-    new InputOption({ key: 'heading', input: 'InputText', label: 'Heading' }),
-    new InputOption({ key: 'subHeading', input: 'InputTextarea', label: 'Sub Heading' }),
-    new InputOption({ key: 'superHeading', input: 'InputTextarea', label: 'Super Heading' }),
-    new InputOption({ key: 'superColor', input: 'InputSelect', label: 'Super Color', props: { list: colorTheme } }),
-    new InputOption({ key: 'superIcon', input: 'InputIcon', label: 'Super Icon' }),
-    new InputOption({ key: 'layout', input: 'InputSelect', label: 'Layout', props: { list: ['justify', 'center', 'left', 'right'] } }),
-    new InputOption({ key: 'actions', input: 'InputActions', label: 'Buttons' }),
-    new InputOption({ key: 'splash', input: 'InputMedia', label: 'Splash Image' }),
-    new InputOption({ key: 'caption', input: 'InputText', label: 'Splash Caption' }),
     new InputOption({
-      key: 'overlays',
-      input: 'InputList',
-      label: 'Overlays',
+      key: 'content',
+      label: 'Content',
+      input: 'group',
       options: [
-        new InputOption({ key: 'media', label: 'Image', input: 'InputMedia', props: { formats: { url: true } } }),
-        new InputOption({ key: 'opacity', label: 'Opacity', input: 'InputNumber' }),
         new InputOption({
-          key: 'position',
-          label: 'Position',
-          input: 'InputSelect',
-          list: ['top', 'bottom', 'left', 'right', 'center', 'bottomRight', 'topRight', 'bottomLeft', 'topLeft'] as const,
+          key: 'heading',
+          label: 'Main Headline',
+          input: 'InputText',
+          description: 'Your primary message (3-13 words)',
+          props: { placeholder: 'e.g., Transform Your Ideas Into Reality' },
         }),
-        new InputOption({ key: 'widthPercent', label: 'Width Percent', input: 'InputRange', props: { min: 10, max: 100 } }),
+        new InputOption({
+          key: 'subHeading',
+          label: 'Supporting Message',
+          input: 'InputTextarea',
+          description: 'Expand on your value proposition',
+          props: { rows: 3, placeholder: 'Describe your core offering or unique value proposition' },
+        }),
+        new InputOption({
+          key: 'superHeading',
+          label: 'Eyebrow Text',
+          input: 'InputText',
+          description: 'Short text above headline (2-5 words)',
+          props: { placeholder: 'e.g., New Release • Limited Time • Featured' },
+        }),
       ],
+    }),
+    new InputOption({
+      key: 'style',
+      label: 'Style',
+      input: 'group',
+      options: [
+        new InputOption({
+          key: 'layout',
+          label: 'Layout Style',
+          input: 'InputSelect',
+          props: {
+            list: [
+              { label: 'Centered Focus', value: 'center' },
+              { label: 'Left Aligned', value: 'left' },
+              { label: 'Right Aligned', value: 'right' },
+              { label: 'Full Width', value: 'justify' },
+            ],
+          },
+        }),
+        new InputOption({
+          key: 'superColor',
+          label: 'Accent Color',
+          input: 'InputColorScheme',
+          description: 'Color theme for the eyebrow text',
+        }),
+        new InputOption({
+          key: 'superIcon',
+          label: 'Accent Icon',
+          input: 'InputIcon',
+          description: 'Icon to complement the eyebrow text',
+        }),
+      ],
+    }),
+    new InputOption({
+      key: 'media',
+      label: 'Media',
+      input: 'group',
+      options: [
+        new InputOption({
+          key: 'splash',
+          label: 'Hero Image',
+          input: 'InputMedia',
+          description: 'Main visual element',
+        }),
+        new InputOption({
+          key: 'caption',
+          label: 'Image Caption',
+          input: 'InputText',
+          description: 'Optional descriptive text for the image',
+        }),
+      ],
+    }),
+    new InputOption({
+      key: 'actions',
+      label: 'Call-to-Action',
+      input: 'InputActions',
+      description: 'Buttons to drive user engagement',
     }),
   ]
 }
 
-// Demo page configuration
+// Demo configurations showing various use cases
 async function getDemoPage(args: { templateId: string, factory: CardFactory }) {
   const { templateId, factory } = args
   const stock = await factory.getStockMedia()
   const splash = (aspect: 'aspect:square' | 'aspect:portrait' = 'aspect:square') => stock.getRandomByTags(['object', aspect])
 
-  const subHeading = 'lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+  const cards: { templateId: string, userConfig: UserConfig }[] = [
+    // Product Launch Hero
+    {
+      templateId,
+      userConfig: {
+        layout: 'right',
+        heading: 'Revolutionize Your Workspace',
+        subHeading: 'Experience the future of productivity with our AI-powered platform. Automate tasks, collaborate seamlessly, and achieve more in less time.',
+        superHeading: 'New Release',
+        superIcon: { class: 'i-tabler-sparkles' },
+        superColor: 'blue',
+        splash: splash('aspect:portrait'),
+        actions: [
+          { name: 'Start Free Trial', theme: 'primary', design: 'solid', size: 'xl' },
+          { name: 'Watch Demo', theme: 'default', design: 'ghost', size: 'xl' },
+        ],
+      },
+    },
+    // Service Showcase Hero
+    {
+      templateId,
+      userConfig: {
+        layout: 'left',
+        heading: 'Craft Your Perfect Digital Presence',
+        subHeading: 'From stunning websites to powerful marketing tools, we provide everything you need to grow your online business and connect with your audience.',
+        superHeading: 'Professional Services',
+        superIcon: { class: 'i-tabler-brush' },
+        superColor: 'purple',
+        splash: splash('aspect:portrait'),
+        actions: [
+          { name: 'Explore Services', theme: 'primary', design: 'solid', size: 'xl' },
+          { name: 'View Portfolio', theme: 'default', design: 'ghost', size: 'xl' },
+        ],
+      },
+    },
+    // Event Promotion Hero
+    {
+      templateId,
+      userConfig: {
+        layout: 'center',
+        heading: 'Join the Future of Tech',
+        subHeading: 'Be part of the largest virtual tech conference of 2024. Connect with industry leaders, discover emerging trends, and shape the future of technology.',
+        superHeading: 'Virtual Summit 2024',
+        superIcon: { class: 'i-tabler-calendar-event' },
+        superColor: 'indigo',
+        splash: splash(),
+        actions: [
+          { name: 'Register Now', theme: 'primary', design: 'solid', size: 'xl' },
+          { name: 'View Schedule', theme: 'default', design: 'ghost', size: 'xl' },
+        ],
+      },
+    },
+    {
+      templateId,
+      userConfig: defaultContent,
+    },
+  ]
 
   return {
-    cards: [
-      {
-        templateId,
-        userConfig: {
-          ...defaultContent,
-          justify: 'center' as const,
-        },
-      },
-      {
-        templateId,
-        userConfig: {
-          ...defaultContent,
-          layout: 'justify' as const,
-          splash: splash(),
-          superColor: 'purple' as const,
-        },
-      },
-      {
-        templateId,
-        userConfig: {
-          ...defaultContent,
-          layout: 'right' as const,
-          splash: splash('aspect:portrait'),
-          subHeading,
-          superColor: 'red' as const,
-        },
-      },
-      {
-        templateId,
-        userConfig: {
-          ...defaultContent,
-          layout: 'left' as const,
-          splash: splash('aspect:portrait'),
-          subHeading,
-          superColor: 'indigo' as const,
-        },
-      },
-    ],
+    cards,
   }
 }
 
-export async function getHeroConfig(args: { templateId: string, factory: CardFactory }) {
+export async function getConfig(args: { templateId: string, factory: CardFactory }) {
   return {
     schema,
     options: getOptions(),
@@ -124,6 +209,5 @@ export async function getHeroConfig(args: { templateId: string, factory: CardFac
   }
 }
 
-// Type exports
 export type { UserConfig }
 export type OverlayConfig = z.infer<typeof LayerMediaScheme>
