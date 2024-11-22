@@ -1,4 +1,4 @@
-import type { ComplexDataFilter, IndexMeta, PostHandlingObject } from '@fiction/core'
+import type { ComplexDataFilter, IndexMeta, PostHandlingObject, PostObject } from '@fiction/core'
 import type { FictionPosts } from '@fiction/posts'
 import type { Card } from '@fiction/site'
 import type { StockMedia } from '@fiction/ui/stock'
@@ -193,11 +193,11 @@ function findNextPost(currentPost: Post | undefined, posts: Post[]): Post | unde
   return currentIndex >= 0 ? posts[currentIndex + 1] : undefined
 }
 
-export function getDemoPosts(args: { stock: StockMedia }) {
-  const { stock } = args
+export function getDemoPosts(args: { stock: StockMedia, limit?: number }): PostObject[] {
+  const { stock, limit } = args
   const baseDate = new Date('2024-03-20')
 
-  return [
+  const posts = [
     {
       title: 'The Hidden Story in Your Data',
       subTitle: 'Unlock the narrative power hiding in your numbers',
@@ -607,5 +607,58 @@ export function getDemoPosts(args: { stock: StockMedia }) {
       media: stock.getRandomByTags(['object']),
       dateAt: new Date(baseDate.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString(),
     },
+    {
+      title: 'Email Marketing Psychology',
+      subTitle: 'The neuroscience of inbox engagement',
+      slug: 'email-psychology',
+      authors: [{
+        fullName: 'Emma Rodriguez',
+        title: 'Email Marketing Strategist',
+        email: 'emma@example.com',
+        avatar: stock.getRandomByTags(['person']),
+      }],
+      content: `[Previous post content structure but focused on email marketing psychology]`,
+      excerpt: 'Unlock the psychological triggers that make emails irresistible to open and act upon. Transform your campaigns from inbox noise to anticipated value.',
+      categories: ['Marketing'],
+      tags: ['email', 'psychology', 'conversion'],
+      media: stock.getRandomByTags(['object']),
+      dateAt: new Date(baseDate.getTime() - 8 * 24 * 60 * 60 * 1000).toISOString(),
+    },
+    {
+      title: 'Color Theory for Conversions',
+      subTitle: 'Using color psychology to drive action',
+      slug: 'color-psychology',
+      authors: [{
+        fullName: 'James Wilson',
+        title: 'Conversion Design Expert',
+        email: 'james@example.com',
+        avatar: stock.getRandomByTags(['person']),
+      }],
+      content: `[Previous post content structure but focused on color psychology]`,
+      excerpt: 'Master the subtle art of color psychology to create designs that don\'t just look good—they convert. Learn the science behind color-driven decision making.',
+      categories: ['Design'],
+      tags: ['color', 'psychology', 'conversion'],
+      media: stock.getRandomByTags(['object']),
+      dateAt: new Date(baseDate.getTime() - 9 * 24 * 60 * 60 * 1000).toISOString(),
+    },
+    {
+      title: 'The Art of Social Proof',
+      subTitle: 'Build trust through strategic social evidence',
+      slug: 'social-proof',
+      authors: [{
+        fullName: 'Sophia Kim',
+        title: 'Trust Marketing Specialist',
+        email: 'sophia@example.com',
+        avatar: stock.getRandomByTags(['person']),
+      }],
+      content: `[Previous post content structure but focused on social proof]`,
+      excerpt: 'Discover how to leverage social proof to build instant credibility. Transform skeptical visitors into confident customers through strategic trust signals.',
+      categories: ['Marketing'],
+      tags: ['trust', 'conversion', 'psychology'],
+      media: stock.getRandomByTags(['object']),
+      dateAt: new Date(baseDate.getTime() - 10 * 24 * 60 * 60 * 1000).toISOString(),
+    },
   ]
+
+  return limit ? posts.slice(0, limit) : posts
 }

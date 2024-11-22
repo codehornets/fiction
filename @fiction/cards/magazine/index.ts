@@ -1,5 +1,3 @@
-import type { UserConfig } from './config'
-// index.ts
 import { safeDirname, vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site'
 
@@ -11,7 +9,8 @@ export const template = cardTemplate({
   category: ['posts'],
   icon: 'i-tabler-notebook',
   title: 'Magazine',
-  description: 'Display blog posts in an elegant magazine-style layout',
+  subTitle: 'Create dynamic blog layouts with featured posts and immersive content',
+  description: 'Transform your blog into a visually stunning magazine with customizable layouts, featured posts, and rich media integration. Perfect for showcasing editorial content, news articles, and thought leadership pieces with style.',
   colorTheme: 'blue',
   el: vue.defineAsyncComponent(() => import('./ElMagazine.vue')),
   isPublic: true,
@@ -24,4 +23,4 @@ export const template = cardTemplate({
   },
 })
 
-export type { UserConfig }
+export type { UserConfig } from './config'

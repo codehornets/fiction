@@ -142,6 +142,7 @@ export interface CompiledServiceConfig {
       | 'specialPlan'
       | 'publication'
       | 'legal'
+      | 'accessTokens'
       | 'createdAt'
       | 'updatedAt'
     fiction_org_user:

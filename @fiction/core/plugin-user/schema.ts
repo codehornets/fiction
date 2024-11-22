@@ -69,6 +69,7 @@ export const orgColumns = [
   new Col({ key: 'specialPlan', sec: 'admin', sch: () => z.enum(['vip', 'npo']), make: ({ s, col }) => s.string(col.k) }),
   new Col({ key: 'publication', sec: 'setting', sch: () => z.any() as z.Schema<Publication>, make: ({ s, col }) => s.jsonb(col.k) }),
   new Col({ key: 'legal', sec: 'setting', sch: () => z.any() as z.Schema<OrganizationLegal>, make: ({ s, col }) => s.jsonb(col.k) }),
+  new Col({ key: 'accessTokens', sec: 'authority', sch: () => z.record(z.string(), z.string()), make: ({ s, col }) => s.jsonb(col.k) }),
 ] as const
 
 export const membersColumns = [

@@ -39,6 +39,7 @@ const templates = {
   posts: {
     postList: () => import('./postList'),
     magazine: () => import('./magazine'),
+    insta: () => import('./insta'),
   },
   media: {
     cinema: () => import('./cinema'),

@@ -14,7 +14,7 @@ import CardTextPost from '../CardTextPost.vue'
 import CardLink from '../el/CardLink.vue'
 import ElAuthor from './ElAuthor.vue'
 
-const { card, posts, loading, indexMeta } = defineProps<{
+const { card, posts, indexMeta } = defineProps<{
   card: Card<UserConfig>
   posts: Post[]
   loading: boolean
@@ -84,7 +84,7 @@ function changePage(newPage: number) {
         </EffectGlare>
 
         <div v-if="i !== 0" class="pt-4">
-          <CardTextPost :post path="title" tag="h2" class="text-xl font-medium x-font-title !leading-[1.3]" />
+          <CardTextPost :post path="title" tag="h2" class="text-xl font-medium x-font-title !leading-[1.3] line-clamp-2" />
           <div class="mt-2 space-x-2">
             <CardButton
               v-for="(cat, ii) in post.categories.value?.slice(0, 2)"

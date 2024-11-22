@@ -1,5 +1,6 @@
 import type { IconId } from '@fiction/ui/lib/systemIcons.js'
 import type { vue } from '../utils/libraries.js'
+import { excerpt } from '@fiction/platform/index.js'
 import { z } from 'zod'
 import { OrFilterGroupSchema } from '../types/endpoint.js'
 import { ColorScaleSchema, colorThemeUser, colorThemeWithInvert } from '../utils/colors.js'
@@ -212,6 +213,7 @@ export const PostSchema = z.object({
   title: z.string().optional().describe('Title of the post'),
   subTitle: z.string().optional().describe('Subtitle of the post'),
   content: z.string().optional().describe('Content of the post'),
+  excerpt: z.string().optional().describe('Excerpt of the post'),
   status: PostStatusSchema.optional().describe('Status of the post'),
   media: MediaDisplaySchema.optional().describe('Featured Media for the post'),
   slug: z.string().optional().describe('Slug of the post page'),
@@ -224,6 +226,7 @@ export const PostSchema = z.object({
     title: z.string().optional(),
     description: z.string().optional(),
   }).optional(),
+  dateAt: z.string().optional().describe('ISO Date of the post'),
 })
 
 export const GlobalQuerySchema = z.object({
