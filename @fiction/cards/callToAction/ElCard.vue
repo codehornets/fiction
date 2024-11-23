@@ -93,7 +93,7 @@ vue.onMounted(() => {
                 <CardText
                   tag="h3"
                   :card
-                  :path="`benefits.items.${i}.title`"
+                  :path="`benefits.items.${i}.label`"
                   class="font-semibold mb-1 text-2xl x-font-title"
                 />
               </div>

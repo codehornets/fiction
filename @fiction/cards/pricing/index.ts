@@ -1,17 +1,19 @@
-import { vue } from '@fiction/core'
+import { navListItemSchema, vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
 const templateId = 'pricing'
 
+const pricingFeatureSchema = navListItemSchema.pick({ label: true })
+
 const priceSchema = z.object({
-  name: z.string().optional().describe('name of pricing plan'),
+  title: z.string().optional().describe('name of pricing plan'),
   price: z.number().optional().describe('monthly price of plan'),
-  desc: z.string().optional().describe('description of plan, compared to other plans (all of free plan, plus...)'),
+  description: z.string().optional().describe('description of plan, compared to other plans (all of free plan, plus...)'),
   href: z.string().optional().describe('link to purchase plan'),
   hrefAnnual: z.string().optional().describe('link to purchase annual plan'),
-  features: z.array(z.object({ name: z.string().optional().describe('feature text') })).optional().describe('list of features on plan'),
+  features: z.array(pricingFeatureSchema).optional().describe('list of features on plan'),
   isHighlighted: z.boolean().optional().describe('highlight this plan'),
   icon: z.string().optional().describe('icon to show on plan (format i-tabler-<icon>)'),
   badge: z.string().optional().describe('badge to show on plan (e.g. "Most Popular")'),
@@ -50,46 +52,46 @@ const defaultConfig: UserConfig = {
   annualDiscountPercent: 40,
   prices: [
     {
-      name: 'Basic',
+      title: 'Basic',
       price: 0,
-      desc: `What's included...`,
+      description: `What's included...`,
       href: `#`,
       icon: 'i-tabler-free-rights',
       features: [
-        { name: 'Up to 1,500 Subscribers' },
-        { name: 'Web Hosting' },
-        { name: 'Websites' },
-        { name: 'Basic Features' },
+        { label: 'Up to 1,500 Subscribers' },
+        { label: 'Web Hosting' },
+        { label: 'Websites' },
+        { label: 'Basic Features' },
       ],
     },
     {
-      name: 'Pro',
+      title: 'Pro',
       price: 99,
-      desc: `Everything in Basic, plus...`,
+      description: `Everything in Basic, plus...`,
       href: '#',
       badge: 'Most Popular',
       icon: 'i-tabler-star',
       features: [
-        { name: 'Up to 10,000 subscribers' },
-        { name: 'Remove Branding' },
-        { name: 'Custom domains' },
-        { name: 'Pro Features' },
+        { label: 'Up to 10,000 subscribers' },
+        { label: 'Remove Branding' },
+        { label: 'Custom domains' },
+        { label: 'Pro Features' },
       ],
       isHighlighted: true,
     },
     {
-      name: 'Pro+',
+      title: 'Pro+',
       price: 199,
-      desc: `Everything in Pro, plus...`,
+      description: `Everything in Pro, plus...`,
       href: '#',
       badge: 'Advanced Features',
       icon: 'i-tabler-stars',
       features: [
-        { name: 'Up to 25,000 subscribers' },
-        { name: 'Private Community Access' },
-        { name: 'Advanced UI cards' },
-        { name: 'AI Copilot' },
-        { name: 'Pro+ Only Features' },
+        { label: 'Up to 25,000 subscribers' },
+        { label: 'Private Community Access' },
+        { label: 'Advanced UI cards' },
+        { label: 'AI Copilot' },
+        { label: 'Pro+ Only Features' },
       ],
     },
   ],
@@ -100,30 +102,30 @@ const altConfig: UserConfig = {
   annualDiscountPercent: 40,
   prices: [
     {
-      name: 'Basic',
+      title: 'Basic',
       price: 0,
-      desc: `What's included...`,
+      description: `What's included...`,
       href: `#`,
       icon: 'i-tabler-free-rights',
       features: [
-        { name: 'Up to 1,500 Subscribers' },
-        { name: 'Web Hosting' },
-        { name: 'Websites' },
-        { name: 'Basic Features' },
+        { label: 'Up to 1,500 Subscribers' },
+        { label: 'Web Hosting' },
+        { label: 'Websites' },
+        { label: 'Basic Features' },
       ],
     },
     {
-      name: 'Pro',
+      title: 'Pro',
       price: 99,
-      desc: `Everything in Basic, plus...`,
+      description: `Everything in Basic, plus...`,
       href: '#',
       badge: 'Most Popular',
       icon: 'i-tabler-star',
       features: [
-        { name: 'Up to 10,000 subscribers' },
-        { name: 'Remove Branding' },
-        { name: 'Custom domains' },
-        { name: 'Pro Features' },
+        { label: 'Up to 10,000 subscribers' },
+        { label: 'Remove Branding' },
+        { label: 'Custom domains' },
+        { label: 'Pro Features' },
       ],
       isHighlighted: true,
     },

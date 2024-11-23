@@ -142,6 +142,7 @@ vue.onBeforeUnmount(() => {
       width: width ? `${width}px` : undefined,
       height: height ? `${height}px` : undefined,
     }"
+    :data-media-format="mediaFormat"
   >
     <!-- Image/URL Format -->
     <img
@@ -186,7 +187,7 @@ vue.onBeforeUnmount(() => {
     <component
       :is="media.el"
       v-else-if="mediaFormat === 'component'"
-      v-bind="media"
+      v-bind="media.props"
       :class="contentClass"
     />
 

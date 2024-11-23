@@ -101,6 +101,7 @@ export const MediaBasicSchema = z.object({
   el: z.custom<vue.AsyncComponentLoader | vue.Component>((val) => {
     return typeof val === 'function' || val instanceof Promise
   }, { message: 'Must be an async component or Promise' }).optional(),
+  props: z.record(z.string(), z.any()).optional(),
 })
 
 export const MediaIconSchema = MediaBasicSchema.extend({

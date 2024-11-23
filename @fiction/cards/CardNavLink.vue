@@ -124,23 +124,23 @@ const hoverClass = 'group-hover/nav-link:text-theme-500 dark:group-hover/nav-lin
     right: 0;
     height: 2px;
     border-radius: 5px;
-    @apply bg-primary-500 dark:bg-primary-400;
+    background-color: currentColor;
     transform: scaleX(0);
-    transform-origin: right top;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: right center;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   // Hover: animate in from right
   &:hover::after {
     transform: scaleX(1) scaleY(1.2);
-    transform-origin: left top;
+    transform-origin: left center;
     height: 2px;
   }
 
   // Exit: animate out to left
   &:not(:hover)::after {
     transform: scaleX(0) scaleY(0);
-    transform-origin: right top;
+    transform-origin: right center;
     height: 2px;
   }
 

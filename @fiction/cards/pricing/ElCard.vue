@@ -88,7 +88,7 @@ function getPrice(price?: UserConfigPrice) {
         <div class="px-6 py-8 lg:px-8">
           <div class="flex justify-between">
             <div class="space-x-4 flex items-center">
-              <CardText :card tag="h3" :path="`prices.${i}.name`" class="text-3xl font-normal  x-font-title" />
+              <CardText :card tag="h3" :path="`prices.${i}.title`" class="text-3xl font-normal  x-font-title" />
               <CardText :card tag="span" :path="`prices.${i}.badge`" :class="cls(price).badge" class="font-sans inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium " />
             </div>
             <div class="text-4xl" :class="price.icon" />
@@ -121,7 +121,7 @@ function getPrice(price?: UserConfigPrice) {
             </CardButton>
           </div>
           <div class="text-xl font-medium  ">
-            <CardText :card tag="p" :path="`prices.${i}.desc`" class="mt-10 font-semibold" />
+            <CardText :card tag="p" :path="`prices.${i}.description`" class="mt-10 font-semibold" />
 
             <ul role="list" class="mt-6 space-y-3">
               <li v-for="(feature, ii) in price.features" :key="ii" class="flex gap-x-3 items-center">

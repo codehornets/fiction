@@ -100,10 +100,10 @@ function closeMenu() {
             >
               <XLogo
                 :media="uc.brand.logo"
-                class="leading-[1] x-font-title text-2xl font-medium transition-all group-hover:opacity-80 group-hover:scale-[1.03] duration-300"
+                class="h-7 flex leading-[1] x-font-title text-2xl font-medium transition-all group-hover:opacity-80 group-hover:scale-[1.03] duration-300"
                 data-test-id="nav-logo"
               />
-              <span v-if="uc.brand.tagline" class="ml-3 text-xs text-theme-400 dark:text-theme-500 font-sans">
+              <span v-if="uc.brand.tagline" class="hidden leading-[1] ml-3 text-xs text-theme-400 dark:text-theme-500 font-sans">
                 {{ uc.brand.tagline }}
               </span>
             </CardLink>
