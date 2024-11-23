@@ -1,17 +1,19 @@
+import type { template as heroTemplate } from '@fiction/cards/hero/index'
+import type { template as logosTemplate } from '@fiction/cards/logos/index'
 import type { CardFactory } from '@fiction/site/cardFactory.js'
 
 export async function getPage(args: { factory: CardFactory }) {
   const { factory } = args
-  return factory.create({
+  return factory.fromTemplate({
     regionId: 'main',
     templateId: 'wrap',
     slug: 'tour',
     title: 'Tour',
     cards: [
-      await factory.create({
+      await factory.fromTemplate({
         templateId: 'area',
         cards: [
-          await factory.create({
+          await factory.fromTemplate<typeof heroTemplate>({
             templateId: 'hero',
             userConfig: {
               superColor: 'green',
@@ -21,7 +23,7 @@ export async function getPage(args: { factory: CardFactory }) {
               heading: `Are you ready to be seen and to <span data-text-effect data-effect-type="squiggle" data-effect-color="primary">make your impact?</span>`,
               actions: [
                 {
-                  name: 'I Am Ready',
+                  label: 'I Am Ready',
                   href: '/app/login?_reload=1',
                   theme: 'primary',
                   design: 'solid',
@@ -30,13 +32,13 @@ export async function getPage(args: { factory: CardFactory }) {
               ],
             },
           }),
-          await factory.create({
+          await factory.fromTemplate<typeof logosTemplate>({
             templateId: 'logos',
             userConfig: {
               layout: 'stacked',
               items: [
                 {
-                  name: 'Coke',
+                  label: 'Coke',
                   href: 'https://www.nytimes.com/2022/10/21/technology/generative-ai.html',
                   media: {
                     format: 'html',
@@ -45,7 +47,7 @@ export async function getPage(args: { factory: CardFactory }) {
                 },
 
                 {
-                  name: 'Roblox',
+                  label: 'Roblox',
                   href: 'https://www.theguardian.com/culture/2022/jun/09/what-exactly-is-ai-generated-art-how-does-it-work-will-it-replace-human-visual-artists',
                   media: {
                     format: 'html',
@@ -53,7 +55,7 @@ export async function getPage(args: { factory: CardFactory }) {
                   },
                 },
                 {
-                  name: 'Tesla',
+                  label: 'BBC',
                   href: 'https://techcrunch.com/2022/08/02/ai-art-generated/',
                   media: {
                     format: 'html',
@@ -61,7 +63,7 @@ export async function getPage(args: { factory: CardFactory }) {
                   },
                 },
                 {
-                  name: 'Balenciaga',
+                  label: 'Balenciaga',
                   href: 'https://www.nytimes.com/2022/10/21/technology/generative-ai.html',
                   media: {
                     format: 'html',
@@ -72,14 +74,14 @@ export async function getPage(args: { factory: CardFactory }) {
               label: 'Used by Influencers and Executives In These Companies',
             },
           }),
-          await factory.create({
+          await factory.fromTemplate({
             templateId: 'tour',
             userConfig: {
               items: [
                 {
                   layout: 'right',
                   heading: 'A Seamless Personal Branding Experience',
-                  subHeading: 'All the best practices in one place. Create a brand guide, site, blog, newsletter, email list, all in one place.',
+                  subHeading: 'All the best practices in one place. fromTemplate a brand guide, site, blog, newsletter, email list, all in one place.',
                   splash: { url: new URL('img/fig-website-screen.svg', import.meta.url).href },
                   overlays: [{ media: { url: new URL('img/fig-website-alt-1.svg', import.meta.url).href } }],
                   actions: [],
@@ -103,7 +105,7 @@ export async function getPage(args: { factory: CardFactory }) {
                 },
                 {
                   layout: 'left',
-                  heading: 'Create Passive Income, Achieve Your Goals',
+                  heading: 'fromTemplate Passive Income, Achieve Your Goals',
                   subHeading: 'Use your personal brand as a way to build influence and reach your goals. Sell memberships and more to earn.',
                   splash: { url: new URL('img/fig-money-screen.svg', import.meta.url).href },
                   overlays: [{ media: { url: new URL('img/fig-money-alt-1.svg', import.meta.url).href } }],
@@ -121,11 +123,11 @@ export async function getPage(args: { factory: CardFactory }) {
           }),
         ],
       }),
-      await factory.create({
+      await factory.fromTemplate({
         templateId: 'area',
         userConfig: {},
         cards: [
-          await factory.create({
+          await factory.fromTemplate({
             templateId: 'metrics',
             userConfig: {
               items: [
@@ -148,7 +150,7 @@ export async function getPage(args: { factory: CardFactory }) {
               ],
             },
           }),
-          await factory.create({
+          await factory.fromTemplate({
             templateId: 'quotes',
             userConfig: {
               quotes: [
@@ -186,7 +188,7 @@ export async function getPage(args: { factory: CardFactory }) {
           }),
         ],
       }),
-      await factory.create({
+      await factory.fromTemplate({
         templateId: 'area',
         userConfig: {
           standard: {
@@ -205,7 +207,7 @@ export async function getPage(args: { factory: CardFactory }) {
           },
         },
         cards: [
-          await factory.create({
+          await factory.fromTemplate<typeof heroTemplate>({
             templateId: 'hero',
             userConfig: {
               standard: {
@@ -215,7 +217,7 @@ export async function getPage(args: { factory: CardFactory }) {
               subHeading: `Are you ready to take control of your future? They say: where there is a will, there is a way. Fiction is the way.`,
               actions: [
                 {
-                  name: 'Let\'s Get Started',
+                  label: 'Let\'s Get Started',
                   icon: 'i-tabler-rocket',
                   href: '/auth/login?_reload=1',
                   theme: 'primary',

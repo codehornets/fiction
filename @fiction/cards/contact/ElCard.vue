@@ -7,14 +7,11 @@ import { animateItemEnter, useElementVisible } from '@fiction/ui/anim'
 import XIcon from '@fiction/ui/media/XIcon.vue'
 import CardText from '../CardText.vue'
 
-const props = defineProps({
-  card: {
-    type: Object as vue.PropType<Card<UserConfig>>,
-    required: true,
-  },
-})
+const { card } = defineProps<{
+  card: Card<UserConfig>
+}>()
 
-const uc = vue.computed(() => props.card.userConfig.value || {})
+const uc = vue.computed(() => card.userConfig.value || {})
 const items = vue.computed(() => uc.value.groups || [])
 const isVisible = vue.ref(false)
 const contactSection = vue.ref<HTMLElement>()
@@ -85,10 +82,10 @@ const hoverClasses = 'group-hover/item:text-primary-600 dark:group-hover/item:te
           class="text-4xl md:text-5xl x-font-title font-medium mb-4"
         />
         <CardText
-          v-if="uc.subtitle"
+          v-if="uc.subTitle"
           :card
           tag="p"
-          path="subtitle"
+          path="subTitle"
           class="text-lg md:text-xl text-theme-600 dark:text-theme-300"
         />
       </div>
@@ -161,9 +158,9 @@ const hoverClasses = 'group-hover/item:text-primary-600 dark:group-hover/item:te
                       :class="item.href ? hoverClasses : ''"
                     >
                       <XIcon
-                        v-if="item.media"
+                        v-if="item.icon"
                         class="size-8"
-                        :media="item.media"
+                        :media="item.icon"
                       />
                     </div>
                     <div class="min-w-0 flex-1">
@@ -172,15 +169,15 @@ const hoverClasses = 'group-hover/item:text-primary-600 dark:group-hover/item:te
                         tag="span"
                         :class="item.href ? hoverClasses : ''"
                         class="block x-font-title font-medium text-theme-900 dark:text-theme-100"
-                        :path="`groups.${i}.items.${ii}.title`"
+                        :path="`groups.${i}.items.${ii}.label`"
                       />
                       <CardText
-                        v-if="item.content"
+                        v-if="item.value"
                         :card
                         tag="span"
                         :class="item.href ? hoverClasses : ''"
                         class="block  mt-0.5 font-sans text-theme-600 dark:text-theme-400"
-                        :path="`groups.${i}.items.${ii}.content`"
+                        :path="`groups.${i}.items.${ii}.value`"
                       />
                     </div>
                   </div>
@@ -207,12 +204,12 @@ const hoverClasses = 'group-hover/item:text-primary-600 dark:group-hover/item:te
                   class="contact-item inline-flex items-center gap-2 px-5 py-3 rounded-full border-2 border-theme-200 dark:border-theme-600 hover:border-primary-500 dark:hover:border-primary-400 transition-colors duration-300 group/social"
                 >
                   <XIcon
-                    v-if="social.media"
+                    v-if="social.icon"
                     class="size-6 text-primary-500 dark:text-theme-0 group-hover/social:text-primary-500 dark:group-hover/social:text-primary-400 transition-colors"
-                    :media="social.media"
+                    :media="social.icon"
                   />
                   <span class="text-sm font-sans text-theme-400 dark:text-theme-400 group-hover/social:text-primary-600 dark:group-hover/social:text-primary-400 transition-colors">
-                    {{ social.name }}
+                    {{ social.label }}
                   </span>
                 </a>
               </div>

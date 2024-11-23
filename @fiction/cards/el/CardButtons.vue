@@ -9,7 +9,7 @@ import CardButton from '../CardButton.vue'
 
 defineOptions({ name: 'CardButtons' })
 
-const { card, actions = [], uiSize = 'md', animate = 'none', isOverlay = false, theme = 'default', design } = defineProps<{
+const { card, actions = [], uiSize = 'md', animate = 'none', theme = 'default', design } = defineProps<{
   card: Card
   actions: ActionButton[]
   uiSize?: UiElementSize
@@ -53,7 +53,7 @@ vue.onMounted(() => {
       :disabled="action.disabled"
       @click.stop="action.onClick && action.onClick({ event: $event, item: action })"
     >
-      {{ action.name }}
+      {{ action.label }}
     </CardButton>
   </div>
 </template>

@@ -107,7 +107,7 @@ vue.onMounted(() => {
         :selected="isSelected(item)"
         :not-selected="!isSelected(item) && modelValue.length >= max"
         :prefix="choiceLetter(i)"
-        :label="item.name"
+        :label="item.label || item.name"
         :ui-size="uiSize"
         @click="selectItem(item.value ?? '')"
       />

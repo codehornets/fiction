@@ -54,7 +54,7 @@ function getButtonType(action: ActionButton) {
       :disabled="action.disabled"
       @click.stop="action.onClick && action.onClick({ event: $event, item: action })"
     >
-      {{ action.name }}
+      {{ action.label }}
     </XButton>
   </div>
 </template>

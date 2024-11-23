@@ -44,8 +44,7 @@ const templates = {
   media: {
     cinema: () => import('./cinema'),
     gallery: () => import('./gallery'),
-    mediaGrid: () => import('./media-grid'),
-    mediaPop: () => import('./mediaPop'),
+    contentModal: () => import('./contentModal'),
     showcase: () => import('./showcase'),
   },
   interactive: {

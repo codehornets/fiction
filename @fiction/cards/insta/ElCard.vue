@@ -298,7 +298,7 @@ vue.watch(
       <CardButtons
         :card="card"
         :actions="[{
-          name: actionConfig.text || 'Follow on Instagram',
+          label: actionConfig.text || 'Follow on Instagram',
           href: actionConfig.link || `https://instagram.com/${data.profile.username}`,
           theme: 'rose',
           design: 'solid',

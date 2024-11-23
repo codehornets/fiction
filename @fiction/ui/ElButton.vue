@@ -47,7 +47,7 @@ const hasContent = vue.computed(() => !!slots?.default?.())
 
 <template>
   <component
-    :is="getNavComponentType({ name: 'btn', href }, props.noHover ? 'div' : tag)"
+    :is="getNavComponentType({ href }, props.noHover ? 'div' : tag)"
     :to="to || href"
     class="overflow-hidden"
     :class="[buttonClasses, animateSelected && animate ? 'animate-selected' : '']"

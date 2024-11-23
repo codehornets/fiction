@@ -1,4 +1,4 @@
-import type { MediaObject } from '@fiction/platform'
+import type { MediaObject } from '@fiction/core'
 import type { FictionMedia } from '../plugin-media'
 import type EmailStandard from './templates/EmailStandard.vue'
 import { FictionPlugin, type FictionPluginSettings } from '../plugin.js'

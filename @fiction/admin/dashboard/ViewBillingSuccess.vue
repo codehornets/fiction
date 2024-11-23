@@ -30,23 +30,9 @@ const proStatus = vue.computed(() => fictionStripe?.activeCustomer.value)
       :description="`You're on the '${proStatus?.planName}' tier.`"
       :actions="[
         {
-          name: 'View Dashboard',
+          label: 'View Dashboard',
           href: card.link('/'),
           theme: 'primary',
-        },
-      ]"
-      :bullets="[
-        {
-          name: `Pro Features`,
-          desc: `We've enabled professional grade features and services.`,
-        },
-        {
-          name: `Guaranteed`,
-          desc: `We guarantee satisfaction. If you have issues, let us know.`,
-        },
-        {
-          name: `Community`,
-          desc: `With your upgrade, you've been invited to join the community.`,
         },
       ]"
     />

@@ -196,7 +196,7 @@ const header = vue.computed(() => {
   <SettingsPanel
     title="Team Member"
     :actions="[{
-      name: saveUtil.isDirty.value ? 'Saving...' : 'Saved',
+      label: saveUtil.isDirty.value ? 'Saving...' : 'Saved',
       onClick: () => send(),
       theme: saveUtil.isDirty.value ? 'primary' : 'default',
       loading: sending === 'saving',

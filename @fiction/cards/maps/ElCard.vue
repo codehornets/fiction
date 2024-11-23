@@ -47,7 +47,7 @@ const mapGridCols = vue.computed(() => {
 <template>
   <div class="relative" :class="card.classes.value.contentWidth">
     <div
-      class="grid grid-cols-1 gap-4 md:gap-6 lg:gap-8"
+      class="grid grid-cols-1 gap-6 lg:gap-8"
       :class="[mapGridCols]"
     >
       <div
@@ -64,7 +64,7 @@ const mapGridCols = vue.computed(() => {
             class="absolute inset-0 w-full h-full"
             :map-config="map"
             :container="`mapbox-${card.cardId}-${i}`"
-            :animate="i === 0"
+            :animate="true"
           />
         </div>
       </div>

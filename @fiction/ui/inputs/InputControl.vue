@@ -143,7 +143,7 @@ const actions = vue.computed<ActionButton[]>(() => {
           :disabled="action.disabled"
           @click.stop="action.onClick ? (action.onClick({ item: action, event: $event, props: { controlOption } })) : ''"
         >
-          {{ action.name }}
+          {{ action.label }}
         </XButton>
       </div>
     </div>
@@ -188,7 +188,7 @@ const actions = vue.computed<ActionButton[]>(() => {
               :data-test-id="action.testId"
               @click.stop="action.onClick ? (action.onClick({ item: action, event: $event, props: { controlOption } })) : ''"
             >
-              {{ action.name }}
+              {{ action.label }}
             </XButton>
           </div>
         </div>

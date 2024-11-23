@@ -94,7 +94,7 @@ const buttonClasses = vue.computed(() => {
             <div
               class="text-theme-400 my-2 mb-1 px-4 text-xs font-bold uppercase"
             >
-              {{ item.name }}
+              {{ item.label || item.name }}
             </div>
           </div>
           <div
@@ -103,7 +103,7 @@ const buttonClasses = vue.computed(() => {
             :class="item.selected ? 'bg-theme-50' : ''"
             @click="update(item.value)"
           >
-            {{ item.name }}
+            {{ item.label || item.name }}
           </div>
         </template>
       </div>

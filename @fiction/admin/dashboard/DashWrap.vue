@@ -142,7 +142,7 @@ function toggleSidebar() {
           super-heading="401"
           heading="Login Required"
           sub-heading="Signin to your account to access this page."
-          :actions="[{ name: 'Login', href: card.link('/auth/login') }]"
+          :actions="[{ label: 'Login', href: card.link('/auth/login') }]"
         />
       </template>
       <template v-else-if="!memberHasAccess">

@@ -114,12 +114,12 @@ function getDefaultConfig(args: { stock: StockMedia }): UserConfig {
     text: 'Want to see how others are using FAQs?',
     actions: [
       {
-        name: 'View Examples',
+        label: 'View Examples',
         theme: 'primary',
         icon: { class: 'i-tabler-external-link' },
       },
       {
-        name: 'Get Help',
+        label: 'Get Help',
         theme: 'default',
         icon: { class: 'i-tabler-messages-question' },
       },
@@ -129,7 +129,7 @@ function getDefaultConfig(args: { stock: StockMedia }): UserConfig {
 
 function getDemoConfigs(args: { templateId: string, factory: CardFactory, stock: StockMedia }) {
   const { templateId, stock } = args
-  return {
+  const demos: Record<string, { templateId: string, userConfig: UserConfig }> = {
     product: {
       templateId,
       userConfig: {
@@ -157,12 +157,12 @@ function getDemoConfigs(args: { templateId: string, factory: CardFactory, stock:
           text: 'Ready to see it in action?',
           actions: [
             {
-              name: 'Watch Demo',
+              label: 'Watch Demo',
               theme: 'primary',
               icon: { class: 'i-tabler-player-play' },
             },
             {
-              name: 'Book Consultation',
+              label: 'Book Consultation',
               theme: 'default',
               icon: { class: 'i-tabler-calendar' },
             },
@@ -191,7 +191,7 @@ function getDemoConfigs(args: { templateId: string, factory: CardFactory, stock:
           text: 'Looking for advanced customization?',
           actions: [
             {
-              name: 'View API Docs',
+              label: 'View API Docs',
               theme: 'primary',
               icon: { class: 'i-tabler-code' },
             },
@@ -221,7 +221,7 @@ function getDemoConfigs(args: { templateId: string, factory: CardFactory, stock:
           text: 'Need immediate assistance?',
           actions: [
             {
-              name: 'Live Chat',
+              label: 'Live Chat',
               theme: 'primary',
               icon: { class: 'i-tabler-message-circle' },
             },
@@ -234,6 +234,8 @@ function getDemoConfigs(args: { templateId: string, factory: CardFactory, stock:
       userConfig: getDefaultConfig({ stock }),
     },
   }
+
+  return demos
 }
 
 export async function getConfig(args: { templateId: string, factory: CardFactory }): Promise<ConfigResponse> {

@@ -140,7 +140,7 @@ const options = vue.computed<InputOption[]>(() => {
           props: {
             actions: [
               {
-                name: 'Delete Post...',
+                label: 'Delete Post...',
                 theme: 'rose',
                 design: 'ghost',
                 icon: 'i-tabler-trash',

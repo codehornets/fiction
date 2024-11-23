@@ -515,7 +515,7 @@ const options = vue.computed(() => {
     }"
     :actions="[{
       testId: 'brand-save-button',
-      name: saveUtil?.isDirty.value ? 'Saving...' : 'Saved',
+      label: saveUtil?.isDirty.value ? 'Saving...' : 'Saved',
       onClick: () => updateBrand(),
       theme: saveUtil?.isDirty.value ? 'green' : 'default',
       icon: saveUtil?.isDirty.value ? 'i-tabler-upload' : 'i-tabler-check',

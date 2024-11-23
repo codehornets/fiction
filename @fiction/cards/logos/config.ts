@@ -1,15 +1,15 @@
 import type { MediaObject } from '@fiction/core'
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { StockMedia } from '@fiction/ui/stock'
-import { colorThemeUser } from '@fiction/core'
+import { colorThemeUser, navListItemSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
-const logoSchema = z.object({
-  name: z.string().optional(),
-  href: z.string().optional(),
-  media: z.custom<MediaObject>(),
-  theme: z.enum(colorThemeUser).optional(),
+const logoSchema = navListItemSchema.pick({
+  label: true,
+  href: true,
+  media: true,
+  theme: true,
 })
 
 // Schema
@@ -81,31 +81,31 @@ export function getUserConfig(args: { stock: StockMedia, withColor: boolean }): 
     label: 'Trusted By Industry Leaders',
     items: [
       {
-        name: 'Coke',
+        label: 'Coke',
         media: stock.getLocalMedia({ key: 'logoCoke' }),
         href: '#',
         theme: withColor ? 'red' : undefined,
       },
       {
-        name: 'Tesla',
+        label: 'Tesla',
         media: stock.getLocalMedia({ key: 'logoTesla' }),
         href: '#',
         theme: withColor ? 'blue' : undefined,
       },
       {
-        name: 'Roblox',
+        label: 'Roblox',
         media: stock.getLocalMedia({ key: 'logoRoblox' }),
         href: '#',
         theme: withColor ? 'green' : undefined,
       },
       {
-        name: 'Balenciaga',
+        label: 'Balenciaga',
         media: stock.getLocalMedia({ key: 'logoBalenciaga' }),
         href: '#',
         theme: withColor ? 'pink' : undefined,
       },
       {
-        name: 'SpaceX',
+        label: 'SpaceX',
         media: stock.getLocalMedia({ key: 'logoSpaceX' }),
         href: '#',
         theme: withColor ? 'indigo' : undefined,

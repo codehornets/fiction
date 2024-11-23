@@ -34,7 +34,7 @@ vue.onMounted(() => {
       :icon="action.icon"
       :icon-after="action.iconAfter"
     >
-      {{ action.name }}
+      {{ action.label }}
     </CardButton>
   </div>
 </template>

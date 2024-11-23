@@ -324,7 +324,7 @@ async function handleOnClick(event: MouseEvent, item: ActionButton) {
             :theme="act.theme || 'default'"
             @click.stop="act.onClick ? handleOnClick($event, act) : null"
           >
-            {{ act.name }}
+            {{ act.label }}
           </XButton>
         </div>
         <div v-if="indexMeta.count" class="hidden sm:block">

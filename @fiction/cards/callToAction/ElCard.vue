@@ -88,7 +88,7 @@ vue.onMounted(() => {
               :key="i"
               class="flex gap-4  animate-item max-w-sm items-center justify-start w-full"
             >
-              <XIcon v-if="benefit.media" :media="benefit.media" class="size-12 text-theme-400/70 dark:text-theme-500/70" />
+              <XIcon v-if="benefit.icon" :media="benefit.icon" class="size-12 text-theme-400/70 dark:text-theme-500/70" />
               <div class="grow w-full">
                 <CardText
                   tag="h3"

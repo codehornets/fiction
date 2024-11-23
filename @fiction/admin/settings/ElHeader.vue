@@ -63,7 +63,7 @@ function updateValue<T extends keyof PostObject = keyof PostObject>(key: T, valu
           :disabled="action.disabled"
           @click.stop="action.onClick?.({ event: $event })"
         >
-          {{ action.name }}
+          {{ action.label }}
         </XButton>
       </div>
     </div>

@@ -62,7 +62,7 @@ vue.onMounted(async () => {
       :list="list"
       :loading="loading"
       :actions="[{
-        name: 'Create Post',
+        label: 'Create Post',
         icon: 'i-tabler-plus',
         theme: 'primary',
         onClick: () => (showCreateModal = true),
@@ -86,7 +86,7 @@ vue.onMounted(async () => {
           description="Posts are the building blocks of your marketing efforts. Use them for newsletters, social media clips, and more."
           icon="i-tabler-pin"
           :actions="[{
-            name: 'Create Post',
+            label: 'Create Post',
             onClick: () => (showCreateModal = true),
             theme: 'primary',
             icon: 'i-heroicons-plus',

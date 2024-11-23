@@ -99,7 +99,7 @@ function changePage(newPage: number) {
         </div>
       </CardLink>
     </div>
-    <El404 v-else super-heading="Posts" heading="No Posts Available" sub-heading="Check back later for new content" :actions="[{ name: 'Return to Homepage', href: '/', theme: 'primary' }]" />
+    <El404 v-else super-heading="Posts" heading="No Posts Available" sub-heading="Check back later for new content" :actions="[{ label: 'Return to Homepage', href: '/', theme: 'primary' }]" />
 
     <!-- Pagination -->
     <div v-if="totalPages > 1" class="mt-12 flex justify-center items-center gap-6">

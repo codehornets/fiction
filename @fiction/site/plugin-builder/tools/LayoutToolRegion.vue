@@ -33,14 +33,14 @@ function getCardHandle(card: Card): Handle {
     },
     actions: [
       {
-        name: 'Edit',
+        label: 'Edit',
         icon: 'i-tabler-pencil',
         onClick: () => {
           props.site.setActiveCard({ cardId: card.cardId })
         },
       },
       {
-        name: 'Delete',
+        label: 'Delete',
         icon: 'i-tabler-x',
         onClick: () => {
           const confirm = window.confirm('Are you sure you want to delete this card?')

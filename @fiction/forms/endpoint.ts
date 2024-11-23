@@ -213,7 +213,7 @@ export class QueryManageSubmission extends FormQuery {
         bodyMarkdown,
         heading,
         subHeading: `Details are below`,
-        actions: [{ name: 'Fiction Dashboard', href: `${this.settings.fictionEnv.meta.app?.url}/app` }],
+        actions: [{ label: 'Fiction Dashboard', href: `${this.settings.fictionEnv.meta.app?.url}/app` }],
       }, { server: true }))
 
       const emails = await Promise.all(emailPromises)

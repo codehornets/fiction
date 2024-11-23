@@ -107,7 +107,7 @@ const renderList = vue.computed(() => {
     ? li
     : li.filter((item) => {
       // Construct a single string from name, description, and value, also normalized
-      const searchString = `${item.name?.toLowerCase() || ''} ${item.desc?.toLowerCase() || ''} ${item.value}`
+      const searchString = `${(item.label || item.name)?.toLowerCase() || ''} ${item.desc?.toLowerCase() || ''} ${item.value}`
         .replace(/\s+/g, '') // Remove all whitespace for robust matching
 
       return searchString.includes(s)

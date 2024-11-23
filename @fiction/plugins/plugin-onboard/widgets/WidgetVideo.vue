@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { Widget } from '@fiction/admin/dashboard/widget'
-import type { NavItem } from '@fiction/platform'
+import type { NavItem } from '@fiction/core'
 import WidgetWrap from '@fiction/admin/dashboard/WidgetWrap.vue'
 import XIcon from '@fiction/ui/media/XIcon.vue'
 

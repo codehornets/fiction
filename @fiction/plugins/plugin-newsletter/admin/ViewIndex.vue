@@ -66,7 +66,7 @@ vue.onMounted(async () => {
         :loading="loading"
         :actions="[{
           testId: 'new-campaign-button-index',
-          name: 'Create Campaign',
+          label: 'Create Campaign',
           icon: 'i-tabler-plus',
           theme: 'primary',
           onClick: () => { showStartModal = true },
@@ -90,7 +90,7 @@ vue.onMounted(async () => {
             icon="i-tabler-mail-share"
             :actions="[{
               testId: 'new-campaign-button-zero',
-              name: 'Create First Campaign',
+              label: 'Create First Campaign',
               onClick: () => { showStartModal = true },
               theme: 'primary',
               icon: 'i-heroicons-plus',

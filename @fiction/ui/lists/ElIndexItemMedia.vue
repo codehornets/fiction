@@ -4,7 +4,7 @@ import { vue } from '@fiction/core'
 import XIcon from '@fiction/ui/media/XIcon.vue'
 import XMedia from '@fiction/ui/media/XMedia.vue'
 
-const { media, icon } = defineProps<{ media?: MediaObject, icon?: string }>()
+const { media, icon } = defineProps<{ media?: MediaObject, icon?: string | MediaObject }>()
 
 const mediaClass = `
   relative
@@ -18,7 +18,7 @@ const mediaClass = `
 `
 
 const m = vue.computed(() => {
-  return Object.keys(media || {}).length === 0 ? { class: icon } : media
+  return Object.keys(media || {}).length === 0 ? (typeof icon === 'string' ? { class: icon } : icon) : media
 })
 </script>
 

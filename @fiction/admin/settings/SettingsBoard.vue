@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ActionButton, NavItem, PostObject } from '@fiction/core'
+import type { ActionButton, NavItem, NavListItem, PostObject } from '@fiction/core'
 import type { Card } from '@fiction/site/card'
 import type { NavCardUserConfig } from '..'
 import CardButtons from '@fiction/cards/el/CardButtons.vue'
@@ -36,7 +36,7 @@ const routeItemId = vue.computed(() => toSlug(card.site?.siteRouter.params.value
 
 const currentPanel = vue.computed(() => panels.value.find(p => toSlug(p.slug.value) === routeItemId.value))
 
-const nav = vue.computed<NavItem[]>(() => {
+const nav = vue.computed<NavListItem[]>(() => {
   const router = card.site?.siteRouter.current.value
   const currentRoute = card.site?.siteRouter.current.value
   const query = currentRoute?.fullPath.split('?')[1] || ''
@@ -53,11 +53,11 @@ const nav = vue.computed<NavItem[]>(() => {
       const href = `${base}/${slug}${query ? `?${query}` : ''}`
 
       return {
-        name: p.title.value || toLabel(slug),
-        desc: p.description.value,
+        label: p.title.value || toLabel(slug),
+        description: p.description.value,
         href,
         isActive,
-        icon: isActive && cfg.navIconAlt ? cfg.navIconAlt : cfg.navIcon || 'i-heroicons-arrow-small-right-20-solid',
+        icon: { class: isActive && cfg.navIconAlt ? cfg.navIconAlt : cfg.navIcon || 'i-heroicons-arrow-small-right-20-solid' },
       }
     })
 })
@@ -90,10 +90,10 @@ const nav = vue.computed<NavItem[]>(() => {
           <div v-if="v.icon" class="text-[1.5em] xl:text-[1.75em] shrink-0 text-theme-500 dark:text-theme-50" :class="v.icon" />
           <div class="min-w-0 truncate overflow-ellipsis text-left">
             <div class="font-semibold truncate">
-              {{ v.name }}
+              {{ v.label }}
             </div>
             <div class="text-theme-500 dark:text-theme-400 truncate text-sm">
-              {{ v.desc }}
+              {{ v.description }}
             </div>
           </div>
         </CardLink>

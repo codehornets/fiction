@@ -69,7 +69,7 @@ async function paginate(dir: 'prev' | 'next') {
               size="md"
               @click.stop="act.onClick ? act.onClick({ event: $event, item: act }) : null"
             >
-              {{ act.name }}
+              {{ act.label }}
             </XButton>
           </div>
         </nav>

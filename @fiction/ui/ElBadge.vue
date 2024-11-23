@@ -59,7 +59,7 @@ const btnClass = vue.computed(() => {
 
 <template>
   <component
-    :is="getNavComponentType({ name: 'badge', href })"
+    :is="getNavComponentType({ href })"
     :to="href"
     :href="href"
     class="inline-block whitespace-nowrap rounded-full font-sans font-medium tracking-tight"

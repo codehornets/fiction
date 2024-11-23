@@ -37,7 +37,7 @@ vue.onMounted(() => {
       :class="[clr.bgClasses, clr.textClasses]"
       class="x-action-items text-center flex items-center justify-center size-10 text-2xl rounded-full"
     >
-      <XIcon v-if="item.media" :media="item.media" :title="item.name" />
+      <XIcon v-if="item.media" :media="item.media" :title="item.label || item.name" />
     </a>
   </div>
 </template>

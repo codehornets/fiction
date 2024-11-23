@@ -6,6 +6,7 @@ export type CleanupCallback = (() => void) | undefined
 
 export interface ListItem {
   name?: string
+  label?: string
   value?: string | number
   desc?: string
   selected?: boolean
@@ -23,10 +24,11 @@ export type ClickHandler = (args: { event?: MouseEvent, item?: NavItem, props?: 
 export interface NavItem {
   testId?: string
   name?: string
+  label?: string
   desc?: string
   media?: MediaObject
-  icon?: string
-  iconAfter?: string
+  icon?: string | MediaObject
+  iconAfter?: string | MediaObject
   href?: string
   isActive?: boolean
   isHidden?: boolean

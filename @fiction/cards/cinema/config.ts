@@ -97,7 +97,7 @@ const photographyDemo: CinemaItem[] = [
     },
     actions: [
       {
-        name: 'View Gallery',
+        label: 'View Gallery',
         href: '#',
         design: 'outline',
         icon: 'i-tabler-camera',
@@ -114,8 +114,8 @@ const photographyDemo: CinemaItem[] = [
       url: desertPhoto,
     },
     actions: [
-      { name: 'Book a Session', href: '#', design: 'outline', theme: 'overlay' },
-      { name: 'View Pricing', href: '#', design: 'textOnly', iconAfter: 'i-tabler-chevron-right' },
+      { label: 'Book a Session', href: '#', design: 'outline', theme: 'overlay' },
+      { label: 'View Pricing', href: '#', design: 'textOnly', iconAfter: 'i-tabler-chevron-right' },
     ],
   },
   {
@@ -127,7 +127,7 @@ const photographyDemo: CinemaItem[] = [
       url: wildlifePhoto,
     },
     actions: [
-      { name: 'Explore Projects', href: '#', design: 'outline', theme: 'overlay' },
+      { label: 'Explore Projects', href: '#', design: 'outline', theme: 'overlay' },
     ],
   },
 ]
@@ -142,8 +142,8 @@ const eventDemo: CinemaItem[] = [
       url: cityPhoto,
     },
     actions: [
-      { name: 'Get Tickets', href: '#', design: 'solid', theme: 'primary' },
-      { name: 'Learn More', href: '#', design: 'outline', theme: 'overlay' },
+      { label: 'Get Tickets', href: '#', design: 'solid', theme: 'primary' },
+      { label: 'Learn More', href: '#', design: 'outline', theme: 'overlay' },
     ],
   },
   {
@@ -155,7 +155,7 @@ const eventDemo: CinemaItem[] = [
       url: nightPhoto,
     },
     actions: [
-      { name: 'Register Now', href: '#', design: 'outline', theme: 'overlay' },
+      { label: 'Register Now', href: '#', design: 'outline', theme: 'overlay' },
     ],
   },
 ]

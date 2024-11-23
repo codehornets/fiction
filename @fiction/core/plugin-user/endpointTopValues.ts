@@ -1,4 +1,4 @@
-import type { EndpointMeta, EndpointResponse } from '@fiction/platform'
+import type { EndpointMeta, EndpointResponse } from '@fiction/core'
 import type { Knex } from 'knex'
 import type { UserQuerySettings } from './endpoint'
 import { Query } from '../query'

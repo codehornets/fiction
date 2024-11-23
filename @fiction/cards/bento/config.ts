@@ -128,8 +128,8 @@ export async function getDemoUserConfig(args: { factory: CardFactory, stock: Sto
           overlay: { opacity: 0.3 },
         },
         actions: [
-          { name: 'See Examples' },
-          { name: 'Try It Now' },
+          { label: 'See Examples' },
+          { label: 'Try It Now' },
         ],
       },
 
@@ -187,7 +187,7 @@ export async function getDemoUserConfig(args: { factory: CardFactory, stock: Sto
           overlay: { opacity: 0.5 },
         },
         actions: [
-          { name: 'Learn About Images', design: 'outline' },
+          { label: 'Learn About Images', design: 'outline' },
         ],
       },
 
@@ -246,7 +246,7 @@ export async function getDemoUserConfig(args: { factory: CardFactory, stock: Sto
         verticalPosition: 'center',
         horizontalPosition: 'center',
         actions: [
-          { name: 'Start Building' },
+          { label: 'Start Building' },
         ],
       },
     ],

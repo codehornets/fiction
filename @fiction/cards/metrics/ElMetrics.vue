@@ -16,15 +16,15 @@ const uc = vue.computed(() => props.card.userConfig.value)
   <div>
     <div class="mx-auto grid max-w-6xl  md:grid-cols-3 px-6 lg:px-8 gap-8 gap-y-12 md:gap-24">
       <div
-        v-for="(feat, i) in uc.items"
+        v-for="(feat, i) in uc.metrics"
         :key="i"
       >
         <div class="text-center">
-          <CardText :card tag="h3" :path="`items.${i}.name`" class="text-xl font-medium lg:text-2xl" />
+          <CardText :card tag="h3" :path="`metrics.${i}.label`" class="text-xl lg:text-2xl" />
 
           <XNumber :animate="true" :model-value="feat.value || 0" class="mt-4 text-6xl lg:text-8xl font-bold x-font-title" :format="feat.format || 'abbreviated'" />
 
-          <CardText :card tag="p" :path="`items.${i}.desc`" class="text-balance text-theme-400 dark:text-theme-500 mt-3 font-sans text-sm font-medium " />
+          <CardText :card tag="p" :path="`metrics.${i}.desc`" class="text-balance text-theme-400 dark:text-theme-500 mt-3 font-sans text-sm " />
         </div>
       </div>
     </div>

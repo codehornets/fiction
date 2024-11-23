@@ -1,4 +1,5 @@
 import type { template as footerProTemplate } from '@fiction/cards/footerPro/index.js'
+import type { template as navTemplate } from '@fiction/cards/nav/index.js'
 import type { FictionStripe } from '@fiction/plugin-stripe/index.js'
 import type { Site } from '@fiction/site'
 import type { CardFactory } from '@fiction/site/cardFactory'
@@ -89,117 +90,151 @@ export async function getConfig(args: {
     sections: {
       hidden: await factory.fromTemplate({
         cards: [
-          await factory.fromTemplate({ templateId: 'mediaPop', userConfig: { } }),
+          await factory.fromTemplate({ templateId: 'contentModal', userConfig: { } }),
           await factory.fromTemplate({ templateId: 'textEffects', userConfig: { } }),
         ],
       }),
       header: await factory.fromTemplate({
         cards: [
-          await factory.fromTemplate({
+          await factory.fromTemplate<typeof navTemplate>({
             templateId: 'nav',
             userConfig: {
               layout: 'navCenter',
-              logo: {
-                format: 'component',
-                el: FictionLogo,
+              brand: {
+                logo: {
+                  format: 'component',
+                  el: FictionLogo,
+                },
               },
-              navA: [
-                { name: 'Why Fiction', href: '/tour' },
-                { name: 'About', href: '/about' },
+
+              primaryNav: [
+                { label: 'Why Fiction', href: '/tour' },
+                { label: 'About', href: '/about' },
                 {
-                  name: 'Web Elements',
-                  desc: 'Professional components for your website',
-                  subStyle: 'mega',
-                  items: [
-                    {
-                      name: 'Content',
-                      items: [
-                        { name: 'Bento', href: '/demo-bento' },
-                        { name: 'Trek', href: '/demo-trek' },
-                        { name: 'Numbered List', href: '/demo-numberedList' },
-                        { name: 'People', href: '/demo-people' },
-                        { name: 'Features', href: '/demo-features' },
-                        { name: 'Tour', href: '/demo-tour' },
-                        { name: 'Hero', href: '/demo-hero' },
-                        { name: 'Statement', href: '/demo-statement' },
-                      ],
-                    },
-                    {
-                      name: 'Conversion',
-                      items: [
-                        { name: 'Capture', href: '/demo-capture' },
-                        { name: 'Call to Action', href: '/demo-callToAction' },
-                        { name: 'Pricing', href: '/demo-pricing' },
-                        { name: 'Contact', href: '/demo-contact' },
-                        { name: 'FAQ / List', href: '/demo-faq' },
-                      ],
-                    },
-                    {
-                      name: 'Portfolio',
-                      items: [
-                        { name: 'Gallery', href: '/demo-gallery' },
-                        { name: 'Showcase', href: '/demo-showcase' },
-                        { name: 'Cinema', href: '/demo-cinema' },
-                        { name: 'Marquee', href: '/demo-marquee' },
-                        { name: 'Logos', href: '/demo-logos' },
-                        { name: 'Metrics', href: '/demo-metrics' },
-                        { name: 'Testimonials', href: '/demo-testimonials' },
-                      ],
-                    },
+                  label: 'Web Elements',
+                  description: 'Professional components for your website',
+                  list: {
+                    variant: 'expanded',
+                    items: [
+                      {
+                        label: 'Content',
+                        list: {
+                          items: [
+                            { label: 'Bento', href: '/demo-bento' },
+                            { label: 'Trek', href: '/demo-trek' },
+                            { label: 'Numbered List', href: '/demo-numberedList' },
+                            { label: 'People', href: '/demo-people' },
+                            { label: 'Features', href: '/demo-features' },
+                            { label: 'Tour', href: '/demo-tour' },
+                            { label: 'Hero', href: '/demo-hero' },
+                            { label: 'Statement', href: '/demo-statement' },
+                          ],
+                        },
 
-                    {
-                      name: 'Site',
-                      items: [
-                        { name: 'Nav', href: '/demo-nav' },
-                        { name: 'Footer Pro', href: '/demo-footerPro' },
-                        { name: 'Footer X', href: '/demo-footerX' },
-                        { name: 'Maps', href: '/demo-maps' },
-                        { name: 'Area', href: '/demo-area' },
-                      ],
-                    },
-                    {
-                      name: 'Typography',
-                      items: [
-                        { name: 'Ticker', href: '/demo-ticker' },
-                        { name: 'Fit Text', href: '/demo-fitText' },
-                        { name: 'Quotes', href: '/demo-quotes' },
+                      },
+                      {
+                        label: 'Conversion',
+                        list: {
+                          items: [
+                            { label: 'Capture', href: '/demo-capture' },
+                            { label: 'Call to Action', href: '/demo-callToAction' },
+                            { label: 'Pricing', href: '/demo-pricing' },
+                            { label: 'Contact', href: '/demo-contact' },
+                            { label: 'FAQ / List', href: '/demo-faq' },
+                          ],
+                        },
 
-                      ],
-                    },
-                    {
-                      name: 'Posts',
-                      items: [
-                        { name: 'Magazine', href: '/demo-magazine' },
-                        { name: 'Post List', href: '/demo-postList' },
-                      ],
-                    },
-                    {
-                      name: 'Profile',
-                      items: [
-                        { name: 'Over Slide', href: '/demo-overSlide' },
-                        { name: 'Profile', href: '/demo-profile' },
-                        { name: 'Story', href: '/demo-story' },
-                      ],
-                    },
+                      },
+                      {
+                        label: 'Portfolio',
+                        list: {
+                          items: [
+                            { label: 'Gallery', href: '/demo-gallery' },
+                            { label: 'Showcase', href: '/demo-showcase' },
+                            { label: 'Cinema', href: '/demo-cinema' },
+                            { label: 'Marquee', href: '/demo-marquee' },
+                            { label: 'Logos', href: '/demo-logos' },
+                            { label: 'Metrics', href: '/demo-metrics' },
+                            { label: 'Testimonials', href: '/demo-testimonials' },
+                          ],
+                        },
 
-                    {
-                      name: 'Standard UI',
-                      items: [
-                        { name: 'Buttons', href: '/demo-xbutton' },
-                        { name: 'Inputs', href: '/demo-xinput' },
-                        { name: 'Media', href: '/demo-xmedia' },
-                        { name: 'Logo', href: '/demo-xlogo' },
-                        { name: 'Shapes', href: '/demo-effectShape' },
-                      ],
-                    },
-                  ],
+                      },
+                      {
+                        label: 'Site',
+                        list: {
+                          items: [
+                            { label: 'Nav', href: '/demo-nav' },
+                            { label: 'Footer Pro', href: '/demo-footerPro' },
+                            { label: 'Footer X', href: '/demo-footerX' },
+                            { label: 'Maps', href: '/demo-maps' },
+                            { label: 'Area', href: '/demo-area' },
+                          ],
+                        },
+                      },
+                      {
+                        label: 'Typography',
+                        list: {
+                          items: [
+                            { label: 'Ticker', href: '/demo-ticker' },
+                            { label: 'Fit Text', href: '/demo-fitText' },
+                            { label: 'Quotes', href: '/demo-quotes' },
+
+                          ],
+                        },
+
+                      },
+                      {
+                        label: 'Posts',
+                        list: {
+                          items: [
+                            { label: 'Magazine', href: '/demo-magazine' },
+                            { label: 'Post List', href: '/demo-postList' },
+                          ],
+                        },
+
+                      },
+                      {
+                        label: 'Profile',
+                        list: {
+                          items: [
+                            { label: 'Over Slide', href: '/demo-overSlide' },
+                            { label: 'Profile', href: '/demo-profile' },
+                            { label: 'Story', href: '/demo-story' },
+                          ],
+                        },
+
+                      },
+
+                      {
+                        label: 'Standard UI',
+                        list: {
+                          items: [
+                            { label: 'Buttons', href: '/demo-xbutton' },
+                            { label: 'Inputs', href: '/demo-xinput' },
+                            { label: 'Media', href: '/demo-xmedia' },
+                            { label: 'Logo', href: '/demo-xlogo' },
+                            { label: 'Shapes', href: '/demo-effectShape' },
+                          ],
+                        },
+
+                      },
+                    ],
+                  },
                 },
               ],
-              navB: [
-                { name: 'Account', href: '/app?_reload=1', itemStyle: 'user', items: [
-                  { name: 'Sign In', href: '/app/auth/login?_reload=1', authState: 'loggedOut' },
-                  { name: 'Dashboard', href: '/app?_reload=1', authState: 'loggedIn' },
-                ] },
+              utilityNav: [
+                {
+                  label: 'Account',
+                  href: '/app?_reload=1',
+                  variant: 'avatar',
+                  list: {
+                    items: [
+                      { label: 'Sign In', href: '/app/auth/login?_reload=1', onAuthState: 'loggedOut' },
+                      { label: 'Dashboard', href: '/app?_reload=1', onAuthState: 'loggedIn' },
+                    ],
+                  },
+                },
               ],
 
             },
@@ -216,32 +251,32 @@ export async function getConfig(args: {
                 title: 'Fiction',
                 subTitle: `Your story begins here...`,
                 actions: [
-                  { name: 'Start Free', theme: 'primary', icon: { iconId: 'bolt' } },
-                  { name: 'Talk to Sales', theme: 'default', icon: { iconId: 'phone' } },
+                  { label: 'Start Free', theme: 'primary', icon: { iconId: 'bolt' } },
+                  { label: 'Talk to Sales', theme: 'default', icon: { iconId: 'phone' } },
                 ],
               },
               columns: [
                 {
                   title: 'Explore',
                   items: [
-                    { href: '/tour', name: 'Tour' },
-                    { href: '/pricing', name: 'Pricing' },
-                    { href: '/developer', name: 'Developer' },
+                    { href: '/tour', label: 'Tour' },
+                    { href: '/pricing', label: 'Pricing' },
+                    { href: '/developer', label: 'Developer' },
                   ],
                 },
                 {
                   title: 'Company',
                   items: [
-                    { href: '/about', name: 'About' },
-                    { href: '/affiliate', name: 'Affiliate' },
+                    { href: '/about', label: 'About' },
+                    { href: '/affiliate', label: 'Affiliate' },
                   ],
                 },
                 {
                   title: 'Using Fiction',
                   items: [
-                    { href: `https://docs.${domain}`, name: 'Docs', target: '_blank' },
-                    { href: `https://docs.${domain}/resources/support.html`, name: 'Support', target: '_blank' },
-                    { href: '/app?_reload=1', name: 'Dashboard' },
+                    { href: `https://docs.${domain}`, label: 'Docs', target: '_blank' },
+                    { href: `https://docs.${domain}/resources/support.html`, label: 'Support', target: '_blank' },
+                    { href: '/app?_reload=1', label: 'Dashboard' },
                   ],
                 },
               ],
@@ -249,9 +284,9 @@ export async function getConfig(args: {
               additional: {
                 social,
                 links: [
-                  { name: 'Privacy', href: `https://docs.${domain}/resources/privacy.html` },
-                  { name: 'Terms', href: `https://docs.${domain}/resources/terms.html` },
-                  { name: `© ${dayjs().format('YYYY')} Fiction.com` },
+                  { label: 'Privacy', href: `https://docs.${domain}/resources/privacy.html` },
+                  { label: 'Terms', href: `https://docs.${domain}/resources/terms.html` },
+                  { label: `© ${dayjs().format('YYYY')} Fiction.com` },
                 ],
               },
 
@@ -261,7 +296,7 @@ export async function getConfig(args: {
                   {
                     href: 'https://stripe.com/partners',
                     target: '_blank',
-                    name: 'Stripe Verified Partner',
+                    label: 'Stripe Verified Partner',
                     icon: { iconId: 'stripe' },
                   },
                 ],

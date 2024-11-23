@@ -36,7 +36,7 @@ defineProps({
           :icon="item.icon"
           @click="item.onClick?.({ event: $event, item })"
         >
-          {{ item.name }}
+          {{ item.label }}
         </XButton>
       </div>
     </div>

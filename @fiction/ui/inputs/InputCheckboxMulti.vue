@@ -79,8 +79,8 @@ function inputClasses(item: ListItem) {
           :checked="isSelected(item.value)"
           @input="selectValue(item)"
         >
-        <span v-if="item.name" :class="cls.text">
-          {{ item.name }}
+        <span v-if="item.label || item.name" :class="cls.text">
+          {{ item.label || item.name }}
         </span>
       </label>
     </div>

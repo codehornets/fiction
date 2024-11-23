@@ -1,6 +1,142 @@
 import { describe, expect, it } from 'vitest'
 
+import { getNavComponentType } from '../ui'
 import { displayDomain, getDomainFavicon, getUrlPath, gravatarUrlSync, incrementSlugId, refineRoute, safeUrl, standardizeUrlOrPath, updateUrl, urlPath, validHost } from '../url'
+
+describe('getNavComponentType', () => {
+  // Internal Navigation Tests
+  describe('internal navigation', () => {
+    it('should return RouterLink for simple internal paths', () => {
+      expect(getNavComponentType({ href: '/about' })).toBe('RouterLink')
+      expect(getNavComponentType({ href: '/products' })).toBe('RouterLink')
+      expect(getNavComponentType({ href: '/contact' })).toBe('RouterLink')
+    })
+
+    it('should return RouterLink for internal paths with query params', () => {
+      expect(getNavComponentType({ href: '/products?category=new' })).toBe('RouterLink')
+      expect(getNavComponentType({ href: '/search?q=test' })).toBe('RouterLink')
+      expect(getNavComponentType({ href: '/?name=John' })).toBe('RouterLink')
+    })
+
+    it('should return RouterLink for standalone query params', () => {
+      expect(getNavComponentType({ href: '?q=test&sort=price' })).toBe('RouterLink')
+      expect(getNavComponentType({ href: '?category=all' })).toBe('RouterLink')
+    })
+
+    it('should return RouterLink for internal paths with fragments', () => {
+      expect(getNavComponentType({ href: '/about#team' })).toBe('RouterLink')
+      expect(getNavComponentType({ href: '/docs#installation' })).toBe('RouterLink')
+    })
+  })
+
+  // External URL Tests
+  describe('external urls', () => {
+    it('should return "a" for absolute URLs', () => {
+      expect(getNavComponentType({ href: 'https://example.com' })).toBe('a')
+      expect(getNavComponentType({ href: 'http://example.com' })).toBe('a')
+    })
+
+    it('should return "a" for protocol-relative URLs', () => {
+      expect(getNavComponentType({ href: '//example.com' })).toBe('a')
+    })
+
+    it('should return "a" for mailto links', () => {
+      expect(getNavComponentType({ href: 'mailto:test@example.com' })).toBe('a')
+    })
+
+    it('should return "a" for tel links', () => {
+      expect(getNavComponentType({ href: 'tel:+1234567890' })).toBe('a')
+    })
+  })
+
+  // Special Cases Tests
+  describe('special cases', () => {
+    it('should return "a" for reload parameter', () => {
+      expect(getNavComponentType({ href: '/about?_reload=1' })).toBe('a')
+      expect(getNavComponentType({ href: '/profile?_reload=true' })).toBe('a')
+    })
+
+    it('should return "a" for download links', () => {
+      expect(getNavComponentType({ href: '/files/doc.pdf' })).toBe('a')
+      expect(getNavComponentType({ href: '/download.zip' })).toBe('a')
+      expect(getNavComponentType({ href: '/report.doc' })).toBe('a')
+    })
+
+    it('should return "a" for target _blank', () => {
+      expect(getNavComponentType({ href: '/about', target: '_blank' })).toBe('a')
+    })
+
+    it('should return "a" for dynamic route patterns', () => {
+      expect(getNavComponentType({ href: '/users/:id' })).toBe('a')
+      expect(getNavComponentType({ href: '/products/:category/:id' })).toBe('a')
+    })
+
+    it('should return "a" for hash-only links', () => {
+      expect(getNavComponentType({ href: '#top' })).toBe('a')
+      expect(getNavComponentType({ href: '#section-1' })).toBe('a')
+    })
+  })
+
+  // Fallback Tests
+  describe('fallback behavior', () => {
+    it('should return default fallback for no href', () => {
+      expect(getNavComponentType({})).toBe('div')
+      expect(getNavComponentType({ href: '' })).toBe('div')
+    })
+
+    it('should respect custom fallback', () => {
+      expect(getNavComponentType({}, 'button')).toBe('button')
+      expect(getNavComponentType({}, 'span')).toBe('span')
+    })
+  })
+
+  // Edge Cases Tests
+  describe('edge cases', () => {
+    it('should handle undefined inputs safely', () => {
+      expect(getNavComponentType(undefined as any)).toBe('div')
+      expect(getNavComponentType(null as any)).toBe('div')
+    })
+
+    it('should handle malformed URLs safely', () => {
+      expect(getNavComponentType({ href: 'not-a-url:test' })).toBe('a')
+      expect(getNavComponentType({ href: ':invalid:' })).toBe('a')
+    })
+
+    it('should handle empty strings appropriately', () => {
+      expect(getNavComponentType({ href: '' })).toBe('div')
+      expect(getNavComponentType({ href: ' ' })).toBe('div')
+    })
+  })
+
+  // Combined Scenarios Tests
+  describe('combined scenarios', () => {
+    it('should handle complex internal paths correctly', () => {
+      expect(getNavComponentType({
+        href: '/products/category-1/item-2?sort=price&filter=new#details',
+      })).toBe('RouterLink')
+    })
+
+    it('should handle complex external paths correctly', () => {
+      expect(getNavComponentType({
+        href: 'https://example.com/path?query=test#section',
+      })).toBe('a')
+    })
+
+    it('should prioritize target attribute over internal path', () => {
+      expect(getNavComponentType({
+        href: '/internal/path',
+        target: '_blank',
+      })).toBe('a')
+    })
+
+    it('should handle paths with multiple special conditions', () => {
+      expect(getNavComponentType({
+        href: '/download/report.pdf?_reload=1#page=1',
+        target: '_blank',
+      })).toBe('a')
+    })
+  })
+})
 
 describe('gravatarUrlSync', async () => {
   const realEmail = 'arpowers@gmail.com'

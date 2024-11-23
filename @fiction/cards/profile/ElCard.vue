@@ -90,13 +90,13 @@ vue.onMounted(async () => {
                   <CardText
                     :card
                     class="font-semibold"
-                    :path="`details.${i}.name`"
+                    :path="`details.${i}.label`"
                   />
                   <CardText
                     tag="a"
                     :card
                     :class="item.href ? 'hover:opacity-80 text-primary-600 dark:text-primary-400' : 'text-theme-500 dark:text-theme-400'"
-                    :path="`details.${i}.desc`"
+                    :path="`details.${i}.description`"
                     :href="item.href"
                   />
                 </div>

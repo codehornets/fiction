@@ -45,7 +45,7 @@ const passProps = vue.computed(() => {
       <div
         class="whitespace-nowrap "
         :class="getItemClass({ item, i, items })"
-        :title="item.name"
+        :title="item.label || item.name"
         @click.prevent="item.onClick ? item.onClick({ event: $event, item }) : ''"
       >
         <span class="text-lg" :class="item.icon" />
@@ -73,7 +73,7 @@ const passProps = vue.computed(() => {
                 :class="getItemClass({ item: subItem, i: ii, items: item.items })"
                 @click.prevent="subItem.onClick ? subItem.onClick({ event: $event, item }) : ''"
               >
-                <span class="text-base" :class="subItem.icon" :title="item.name" />
+                <span class="text-base" :class="subItem.icon" :title="item.label || item.name" />
               </div>
             </template>
           </div>

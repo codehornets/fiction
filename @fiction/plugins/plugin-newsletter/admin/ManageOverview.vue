@@ -353,7 +353,7 @@ const header = vue.computed(() => {
   const actions = [
     {
       size: 'md',
-      name: 'Email Composer',
+      label: 'Email Composer',
       icon: 'i-tabler-edit',
       theme: !isReady ? 'primary' : 'theme',
       onClick: () => saveBeforeNavigate({ location: 'header-composer-link', href: getCampaignLink('newsletter-composer') }),
@@ -366,14 +366,14 @@ const header = vue.computed(() => {
     actions.push({
       size: 'md',
       design: 'textOnly',
-      name: isReady ? 'Ready' : `${allControlOptions.length - incompleteItems.length} / ${allControlOptions.length} Complete`,
+      label: isReady ? 'Ready' : `${allControlOptions.length - incompleteItems.length} / ${allControlOptions.length} Complete`,
       disabled: true,
     })
   }
   else {
     actions.unshift({
       size: 'md',
-      name: isScheduled ? 'Schedule Send' : 'Send Now',
+      label: isScheduled ? 'Schedule Send' : 'Send Now',
       icon: 'i-tabler-send',
       theme: 'primary',
       onClick: () => {

@@ -292,7 +292,7 @@ const toolFormOptions = vue.computed<InputOption[]>(() => {
     title="User Account and Author Profile"
     :loading
     :actions="[{
-      name: saveUtil.isDirty.value ? 'Saving...' : 'Saved',
+      label: saveUtil.isDirty.value ? 'Saving...' : 'Saved',
       onClick: () => save(),
       theme: saveUtil.isDirty.value ? 'primary' : 'default',
       loading: sending === 'saving',

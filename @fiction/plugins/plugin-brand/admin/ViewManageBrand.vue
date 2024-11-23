@@ -76,7 +76,7 @@ function updateBrand(brandNew: TableBrand) {
     }"
     :nav-actions="[
       {
-        name: 'Brand Library',
+        label: 'Brand Library',
         theme: 'default',
         size: 'sm',
         href: card.link('/brand'),

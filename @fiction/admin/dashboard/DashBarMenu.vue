@@ -98,7 +98,7 @@ onResetUi(() => {
                   :class="[item.icon, item.href || item.onClick ? 'group-hover:text-primary-500 group-hover:dark:text-primary-500 dark:group-hover:text-primary-300' : '']"
                 />
                 <div class="text-base">
-                  {{ item.name }}
+                  {{ item.label || item.name }}
                 </div>
                 <div v-if="item.figure?.el" class="flex justify-end grow">
                   <component :is="item.figure?.el" :site="site" />

@@ -1,4 +1,4 @@
-import { colorThemeUser, MediaBasicSchema, vue } from '@fiction/core'
+import { ActionButtonSchema, colorThemeUser, MediaBasicSchema, vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site'
 import { InputOption } from '@fiction/ui'
 import { createStockMediaHandler } from '@fiction/ui/stock/index.js'
@@ -11,11 +11,7 @@ const schema = z.object({
     title: z.string().optional().describe('Title of the tour item'),
     content: z.string().optional().describe('content or tagline of the tour item'),
     media: MediaBasicSchema.optional().describe('Media for the tour item'),
-    actions: z.array(z.object({
-      name: z.string().optional(),
-      href: z.string().optional(),
-      theme: z.enum(colorThemeUser).optional(),
-    })).optional().describe('Action buttons for item'),
+    actions: z.array(ActionButtonSchema).optional().describe('Action buttons for item'),
   })).optional(),
 })
 
@@ -42,13 +38,13 @@ async function defaultConfig(): Promise<UserConfig> {
         title: `Title Goes Here`,
         content: `Content or tagline goes here.`,
         media: stock.getRandomByTags(['background', 'video']),
-        actions: [{ name: 'Button Label', href: '#' }],
+        actions: [{ label: 'Button Label', href: '#' }],
       },
       {
         title: `Another Title`,
         content: `Secondary content or brief description.`,
         media: stock.getRandomByTags(['background', 'video']),
-        actions: [{ name: 'Button Label', href: '#' }],
+        actions: [{ label: 'Button Label', href: '#' }],
       },
       {
         title: 'Exhibit Title Here',
@@ -59,7 +55,7 @@ async function defaultConfig(): Promise<UserConfig> {
         title: `Call to Action Title`,
         content: `Encouraging statement or invitation to connect.`,
         media: stock.getRandomByTags(['background', 'video']),
-        actions: [{ name: 'Button Label', href: '#' }],
+        actions: [{ label: 'Button Label', href: '#' }],
       },
     ],
   }

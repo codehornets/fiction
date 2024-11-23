@@ -15,6 +15,8 @@ export async function getPages(args: { factory: CardFactory, site: Site, userCon
 
   const { defaultMap } = await import('@fiction/cards/maps/config')
 
+  const stock = await factory.getStockMedia()
+
   return [
     await factory.fromTemplate({
       slug: '_home',
@@ -29,7 +31,7 @@ export async function getPages(args: { factory: CardFactory, site: Site, userCon
       cards: [
         await factory.fromTemplate<typeof MagazineTemplate>({
           templateId: 'magazine',
-          userConfig: await getDemoUserConfig({ factory }),
+          userConfig: await getDemoUserConfig({ factory, stock }),
         }),
       ],
     }),

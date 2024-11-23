@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { NavItem } from '@fiction/core'
+import type { NavItem, NavListItem } from '@fiction/core'
 import { onResetUi, shortId, vue } from '@fiction/core'
 import { onBrowserEvent } from '@fiction/core/utils/eventBrowser'
 import { animateItemEnter, useElementVisible } from './anim'
@@ -12,7 +12,7 @@ defineOptions({
 
 const props = defineProps<{
   vis: boolean
-  nav: Record<string, NavItem[]>
+  nav: Record<string, NavListItem[]>
 }>()
 
 const emit = defineEmits(['update:vis'])
@@ -77,10 +77,10 @@ vue.onMounted(() => {
       class="dark z-0 fixed h-[100dvh] top-0 right-0 w-full bg-gradient-to-br from-theme-800 to-theme-950 text-theme-0"
       @click.stop
     >
-      <div :id="randomId" class="w-[255px] h-full float-right">
+      <div :id="randomId" class="w-[265px] h-full float-right">
         <ElClose class="absolute right-4 top-4 z-20" @click="close" />
 
-        <div class="h-full py-20 flex flex-col justify-start gap-4 relative z-10 overflow-y-scroll">
+        <div class="pl-6 h-full py-20 flex flex-col justify-start gap-4 relative z-10 overflow-y-scroll">
           <div v-for="(items, section) in nav" :key="section" class="flex flex-col justify-center">
             <div
               class="flex flex-col gap-6"

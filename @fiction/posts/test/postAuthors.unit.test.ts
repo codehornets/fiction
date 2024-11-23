@@ -1,4 +1,4 @@
-import type { EndpointMeta } from '@fiction/platform'
+import type { EndpointMeta } from '@fiction/core'
 import type { ManagePostParams } from '../endpoint'
 import { createTestUser } from '@fiction/core/test-utils/init'
 import { createSiteTestUtils } from '@fiction/site/test/testUtils'

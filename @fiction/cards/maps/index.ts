@@ -7,16 +7,18 @@ export const template = cardTemplate({
   templateId,
   category: ['advanced'],
   title: 'Interactive Map',
-  description: 'Customizable map display with markers and location information',
+  description: 'Add interactive maps to showcase locations, highlight regions of interest, and provide contextual geographic information. Perfect for business locations, travel itineraries, or geographic data visualization.',
   icon: 'i-tabler-map-2',
   colorTheme: 'blue',
   isPublic: true,
-  el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
-  getConfig: async () => {
+  el: vue.defineAsyncComponent(() => import('./ElCard.vue')),
+
+  // Use async getConfig for better bundle splitting
+  async getConfig(args) {
     const { getConfig } = await import('./config')
-    return getConfig({ templateId })
+    return getConfig({ ...args, templateId })
   },
+
 })
 
-// Export types
 export type { UserConfig } from './config'

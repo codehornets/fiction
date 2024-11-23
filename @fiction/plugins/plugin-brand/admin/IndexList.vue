@@ -12,7 +12,7 @@ import ElStart from './ElStart.vue'
 
 const { card, brandIndex } = defineProps<{ card: Card, brandIndex: TableBrand[] }>()
 
-const { fictionBrand, fictionRouter } = useService<{ fictionBrand: FictionBrand }>()
+useService<{ fictionBrand: FictionBrand }>()
 
 const loading = vue.ref(false)
 
@@ -41,7 +41,7 @@ const showStartModal = vue.ref(false)
         :loading
         :actions="[{
           testId: 'new-brand-button',
-          name: 'Create Brand Guidelines',
+          label: 'Create Brand Guidelines',
           icon: 'i-tabler-plus',
           theme: 'primary',
           onClick: () => { showStartModal = true },
@@ -65,7 +65,7 @@ const showStartModal = vue.ref(false)
             icon="i-tabler-briefcase"
             :actions="[{
               testId: 'new-brand-button-zero',
-              name: 'Get Started',
+              label: 'Get Started',
               onClick: () => { showStartModal = true },
               theme: 'primary',
               icon: 'i-tabler-wand',

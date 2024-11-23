@@ -112,7 +112,7 @@ export class QuerySeekInviteFromUser extends TeamQuery {
       heading: 'Request for Access',
       subHeading: 'A user has requested access to your organization.',
       actions: [{
-        name: 'Login and Invite',
+        label: 'Login and Invite',
         href: `${appUrl}${path}`,
       }],
     }, { server: true })
@@ -215,7 +215,7 @@ export class QueryTeamInvite extends TeamQuery {
         bodyMarkdown,
         actions: [
           {
-            name: linkText,
+            label: linkText,
             href: linkUrl,
             theme: 'primary',
           },

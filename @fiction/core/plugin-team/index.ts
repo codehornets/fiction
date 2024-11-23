@@ -92,7 +92,7 @@ export class FictionTeam extends FictionPlugin<FictionTeamSettings> {
       subHeading: `To join ${org.orgName} on Fiction`,
       bodyMarkdown,
       actions: [{
-        name: 'Set Your Password',
+        label: 'Set Your Password',
         href: this.invitationReturnUrl({
           code: verify?.code,
           email,

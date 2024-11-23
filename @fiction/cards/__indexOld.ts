@@ -24,7 +24,7 @@ import * as magazine from './magazine/index.js'
 import * as map from './map/index.js'
 import * as marquee from './marquee/index.js'
 import * as mediaGrid from './media-grid/index.js'
-import * as mediaPop from './mediaPop/index.js'
+import * as contentModal from './contentModal/index.js'
 import * as metrics from './metrics/index.js'
 import * as nav from './nav/index.js'
 import * as overSlide from './overSlide/index.js'
@@ -88,7 +88,7 @@ export async function getCardTemplates(): Promise<CardTemplate<any>[]> {
     features.template,
     metrics.template,
     faq.template,
-    mediaPop.template,
+    contentModal.template,
     textEffects.template,
     trek.template,
     fitText.template,

@@ -28,17 +28,17 @@ vue.onMounted(async () => {
     actions: [
       {
         theme: 'primary',
-        name: `Confirm email address &#x2192;`,
+        label: `Confirm email address &#x2192;`,
         href: '#',
       },
       {
         theme: 'default',
-        name: `test`,
+        label: `test`,
         href: '#',
       },
       {
         theme: 'naked',
-        name: `Test`,
+        label: `Test`,
         href: '#',
       },
     ],

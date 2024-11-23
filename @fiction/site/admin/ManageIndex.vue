@@ -47,7 +47,7 @@ const list = vue.computed<IndexItem[]>(() => {
 function getActions(location: 'top' | 'zero') {
   const actions: ActionButton[] = [{
     testId: 'createSite',
-    name: 'Create New Site',
+    label: 'Create New Site',
     icon: 'i-tabler-plus',
     theme: 'primary',
     onClick: () => (showCreateModal.value = true),

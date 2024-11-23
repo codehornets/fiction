@@ -21,7 +21,7 @@ defineProps({
       <div>
         <div v-if="back" class="mb-6">
           <XButton icon="i-tabler-arrow-left" rounding="full" theme="default" size="xs" @click.stop.prevent="back?.onClick?.({ event: $event })">
-            {{ back?.name || "Back" }}
+            {{ back?.label || "Back" }}
           </XButton>
         </div>
         <h3 class="font-semibold flex gap-1.5 items-center">
@@ -39,7 +39,7 @@ defineProps({
           :size="item.size || 'xs'"
           @click.prevent="item.onClick?.({ event: $event, item })"
         >
-          {{ item?.name }}
+          {{ item?.label }}
         </XButton>
       </div>
     </div>

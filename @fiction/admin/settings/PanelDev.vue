@@ -100,7 +100,7 @@ vue.onMounted(async () => {
     title="Developer Portal"
     :loading="loading"
     :actions="[{
-      name: saveUtil.isDirty.value ? 'Saving changes...' : 'All changes saved',
+      label: saveUtil.isDirty.value ? 'Saving changes...' : 'All changes saved',
       onClick: () => save(),
       theme: saveUtil.isDirty.value ? 'primary' : 'default',
       loading: saving === 'saving',

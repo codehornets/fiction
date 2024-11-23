@@ -42,7 +42,7 @@ vue.onMounted(async () => {
 
 const actions: ActionButton[] = [
   {
-    name: 'View Sites',
+    label: 'View Sites',
     icon: 'i-tabler-layout-grid',
     href: props.card.link('/sites'),
   },
@@ -56,7 +56,7 @@ const list = vue.computed<IndexItem[]>(() => {
 
 <template>
   <WidgetWrap :widget :actions>
-    <IndexItemList :list :actions="[{ name: 'Add Site', theme: 'primary', href: card.link('/sites?addNew=1') }]" zero-text="No sites found. Create one.">
+    <IndexItemList :list :actions="[{ label: 'Add Site', theme: 'primary', href: card.link('/sites?addNew=1') }]" zero-text="No sites found. Create one.">
       <template #subTitle="{ item }">
         <div class="flex items-center gap-4">
           <span class="inline-flex gap-1 items-center"><span class="i-tabler-world" /><span>{{ item.desc }}</span></span>

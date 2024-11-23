@@ -77,6 +77,8 @@ async function renderMap() {
     style,
   })
 
+  loading.value = false
+
   // Dynamically create and style SVG element
   const createCustomMarker = (clr: { bg: string, stroke: string }) => {
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24">
@@ -92,8 +94,6 @@ async function renderMap() {
   }
 
   map.value.on('load', () => {
-    loading.value = false
-
     const m = map.value
 
     if (!m)
@@ -167,7 +167,11 @@ vue.onUnmounted(() => {
     >
       <ElSpinner class="h-12 w-12" />
     </div>
-    <AnimClipPath :animate="animate" class="w-full h-full outline-none focus:outline-none focus:ring-0 drop-shadow-md" caller="ElMap">
+    <AnimClipPath
+      :animate="animate"
+      class="w-full h-full outline-none focus:outline-none focus:ring-0 drop-shadow-md"
+      :caller="`ElMap-${container}`"
+    >
       <div
         :id="container"
         class="h-full cursor-auto text-black font-bold font-sans text-xs"

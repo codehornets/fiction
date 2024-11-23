@@ -260,7 +260,7 @@ const header = vue.computed(() => {
     title="Subscriber Details"
     :actions="[{
       testId: 'subscriber-save-button',
-      name: saveUtil.isDirty.value ? 'Saving...' : 'Saved',
+      label: saveUtil.isDirty.value ? 'Saving...' : 'Saved',
       onClick: () => saveSubscriber(),
       theme: saveUtil.isDirty.value ? 'orange' : 'theme',
       loading: sending === 'saving',

@@ -1,9 +1,8 @@
 import type { IconId } from '@fiction/ui/lib/systemIcons.js'
 import type { vue } from '../utils/libraries.js'
-import { excerpt } from '@fiction/platform/index.js'
 import { z } from 'zod'
 import { OrFilterGroupSchema } from '../types/endpoint.js'
-import { ColorScaleSchema, colorThemeUser, colorThemeWithInvert } from '../utils/colors.js'
+import { ColorScaleSchema, colorTheme, colorThemeUser, colorThemeWithInvert } from '../utils/colors.js'
 
 export const PostStatusSchema = z.enum(['draft', 'scheduled', 'published', 'hidden', 'protected', 'deleted', 'archived', 'trashed', 'spam'])
 export const ProgressStatusSchema = z.enum(['pending', 'requested', 'processing', 'ready', 'error', 'cancelled'])
@@ -151,31 +150,92 @@ export type MediaObject = z.infer<typeof MediaDisplaySchema & typeof MediaTypogr
 
 // First define base schema without recursive parts
 const BaseNavListItemSchema = z.object({
+  // Core content
+  id: z.string().optional().describe('Globally unique identifier for the item'),
+  label: z.string().optional().describe('Primary text displayed for the item (e.g., "Products")'),
+  value: z.union([z.string(), z.number()]).optional().describe('Value associated with the item'),
+  description: z.string().optional().describe('Secondary text shown below label for additional context'),
+  info: z.string().optional().describe('Tertiary text, often used for metadata like "5 min read" or counts'),
+
+  // Visual
+  media: MediaDisplaySchema.optional().describe('Media content shown with the item'),
+  icon: MediaIconSchema.optional().describe('Leading icon shown before the label'),
+  iconAfter: MediaIconSchema.optional().describe('Trailing icon shown after the label'),
+  badge: z.object({
+    content: z.union([z.string(), z.number()]).optional(),
+    color: z.enum(colorThemeUser).optional(),
+  }).optional().describe('Badge shown near label (e.g., "New" or count)'),
+
+  // Navigation behavior
+  href: z.string().optional().describe('Navigation URL - internal path or external link'),
+  target: z.enum(['_self', '_blank']).optional().describe('Link target - "_blank" opens in new tab'),
+  onClick: ClickHandlerSchema.optional().describe('Click handler - use for custom navigation or actions'),
+
+  // Visual & behavioral variants
+  variant: z.enum([
+    'default', // Standard link
+    'button', // Button-like appearance
+    'avatar', // User avatar display
+  ]).optional(),
+
+  emphasis: z.enum([
+    'default', // Standard appearance
+    'highlighted', // Emphasized appearance
+    'muted', // Diminished appearance
+  ]).optional(),
+
+  theme: z.enum(colorThemeUser).optional().describe('Color theme for the item'),
+
+  // State management
+  onAuthState: z.enum([
+    'loggedIn', // Only shown when user is logged in
+    'loggedOut', // Only shown when user is logged out
+    'all', // Always shown
+  ]).optional(),
+
+  isActive: z.boolean().optional().describe('Marks the item as active or selected'),
+  isDisabled: z.boolean().optional().describe('Disables the item from interaction'),
+  isHidden: z.boolean().optional().describe('Hides the item from view'),
+
+  // Editing
+  basePath: z.string().optional(),
+
+  // Organization
+  priority: z.number().optional().describe('Priority for sorting items default is 100. Less is higher priority'),
+
+  // Development
   testId: z.string().optional(),
-  title: z.string().optional(),
-  content: z.string().optional(),
-  name: z.string().optional(),
-  desc: z.string().optional(),
-  media: MediaIconSchema.optional(),
-  href: z.string().optional(),
-  priority: z.number().optional(),
-  target: z.string().optional(),
-  itemsTitle: z.string().optional(),
-  authState: z.enum(['loggedIn', 'loggedOut', 'default']).optional(),
+  figure: z.object({
+    el: z.custom<vue.AsyncComponentLoader | vue.Component>((val) => {
+      return typeof val === 'function' || val instanceof Promise
+    }),
+    props: z.record(z.string(), z.any()).optional(),
+  }).optional(),
 })
+
+// Navigation list container
+export const navListSchema = z.object({
+  title: z.string().optional().describe('Optional section/group title'),
+  description: z.string().optional().describe('Optional section/group description'),
+  items: z.array(BaseNavListItemSchema as z.Schema<NavListItem>).optional().describe('Navigation items in this section'),
+  variant: z.enum(['default', 'expanded']).optional().describe('Variant of the list'),
+})
+
+// Full navigation item with recursive list support
+export const navListItemSchema = BaseNavListItemSchema.extend({
+  list: z.lazy(() => navListSchema).optional().describe('Nested navigation list (e.g., dropdown menu)'),
+})
+
+export type NavList = z.infer<typeof navListSchema>
 
 // Define the complete type including recursive items property
 export type NavListItem = z.infer<typeof BaseNavListItemSchema> & {
-  items?: NavListItem[]
+  list?: NavList
 }
 
-// Create the full schema with recursion
-export const NavListItemSchema: z.ZodType<NavListItem> = BaseNavListItemSchema.extend({
-  items: z.lazy(() => NavListItemSchema.array()).optional(),
-})
-
 export const ActionButtonSchema = z.object({
-  name: z.string().optional(),
+  // name: z.string().optional(),
+  label: z.string().optional(),
   href: z.string().optional(),
   size: SizeSchema.optional(),
   theme: ButtonColorThemeSchema.optional(),
@@ -253,15 +313,15 @@ export const PostHandlingSchema = z.object({
 export type PostObject = z.infer<typeof PostSchema>
 export type PostHandlingObject = z.infer<typeof PostHandlingSchema>
 
-export const XButtonSchema = z.object({
-  name: z.string().optional().describe('Text in the button'),
-  href: z.string().optional().describe('Link to navigate to use path for local route, or full URL for external'),
-  design: ButtonDesignSchema.optional().describe('Design style of the button'),
-  theme: z.enum(colorThemeUser).optional().describe('Color theme of the button'),
-  size: SizeSchema.optional().describe('Size of the button'),
-  icon: z.string().optional(),
-  iconAfter: z.string().optional(),
-  target: z.enum(['_blank', '_self']).optional(),
-})
+// export const XButtonSchema = z.object({
+//   name: z.string().optional().describe('Text in the button'),
+//   href: z.string().optional().describe('Link to navigate to use path for local route, or full URL for external'),
+//   design: ButtonDesignSchema.optional().describe('Design style of the button'),
+//   theme: z.enum(colorThemeUser).optional().describe('Color theme of the button'),
+//   size: SizeSchema.optional().describe('Size of the button'),
+//   icon: z.string().optional(),
+//   iconAfter: z.string().optional(),
+//   target: z.enum(['_blank', '_self']).optional(),
+// })
 
-export type XButtonProps = z.infer<typeof XButtonSchema>
+// export type XButtonProps = z.infer<typeof XButtonSchema>

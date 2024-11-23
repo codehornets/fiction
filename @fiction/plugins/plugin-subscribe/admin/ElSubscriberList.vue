@@ -87,7 +87,7 @@ vue.onMounted(async () => {
 const actions: ActionButton[] = [
   {
     testId: 'add-subscribers-button',
-    name: 'Add Subscribers to Audience',
+    label: 'Add Subscribers to Audience',
     href: props.card.link('/audience/add'),
     theme: 'primary',
     icon: 'i-tabler-plus',

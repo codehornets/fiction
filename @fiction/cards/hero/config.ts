@@ -1,5 +1,5 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
-import { colorTheme, MediaBasicSchema, MediaIconSchema, XButtonSchema } from '@fiction/core'
+import { ActionButtonSchema, colorTheme, MediaBasicSchema, MediaIconSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
@@ -21,7 +21,7 @@ export const schema = z.object({
   superColor: z.enum(colorTheme).optional().describe('Accent color for the super heading [ai]'),
   splash: MediaBasicSchema.optional().describe('Hero\'s focal image or illustration [ai]'),
   caption: z.string().optional().describe('Optional text description for the splash image'),
-  actions: z.array(XButtonSchema).optional().describe('Call-to-action buttons'),
+  actions: z.array(ActionButtonSchema).optional().describe('Call-to-action buttons'),
   overlays: z.array(LayerMediaScheme).optional().describe('Decorative image layers for visual depth [ai]'),
 })
 
@@ -35,8 +35,8 @@ const defaultContent: UserConfig = {
   superIcon: { class: 'i-tabler-rocket' },
   superColor: 'blue',
   actions: [
-    { name: 'Get Started', theme: 'primary', design: 'solid', size: 'xl' },
-    { name: 'Watch Demo', theme: 'default', design: 'ghost', size: 'xl' },
+    { label: 'Get Started', theme: 'primary', design: 'solid', size: 'xl' },
+    { label: 'Watch Demo', theme: 'default', design: 'ghost', size: 'xl' },
   ],
 }
 
@@ -150,8 +150,8 @@ async function getDemoPage(args: { templateId: string, factory: CardFactory }) {
         superColor: 'blue',
         splash: splash('aspect:portrait'),
         actions: [
-          { name: 'Start Free Trial', theme: 'primary', design: 'solid', size: 'xl' },
-          { name: 'Watch Demo', theme: 'default', design: 'ghost', size: 'xl' },
+          { label: 'Start Free Trial', theme: 'primary', design: 'solid', size: 'xl' },
+          { label: 'Watch Demo', theme: 'default', design: 'ghost', size: 'xl' },
         ],
       },
     },
@@ -167,8 +167,8 @@ async function getDemoPage(args: { templateId: string, factory: CardFactory }) {
         superColor: 'purple',
         splash: splash('aspect:portrait'),
         actions: [
-          { name: 'Explore Services', theme: 'primary', design: 'solid', size: 'xl' },
-          { name: 'View Portfolio', theme: 'default', design: 'ghost', size: 'xl' },
+          { label: 'Explore Services', theme: 'primary', design: 'solid', size: 'xl' },
+          { label: 'View Portfolio', theme: 'default', design: 'ghost', size: 'xl' },
         ],
       },
     },
@@ -184,8 +184,8 @@ async function getDemoPage(args: { templateId: string, factory: CardFactory }) {
         superColor: 'indigo',
         splash: splash(),
         actions: [
-          { name: 'Register Now', theme: 'primary', design: 'solid', size: 'xl' },
-          { name: 'View Schedule', theme: 'default', design: 'ghost', size: 'xl' },
+          { label: 'Register Now', theme: 'primary', design: 'solid', size: 'xl' },
+          { label: 'View Schedule', theme: 'default', design: 'ghost', size: 'xl' },
         ],
       },
     },

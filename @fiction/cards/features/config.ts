@@ -207,7 +207,7 @@ function getMasonryDemo(): UserConfig {
         icon: { iconId: 'brush' },
         color: 'blue',
         columns: '3',
-        actions: [{ name: 'Edit Brand Settings', design: 'ghost' }],
+        actions: [{ label: 'Edit Brand Settings', design: 'ghost' }],
         emphasis: true,
       },
       {
@@ -245,7 +245,7 @@ function getMasonryDemo(): UserConfig {
         icon: { iconId: 'users' },
         color: 'indigo',
         columns: '2',
-        actions: [{ name: 'Invite Team', design: 'solid' }],
+        actions: [{ label: 'Invite Team', design: 'solid' }],
       },
       {
         title: 'Brand Protection',
@@ -285,7 +285,7 @@ function getCarouselDemo(): UserConfig {
         description: 'Notice how the carousel guides visitors through your brand story? Each slide reveals another compelling reason to engage.',
         icon: { iconId: 'rocket' },
         color: 'blue',
-        actions: [{ name: 'Get Started', design: 'ghost' }],
+        actions: [{ label: 'Get Started', design: 'ghost' }],
       },
       {
         title: 'Brand Evolution',
@@ -311,7 +311,7 @@ function getCarouselDemo(): UserConfig {
         description: 'Ready to make your mark? Transform visitors into brand advocates with clear next steps.',
         icon: { iconId: 'rocket' },
         color: 'rose',
-        actions: [{ name: 'Launch Now', design: 'solid' }],
+        actions: [{ label: 'Launch Now', design: 'solid' }],
       },
     ],
     style: {
@@ -331,7 +331,7 @@ function getLayoutDemos(): UserConfig[] {
           description: 'See how a balanced grid creates visual harmony? Perfect for showcasing your core brand elements.',
           icon: { iconId: 'grid' },
           color: 'blue',
-          actions: [{ name: 'Customize', design: 'ghost' }],
+          actions: [{ label: 'Customize', design: 'ghost' }],
         },
         {
           title: 'Visual Elements',
@@ -367,7 +367,7 @@ function getLayoutDemos(): UserConfig[] {
           description: 'Experience how card layouts create a sophisticated, memorable impression of your brand.',
           icon: { iconId: 'bookmark' },
           color: 'blue',
-          actions: [{ name: 'Explore', design: 'ghost' }],
+          actions: [{ label: 'Explore', design: 'ghost' }],
         },
         {
           title: 'Customer Journey',

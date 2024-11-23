@@ -1,13 +1,18 @@
-import { MediaIconSchema } from '@fiction/core'
+import { navListItemSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
-// Schema for contact details
-export const ContactItemSchema = z.object({
-  title: z.string().optional().describe('Label for the contact method'),
-  content: z.string().optional().describe('The contact information or details'),
-  href: z.string().optional().describe('Action link (tel:, mailto:, etc)'),
-  media: MediaIconSchema.optional().describe('Icon representing the contact method'),
+export const contactItemSchema = navListItemSchema.pick({
+  label: true,
+  value: true,
+  href: true,
+  icon: true,
+})
+
+const socialItemSchema = navListItemSchema.pick({
+  label: true,
+  href: true,
+  icon: true,
 })
 
 // Main configuration schema
@@ -16,18 +21,14 @@ export const schema = z.object({
 
   title: z.string().optional().describe('Main heading for the contact section'),
 
-  subtitle: z.string().optional().describe('Supporting text below the main heading'),
+  subTitle: z.string().optional().describe('Supporting text below the main heading'),
 
   groups: z.array(z.object({
     title: z.string().optional().describe('Group header for related contact methods'),
-    items: z.array(ContactItemSchema).optional().describe('List of contact methods in this group'),
+    items: z.array(contactItemSchema).optional().describe('List of contact methods in this group'),
   })).optional().describe('Organized groups of contact information'),
 
-  socials: z.array(z.object({
-    name: z.string().optional().describe('@handle on (name)'),
-    href: z.string().optional().describe('Full link for href'),
-    media: MediaIconSchema.optional().describe('icon reference associated with the social media name (x, youtube, facebook, etc)'),
-  })).optional().describe('List of social media links'),
+  socials: z.array(socialItemSchema).optional().describe('List of social media links'),
 
   form: z.object({
     notifyEmails: z.array(z.object({ email: z.string().email() })).optional().describe('List of emails to notify when form is submitted'),
@@ -65,7 +66,7 @@ export function getOptions(): InputOption[] {
           props: { placeholder: 'e.g., Get in Touch' },
         }),
         new InputOption({
-          key: 'subtitle',
+          key: 'subTitle',
           label: 'Supporting Text',
           input: 'InputTextarea',
           props: { rows: 2 },
@@ -183,22 +184,22 @@ function getDefaultConfig(): UserConfig {
   return {
     layout: 'right',
     title: 'Get in Touch',
-    subtitle: 'Have questions? We\'d love to hear from you. Send us a message and we\'ll respond as soon as possible.',
+    subTitle: 'Have questions? We\'d love to hear from you. Send us a message and we\'ll respond as soon as possible.',
     groups: [
       {
         title: 'Contact Methods',
         items: [
           {
-            title: 'Email',
-            content: 'hello@example.com',
+            label: 'Email',
+            value: 'hello@example.com',
             href: 'mailto:hello@example.com',
-            media: { iconId: 'email' },
+            icon: { iconId: 'email' },
           },
           {
-            title: 'Phone',
-            content: '+1 (555) 123-4567',
+            label: 'Phone',
+            value: '+1 (555) 123-4567',
             href: 'tel:+15551234567',
-            media: { iconId: 'phone' },
+            icon: { iconId: 'phone' },
           },
         ],
       },
@@ -206,29 +207,29 @@ function getDefaultConfig(): UserConfig {
         title: 'Location',
         items: [
           {
-            title: 'Office',
-            content: '123 Business Ave, Suite 100, City, ST 12345',
+            label: 'Office',
+            value: '123 Business Ave, Suite 100, City, ST 12345',
             href: 'https://maps.google.com',
-            media: { iconId: 'map' },
+            icon: { iconId: 'map' },
           },
           {
-            title: 'Hours',
-            content: 'Mon-Fri: 9AM-5PM EST',
-            media: { iconId: 'clock' },
+            label: 'Hours',
+            value: 'Mon-Fri: 9AM-5PM EST',
+            icon: { iconId: 'clock' },
           },
         ],
       },
     ],
     socials: [
       {
-        name: '@company at LinkedIn',
+        label: '@company at LinkedIn',
         href: 'https://linkedin.com/company',
-        media: { iconId: 'linkedin' },
+        icon: { iconId: 'linkedin' },
       },
       {
-        name: '@company at X',
+        label: '@company at X',
         href: 'https://x.com/company',
-        media: { iconId: 'x' },
+        icon: { iconId: 'x' },
       },
     ],
     form: {
@@ -242,22 +243,22 @@ function getSupportConfig(): UserConfig {
   return {
     layout: 'left',
     title: '24/7 Customer Support',
-    subtitle: 'Our support team is here to help you succeed. Get in touch through any of these channels.',
+    subTitle: 'Our support team is here to help you succeed. Get in touch through any of these channels.',
     groups: [
       {
         title: 'Immediate Assistance',
         items: [
           {
-            title: 'Live Chat',
-            content: 'Available 24/7',
+            label: 'Live Chat',
+            value: 'Available 24/7',
             href: '#chat',
-            media: { iconId: 'chat' },
+            icon: { iconId: 'chat' },
           },
           {
-            title: 'Support Email',
-            content: 'support@example.com',
+            label: 'Support Email',
+            value: 'support@example.com',
             href: 'mailto:support@example.com',
-            media: { iconId: 'email' },
+            icon: { iconId: 'email' },
           },
         ],
       },
@@ -265,30 +266,30 @@ function getSupportConfig(): UserConfig {
         title: 'Help Center',
         items: [
           {
-            title: 'Knowledge Base',
-            content: 'Browse FAQs and Tutorials',
+            label: 'Knowledge Base',
+            value: 'Browse FAQs and Tutorials',
             href: '/help',
-            media: { iconId: 'book' },
+            icon: { iconId: 'book' },
           },
           {
-            title: 'Community Forum',
-            content: 'Connect with other users',
+            label: 'Community Forum',
+            value: 'Connect with other users',
             href: '/community',
-            media: { iconId: 'user' },
+            icon: { iconId: 'user' },
           },
         ],
       },
     ],
     socials: [
       {
-        name: '@example at Discord',
+        label: '@example at Discord',
         href: 'https://discord.gg/example',
-        media: { iconId: 'discord' },
+        icon: { iconId: 'discord' },
       },
       {
-        name: '@example at GitHub',
+        label: '@example at GitHub',
         href: 'https://github.com/example',
-        media: { iconId: 'github' },
+        icon: { iconId: 'github' },
       },
     ],
     form: {
@@ -302,22 +303,22 @@ function getEnterpriseConfig(): UserConfig {
   return {
     layout: 'stacked',
     title: 'Enterprise Sales',
-    subtitle: 'Ready to scale? Our enterprise team is here to help you evaluate our enterprise plans and features.',
+    subTitle: 'Ready to scale? Our enterprise team is here to help you evaluate our enterprise plans and features.',
     groups: [
       {
         title: 'Sales Team',
         items: [
           {
-            title: 'Schedule a Call',
-            content: 'Book a consultation',
+            label: 'Schedule a Call',
+            value: 'Book a consultation',
             href: '/schedule',
-            media: { iconId: 'calendar' },
+            icon: { iconId: 'calendar' },
           },
           {
-            title: 'Enterprise Sales',
-            content: 'enterprise@example.com',
+            label: 'Enterprise Sales',
+            value: 'enterprise@example.com',
             href: 'mailto:enterprise@example.com',
-            media: { iconId: 'briefcase' },
+            icon: { iconId: 'briefcase' },
           },
         ],
       },
@@ -325,25 +326,25 @@ function getEnterpriseConfig(): UserConfig {
         title: 'Resources',
         items: [
           {
-            title: 'Case Studies',
-            content: 'See customer success stories',
+            label: 'Case Studies',
+            value: 'See customer success stories',
             href: '/case-studies',
-            media: { iconId: 'file-text' },
+            icon: { iconId: 'file-text' },
           },
           {
-            title: 'Security',
-            content: 'Review our security practices',
+            label: 'Security',
+            value: 'Review our security practices',
             href: '/security',
-            media: { iconId: 'shield' },
+            icon: { iconId: 'shield' },
           },
         ],
       },
     ],
     socials: [
       {
-        name: 'Follow us on LinkedIn',
+        label: 'Follow us on LinkedIn',
         href: 'https://linkedin.com/company/example',
-        media: { iconId: 'linkedin' },
+        icon: { iconId: 'linkedin' },
       },
     ],
     form: {

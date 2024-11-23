@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import type { ActionButton } from '@fiction/core'
+import type { ActionButton, MediaObject } from '@fiction/core'
 import XButton from './buttons/XButton.vue'
 import XIcon from './media/XIcon.vue'
 
 const { testId = 'zero-banner', icon, title, description, actions } = defineProps<{
   testId?: string
-  icon?: string
+  icon?: string | MediaObject
   title: string
   description: string
   actions?: ActionButton[]
@@ -39,7 +39,7 @@ const { testId = 'zero-banner', icon, title, description, actions } = defineProp
                 size="md"
                 @click.stop="item.onClick && item.onClick({ event: $event })"
               >
-                {{ item.name }}
+                {{ item.label }}
               </XButton>
             </div>
           </div>

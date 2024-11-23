@@ -218,7 +218,7 @@ function handleKeydown(event: KeyboardEvent) {
                 v-else-if="item.format === 'title'"
                 :class="themeClasses.optionClasses.title"
               >
-                {{ item.name }}
+                {{ item.label || item.name }}
               </li>
               <li
                 v-else
@@ -231,7 +231,7 @@ function handleKeydown(event: KeyboardEvent) {
               >
                 <div class="min-w-0 grow">
                   <div class="shrink-0  font-medium" :class="item.desc ? '' : 'w-full'">
-                    {{ item.name }}
+                    {{ item.label || item.name }}
                   </div>
                   <div
                     v-if="item.desc"

@@ -12,26 +12,36 @@ export async function getHeader(args: { factory: CardFactory, site: Site, userCo
     templateId: 'area',
     cards: [
       await factory.fromTemplate<typeof navTemplate>({ templateId: 'nav', userConfig: {
-        logo: {
-
-          format: 'typography',
-          typography: {
-            font: userConfig.styling?.fonts?.title.fontKey || 'Poppins',
-            text: 'Minimal',
-            weight: userConfig.styling?.fonts?.title.weight || '600',
+        brand: {
+          logo: {
+            format: 'typography',
+            typography: {
+              font: userConfig.styling?.fonts?.title.fontKey || 'Poppins',
+              text: 'Minimal',
+              weight: userConfig.styling?.fonts?.title.weight || '600',
+            },
           },
         },
-        navA: [
-          { name: 'Home', href: '/' },
-          { name: 'Blog', href: '/blog' },
+        primaryNav: [
+          { label: 'Home', href: '/' },
+          { label: 'Blog', href: '/blog' },
         ],
-        navB: [
-
-          { name: 'Connect', items: [
-            { name: '@fictionco', href: 'https://www.x.com/fictionco', media: { class: 'i-tabler-brand-x' } },
-            { name: 'GitHub', href: 'https://www.github.com/fiction', media: { class: 'i-tabler-brand-github' } },
-          ] },
-          { name: 'Contact', href: '/contact', itemStyle: 'button', itemTheme: 'primary' },
+        utilityNav: [
+          {
+            label: 'Connect',
+            list: {
+              items: [
+                { label: '@fictionco', href: 'https://www.x.com/fictionco', icon: { class: 'i-tabler-brand-x' } },
+                { label: 'GitHub', href: 'https://www.github.com/fiction', icon: { class: 'i-tabler-brand-github' } },
+              ],
+            },
+          },
+          {
+            label: 'Contact',
+            href: '/contact',
+            variant: 'button',
+            theme: 'primary',
+          },
         ],
       } }),
     ],

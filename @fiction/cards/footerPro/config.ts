@@ -1,6 +1,6 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { StockMedia } from '@fiction/ui/stock'
-import { ActionButtonSchema, MediaDisplaySchema, MediaIconSchema, MediaTypographySchema, NavListItemSchema } from '@fiction/core'
+import { ActionButtonSchema, MediaIconSchema, MediaTypographySchema, navListItemSchema, navListSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
@@ -11,16 +11,13 @@ export const schema = z.object({
     subTitle: z.string().optional(),
     actions: z.array(ActionButtonSchema).optional(),
   }).optional(),
-  columns: z.array(z.object({
-    title: z.string().optional(),
-    items: z.array(NavListItemSchema).optional(),
-  })).optional(),
+  columns: z.array(navListSchema).optional(),
   badges: z.object({
     title: z.string().optional(),
     actions: z.array(ActionButtonSchema).optional(),
   }).optional(),
   additional: z.object({
-    links: z.array(NavListItemSchema).optional(),
+    links: z.array(navListItemSchema).optional(),
     social: z.array(z.object({
       name: z.string().optional(),
       href: z.string().optional(),
@@ -37,25 +34,25 @@ function getDefaultConfig(): UserConfig {
       title: 'Your Brand',
       subTitle: 'Build something amazing',
       actions: [
-        { name: 'Get Started', theme: 'primary', design: 'ghost', size: 'sm' },
-        { name: 'Contact Sales', theme: 'default', design: 'ghost', size: 'sm' },
+        { label: 'Get Started', theme: 'primary', design: 'ghost', size: 'sm' },
+        { label: 'Contact Sales', theme: 'default', design: 'ghost', size: 'sm' },
       ],
     },
     columns: [
       {
         title: 'Product',
         items: [
-          { name: 'Features', href: '/features', media: { iconId: 'sparkles' } },
-          { name: 'Solutions', href: '/solutions', media: { iconId: 'puzzle' } },
-          { name: 'Enterprise', href: '/enterprise', media: { iconId: 'building' } },
+          { label: 'Features', href: '/features', icon: { iconId: 'sparkles' } },
+          { label: 'Solutions', href: '/solutions', icon: { iconId: 'puzzle' } },
+          { label: 'Enterprise', href: '/enterprise', icon: { iconId: 'building' } },
         ],
       },
       {
         title: 'Resources',
         items: [
-          { name: 'Documentation', href: '/docs', media: { iconId: 'book' } },
-          { name: 'API Reference', href: '/api', media: { iconId: 'code' } },
-          { name: 'Status', href: '/status', media: { iconId: 'activity' } },
+          { label: 'Documentation', href: '/docs', icon: { iconId: 'book' } },
+          { label: 'API Reference', href: '/api', icon: { iconId: 'code' } },
+          { label: 'Status', href: '/status', icon: { iconId: 'activity' } },
         ],
       },
     ],
@@ -64,21 +61,21 @@ function getDefaultConfig(): UserConfig {
       actions: [
         {
           icon: { iconId: 'shield' },
-          name: 'SOC 2 Type II',
+          label: 'SOC 2 Type II',
           href: '/security',
         },
         {
           icon: { iconId: 'check' },
-          name: 'GDPR Compliant',
+          label: 'GDPR Compliant',
           href: '/privacy',
         },
       ],
     },
     additional: {
       links: [
-        { name: 'Privacy', href: '/privacy' },
-        { name: 'Terms', href: '/terms' },
-        { name: 'Security', href: '/security' },
+        { label: 'Privacy', href: '/privacy' },
+        { label: 'Terms', href: '/terms' },
+        { label: 'Security', href: '/security' },
       ],
       social: [
         { name: 'X', href: 'https://x.com', media: { iconId: 'x' } },
@@ -248,34 +245,34 @@ async function getDemoConfig(args: { templateId: string, stock: StockMedia }): P
           title: 'CloudFlow',
           subTitle: 'Simplify Your Cloud Infrastructure',
           actions: [
-            { name: 'Start Free', theme: 'primary', icon: { iconId: 'bolt' } },
-            { name: 'Talk to Sales', theme: 'default', icon: { iconId: 'phone' } },
+            { label: 'Start Free', theme: 'primary', icon: { iconId: 'bolt' } },
+            { label: 'Talk to Sales', theme: 'default', icon: { iconId: 'phone' } },
           ],
         },
         columns: [
           {
             title: 'Platform',
             items: [
-              { name: 'Features', href: '/features', media: { iconId: 'sparkles' } },
-              { name: 'Solutions', href: '/solutions', media: { iconId: 'puzzle' } },
-              { name: 'Enterprise', href: '/enterprise', media: { iconId: 'building' } },
-              { name: 'Pricing', href: '/pricing', media: { iconId: 'tag' } },
+              { label: 'Features', href: '/features', icon: { iconId: 'sparkles' } },
+              { label: 'Solutions', href: '/solutions', icon: { iconId: 'puzzle' } },
+              { label: 'Enterprise', href: '/enterprise', icon: { iconId: 'building' } },
+              { label: 'Pricing', href: '/pricing', icon: { iconId: 'tag' } },
             ],
           },
           {
             title: 'Resources',
             items: [
-              { name: 'Documentation', href: '/docs', media: { iconId: 'book' } },
-              { name: 'API Reference', href: '/api', media: { iconId: 'code' } },
-              { name: 'Status', href: '/status', media: { iconId: 'activity' } },
+              { label: 'Documentation', href: '/docs', icon: { iconId: 'book' } },
+              { label: 'API Reference', href: '/api', icon: { iconId: 'code' } },
+              { label: 'Status', href: '/status', icon: { iconId: 'activity' } },
             ],
           },
           {
             title: 'Company',
             items: [
-              { name: 'About', href: '/about', media: { iconId: 'users' } },
-              { name: 'Blog', href: '/blog', media: { iconId: 'rss' } },
-              { name: 'Careers', href: '/careers', media: { iconId: 'briefcase' } },
+              { label: 'About', href: '/about', icon: { iconId: 'users' } },
+              { label: 'Blog', href: '/blog', icon: { iconId: 'rss' } },
+              { label: 'Careers', href: '/careers', icon: { iconId: 'briefcase' } },
             ],
           },
         ],
@@ -284,27 +281,27 @@ async function getDemoConfig(args: { templateId: string, stock: StockMedia }): P
           actions: [
             {
               icon: { iconId: 'star' },
-              name: 'Read Reviews',
+              label: 'Read Reviews',
               theme: 'yellow',
             },
             {
               icon: { iconId: 'users' },
-              name: 'Read Testimonials',
+              label: 'Read Testimonials',
               theme: 'blue',
             },
             {
               icon: { iconId: 'check' },
-              name: 'Satisfaction Guaranteed',
+              label: 'Satisfaction Guaranteed',
               theme: 'green',
             },
           ],
         },
         additional: {
           links: [
-            { name: 'Privacy', href: '/privacy' },
-            { name: 'Terms', href: '/terms' },
-            { name: 'Security', href: '/security' },
-            { name: 'Accessibility', href: '/accessibility' },
+            { label: 'Privacy', href: '/privacy' },
+            { label: 'Terms', href: '/terms' },
+            { label: 'Security', href: '/security' },
+            { label: 'Accessibility', href: '/accessibility' },
           ],
           social: [
             { name: 'X', href: 'https://x.com', media: { iconId: 'x' } },

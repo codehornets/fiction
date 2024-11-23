@@ -46,7 +46,7 @@ describe('transactional email', async () => {
       actions: [
         {
           theme: 'primary',
-          name: `Confirm email address &#x2192;`,
+          label: `Confirm email address &#x2192;`,
           href: '#',
         },
       ],

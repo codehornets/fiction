@@ -257,7 +257,7 @@ function generateColorStyles(isDark: boolean) {
                   :class="getButtonClass(item)"
                   class="rounded-full hover:opacity-80 font-medium select-none transition-all"
                   :style="{ whiteSpace: 'nowrap' }"
-                  v-html="item.name"
+                  v-html="item.label"
                 />
               </Column>
             </Section>

@@ -1,4 +1,4 @@
-import type { EndpointMeta } from '@fiction/platform'
+import type { EndpointMeta } from '@fiction/core'
 import type { Card } from '@fiction/site'
 import type { TablePostConfig } from '../schema'
 import { createSiteTestUtils } from '@fiction/site/test/testUtils'

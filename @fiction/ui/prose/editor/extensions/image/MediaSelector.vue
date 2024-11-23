@@ -74,7 +74,7 @@ const items = vue.computed<NavItem[]>(() => {
       name: 'width',
       icon: 'i-tabler-viewport-wide',
       isActive: subMenu.value === 'width',
-      onClick: ({ item }) => subMenu.value = item?.name,
+      onClick: ({ item }) => subMenu.value = (item?.label || item?.name),
       items: [
         {
           name: 'resize',
@@ -97,7 +97,7 @@ const items = vue.computed<NavItem[]>(() => {
       name: 'aspect',
       icon: 'i-tabler-aspect-ratio',
       isActive: subMenu.value === 'aspect',
-      onClick: ({ item }) => subMenu.value = item?.name,
+      onClick: ({ item }) => subMenu.value = (item?.label || item?.name),
       items: [
         {
           name: 'original',

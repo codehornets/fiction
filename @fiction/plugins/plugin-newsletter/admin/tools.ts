@@ -114,7 +114,7 @@ export function getEmailManageOptions(args: {
           props: {
             actions: [
               {
-                name: 'Delete Email...',
+                label: 'Delete Email...',
                 theme: 'default',
                 onClick: async () => {
                   const confirmed = confirm('Are you sure you want to delete this email?')

@@ -300,7 +300,7 @@ vue.onMounted(async () => {
     :loading
     :actions="[{
       testId: 'saveButton',
-      name: saveUtil.isDirty.value ? 'Saving...' : 'Saved',
+      label: saveUtil.isDirty.value ? 'Saving...' : 'Saved',
       onClick: () => save(),
       theme: saveUtil.isDirty.value ? 'primary' : 'default',
       loading: sending === 'saving',

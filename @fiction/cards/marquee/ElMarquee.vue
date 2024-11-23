@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { Card } from '@fiction/site'
-import type { UserConfig } from '.'
+import type { UserConfig } from './config'
 import { getNavComponentType, vue } from '@fiction/core'
 import { animateItemEnter, useElementVisible } from '@fiction/ui/anim'
 
@@ -73,10 +73,16 @@ vue.onMounted(() => {
                   :src="item.media.url"
                   class="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.33,1)] group-hover/marquee:scale-105"
                 >
-                <div class="grad absolute inset-0 transition-opacity duration-300 opacity-0 group-hover/marquee:opacity-100" />
+                <div
+                  class="grad absolute inset-0 transition-opacity duration-300 "
+                  :class="uc.showAllText ? '' : 'opacity-0 group-hover/marquee:opacity-100'"
+                />
               </div>
-              <div class="absolute bottom-0 p-3 lg:p-6 text-white transition-opacity duration-300 opacity-0 group-hover/marquee:opacity-100">
-                <h2 class="font-semibold text-base lg:text-xl x-font-title">
+              <div
+                class="absolute bottom-0 p-3 lg:p-6 text-white transition-opacity duration-300 "
+                :class="uc.showAllText ? '' : 'opacity-0 group-hover/marquee:opacity-100'"
+              >
+                <h2 class="font-medium text-base lg:text-xl x-font-title">
                   {{ item.title }}
                 </h2>
                 <div class="opacity-70 font-medium text-sm lg:text-base">

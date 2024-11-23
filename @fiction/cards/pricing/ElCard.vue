@@ -126,7 +126,7 @@ function getPrice(price?: UserConfigPrice) {
             <ul role="list" class="mt-6 space-y-3">
               <li v-for="(feature, ii) in price.features" :key="ii" class="flex gap-x-3 items-center">
                 <div class="i-tabler-check" />
-                <CardText :card tag="div" :path="`prices.${i}.features.${ii}.name`" />
+                <CardText :card tag="div" :path="`prices.${i}.features.${ii}.label`" />
               </li>
             </ul>
           </div>

@@ -93,7 +93,7 @@ function getLogoStyle(item: LogoConfig) {
             <div
               class="z-[-1] font-sans absolute opacity-0 group-hover/logo:opacity-100 top-[100%] group-hover/logo:top-[110%] transition-all duration-700 ease-[cubic-bezier(0.25,1,0.33,1)] text-xs text-theme-400 dark:text-theme-500"
             >
-              {{ logo.name }}
+              {{ logo.label }}
             </div>
           </a>
         </div>

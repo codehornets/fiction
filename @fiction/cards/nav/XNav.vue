@@ -1,70 +1,101 @@
 <script setup lang="ts">
-import type { Card } from '@fiction/site'
-import type { SchemaNavItem, UserConfig } from './index.js'
+import type { NavListItem } from '@fiction/core'
+import type { Card } from '@fiction/site/card'
+import type { UserConfig } from './config'
 import CardNavLink from '@fiction/cards/CardNavLink.vue'
 import { useService, vue } from '@fiction/core'
-
 import TransitionSlide from '@fiction/ui/anim/TransitionSlide.vue'
 
 const props = defineProps({
-  nav: { type: Array as vue.PropType<SchemaNavItem[]>, required: true },
+  nav: { type: Array as vue.PropType<NavListItem[]>, required: true },
   itemClass: { type: String, default: '' },
   card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
-  activeItem: { type: Object as vue.PropType<SchemaNavItem>, required: false },
+  activeItem: { type: Object, required: false },
 })
 
 const emit = defineEmits<{
-  (event: 'update:activeItem', payload: SchemaNavItem | undefined): void
+  (event: 'update:activeItem', payload: NavListItem | undefined): void
 }>()
 
 const { fictionRouter } = useService()
-const nav = vue.computed(() => (props.nav || []).map(item => ({ ...item, isActive: item.href === fictionRouter.current.value.path })))
 
-function setActiveHover(item: SchemaNavItem | undefined) {
+const processedNav = vue.computed(() =>
+  (props.nav || []).map(item => ({
+    ...item,
+    isActive: item.href === fictionRouter.current.value.path,
+  })),
+)
+
+function setActiveHover(item?: NavListItem) {
   emit('update:activeItem', item)
 }
 
-function close() {
+function closeMenu() {
   emit('update:activeItem', undefined)
 }
 
-function isDropdownActive(item: SchemaNavItem) {
+function isDropdownActive(item: NavListItem) {
   const activeItem = props.activeItem
-  return activeItem?.items?.length && (!activeItem.subStyle || activeItem?.subStyle === 'default') && activeItem.id === item.id
+  // Check for regular dropdown vs mega menu
+  return activeItem?.id === item.id && (!item.list?.variant || item.list?.variant === 'default')
 }
 </script>
 
 <template>
   <div>
     <div
-      v-for="(item, i) in nav"
+      v-for="(item, i) in processedNav"
       :key="i"
       class="group relative"
-      :class="item.isHidden ? 'hidden' : ''"
       @mouseover="setActiveHover(item)"
       @mouseleave="setActiveHover(undefined)"
     >
       <CardNavLink
         :card
         :item
-        :class="itemClass"
+        :class="[
+          itemClass,
+          item.emphasis === 'highlighted' ? 'text-primary-500 dark:text-primary-400' : '',
+        ]"
         :depth="0"
         hover-effect="underline"
-        @click="close()"
+        @click="closeMenu()"
       />
+
+      <!-- Standard Dropdown -->
       <TransitionSlide>
         <div
-          v-if="isDropdownActive(item) && activeItem"
-          class="z-40 font-sans absolute top-[calc(100%+.5rem)] dropdown block group-hover:block bg-theme-0 dark:bg-theme-800 border border-theme-200 shadow dark:border-theme-600/90 rounded-lg w-56 space-y-1 "
-          :class="i === nav.length - 1 ? 'right-0' : 'left-1/2 -translate-x-1/2'"
+          v-if="(isDropdownActive(item) && item.list?.items?.length)"
+          class="max-h-[80vh] z-40 font-sans absolute top-[calc(100%+.5rem)] dropdown block group-hover:block bg-theme-0 dark:bg-theme-800 border shadow border-theme-200  dark:border-theme-600/90 rounded-lg w-56 space-y-1 left-1/2 -translate-x-1/2"
         >
           <div class="py-1">
-            <template v-for="(subItem, ii) in activeItem.items" :key="ii">
-              <CardNavLink :card :item="subItem" class="px-4 py-2 hover:bg-theme-100/50 dark:hover:bg-theme-700 font-normal" :class="subItem.isHidden ? 'hidden' : 'block'" @click="close()" />
+            <template
+              v-for="(subItem, ii) in item.list?.items"
+              :key="ii"
+            >
+              <CardNavLink
+                :card
+                :item="subItem"
+                class="block px-4 py-2 font-normal"
+                :class="subItem.href || subItem.onClick ? 'cursor-pointer hover:bg-theme-100/50 dark:hover:bg-theme-700' : 'cursor-default'"
+                data-menu-level="1"
+                @click="closeMenu()"
+              />
 
-              <div v-if="subItem?.items?.length">
-                <template v-for="(subSubItem, iii) in subItem.items" :key="iii">
-                  <CardNavLink :card :item="subSubItem" class="pl-7 pr-4 py-1.5  dark:hover:bg-theme-700 font-normal text-[.9em]" :class="subSubItem.isHidden ? 'hidden' : 'block'" @click="close()" />
+              <div
+                v-if="subItem.list?.items?.length"
+              >
+                <template
+                  v-for="(subSubItem, iii) in subItem.list.items"
+                  :key="iii"
+                >
+                  <CardNavLink
+                    :card
+                    :item="subSubItem"
+                    class="block pl-7 py-1 text-sm hover:bg-theme-100/50 dark:hover:bg-theme-700 font-normal"
+                    data-menu-level="2"
+                    @click="closeMenu()"
+                  />
                 </template>
               </div>
             </template>
@@ -74,25 +105,3 @@ function isDropdownActive(item: SchemaNavItem) {
     </div>
   </div>
 </template>
-
-<style lang="less">
-.menu-text:after{
-  transition: transform .2s ease-out,border-color .2s ease-out;
-  position: absolute;
-  display: block;
-  bottom: -6px;
-  left: 0;
-  width: 100%;
-  transform: scaleX(0);
-  content: "";
-  padding-bottom: inherit;
-}
-
-.menu-text:hover:after{
-  transform: scaleX(1);
-}
-
-.menu-text.active:after{
-  transform: scaleX(1);
-}
-</style>

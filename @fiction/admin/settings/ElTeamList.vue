@@ -42,7 +42,7 @@ const indexMeta = vue.ref()
     <ElIndexGrid
       :list
       :actions="[{
-        name: 'Add Team Member',
+        label: 'Add Team Member',
         theme: 'primary',
         icon: 'i-tabler-user-plus',
         onClick: () => (modalVisible = true),

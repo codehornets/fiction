@@ -45,7 +45,7 @@ defineProps({
               :data-test-id="action.testId"
               @click.stop="action.onClick ? action.onClick({ event: $event }) : ''"
             >
-              {{ action.name }}
+              {{ action.label }}
             </XButton>
           </div>
         </div>

@@ -44,8 +44,8 @@ vue.onMounted(async () => {
     heading="Verify Email"
     :sub-heading="response?.message"
     :actions="[
-      { name: 'Home', href: card.link('/'), theme: 'default', icon: 'i-tabler-home' },
-      { name: 'Support', href: `mailto:hello@fiction.com`, target: '_blank', icon: 'i-tabler-mail' },
+      { label: 'Home', href: card.link('/'), theme: 'default', icon: 'i-tabler-home' },
+      { label: 'Support', href: `mailto:hello@fiction.com`, target: '_blank', icon: 'i-tabler-mail' },
     ]"
   />
 </template>

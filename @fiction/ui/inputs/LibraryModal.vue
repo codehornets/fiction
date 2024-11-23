@@ -25,12 +25,12 @@ const emit = defineEmits<{
 }>()
 
 const availableTools = [
-  { name: 'Upload', value: 'upload', icon: 'i-tabler-upload' },
-  { name: 'Library', value: 'library', icon: 'i-tabler-photo' },
-  { name: 'HTML/Embed', value: 'html', icon: 'i-tabler-code' },
-  { name: 'System Icons', value: 'icons', icon: 'i-tabler-category' },
-  { name: 'Text + Font', value: 'typography', icon: 'i-tabler-typography' },
-  { name: 'Background', value: 'background', icon: 'i-tabler-palette' },
+  { label: 'Upload', value: 'upload', icon: 'i-tabler-upload' },
+  { label: 'Library', value: 'library', icon: 'i-tabler-photo' },
+  { label: 'HTML/Embed', value: 'html', icon: 'i-tabler-code' },
+  { label: 'System Icons', value: 'icons', icon: 'i-tabler-category' },
+  { label: 'Text + Font', value: 'typography', icon: 'i-tabler-typography' },
+  { label: 'Background', value: 'background', icon: 'i-tabler-palette' },
 ] as const
 
 export type LibraryTool = typeof availableTools[number]['value']
@@ -90,7 +90,7 @@ function updateCurrentSelection(updates: Partial<MediaObject>) {
             :data-test-id="`nav-${item.value}`"
             @click="navItemActive = item"
           >
-            {{ item.name }}
+            {{ item.label }}
           </XButton>
         </div>
       </div>

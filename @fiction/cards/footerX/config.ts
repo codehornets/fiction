@@ -1,14 +1,14 @@
-import { NavListItemSchema } from '@fiction/core/schemas/schemas'
+import { navListItemSchema, navListSchema } from '@fiction/core/schemas/schemas'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
 export const schema = z.object({
   title: z.string().optional(),
   subTitle: z.string().optional(),
-  menus: z.array(NavListItemSchema).optional(),
+  menus: z.array(navListSchema).optional(),
   additional: z.object({
-    list1: z.array(NavListItemSchema).optional(),
-    list2: z.array(NavListItemSchema).optional(),
+    list1: z.array(navListItemSchema).optional(),
+    list2: z.array(navListItemSchema).optional(),
   }).optional(),
 })
 
@@ -20,39 +20,39 @@ export function getDefaultConfig(): UserConfig {
     subTitle: 'An inspiring tagline goes here',
     menus: [
       {
-        itemsTitle: 'Discover',
+        title: 'Discover',
         items: [
-          { name: 'Our Vision', href: '/about', media: { iconId: 'eye' } },
-          { name: 'Services', href: '/services', media: { iconId: 'star' } },
-          { name: 'Success Stories', href: '/case-studies', media: { iconId: 'trophy' } },
+          { label: 'Our Vision', href: '/about', icon: { iconId: 'eye' } },
+          { label: 'Services', href: '/services', icon: { iconId: 'star' } },
+          { label: 'Success Stories', href: '/case-studies', icon: { iconId: 'trophy' } },
         ],
       },
       {
-        itemsTitle: 'Connect',
+        title: 'Connect',
         items: [
           {
-            name: 'Schedule a Call',
+            label: 'Schedule a Call',
             href: '/contact',
-            media: { iconId: 'calendar' },
-            content: 'Book a 30-min strategy session',
+            icon: { iconId: 'calendar' },
+            description: 'Book a 30-min strategy session',
           },
           {
-            name: 'Join Newsletter',
+            label: 'Join Newsletter',
             href: '/newsletter',
-            media: { iconId: 'email' },
-            content: 'Weekly insights on digital growth',
+            icon: { iconId: 'email' },
+            description: 'Weekly insights on digital growth',
           },
         ],
       },
     ],
     additional: {
       list1: [
-        { name: 'Privacy Promise', href: '/privacy' },
-        { name: 'Terms of Delight', href: '/terms' },
+        { label: 'Privacy Promise', href: '/privacy' },
+        { label: 'Terms of Delight', href: '/terms' },
       ],
       list2: [
-        { name: '© 2024 Brand Visionaries. Crafting Digital Excellence.' },
-        { name: 'Made with ♥ and Fiction' },
+        { label: '© 2024 Brand Visionaries. Crafting Digital Excellence.' },
+        { label: 'Made with ♥ and Fiction' },
       ],
     },
   }
@@ -67,30 +67,30 @@ export function getDemoConfigs(templateId: string): Record<string, { templateId:
         subTitle: 'Empowering Creators to Build Their Digital Empire',
         menus: [
           {
-            itemsTitle: 'Content Library',
+            title: 'Content Library',
             items: [
-              { name: 'YouTube Channel', href: 'https://youtube.com/@alexrivera', media: { iconId: 'youtube' } },
-              { name: 'Podcast Episodes', href: '/podcast', media: { iconId: 'microphone' } },
-              { name: 'Free Resources', href: '/resources', media: { iconId: 'gift' } },
+              { label: 'YouTube Channel', href: 'https://youtube.com/@alexrivera', icon: { iconId: 'youtube' } },
+              { label: 'Podcast Episodes', href: '/podcast', icon: { iconId: 'microphone' } },
+              { label: 'Free Resources', href: '/resources', icon: { iconId: 'gift' } },
             ],
           },
           {
-            itemsTitle: 'Join the Movement',
+            title: 'Join the Movement',
             items: [
-              { name: 'Creator Academy', href: '/academy', media: { iconId: 'school' } },
-              { name: 'Community Hub', href: '/community', media: { iconId: 'users' } },
-              { name: 'Support My Work', href: '/support', media: { iconId: 'heart' } },
+              { label: 'Creator Academy', href: '/academy', icon: { iconId: 'school' } },
+              { label: 'Community Hub', href: '/community', icon: { iconId: 'users' } },
+              { label: 'Support My Work', href: '/support', icon: { iconId: 'heart' } },
             ],
           },
         ],
         additional: {
           list1: [
-            { name: 'Creator Terms', href: '/terms' },
-            { name: 'Content Policy', href: '/content-policy' },
+            { label: 'Creator Terms', href: '/terms' },
+            { label: 'Content Policy', href: '/content-policy' },
           ],
           list2: [
-            { name: '© 2024 Alex Rivera | Creator Economy Advocate' },
-            { name: 'Part of the Fiction Creator Network' },
+            { label: '© 2024 Alex Rivera | Creator Economy Advocate' },
+            { label: 'Part of the Fiction Creator Network' },
           ],
         },
       },
@@ -103,40 +103,40 @@ export function getDemoConfigs(templateId: string): Record<string, { templateId:
         subTitle: 'Where Teams Flow Together',
         menus: [
           {
-            itemsTitle: 'Product Suite',
+            title: 'Product Suite',
             items: [
-              { name: 'Features', href: '/features', media: { iconId: 'sparkles' } },
-              { name: 'Solutions', href: '/solutions', media: { iconId: 'puzzle' } },
-              { name: 'Enterprise', href: '/enterprise', media: { iconId: 'building' } },
-              { name: 'Pricing', href: '/pricing', media: { iconId: 'tag' } },
+              { label: 'Features', href: '/features', icon: { iconId: 'sparkles' } },
+              { label: 'Solutions', href: '/solutions', icon: { iconId: 'puzzle' } },
+              { label: 'Enterprise', href: '/enterprise', icon: { iconId: 'building' } },
+              { label: 'Pricing', href: '/pricing', icon: { iconId: 'tag' } },
             ],
           },
           {
-            itemsTitle: 'Resources',
+            title: 'Resources',
             items: [
-              { name: 'Help Center', href: '/help', media: { iconId: 'help' } },
-              { name: 'API Docs', href: '/api', media: { iconId: 'code' } },
-              { name: 'System Status', href: '/status', media: { iconId: 'chart' } },
+              { label: 'Help Center', href: '/help', icon: { iconId: 'help' } },
+              { label: 'API Docs', href: '/api', icon: { iconId: 'code' } },
+              { label: 'System Status', href: '/status', icon: { iconId: 'chart' } },
             ],
           },
           {
-            itemsTitle: 'Company',
+            title: 'Company',
             items: [
-              { name: 'About Us', href: '/about', media: { iconId: 'users' } },
-              { name: 'Careers', href: '/careers', media: { iconId: 'briefcase' } },
-              { name: 'Blog', href: '/blog', media: { iconId: 'newspaper' } },
+              { label: 'About Us', href: '/about', icon: { iconId: 'users' } },
+              { label: 'Careers', href: '/careers', icon: { iconId: 'briefcase' } },
+              { label: 'Blog', href: '/blog', icon: { iconId: 'newspaper' } },
             ],
           },
         ],
         additional: {
           list1: [
-            { name: 'Privacy & Security', href: '/privacy' },
-            { name: 'Terms of Service', href: '/terms' },
-            { name: 'GDPR', href: '/gdpr' },
+            { label: 'Privacy & Security', href: '/privacy' },
+            { label: 'Terms of Service', href: '/terms' },
+            { label: 'GDPR', href: '/gdpr' },
           ],
           list2: [
-            { name: '© 2024 FlowSpace, Inc. All rights reserved.' },
-            { name: 'SOC 2 Type II Certified' },
+            { label: '© 2024 FlowSpace, Inc. All rights reserved.' },
+            { label: 'SOC 2 Type II Certified' },
           ],
         },
       },

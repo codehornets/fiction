@@ -29,7 +29,7 @@ function useEditPage(args: { cardId?: string } = {}) {
 
 const actions: ActionButton[] = [
   {
-    name: 'New Page',
+    label: 'New Page',
     icon: 'i-tabler-circle-plus',
     onClick: () => useEditPage(),
   },
@@ -40,13 +40,13 @@ const handles = vue.computed(() => {
   return pg.map((pg): Handle => {
     const cardId = pg.cardId
     const actions: ActionButton[] = [{
-      name: 'Settings',
+      label: 'Settings',
       icon: 'i-tabler-edit',
       onClick: () => useEditPage({ cardId }),
     }]
 
     if (pg.slug.value === '_home') {
-      actions.unshift({ name: 'View', icon: 'i-tabler-home' })
+      actions.unshift({ label: 'View', icon: 'i-tabler-home' })
     }
     return {
       testId: `page-${pg.slug.value}`,

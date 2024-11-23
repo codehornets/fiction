@@ -1,4 +1,4 @@
-import { ActionButtonSchema, colorThemeUser, MediaBasicSchema, MediaIconSchema, NavListItemSchema } from '@fiction/core'
+import { ActionButtonSchema, colorThemeUser, MediaBasicSchema, MediaIconSchema, navListItemSchema, navListSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
@@ -12,10 +12,7 @@ export const schema = z.object({
     icon: MediaIconSchema.optional(),
     color: z.enum(colorThemeUser).optional(),
   }).optional(),
-  benefits: z.object({
-    title: z.string().optional(),
-    items: z.array(NavListItemSchema).optional(),
-  }).optional(),
+  benefits: navListSchema.optional(),
   actions: z.object({
     type: z.enum(['buttons', 'subscribe']).optional(),
     buttons: z.array(ActionButtonSchema).optional(),
@@ -202,19 +199,19 @@ export function getDefaultConfig(): UserConfig {
       title: 'Key Benefits',
       items: [
         {
-          title: 'Choose Your Action Type',
-          content: 'Switch between email subscription and custom buttons',
-          media: { class: 'i-tabler-adjustments' },
+          label: 'Choose Your Action Type',
+          description: 'Switch between email subscription and custom buttons',
+          icon: { class: 'i-tabler-adjustments' },
         },
         {
-          title: 'Social Proof',
-          content: 'Enable community bar to showcase your audience',
-          media: { class: 'i-tabler-users-group' },
+          label: 'Social Proof',
+          description: 'Enable community bar to showcase your audience',
+          icon: { class: 'i-tabler-users-group' },
         },
         {
-          title: 'Visual Hierarchy',
-          content: 'Organize content with super title, main title, and subtitle',
-          media: { class: 'i-tabler-layout-list' },
+          label: 'Visual Hierarchy',
+          description: 'Organize content with super title, main title, and subtitle',
+          icon: { class: 'i-tabler-layout-list' },
         },
       ],
     },
@@ -256,19 +253,19 @@ export function getDemoConfigs(templateId: string): Record<string, { templateId:
           title: 'You\'ll Master:',
           items: [
             {
-              title: 'Growth Psychology',
-              content: 'Understand what makes audiences click, engage, and convert',
-              media: { class: 'i-tabler-brain' },
+              label: 'Growth Psychology',
+              description: 'Understand what makes audiences click, engage, and convert',
+              icon: { class: 'i-tabler-brain' },
             },
             {
-              title: 'Content Alchemy',
-              content: 'Transform simple ideas into magnetic content that attracts leads',
-              media: { class: 'i-tabler-wand' },
+              label: 'Content Alchemy',
+              description: 'Transform simple ideas into magnetic content that attracts leads',
+              icon: { class: 'i-tabler-wand' },
             },
             {
-              title: 'ROI Mastery',
-              content: 'Maximize your marketing budget with data-driven decisions',
-              media: { class: 'i-tabler-chart-dots' },
+              label: 'ROI Mastery',
+              description: 'Maximize your marketing budget with data-driven decisions',
+              icon: { class: 'i-tabler-chart-dots' },
             },
           ],
         },
@@ -303,19 +300,19 @@ export function getDemoConfigs(templateId: string): Record<string, { templateId:
           title: 'Platform Benefits:',
           items: [
             {
-              title: 'Smart Automation',
-              content: 'Save 15+ hours per week with AI-powered workflows',
-              media: { class: 'i-tabler-robot' },
+              label: 'Smart Automation',
+              description: 'Save 15+ hours per week with AI-powered workflows',
+              icon: { class: 'i-tabler-robot' },
             },
             {
-              title: 'Real-time Sync',
-              content: 'Keep your team aligned with instant updates',
-              media: { class: 'i-tabler-refresh' },
+              label: 'Real-time Sync',
+              description: 'Keep your team aligned with instant updates',
+              icon: { class: 'i-tabler-refresh' },
             },
             {
-              title: 'Analytics Dashboard',
-              content: 'Make data-driven decisions with powerful insights',
-              media: { class: 'i-tabler-chart-bar' },
+              label: 'Analytics Dashboard',
+              description: 'Make data-driven decisions with powerful insights',
+              icon: { class: 'i-tabler-chart-bar' },
             },
           ],
         },
@@ -323,12 +320,12 @@ export function getDemoConfigs(templateId: string): Record<string, { templateId:
           type: 'buttons',
           buttons: [
             {
-              name: 'Start Free Trial',
+              label: 'Start Free Trial',
               theme: 'primary',
               icon: { class: 'i-tabler-rocket' },
             },
             {
-              name: 'Watch Demo',
+              label: 'Watch Demo',
               theme: 'default',
               icon: { class: 'i-tabler-player-play' },
             },

@@ -40,7 +40,7 @@ function gapSize() {
       :icon-after="action.iconAfter"
       @click.stop.prevent="action.onClick ? action.onClick({ event: $event, props: { ...props, ...$attrs } }) : ''"
     >
-      {{ action.name }}
+      {{ action.label }}
     </XButton>
   </div>
 </template>

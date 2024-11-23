@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { ColorThemeUser, NavItem } from '@fiction/core'
+import type { ColorThemeUser, NavListItem } from '@fiction/core'
 import type { Card } from '@fiction/site'
 import { useService, vue } from '@fiction/core'
 import ElAvatar from '@fiction/ui/common/ElAvatar.vue'
@@ -13,7 +13,7 @@ defineOptions({
 })
 
 const props = defineProps({
-  item: { type: Object as vue.PropType<NavLinkItem>, required: true },
+  item: { type: Object as vue.PropType<NavListItem>, required: true },
   depth: { type: Number, default: -1 },
   card: { type: Object as vue.PropType<Card>, required: true },
   path: { type: String, default: undefined },
@@ -21,20 +21,20 @@ const props = defineProps({
   animate: { type: String as vue.PropType<'rise' | 'fade'>, default: undefined },
 })
 
-type NavLinkItem = {
-  itemStyle?: 'button' | 'user' | 'default'
-  itemTheme?: ColorThemeUser
-  subStyle?: 'mega' | 'default'
-} & NavItem
+// type NavLinkItem = {
+//   itemStyle?: 'button' | 'user' | 'default'
+//   itemTheme?: ColorThemeUser
+//   subStyle?: 'mega' | 'default'
+// } & NavItem
 
 const service = useService()
 
 const styles = vue.computed(() => {
   const item = props.item
-  const isButton = item.itemStyle?.includes('button')
+  const isButton = item.variant === 'button'
   const componentType = isButton ? CardButton : CardLink
   const hoverEffect = isButton ? undefined : props.hoverEffect
-  const theme = item.itemTheme || 'default'
+  const theme = item.theme || 'default'
 
   return { componentType, hoverEffect, theme }
 })
@@ -56,15 +56,15 @@ const hoverClass = 'group-hover/nav-link:text-theme-500 dark:group-hover/nav-lin
     <span class="inline-flex items-center space-x-1.5 relative whitespace-nowrap w-full">
       <!-- User Avatar -->
       <ElAvatar
-        v-if="item.itemStyle === 'user' && service.fictionUser.activeUser.value"
+        v-if="item.variant === 'avatar' && service.fictionUser.activeUser.value"
         class="size-[1.4em] mr-1.5 rounded-full ring-2 ring-theme-200 dark:ring-theme-0"
         :email="service.fictionUser.activeUser?.value?.email"
       />
 
       <!-- Icon -->
       <XIcon
-        v-else-if="item.media"
-        :media="item.media"
+        v-else-if="item.icon"
+        :media="item.icon"
         :class="hoverClass"
         class="size-[1.1em] mr-1"
       />
@@ -73,7 +73,7 @@ const hoverClass = 'group-hover/nav-link:text-theme-500 dark:group-hover/nav-lin
       <CardText
         v-if="item.basePath"
         :card="card"
-        :path="`${item.basePath}.name`"
+        :path="`${item.basePath}.label`"
         tag="span"
         class="block relative"
         :class="[
@@ -94,7 +94,7 @@ const hoverClass = 'group-hover/nav-link:text-theme-500 dark:group-hover/nav-lin
       <span
         v-else
         class="block"
-        v-html="item.name"
+        v-html="item.label"
       />
 
       <!-- External Link Indicator -->
@@ -107,7 +107,7 @@ const hoverClass = 'group-hover/nav-link:text-theme-500 dark:group-hover/nav-lin
 
       <!-- Dropdown Indicator -->
       <span
-        v-else-if="item.items?.length && depth === 0"
+        v-else-if="item.list?.items?.length && depth === 0"
         class="block opacity-30 group-hover:opacity-60 transition-all i-tabler-chevron-down"
       />
     </span>

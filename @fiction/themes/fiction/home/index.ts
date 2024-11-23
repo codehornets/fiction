@@ -38,13 +38,13 @@ export async function page(args: { site: Site, factory: CardFactory }) {
               subHeading: `Create your personal brand and quickly build your audience.`,
               actions: [
                 {
-                  name: 'Create Account',
+                  label: 'Create Account',
                   href: '/app?_reload=1',
                   theme: 'primary',
                   icon: 'i-tabler-user-circle',
                 },
                 {
-                  name: 'Why Fiction',
+                  label: 'Why Fiction',
                   href: '/tour',
                   icon: 'i-tabler-compass',
                 },

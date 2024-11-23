@@ -91,7 +91,7 @@ vue.onMounted(() => {
                   :key="i"
                   :card
                   :item="{
-                    name: item.title,
+                    label: item.label,
                     href: item.href,
                     basePath: `additional.list1.${i}`,
                   }"
@@ -106,7 +106,7 @@ vue.onMounted(() => {
                   :key="i"
                   :card
                   :item="{
-                    name: item.title,
+                    label: item.label,
                     href: item.href,
                     basePath: `additional.list2.${i}`,
                   }"

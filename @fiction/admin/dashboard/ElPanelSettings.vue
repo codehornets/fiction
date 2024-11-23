@@ -39,7 +39,7 @@ defineProps({
               :href="action.href"
               @click.stop="action.onClick ? action.onClick($event) : ''"
             >
-              {{ action.name }}
+              {{ action.label }}
             </XButton>
           </div>
         </div>

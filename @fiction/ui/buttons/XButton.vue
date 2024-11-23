@@ -110,7 +110,7 @@ const linkProps = vue.computed(() => {
 
 <template>
   <component
-    :is="getNavComponentType({ name: 'btn', href }, hover === 'none' ? 'div' : tag || 'button')"
+    :is="getNavComponentType({ href }, hover === 'none' ? 'div' : tag || 'button')"
     :id="randomId"
     v-bind="linkProps"
     class="xbutton group/button"

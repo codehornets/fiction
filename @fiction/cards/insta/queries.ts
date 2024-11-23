@@ -1,5 +1,5 @@
 // queries.ts
-import type { EndpointMeta, EndpointResponse } from '@fiction/platform'
+import type { EndpointMeta, EndpointResponse } from '@fiction/core'
 import { abort, log } from '@fiction/core'
 import { CardQuery, type CardQuerySettings } from '@fiction/site/cardQuery'
 
