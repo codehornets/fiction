@@ -95,7 +95,7 @@ function getItemStyle(index: number) {
 
 function animateItems() {
   vue.nextTick(() => {
-    const items = document.querySelectorAll('.carousel-item') as NodeListOf<HTMLElement>
+    const items = document.querySelectorAll(`[data-card-id="${card.cardId}"] .carousel-item`) as NodeListOf<HTMLElement>
     items.forEach((item, index) => {
       const style = getItemStyle(index)
       Object.assign(item.style, {

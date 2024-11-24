@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { NavItem } from '@fiction/core'
+import type { NavListItem } from '@fiction/core'
 import type { Card } from '@fiction/site/card'
 import { vue } from '@fiction/core'
 import { animateItemEnter, useElementVisible } from '@fiction/ui/anim'
@@ -7,7 +7,7 @@ import XIcon from '@fiction/ui/media/XIcon.vue'
 
 const props = defineProps({
   card: { type: Object as vue.PropType<Card>, required: true },
-  socials: { type: Array as vue.PropType<NavItem[]>, required: true },
+  socials: { type: Array as vue.PropType<NavListItem[]>, required: true },
   justify: { type: String as vue.PropType<'left' | 'right' | 'center' | 'justify'>, default: '' },
 })
 
@@ -37,7 +37,7 @@ vue.onMounted(() => {
       :class="[clr.bgClasses, clr.textClasses]"
       class="x-action-items text-center flex items-center justify-center size-10 text-2xl rounded-full"
     >
-      <XIcon v-if="item.media" :media="item.media" :title="item.label || item.name" />
+      <XIcon v-if="item.media" :media="item.media" :title="item.label" />
     </a>
   </div>
 </template>

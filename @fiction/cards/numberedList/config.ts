@@ -1,4 +1,5 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
+import { MediaBasicSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
@@ -6,10 +7,7 @@ import { z } from 'zod'
 export const schema = z.object({
   layout: z.enum(['default', 'left', 'right']).optional(),
   title: z.string().optional(),
-  media: z.object({
-    format: z.enum(['url', 'video', 'image']).optional(),
-    url: z.string().optional(),
-  }).optional(),
+  media: MediaBasicSchema.optional(),
   items: z.array(z.object({
     content: z.string().optional(),
   })),
