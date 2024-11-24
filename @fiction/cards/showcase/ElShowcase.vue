@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import type { FictionPosts, Post } from '@fiction/posts'
 import type { Card } from '@fiction/site'
-import type { UserConfig } from '.'
+import type { UserConfig } from './config'
 import { type MediaObject, useService, vue, waitFor } from '@fiction/core'
 import { PostLoader } from '@fiction/posts/postLoader.js'
 import AnimClipPath from '@fiction/ui/anim/AnimClipPath.vue'
+import XButton from '@fiction/ui/buttons/XButton.vue'
 import ElClose from '@fiction/ui/common/ElClose.vue'
 import EffectGlare from '@fiction/ui/effect/EffectGlare.vue'
 import ElModal from '@fiction/ui/ElModal.vue'
@@ -36,7 +37,7 @@ vue.onMounted(async () => {
 
 const activeitemIndex = vue.ref(-1)
 const activeItem = vue.computed(() => posts.value[activeitemIndex.value])
-const proseClass = `prose dark:prose-invert prose-sm md:prose-lg lg:prose-2xl max-w-[45ch] mx-auto focus:outline-none `
+const proseClass = `prose dark:prose-invert prose-sm md:prose-lg lg:prose-2xl max-w-[45ch]`
 
 function featuredImageAspect(media: MediaObject) {
   const img = media
@@ -86,6 +87,14 @@ function gridCols() {
 
   return classes.trim()
 }
+
+function prev() {
+  activeitemIndex.value = (activeitemIndex.value - 1 + posts.value.length) % posts.value.length
+}
+
+function next() {
+  activeitemIndex.value = (activeitemIndex.value + 1) % posts.value.length
+}
 </script>
 
 <template>
@@ -118,42 +127,60 @@ function gridCols() {
           </EffectGlare>
         </div>
       </div>
-      <ElModal :vis="activeitemIndex >= 0" modal-class="lg:max-w-[96vw] min-h-[96vh] x-font-body " @update:vis="activeitemIndex = -1">
+      <ElModal
+        :vis="activeitemIndex >= 0"
+        modal-class="w-full x-font-body"
+        transition-mode="slideUp"
+        @update:vis="activeitemIndex = -1"
+      >
         <ElClose class="absolute right-2 top-2 z-40" @click="activeitemIndex = -1" />
-        <div class="py-12 md:py-24 px-4">
-          <div :class="proseClass">
-            <div class="not-prose">
-              <div class="mb-8 not-prose space-y-4 text-center">
+        <div class="py-16 md:py-24 px-6 lg:px-16">
+          <div class="flex flex-col md:flex-row gap-8 md:gap-12 justify-center">
+            <div class="md:basis-[300px] shrink-0">
+              <div class="mb-8 not-prose space-y-4 text-center md:text-right">
                 <CardText
                   tag="h1"
                   :card
-                  class="mb-0 text-3xl md:text-5xl font-semibold x-font-title "
+                  class="mb-0 text-2xl lg:text-4xl font-semibold x-font-title "
                   :path="`posts.entries.${activeitemIndex}.title`"
                   animate="fade"
                 />
                 <CardText
                   tag="h3"
                   :card
-                  class="my-0 text-theme-500 dark:text-theme-400 text-lg md:text-3xl"
+                  class="my-0 text-theme-500 dark:text-theme-400 text-lg lg:text-2xl"
                   :path="`posts.entries.${activeitemIndex}.subTitle`"
                   animate="fade"
                 />
               </div>
-
-              <AnimClipPath animate="expand" class="my-[min(max(35px,_5vw),_30px)] md:-mx-16" caller="showcase">
-                <div v-if="activeItem?.media?.value?.url" class=" mx-auto relative overflow-hidden rounded-xl" :class="featuredImageAspect(activeItem.media.value)">
-                  <img :src="activeItem.media.value.url" :alt="activeItem.title.value" class="absolute h-full w-full object-cover object-center">
-                </div>
-              </AnimClipPath>
             </div>
+            <div class="grow space-y-6 min-w-0 max-w-screen-sm">
+              <div v-if="activeItem?.media?.value" class="max-w-screen-sm">
+                <XMedia
+                  :animate="true"
+                  :media="activeItem?.media?.value"
+                  image-mode="inline"
+                />
+              </div>
+              <div :class="proseClass">
+                <CardText
+                  tag="div"
+                  :card
+                  class="my-12 font-serif"
+                  :path="`posts.entries.${activeitemIndex}.content`"
+                  animate="fade"
+                />
+              </div>
 
-            <CardText
-              tag="div"
-              :card
-              class="my-12 font-serif"
-              :path="`posts.entries.${activeitemIndex}.content`"
-              animate="fade"
-            />
+              <div class="flex justify-between">
+                <XButton icon="i-tabler-arrow-left" @click="prev()">
+                  Previous
+                </XButton>
+                <XButton icon-after="i-tabler-arrow-right" @click="next()">
+                  Next
+                </XButton>
+              </div>
+            </div>
           </div>
         </div>
       </ElModal>

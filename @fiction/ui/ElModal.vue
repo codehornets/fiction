@@ -5,14 +5,20 @@ import ElClose from './common/ElClose.vue'
 
 defineOptions({ name: 'ElModal' })
 
-const { vis = false, title = '', sub = '', modalClass, styleClass, fullScreen = false, hasClose = false } = defineProps<{
+const {
+  vis = false,
+  modalClass,
+  styleClass,
+  fullScreen = false,
+  hasClose = false,
+  transitionMode = 'modal',
+} = defineProps<{
   vis?: boolean
-  title?: string
-  sub?: string
   modalClass?: string
   styleClass?: string
   fullScreen?: boolean
   hasClose?: boolean
+  transitionMode?: 'modal' | 'slideUp'
 }>()
 
 const emit = defineEmits(['update:vis', 'close', 'escape'])
@@ -78,6 +84,27 @@ vue.onMounted(async () => {
 vue.onUnmounted(() => {
   cleanups.forEach(c => c())
 })
+
+const modalTransition = vue.computed(() => {
+  if (transitionMode === 'slideUp') {
+    return {
+      enterActiveClass: 'ease-[cubic-bezier(0.25,1,0.33,1)] duration-500',
+      enterFromClass: 'opacity-0 translate-y-full scale-95',
+      enterToClass: 'opacity-100 translate-y-0 scale-100',
+      leaveActiveClass: 'ease-[cubic-bezier(0.25,1,0.33,1)] duration-500',
+      leaveFromClass: 'opacity-100 translate-y-0 scale-100',
+      leaveToClass: 'opacity-0 translate-y-full scale-95',
+    }
+  }
+  return {
+    enterActiveClass: 'ease-[cubic-bezier(0.25,1,0.33,1)] duration-500',
+    enterFromClass: 'opacity-0 scale-75',
+    enterToClass: 'opacity-100 translate-y-0 scale-100',
+    leaveActiveClass: 'ease-[cubic-bezier(0.25,1,0.33,1)] duration-500',
+    leaveFromClass: 'opacity-100 translate-y-0 scale-100',
+    leaveToClass: 'opacity-0 scale-75',
+  }
+})
 </script>
 
 <script lang="ts">
@@ -116,14 +143,7 @@ export default {
         <div
           class="flex min-h-full items-center justify-center text-center rotate-x"
         >
-          <transition
-            enter-active-class="ease-[cubic-bezier(0.25,1,0.33,1)] duration-500"
-            enter-from-class="opacity-0 scale-75"
-            enter-to-class="opacity-100 translate-y-0 scale-100"
-            leave-active-class="ease-[cubic-bezier(0.25,1,0.33,1)] duration-500"
-            leave-from-class="opacity-100 translate-y-0 scale-100"
-            leave-to-class="opacity-0 scale-75"
-          >
+          <transition v-bind="modalTransition">
             <div
               v-if="vis"
               :class="classes"
