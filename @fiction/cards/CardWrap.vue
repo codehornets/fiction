@@ -112,7 +112,7 @@ const autoSetDark = vue.computed(() => {
     <div class="w-full relative text-theme-950 dark:text-theme-50 x-font-body ">
       <div>
         <div class="relative">
-          <div :class="card.classes.value.contentWidth">
+          <div :class="card.classes.value.contentWidth" data-standard-header>
             <StandardHeader v-if="standardUc?.headers?.title" :card class="mb-8 lg:mb-16" />
           </div>
           <slot />

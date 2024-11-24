@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { Card } from '@fiction/site/card'
 import { resetUi, toLabel, vue } from '@fiction/core'
+import { Card } from '@fiction/site/card'
 import CardWrap from './CardWrap.vue'
 import EffectTransitionCardList from './EffectTransitionCardList.vue'
 
@@ -24,7 +24,7 @@ const renderCards = vue.computed(() => {
   const site = card?.site
   const currentItemId = site?.currentItemId.value
 
-  return tag === 'main'
+  const out = tag === 'main'
     ? c.filter((c) => {
       const uc = c.fullConfig.value
       const showOnSingle = uc.standard?.handling?.showOnSingle
@@ -32,6 +32,12 @@ const renderCards = vue.computed(() => {
       return (currentItemId && showOnSingle) || (!currentItemId && !hideOnPage)
     })
     : c
+
+  if (out.length === 0 && currentItemId && tag === 'main') {
+    out.push(new Card({ templateId: '404', site: card?.site }))
+  }
+
+  return out
 })
 </script>
 

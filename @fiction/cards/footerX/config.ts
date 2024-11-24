@@ -39,7 +39,7 @@ export function getDefaultConfig(): UserConfig {
           {
             label: 'Join Newsletter',
             href: '/newsletter',
-            icon: { iconId: 'email' },
+            icon: { iconId: 'mail' },
             description: 'Weekly insights on digital growth',
           },
         ],
@@ -105,9 +105,9 @@ export function getDemoConfigs(templateId: string): Record<string, { templateId:
           {
             title: 'Product Suite',
             items: [
-              { label: 'Features', href: '/features', icon: { iconId: 'sparkles' } },
+              { label: 'Features', href: '/features', icon: { class: 'i-tabler-sparkles' } },
               { label: 'Solutions', href: '/solutions', icon: { iconId: 'puzzle' } },
-              { label: 'Enterprise', href: '/enterprise', icon: { iconId: 'building' } },
+              { label: 'Enterprise', href: '/enterprise', icon: { class: 'i-tabler-building' } },
               { label: 'Pricing', href: '/pricing', icon: { iconId: 'tag' } },
             ],
           },

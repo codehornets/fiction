@@ -186,6 +186,7 @@ const BaseNavListItemSchema = z.object({
   ]).optional(),
 
   theme: z.enum(colorThemeUser).optional().describe('Color theme for the item'),
+  design: ButtonDesignSchema.optional().describe('Design style for the item'),
 
   // State management
   onAuthState: z.enum([

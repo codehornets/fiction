@@ -220,7 +220,7 @@ function getMasonryDemo(): UserConfig {
       {
         title: 'Brand Voice',
         description: 'Feel how your unique tone shines through?',
-        icon: { iconId: 'speakerphone' },
+        icon: { class: 'i-tabler-speakerphone' },
         color: 'rose',
         columns: '2',
       },
@@ -258,7 +258,7 @@ function getMasonryDemo(): UserConfig {
       {
         title: 'Design System',
         description: 'Experience how your brand guidelines automatically translate into beautiful, consistent designs.',
-        icon: { iconId: '3d-cube' },
+        icon: { class: 'i-tabler-3d-cube' },
         color: 'green',
         columns: '4',
         href: '/design-system',
@@ -343,7 +343,7 @@ function getLayoutDemos(): UserConfig[] {
         {
           title: 'Content Strategy',
           description: 'Imagine your content strategically placed to guide visitors through your brand story.',
-          icon: { iconId: 'file-text' },
+          icon: { class: 'i-tabler-file-text' },
           color: 'emerald',
           href: '#strategy',
         },
@@ -379,7 +379,7 @@ function getLayoutDemos(): UserConfig[] {
         {
           title: 'Growth Metrics',
           description: 'Watch your brand metrics improve as you optimize each touchpoint.',
-          icon: { iconId: 'line-chart' },
+          icon: { iconId: 'chart' },
           color: 'emerald',
         },
       ],

@@ -3,7 +3,7 @@ import type { MediaObject } from '@fiction/core'
 import { determineMediaFormat, vue } from '@fiction/core'
 import { googleFontsUtility } from '@fiction/core/utils/fonts'
 import { twMerge } from 'tailwind-merge'
-import EffectFitText from '../effect/EffectFitText.vue'
+import EffectFitTextVertical from '../effect/EffectFitTextVertical.vue'
 import XIcon from '../media/XIcon.vue'
 
 defineOptions({ name: 'XLogo' })
@@ -40,7 +40,6 @@ const containerClass = vue.computed(() => {
     'inline-flex',
     'items-center',
     'justify-center',
-    'overflow-hidden',
   ]
   return twMerge(classes.join(' '), props.wrapClass)
 })
@@ -167,14 +166,15 @@ vue.onBeforeUnmount(() => {
     </div>
 
     <!-- Typography Format -->
-    <EffectFitText
+    <EffectFitTextVertical
       v-else-if="mediaFormat === 'typography'"
       :content="media.typography?.text || ''"
       class="w-full h-full"
       :style="typographyStyle"
+      :scale="media.typography?.scale"
     >
       {{ media.typography?.text }}
-    </EffectFitText>
+    </EffectFitTextVertical>
 
     <!-- Icon Format -->
     <XIcon

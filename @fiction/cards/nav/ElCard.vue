@@ -38,6 +38,7 @@ const nav = vue.computed(() => {
 })
 
 const mobileMenuVisible = vue.ref(false)
+
 const activeItem = vue.ref<NavListItem>()
 
 let timeoutId: ReturnType<typeof setTimeout> | null = null
@@ -92,7 +93,7 @@ function closeMenu() {
       <div class="relative">
         <nav class="relative flex items-center justify-between gap-12" aria-label="Global">
           <!-- Brand Section -->
-          <div v-if="uc.brand?.logo" class="flex h-6 mr-4" :class="layoutClass.brand">
+          <div v-if="uc.brand?.logo" class="flex mr-4" :class="layoutClass.brand">
             <CardLink
               :card
               href="/"
@@ -113,7 +114,7 @@ function closeMenu() {
           <XNav
             :nav="nav.primary"
             :card
-            class="hidden lg:flex lg:gap-x-4 items-center space-x-4"
+            class="hidden lg:flex gap-x-6 items-center "
             :class="layoutClass.primary"
             item-class="py-1.5 text-base font-sans font-medium inline-flex items-center"
             :active-item="activeItem"
@@ -124,7 +125,7 @@ function closeMenu() {
           <XNav
             :nav="nav.utility"
             :card
-            class="hidden lg:flex gap-x-4 items-center space-x-4 justify-end"
+            class="hidden lg:flex gap-x-6 items-center justify-end"
             :class="layoutClass.utility"
             item-class="py-1.5 text-base font-sans font-medium inline-flex items-center"
             :active-item="activeItem"
@@ -140,8 +141,9 @@ function closeMenu() {
               @click.stop="mobileMenuVisible = !mobileMenuVisible"
             />
             <NavMobile
-              v-model:vis="mobileMenuVisible"
+              :vis="mobileMenuVisible"
               :nav="{ navA: nav.primary, navB: nav.utility }"
+              @update:vis="mobileMenuVisible = $event"
             />
           </div>
         </nav>
@@ -161,14 +163,19 @@ function closeMenu() {
                   {{ activeItem.list.title || activeItem.label }}
                 </h2>
                 <p class="text-xl text-theme-500 dark:text-theme-400 font-sans font-normal">
-                  {{ activeItem.description }}
+                  {{ activeItem.list.description }}
                 </p>
               </div>
             </div>
 
             <!-- Mega Menu Content -->
             <div class="grow">
-              <div class="py-6 px-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 auto-cols-fr grid-flow-dense">
+              <div
+                class=""
+                :class="activeItem.list.items.some(_ => _.list?.items?.length)
+                  ? 'py-6 px-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 auto-cols-fr grid-flow-dense'
+                  : 'p-12 flex flex-col gap-6 text-xl'"
+              >
                 <div
                   v-for="(item, i) in activeItem.list.items"
                   :key="i"
@@ -178,7 +185,7 @@ function closeMenu() {
                     hover-effect="underline"
                     :card
                     :item="item"
-                    class="px-4 py-2  font-normal x-font-title "
+                    class="px-4 py-2 font-normal x-font-title "
                     :depth="1"
                     :class="[
                       item.isHidden ? 'hidden' : 'block',

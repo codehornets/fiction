@@ -10,12 +10,14 @@ defineOptions({
   name: 'NavMobile',
 })
 
-const props = defineProps<{
+const { vis, nav } = defineProps<{
   vis: boolean
   nav: Record<string, NavListItem[]>
 }>()
 
-const emit = defineEmits(['update:vis'])
+const emit = defineEmits<{
+  (event: 'update:vis', payload: boolean): void
+}>()
 
 const randomId = shortId()
 const afterVisible = vue.ref(false)
@@ -31,28 +33,39 @@ function close(): void {
 
 onResetUi(() => close())
 
-vue.onMounted(() => {
+function translateSiteContent(args: { mode: 'on' | 'off' }) {
+  if (typeof window === 'undefined')
+    return
+
   const el = document.querySelector('.x-site-content') as HTMLElement | null
 
-  vue.watch(
-    () => props.vis,
-    (vis) => {
-      if (!el)
-        return
+  if (!el)
+    return
 
-      if (vis) {
-        el.style.transform = 'translateX(-300px)'
-        el.style.transition = 'transform .75s cubic-bezier(0.25, 1, 0.33, 1)'
-        el.style.height = '100dvh'
-        el.style.overflow = 'hidden'
-        setTimeout(() => (afterVisible.value = true), 300)
-      }
-      else {
-        afterVisible.value = false
-        el.style.transform = ''
-        el.style.height = ''
-        el.style.overflow = ''
-      }
+  if (args.mode === 'on') {
+    el.style.transform = 'translateX(-300px)'
+    el.style.transition = 'transform .75s cubic-bezier(0.25, 1, 0.33, 1)'
+    el.style.height = '100dvh'
+    el.style.overflow = 'hidden'
+    setTimeout(() => (afterVisible.value = true), 300)
+  }
+  else {
+    afterVisible.value = false
+    el.style.transform = ''
+    el.style.height = ''
+    el.style.overflow = ''
+  }
+}
+
+vue.onBeforeUnmount(() => {
+  translateSiteContent({ mode: 'off' })
+})
+
+vue.onMounted(() => {
+  vue.watch(
+    () => vis,
+    (vis) => {
+      translateSiteContent({ mode: vis ? 'on' : 'off' })
     },
     { immediate: true },
   )
@@ -77,7 +90,7 @@ vue.onMounted(() => {
       class="dark z-0 fixed h-[100dvh] top-0 right-0 w-full bg-gradient-to-br from-theme-800 to-theme-950 text-theme-0"
       @click.stop
     >
-      <div :id="randomId" class="w-[265px] h-full float-right">
+      <div :id="randomId" class="w-[285px] h-full float-right">
         <ElClose class="absolute right-4 top-4 z-20" @click="close" />
 
         <div class="pl-6 h-full py-20 flex flex-col justify-start gap-4 relative z-10 overflow-y-scroll">

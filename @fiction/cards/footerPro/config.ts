@@ -255,7 +255,7 @@ async function getDemoConfig(args: { templateId: string, stock: StockMedia }): P
             items: [
               { label: 'Features', href: '/features', icon: { iconId: 'sparkles' } },
               { label: 'Solutions', href: '/solutions', icon: { iconId: 'puzzle' } },
-              { label: 'Enterprise', href: '/enterprise', icon: { iconId: 'building' } },
+              { label: 'Enterprise', href: '/enterprise', icon: { class: 'i-tabler-building' } },
               { label: 'Pricing', href: '/pricing', icon: { iconId: 'tag' } },
             ],
           },
@@ -264,14 +264,14 @@ async function getDemoConfig(args: { templateId: string, stock: StockMedia }): P
             items: [
               { label: 'Documentation', href: '/docs', icon: { iconId: 'book' } },
               { label: 'API Reference', href: '/api', icon: { iconId: 'code' } },
-              { label: 'Status', href: '/status', icon: { iconId: 'activity' } },
+              { label: 'Status', href: '/status', icon: { class: 'i-tabler-activity' } },
             ],
           },
           {
             title: 'Company',
             items: [
               { label: 'About', href: '/about', icon: { iconId: 'users' } },
-              { label: 'Blog', href: '/blog', icon: { iconId: 'rss' } },
+              { label: 'Blog', href: '/blog', icon: { class: 'i-tabler-rss' } },
               { label: 'Careers', href: '/careers', icon: { iconId: 'briefcase' } },
             ],
           },

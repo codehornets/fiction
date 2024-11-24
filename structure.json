@@ -64,6 +64,7 @@
     "scripts": {
       "cloudinaryUrls.ts": null,
       "project_structure.py": null,
+      "systemMessage.md": null,
       "verify-commit.mjs": null,
       "xcache.sh": null
     },
@@ -121,6 +122,7 @@
           "icon.png": null,
           "FictionLogo.vue": null,
           "shareImage.png": null,
+          "FictionLogo.svg": null,
           "favicon.svg": null
         },
         "ElNavMenu.vue": null,
@@ -181,7 +183,19 @@
         "ElButton.vue": null,
         "index.ts": null,
         "stock": {
+          "localMedia.ts": null,
           "mediaItems.json": null,
+          "img": {
+            "lorem4.svg": null,
+            "lorem5.svg": null,
+            "lorem7.svg": null,
+            "lorem6.svg": null,
+            "lorem2.svg": null,
+            "lorem3.svg": null,
+            "lorem1.svg": null,
+            "lorem8.svg": null,
+            "lorem9.svg": null
+          },
           "index.ts": null,
           "tags.ts": null
         },
@@ -932,17 +946,14 @@
         "maps": {
           "ElMap.vue": null,
           "ElCard.vue": null,
-          "index.ts": null
-        },
-        "CardNavLink.vue": null,
-        "footerX": {
-          "ElCard.vue": null,
           "index.ts": null,
           "config.ts": null
         },
+        "CardNavLink.vue": null,
         "metrics": {
           "ElMetrics.vue": null,
-          "index.ts": null
+          "index.ts": null,
+          "config.ts": null
         },
         "overSlide": {
           "ElCard.vue": null,
@@ -972,7 +983,8 @@
         },
         "contact": {
           "ElCard.vue": null,
-          "index.ts": null
+          "index.ts": null,
+          "config.ts": null
         },
         "textEffects": {
           "ElCard.vue": null,
@@ -980,7 +992,17 @@
         },
         "effect-shape": {
           "ElEffect.vue": null,
-          "index.ts": null
+          "index.ts": null,
+          "config.ts": null
+        },
+        "contentModal": {
+          "test": {
+            "embedder.unit.test.ts": null
+          },
+          "ElCard.vue": null,
+          "mediaEmbedder.ts": null,
+          "index.ts": null,
+          "config.ts": null
         },
         "testimonials": {
           "LayoutMega.vue": null,
@@ -1000,6 +1022,7 @@
           "wildlife-photo.mp4": null,
           "ElCard.vue": null,
           "index.ts": null,
+          "config.ts": null,
           "city-photo.jpg": null
         },
         "area": {
@@ -1014,7 +1037,8 @@
         },
         "faq": {
           "ElCard.vue": null,
-          "index.ts": null
+          "index.ts": null,
+          "config.ts": null
         },
         "el": {
           "StandardHeader.vue": null,
@@ -1030,11 +1054,17 @@
         },
         "gallery": {
           "ElCard.vue": null,
-          "index.ts": null
+          "index.ts": null,
+          "config.ts": null
         },
         "features": {
           "ElCard.vue": null,
-          "index.ts": null
+          "FeatureItem.vue": null,
+          "FeaturesGrid.vue": null,
+          "FeaturesCarousel.vue": null,
+          "FeaturesMasonry.vue": null,
+          "index.ts": null,
+          "config.ts": null
         },
         "numberedList": {
           "ElCard.vue": null,
@@ -1047,15 +1077,8 @@
         },
         "logos": {
           "ElLogos.vue": null,
-          "index.ts": null
-        },
-        "mediaPop": {
-          "test": {
-            "embedder.unit.test.ts": null
-          },
-          "ElCard.vue": null,
-          "mediaEmbedder.ts": null,
-          "index.ts": null
+          "index.ts": null,
+          "config.ts": null
         },
         "CardTextPost.vue": null,
         "utils": {
@@ -1066,6 +1089,7 @@
           },
           "nav.ts": null,
           "head.ts": null,
+          "post.ts": null,
           "icon.ts": null
         },
         "marquee": {
@@ -1077,6 +1101,7 @@
             "marquee-min-5.png": null
           },
           "index.ts": null,
+          "config.ts": null,
           "ElMarquee.vue": null,
           "marquee.uiux.test.ts": null
         },
@@ -1099,6 +1124,7 @@
         },
         "magazine": {
           "ElMagazine.vue": null,
+          "utils.ts": null,
           "index.ts": null,
           "config.ts": null,
           "ElMagazineSingle.vue": null,
@@ -1130,7 +1156,8 @@
             "people-tony.png": null,
             "people-steve.png": null
           },
-          "index.ts": null
+          "index.ts": null,
+          "config.ts": null
         },
         "bento": {
           "ElBento.vue": null,
@@ -1159,11 +1186,23 @@
         "index.ts": null,
         "nav": {
           "ElCard.vue": null,
-          "EffectHoverUnderline.vue": null,
           "XNav.vue": null,
-          "index.ts": null
+          "index.ts": null,
+          "config.ts": null
+        },
+        "postList": {
+          "PostCardContent.vue": null,
+          "PostCard.vue": null,
+          "ElCard.vue": null,
+          "index.ts": null,
+          "config.ts": null
         },
         "notes.md": null,
+        "footerX": {
+          "ElCard.vue": null,
+          "index.ts": null,
+          "config.ts": null
+        },
         "hero": {
           "ElHero.vue": null,
           "hero.uiux.test.ts": null,
@@ -1197,13 +1236,10 @@
           "index.ts": null
         },
         "CardButton.vue": null,
-        "media-grid": {
-          "index.ts": null,
-          "ElMediaGrid.vue": null
-        },
         "fitText": {
           "ElCard.vue": null,
-          "index.ts": null
+          "index.ts": null,
+          "config.ts": null
         },
         "pricing": {
           "ElCard.vue": null,
@@ -1225,8 +1261,10 @@
           "index.ts": null
         },
         "insta": {
+          "queries.ts": null,
           "ElCard.vue": null,
-          "index.ts": null
+          "index.ts": null,
+          "config.ts": null
         },
         "inputSets.ts": null,
         "__indexOld.ts": null
@@ -1491,19 +1529,6 @@
           "package.json": null,
           "index.ts": null
         },
-        "exec": {
-          "config": {
-            "footer.ts": null,
-            "pages.ts": null,
-            "header.ts": null
-          },
-          "img": {
-            "screenshot.jpg": null,
-            "FictionLogo.svg": null
-          },
-          "package.json": null,
-          "index.ts": null
-        },
         "spec.md": null,
         "omega": {
           "img": {
@@ -1593,8 +1618,7 @@
           "img": {
             "screenshot-andrew.png": null,
             "screenshot-andrew.jpg": null,
-            "screenshot.jpg": null,
-            "FictionLogo.svg": null
+            "screenshot.jpg": null
           },
           "package.json": null,
           "static": {
@@ -1645,6 +1669,7 @@
             "index.ts": null
           },
           "index.ts": null,
+          "config.ts": null,
           "pricing": {
             "index.ts": null
           }

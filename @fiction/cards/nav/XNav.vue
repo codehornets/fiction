@@ -5,6 +5,7 @@ import type { UserConfig } from './config'
 import CardNavLink from '@fiction/cards/CardNavLink.vue'
 import { useService, vue } from '@fiction/core'
 import TransitionSlide from '@fiction/ui/anim/TransitionSlide.vue'
+import { getColorThemeStyles } from '@fiction/ui/utils'
 
 const props = defineProps({
   nav: { type: Array as vue.PropType<NavListItem[]>, required: true },
@@ -39,6 +40,20 @@ function isDropdownActive(item: NavListItem) {
   // Check for regular dropdown vs mega menu
   return activeItem?.id === item.id && (!item.list?.variant || item.list?.variant === 'default')
 }
+
+function getHighlightStyle(item: NavListItem) {
+  if (!item.theme) {
+    return {
+      text: 'text-primary-500 dark:text-primary-400',
+    }
+  }
+
+  const style = getColorThemeStyles(item.theme || 'primary')
+
+  return {
+    text: style?.text,
+  }
+}
 </script>
 
 <template>
@@ -55,7 +70,7 @@ function isDropdownActive(item: NavListItem) {
         :item
         :class="[
           itemClass,
-          item.emphasis === 'highlighted' ? 'text-primary-500 dark:text-primary-400' : '',
+          item.emphasis === 'highlighted' ? getHighlightStyle(item).text : '',
         ]"
         :depth="0"
         hover-effect="underline"
@@ -73,14 +88,19 @@ function isDropdownActive(item: NavListItem) {
               v-for="(subItem, ii) in item.list?.items"
               :key="ii"
             >
-              <CardNavLink
-                :card
-                :item="subItem"
-                class="block px-4 py-2 font-normal"
-                :class="subItem.href || subItem.onClick ? 'cursor-pointer hover:bg-theme-100/50 dark:hover:bg-theme-700' : 'cursor-default'"
-                data-menu-level="1"
-                @click="closeMenu()"
-              />
+              <div :class="subItem.variant === 'button' ? 'p-2 flex justify-center' : ''">
+                <CardNavLink
+                  :card
+                  :item="subItem"
+                  class="block px-4 py-2 font-normal"
+                  :class="[
+
+                    subItem.href || subItem.onClick ? 'cursor-pointer hover:bg-theme-100/50 dark:hover:bg-theme-700' : 'cursor-default',
+                  ]"
+                  data-menu-level="1"
+                  @click="closeMenu()"
+                />
+              </div>
 
               <div
                 v-if="subItem.list?.items?.length"

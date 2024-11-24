@@ -47,6 +47,7 @@ const hoverClass = 'group-hover/nav-link:text-theme-500 dark:group-hover/nav-lin
     :is="styles.componentType"
     :card="card"
     :theme="styles.theme"
+    :design="item.design"
     :href="item.href"
     :target="item.target ? item.target : '_self'"
     class="group/nav-link"

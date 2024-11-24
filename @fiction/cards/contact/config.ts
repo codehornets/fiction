@@ -193,7 +193,7 @@ function getDefaultConfig(): UserConfig {
             label: 'Email',
             value: 'hello@example.com',
             href: 'mailto:hello@example.com',
-            icon: { iconId: 'email' },
+            icon: { iconId: 'mail' },
           },
           {
             label: 'Phone',
@@ -258,7 +258,7 @@ function getSupportConfig(): UserConfig {
             label: 'Support Email',
             value: 'support@example.com',
             href: 'mailto:support@example.com',
-            icon: { iconId: 'email' },
+            icon: { iconId: 'mail' },
           },
         ],
       },
@@ -329,7 +329,7 @@ function getEnterpriseConfig(): UserConfig {
             label: 'Case Studies',
             value: 'See customer success stories',
             href: '/case-studies',
-            icon: { iconId: 'file-text' },
+            icon: { iconId: 'file' },
           },
           {
             label: 'Security',
