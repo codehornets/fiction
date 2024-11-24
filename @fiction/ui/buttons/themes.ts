@@ -73,7 +73,7 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
       icon: 'text-primary-500 dark:text-primary-500',
     },
     outline: {
-      base: 'bg-transparent text-primary-700 dark:text-primary-100',
+      base: 'bg-transparent text-primary-500 dark:text-primary-100',
       border: 'border-primary-500 dark:border-primary-500',
       hover: 'hover:bg-primary-500/10 dark:hover:bg-primary-500/20',
       icon: 'text-primary-700 dark:text-primary-100',
@@ -87,7 +87,7 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
   },
   theme: {
     solid: {
-      base: 'bg-theme-500 dark:bg-theme-600/70 text-theme-50 dark:text-theme-50',
+      base: 'bg-theme-500 dark:bg-theme-600/70 text-theme-0 dark:text-theme-0',
       border: 'border-theme-600/80 dark:border-theme-600',
       hover: 'hover:bg-theme-600 dark:hover:bg-theme-800',
       icon: 'text-theme-50 dark:text-theme-50',

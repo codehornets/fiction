@@ -24,7 +24,7 @@ const templates = {
   content: {
     hero: () => import('./hero'),
     story: () => import('./story'),
-    quote: () => import('./quote'),
+    quote: () => import('./quotes'),
     profile: () => import('./profile'),
     features: () => import('./features'),
     faq: () => import('./faq'),

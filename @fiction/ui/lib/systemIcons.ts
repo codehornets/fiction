@@ -91,6 +91,7 @@ export const systemIcons = [
   { name: 'Book Open', iconId: 'book-open', iconClass: 'i-tabler-book-open' },
   { name: 'Book Closed', iconId: 'book-closed', iconClass: 'i-tabler-book-closed' },
   { name: 'Sparkles', iconId: 'sparkles', iconClass: 'i-tabler-sparkles' },
+  { name: 'Rss', iconId: 'rss', iconClass: 'i-tabler-rss' },
 
   // Text Editing
   { name: 'Bold', iconId: 'bold', iconClass: 'i-tabler-bold' },

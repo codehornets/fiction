@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { Card } from '@fiction/site'
-import type { Quote, UserConfig } from '.'
+import type { Quote, UserConfig } from './config'
 import { vue } from '@fiction/core'
 import XMedia from '@fiction/ui/media/XMedia.vue'
 import CardText from '../CardText.vue'

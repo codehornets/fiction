@@ -3,12 +3,15 @@ import type { Card } from '@fiction/site'
 import type { UserConfig } from './index.js'
 import { vue } from '@fiction/core'
 import { useElementVisible } from '@fiction/ui/anim'
+import AnimClipPath from '@fiction/ui/anim/AnimClipPath.vue'
 import EffectFitText from '@fiction/ui/effect/EffectFitText.vue'
 import EffectGlare from '@fiction/ui/effect/EffectGlare.vue'
+import XIcon from '@fiction/ui/media/XIcon.vue'
 import XMedia from '@fiction/ui/media/XMedia.vue'
 import CardText from '../CardText.vue'
-import CardSocials from '../el/CardSocials.vue'
+import CardButtons from '../el/CardButtons.vue'
 import NavDots from '../el/NavDots.vue'
+import SuperTitle from '../el/SuperTitle.vue'
 
 const { card } = defineProps<{
   card: Card<UserConfig>
@@ -26,6 +29,8 @@ const isVisible = vue.ref(false)
 vue.onMounted(async () => {
   await useElementVisible({ selector: `.minimal-profile`, onVisible: () => isVisible.value = true, caller: 'minimalProfile' })
 })
+
+const hoverClasses = 'group-hover/item:text-primary-600 dark:group-hover/item:text-primary-400 transition-colors'
 </script>
 
 <template>
@@ -35,9 +40,13 @@ vue.onMounted(async () => {
         <div class="w-full max-w-sm xl:max-w-full xl:w-[50%] mb-8 ">
           <div class="relative">
             <EffectGlare wrap-class="rounded-[20px]">
-              <div class="aspect-[5/7] relative w-full overflow-x-auto snap-mandatory snap-x overscroll-none flex no-scrollbar clip-path-anim" :class="isVisible ? '[clip-path:inset(0_round_20px)] opacity-100' : '[clip-path:inset(30%)] opacity-50'">
+              <AnimClipPath
+                caller="minimalProfile"
+                :animate="true"
+                class="aspect-[5/7] relative w-full overflow-x-auto snap-mandatory snap-x  flex no-scrollbar clip-path-anim"
+              >
                 <XMedia v-for="(item, i) in mediaItems" :key="i" :media="item.media" class="relative slide w-full h-full snap-center shrink-0" />
-              </div>
+              </AnimClipPath>
             </EffectGlare>
             <NavDots
               v-model:active-item="activeItem"
@@ -51,12 +60,12 @@ vue.onMounted(async () => {
         <div class="lg:w-[60%] xl:w-[50%] mt-6 md:mt-0 flex items-center">
           <div class="flex flex-col justify-center gap-10 2xl:gap-16 " :class="isVisible ? 'translate-y-0' : 'translate-y-[100px]'">
             <div class="details">
-              <CardText
-                tag="h3"
+              <SuperTitle
+                v-if="uc.superTitle"
                 :card
-                class="text-primary-500 dark:text-primary-400 mb-4 xl:mb-6 text-base lg:text-xl font-sans font-medium"
-                path="superTitle"
-                animate="rise"
+                class="mb-4"
+                base-path="superTitle"
+                :super-title="uc.superTitle"
               />
               <EffectFitText
                 tag="h1"
@@ -77,43 +86,60 @@ vue.onMounted(async () => {
               />
             </div>
 
-            <div class="list space-y-6 text-base xl:text-lg">
+            <div class="list space-y-4 text-base xl:text-lg @container">
               <CardText
                 tag="h3"
                 :card
-                class="sub-heading text-theme-300 dark:text-theme-600 x-font-sans font-semibold opacity-80"
+                class="sub-heading text-theme-300 dark:text-theme-500 x-font-title font-medium opacity-80"
                 path="detailsTitle"
                 placeholder="List Title"
               />
-              <div class="flex gap-[10%] gap-y-4 flex-wrap font-sans font-medium">
-                <div v-for="(item, i) in uc.details" :key="i" class="w-full md:w-[45%] ">
-                  <CardText
-                    :card
-                    class="font-semibold"
-                    :path="`details.${i}.label`"
-                  />
-                  <CardText
-                    tag="a"
-                    :card
-                    :class="item.href ? 'hover:opacity-80 text-primary-600 dark:text-primary-400' : 'text-theme-500 dark:text-theme-400'"
-                    :path="`details.${i}.description`"
-                    :href="item.href"
-                  />
-                </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 ">
+                <a
+                  v-for="(item, i) in uc.details"
+                  :key="i"
+                  :href="item.href"
+                  :class="item.href ? 'hover:border-primary-500 dark:hover:border-primary-400 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-300' : ''"
+                  class="contact-item group/item flex items-center justify-between gap-6 p-4 rounded-xl dark:bg-theme-700/30 border border-theme-300/70 dark:border-theme-600/50 "
+                >
+                  <div class="flex flex-row gap-2 grow min-w-0">
+
+                    <div class="min-w-0 flex-1">
+                      <div class="flex gap-1 items-center justify-between w-full">
+
+                        <CardText
+                          :card
+                          tag="span"
+                          :class="item.href ? hoverClasses : ''"
+                          class="block x-font-title font-medium text-theme-900 dark:text-theme-100"
+                          :path="`details.${i}.label`"
+                        />
+                        <XIcon
+                          v-if="item.icon"
+                          class="size-6 text-theme-400/60 dark:text-theme-600/60"
+                          :media="item.icon"
+                        />
+                      </div>
+                      <CardText
+                        v-if="item.value"
+                        :card
+                        tag="span"
+                        :class="item.href ? hoverClasses : ''"
+                        class="block  mt-0.5 font-sans text-theme-600 dark:text-theme-400 truncate"
+                        :path="`details.${i}.value`"
+                      />
+                    </div>
+                  </div>
+
+                </a>
               </div>
             </div>
 
-            <CardSocials :card :socials="uc.socials || []" class="flex gap-2 text-2xl justify-center md:justify-start" />
+            <CardButtons :card :actions="uc.socials || []" class="flex gap-4 text-2xl justify-center md:justify-start" />
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
-
-<style lang="less">
-.clip-path-anim{
-  // '0.25,1,0.5,1'
-  transition: clip-path 2s cubic-bezier(0.25, 1, 0.33, 1), opacity 2s cubic-bezier(0.25, 1, 0.33, 1), transform 2s cubic-bezier(0.25, 1, 0.33, 1);
-}
-</style>

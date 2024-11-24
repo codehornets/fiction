@@ -256,6 +256,14 @@ export const ActionButtonSchema = z.object({
 
 export type ActionButton = z.infer<typeof ActionButtonSchema>
 
+export const superTitleSchema = z.object({
+  text: z.string().optional(),
+  icon: MediaIconSchema.optional(),
+  color: z.enum(colorThemeUser).optional(),
+})
+
+export type SuperTitle = z.infer<typeof superTitleSchema>
+
 export const TaxonomySchema = z.object({
   title: z.string().optional(),
   slug: z.string().optional(),

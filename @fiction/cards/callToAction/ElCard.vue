@@ -41,10 +41,10 @@ vue.onMounted(() => {
           <div class="gap-8 xl:gap-10 flex flex-col justify-center md:col-span-7">
             <div class="space-y-4 xl:space-y-6">
               <SuperTitle
+                v-if="uc.superTitle"
                 :card
-                path-to-text="super.text"
-                :theme="uc.super?.color"
-                :icon="uc.super?.icon"
+                base-path="superTitle"
+                :super-title="uc.superTitle"
               />
 
               <CardText

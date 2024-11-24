@@ -1,4 +1,4 @@
-import { ActionButtonSchema, colorThemeUser, MediaBasicSchema, MediaIconSchema, navListItemSchema, navListSchema } from '@fiction/core'
+import { ActionButtonSchema, colorThemeUser, MediaBasicSchema, MediaIconSchema, navListSchema, superTitleSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
@@ -7,11 +7,7 @@ export const schema = z.object({
 
   title: z.string().optional(),
   subTitle: z.string().optional(),
-  super: z.object({
-    text: z.string().optional(),
-    icon: MediaIconSchema.optional(),
-    color: z.enum(colorThemeUser).optional(),
-  }).optional(),
+  superTitle: superTitleSchema.optional(),
   benefits: navListSchema.optional(),
   actions: z.object({
     type: z.enum(['buttons', 'subscribe']).optional(),
@@ -43,7 +39,7 @@ export function getOptions(): InputOption[] {
       input: 'group',
       options: [
         new InputOption({
-          key: 'superTitle',
+          key: 'superTitle.text',
           label: 'Super Title',
           input: 'InputText',
           props: {
@@ -188,7 +184,7 @@ export function getOptions(): InputOption[] {
 
 export function getDefaultConfig(): UserConfig {
   return {
-    super: {
+    superTitle: {
       text: 'Customizable CTA Section',
       icon: { class: 'i-tabler-star' },
     },
@@ -242,7 +238,7 @@ export function getDemoConfigs(templateId: string): Record<string, { templateId:
     newsletter: {
       templateId,
       userConfig: {
-        super: {
+        superTitle: {
           text: 'Limited Time Offer',
           icon: { class: 'i-tabler-star' },
           color: 'orange',
@@ -289,7 +285,7 @@ export function getDemoConfigs(templateId: string): Record<string, { templateId:
     saas: {
       templateId,
       userConfig: {
-        super: {
+        superTitle: {
           text: 'Power Up Your Workflow',
           icon: { class: 'i-tabler-bolt' },
           color: 'blue',
