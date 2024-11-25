@@ -11,8 +11,8 @@ const props = defineProps({
   fromEmail: { type: String, default: '' },
   avatarUrl: { type: String, default: undefined },
   subject: { type: String, default: '' },
-  heading: { type: String, default: '' },
-  subHeading: { type: String, default: '' },
+  title: { type: String, default: '' },
+  subTitle: { type: String, default: '' },
   bodyMarkdown: { type: String, default: '' },
   preview: { type: String, default: undefined },
   actions: { type: Array as PropType<ActionButton[]>, default: undefined },
@@ -71,10 +71,8 @@ const tailwindConfig: TailwindConfig = {
   },
 }
 
-const primaryColor = colorList[props.primaryColor]
-
 const previewText = computed(() => {
-  return props.preview || (props.heading ? `${props.heading} -- ${props.subHeading || ''}` : '')
+  return props.preview || (props.title ? `${props.title} -- ${props.subTitle || ''}` : '')
 })
 
 function getButtonClass(item: ActionButton): string {
@@ -170,17 +168,6 @@ const markdownStyles = {
     margin: '1.5rem 0',
   },
 }
-
-function generateColorStyles(isDark: boolean) {
-  return `
-  body {
-    background-color: ${isDark ? colorList.gray[900] : colorList.gray[0]};
-    color: ${isDark ? '#ffffff' : colorList.gray[900]};
-  }
-  a { color: ${isDark ? primaryColor[400] : primaryColor[500]}; }
-  hr { border-color: ${isDark ? colorList.gray[700] : colorList.gray[200]} !important; }
-`
-}
 </script>
 
 <template>
@@ -227,20 +214,20 @@ function generateColorStyles(isDark: boolean) {
                 <Img class="rounded-md !border-2 !border-white/10 !border-solid" width="22" :src="mediaSuper.media?.url" />
               </a>
             </Column>
-            <Column v-if="mediaSuper?.name" :class="mediaSuper.media?.url ? `pl-3` : ''">
+            <Column v-if="mediaSuper?.label" :class="mediaSuper.media?.url ? `pl-3` : ''">
               <a :href="mediaSuper.href || '#'" class="text-inherit font-normal text-[14px] no-underline">
-                {{ mediaSuper?.name }}
+                {{ mediaSuper?.label }}
               </a>
             </Column>
           </Section>
 
           <Section>
-            <Heading data-test-id="email-title" as="h1" :data-heading="heading" :style="{ 'margin': '0 0 0 0', 'fontWeight': 'bold', 'font-size': '28px', 'lineHeight': 1.3 }">
-              {{ heading }}
+            <Heading data-test-id="email-title" as="h1" :data-title="title" :style="{ 'margin': '0 0 0 0', 'fontWeight': 'bold', 'font-size': '28px', 'lineHeight': 1.3 }">
+              {{ title }}
             </Heading>
 
-            <Heading v-if="subHeading" data-test-id="email-sub-title" as="h3" class="my-0 opacity-60" :style="{ margin: '0 0 0 0', fontWeight: 'normal', fontSize: '24px', lineHeight: 1.33 }">
-              <span v-html="subHeading" /> <span class="opacity-40">&#x2198;</span>
+            <Heading v-if="subTitle" data-test-id="email-sub-title" as="h3" class="my-0 opacity-60" :style="{ margin: '0 0 0 0', fontWeight: 'normal', fontSize: '24px', lineHeight: 1.33 }">
+              <span v-html="subTitle" /> <span class="opacity-40">&#x2198;</span>
             </Heading>
           </Section>
 
@@ -268,21 +255,21 @@ function generateColorStyles(isDark: boolean) {
           <Section class="mt-8 text-left subtle-text text-normal text-xs">
             <Column class="w-[65%] align-top">
               <template v-if="mediaFooter">
-                <Img v-if="mediaFooter.media?.url" width="80" :src="mediaFooter.media?.url" :alt="mediaFooter.name " />
+                <Img v-if="mediaFooter.media?.url" width="80" :src="mediaFooter.media?.url" :alt="mediaFooter.label " />
                 <Text>
-                  <a v-if="mediaFooter.name" class="text-normal mt-4 no-underline text-inherit opacity-40 hover:opacity-80" :href="mediaFooter.href || '#'">
-                    {{ mediaFooter.name }} &#x2197;
+                  <a v-if="mediaFooter.label" class="text-normal mt-4 no-underline text-inherit opacity-40 hover:opacity-80" :href="mediaFooter.href || '#'">
+                    {{ mediaFooter.label }} &#x2197;
                   </a>
                 </Text>
               </template>
             </Column>
             <Column class="w-[35%] text-right  align-top text-xs">
               <div v-if="legal" class="text-sm mb-4 mt-0">
-                <a v-if="legal.name" class="mb-1 text-inherit no-underline" :href="legal.href || '#'">
-                  {{ legal?.name }}
+                <a v-if="legal.label" class="mb-1 text-inherit no-underline" :href="legal.href || '#'">
+                  {{ legal?.label }}
                 </a>
-                <div v-if="legal?.desc" class="opacity-70">
-                  {{ legal?.desc }}
+                <div v-if="legal?.description" class="opacity-70">
+                  {{ legal?.description }}
                 </div>
               </div>
               <a v-if="unsubscribeUrl" :href="unsubscribeUrl" class="opacity-50 text-inherit no-underline">

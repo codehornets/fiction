@@ -205,7 +205,7 @@ const adminOptions = [
     input: 'InputControl',
     actions: () => [
       {
-        name: 'Delete Subscriber...',
+        label: 'Delete Subscriber...',
         theme: 'rose',
         design: 'ghost',
         icon: 'i-tabler-trash',

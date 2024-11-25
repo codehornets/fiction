@@ -38,15 +38,15 @@ export async function setup(args: { context?: 'node' | 'app', mainFilePath?: str
       const emailConfig = {
         emailVars,
         subject: `${emailVars.appName}: Email Action Subject`,
-        heading: 'Email Action Heading',
-        subHeading: 'Email Action Subheading',
+        title: 'Email Action Title',
+        subTitle: 'Email Action Subtitle',
         bodyMarkdown: `Email Action Body Markdown`,
         to: `${emailVars.email}`,
         actions: [
           {
-            name: 'Verify Email',
+            label: 'Verify Email',
             href: emailVars.callbackUrl,
-            btn: 'primary' as const,
+            theme: 'primary' as const,
           },
         ],
       }

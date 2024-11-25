@@ -123,7 +123,7 @@ vue.onMounted(() => {
                 v-for="(social, i) in uc.additional?.social"
                 :key="i"
                 :href="social.href"
-                :title="social.name"
+                :title="social.label"
                 class="text-theme-400 hover:text-primary-500 dark:text-theme-600 dark:hover:text-primary-400 transition-colors animate-item"
               >
                 <XIcon

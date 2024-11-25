@@ -34,12 +34,12 @@ const list = vue.computed<IndexItem[]>(() => {
     return {
       ...p.toConfig(),
       key: p.postId,
-      name: p.title.value || 'Untitled',
-      desc: p.subTitle.value || 'No description',
+      label: p.title.value || 'Untitled',
+      description: p.subTitle.value || 'No description',
       href: props.card.link(`/edit-post?postId=${p.postId}`),
       media: p.media.value,
       icon: 'i-tabler-pin',
-    } as IndexItem
+    } satisfies IndexItem
   })
 })
 

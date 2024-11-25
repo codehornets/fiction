@@ -109,8 +109,8 @@ export class QuerySeekInviteFromUser extends TeamQuery {
       to: email,
       subject: `${requestingName || requestingEmail}: Request for Access`,
       bodyMarkdown,
-      heading: 'Request for Access',
-      subHeading: 'A user has requested access to your organization.',
+      title: 'Request for Access',
+      subTitle: 'A user has requested access to your organization.',
       actions: [{
         label: 'Login and Invite',
         href: `${appUrl}${path}`,
@@ -210,8 +210,8 @@ export class QueryTeamInvite extends TeamQuery {
       await this.settings.fictionEmail?.renderAndSendEmail({
         to: email,
         subject: `${org.orgName}: You've been invited!`,
-        heading: `Your Invitation`,
-        subHeading: `To join ${org.orgName} on Fiction`,
+        title: `Your Invitation`,
+        subTitle: `To join ${org.orgName} on Fiction`,
         bodyMarkdown,
         actions: [
           {

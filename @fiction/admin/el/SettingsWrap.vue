@@ -26,7 +26,12 @@ const nav = vue.computed<NavItem[]>(() => {
       const isActive = !!(v.slug.value === itemId || (parentItemId && v.slug.value === parentItemId))
 
       const icon = isActive && navUc.navIconAlt ? navUc.navIconAlt : navUc.navIcon ? navUc.navIcon : 'i-heroicons-arrow-small-right-20-solid'
-      return { name: v.title.value || toLabel(v.slug.value), href: v.link(`/settings/${v.slug.value}`), isActive, icon }
+      return {
+        label: v.title.value || toLabel(v.slug.value),
+        href: v.link(`/settings/${v.slug.value}`),
+        isActive,
+        icon,
+      } satisfies NavItem
     })
 })
 </script>
@@ -49,7 +54,7 @@ const nav = vue.computed<NavItem[]>(() => {
                   : 'inactive font-medium text-theme-600 dark:text-theme-0 hover:bg-theme-100/50 dark:hover:bg-theme-800' "
             >
               <div v-if="v.icon" class="text-[1.4em] shrink-0 opacity-80" :class="v.icon" />
-              <div>{{ v.name }}</div>
+              <div>{{ v.label }}</div>
             </CardLink>
           </div>
         </div>

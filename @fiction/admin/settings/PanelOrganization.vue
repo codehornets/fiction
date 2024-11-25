@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { Card } from '@fiction/site'
-import { gravatarUrlSync, type Organization, useService, vue } from '@fiction/core'
+import { type ActionButton, gravatarUrlSync, type Organization, useService, vue } from '@fiction/core'
 import { AutosaveUtility } from '@fiction/core/utils/save.js'
 import { InputOption } from '@fiction/ui/index.js'
 import FormEngine from '@fiction/ui/inputs/FormEngine.vue'
@@ -221,7 +221,7 @@ const adminOptions = [
     actions: () => [
       {
         testId: 'deleteOrgButton',
-        name: 'Delete Organization...',
+        label: 'Delete Organization...',
         theme: 'rose',
         design: 'ghost',
         icon: 'i-tabler-trash',
@@ -240,7 +240,7 @@ const adminOptions = [
             sending.value = ''
           }
         },
-      },
+      } satisfies ActionButton,
     ],
   }),
 ]

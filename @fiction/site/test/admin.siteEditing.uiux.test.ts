@@ -23,7 +23,7 @@ describe('admin site editing', async () => {
         { type: 'click', selector: `[data-test-id="createSite"]` },
         { type: 'fill', selector: `[data-test-id="siteName"] input`, text: 'Test Site' },
         { type: 'click', selector: `[data-test-id="createSiteModal"] [data-test-el="step-submit"]` },
-        { type: 'click', selector: `[data-test-id="createSiteModal"] [data-test-id="theme-omega"]` },
+        { type: 'click', selector: `[data-test-id="createSiteModal"] [data-test-id="theme-minimal"]` },
         { type: 'click', selector: `[data-test-id="createSiteModal"] [data-test-el="step-submit"]` },
         { type: 'visible', selector: `[data-view-id="edit-site"]` },
         { type: 'frameInteraction', frameSelector: `#site-builder-iframe`, frameActions: [

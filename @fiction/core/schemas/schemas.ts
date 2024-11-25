@@ -259,7 +259,7 @@ export type ActionButton = z.infer<typeof ActionButtonSchema>
 export const superTitleSchema = z.object({
   text: z.string().optional(),
   icon: MediaIconSchema.optional(),
-  color: z.enum(colorThemeUser).optional(),
+  theme: z.enum(colorThemeUser).optional(),
 })
 
 export type SuperTitle = z.infer<typeof superTitleSchema>

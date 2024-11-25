@@ -22,8 +22,8 @@ async function defaultConfig(): Promise<UserConfig> {
   const userConfig: UserConfig = {
     items: [
       {
-        heading: 'Catchy Headline',
-        subHeading: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        title: 'Catchy Headline',
+        subTitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         splash: stock.getRandomByTags(['object', 'aspect:landscape']),
         layout: 'left' as const,
         overlays: [
@@ -37,8 +37,8 @@ async function defaultConfig(): Promise<UserConfig> {
         // content: 'Led brand refresh initiatives for Coca-Cola, Nintendo, and Burberry. These projects involved modernizing visual identities while preserving brand heritage, resulting in average engagement increases of 28% across campaigns.'
       },
       {
-        heading: 'Another Catchy Headline',
-        subHeading: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        title: 'Another Catchy Headline',
+        subTitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         splash: stock.getRandomByTags(['object', 'aspect:landscape']),
         layout: 'right' as const,
         overlays: [{ media: stock.getRandomByTags(['aspect:square']), position: 'bottomLeft' }],
@@ -49,8 +49,8 @@ async function defaultConfig(): Promise<UserConfig> {
         // content: 'Spearheaded UX/UI redesigns for Google, Spotify, and Amazon. Projects focused on enhancing user engagement, simplifying complex processes, and improving accessibility. Achieved an average 22% increase in user satisfaction scores.'
       },
       {
-        heading: 'Yet Another Catchy Headline',
-        subHeading: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        title: 'Yet Another Catchy Headline',
+        subTitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         splash: stock.getRandomByTags(['background', 'aspect:landscape', 'video']),
         overlays: [
           { media: stock.getRandomByTags(['object', 'aspect:landscape']) },

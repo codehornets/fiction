@@ -59,7 +59,7 @@ const list = vue.computed<IndexItem[]>(() => {
     <IndexItemList :list :actions="[{ label: 'Add Site', theme: 'primary', href: card.link('/sites?addNew=1') }]" zero-text="No sites found. Create one.">
       <template #subTitle="{ item }">
         <div class="flex items-center gap-4">
-          <span class="inline-flex gap-1 items-center"><span class="i-tabler-world" /><span>{{ item.desc }}</span></span>
+          <span class="inline-flex gap-1 items-center"><span class="i-tabler-world" /><span>{{ item.description }}</span></span>
           <time v-if="item.dateIso" class="text-theme-400">Updated {{ dayjs(item.dateIso).format('MMM DD, YYYY') }}</time>
         </div>
       </template>

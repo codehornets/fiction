@@ -40,8 +40,8 @@ describe('transactional email', async () => {
       fromName: 'Fiction.com',
       fromEmail: 'admin@fiction.com',
       subject: `Test Space (test email 🧪🧪🧪)`,
-      heading: 'Welcome to Space 🚀',
-      subHeading: 'This is a test email to test formatting of various elements.🧪',
+      title: 'Welcome to Space 🚀',
+      subTitle: 'This is a test email to test formatting of various elements.🧪',
       bodyHtml: sampleHtml,
       actions: [
         {
@@ -52,12 +52,12 @@ describe('transactional email', async () => {
       ],
       mediaSuper: {
         media: { url: superImage.url },
-        name: 'Fiction',
+        label: 'Fiction',
         href: 'https://www.fiction.com',
       },
       mediaFooter: {
         media: { url: footerImage.url },
-        name: 'Powered by Fiction.com',
+        label: 'Powered by Fiction.com',
         href: 'https://www.fiction.com',
       },
       unsubscribeUrl: 'https://www.fiction.com/unsubscribe',
@@ -275,8 +275,8 @@ describe('transactional email', async () => {
       expect(result.status).toBe('success')
 
       expect(result.data?.html).toContain(confirmEmail.subject)
-      expect(result.data?.html).toContain(confirmEmail.heading)
-      expect(result.data?.html).toContain(confirmEmail.subHeading)
+      expect(result.data?.html).toContain(confirmEmail.title)
+      expect(result.data?.html).toContain(confirmEmail.subTitle)
       expect(result.data?.html).toContain('Welcome')
       expect(result.data?.html).toContain('<hr')
       expect(result.data?.html).toContain('figure')

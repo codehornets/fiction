@@ -169,7 +169,11 @@ async function getDemoUserConfig(args: { factory: CardFactory }): Promise<UserCo
     {
       layout: 'right',
       theme: 'cyan',
-      superTitle: { text: 'Tech Innovation Lead', color: 'orange', icon: { class: 'i-tabler-briefcase' } },
+      superTitle: {
+        text: 'Tech Innovation Lead',
+        theme: 'orange',
+        icon: { class: 'i-tabler-briefcase' },
+      },
       title: 'Engineering Tomorrow\'s Solutions',
       content: `<p>Watch how technical expertise can be communicated in an engaging, accessible way. Notice the balance between professional accomplishments and approachable personality.</p>
 <p>Discover how highlighting key technologies and achievements can build credibility while maintaining a forward-thinking perspective.</p>`,

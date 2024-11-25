@@ -139,16 +139,16 @@ function toggleSidebar() {
     >
       <template v-if="!loading && !fictionUser.activeUser.value">
         <El404
-          super-heading="401"
-          heading="Login Required"
-          sub-heading="Signin to your account to access this page."
+          :super-title="{ text: '401' }"
+          title="Login Required"
+          sub-title="Signin to your account to access this page."
           :actions="[{ label: 'Login', href: card.link('/auth/login') }]"
         />
       </template>
       <template v-else-if="!memberHasAccess">
         <El404
-          heading="No Access"
-          sub-heading="You don't have access to this page."
+          title="No Access"
+          sub-title="You don't have access to this page."
         />
       </template>
       <template v-else-if="uc.layoutFormat === 'full'">

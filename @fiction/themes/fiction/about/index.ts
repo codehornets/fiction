@@ -1,4 +1,9 @@
+import type { template as faqTemplate } from '@fiction/cards/faq/index.js'
+import type { template as heroTemplate } from '@fiction/cards/hero/index.js'
 import type { MapConfig } from '@fiction/cards/maps/config'
+import type { template as mapsTemplate } from '@fiction/cards/maps/index.js'
+import type { template as peopleTemplate } from '@fiction/cards/people/index.js'
+import type { template as quoteTemplate } from '@fiction/cards/quotes/index.js'
 import type { CardFactory } from '@fiction/site/cardFactory.js'
 import type { Site } from '@fiction/site/site.js'
 import ap from './ap.webp'
@@ -8,53 +13,57 @@ import spectrum from './spectrum.jpg'
 
 export async function page(args: { site: Site, factory: CardFactory }) {
   const { factory } = args
-  const topHeroCard = await factory.create({
+  const topHeroCard = await factory.fromTemplate<typeof heroTemplate>({
     templateId: 'hero',
     userConfig: {
-      superHeading: 'Company',
-      subHeading: `A company built to help you tell your story. Made in California.`,
-      heading: `About`,
+      superTitle: { text: 'Company' },
+      subTitle: `A company built to help you tell your story. Made in California.`,
+      title: `About`,
       splash: { format: 'url', url: spectrum },
       layout: 'justify',
       actions: [],
     },
   })
 
-  const missionHeroCard = await factory.create({
+  const missionHeroCard = await factory.fromTemplate<typeof heroTemplate>({
     templateId: 'hero',
     userConfig: {
-      superHeading: 'Mission',
-      subHeading: `We believe everyone has a story to tell and a reputation to build. Fiction's mission is to elevate people and remove barriers to success.`,
-      heading: `Helping People.`,
+      superTitle: { text: 'Mission' },
+      subTitle: `We believe everyone has a story to tell and a reputation to build. Fiction's mission is to elevate people and remove barriers to success.`,
+      title: `Helping People.`,
       splash: { format: 'url' as const, url: pro },
       layout: 'left',
       actions: [],
     },
   })
 
-  const missionHeroCard2 = await factory.create({
+  const missionHeroCard2 = await factory.fromTemplate<typeof heroTemplate>({
     templateId: 'hero',
     userConfig: {
-      superHeading: 'Mission',
-      subHeading: `We don't believe in compromising products for profit. Fiction is open-source and free to use. We believe in the power of community and the value of giving back.`,
-      heading: `Open Source Software.`,
+      superTitle: { text: 'Mission' },
+      subTitle: `We don't believe in compromising products for profit. Fiction is open-source and free to use. We believe in the power of community and the value of giving back.`,
+      title: `Open Source Software.`,
       splash: { format: 'url', url: girlComputer },
       layout: 'right',
       actions: [],
     },
   })
 
-  const teamCard = await factory.create({
+  const teamCard = await factory.fromTemplate<typeof peopleTemplate>({
     templateId: 'people',
     userConfig: {
-      subHeading: `People helping build your story`,
-      heading: `Team`,
+      subTitle: `People helping build your story`,
+      title: `Team`,
       profiles: [{
         name: 'Andrew Powers',
         title: 'Founder',
         desc: 'Andrew is the founder of Fiction. He has a background in software engineering and has worked in the tech industry for over 20 years. He is passionate about building tools that help people tell their stories.',
         media: { format: 'url', url: ap },
-        social: [{ name: 'LinkedIn', icon: 'linkedin', href: 'https://www.linkedin.com/in/arpowers' }],
+        social: [{
+          label: 'LinkedIn',
+          media: { class: 'i-tabler-linkedin' },
+          href: 'https://www.linkedin.com/in/arpowers',
+        }],
       }],
       layout: 'mediabox',
     },
@@ -78,23 +87,22 @@ export async function page(args: { site: Site, factory: CardFactory }) {
     mapStyle: 'outdoors' as const,
   }
 
-  const mapCard = await factory.create({
+  const mapCard = await factory.fromTemplate<typeof mapsTemplate>({
     templateId: 'maps',
     userConfig: {
       maps: [mapIrvine, mapSaltLake],
     },
   })
 
-  const valueCard = await factory.create({
+  const valueCard = await factory.fromTemplate<typeof faqTemplate>({
     templateId: 'faq',
     userConfig: {
-      heading: `Values`,
+      standard: { headers: { title: 'Values', subTitle: 'What we believe in' } },
       items: [
-        { name: 'Focused', desc: `Create big value for a small group of people. Don't try and be everything to everyone.` },
-        { name: `Karma`, desc: `Focus on making a contribution, the rest takes care of itself.` },
-        { name: `Crafted`, desc: `Take the time to do things extremely well. It's better to do nothing, than release something below our standards.` },
-        { name: `Minimal`, desc: `Simplicity is the ultimate form of elegance. Do what's needed and nothing more.` },
-
+        { title: 'Focused', content: `Create big value for a small group of people. Don't try and be everything to everyone.` },
+        { title: `Karma`, content: `Focus on making a contribution, the rest takes care of itself.` },
+        { title: `Crafted`, content: `Take the time to do things extremely well. It's better to do nothing, than release something below our standards.` },
+        { title: `Minimal`, content: `Simplicity is the ultimate form of elegance. Do what's needed and nothing more.` },
       ],
     },
   })

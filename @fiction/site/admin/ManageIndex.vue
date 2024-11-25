@@ -66,8 +66,8 @@ function getActions(location: 'top' | 'zero') {
         :index-meta="{}"
         :edit-actions="[]"
         :empty="{
-          name: 'Create Your First Site',
-          desc: `The homebase for your online presence.`,
+          label: 'Create Your First Site',
+          description: `The homebase for your online presence.`,
           actions: getActions('zero'),
           icon: 'i-tabler-browser-plus',
         }"

@@ -23,7 +23,7 @@ const emit = defineEmits<{
 const attrs = vue.useAttrs()
 const textEl = vue.ref<HTMLElement>()
 
-const data = vue.computed(() => props.card.userConfig.value)
+const data = vue.computed(() => props.card.fullConfig.value)
 
 function getNewUserConfig(v: string) {
   return setNested({ data: data.value, path: props.path, value: v })

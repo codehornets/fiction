@@ -10,14 +10,14 @@ const darkMode = vue.ref(false)
 const alignments = ['justify-start', 'justify-center', 'justify-end'] as const
 
 const containerScenarios = [
-  { name: 'Header Logo', class: 'h-16' },
-  { name: 'Sidebar Logo', class: 'h-12 max-w-[200px]' },
-  { name: 'Footer Logo', class: 'h-10' },
-  { name: 'Mobile Header', class: 'h-8' },
-  { name: 'Logo Grid Item', class: 'h-24' },
-  { name: 'Banner Logo', class: 'h-20' },
-  { name: 'Tall Container', class: 'h-40' },
-  { name: 'No Height Specified', class: '' },
+  { label: 'Header Logo', class: 'h-16' },
+  { label: 'Sidebar Logo', class: 'h-12 max-w-[200px]' },
+  { label: 'Footer Logo', class: 'h-10' },
+  { label: 'Mobile Header', class: 'h-8' },
+  { label: 'Logo Grid Item', class: 'h-24' },
+  { label: 'Banner Logo', class: 'h-20' },
+  { label: 'Tall Container', class: 'h-40' },
+  { label: 'No Height Specified', class: '' },
 ]
 
 const stock = vue.ref<Awaited<ReturnType<typeof createStockMediaHandler>>>()
@@ -95,11 +95,11 @@ const gridItems = vue.computed(() => {
 
 // Height handling examples
 const heightExamples = [
-  { name: 'Default (no height)', class: '' },
-  { name: 'Fixed Height (64px)', class: 'h-16' },
-  { name: 'Percentage Height (50%)', class: 'h-1/2' },
-  { name: 'Viewport Height (25vh)', class: 'h-[15vh]' },
-  { name: 'Min Height (100px)', class: 'min-h-[100px]' },
+  { label: 'Default (no height)', class: '' },
+  { label: 'Fixed Height (64px)', class: 'h-16' },
+  { label: 'Percentage Height (50%)', class: 'h-1/2' },
+  { label: 'Viewport Height (25vh)', class: 'h-[15vh]' },
+  { label: 'Min Height (100px)', class: 'min-h-[100px]' },
 ]
 
 vue.onMounted(async () => {
@@ -131,9 +131,9 @@ vue.onMounted(async () => {
             {{ media.format }} {{ media.alt ? `(${media.alt})` : '' }}
           </h2>
 
-          <div v-for="scenario in containerScenarios" :key="scenario.name" class="mb-6">
+          <div v-for="scenario in containerScenarios" :key="scenario.label" class="mb-6">
             <h3 class="text-sm font-medium mb-2 text-theme-600 dark:text-theme-300">
-              {{ scenario.name }}
+              {{ scenario.label }}
             </h3>
             <div v-for="alignment in alignments" :key="alignment" class="mb-2">
               <p class="text-xs text-theme-500 dark:text-theme-400 mb-1">
@@ -157,9 +157,9 @@ vue.onMounted(async () => {
           Height Handling Examples
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div v-for="example in heightExamples" :key="example.name" class="space-y-4">
+          <div v-for="example in heightExamples" :key="example.label" class="space-y-4">
             <h3 class="text-lg font-semibold text-theme-700 dark:text-theme-300 font-sans">
-              {{ example.name }}
+              {{ example.label }}
             </h3>
             <div class="bg-theme-100 dark:bg-theme-700 rounded" :class="example.class">
               <XLogo

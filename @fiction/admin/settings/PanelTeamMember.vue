@@ -132,10 +132,10 @@ const detailOptions = [
         label: 'Organization Role',
         input: 'InputSelectCustom',
         list: [
-          { value: 'owner', name: 'Owner' },
-          { value: 'admin', name: 'Administrator' },
-          { value: 'editor', name: 'Editor (Read/Write)' },
-          { value: 'observer', name: 'Observer (Read Only)' },
+          { value: 'owner', label: 'Owner' },
+          { value: 'admin', label: 'Administrator' },
+          { value: 'editor', label: 'Editor (Read/Write)' },
+          { value: 'observer', label: 'Observer (Read Only)' },
         ],
       }),
     ],
@@ -152,14 +152,14 @@ const detailOptions = [
     },
     actions: () => [
       {
-        name: 'Resend Invite',
+        label: 'Resend Invite',
         onClick: () => resendInvite(),
         theme: 'primary',
         disabled: member.value?.memberStatus === 'active',
         icon: { class: 'i-tabler-send' },
       },
       {
-        name: 'Remove...',
+        label: 'Remove...',
         onClick: () => maybeRemoveMember(),
         theme: 'rose',
         design: 'ghost',

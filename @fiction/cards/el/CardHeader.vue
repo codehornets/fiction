@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { ActionButton, colorTheme, MediaObject } from '@fiction/core'
+import type { ActionButton, colorTheme, MediaObject, SuperTitle } from '@fiction/core'
 import type { Card } from '@fiction/site'
 import { vue } from '@fiction/core'
 import XIcon from '@fiction/ui/media/XIcon.vue'
@@ -8,11 +8,9 @@ import CardText from '../CardText.vue'
 import CardActions from './CardActions.vue'
 
 export type UserConfig = {
-  heading?: string
-  subHeading?: string
-  superHeading?: string
-  superIcon?: MediaObject
-  superColor?: typeof colorTheme[number]
+  title?: string
+  subTitle?: string
+  superTitle?: SuperTitle
   actions?: ActionButton[]
   layout?: 'center' | 'justify' | 'right' | 'left'
 }
@@ -28,15 +26,15 @@ const uc = vue.computed(() => {
 })
 
 const colorStyle = vue.computed(() => {
-  const color = uc.value.superColor
-  if (!color) {
+  const theme = uc.value.superTitle?.theme
+  if (!theme) {
     return {
       icon: 'text-primary-500 dark:text-theme-100 bg-primary-100/80 dark:bg-theme-700/80',
       text: 'text-theme-500 dark:text-theme-500',
     }
   }
 
-  const r = getColorThemeStyles(uc.value.superColor || 'theme')
+  const r = getColorThemeStyles(theme || 'theme')
   return {
     icon: [r?.bg, r?.text, r?.border].join(' '),
     text: r?.text,
@@ -75,16 +73,16 @@ const layout = vue.computed(() => {
       :data-layout="layout"
     >
       <div class="max-w-screen-lg" :class="layout === 'justify' ? 'lg:min-w-[50%]' : 'mx-auto'">
-        <div v-if="uc.superHeading || uc.superIcon" class="flex gap-3 items-center mb-4" :class="[colorStyle.text, layout === 'center' ? 'md:justify-center' : '']">
-          <div v-if="uc.superIcon" :class="colorStyle.icon" class="size-10 rounded-full flex items-center justify-center">
-            <XIcon :media="uc.superIcon" class="size-6" />
+        <div v-if="uc.superTitle?.text || uc.superTitle?.icon" class="flex gap-3 items-center mb-4" :class="[colorStyle.text, layout === 'center' ? 'md:justify-center' : '']">
+          <div v-if="uc.superTitle?.icon" :class="colorStyle.icon" class="size-10 rounded-full flex items-center justify-center">
+            <XIcon :media="uc.superTitle?.icon" class="size-6" />
           </div>
           <CardText
             tag="h3"
             :card
-            class=" font-sans text-sm lg:text-lg font-medium"
-            path="superHeading"
-            placeholder="Super Heading"
+            class="font-sans text-sm lg:text-lg font-medium"
+            path="superTitle.text"
+            placeholder="Super Title"
             animate="fade"
           />
         </div>
@@ -93,8 +91,8 @@ const layout = vue.computed(() => {
           :card
           class="x-font-title font-semibold md:text-balance text-4xl sm:text-5xl lg:text-[3.2rem] !leading-[1.1]"
           :class="[layout === 'justify' || layout === 'left' ? 'mt-3' : 'my-7']"
-          path="heading"
-          placeholder="Heading"
+          path="title"
+          placeholder="Title"
           animate="fade"
         />
       </div>
@@ -104,8 +102,8 @@ const layout = vue.computed(() => {
           :card
           class="mt-8 text-xl lg:text-2xl !leading-[1.5] md:text-balance text-theme-700 dark:text-theme-300/90"
           :class="layout === 'justify' ? 'lg:text-right' : ''"
-          path="subHeading"
-          placeholder="Sub Heading"
+          path="subTitle"
+          placeholder="Sub Title"
           animate="fade"
         />
       </div>

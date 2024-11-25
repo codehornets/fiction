@@ -1,6 +1,6 @@
 import type { FictionSubscribe, Subscriber } from '../index.js'
 import { type EndpointMeta, type EndpointResponse, gravatarUrlSync, vue } from '@fiction/core/index.js'
-import { EmailAction } from '@fiction/plugin-transactions/index.js'
+import { EmailAction, type EmailConfigResponse } from '@fiction/plugin-transactions/index.js'
 
 export function getEmails(args: { fictionSubscribe: FictionSubscribe }) {
   const { fictionSubscribe } = args
@@ -43,16 +43,17 @@ export function getEmails(args: { fictionSubscribe: FictionSubscribe }) {
       return {
         emailVars,
         subject: `Confirm Your Subscription 👍`,
-        heading: 'Confirm Your Subscription',
-        subHeading: 'Just click the link below',
+        title: 'Confirm Your Subscription',
+        subTitle: 'Just click the link below',
         bodyMarkdown: `Please click the button below to confirm you'd like to receive emails from **${fromName}**.`,
         to: `${emailVars.email}`,
-        from: `${fromName} <${fromEmail}>`,
+        fromName,
+        fromEmail,
         actions: [
-          { name: 'Confirm Subscription', href: emailVars.callbackUrl, theme: 'primary' },
+          { label: 'Confirm Subscription', href: emailVars.callbackUrl, theme: 'primary' },
         ],
-        mediaSuper: { name: fromName, media: avatar },
-      }
+        mediaSuper: { label: fromName, media: avatar },
+      } satisfies EmailConfigResponse
     },
     serverTransaction: async (args, meta: EndpointMeta) => {
       const { where, userId, code } = args

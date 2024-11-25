@@ -55,16 +55,24 @@ export function normalizeList(
   return list.filter(item => item !== undefined).map((item) => {
     if (typeof item === 'string' || typeof item === 'number') {
       const label = `${prefix}${toLabel(item)}${formattedSuffix}`
-      return { value: item, name: label }
+      return { value: item, name: label, label }
     }
 
-    const { name, value } = item
+    const { name, value, label, description, desc } = item
 
-    const formattedName = name ?? (value ? toLabel(value) : '')
+    const formattedLabel = label ?? name ?? (value ? toLabel(value) : '')
+    const formattedDescription = description ?? desc
+    const formattedName = name ?? label ?? (value ? toLabel(value) : '')
     const formattedValue = value ?? (name ? toSlug(name, { replaceNumbers: false }) : '')
     const finalName = `${prefix}${formattedName}${formattedSuffix}`
 
-    return { ...item, name: finalName, value: formattedValue }
+    return {
+      ...item,
+      name: finalName,
+      value: formattedValue,
+      description: formattedDescription,
+      label: formattedLabel,
+    }
   })
 }
 

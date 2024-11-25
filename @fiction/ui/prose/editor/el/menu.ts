@@ -54,25 +54,25 @@ export class BubbleMenuTools {
   textFormatting(): NavItem[] {
     return [
       {
-        name: 'bold',
+        label: 'bold',
         isActive: this.e.isActive('bold'),
         icon: 'i-tabler-bold',
         onClick: () => this.e.chain().focus(null, { scrollIntoView: false }).toggleBold().run(),
       },
       {
-        name: 'italic',
+        label: 'italic',
         isActive: this.e.isActive('italic'),
         icon: 'i-tabler-italic',
         onClick: () => this.e.chain().focus(null, { scrollIntoView: false }).toggleItalic().run(),
       },
       {
-        name: 'strike',
+        label: 'strike',
         isActive: this.e.isActive('strike'),
         icon: 'i-tabler-strikethrough',
         onClick: () => this.e.chain().focus(null, { scrollIntoView: false }).toggleStrike().run(),
       },
       {
-        name: 'highlight',
+        label: 'highlight',
         isActive: this.e.isActive('highlight'),
         icon: 'i-tabler-highlight',
         onClick: () => this.e.chain().focus(null, { scrollIntoView: false }).toggleHighlight().run(),
@@ -82,51 +82,51 @@ export class BubbleMenuTools {
 
   headings(): NavItem[] {
     return [{
-      name: 'heading',
+      label: 'heading',
       isActive: this.subMenu.value === 'heading',
       icon: 'i-tabler-heading',
       onClick: ({ item }) => {
-        this.subMenu.value = item?.name
+        this.subMenu.value = item?.label
       },
       items: [
         {
-          name: 'heading-h1',
+          label: 'heading-h1',
           isActive: this.e.isActive('heading', { level: 1 }) || false,
           icon: 'i-ci-heading-h1',
           onClick: () => this.e.chain().focus(null, { scrollIntoView: false }).toggleHeading({ level: 1 }).run(),
         },
         {
-          name: 'heading-h2',
+          label: 'heading-h2',
           isActive: this.e.isActive('heading', { level: 2 }) || false,
           icon: 'i-ci-heading-h2',
           onClick: () => this.e.chain().focus(null, { scrollIntoView: false }).toggleHeading({ level: 2 }).run(),
         },
         {
-          name: 'heading-h3',
+          label: 'heading-h3',
           isActive: this.e.isActive('heading', { level: 3 }) || false,
           icon: 'i-ci-heading-h3',
           onClick: () => this.e.chain().focus(null, { scrollIntoView: false }).toggleHeading({ level: 3 }).run(),
         },
         {
-          name: 'heading-h4',
+          label: 'heading-h4',
           isActive: this.e.isActive('heading', { level: 4 }) || false,
           icon: 'i-ci-heading-h4',
           onClick: () => this.e.chain().focus(null, { scrollIntoView: false }).toggleHeading({ level: 4 }).run(),
         },
         {
-          name: 'heading-h5',
+          label: 'heading-h5',
           isActive: this.e.isActive('heading', { level: 5 }) || false,
           icon: 'i-ci-heading-h5',
           onClick: () => this.e.chain().focus(null, { scrollIntoView: false }).toggleHeading({ level: 5 }).run(),
         },
         {
-          name: 'heading-h6',
+          label: 'heading-h6',
           isActive: this.e.isActive('heading', { level: 6 }) || false,
           icon: 'i-ci-heading-h6',
           onClick: () => this.e.chain().focus(null, { scrollIntoView: false }).toggleHeading({ level: 6 }).run(),
         },
         {
-          name: 'paragraph',
+          label: 'paragraph',
           isActive: this.e.isActive('paragraph') || false,
           icon: 'i-ci-paragraph',
           onClick: () => this.e.chain().focus(null, { scrollIntoView: false }).setParagraph().run(),
@@ -137,13 +137,13 @@ export class BubbleMenuTools {
 
   link(): NavItem[] {
     return [{
-      name: 'link',
+      label: 'link',
       isActive: this.subMenu.value === 'link',
       icon: 'i-tabler-link',
-      onClick: ({ item }) => this.subMenu.value = item?.name,
+      onClick: ({ item }) => this.subMenu.value = item?.label,
       items: [
         {
-          name: 'linkInput',
+          label: 'linkInput',
           icon: 'i-tabler-link',
           figure: {
             el: BubbleLinkMenu,
@@ -156,7 +156,7 @@ export class BubbleMenuTools {
           },
         },
         {
-          name: 'linkTrash',
+          label: 'linkTrash',
           icon: 'i-tabler-trash',
           onClick: () => {
             this.e.chain().focus(null, { scrollIntoView: false }).unsetLink().run()
@@ -169,31 +169,31 @@ export class BubbleMenuTools {
 
   align(): NavItem[] {
     return [{
-      name: 'align',
+      label: 'align',
       isActive: this.subMenu.value === 'align',
       icon: 'i-tabler-align-left',
-      onClick: ({ item }) => this.subMenu.value = item?.name,
+      onClick: ({ item }) => this.subMenu.value = item?.label,
       items: [
         {
-          name: 'left',
+          label: 'left',
           isActive: this.e.isActive({ textAlign: 'left' }),
           icon: 'i-tabler-align-left',
           onClick: () => this.e.chain().focus(null, { scrollIntoView: false }).setTextAlign('left').run(),
         },
         {
-          name: 'center',
+          label: 'center',
           isActive: this.e.isActive({ textAlign: 'center' }),
           icon: 'i-tabler-align-center',
           onClick: () => this.e.chain().focus(null, { scrollIntoView: false }).setTextAlign('center').run(),
         },
         {
-          name: 'right',
+          label: 'right',
           isActive: this.e.isActive({ textAlign: 'right' }),
           icon: 'i-tabler-align-right',
           onClick: () => this.e.chain().focus(null, { scrollIntoView: false }).setTextAlign('right').run(),
         },
         {
-          name: 'justify',
+          label: 'justify',
           isActive: this.e.isActive({ textAlign: 'justify' }),
           icon: 'i-tabler-align-justified',
           onClick: () => this.e.chain().focus(null, { scrollIntoView: false }).setTextAlign('justify').run(),

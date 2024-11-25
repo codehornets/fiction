@@ -39,10 +39,10 @@ function getStyle(theme: ColorThemeUser) {
             </span>
             <div class="ms-3">
               <h3 class="x-font-title font-semibold ">
-                {{ item.name }}
+                {{ item.label }}
               </h3>
               <div class="text-sm text-theme-500 dark:text-theme-400">
-                {{ item.desc }}
+                {{ item.description }}
               </div>
             </div>
           </div>

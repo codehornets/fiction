@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { ActionButton } from '@fiction/core'
+import type { ActionButton, SuperTitle } from '@fiction/core'
 import { vue } from '@fiction/core'
 import XText from '@fiction/ui/common/XText.vue'
 import InputActionList from '@fiction/ui/inputs/InputActionList.vue'
@@ -8,9 +8,9 @@ import ElSpinner from '@fiction/ui/loaders/ElSpinner.vue'
 const props = defineProps({
   loading: { type: Boolean, default: false },
   icon: { type: String, default: '' },
-  superHeading: { type: String, default: '' },
-  heading: { type: String, default: '' },
-  subHeading: { type: String, default: '' },
+  superTitle: { type: Object as vue.PropType<SuperTitle>, default: () => {} },
+  title: { type: String, default: '' },
+  subTitle: { type: String, default: '' },
   status: { type: String as vue.PropType<'success' | 'error' | 'pending'>, default: '' },
   actions: { type: Array as vue.PropType<ActionButton[]>, default: () => [] },
   links: { type: Array as vue.PropType<ActionButton[]>, default: () => [] },
@@ -43,19 +43,19 @@ const ico = vue.computed(() => iconThemes[props.status as keyof typeof iconTheme
         <ElSpinner class="h-10 w-10" />
       </div>
       <div v-else :key="status" :data-transaction-status="status" class="space-y-8">
-        <div v-if="heading || subHeading" :key="heading" class="mb-6 md:text-center md:flex md:flex-col space-y-4  items-center justify-center">
+        <div v-if="title || subTitle" :key="title" class="mb-6 md:text-center md:flex md:flex-col space-y-4  items-center justify-center">
           <div
             v-if="icon || ico.icon"
             class="rounded-full size-12 md:size-16 inline-flex items-center justify-center"
             :class="ico.class"
-            :title="superHeading"
+            :title="superTitle?.text"
           >
             <div class="text-2xl md:text-3xl" :class="icon || ico.icon" />
           </div>
           <div>
-            <XText animate="fade" tag="h1" class="x-font-title text-3xl font-semibold tracking-tight text-balance" :model-value="heading" />
+            <XText animate="fade" tag="h1" class="x-font-title text-3xl font-semibold tracking-tight text-balance" :model-value="title" />
             <div class="mt-2 text-lg md:text-xl font-normal x-font-title text-theme-500 capitalize">
-              <XText v-if="subHeading" animate="fade" tag="h4" class="space-x-2" :model-value="subHeading" />
+              <XText v-if="subTitle" animate="fade" tag="h4" class="space-x-2" :model-value="subTitle" />
             </div>
             <slot name="links" />
           </div>

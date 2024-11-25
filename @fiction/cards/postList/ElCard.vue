@@ -213,8 +213,8 @@ vue.onServerPrefetch(() => fetchPosts())
     <!-- No Posts State -->
     <El404
       v-if="!loading && !posts.length"
-      heading="No Posts Available"
-      sub-heading="Check back later for new content"
+      title="No Posts Available"
+      sub-title="Check back later for new content"
     />
 
     <!-- Pagination -->

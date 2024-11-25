@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { Card } from '@fiction/site'
 import type { FictionAdmin } from '..'
-import { gravatarUrlSync, type User, useService, vue } from '@fiction/core'
+import { type ActionButton, gravatarUrlSync, type User, useService, vue } from '@fiction/core'
 import { AutosaveUtility } from '@fiction/core/utils/save.js'
 import ElModal from '@fiction/ui/ElModal.vue'
 import { InputOption } from '@fiction/ui/index.js'
@@ -193,7 +193,7 @@ const header = vue.computed(() => {
     media: avatarUrl.value,
     actions: [
       {
-        name: 'Change Email',
+        label: 'Change Email',
         theme: 'theme' as const,
         onClick: () => mode.value = 'changeEmail',
       },
@@ -272,10 +272,10 @@ async function requestChangeEmail() {
 
 const toolFormOptions = vue.computed<InputOption[]>(() => {
   const loading = !!sending.value
-  const requestAction = { name: 'Request Verification Code', theme: 'primary' as const, loading, onClick: requestCode }
-  const submitAction = { name: 'Change Email', theme: 'primary' as const, loading, onClick: requestChangeEmail }
+  const requestAction = { label: 'Request Verification Code', theme: 'primary' as const, loading, onClick: requestCode }
+  const submitAction = { label: 'Change Email', theme: 'primary' as const, loading, onClick: requestChangeEmail }
 
-  const actions = codeSent.value ? [submitAction] : [requestAction]
+  const actions: ActionButton[] = codeSent.value ? [submitAction] : [requestAction]
 
   const options: InputOption[] = [
     new InputOption({ key: 'email', label: 'New Email Address', input: 'InputEmail', placeholder: 'New Email Address' }),

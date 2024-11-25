@@ -18,7 +18,7 @@ const emit = defineEmits<{
 
 const service = useService<{ fictionPosts: FictionPosts, fictionTeam: FictionTeam }>()
 const users = vue.ref<User[]>([])
-const list = vue.computed<ListItem[]>(() => users.value.map(t => ({ value: t.userId, name: t.fullName, desc: t.email })))
+const list = vue.computed<ListItem[]>(() => users.value.map(t => ({ value: t.userId, label: t.fullName, description: t.email })))
 const isFocused = vue.ref(false)
 const search = vue.ref<string | undefined>()
 

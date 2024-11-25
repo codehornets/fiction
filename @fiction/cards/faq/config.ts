@@ -238,7 +238,7 @@ function getDemoConfigs(args: { templateId: string, factory: CardFactory, stock:
   return demos
 }
 
-export async function getConfig(args: { templateId: string, factory: CardFactory }): Promise<ConfigResponse> {
+export async function getConfig(args: { templateId: string, factory: CardFactory }) {
   const { factory } = args
   const stock = await factory.getStockMedia()
   const defaultConfig = getDefaultConfig({ stock })

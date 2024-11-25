@@ -152,7 +152,7 @@ async function resetToPublished() {
           <ElSavingSignal
             :is-dirty="site?.editor.value.isDirty"
             :nav-items="[{
-              name: 'Reset to Published Version',
+              label: 'Reset to Published Version',
               onClick: () => resetToPublished(),
               testId: 'reset-to-published',
             }]"

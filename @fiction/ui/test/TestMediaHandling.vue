@@ -12,11 +12,11 @@ const animationOptions = ['', 'swipe', 'expand'] as const
 const imageModes = ['cover', 'contain', 'inline'] as const
 
 const containerScenarios = [
-  { name: 'Square', class: 'h-64' },
-  { name: 'Landscape', class: 'h-36' },
-  { name: 'Portrait', class: 'h-96' },
-  { name: 'Banner', class: ' h-32' },
-  { name: 'Thumbnail', class: 'h-16' },
+  { label: 'Square', class: 'h-64' },
+  { label: 'Landscape', class: 'h-36' },
+  { label: 'Portrait', class: 'h-96' },
+  { label: 'Banner', class: ' h-32' },
+  { label: 'Thumbnail', class: 'h-16' },
 ]
 
 const stock = vue.ref<Awaited<ReturnType<typeof createStockMediaHandler>>>()
@@ -104,9 +104,9 @@ vue.onMounted(async () => {
             {{ media.format }} {{ media.alt ? `(${media.alt})` : '' }}
           </h2>
 
-          <div v-for="scenario in containerScenarios" :key="scenario.name" class="mb-6">
+          <div v-for="scenario in containerScenarios" :key="scenario.label" class="mb-6">
             <h3 class="text-sm font-medium mb-2 text-theme-600 dark:text-theme-300">
-              {{ scenario.name }}
+              {{ scenario.label }}
             </h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               <div v-for="animate in animationOptions" :key="animate" class="space-y-2">

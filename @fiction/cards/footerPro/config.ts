@@ -4,6 +4,12 @@ import { ActionButtonSchema, MediaIconSchema, MediaTypographySchema, navListItem
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
+const socialItemSchema = navListItemSchema.pick({
+  label: true,
+  href: true,
+  media: true,
+})
+
 export const schema = z.object({
   brand: z.object({
     logo: MediaTypographySchema.optional(),
@@ -18,11 +24,7 @@ export const schema = z.object({
   }).optional(),
   additional: z.object({
     links: z.array(navListItemSchema).optional(),
-    social: z.array(z.object({
-      name: z.string().optional(),
-      href: z.string().optional(),
-      media: MediaIconSchema.optional(),
-    })).optional(),
+    social: z.array(socialItemSchema).optional(),
   }).optional(),
 })
 
@@ -78,9 +80,9 @@ function getDefaultConfig(): UserConfig {
         { label: 'Security', href: '/security' },
       ],
       social: [
-        { name: 'X', href: 'https://x.com', media: { iconId: 'x' } },
-        { name: 'GitHub', href: 'https://github.com', media: { iconId: 'github' } },
-        { name: 'LinkedIn', href: 'https://linkedin.com', media: { iconId: 'linkedin' } },
+        { label: 'X', href: 'https://x.com', media: { iconId: 'x' } },
+        { label: 'GitHub', href: 'https://github.com', media: { iconId: 'github' } },
+        { label: 'LinkedIn', href: 'https://linkedin.com', media: { iconId: 'linkedin' } },
       ],
     },
   }
@@ -304,10 +306,10 @@ async function getDemoConfig(args: { templateId: string, stock: StockMedia }): P
             { label: 'Accessibility', href: '/accessibility' },
           ],
           social: [
-            { name: 'X', href: 'https://x.com', media: { iconId: 'x' } },
-            { name: 'GitHub', href: 'https://github.com', media: { iconId: 'github' } },
-            { name: 'LinkedIn', href: 'https://linkedin.com', media: { iconId: 'linkedin' } },
-            { name: 'YouTube', href: 'https://youtube.com', media: { iconId: 'youtube' } },
+            { label: 'X', href: 'https://x.com', media: { iconId: 'x' } },
+            { label: 'GitHub', href: 'https://github.com', media: { iconId: 'github' } },
+            { label: 'LinkedIn', href: 'https://linkedin.com', media: { iconId: 'linkedin' } },
+            { label: 'YouTube', href: 'https://youtube.com', media: { iconId: 'youtube' } },
           ],
         },
       },

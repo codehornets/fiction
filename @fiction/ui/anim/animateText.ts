@@ -31,7 +31,7 @@ export function animateUnderline({
     element.classList.add('underline-processed')
 
     const shape = (element.getAttribute('data-effect-type') || 'line') as UnderlineShape
-    const effectColor = element.getAttribute('data-effect-color') || color
+    const effectColor = element.getAttribute('data-effect-theme') || color
     const effectOpacity = Number.parseFloat(element.getAttribute('data-effect-opacity') || opacity.toString())
     const svg = createSVG(shape, element, effectColor, strokeWidth, effectOpacity)
 

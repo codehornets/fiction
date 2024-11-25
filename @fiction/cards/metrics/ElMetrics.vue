@@ -22,9 +22,9 @@ const uc = vue.computed(() => props.card.userConfig.value)
         <div class="text-center">
           <CardText :card tag="h3" :path="`metrics.${i}.label`" class="text-xl lg:text-2xl" />
 
-          <XNumber :animate="true" :model-value="feat.value || 0" class="mt-4 text-6xl lg:text-8xl font-bold x-font-title" :format="feat.format || 'abbreviated'" />
+          <XNumber :animate="true" :model-value="+(feat.value || 0)" class="mt-4 text-6xl lg:text-8xl font-bold x-font-title" :format="feat.format || 'abbreviated'" />
 
-          <CardText :card tag="p" :path="`metrics.${i}.desc`" class="text-balance text-theme-400 dark:text-theme-500 mt-3 font-sans text-sm " />
+          <CardText :card tag="p" :path="`metrics.${i}.description`" class="text-balance text-theme-400 dark:text-theme-500 mt-3 font-sans text-sm " />
         </div>
       </div>
     </div>

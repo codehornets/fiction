@@ -241,6 +241,24 @@ export class Shortcodes extends FictionObject<{ fictionEnv?: FictionEnv }> {
     return obj
   }
 
+  public parseObjectSync(obj: any): any {
+    if (this.hasAsyncShortcodes)
+      throw new Error('Synchronous parsing not available with async shortcodes')
+
+    if (Array.isArray(obj))
+      return obj.map(item => this.parseObjectSync(item))
+
+    if (isPlainObject(obj)) {
+      const entries = Object.entries(obj).map(([key, value]) => [key, this.parseObjectSync(value)])
+      return Object.fromEntries(entries)
+    }
+
+    if (typeof obj === 'string' && this.containsShortcode(obj))
+      return this.parseStringSync(obj).text
+
+    return obj
+  }
+
   private containsShortcode(input: string): boolean {
     return /\[\s*[\w\-@]+/.test(input)
   }

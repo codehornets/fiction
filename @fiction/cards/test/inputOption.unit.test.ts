@@ -1,3 +1,4 @@
+import { superTitleSchema } from '@fiction/core'
 import { refineOptions } from '@fiction/site/utils/schema'
 import { afterEach, describe, expect, it } from 'vitest'
 import { z } from 'zod'
@@ -6,12 +7,12 @@ import { standardOption } from '../inputSets'
 describe('refine options with schema', () => {
   it('refines options', async () => {
     const schema = z.object({
-      heading: z.string().optional().describe('Primary headline for profile 3 to 8 words'),
-      subHeading: z.string().optional().describe('Formatted markdown of profile with paragraphs, 30 to 60 words, 2 paragraphs'),
-      superHeading: z.string().optional().describe('Shorter badge above headline, 2 to 5 words'),
+      title: z.string().optional().describe('Primary headline for profile 3 to 8 words'),
+      subTitle: z.string().optional().describe('Formatted markdown of profile with paragraphs, 30 to 60 words, 2 paragraphs'),
+      superTitle: superTitleSchema.optional().describe('Shorter badge above headline, 2 to 5 words'),
       details: z.array(z.object({
-        name: z.string().optional(),
-        desc: z.string().optional(),
+        label: z.string().optional(),
+        description: z.string().optional(),
         icon: z.string().optional(),
         href: z.string().optional(),
       })).optional().describe('List of details with contact details, location, etc.'),
@@ -32,16 +33,16 @@ describe('refine options with schema', () => {
     const option = options[0]
 
     expect(option.options.value.map(k => k.key.value)).toEqual([
-      'heading',
-      'subHeading',
-      'superHeading',
+      'title',
+      'subTitle',
+      'superTitle',
       'superColor',
       'superIcon',
     ])
 
     expect(option.options.value.length, 'nav items should be title and inputList').toBe(5)
-    expect(option.options.value[0].key.value).toBe('heading')
-    expect(option.options.value[1].key.value).toBe('subHeading')
+    expect(option.options.value[0].key.value).toBe('title')
+    expect(option.options.value[1].key.value).toBe('subTitle')
 
     const option2 = options[1]
 
@@ -76,7 +77,7 @@ describe('navItemOptionSet Schema Generation', () => {
     const option = standardOption.navItems({ key: 'nav', refine: {} })
 
     expect(option.options.value.length).toBe(2)
-    expect(option.options.value[0].options.value[0].key.value).toBe('name')
+    expect(option.options.value[0].options.value[0].key.value).toBe('label')
     expect(option.options.value[1].options.value[0].key.value).toBe('target')
   })
 })
@@ -86,8 +87,8 @@ describe('headerOptionSet', () => {
     const option = standardOption.headers()
     const subOptions = option.options.value || []
     expect(option.options.value.length).toBe(5)
-    expect(subOptions[0].key.value).toBe('heading')
-    expect(subOptions[1].key.value).toBe('subHeading')
-    expect(subOptions[2].key.value).toBe('superHeading')
+    expect(subOptions[0].key.value).toBe('title')
+    expect(subOptions[1].key.value).toBe('subTitle')
+    expect(subOptions[2].key.value).toBe('superTitle')
   })
 })

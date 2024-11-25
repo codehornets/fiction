@@ -11,8 +11,8 @@ function getDemoContent(type: string) {
     {
       templateId: 'hero',
       userConfig: {
-        heading: type,
-        subHeading: 'Showcase different area styles and capabilities',
+        title: type,
+        subTitle: 'Showcase different area styles and capabilities',
         alignment: 'center',
       },
     },

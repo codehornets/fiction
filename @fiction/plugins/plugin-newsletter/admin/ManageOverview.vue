@@ -120,11 +120,11 @@ const options = vue.computed(() => {
           actions: () => [
             {
               testId: 'email-composer-link',
-              name: 'Email Composer',
+              label: 'Email Composer',
               onClick: () => saveBeforeNavigate({ location: 'newsletter-composer-link', href: getCampaignLink('newsletter-composer') }),
               theme: 'theme',
               icon: { class: 'i-tabler-edit' },
-            },
+            } satisfies ActionButton,
           ],
         }),
         new InputOption({
@@ -148,8 +148,8 @@ const options = vue.computed(() => {
                 input: 'InputSelectCustom',
                 isRequired: true,
                 list: [
-                  { name: 'Send immediately after review', value: 'now' },
-                  { name: 'Schedule for later', value: 'schedule' },
+                  { label: 'Send immediately after review', value: 'now' },
+                  { label: 'Schedule for later', value: 'schedule' },
                 ],
               }),
               new InputOption({
@@ -177,7 +177,7 @@ const options = vue.computed(() => {
           },
           actions: () => [
             {
-              name: 'View Subscribers',
+              label: 'View Subscribers',
               href: card.link(`/audience`),
               theme: 'theme',
               icon: { class: 'i-tabler-arrow-up-right' },
@@ -198,7 +198,7 @@ const options = vue.computed(() => {
           },
           actions: () => [
             {
-              name: 'View Settings',
+              label: 'View Settings',
               theme: 'theme',
               icon: { class: 'i-tabler-arrow-up-right' },
               onClick: () => saveBeforeNavigate({ location: 'view-settings', href: card.link(`/settings/project`) }),
@@ -214,7 +214,7 @@ const options = vue.computed(() => {
           actions: ({ input }) => [
             {
               testId: 'view-preview-button',
-              name: 'Preview',
+              label: 'Preview',
               onClick: () => input.isModalOpen.value = true,
               theme: 'theme',
               icon: { class: 'i-tabler-eye' },
@@ -232,7 +232,7 @@ const options = vue.computed(() => {
           input: 'InputControl',
           actions: ({ input }) => [
             {
-              name: 'Send Test',
+              label: 'Send Test',
               onClick: () => input.isModalOpen.value = true,
               theme: 'theme',
               icon: { class: 'i-tabler-test-pipe' },
@@ -243,7 +243,7 @@ const options = vue.computed(() => {
           ],
           modalActions: () => [
             {
-              name: 'Send Test Email',
+              label: 'Send Test Email',
               theme: 'primary',
               onClick: async () => {
                 const em = campaign
@@ -284,7 +284,7 @@ const options = vue.computed(() => {
 
           actions: () => [
             {
-              name: 'Delete This Campaign...',
+              label: 'Delete This Campaign...',
               theme: 'rose',
               design: 'ghost',
               icon: 'i-tabler-trash',

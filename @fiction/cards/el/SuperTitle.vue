@@ -13,15 +13,15 @@ const { card, basePath, superTitle } = defineProps<{
 }>()
 
 const colorStyle = vue.computed(() => {
-  const color = superTitle.color
-  if (!color) {
+  const theme = superTitle.theme
+  if (!theme) {
     return {
       icon: 'text-primary-500 dark:text-theme-100 bg-primary-100/80 dark:bg-theme-700/80',
       text: 'text-theme-500 dark:text-theme-500',
     }
   }
 
-  const styles = getColorThemeStyles(color)
+  const styles = getColorThemeStyles(theme)
   return {
     icon: [styles?.bg, styles?.text, styles?.border].join(' '),
     text: styles?.text,

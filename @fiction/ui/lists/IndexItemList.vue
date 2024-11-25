@@ -52,7 +52,7 @@ defineProps({
           </div>
           <div class="group relative max-w-xl space-y-1.5">
             <h3 class="text-lg @md:text-xl mt-1 font-medium hover:underline x-font-title">
-              {{ item.label || item.name }}
+              {{ item.label }}
             </h3>
             <div
               v-if="$slots.subTitle"
@@ -61,7 +61,7 @@ defineProps({
               <slot name="subTitle" :item="item" />
             </div>
             <p v-else class="text-sm  text-theme-500 dark:text-theme-400">
-              {{ item.desc }}
+              {{ item.description }}
             </p>
           </div>
         </div>

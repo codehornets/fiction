@@ -53,12 +53,12 @@ const items = vue.computed<NavItem[]>(() => {
   const hasSubs = !!(em?.subscriberCount && em?.subscriberCount > 0)
 
   return [
-    { name: 'Schedule Send', desc: scheduleDisplay, isActive: true, href: settings },
-    { name: 'Subject', desc: em?.subject || 'Not Set', isActive: hasSubject, href: settings },
-    { name: 'Sending From', desc: from.value, isActive: !!from.value, href: pub },
-    { name: 'Sending To', desc: subs, isActive: hasSubs, href: settings },
-    { name: 'Title', desc: em?.post?.title || 'Not Set', href: edit, isActive: hasTitle },
-    { name: 'Email Content', desc: wordCount ? `Approx. ${wordCount} Words` : 'Not Set', href: edit, isActive: hasContent },
+    { label: 'Schedule Send', description: scheduleDisplay, isActive: true, href: settings },
+    { label: 'Subject', description: em?.subject || 'Not Set', isActive: hasSubject, href: settings },
+    { label: 'Sending From', description: from.value, isActive: !!from.value, href: pub },
+    { label: 'Sending To', description: subs, isActive: hasSubs, href: settings },
+    { label: 'Title', description: em?.post?.title || 'Not Set', href: edit, isActive: hasTitle },
+    { label: 'Email Content', description: wordCount ? `Approx. ${wordCount} Words` : 'Not Set', href: edit, isActive: hasContent },
   ]
 })
 
@@ -135,10 +135,10 @@ async function sendOrSchedule() {
             </div>
             <div class="text-sm">
               <div class=" font-medium text-theme-500 dark:text-theme-400 hover:text-theme-300 dark:hover:text-theme-0 cursor-pointer">
-                {{ item.name }}
+                {{ item.label }}
               </div>
               <p id="comments-description" class="text-base">
-                {{ item?.desc }}
+                {{ item?.description }}
               </p>
             </div>
           </component>

@@ -60,7 +60,7 @@ export type ConfigResponse<S extends CardTemplateSurfaceDefault = CardTemplateSu
   options?: InputOption[]
   userConfig?: CardTemplateUserConfigAll<S>
   effects?: TableCardConfig[]
-  demoPage?: { cards: (CardConfigPortable< CardTemplateUserConfigAll<S>> & { el?: vue.Component })[] }
+  demoPage?: { cards: (CardConfigPortable & { el?: vue.Component })[] }
 }
 
 interface CardTemplateSettings<
@@ -84,6 +84,7 @@ interface CardTemplateSettings<
   options?: InputOption[]
   schema?: CardTemplateSurface<S>[ 'schema' ]
   sections?: Record<string, CardConfigPortable>
+  onSiteLoad?: (args: { site: Site }) => void
   getConfig?: (args: ConfigArgs) => Promise<ConfigResponse<S>>
   getBaseConfig?: (args: CardSettings<CardTemplateUserConfigAll<S>>) => CardTemplateUserConfigAll<S>
   getUserConfig?: (args: ConfigArgs) => Promise<CardTemplateUserConfigAll<S>> | (CardTemplateUserConfigAll<S>)
@@ -93,7 +94,6 @@ interface CardTemplateSettings<
   }>
   getQueries?: (args: CardQuerySettings) => CardTemplateSurface<S>[ 'queries' ]
   getSitemapPaths?: (args: { site: Site, card: Card<CardTemplateUserConfigAll<S>>, pagePath: string }) => Promise<string[]>
-  singleCard?: (args: { card: Card }) => CardConfigPortable
 
 }
 
@@ -224,11 +224,15 @@ export class Card<
   slug = vue.ref(this.settings.slug)
   displayTitle = vue.computed(() => this.title.value || toLabel(this.slug.value))
   userConfig = vue.shallowRef(this.settings.userConfig || {} as T) as vue.Ref<vue.UnwrapRef<T>> // allow passing of components and other complex objects
-  fullConfig = vue.computed(() => (deepMerge([
-    this.site?.fullConfig.value,
-    this.tpl.value?.getBaseConfig(this.settings) || {},
-    this.userConfig.value as SiteUserConfig & T,
-  ]) as SiteUserConfig & T))
+  fullConfig = vue.computed(() => {
+    const rawConfig = deepMerge([
+      this.site?.fullConfig.value,
+      this.tpl.value?.getBaseConfig(this.settings) || {},
+      this.userConfig.value as SiteUserConfig & T,
+    ]) as SiteUserConfig & T
+
+    return this.site ? this.site?.shortcodes.parseObjectSync(rawConfig) as T : rawConfig
+  })
 
   config = vue.computed({
     get: () => this.fullConfig.value as T,

@@ -20,9 +20,7 @@ if (!props.modelValue && props.defaultValue)
 
 const parsedList = vue.computed<ListItem[]>(() => {
   return props.list
-    ? normalizeList(props.list, {
-      suffix: props.suffix,
-    })
+    ? normalizeList(props.list, { suffix: props.suffix })
     : []
 })
 </script>

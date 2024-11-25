@@ -71,13 +71,13 @@ function updateAspectRatio(value: 'auto' | '1 / 1' | '16 / 9' | '3 / 2' | '2 / 3
 const items = vue.computed<NavItem[]>(() => {
   return [
     {
-      name: 'width',
+      label: 'width',
       icon: 'i-tabler-viewport-wide',
       isActive: subMenu.value === 'width',
-      onClick: ({ item }) => subMenu.value = (item?.label || item?.name),
+      onClick: ({ item }) => subMenu.value = (item?.label),
       items: [
         {
-          name: 'resize',
+          label: 'resize',
           icon: 'i-tabler-link',
           figure: {
             el: MediaWidthResize,
@@ -94,45 +94,45 @@ const items = vue.computed<NavItem[]>(() => {
       ],
     },
     {
-      name: 'aspect',
+      label: 'aspect',
       icon: 'i-tabler-aspect-ratio',
       isActive: subMenu.value === 'aspect',
-      onClick: ({ item }) => subMenu.value = (item?.label || item?.name),
+      onClick: ({ item }) => subMenu.value = (item?.label),
       items: [
         {
-          name: 'original',
+          label: 'original',
           icon: 'i-tabler-aspect-ratio',
           onClick: () => updateAspectRatio('auto'),
         },
         {
-          name: '1:1',
+          label: '1:1',
           icon: 'i-tabler-crop-1-1',
           onClick: () => updateAspectRatio('1 / 1'),
         },
         {
-          name: '16:9',
+          label: '16:9',
           icon: 'i-tabler-crop-16-9',
           onClick: () => updateAspectRatio('16 / 9'),
         },
         {
-          name: '3:2',
+          label: '3:2',
           icon: 'i-tabler-crop-3-2',
           onClick: () => updateAspectRatio('3 / 2'),
         },
         {
-          name: '2:3',
+          label: '2:3',
           icon: 'i-tabler-crop-portrait',
           onClick: () => updateAspectRatio('2 / 3'),
         },
         {
-          name: '5:4',
+          label: '5:4',
           icon: 'i-tabler-crop-5-4',
           onClick: () => updateAspectRatio('5 / 4'),
         },
       ],
     },
     {
-      name: 'Delete',
+      label: 'Delete',
       icon: 'i-tabler-trash',
       onClick: () => {
         const confirm = window.confirm('Are you sure?')

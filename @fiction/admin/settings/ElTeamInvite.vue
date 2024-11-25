@@ -142,9 +142,9 @@ onResetUi(() => {
                 class="col-span-2"
                 ui-size="lg"
                 :list="[
-                  { value: 'owner', name: 'Owner' },
-                  { value: 'admin', name: 'Admin' },
-                  { value: 'editor', name: 'Editor (Tools Only)' },
+                  { value: 'owner', label: 'Owner' },
+                  { value: 'admin', label: 'Admin' },
+                  { value: 'editor', label: 'Editor (Tools Only)' },
                 ]"
               />
             </div>

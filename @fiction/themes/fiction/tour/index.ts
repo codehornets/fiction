@@ -16,11 +16,9 @@ export async function getPage(args: { factory: CardFactory }) {
           await factory.fromTemplate<typeof heroTemplate>({
             templateId: 'hero',
             userConfig: {
-              superColor: 'green',
-              superIcon: { iconId: 'arrow-up-right' },
-              superHeading: 'Why Fiction',
-              subHeading: `Fiction is the easiest way to market yourself online.`,
-              heading: `Are you ready to be seen and to <span data-text-effect data-effect-type="squiggle" data-effect-color="primary">make your impact?</span>`,
+              superTitle: { text: 'Welcome to Fiction', theme: 'green', icon: { class: 'i-tabler-arrow-up-right' } },
+              subTitle: `Fiction is the easiest way to market yourself online.`,
+              title: `Are you ready to be seen and to <span data-text-effect data-effect-type="squiggle" data-effect-theme="primary">make your impact?</span>`,
               actions: [
                 {
                   label: 'I Am Ready',
@@ -80,16 +78,16 @@ export async function getPage(args: { factory: CardFactory }) {
               items: [
                 {
                   layout: 'right',
-                  heading: 'A Seamless Personal Branding Experience',
-                  subHeading: 'All the best practices in one place. fromTemplate a brand guide, site, blog, newsletter, email list, all in one place.',
+                  title: 'A Seamless Personal Branding Experience',
+                  subTitle: 'All the best practices in one place. fromTemplate a brand guide, site, blog, newsletter, email list, all in one place.',
                   splash: { url: new URL('img/fig-website-screen.svg', import.meta.url).href },
                   overlays: [{ media: { url: new URL('img/fig-website-alt-1.svg', import.meta.url).href } }],
                   actions: [],
                 },
                 {
                   layout: 'left',
-                  heading: 'Own Your Network and Build An Audience',
-                  subHeading: 'Fiction helps you build your own email list, and a captive audience that you can easily manage.',
+                  title: 'Own Your Network and Build An Audience',
+                  subTitle: 'Fiction helps you build your own email list, and a captive audience that you can easily manage.',
                   splash: { url: new URL('img/fig-subscribe-screen.svg', import.meta.url).href,
                   },
                   overlays: [{ media: { url: new URL('img/fig-subscribe-alt-1.svg', import.meta.url).href } }],
@@ -97,24 +95,24 @@ export async function getPage(args: { factory: CardFactory }) {
                 },
                 {
                   layout: 'right',
-                  heading: 'Email Personal Updates &amp; Your Newsletter',
-                  subHeading: 'Fiction helps you build your own email list, and a captive audience that you can easily manage.',
+                  title: 'Email Personal Updates &amp; Your Newsletter',
+                  subTitle: 'Fiction helps you build your own email list, and a captive audience that you can easily manage.',
                   splash: { url: new URL('img/fig-email-screen.svg', import.meta.url).href },
                   overlays: [{ media: { url: new URL('img/fig-email-alt-1.svg', import.meta.url).href } }],
                   actions: [],
                 },
                 {
                   layout: 'left',
-                  heading: 'fromTemplate Passive Income, Achieve Your Goals',
-                  subHeading: 'Use your personal brand as a way to build influence and reach your goals. Sell memberships and more to earn.',
+                  title: 'fromTemplate Passive Income, Achieve Your Goals',
+                  subTitle: 'Use your personal brand as a way to build influence and reach your goals. Sell memberships and more to earn.',
                   splash: { url: new URL('img/fig-money-screen.svg', import.meta.url).href },
                   overlays: [{ media: { url: new URL('img/fig-money-alt-1.svg', import.meta.url).href } }],
                   actions: [],
                 },
                 {
                   layout: 'right',
-                  heading: 'Resume 2.0 &mdash; Automate Your Personal Branding',
-                  subHeading: 'Fiction also provides brand assets and strategy based on your persona and goals.',
+                  title: 'Resume 2.0 &mdash; Automate Your Personal Branding',
+                  subTitle: 'Fiction also provides brand assets and strategy based on your persona and goals.',
                   splash: { url: new URL('img/fig-contact-screen.svg', import.meta.url).href },
                   actions: [],
                 },
@@ -213,8 +211,8 @@ export async function getPage(args: { factory: CardFactory }) {
               standard: {
                 spacing: { verticalSpacing: 'lg' },
               },
-              heading: `Is Personal Marketing Right For You?`,
-              subHeading: `Are you ready to take control of your future? They say: where there is a will, there is a way. Fiction is the way.`,
+              title: `Is Personal Marketing Right For You?`,
+              subTitle: `Are you ready to take control of your future? They say: where there is a will, there is a way. Fiction is the way.`,
               actions: [
                 {
                   label: 'Let\'s Get Started',

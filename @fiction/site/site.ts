@@ -7,7 +7,7 @@ import type { prefersColorScheme } from './schema.js'
 import type { CardConfigPortable, PageRegion, TableCardConfig, TableSiteConfig } from './tables.js'
 import type { LayoutOrder } from './utils/layout.js'
 import type { QueryVarHook } from './utils/site.js'
-import { deepMerge, FictionObject, localRef, objectId, resetUi, shortId, vue, waitFor } from '@fiction/core'
+import { deepMerge, FictionObject, localRef, objectId, resetUi, Shortcodes, shortId, vue, waitFor } from '@fiction/core'
 import { TypedEventTarget } from '@fiction/core/utils/eventTarget.js'
 import { activeSiteFont, type FontConfigVal } from './utils/fonts.js'
 import { SiteFrameTools } from './utils/frame.js'
@@ -129,6 +129,9 @@ export class Site<T extends SiteSettings = SiteSettings> extends FictionObject<T
 
     this.sections.value = setSections({ site: this, themeSections: c.sections })
 
+    // register shortcodes etc
+    this.theme.value?.templates.forEach(t => t.settings.onSiteLoad?.({ site: this }))
+
     return this
   }
 
@@ -180,6 +183,7 @@ export class Site<T extends SiteSettings = SiteSettings> extends FictionObject<T
   currentPage = vue.computed(() => getPageById({ pageId: this.activePageId.value, site: this }))
   sections = vue.shallowRef(setSections({ site: this, sections: this.settings.sections }))
   layout = vue.computed<Record<string, Card>>(() => ({ ...this.sections.value, main: this.currentPage.value }))
+  shortcodes = new Shortcodes({ fictionEnv: this.fictionSites.fictionEnv })
 
   availableCards = vue.computed(() => flattenCards([...this.pages.value, ...Object.values(this.sections.value)]))
   currentPath = vue.computed({

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { Card } from '@fiction/site'
 import type { Shape, UserConfig } from './config'
-import { isDarkOrLightMode, vue } from '@fiction/core'
+import { getColorScheme, vue } from '@fiction/core'
 
 const props = defineProps({
   card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
@@ -16,7 +16,7 @@ const SHAPE_PATHS: Record<NonNullable<Shape['shape']>, string> = {
   circle: 'M50 0a50 50 0 100 100A50 50 0 0050 0z',
   square: 'M0 0h100v100H0z',
   triangle: 'M50 0L100 100H0z',
-  hexagon: 'M25 0L75 0L100 50L75 100L25 100L0 50Z',
+  hexagon: 'M50 0L93.3 25L93.3 75L50 100L6.7 75L6.7 25Z',
   diamond: 'M50 0L100 50L50 100L0 50Z',
   star: 'M50 0L61 35H97L68 57L79 91L50 70L21 91L32 57L3 35H39Z',
 }
@@ -90,14 +90,13 @@ function getShapeColor(shape: Shape): string {
   // Use specified color or theme color
   if (color)
     return color
+
   if (theme) {
-    const themeColor = props.card.site?.theme.value?.name === theme ? 'theme' : 'primary'
-    return `var(--${themeColor}-500)`
+    const t = getColorScheme(theme, { outputFormat: 'hex' })
+    return t[500]
   }
 
-  // Default colors based on mode
-  const isLight = isDarkOrLightMode(containerRef.value) === 'light'
-  return isLight ? '#f8fafc' : '#1e293b' // gray-50 : gray-800
+  return `rgba(var(--theme-500)/1)`
 }
 </script>
 
@@ -112,8 +111,8 @@ function getShapeColor(shape: Shape): string {
       class="absolute pointer-events-none select-none will-change-transform size-[calc(2.5rem+4.5vw)]"
       :style="getShapeStyles(shape, i).container"
     >
-      <!-- Wrapper for scale and position -->
       <div
+
         class="w-full h-full transition-transform duration-300"
         :style="getShapeStyles(shape, i).wrapper"
       >
@@ -123,6 +122,7 @@ function getShapeColor(shape: Shape): string {
           :style="getShapeStyles(shape, i).rotator"
         >
           <svg
+            class="animate-item"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 100 100"
             width="100%"

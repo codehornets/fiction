@@ -50,7 +50,7 @@ const options = vue.computed(() => {
             const selected = brandArchetypes.find(a => a.value === guide?.personality?.archetype)
             return {
               status: selected ? 'ready' : 'incomplete',
-              data: selected ? `${selected.name} - ${selected.desc}` : 'Select an archetype',
+              data: selected ? `${selected.label} - ${selected.description}` : 'Select an archetype',
             }
           },
           options: [

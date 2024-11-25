@@ -42,15 +42,14 @@ const stepConfig: StepConfig = {
   form,
   steps: vue.computed<StepItem[]>(() => {
     const out: StepItem[] = [
-
       {
-        name: 'Create Campaign',
-        desc: 'Start by naming your campaign',
+        title: 'Create Campaign',
+        subTitle: 'Start by naming your campaign',
         key: 'emailTitle',
         class: 'max-w-lg',
         isNeeded: true,
         onClick: () => start(),
-      },
+      } satisfies StepItem,
     ]
 
     return out

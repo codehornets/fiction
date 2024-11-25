@@ -71,38 +71,38 @@ export async function processUrlKey(args: {
 }
 
 export const imageStyle = [
-  { category: 'realismAndDetail', name: 'Realistic', value: 'Cinematic High-resolution, lifelike detail and vivid colors. Sigma 85 mm f/1.4. High Definition, Bokeh.' },
-  { category: 'realismAndDetail', name: 'Grayscale', value: 'Black and white, contrast and texture inspired by classical photography, cubism, and suprematism. Kazimir Malevich. Pablo Picasso.' },
+  { category: 'realismAndDetail', label: 'Realistic', value: 'Cinematic High-resolution, lifelike detail and vivid colors. Sigma 85 mm f/1.4. High Definition, Bokeh.' },
+  { category: 'realismAndDetail', label: 'Grayscale', value: 'Black and white, contrast and texture inspired by classical photography, cubism, and suprematism. Kazimir Malevich. Pablo Picasso.' },
 
-  { category: 'designAndArt', name: 'Minimalist', value: 'Simple design with monochrome or limited palettes. Artists: Donald Judd, Agnes Martin.' },
-  { category: 'designAndArt', name: 'Abstract', value: 'Bold shapes, expressive lines, and minimal colors. Artists: Wassily Kandinsky, Piet Mondrian.' },
-  { category: 'designAndArt', name: 'Hand-drawn', value: 'Whimsical, friendly style mimicking hand-drawn sketches. Artists: Quentin Blake, Saul Steinberg.' },
-  { category: 'designAndArt', name: 'Watercolor', value: 'Fluid, soft appearance with translucent pastel shades. Artists: John Singer Sargent, Albrecht Dürer.' },
+  { category: 'designAndArt', label: 'Minimalist', value: 'Simple design with monochrome or limited palettes. Artists: Donald Judd, Agnes Martin.' },
+  { category: 'designAndArt', label: 'Abstract', value: 'Bold shapes, expressive lines, and minimal colors. Artists: Wassily Kandinsky, Piet Mondrian.' },
+  { category: 'designAndArt', label: 'Hand-drawn', value: 'Whimsical, friendly style mimicking hand-drawn sketches. Artists: Quentin Blake, Saul Steinberg.' },
+  { category: 'designAndArt', label: 'Watercolor', value: 'Fluid, soft appearance with translucent pastel shades. Artists: John Singer Sargent, Albrecht Dürer.' },
 
-  { category: 'timeAndAesthetic', name: 'Vintage', value: 'Aged effects, classic designs, and sepia tones. Artists: Steichen Edward, Alfred Stieglitz.' },
-  { category: 'timeAndAesthetic', name: 'Americana', value: 'Nostalgic, featuring classic, rustic American themes. Artists: Norman Rockwell, Grant Wood.' },
-  { category: 'timeAndAesthetic', name: 'Retro-Futurism', value: 'Nostalgic styles blended with futuristic concepts. Artists: Syd Mead, Ralph McQuarrie.' },
+  { category: 'timeAndAesthetic', label: 'Vintage', value: 'Aged effects, classic designs, and sepia tones. Artists: Steichen Edward, Alfred Stieglitz.' },
+  { category: 'timeAndAesthetic', label: 'Americana', value: 'Nostalgic, featuring classic, rustic American themes. Artists: Norman Rockwell, Grant Wood.' },
+  { category: 'timeAndAesthetic', label: 'Retro-Futurism', value: 'Nostalgic styles blended with futuristic concepts. Artists: Syd Mead, Ralph McQuarrie.' },
 
-  { category: 'natureAndExploration', name: 'Nature', value: 'Green, serene visuals emphasizing eco-friendly themes. Artists: Ansel Adams, Georgia O’Keeffe.' },
-  { category: 'natureAndExploration', name: 'Adventure', value: 'Excitement and exploration with dynamic visuals. Artists: Thomas Cole, Frederic Edwin Church.' },
-  { category: 'natureAndExploration', name: 'Urban', value: 'Modern city life, architectural and street elements. Artists: Edward Hopper, Richard Estes.' },
+  { category: 'natureAndExploration', label: 'Nature', value: 'Green, serene visuals emphasizing eco-friendly themes. Artists: Ansel Adams, Georgia O’Keeffe.' },
+  { category: 'natureAndExploration', label: 'Adventure', value: 'Excitement and exploration with dynamic visuals. Artists: Thomas Cole, Frederic Edwin Church.' },
+  { category: 'natureAndExploration', label: 'Urban', value: 'Modern city life, architectural and street elements. Artists: Edward Hopper, Richard Estes.' },
 
-  { category: 'fantasyAndSciFi', name: 'Fantasy', value: 'Enchanting landscapes, lush nature, and magical themes. Artists: Brian Froud, John Howe.' },
-  { category: 'fantasyAndSciFi', name: 'Hi-Tech', value: 'Cutting-edge technology with a futuristic vibe. Artists: Chris Foss, H.R. Giger.' },
-  { category: 'fantasyAndSciFi', name: 'Cyberpunk', value: 'Neon-lit, high-tech urban dystopia. Artists: Gregory Stoffel, Andrzej Marszalek, Juan P. Osorio' },
+  { category: 'fantasyAndSciFi', label: 'Fantasy', value: 'Enchanting landscapes, lush nature, and magical themes. Artists: Brian Froud, John Howe.' },
+  { category: 'fantasyAndSciFi', label: 'Hi-Tech', value: 'Cutting-edge technology with a futuristic vibe. Artists: Chris Foss, H.R. Giger.' },
+  { category: 'fantasyAndSciFi', label: 'Cyberpunk', value: 'Neon-lit, high-tech urban dystopia. Artists: Gregory Stoffel, Andrzej Marszalek, Juan P. Osorio' },
 
-  { category: 'luxuryAndGlamour', name: 'Luxury', value: 'Opulence, lavish textures, and rich colors. Artists: Gustav Klimt, Peter Paul Rubens.' },
-  { category: 'luxuryAndGlamour', name: 'Glamour', value: 'Alluring, sophisticated visuals with a glossy finish. Artists: George Hurrell, Cecil Beaton.' },
-  { category: 'luxuryAndGlamour', name: 'High Fashion', value: 'Cutting-edge fashion, luxury, and exclusivity. Artists: Mario Testino, Annie Leibovitz.' },
+  { category: 'luxuryAndGlamour', label: 'Luxury', value: 'Opulence, lavish textures, and rich colors. Artists: Gustav Klimt, Peter Paul Rubens.' },
+  { category: 'luxuryAndGlamour', label: 'Glamour', value: 'Alluring, sophisticated visuals with a glossy finish. Artists: George Hurrell, Cecil Beaton.' },
+  { category: 'luxuryAndGlamour', label: 'High Fashion', value: 'Cutting-edge fashion, luxury, and exclusivity. Artists: Mario Testino, Annie Leibovitz.' },
 
-  { category: 'professionalAndCorporate', name: 'Corporate', value: 'Sleek, professional imagery for business. Artists: Andreas Gursky, Candida Höfer.' },
-  { category: 'professionalAndCorporate', name: 'Professional', value: 'Formality, refinement with crisp, smart designs. Artists: Yves Béhar, Dieter Rams.' },
+  { category: 'professionalAndCorporate', label: 'Corporate', value: 'Sleek, professional imagery for business. Artists: Andreas Gursky, Candida Höfer.' },
+  { category: 'professionalAndCorporate', label: 'Professional', value: 'Formality, refinement with crisp, smart designs. Artists: Yves Béhar, Dieter Rams.' },
 
   // Adding more styles
-  { category: 'expressiveAndEmotive', name: 'Expressionism', value: 'Intense, emotional expression through bold colors and dramatic compositions. Artists: Edvard Munch, Egon Schiele.' },
-  { category: 'surrealAndDreamlike', name: 'Surrealism', value: 'Dreamlike scenes with surprising, often illogical elements. Artists: Salvador Dalí, René Magritte.' },
-  { category: 'popAndCulture', name: 'Pop Art', value: 'Bold, colorful imagery of popular culture and mass media. Artists: Andy Warhol, Roy Lichtenstein.' },
-  { category: 'culturalAndHistorical', name: 'Classical', value: 'Inspired by Ancient Greece and the Renaissance. Artists: Leonardo da Vinci, Michelangelo.' },
+  { category: 'expressiveAndEmotive', label: 'Expressionism', value: 'Intense, emotional expression through bold colors and dramatic compositions. Artists: Edvard Munch, Egon Schiele.' },
+  { category: 'surrealAndDreamlike', label: 'Surrealism', value: 'Dreamlike scenes with surprising, often illogical elements. Artists: Salvador Dalí, René Magritte.' },
+  { category: 'popAndCulture', label: 'Pop Art', value: 'Bold, colorful imagery of popular culture and mass media. Artists: Andy Warhol, Roy Lichtenstein.' },
+  { category: 'culturalAndHistorical', label: 'Classical', value: 'Inspired by Ancient Greece and the Renaissance. Artists: Leonardo da Vinci, Michelangelo.' },
 ]
 
 export function extractIdFromUrl(url: string): { themeId?: string, siteId?: string, subDomain?: string } {

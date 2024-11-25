@@ -88,8 +88,8 @@ export class FictionTeam extends FictionPlugin<FictionTeamSettings> {
     await this.settings.fictionEmail.renderAndSendEmail({
       to: email,
       subject: `${org.orgName || 'Organization'}: You've been invited!`,
-      heading: 'Your Invitation',
-      subHeading: `To join ${org.orgName} on Fiction`,
+      title: 'Your Invitation',
+      subTitle: `To join ${org.orgName} on Fiction`,
       bodyMarkdown,
       actions: [{
         label: 'Set Your Password',

@@ -242,9 +242,9 @@ vue.onMounted(() => {
         <template v-else>
           <div class="h-dvh w-full grid min-h-full place-items-center bg-theme-900 text-white px-6 py-24 sm:py-32 lg:px-8">
             <El404
-              super-heading="404"
-              heading="No Site Available"
-              sub-heading="Nothing was found at this URL. Please check back later."
+              :super-title="{ text: '404' }"
+              title="No Site Available"
+              sub-title="Nothing was found at this URL. Please check back later."
             />
           </div>
         </template>

@@ -30,10 +30,10 @@ const buttonOptions: InputOption[] = [
     label: 'Design Style',
     input: 'InputSelectCustom',
     list: [
-      { name: 'Solid', value: 'solid' },
-      { name: 'Outline', value: 'outline' },
-      { name: 'Ghost', value: 'ghost' },
-      { name: 'Link', value: 'link' },
+      { label: 'Solid', value: 'solid' },
+      { label: 'Outline', value: 'outline' },
+      { label: 'Ghost', value: 'ghost' },
+      { label: 'Link', value: 'link' },
     ],
   }),
   new InputOption({
@@ -47,11 +47,11 @@ const buttonOptions: InputOption[] = [
     label: 'Size',
     input: 'InputSelectCustom',
     list: [
-      { name: 'Extra Small', value: 'xs' },
-      { name: 'Small', value: 'sm' },
-      { name: 'Medium', value: 'md' },
-      { name: 'Large', value: 'lg' },
-      { name: 'Extra Large', value: 'xl' },
+      { label: 'Extra Small', value: 'xs' },
+      { label: 'Small', value: 'sm' },
+      { label: 'Medium', value: 'md' },
+      { label: 'Large', value: 'lg' },
+      { label: 'Extra Large', value: 'xl' },
     ],
   }),
   new InputOption({
@@ -69,8 +69,8 @@ const buttonOptions: InputOption[] = [
     label: 'Link Target',
     input: 'InputSelectCustom',
     list: [
-      { name: 'Same Window', value: '_self' },
-      { name: 'New Window', value: '_blank' },
+      { label: 'Same Window', value: '_self' },
+      { label: 'New Window', value: '_blank' },
     ],
   }),
 

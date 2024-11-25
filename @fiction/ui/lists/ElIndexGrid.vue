@@ -94,11 +94,11 @@ async function paginate(dir: 'prev' | 'next') {
                   <ElIndexItemMedia class="size-16" :media="item.media" :icon="item.icon" />
                   <div>
                     <p class="text-lg font-medium leading-6 ">
-                      <span class="hover:underline cursor-pointer">{{ item.name }}</span>
+                      <span class="hover:underline cursor-pointer">{{ item.label }}</span>
                     </p>
                     <div class="mt-1 flex items-center gap-x-2 text-sm leading-5 text-theme-500">
                       <p>
-                        <span class="hover:underline cursor-pointer">{{ item.desc }}</span>
+                        <span class="hover:underline cursor-pointer">{{ item.description }}</span>
                       </p>
                     </div>
                   </div>
@@ -119,8 +119,8 @@ async function paginate(dir: 'prev' | 'next') {
             </template>
             <ElZeroBanner
               v-else
-              :title="empty?.name || 'No items found'"
-              :description="empty?.desc || 'Try creating a new one.'"
+              :title="empty?.label || 'No items found'"
+              :description="empty?.description || 'Try creating a new one.'"
               :actions="empty?.actions || actions"
               :icon="empty?.icon || 'i-heroicons-search'"
               :test-id="empty?.testId"

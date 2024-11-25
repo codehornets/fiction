@@ -70,9 +70,9 @@ const info = vue.computed<ListItem[]>(() => {
   const emailAddresses = emailList.value.slice(0, 10).join(', ')
   const hasMore = emailList.value.length > 10 ? `... and ${emailList.value.length - 10} more` : ''
   return [
-    { name: 'Emails to Import', value: emailList.value.length },
-    { name: 'Email Addresses', value: `${emailAddresses} ${hasMore}` },
-    { name: 'Tags', value: tagList.value.join(', ') || 'None' },
+    { label: 'Emails to Import', value: emailList.value.length },
+    { label: 'Email Addresses', value: `${emailAddresses} ${hasMore}` },
+    { label: 'Tags', value: tagList.value.join(', ') || 'None' },
   ]
 })
 
@@ -175,8 +175,8 @@ async function importSubscribers() {
             label="Import Method"
             input="InputSelectCustom"
             :list="[
-              { name: 'Upload a CSV file', value: 'csv' },
-              { name: 'Copy and Paste Email Addresses', value: 'text' },
+              { label: 'Upload a CSV file', value: 'csv' },
+              { label: 'Copy and Paste Email Addresses', value: 'text' },
             ]"
             default-text="Select Import Method"
           />

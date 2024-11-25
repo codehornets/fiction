@@ -1,5 +1,6 @@
-import type { ConfigResponse } from '@fiction/site/card'
-import { BlendModesSchema, UiOriginSchema } from '@fiction/core'
+import type { template as heroTemplate } from '@fiction/cards/hero'
+import type { CardFactory } from '@fiction/site/cardFactory'
+import { BlendModesSchema, colorThemeUser, UiOriginSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
@@ -16,7 +17,7 @@ const ShapeSchema = z.object({
 
   style: z.object({
     color: z.string().optional().describe('Custom color (hex or rgb)'),
-    theme: z.enum(['primary', 'theme']).optional().describe('Use theme color'),
+    theme: z.enum(colorThemeUser).optional().describe('Use theme color'),
     opacity: z.number().min(0).max(100).optional().describe('Shape transparency'),
     blendMode: BlendModesSchema.optional().describe('Blend mode with background'),
     scale: z.number().min(0.1).max(5).optional().describe('Size multiplier'),
@@ -42,10 +43,6 @@ export const schema = z.object({
   responsive: z.object({
     mobileScale: z.number().min(0.1).max(2).optional().describe('Scale factor for mobile devices'),
     tabletScale: z.number().min(0.1).max(2).optional().describe('Scale factor for tablet devices'),
-  }).optional(),
-  interaction: z.object({
-    mouseFollow: z.boolean().optional().describe('Shapes follow mouse movement'),
-    hoverEffect: z.enum(['none', 'scale', 'rotate', 'fade']).optional().describe('Effect when hovering over shapes'),
   }).optional(),
 }).describe('Shape effect configuration')
 
@@ -135,10 +132,6 @@ const PRESETS: Record<string, UserConfig> = {
         },
       },
     ],
-    interaction: {
-      mouseFollow: true,
-      hoverEffect: 'scale',
-    },
   },
 
   // Blending demonstration
@@ -415,61 +408,61 @@ function getDefaultConfig(): UserConfig {
   return PRESETS.basicShapes
 }
 
-export async function getConfig(args: { templateId: string }): Promise<ConfigResponse> {
-  const { templateId } = args
+export async function getConfig(args: { templateId: string, factory: CardFactory }) {
+  const { templateId, factory } = args
 
   const demoPage = {
     cards: [
       // Basic shapes and positioning
-      {
+      await factory.fromTemplate<typeof heroTemplate>({
         templateId: 'hero',
         userConfig: {
-          heading: 'Basic Shapes & Rotation',
-          subHeading: 'Basic example showing shape positioning and continuous rotation animations. Notice the gentle circular and triangular motion.',
-          mode: 'centered',
+          title: 'Basic Shapes & Rotation',
+          subTitle: 'Basic example showing shape positioning and continuous rotation animations. Notice the gentle circular and triangular motion.',
+          layout: 'center',
           actions: [
-            { name: 'Configure Shapes', theme: 'primary' },
-            { name: 'Watch Demo', theme: 'default' },
+            { label: 'Configure Shapes', theme: 'primary' },
+            { label: 'Watch Demo', theme: 'default' },
           ],
         },
         effects: [
           { templateId, userConfig: PRESETS.basicShapes },
         ],
-      },
+      }),
 
       // Interactive features
-      {
+      await factory.fromTemplate<typeof heroTemplate>({
         templateId: 'hero',
         userConfig: {
-          heading: 'Interactive Shapes',
-          subHeading: 'Move your cursor around to see the shapes follow. Hover over the shapes to trigger scale effects. The shapes maintain continuous rotation while following movement.',
-          mode: 'centered',
+          title: 'Interactive Shapes',
+          subTitle: 'Move your cursor around to see the shapes follow. Hover over the shapes to trigger scale effects. The shapes maintain continuous rotation while following movement.',
+          layout: 'center',
           actions: [
-            { name: 'Try Interaction', theme: 'primary' },
-            { name: 'Learn More', theme: 'default' },
+            { label: 'Try Interaction', theme: 'primary' },
+            { label: 'Learn More', theme: 'default' },
           ],
         },
         effects: [
           { templateId, userConfig: PRESETS.interactive },
         ],
-      },
+      }),
 
       // Blending demonstration
-      {
+      await factory.fromTemplate<typeof heroTemplate>({
         templateId: 'hero',
         userConfig: {
-          heading: 'Blend Modes & Opacity',
-          subHeading: 'Demonstration of overlapping shapes with different blend modes. The circles use "overlay" and "multiply" blend modes with increased opacity for rich color mixing.',
-          mode: 'centered',
+          title: 'Blend Modes & Opacity',
+          subTitle: 'Demonstration of overlapping shapes with different blend modes. The circles use "overlay" and "multiply" blend modes with increased opacity for rich color mixing.',
+          layout: 'center',
           actions: [
-            { name: 'Explore Blending', theme: 'primary' },
-            { name: 'View Guide', theme: 'default' },
+            { label: 'Explore Blending', theme: 'primary' },
+            { label: 'View Guide', theme: 'default' },
           ],
         },
         effects: [
           { templateId, userConfig: PRESETS.blendingShapes },
         ],
-      },
+      }),
     ],
   }
 

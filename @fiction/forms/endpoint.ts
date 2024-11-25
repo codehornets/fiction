@@ -211,8 +211,8 @@ export class QueryManageSubmission extends FormQuery {
         to: item.email,
         subject: heading,
         bodyMarkdown,
-        heading,
-        subHeading: `Details are below`,
+        title,
+        subTitle: `Details are below`,
         actions: [{ label: 'Fiction Dashboard', href: `${this.settings.fictionEnv.meta.app?.url}/app` }],
       }, { server: true }))
 

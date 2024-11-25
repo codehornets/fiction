@@ -49,7 +49,7 @@ const iconSize = vue.computed(() => ({
 
 <template>
   <div
-    class="group relative overflow-hidden rounded-2xl  transition-all flex flex-col "
+    class="group relative rounded-2xl transition-all flex flex-col "
     :class="[
       getFeatureStyle().wrapper,
       layout?.align === 'center' ? 'text-center items-center' : 'text-left items-start',

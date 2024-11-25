@@ -211,7 +211,7 @@ function getStartupConfig(): UserConfig {
   }
 }
 
-export async function getConfig(args: { templateId: string }): Promise<ConfigResponse> {
+export async function getConfig(args: { templateId: string }) {
   return {
     schema,
     options,

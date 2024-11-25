@@ -73,6 +73,7 @@ type CardMakeArgs<T extends CardTemplate> = {
   el?: ComponentConstructor
   userConfig?: TemplateSurface<T>['userConfig'] & SiteUserConfig
   baseConfig?: TemplateSurface<T>['userConfig'] & SiteUserConfig
+  effects?: CardConfigPortable[]
 } & BaseCardConfig
 
 export class CardFactory<U extends readonly CardTemplate<any>[] = readonly CardTemplate<any>[]> extends FictionObject<CardFactorySettings<U>> {

@@ -1,14 +1,13 @@
 import type { ConfigResponse } from '@fiction/site/card'
 import type { CardFactory } from '@fiction/site/cardFactory'
-import { MediaBasicSchema, vue } from '@fiction/core'
+import { MediaBasicSchema, superTitleSchema, vue } from '@fiction/core'
 import { InputOption } from '@fiction/ui/index.js'
 import { z } from 'zod'
-import { standardOption } from '../inputSets.js'
 
 const schema = z.object({
-  superHeading: z.string().describe('Social proof Metric or KPI for the newsletter, e.g. "22,300+ subscribers"').optional(),
-  heading: z.string().describe('Newsletter hook header 5 words or so').optional(),
-  subHeading: z.string().describe('Specific benefits of subscribing').optional(),
+  superTitle: superTitleSchema.describe('Social proof Metric or KPI for the newsletter, e.g. "22,300+ subscribers"').optional(),
+  title: z.string().describe('Newsletter hook header 5 words or so').optional(),
+  subTitle: z.string().describe('Specific benefits of subscribing').optional(),
   media: MediaBasicSchema.optional().describe('Image or video for the form'),
   presentationMode: z.enum(['inline', 'onScroll', 'onLoad']).optional(),
   buttonText: z.string().optional().describe('Text on the subscribe button'),
@@ -25,7 +24,24 @@ const options: InputOption[] = [
     list: ['inline', 'onScroll', 'onLoad'],
     description: 'Choose how to show your form: within content, as a scroll popup, or immediately on page load',
   }),
-  standardOption.headers(),
+  new InputOption({
+    key: 'superTitle.text',
+    label: 'Super Title',
+    input: 'InputText',
+    description: 'Metric or KPI for the newsletter, e.g. "22,300+ subscribers"',
+  }),
+  new InputOption({
+    key: 'title',
+    label: 'Header',
+    input: 'InputText',
+    description: 'Newsletter hook header 5 words or so',
+  }),
+  new InputOption({
+    key: 'subTitle',
+    label: 'Sub Header',
+    input: 'InputText',
+    description: 'Specific benefits of subscribing',
+  }),
   new InputOption({
     key: 'media',
     label: 'Featured Media',
@@ -49,9 +65,9 @@ const options: InputOption[] = [
 
 export async function getUserConfig(args: { factory: CardFactory, templateId: string }) {
   const demoUserConfig: UserConfig = {
-    superHeading: 'Join 20,000+ Weekly Readers',
-    heading: 'Get Our Free Growth Guide',
-    subHeading: 'Weekly actionable tips to grow your business. No fluff, just proven strategies.',
+    superTitle: { text: 'Join 20,000+ Weekly Readers' },
+    title: 'Get Our Free Growth Guide',
+    subTitle: 'Weekly actionable tips to grow your business. No fluff, just proven strategies.',
     media: {
       html: `<svg viewBox="0 0 169 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M10.0148 2.5V40H0V2.5H10.0148Z" fill="currentColor"></path>
@@ -82,8 +98,8 @@ export async function getDemo(args: { factory: CardFactory, templateId: string }
         userConfig: {
           ...baseConfig,
           presentationMode: 'inline',
-          heading: 'Subscribe to Our Weekly Insights',
-          subHeading: 'Join thousands of marketers getting actionable tips every Tuesday',
+          title: 'Subscribe to Our Weekly Insights',
+          subTitle: 'Join thousands of marketers getting actionable tips every Tuesday',
         },
       },
       // Content separator for demo
@@ -96,9 +112,9 @@ export async function getDemo(args: { factory: CardFactory, templateId: string }
         userConfig: {
           ...baseConfig,
           presentationMode: 'onLoad',
-          superHeading: 'Limited Time Offer',
-          heading: 'Get Our 2024 Growth Guide',
-          subHeading: 'Download our proven framework for scaling startups to 7-figures. Available free for a limited time.',
+          superTitle: { text: 'Limited Time Offer' },
+          title: 'Get Our 2024 Growth Guide',
+          subTitle: 'Download our proven framework for scaling startups to 7-figures. Available free for a limited time.',
           buttonText: 'Download Free Guide',
           thanksText: 'Your guide is on its way! Check your inbox in the next 2 minutes.',
         },
@@ -109,8 +125,8 @@ export async function getDemo(args: { factory: CardFactory, templateId: string }
         userConfig: {
           ...baseConfig,
           presentationMode: 'onScroll',
-          heading: 'Want More Growth Tips?',
-          subHeading: 'Get weekly insights from industry experts',
+          title: 'Want More Growth Tips?',
+          subTitle: 'Get weekly insights from industry experts',
           buttonText: 'Join the Community',
         },
       },

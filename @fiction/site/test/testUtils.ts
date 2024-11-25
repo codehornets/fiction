@@ -11,7 +11,6 @@ import { FictionAi } from '@fiction/plugin-ai'
 import { FictionSubscribe } from '@fiction/plugin-subscribe'
 import { FictionTransactions } from '@fiction/plugin-transactions'
 import * as minimalTheme from '@fiction/theme-minimal'
-import * as omegaTheme from '@fiction/theme-omega'
 import { FictionSites } from '..'
 import { Site } from '../site.js'
 import * as testTheme from './test-theme'
@@ -74,7 +73,6 @@ export async function createSiteTestUtils(args: {
 
   const themes = async () => Promise.all([
     minimalTheme.setup(out),
-    omegaTheme.setup(out),
     testTheme.setup(out),
     ...(args.themes || []).map(async _ => _(out as SiteTestUtils)),
   ])

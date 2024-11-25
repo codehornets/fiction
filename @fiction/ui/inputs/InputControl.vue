@@ -53,7 +53,7 @@ const modalActions = vue.computed<ActionButton[]>(() => {
     return [
       {
         testId: `${baseTestId}-modal-apply`,
-        name: 'Apply Changes',
+        label: 'Apply Changes',
         theme: 'primary',
         onClick: saveChanges,
       },
@@ -70,7 +70,7 @@ const actions = vue.computed<ActionButton[]>(() => {
     return [
       {
         testId: `${baseTestId}-edit-button`,
-        name: 'Edit',
+        label: 'Edit',
         theme: 'theme',
         onClick: openModal,
         icon: { class: 'i-tabler-pencil' },

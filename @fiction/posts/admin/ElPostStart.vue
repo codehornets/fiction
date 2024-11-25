@@ -65,8 +65,8 @@ const stepConfig: StepConfig = {
   steps: vue.computed<StepItem[]>(() => {
     const out: StepItem[] = [
       {
-        name: 'Start a New Post',
-        desc: 'Enter a title for your post',
+        title: 'Start a New Post',
+        subTitle: 'Enter a title for your post',
         key: 'postTitle',
         class: 'max-w-lg',
         isLoading: isSubmitting.value,

@@ -11,8 +11,8 @@ export interface StepItem {
   testId?: string
   key: string
   el?: vue.Component
-  name: string
-  desc: string
+  title: string
+  subTitle: string
   placeholder?: string
   class?: string
   actionText?: string

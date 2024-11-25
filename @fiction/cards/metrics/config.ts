@@ -1,24 +1,25 @@
-import { colorThemeUser, MediaIconSchema, numberFormats } from '@fiction/core'
+import { colorThemeUser, MediaIconSchema, navListItemSchema, numberFormats } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
-const MetricItemSchema = z.object({
-  name: z.string().optional(),
-  desc: z.string().optional(),
-  value: z.number().optional(),
+const metricSchema = navListItemSchema.pick({
+  label: true,
+  description: true,
+  value: true,
+  icon: true,
+  theme: true,
+  emphasis: true,
+}).extend({
   format: z.enum(numberFormats).optional(),
-  icon: MediaIconSchema.optional(),
-  theme: z.enum(colorThemeUser).optional(),
-  isHighlight: z.boolean().optional(),
 })
 
-export type MetricItem = z.infer<typeof MetricItemSchema>
+export type MetricItem = z.infer<typeof metricSchema>
 
 export const schema = z.object({
   title: z.string().optional(),
   subtitle: z.string().optional(),
   layout: z.enum(['grid', 'inline', 'featured']).optional(),
-  metrics: z.array(MetricItemSchema).optional(),
+  metrics: z.array(metricSchema).optional(),
 })
 
 export type UserConfig = z.infer<typeof schema>
@@ -126,24 +127,24 @@ function getBrandGrowthDemo(): UserConfig {
     layout: 'grid',
     metrics: [
       {
-        name: 'Client Revenue Growth',
-        desc: 'Average increase in annual revenue',
+        label: 'Client Revenue Growth',
+        description: 'Average increase in annual revenue',
         value: 127,
         format: 'percent',
         icon: { class: 'i-tabler-chart-arrows-vertical' },
         theme: 'emerald',
       },
       {
-        name: 'Brand Recognition',
-        desc: 'Increase in brand awareness surveys',
+        label: 'Brand Recognition',
+        description: 'Increase in brand awareness surveys',
         value: 83,
         format: 'percent',
         icon: { class: 'i-tabler-sparkles' },
         theme: 'violet',
       },
       {
-        name: 'Success Stories',
-        desc: 'Brands transformed',
+        label: 'Success Stories',
+        description: 'Brands transformed',
         value: 250,
         format: 'number',
         icon: { class: 'i-tabler-building-store' },
@@ -160,25 +161,25 @@ function getEngagementDemo(): UserConfig {
     layout: 'featured',
     metrics: [
       {
-        name: 'Social Engagement',
-        desc: 'Monthly interactions across platforms',
+        label: 'Social Engagement',
+        description: 'Monthly interactions across platforms',
         value: 1200000,
         format: 'abbreviated',
         icon: { class: 'i-tabler-heart-handshake' },
         theme: 'red',
-        isHighlight: true,
+        emphasis: 'highlighted',
       },
       {
-        name: 'Conversion Rate',
-        desc: 'Average campaign performance',
+        label: 'Conversion Rate',
+        description: 'Average campaign performance',
         value: 12.5,
         format: 'percent',
         icon: { class: 'i-tabler-target-arrow' },
         theme: 'amber',
       },
       {
-        name: 'ROI Multiple',
-        desc: 'Average return on ad spend',
+        label: 'ROI Multiple',
+        description: 'Average return on ad spend',
         value: 4.7,
         icon: { class: 'i-tabler-chart-dots' },
         theme: 'emerald',
@@ -194,24 +195,24 @@ function getEcommerceDemo(): UserConfig {
     layout: 'inline',
     metrics: [
       {
-        name: 'Sales Growth',
-        desc: 'Year over year increase',
+        label: 'Sales Growth',
+        description: 'Year over year increase',
         value: 215,
         format: 'percent',
         icon: { class: 'i-tabler-shopping-cart' },
         theme: 'blue',
       },
       {
-        name: 'Customer LTV',
-        desc: 'Average lifetime value',
+        label: 'Customer LTV',
+        description: 'Average lifetime value',
         value: 2850,
         format: 'dollar',
         icon: { class: 'i-tabler-user-circle' },
         theme: 'emerald',
       },
       {
-        name: 'New Markets',
-        desc: 'Countries expanded to',
+        label: 'New Markets',
+        description: 'Countries expanded to',
         value: 12,
         format: 'number',
         icon: { class: 'i-tabler-world' },

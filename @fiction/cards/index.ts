@@ -56,7 +56,7 @@ const templates = {
     ctaAlpha: () => import('./callToAction'),
   },
   effects: {
-    effectShape: () => import('./effect-shape'),
+    effectShape: () => import('./effectShape'),
     fitText: () => import('./fitText'),
     marquee: () => import('./marquee'),
     overSlide: () => import('./overSlide'),

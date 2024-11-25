@@ -120,8 +120,8 @@ export class FictionNewsletter extends FictionPlugin<FictionNewsletterSettings> 
 
 export const plugin: ExtensionManifest<FictionNewsletterSettings> = {
   extensionId: 'fictionNewsletter',
-  name: 'Email Send System',
-  desc: 'Create and send emails to users.',
+  label: 'Email Send System',
+  description: 'Create and send emails to users.',
   setup: async settings => new FictionNewsletter(settings),
   installStatus: 'installed',
 }

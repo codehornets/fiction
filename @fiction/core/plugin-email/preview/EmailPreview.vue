@@ -9,20 +9,10 @@ import { sampleHtml } from './content.js'
 const email = vue.ref('')
 
 vue.onMounted(async () => {
-  // subject: { type: String, default: undefined },
-  // heading: { type: String, default: undefined },
-  // subHeading: { type: String, default: undefined },
-  // markdown: { type: String, default: undefined },
-  // preview: { type: String, default: undefined },
-  // actions: { type: Array as vue.PropType<ActionItem[]>, default: () => [] },
-  // unsubscribeLink: { type: String, default: undefined },
-  // mediaSuper: { type: Object as vue.PropType<MediaItem>, default: undefined },
-  // mediaFooter: { type: Object as vue.PropType<MediaItem>, default: undefined },
-
   const confirmEmail: TransactionalEmailConfig = {
     subject: 'Confirm your email address',
-    heading: 'Welcome to Fiction',
-    subHeading: 'Please confirm your email address',
+    title: 'Welcome to Fiction',
+    subTitle: 'Please confirm your email address',
     // bodyMarkdown: 'Please confirm your email address by clicking the button below.',
     bodyMarkdown: await toMarkdown(sampleHtml),
     actions: [
@@ -44,12 +34,12 @@ vue.onMounted(async () => {
     ],
     mediaSuper: {
       media: { url: FictionIconImg },
-      name: 'Fiction',
+      label: 'Fiction',
       href: 'https://www.fiction.com',
     },
     mediaFooter: {
       media: { url: FictionFooterImg },
-      name: 'Personal Marketing with Fiction',
+      label: 'Personal Marketing with Fiction',
       href: 'https://www.fiction.com',
     },
   }

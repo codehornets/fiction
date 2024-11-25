@@ -22,8 +22,8 @@ export function getEmails(args: { fictionAdmin: FictionAdmin }) {
       return {
         emailVars,
         subject: `${emailVars.appName}: Verify Your Email`,
-        heading: 'Verify Your Email',
-        subHeading: 'Click the Link Below',
+        title: 'Verify Your Email',
+        subTitle: 'Click the Link Below',
         bodyMarkdown: `Verify your email using the code: **${emailVars.code}** or click the button below.`,
         to: `${emailVars.email}`,
         actions: [
@@ -54,12 +54,12 @@ export function getEmails(args: { fictionAdmin: FictionAdmin }) {
       return {
         emailVars,
         subject: `${emailVars.appName}: Your Sign-In Link 🪄`,
-        heading: 'Your magic link is ready',
-        subHeading: 'Click the link below to log in',
+        title: 'Your magic link is ready',
+        subTitle: 'Click the link below to log in',
         bodyMarkdown: `The link below will sign you in to ${emailVars.appName}.\n\nIf you didn't request this email, there's nothing to worry about, you can safely ignore it.`,
         to: `${emailVars.email}`,
         actions: [
-          { name: 'Log In', href: emailVars.callbackUrl, theme: 'primary' },
+          { label: 'Log In', href: emailVars.callbackUrl, theme: 'primary' },
         ],
       }
     },
@@ -74,8 +74,8 @@ export function getEmails(args: { fictionAdmin: FictionAdmin }) {
       return {
         emailVars,
         subject: `${emailVars.appName}: Your One-Time-Code 🧑‍💻`,
-        heading: 'Here is your one-time code',
-        subHeading: 'Use this code to verify your email',
+        title: 'Here is your one-time code',
+        subTitle: 'Use this code to verify your email',
         bodyMarkdown: `Use this code to verify your email: **${emailVars.code}**`,
         to: `${emailVars.email}`,
       }

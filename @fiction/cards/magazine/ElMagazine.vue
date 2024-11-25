@@ -97,8 +97,8 @@ vue.onServerPrefetch(fetchPosts)
 
       <El404
         v-else-if="!loading && !posts.length"
-        heading="No Posts Available"
-        sub-heading="Check back later for new content"
+        title="No Posts Available"
+        sub-title="Check back later for new content"
       />
     </transition>
   </div>

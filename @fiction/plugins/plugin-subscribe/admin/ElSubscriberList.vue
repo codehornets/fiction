@@ -105,8 +105,8 @@ const actions: ActionButton[] = [
       :index-meta="indexMeta"
       :empty="{
         testId: 'subscriber-list-empty',
-        name: 'Your Subscribers',
-        desc: 'Import your email list or start capturing emails on your site.',
+        label: 'Your Subscribers',
+        description: 'Import your email list or start capturing emails on your site.',
         icon: 'i-tabler-users',
         actions,
       }"

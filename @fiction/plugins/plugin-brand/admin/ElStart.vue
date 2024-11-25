@@ -58,8 +58,8 @@ const stepConfig: StepConfig = {
     const out: StepItem[] = [
 
       {
-        name: 'Name Your Brand Guide',
-        desc: 'What would you like to call this brand guide?',
+        title: 'Name Your Brand Guide',
+        subTitle: 'What would you like to call this brand guide?',
         key: 'title',
         class: 'max-w-lg',
         isNeeded: true,

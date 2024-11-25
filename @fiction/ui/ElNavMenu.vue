@@ -53,7 +53,7 @@ async function handleClick(event: MouseEvent, item: NavItem): Promise<void> {
             <div :class="sub.icon" />
           </div>
           <div class="">
-            {{ sub.name }}
+            {{ sub.label }}
           </div>
         </component>
       </div>

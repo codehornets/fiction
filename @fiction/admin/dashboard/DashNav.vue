@@ -56,7 +56,7 @@ const cls = {
               @click="handleClick($event, sub)"
             >
               <div v-if="sub.icon" class="text-2xl shrink-0" :class="sub.icon" />
-              <div class="pt-0.5 truncate" v-html="toLabel(sub.name)" />
+              <div class="pt-0.5 truncate" v-html="toLabel(sub.label)" />
             </CardLink>
           </div>
         </div>
@@ -78,7 +78,7 @@ const cls = {
             @click="handleClick($event, sub)"
           >
             <div v-if="sub.icon" class="text-2xl" :class="sub.icon" />
-            <div class="pt-0.5" v-html="toLabel(sub.name)" />
+            <div class="pt-0.5" v-html="toLabel(sub.label)" />
           </CardLink>
         </div>
       </div>

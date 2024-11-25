@@ -72,8 +72,8 @@ export function getEmailManageOptions(args: {
           input: 'InputSelectCustom',
           isRequired: true,
           list: [
-            { name: 'Send on Publish', value: 'now' },
-            { name: 'Send at Scheduled Time', value: 'schedule' },
+            { label: 'Send on Publish', value: 'now' },
+            { label: 'Send at Scheduled Time', value: 'schedule' },
           ],
         }),
         new InputOption({
@@ -97,7 +97,7 @@ export function getEmailManageOptions(args: {
         new InputOption({ key: 'post.title', label: 'Title', input: 'InputText', placeholder: 'Add a Catchy Title', isRequired: true, description: 'The text header that appears at the top of the email.' }),
         new InputOption({ key: 'post.subTitle', label: 'Subtitle', input: 'InputText', placeholder: 'Add some context with a subtitle', description: 'The text that appears below the title.' }),
         new InputOption({ key: 'actions', label: 'Email Body Content', input: 'InputActionList', props: {
-          actions: [{ name: 'Edit Email Content', btn: 'primary', href: card.link(`/campaign-edit?campaignId=${campaign?.campaignId}`) }],
+          actions: [{ label: 'Edit Email Content', btn: 'primary', href: card.link(`/campaign-edit?campaignId=${campaign?.campaignId}`) }],
           uiSize: 'md',
         } }),
       ],
@@ -153,14 +153,14 @@ export function getEmailManageOptions(args: {
 //   })
 
 //   const editEmailAction = (theme: 'default' | 'primary' = 'default') => ({
-//     name: 'Compose',
+//     label: 'Compose',
 //     href: card.link(`/campaign-edit?campaignId=${email.value?.campaignId}`),
 //     theme,
 //     icon: 'i-tabler-edit',
 //   })
 
 //   const pubAction = (btn: 'default' | 'primary' = 'default') => ({
-//     name: 'Publication Setup',
+//     label: 'Publication Setup',
 //     href: card.link(`/settings/project`),
 //     btn,
 //     icon: 'i-tabler-news',
@@ -168,7 +168,7 @@ export function getEmailManageOptions(args: {
 
 //   const saveAction = (btn: 'default' | 'primary' = 'default') => {
 //     return {
-//       name: 'Save',
+//       label: 'Save',
 //       onClick: async () => {
 //         loading.value = true
 //         const fields = val.value

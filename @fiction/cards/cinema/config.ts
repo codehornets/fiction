@@ -1,7 +1,7 @@
 import type { ConfigResponse } from '@fiction/site'
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { SiteUserConfig } from '@fiction/site/schema'
-import { ActionButtonSchema, MediaBasicSchema } from '@fiction/core'
+import { ActionButtonSchema, MediaBasicSchema, superTitleSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 // Import media assets
@@ -13,9 +13,9 @@ import wildlifePhoto from './wildlife-photo.mp4'
 
 // Core schemas
 export const CinemaItemSchema = z.object({
-  superHeader: z.string().optional().describe('Short text (2-5 words) appearing above main header for context or categorization'),
-  header: z.string().optional().describe('Primary heading text - should be compelling and descriptive'),
-  subHeader: z.string().optional().describe('Supporting text that provides additional context or call to action'),
+  superTitle: superTitleSchema.optional().describe('Short text (2-5 words) appearing above main header for context or categorization'),
+  title: z.string().optional().describe('Primary title text - should be compelling and descriptive'),
+  subTitle: z.string().optional().describe('Supporting text that provides additional context or call to action'),
   media: MediaBasicSchema.optional().describe('Background media - supports images or videos for visual impact'),
   actions: z.array(ActionButtonSchema).optional().describe('Call-to-action buttons for driving engagement'),
 })
@@ -38,22 +38,22 @@ export function getOptions(): InputOption[] {
       description: 'Add and configure slides with background media and content',
       options: [
         new InputOption({
-          key: 'superHeader',
+          key: 'superTitle.text',
           label: 'Context Label',
           input: 'InputText',
-          description: 'Short text appearing above main header (e.g., "Portfolio", "Services")',
+          description: 'Short text appearing above main title (e.g., "Portfolio", "Services")',
           placeholder: 'e.g., Portfolio',
         }),
         new InputOption({
-          key: 'header',
-          label: 'Main Heading',
+          key: 'title',
+          label: 'Main Title',
           input: 'InputText',
           description: 'Primary headline for the slide',
           placeholder: 'e.g., Mountain Expeditions',
         }),
         new InputOption({
-          key: 'subHeader',
-          label: 'Supporting Text',
+          key: 'subTitle',
+          label: 'Sub Title',
           input: 'InputText',
           description: 'Additional context or call-to-action text',
           placeholder: 'e.g., Discover our latest adventures',
@@ -88,9 +88,9 @@ export function getOptions(): InputOption[] {
 // Demo configurations showcasing different use cases
 const photographyDemo: CinemaItem[] = [
   {
-    superHeader: 'Portfolio',
-    header: 'Mountain Expeditions',
-    subHeader: 'Capturing Nature\'s Grandeur in the World\'s Highest Peaks',
+    superTitle: { text: 'Portfolio' },
+    title: 'Mountain Expeditions',
+    subTitle: 'Capturing Nature\'s Grandeur in the World\'s Highest Peaks',
     media: {
       format: 'video',
       url: mountainPhoto,
@@ -106,9 +106,9 @@ const photographyDemo: CinemaItem[] = [
     ],
   },
   {
-    superHeader: 'Services',
-    header: 'Desert Photography',
-    subHeader: 'Professional Photography in Earth\'s Most Stunning Landscapes',
+    superTitle: { text: 'Services' },
+    title: 'Desert Photography',
+    subTitle: 'Professional Photography in Earth\'s Most Stunning Landscapes',
     media: {
       format: 'video',
       url: desertPhoto,
@@ -119,9 +119,9 @@ const photographyDemo: CinemaItem[] = [
     ],
   },
   {
-    superHeader: 'Projects',
-    header: 'Wildlife Photography',
-    subHeader: 'Documenting Earth\'s Most Remarkable Creatures',
+    superTitle: { text: 'Projects' },
+    title: 'Wildlife Photography',
+    subTitle: 'Documenting Earth\'s Most Remarkable Creatures',
     media: {
       format: 'video',
       url: wildlifePhoto,
@@ -134,9 +134,9 @@ const photographyDemo: CinemaItem[] = [
 
 const eventDemo: CinemaItem[] = [
   {
-    superHeader: 'Featured Event',
-    header: 'TEDx 2024',
-    subHeader: 'Join us for a day of inspiring talks and connections',
+    superTitle: { text: 'Featured Event' },
+    title: 'TEDx 2024',
+    subTitle: 'Join us for a day of inspiring talks and connections',
     media: {
       format: 'url',
       url: cityPhoto,
@@ -147,9 +147,9 @@ const eventDemo: CinemaItem[] = [
     ],
   },
   {
-    superHeader: 'After Dark',
-    header: 'Night of Innovation',
-    subHeader: 'Evening networking and demonstrations',
+    superTitle: { text: 'After Dark' },
+    title: 'Night of Innovation',
+    subTitle: 'Evening networking and demonstrations',
     media: {
       format: 'video',
       url: nightPhoto,

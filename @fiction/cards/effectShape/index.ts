@@ -15,8 +15,8 @@ Features include customizable shapes, colors, animations, and interactive effect
   colorTheme: 'emerald',
   el: vue.defineAsyncComponent(async () => import('./ElEffect.vue')),
   isPublic: false,
-  getConfig: async () => {
+  getConfig: async (args) => {
     const { getConfig } = await import('./config')
-    return getConfig({ templateId })
+    return getConfig({ templateId, ...args })
   },
 })

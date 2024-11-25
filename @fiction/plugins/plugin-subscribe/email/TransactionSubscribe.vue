@@ -21,32 +21,32 @@ const errorMessage = vue.ref<string | undefined>()
 const content = vue.computed<TransactionProps>(() => {
   if (errorMessage.value) {
     return {
-      superHeading: 'Error',
-      heading: 'An error occurred',
-      subHeading: errorMessage.value,
+      superTitle: { text: 'Error' },
+      title: 'An error occurred',
+      subTitle: errorMessage.value,
       status: 'error' as const,
       actions: [
-        { name: 'Home', href: props.card.link('/'), theme: 'primary', icon: 'i-tabler-home' },
+        { label: 'Home', href: props.card.link('/'), theme: 'primary', icon: 'i-tabler-home' },
       ],
-    }
+    } satisfies TransactionProps
   }
   else if (response.value) {
     return {
-      superHeading: response.value.status,
-      heading: props.queryVars.orgName || 'Subscribe',
-      subHeading: response.value.message,
+      superTitle: { text: response.value.status },
+      title: props.queryVars.orgName || 'Subscribe',
+      subTitle: response.value.message,
       status: response.value.status as 'success' | 'error' | 'pending',
       actions: [
-        { name: 'Home', href: props.card.link('/'), theme: 'primary', icon: 'i-tabler-home' },
+        { label: 'Home', href: props.card.link('/'), theme: 'primary', icon: 'i-tabler-home' },
       ],
-    }
+    } satisfies TransactionProps
   }
   else {
     return {
       loading: true,
-      heading: 'Loading...',
+      title: 'Loading...',
       status: 'pending',
-    }
+    } satisfies TransactionProps
   }
 })
 

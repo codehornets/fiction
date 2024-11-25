@@ -3,6 +3,7 @@ import type { Card } from '@fiction/site'
 import type { Statement, UserConfig } from '.'
 import { vue } from '@fiction/core'
 import EffectCarousel from '@fiction/ui/effect/EffectCarousel.vue'
+import EffectFitText from '@fiction/ui/effect/EffectFitText.vue'
 import CardText from '../CardText.vue'
 import CardButtons from '../el/CardButtons.vue'
 
@@ -29,8 +30,14 @@ function onSlideChange(index: number) {
   <div class="">
     <EffectCarousel v-model:active-index="activeIndex" :slides="items" :options="carouselOptions" @slide-change="onSlideChange">
       <template #default="{ slide, index }">
-        <div class="carousel-cell w-[90%] sm:w-[80%] lg:w-[60%] mr-24">
-          <div class="max-w-[900px] mx-auto sm:p-6">
+        <div
+          class="carousel-cell w-[80%] sm:w-[70%] lg:w-[60%] mr-24"
+        >
+          <div
+            class="max-w-[900px] mx-auto sm:p-6 transition-all"
+            :class="index === activeIndex ? 'opacity-100' : 'opacity-50 hover:opacity-100 cursor-pointer'"
+            @click="activeIndex = index"
+          >
             <div class="space-y-[2vw]">
               <CardText
                 tag="div"
@@ -49,7 +56,14 @@ function onSlideChange(index: number) {
               />
             </div>
 
-            <CardButtons :card class="mt-12" :actions="(slide as Statement).actions || []" ui-size="2xl" animate="rise" />
+            <CardButtons
+              :card
+              class="mt-12"
+              :actions="(slide as Statement).actions || []"
+              ui-size="2xl"
+              animate="rise"
+              @click.stop
+            />
           </div>
         </div>
       </template>
@@ -62,13 +76,3 @@ function onSlideChange(index: number) {
     />
   </div>
 </template>
-
-<style lang="less">
-.carousel-cell{
-  opacity: .3;
-  &.is-selected{
-    transform: scale(1.1);
-    opacity: 1
-  }
-}
-</style>

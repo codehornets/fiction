@@ -1,4 +1,5 @@
 import type { CardConfigPortable, CardTemplate, Site } from '@fiction/site'
+import type { template as heroTemplate } from '../hero/index.js'
 import { CardFactory } from '@fiction/site/cardFactory.js'
 import { getCardTemplates } from '../index.js'
 
@@ -16,7 +17,7 @@ export async function createDemoPage(args: { site: Site, template: CardTemplate<
     return (c.templateId === template.settings.templateId) ? { inlineTemplate: template, ...c } : c
   })
 
-  const pg = await factory.create({
+  const pg = await factory.fromTemplate({
     slug,
     templateId: 'wrap',
     baseConfig: { seo: { title: `${template.settings.title} - Web Element Demo` } },
@@ -24,15 +25,17 @@ export async function createDemoPage(args: { site: Site, template: CardTemplate<
       // fixedHeader: true,
     },
     cards: [
-      await factory.create({
+      await factory.fromTemplate<typeof heroTemplate>({
         templateId: 'hero',
         userConfig: {
-          superHeading: template.settings.category?.join(', ').toUpperCase(),
-          heading: template.settings.title,
-          subHeading: template.settings.subTitle || template.settings.description?.slice(0, 100),
+          superTitle: {
+            text: template.settings.category?.join(', ').toUpperCase(),
+            icon: { format: 'iconClass', class: template.settings.icon },
+            theme: template.settings.colorTheme,
+          },
+          title: template.settings.title,
+          subTitle: template.settings.subTitle || template.settings.description?.slice(0, 100),
           actions: [],
-          superColor: template.settings.colorTheme,
-          superIcon: { format: 'iconClass', class: template.settings.icon },
         },
       }),
       ...crds,

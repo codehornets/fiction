@@ -36,8 +36,14 @@ function getBgClass(args: { slide: Testimonial, index: number }) {
   <div class="">
     <EffectCarousel v-model:active-index="activeIndex" :slides="items" :options="carouselOptions" @slide-change="onSlideChange">
       <template #default="{ slide, index }">
-        <blockquote class="carousel-cell w-[80%] md:w-[55%] lg:w-[30%] max-w-[600px] mr-6 md:mr-16 lg:mr-64">
-          <div class="transition-all duration-500" :class="index === activeIndex ? 'scale-110' : ''">
+        <blockquote
+          class="carousel-cell w-[80%] md:w-[55%] lg:w-[30%] max-w-[600px] mr-6 md:mr-16 lg:mr-64"
+        >
+          <div
+            class="transition-all duration-500"
+            :class="[index === activeIndex ? 'scale-110 opacity-100' : 'opacity-30 hover:opacity-100 cursor-pointer']"
+            @click="activeIndex = index"
+          >
             <div class="relative speech-bubble">
               <div class=" rounded-2xl  relative border [perspective:1000px]" :class="getBgClass({ slide, index })">
                 <div class="p-4 md:p-8">
@@ -95,12 +101,3 @@ function getBgClass(args: { slide: Testimonial, index: number }) {
     />
   </div>
 </template>
-
-<style lang="less">
-.carousel-cell{
-  opacity: .4;
-  &.is-selected{
-    opacity: 1
-  }
-}
-</style>

@@ -22,37 +22,37 @@ const homeAction = { name: 'Home', href: '/', theme: 'default' as const, icon: '
 const content = vue.computed<TransactionProps>(() => {
   if (errorMessage.value) {
     return {
-      superHeading: 'Error',
-      heading: 'Sorry! An error occurred',
-      subHeading: `Please let us know (${errorMessage.value})`,
+      superTitle: { text: 'Error' },
+      title: 'Sorry! An error occurred',
+      subTitle: `Please let us know (${errorMessage.value})`,
       status: 'error' as const,
       actions: [
         homeAction,
       ],
-    }
+    } satisfies TransactionProps
   }
   else if (response.value) {
     return {
-      superHeading: response.value.status,
-      heading: props.queryVars.orgName || 'Subscribe',
-      subHeading: response.value.message,
+      superTitle: { text: response.value.status },
+      title: props.queryVars.orgName || 'Subscribe',
+      subTitle: response.value.message,
       status: response.value.status as 'success' | 'error' | 'pending',
       actions: [
         homeAction,
       ],
-    }
+    } satisfies TransactionProps
   }
   else {
     return {
       icon: 'i-tabler-mail-x',
-      heading: 'Unsubscribe',
-      subHeading: 'Are you sure you want to unsubscribe?',
+      title: 'Unsubscribe',
+      subTitle: 'Are you sure you want to unsubscribe?',
       status: 'pending',
       actions: [
-        { name: 'Yes, unsubscribe', onClick: () => sendRequest(), theme: 'default', icon: 'i-tabler-x' },
+        { label: 'Yes, unsubscribe', onClick: () => sendRequest(), theme: 'default', icon: 'i-tabler-x' },
         homeAction,
       ],
-    }
+    } satisfies TransactionProps
   }
 })
 

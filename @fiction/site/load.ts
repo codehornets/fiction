@@ -1,3 +1,4 @@
+import type { template as heroTemplate } from '@fiction/cards/hero/index.js'
 import type { FictionRouter, RunVars } from '@fiction/core'
 import type { ManageSiteParams } from './endpoint.js'
 import type { FictionSites, TableSiteConfig } from './index.js'
@@ -121,20 +122,22 @@ export async function loadSiteFromCard(args: { cardId: string, siteRouter: Ficti
   const factory = new CardFactory({ templates, site })
 
   await site.update({ pages: [
-    await factory.create({
+    await factory.fromTemplate({
       slug: '_home',
       cards: [
-        {
+        await factory.fromTemplate<typeof heroTemplate>({
           templateId: 'hero',
           userConfig: {
-            superHeading: tpl.settings.category?.join(', '),
-            heading: tpl.settings.title,
-            subHeading: tpl.settings.description,
+            superTitle: {
+              text: tpl.settings.category?.join(', '),
+              theme: tpl.settings.colorTheme,
+              icon: typeof tpl.settings.icon === 'string' ? { class: tpl.settings.icon } : tpl.settings.icon,
+            },
+            title: tpl.settings.title,
+            subTitle: tpl.settings.description,
             actions: [],
-            superColor: tpl.settings.colorTheme,
-            superIcon: tpl.settings.icon,
           },
-        },
+        }),
         ...cards,
       ],
 

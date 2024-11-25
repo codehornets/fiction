@@ -37,7 +37,7 @@ async function initFlickity() {
       initialIndex: props.activeIndex,
       wrapAround: true,
       // autoPlay: false,
-      // cellAlign: 'center',
+      cellAlign: 'center',
       // cellSelector: undefined,
       // contain: true,
       draggable: true,
@@ -89,8 +89,17 @@ vue.watch(() => props.activeIndex, (newIndex) => {
 </script>
 
 <template>
-  <div ref="carouselRef" class="carousel transition-opacity duration-700" :class="loading ? 'opacity-0 min-h-[60vh]' : 'opacity-100'">
-    <slot v-for="(slide, index) in slides" :key="index" :slide="slide" :index="index" />
+  <div
+    ref="carouselRef"
+    class="carousel transition-opacity duration-700"
+    :class="loading ? 'opacity-0 min-h-[60vh]' : 'opacity-100'"
+  >
+    <slot
+      v-for="(slide, index) in slides"
+      :key="index"
+      :slide="slide"
+      :index="index"
+    />
   </div>
 </template>
 

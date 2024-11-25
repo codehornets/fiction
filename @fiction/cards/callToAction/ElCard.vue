@@ -21,10 +21,10 @@ const uc = vue.computed(() => props.card.userConfig.value)
 vue.onMounted(() => {
   useElementVisible({
     caller: 'ctaAlpha',
-    selector: `#${props.card.cardId}`,
+    selector: `[data-card-id="${props.card.cardId}"]`,
     onVisible: async () => {
       await animateItemEnter({
-        targets: `#${props.card.cardId} .animate-item`,
+        targets: `[data-card-id="${props.card.cardId}"] .animate-item`,
         themeId: 'fade',
         config: { overallDelay: 150 },
       })

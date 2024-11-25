@@ -67,7 +67,7 @@ const billingOptions = [
     actions: () => [
       {
         testId: 'billing-portal-access',
-        name: 'Open Billing Portal',
+        label: 'Open Billing Portal',
         href: customerPortalUrl.value,
         theme: 'primary',
         icon: { class: 'i-tabler-credit-card' },

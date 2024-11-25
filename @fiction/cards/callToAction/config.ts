@@ -241,7 +241,7 @@ export function getDemoConfigs(templateId: string): Record<string, { templateId:
         superTitle: {
           text: 'Limited Time Offer',
           icon: { class: 'i-tabler-star' },
-          color: 'orange',
+          theme: 'orange',
         },
         title: 'Master the Art of Digital Marketing',
         subTitle: 'Join our premium newsletter and get battle-tested strategies that helped 100+ brands scale their online presence. Delivered fresh to your inbox every Tuesday.',
@@ -288,7 +288,7 @@ export function getDemoConfigs(templateId: string): Record<string, { templateId:
         superTitle: {
           text: 'Power Up Your Workflow',
           icon: { class: 'i-tabler-bolt' },
-          color: 'blue',
+          theme: 'blue',
         },
         title: 'Your Team\'s Command Center',
         subTitle: 'Streamline collaboration, automate busywork, and watch your team\'s productivity soar. Built for modern teams who value efficiency.',

@@ -64,7 +64,7 @@ defineExpose({ isOpen, toggleDropdown })
             :data-test-id="item.testId"
             @click="handleItemClick({ item, event: $event })"
           >
-            {{ item.name }}
+            {{ item.label }}
           </a>
           <button
             v-else
@@ -78,7 +78,7 @@ defineExpose({ isOpen, toggleDropdown })
             :data-test-id="item.testId"
             @click="handleItemClick({ item, event: $event })"
           >
-            {{ item.name }}
+            {{ item.label }}
           </button>
         </template>
       </div>

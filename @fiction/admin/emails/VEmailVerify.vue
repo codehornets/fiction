@@ -40,9 +40,9 @@ vue.onMounted(async () => {
 <template>
   <TransactionWrap
     :loading="loading"
-    :super-heading="response?.status"
-    heading="Verify Email"
-    :sub-heading="response?.message"
+    :super-title="{ text: response?.status }"
+    title="Verify Email"
+    :sub-title="response?.message"
     :actions="[
       { label: 'Home', href: card.link('/'), theme: 'default', icon: 'i-tabler-home' },
       { label: 'Support', href: `mailto:hello@fiction.com`, target: '_blank', icon: 'i-tabler-mail' },

@@ -54,15 +54,15 @@ const stepConfig: StepConfig = {
     const out: StepItem[] = [
 
       {
-        name: 'Create A New Site',
-        desc: 'Give it a name...',
+        title: 'Create A New Site',
+        subTitle: 'Give it a name...',
         key: 'name',
         class: 'max-w-lg',
         isNeeded: true,
       },
       {
-        name: `Select Your Theme`,
-        desc: 'Your theme is the starting point for your site.',
+        title: `Select Your Theme`,
+        subTitle: 'Your theme is the starting point for your site.',
         key: 'theme',
         class: 'max-w-screen-xl ',
         isNeeded: true,

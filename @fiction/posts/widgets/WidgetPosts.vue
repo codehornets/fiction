@@ -62,11 +62,11 @@ const list = vue.computed<IndexItem[]>(() => {
     return {
       media,
       icon: 'i-tabler-pin',
-      name: post.title.value || 'Untitled',
-      desc: post.excerpt.value || post.subTitle.value,
+      label: post.title.value || 'Untitled',
+      description: post.excerpt.value || post.subTitle.value,
       href: props.card.link(`/edit-post?postId=${post.postId}`),
       dateIso: post.publishAt.value || post.settings.updatedAt,
-    }
+    } satisfies IndexItem
   })
 })
 </script>
@@ -77,7 +77,7 @@ const list = vue.computed<IndexItem[]>(() => {
       <template #subTitle="{ item }">
         <div class="flex gap-2 flex-wrap ">
           <div class="opacity-80">
-            {{ item.desc || 'No excerpt' }}
+            {{ item.description || 'No excerpt' }}
           </div> &middot;
           <time v-if="item.dateIso" class="text-theme-400">{{ dayjs(item.dateIso).format('MMM DD, YYYY') }}</time>
         </div>

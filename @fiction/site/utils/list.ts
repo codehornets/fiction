@@ -17,8 +17,8 @@ export function getSiteIndexItemList(sites: Site[], parentCard: Card): IndexItem
     const displayDomain = domain.replace('https://', '').replace('http://', '').replace('www.', '')
     const editLink = siteLink({ site: parentCard.site, location: { path: '/edit-site', query: { siteId: site.settings.siteId } } })
     const out: IndexItem = {
-      name: site.settings.title || 'Untitled',
-      desc: `${displayDomain}`,
+      label: site.settings.title || 'Untitled',
+      description: `${displayDomain}`,
       key: site.settings.siteId,
       href: editLink,
       // figure: { el: vue.defineAsyncComponent(() => import('./fig/FigSite.vue')), props: { site } },

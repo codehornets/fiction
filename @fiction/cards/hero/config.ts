@@ -1,5 +1,5 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
-import { ActionButtonSchema, colorTheme, MediaBasicSchema, MediaIconSchema } from '@fiction/core'
+import { ActionButtonSchema, colorTheme, MediaBasicSchema, MediaIconSchema, superTitleSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
@@ -14,11 +14,9 @@ const LayerMediaScheme = z.object({
 // Core schema defining all hero section capabilities
 export const schema = z.object({
   layout: z.enum(['justify', 'center', 'left', 'right']).optional().describe('Visual arrangement of content - affects text and image positioning'),
-  heading: z.string().optional().describe('Primary headline that captures attention (3-13 words) [ai]'),
-  subHeading: z.string().optional().describe('Supporting message that explains your value proposition (10-30 words) [ai]'),
-  superHeading: z.string().optional().describe('Eyebrow text to categorize or emphasize (2-5 words) [ai]'),
-  superIcon: MediaIconSchema.optional().describe('Visual accent icon above the headline [ai]'),
-  superColor: z.enum(colorTheme).optional().describe('Accent color for the super heading [ai]'),
+  title: z.string().optional().describe('Primary headline that captures attention (3-13 words) [ai]'),
+  subTitle: z.string().optional().describe('Supporting message that explains your value proposition (10-30 words) [ai]'),
+  superTitle: superTitleSchema.optional().describe('Eyebrow text with icon and color [ai]'),
   splash: MediaBasicSchema.optional().describe('Hero\'s focal image or illustration [ai]'),
   caption: z.string().optional().describe('Optional text description for the splash image'),
   actions: z.array(ActionButtonSchema).optional().describe('Call-to-action buttons'),
@@ -29,11 +27,9 @@ type UserConfig = z.infer<typeof schema>
 
 // Default configuration showcasing best practices
 const defaultContent: UserConfig = {
-  heading: 'Transform Your Ideas Into Reality',
-  subHeading: 'Start your journey with our intuitive platform. We help creators, entrepreneurs, and visionaries bring their digital dreams to life.',
-  superHeading: 'Build With Confidence',
-  superIcon: { class: 'i-tabler-rocket' },
-  superColor: 'blue',
+  title: 'Transform Your Ideas Into Reality',
+  subTitle: 'Start your journey with our intuitive platform. We help creators, entrepreneurs, and visionaries bring their digital dreams to life.',
+  superTitle: { text: 'Build With Confidence', icon: { class: 'i-tabler-rocket' }, theme: 'blue' },
   actions: [
     { label: 'Get Started', theme: 'primary', design: 'solid', size: 'xl' },
     { label: 'Watch Demo', theme: 'default', design: 'ghost', size: 'xl' },
@@ -49,14 +45,14 @@ export function getOptions(): InputOption[] {
       input: 'group',
       options: [
         new InputOption({
-          key: 'heading',
+          key: 'title',
           label: 'Main Headline',
           input: 'InputText',
           description: 'Your primary message (3-13 words)',
           props: { placeholder: 'e.g., Transform Your Ideas Into Reality' },
         }),
         new InputOption({
-          key: 'subHeading',
+          key: 'subTitle',
           label: 'Supporting Message',
           input: 'InputTextarea',
           description: 'Expand on your value proposition',
@@ -143,11 +139,10 @@ async function getDemoPage(args: { templateId: string, factory: CardFactory }) {
       templateId,
       userConfig: {
         layout: 'right',
-        heading: 'Revolutionize Your Workspace',
-        subHeading: 'Experience the future of productivity with our AI-powered platform. Automate tasks, collaborate seamlessly, and achieve more in less time.',
-        superHeading: 'New Release',
-        superIcon: { class: 'i-tabler-sparkles' },
-        superColor: 'blue',
+        title: 'Revolutionize Your Workspace',
+        subTitle: 'Experience the future of productivity with our AI-powered platform. Automate tasks, collaborate seamlessly, and achieve more in less time.',
+        superTitle: { text: 'New Release', icon: { class: 'i-tabler-sparkles' }, theme: 'blue' },
+
         splash: splash('aspect:portrait'),
         actions: [
           { label: 'Start Free Trial', theme: 'primary', design: 'solid', size: 'xl' },
@@ -160,11 +155,9 @@ async function getDemoPage(args: { templateId: string, factory: CardFactory }) {
       templateId,
       userConfig: {
         layout: 'left',
-        heading: 'Craft Your Perfect Digital Presence',
-        subHeading: 'From stunning websites to powerful marketing tools, we provide everything you need to grow your online business and connect with your audience.',
-        superHeading: 'Professional Services',
-        superIcon: { class: 'i-tabler-brush' },
-        superColor: 'purple',
+        title: 'Craft Your Perfect Digital Presence',
+        subTitle: 'From stunning websites to powerful marketing tools, we provide everything you need to grow your online business and connect with your audience.',
+        superTitle: { text: 'Professional Services', icon: { class: 'i-tabler-brush' }, theme: 'purple' },
         splash: splash('aspect:portrait'),
         actions: [
           { label: 'Explore Services', theme: 'primary', design: 'solid', size: 'xl' },
@@ -177,11 +170,9 @@ async function getDemoPage(args: { templateId: string, factory: CardFactory }) {
       templateId,
       userConfig: {
         layout: 'center',
-        heading: 'Join the Future of Tech',
-        subHeading: 'Be part of the largest virtual tech conference of 2024. Connect with industry leaders, discover emerging trends, and shape the future of technology.',
-        superHeading: 'Virtual Summit 2024',
-        superIcon: { class: 'i-tabler-calendar-event' },
-        superColor: 'indigo',
+        title: 'Join the Future of Tech',
+        subTitle: 'Be part of the largest virtual tech conference of 2024. Connect with industry leaders, discover emerging trends, and shape the future of technology.',
+        superTitle: { text: 'Virtual Summit 2024', icon: { class: 'i-tabler-calendar-event' }, theme: 'indigo' },
         splash: splash(),
         actions: [
           { label: 'Register Now', theme: 'primary', design: 'solid', size: 'xl' },

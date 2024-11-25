@@ -26,20 +26,20 @@ function setActiveItem(index: number) {
     <div class="relative aspect-none lg:aspect-[5/3] xl:aspect-[2.5/1] rounded-2xl shadow-xl dark:shadow-primary-500/10 bg-white dark:bg-theme-800 overflow-hidden mx-auto flex flex-col lg:flex-wrap">
       <div class="w-full lg:w-[50%] h-64 lg:h-full relative">
         <transition
-          enter-active-class="ease-out duration-1000"
+          enter-active-class="ease-out duration-500"
           enter-from-class="opacity-0"
           enter-to-class="opacity-100"
-          leave-active-class="ease-in duration-1000"
+          leave-active-class="ease-in duration-500"
           leave-from-class="opacity-100"
           leave-to-class="opacity-0"
         >
-          <XMedia class="absolute inset-0 object-cover" :media="activeItem?.media || activeItem?.user?.avatar" />
+          <XMedia :key="activeItem.content" class="absolute inset-0 object-cover" :media="activeItem?.media || activeItem?.user?.avatar" />
         </transition>
       </div>
       <blockquote class="flex flex-col justify-between h-full w-full lg:w-[50%] border-y border-r overflow-hidden rounded-r-2xl border-black/10 p-4 lg:p-10 space-y-6 xl:space-y-12">
         <div class="flex flex-col items-center lg:flex-row  justify-center gap-3 lg:gap-5 grow">
           <div class="flex flex-col items-start lg:flex-row  justify-center gap-3 lg:gap-5 grow">
-            <div class="relative pt-1 opacity-30">
+            <div class="relative pt-1 text-theme-500">
               <svg class="size-6 lg:size-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M13 14.725c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.38 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275zm-13 0c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.38 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275z" /></svg>
             </div>
             <div class="  shrink inline-block">
@@ -47,7 +47,7 @@ function setActiveItem(index: number) {
                 :key="activeIndex"
                 tag="span"
                 animate="rise"
-                class="text-xl lg:text-2xl  2xl:text-4xl  !leading-[1.4] font-semibold x-font-title  "
+                class="text-xl lg:text-2xl  2xl:text-4xl  !leading-[1.4] font-semibold x-font-title line-clamp-6  "
                 :card
                 :path="`items.${activeIndex}.content`"
               />

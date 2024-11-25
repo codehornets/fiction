@@ -4,7 +4,7 @@ import type { template as heroTemplate } from '@fiction/cards/hero'
 import type { template as MagazineTemplate } from '@fiction/cards/magazine'
 import type { template as MapsTemplate } from '@fiction/cards/maps'
 import type { template as ProfileTemplate } from '@fiction/cards/profile'
-import type { template as QuotesTemplate } from '@fiction/cards/quote'
+import type { template as QuotesTemplate } from '@fiction/cards/quotes'
 import type { Site } from '@fiction/site'
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { SiteUserConfig } from '@fiction/site/schema'
@@ -39,11 +39,9 @@ export async function getPages(args: { factory: CardFactory, site: Site, userCon
       slug: 'contact',
       cards: [
         await factory.fromTemplate<typeof heroTemplate>({ templateId: 'hero', userConfig: {
-          heading: 'Contact Us',
-          subHeading: `We'll get back to you as soon as possible.`,
-          superHeading: 'Get in touch',
-          superColor: 'orange',
-          superIcon: { class: 'i-tabler-phone' },
+          title: 'Contact Us',
+          subTitle: `We'll get back to you as soon as possible.`,
+          superTitle: { text: 'Get in Touch', icon: { class: 'i-tabler-phone' }, theme: 'orange' },
         } }),
         await factory.fromTemplate<typeof ContactTemplate>({ templateId: 'contact', userConfig: {
 

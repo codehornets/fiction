@@ -122,6 +122,7 @@ const autoSetDark = vue.computed(() => {
             v-for="(effectCard, ii) in card.effects.value"
             :key="ii"
             data-effect-card="true"
+            :data-card-id="effectCard.cardId"
             :card="effectCard"
           />
         </div>

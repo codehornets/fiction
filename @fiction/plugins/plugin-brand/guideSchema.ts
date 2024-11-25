@@ -16,66 +16,66 @@ const ARCHETYPE_VALUES = [
   'innocent',
 ] as const
 
-export const brandArchetypes: { name: string, value: typeof ARCHETYPE_VALUES[number], desc: string }[] = [
+export const brandArchetypes: { label: string, value: typeof ARCHETYPE_VALUES[number], description: string }[] = [
   {
-    name: 'Sage',
+    label: 'Sage',
     value: 'sage',
-    desc: 'Shares wisdom and deep insights. Examples: Neil deGrasse Tyson, Brené Brown - focused on empowering others through knowledge and understanding.',
+    description: 'Shares wisdom and deep insights. Examples: Neil deGrasse Tyson, Brené Brown - focused on empowering others through knowledge and understanding.',
   },
   {
-    name: 'Hero',
+    label: 'Hero',
     value: 'hero',
-    desc: 'Overcomes personal challenges to inspire others. Examples: David Goggins, Simone Biles - sharing authentic struggles and triumphs to motivate transformation.',
+    description: 'Overcomes personal challenges to inspire others. Examples: David Goggins, Simone Biles - sharing authentic struggles and triumphs to motivate transformation.',
   },
   {
-    name: 'Creator',
+    label: 'Creator',
     value: 'creator',
-    desc: 'Innovates and expresses unique ideas. Examples: Casey Neistat, Issa Rae - turning personal creativity into impactful content and projects.',
+    description: 'Innovates and expresses unique ideas. Examples: Casey Neistat, Issa Rae - turning personal creativity into impactful content and projects.',
   },
   {
-    name: 'Explorer',
+    label: 'Explorer',
     value: 'explorer',
-    desc: 'Seeks growth through new experiences. Examples: Anthony Bourdain, Jane Goodall - sharing discoveries and insights from personal journeys.',
+    description: 'Seeks growth through new experiences. Examples: Anthony Bourdain, Jane Goodall - sharing discoveries and insights from personal journeys.',
   },
   {
-    name: 'Rebel',
+    label: 'Rebel',
     value: 'rebel',
-    desc: 'Challenges status quo through authentic voice. Examples: Malcolm Gladwell, Gary Vaynerchuk - disrupting conventional wisdom with fresh perspectives.',
+    description: 'Challenges status quo through authentic voice. Examples: Malcolm Gladwell, Gary Vaynerchuk - disrupting conventional wisdom with fresh perspectives.',
   },
   {
-    name: 'Magician',
+    label: 'Magician',
     value: 'magician',
-    desc: 'Facilitates personal transformation. Examples: Tony Robbins, Marie Kondo - guiding others to unlock their potential through expertise.',
+    description: 'Facilitates personal transformation. Examples: Tony Robbins, Marie Kondo - guiding others to unlock their potential through expertise.',
   },
   {
-    name: 'Regular',
+    label: 'Regular',
     value: 'regular',
-    desc: 'Connects through relatable authenticity. Examples: Jennifer Garner, Chrissy Teigen - building trust by sharing genuine everyday experiences.',
+    description: 'Connects through relatable authenticity. Examples: Jennifer Garner, Chrissy Teigen - building trust by sharing genuine everyday experiences.',
   },
   {
-    name: 'Lover',
+    label: 'Lover',
     value: 'lover',
-    desc: 'Builds deep emotional connections. Examples: Michelle Obama, Tom Hanks - inspiring through vulnerability and genuine care.',
+    description: 'Builds deep emotional connections. Examples: Michelle Obama, Tom Hanks - inspiring through vulnerability and genuine care.',
   },
   {
-    name: 'Caregiver',
+    label: 'Caregiver',
     value: 'caregiver',
-    desc: 'Empowers through support and guidance. Examples: Malala Yousafzai, Fred Rogers - leading with empathy and service to others.',
+    description: 'Empowers through support and guidance. Examples: Malala Yousafzai, Fred Rogers - leading with empathy and service to others.',
   },
   {
-    name: 'Jester',
+    label: 'Jester',
     value: 'jester',
-    desc: 'Uses humor to deliver value. Examples: Ryan Reynolds, Mindy Kaling - making meaningful connections through entertainment and wit.',
+    description: 'Uses humor to deliver value. Examples: Ryan Reynolds, Mindy Kaling - making meaningful connections through entertainment and wit.',
   },
   {
-    name: 'Ruler',
+    label: 'Ruler',
     value: 'ruler',
-    desc: 'Leads through expertise and standards. Examples: Anna Wintour, Gordon Ramsay - building authority through mastery and high expectations.',
+    description: 'Leads through expertise and standards. Examples: Anna Wintour, Gordon Ramsay - building authority through mastery and high expectations.',
   },
   {
-    name: 'Innocent',
+    label: 'Innocent',
     value: 'innocent',
-    desc: 'Inspires through authentic optimism. Examples: Dolly Parton, Emma Watson - sharing genuine positivity and values-driven content.',
+    description: 'Inspires through authentic optimism. Examples: Dolly Parton, Emma Watson - sharing genuine positivity and values-driven content.',
   },
 ]
 

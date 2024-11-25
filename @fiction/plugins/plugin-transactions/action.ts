@@ -29,7 +29,7 @@ export type EmailVars<T extends Record<string, string> | undefined = Record<stri
   masks?: Record<string, string | undefined>
 }
 
-type EmailConfigResponse = TransactionalEmailConfig & {
+export type EmailConfigResponse = TransactionalEmailConfig & {
   emailVars: EmailVars
 }
 
@@ -121,12 +121,12 @@ export class EmailAction<T extends EmailActionSurface = EmailActionSurface > ext
       fromEmail: app.email || '',
       mediaSuper: {
         media: { url: emailImages.icon.url },
-        name: 'Fiction',
+        label: 'Fiction',
         href: `https://www.fiction.com`,
       },
       mediaFooter: {
         media: { url: emailImages.footer.url },
-        name: 'Powered by Fiction.com',
+        label: 'Powered by Fiction.com',
         href: `https://www.fiction.com`,
       },
     }

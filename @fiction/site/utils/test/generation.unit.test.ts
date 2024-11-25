@@ -31,11 +31,9 @@ describe('generation utils', async () => {
 
     expect(Object.keys(inputConfig)).toMatchInlineSnapshot(`
       [
-        "heading",
-        "subHeading",
-        "superHeading",
-        "superIcon",
-        "superColor",
+        "title",
+        "subTitle",
+        "superTitle",
         "splash",
         "overlays",
       ]
@@ -46,7 +44,13 @@ describe('generation utils', async () => {
     // empty because no isUserEnabled
     expect(outputProps).toStrictEqual({})
 
-    const inputConfig2 = generateJsonPropConfig({ jsonSchema, userPropConfig: { heading: { isUserEnabled: true }, subHeading: { isUserEnabled: true } } })
+    const inputConfig2 = generateJsonPropConfig({
+      jsonSchema,
+      userPropConfig: {
+        title: { isUserEnabled: true },
+        subTitle: { isUserEnabled: true },
+      },
+    })
     const outputProps2 = generateOutputProps({ jsonSchema, jsonPropConfig: inputConfig2 })
 
     expect(Object.values(inputConfig2).filter(c => c.isUserEnabled).length).toBe(2)
@@ -76,32 +80,32 @@ describe('generation utils', async () => {
   it('generates output props correctly', () => {
     const jsonSchema = {
       properties: {
-        heading: { type: 'string', description: 'Primary hero headline, 3 to 13 words' },
-        subHeading: { type: 'string', description: 'Secondary hero headline, 10 to 30 words' },
+        title: { type: 'string', description: 'Primary hero headline, 3 to 13 words' },
+        subTitle: { type: 'string', description: 'Secondary hero headline, 10 to 30 words' },
       },
     } as unknown as JsonSchema7ObjectType
 
     const jsonPropConfig = {
-      heading: { isUserEnabled: true, prompt: 'Custom heading' },
-      subHeading: { isUserEnabled: false, prompt: 'Custom subheading' },
+      title: { isUserEnabled: true, prompt: 'Custom title' },
+      subTitle: { isUserEnabled: false, prompt: 'Custom subtitle' },
     }
 
     const result = generateOutputProps({ jsonSchema, jsonPropConfig })
 
     expect(result).toEqual({
-      heading: { type: 'string', description: 'Custom heading' },
+      title: { type: 'string', description: 'Custom title' },
     })
   })
 
   it('handles missing descriptions in generateJsonPropConfig', () => {
     const jsonSchema = {
       properties: {
-        heading: { type: 'string' },
+        title: { type: 'string' },
       },
     } as unknown as JsonSchema7ObjectType
 
     const userPropConfig = {
-      heading: { isUserEnabled: true, hasTag: true },
+      title: { isUserEnabled: true, hasTag: true },
     }
 
     const result = generateJsonPropConfig({ jsonSchema, userPropConfig })
@@ -121,8 +125,8 @@ describe('generation utils', async () => {
 
   it('calculates total estimated time correctly', () => {
     const jsonPropConfig = {
-      heading: { isUserEnabled: true, estimatedMs: 5000 },
-      subHeading: { isUserEnabled: true, estimatedMs: 3000 },
+      title: { isUserEnabled: true, estimatedMs: 5000 },
+      subTitle: { isUserEnabled: true, estimatedMs: 3000 },
       splash: { isUserEnabled: false, estimatedMs: 10000 },
     }
 
@@ -133,8 +137,8 @@ describe('generation utils', async () => {
 
   it('returns zero for total estimated time with no enabled fields', () => {
     const jsonPropConfig = {
-      heading: { isUserEnabled: false, estimatedMs: 5000 },
-      subHeading: { isUserEnabled: false, estimatedMs: 3000 },
+      title: { isUserEnabled: false, estimatedMs: 5000 },
+      subTitle: { isUserEnabled: false, estimatedMs: 3000 },
     }
 
     const result = calculateTotalEstimatedTimeSeconds({ jsonPropConfig })
@@ -145,21 +149,21 @@ describe('generation utils', async () => {
   it('returns correct cumulative time in generateJsonPropConfig', () => {
     const jsonSchema = {
       properties: {
-        heading: { type: 'string', description: 'Primary hero headline, 3 to 13 words' },
-        subHeading: { type: 'string', description: 'Secondary hero headline, 10 to 30 words [ai]' },
+        title: { type: 'string', description: 'Primary hero headline, 3 to 13 words' },
+        subTitle: { type: 'string', description: 'Secondary hero headline, 10 to 30 words [ai]' },
       },
     } as unknown as JsonSchema7ObjectType
 
     const userPropConfig = {
-      heading: { isUserEnabled: true },
-      subHeading: { isUserEnabled: true },
+      title: { isUserEnabled: true },
+      subTitle: { isUserEnabled: true },
     }
 
     const result = generateJsonPropConfig({ jsonSchema, userPropConfig })
 
     expect(result).toEqual({
-      subHeading: {
-        key: 'subHeading',
+      subTitle: {
+        key: 'subTitle',
         label: 'Sub Heading',
         prompt: 'Secondary hero headline, 10 to 30 words',
         estimatedMs: 4000,
@@ -174,8 +178,8 @@ describe('generation utils', async () => {
 describe('simulateProgress', () => {
   it('simulates progress correctly', async () => {
     const jsonPropConfig: Record<string, InputOptionGeneration> = {
-      heading: { isUserEnabled: true, label: 'heading', cumulativeTime: 5000 },
-      subHeading: { isUserEnabled: true, label: 'subHeading', cumulativeTime: 10000 },
+      title: { isUserEnabled: true, label: 'title', cumulativeTime: 5000 },
+      subTitle: { isUserEnabled: true, label: 'subTitle', cumulativeTime: 10000 },
     }
 
     const totalEstimatedTime = 15 // 15 seconds
@@ -189,15 +193,15 @@ describe('simulateProgress', () => {
     })
 
     // Initial call to tick
-    expect(updateProgress).toHaveBeenCalledWith({ percent: 3, status: 'Generating heading' })
+    expect(updateProgress).toHaveBeenCalledWith({ percent: 3, status: 'Generating title' })
 
     // Advance time by 5 seconds (1/3 of totalEstimatedTime)
     await vi.advanceTimersByTimeAsync(5000)
-    expect(updateProgress).toHaveBeenCalledWith({ percent: 33, status: 'Generating heading' })
+    expect(updateProgress).toHaveBeenCalledWith({ percent: 33, status: 'Generating title' })
 
     // Advance time by another 5 seconds (2/3 of totalEstimatedTime)
     await vi.advanceTimersByTimeAsync(5000)
-    expect(updateProgress).toHaveBeenCalledWith({ percent: 67, status: 'Generating subHeading' })
+    expect(updateProgress).toHaveBeenCalledWith({ percent: 67, status: 'Generating subTitle' })
 
     // Advance time by another 5 seconds (3/3 of totalEstimatedTime)
     await vi.advanceTimersByTimeAsync(5000)

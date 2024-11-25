@@ -83,9 +83,9 @@ type TransactionProps = InstanceType<typeof TransactionWrap>['$props']
 
 const config = vue.computed<TransactionProps | undefined>(() => {
   const mapping: Record<string, TransactionProps> = {
-    register: { heading: 'Create a New Account', icon: 'i-tabler-user-plus' },
-    login: { heading: 'Login', icon: 'i-tabler-login' },
-    confirm: { heading: 'Check your inbox!', icon: 'i-tabler-mail', status: 'success' },
+    register: { title: 'Create a New Account', icon: 'i-tabler-user-plus' },
+    login: { title: 'Login', icon: 'i-tabler-login' },
+    confirm: { title: 'Check your inbox!', icon: 'i-tabler-mail', status: 'success' },
   }
 
   return mapping[itemId.value || 'login'] || mapping.login
