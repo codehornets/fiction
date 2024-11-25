@@ -112,8 +112,8 @@ export async function getConfig(args: {
                 { label: 'About', href: '/about' },
                 {
                   label: 'Web Elements',
-                  description: 'Professional components for your website',
                   list: {
+                    description: 'Professional components for your website',
                     variant: 'expanded',
                     items: [
                       {

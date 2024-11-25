@@ -20,6 +20,10 @@ export const template = cardTemplate({
   options,
   isPublic: false,
   isPageCard: true,
+  title: 'Page Wrapper',
+  description: 'A foundational layout component that provides consistent structure and behavior for your entire page.',
+  subTitle: 'The foundational wrapper for site pages.',
+  icon: 'i-tabler-layout-board-split',
   getBaseConfig: () => {
     return {
       standard: { spacing: { verticalSpacing: 'none' }, handling: { showOnSingle: true } },

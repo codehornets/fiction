@@ -92,39 +92,29 @@ const options: InputOption[] = [
 
 function getDefaultConfig(args: { stock: StockMedia }): UserConfig {
   const { stock } = args
-  return { layout: 'accordion', items: [
-    {
-      title: 'How can I make my FAQ section more engaging?',
-      content: 'Imagine your FAQ as a friendly conversation guide. Notice how icons add visual interest, and see how highlighted items draw attention to key information. Try organizing questions from most to least common, and use clear, conversational language.',
-      icon: { class: 'i-tabler-message-circle-2' },
-      isHighlighted: true,
-    },
-    {
-      title: 'Which FAQ layout should I choose?',
-      content: 'Picture how your visitors will interact: Accordion keeps things compact, Toggle allows multiple open sections for comparison, while Visible displays everything at once. Consider your content length and user needs.',
-      icon: { class: 'i-tabler-layout-grid' },
-    },
-    {
-      title: 'Should I add media to my FAQ answers?',
-      content: 'Visual elements can transform complex explanations. Notice how diagrams, screenshots, or illustrations make concepts clearer. Imagine your answer enhanced with a helpful visual guide.',
-      icon: { class: 'i-tabler-photo' },
-      media: stock.getRandomByTags(['aspect:landscape']),
-    },
-  ], support: {
-    text: 'Want to see how others are using FAQs?',
-    actions: [
+  return {
+    layout: 'accordion',
+    items: [
       {
-        label: 'View Examples',
-        theme: 'primary',
-        icon: { class: 'i-tabler-external-link' },
+        title: 'How can I make my FAQ section more engaging?',
+        content: 'Imagine your FAQ as a friendly conversation guide. Notice how icons add visual interest, and see how highlighted items draw attention to key information. Try organizing questions from most to least common, and use clear, conversational language.',
+        icon: { class: 'i-tabler-message-circle-2' },
+        isHighlighted: true,
       },
       {
-        label: 'Get Help',
-        theme: 'default',
-        icon: { class: 'i-tabler-messages-question' },
+        title: 'Which FAQ layout should I choose?',
+        content: 'Picture how your visitors will interact: Accordion keeps things compact, Toggle allows multiple open sections for comparison, while Visible displays everything at once. Consider your content length and user needs.',
+        icon: { class: 'i-tabler-layout-grid' },
+      },
+      {
+        title: 'Should I add media to my FAQ answers?',
+        content: 'Visual elements can transform complex explanations. Notice how diagrams, screenshots, or illustrations make concepts clearer. Imagine your answer enhanced with a helpful visual guide.',
+        icon: { class: 'i-tabler-photo' },
+        media: stock.getRandomByTags(['aspect:landscape']),
       },
     ],
-  } }
+    support: { },
+  }
 }
 
 function getDemoConfigs(args: { templateId: string, factory: CardFactory, stock: StockMedia }) {

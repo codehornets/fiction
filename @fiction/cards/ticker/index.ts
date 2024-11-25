@@ -8,8 +8,9 @@ export const template = cardTemplate({
   templateId,
   category: ['marketing', 'content'],
   icon: 'i-tabler-arrow-autofit-width',
-  title: 'Ticker',
-  description: 'Animated scrolling text for announcements, news, and promotions.',
+  title: 'Animated Ticker',
+  description: 'Create eye-catching scrolling announcements with 3D effects, custom fonts, and scroll-reactive animations. Perfect for highlighting time-sensitive offers, news updates, or key messages that demand attention.',
+  subTitle: 'Transform static announcements into dynamic, engaging messages that capture your audience\'s attention',
   colorTheme: 'blue',
   isPublic: true,
 

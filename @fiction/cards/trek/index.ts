@@ -1,86 +1,33 @@
-import { ActionButtonSchema, colorThemeUser, MediaBasicSchema, vue } from '@fiction/core'
+import { vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site'
-import { InputOption } from '@fiction/ui'
-import { createStockMediaHandler } from '@fiction/ui/stock/index.js'
-import { z } from 'zod'
 
 const templateId = 'trek'
-
-const schema = z.object({
-  items: z.array(z.object({
-    title: z.string().optional().describe('Title of the tour item'),
-    content: z.string().optional().describe('content or tagline of the tour item'),
-    media: MediaBasicSchema.optional().describe('Media for the tour item'),
-    actions: z.array(ActionButtonSchema).optional().describe('Action buttons for item'),
-  })).optional(),
-})
-
-export type UserConfig = z.infer<typeof schema>
-
-const options: InputOption[] = [
-  new InputOption({ key: 'items', label: 'Tour Items', input: 'InputList', props: { itemName: 'Tour Item' }, options: [
-    new InputOption({ key: 'title', label: 'Title', input: 'InputText' }),
-    new InputOption({ key: 'content', label: 'Content', input: 'InputText' }),
-    new InputOption({ key: 'media', label: 'Media', input: 'InputMedia' }),
-    new InputOption({ key: 'actions', label: 'Actions', input: 'InputList', options: [
-      new InputOption({ key: 'name', label: 'Button Label', input: 'InputText' }),
-      new InputOption({ key: 'href', label: 'Button Link', input: 'InputText' }),
-      new InputOption({ key: 'theme', label: 'Button Theme', input: 'InputSelect', list: colorThemeUser }),
-    ] }),
-  ] }),
-]
-
-async function defaultConfig(): Promise<UserConfig> {
-  const stock = await createStockMediaHandler()
-  return {
-    items: [
-      {
-        title: `Title Goes Here`,
-        content: `Content or tagline goes here.`,
-        media: stock.getRandomByTags(['background', 'video']),
-        actions: [{ label: 'Button Label', href: '#' }],
-      },
-      {
-        title: `Another Title`,
-        content: `Secondary content or brief description.`,
-        media: stock.getRandomByTags(['background', 'video']),
-        actions: [{ label: 'Button Label', href: '#' }],
-      },
-      {
-        title: 'Exhibit Title Here',
-        content: 'Brief description of the exhibit or event.',
-        media: stock.getRandomByTags(['background', 'video']),
-      },
-      {
-        title: `Call to Action Title`,
-        content: `Encouraging statement or invitation to connect.`,
-        media: stock.getRandomByTags(['background', 'video']),
-        actions: [{ label: 'Button Label', href: '#' }],
-      },
-    ],
-  }
-}
 
 export const template = cardTemplate({
   templateId,
   category: ['content'],
-  description: 'A tour card with sticky content and parallaxed images',
-  icon: 'i-tabler-compass',
-  colorTheme: 'blue',
-  el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
-  options,
-  schema,
+  title: 'Parallax Story',
+  description: 'Create an immersive visual journey with parallax scrolling and sticky content. Perfect for storytelling, product showcases, or virtual tours that guide visitors through a compelling narrative.',
+  subTitle: 'Transform your story into an engaging visual experience that captures attention and drives engagement',
+  icon: 'i-tabler-route',
+  colorTheme: 'cyan',
   isPublic: true,
-  getBaseConfig: () => {
-    return { standard: { spacing: { contentWidth: 'none' } } }
+  el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
+
+  async getConfig(args) {
+    const { getConfig } = await import('./config')
+    return getConfig({ ...args, templateId })
   },
-  getUserConfig: async () => defaultConfig(),
-  demoPage: async () => {
-    const userConfig = await defaultConfig()
-    return {
-      cards: [
-        { templateId, userConfig },
-      ],
-    }
-  },
+
+  // Set optimal default spacing
+  getBaseConfig: () => ({
+    standard: {
+      spacing: {
+        contentWidth: 'none',
+        verticalSpacing: 'none',
+      },
+    },
+  }),
 })
+
+export type { UserConfig } from './config'

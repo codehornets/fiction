@@ -4,6 +4,7 @@ import type { UserConfig } from '.'
 import { vue } from '@fiction/core'
 import ElActions from '@fiction/ui/buttons/ElActions.vue'
 import CardText from '../CardText.vue'
+import CardButtons from '../el/CardButtons.vue'
 
 const props = defineProps({
   card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
@@ -32,12 +33,17 @@ const actions = vue.computed(() => {
       leave-to-class="opacity-0 translate-y-5"
       mode="out-in"
     >
-      <div :key="itemIndex">
+      <div :key="itemIndex" class="space-y-6">
         <div class="space-y-3">
-          <CardText :card :path="`items.${itemIndex}.title`" tag="h2" class="font-semibold x-font-title text-xl md:text-3xl xl:text-5xl text-pretty" />
-          <CardText :card :path="`items.${itemIndex}.content`" tag="p" class="text-lg md:text-xl xl:text-4xl text-pretty !leading-[1.4]" />
+          <CardText :card :path="`items.${itemIndex}.title`" tag="h2" class="font-medium x-font-title text-xl md:text-3xl xl:text-4xl text-pretty" />
+          <CardText
+            :card
+            :path="`items.${itemIndex}.content`"
+            tag="p"
+            class="text-lg md:text-xl xl:text-2xl text-pretty !leading-[1.4] line-clamp-4"
+          />
         </div>
-        <ElActions v-if="actions" class="mt-6" :actions :is-overlay="mode === 'overlay'" />
+        <CardButtons v-if="actions" :card :actions class="flex gap-4" />
       </div>
     </transition>
   </div>
