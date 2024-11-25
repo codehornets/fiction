@@ -1,4 +1,4 @@
-import { colorList, colorTheme } from '@fiction/core'
+import { colorList, colorTheme, superTitleSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { describe, expect, it } from 'vitest'
 import { z } from 'zod'
@@ -171,9 +171,9 @@ describe('schema tools', () => {
   })
   it('creates a dot record from schema', async () => {
     const schema = z.object({
-      heading: z.string().optional().describe('Primary headline for profile 3 to 8 words'),
-      subHeading: z.string().optional().describe('Formatted markdown of profile with paragraphs, 30 to 60 words, 2 paragraphs'),
-      superHeading: z.string().optional().describe('Shorter badge above headline, 2 to 5 words'),
+      title: z.string().optional().describe('Primary headline for profile 3 to 8 words'),
+      subTitle: z.string().optional().describe('Formatted markdown of profile with paragraphs, 30 to 60 words, 2 paragraphs'),
+      superTitle: superTitleSchema.optional().describe('Shorter badge above headline, 2 to 5 words'),
       details: z.array(z.object({
         name: z.string().optional(),
         desc: z.string().optional(),
@@ -211,13 +211,13 @@ describe('schema tools', () => {
             },
           },
         ],
-        "heading": "string, Primary headline for profile 3 to 8 words",
+        "title": "string, Primary headline for profile 3 to 8 words",
         "media": {
           "format": "string",
           "html": "string",
           "url": "string",
         },
-        "subHeading": "string, Formatted markdown of profile with paragraphs, 30 to 60 words, 2 paragraphs",
+        "subTitle": "string, Formatted markdown of profile with paragraphs, 30 to 60 words, 2 paragraphs",
         "superHeading": "string, Shorter badge above headline, 2 to 5 words",
       }
     `)
@@ -234,12 +234,12 @@ describe('schema tools', () => {
         "details.0.subObject": "object",
         "details.0.subObject.subDesc": "string",
         "details.0.subObject.subName": "string",
-        "heading": "string, Primary headline for profile 3 to 8 words",
+        "title": "string, Primary headline for profile 3 to 8 words",
         "media": "object",
         "media.format": "string",
         "media.html": "string",
         "media.url": "string",
-        "subHeading": "string, Formatted markdown of profile with paragraphs, 30 to 60 words, 2 paragraphs",
+        "subTitle": "string, Formatted markdown of profile with paragraphs, 30 to 60 words, 2 paragraphs",
         "superHeading": "string, Shorter badge above headline, 2 to 5 words",
       }
     `)

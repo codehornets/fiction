@@ -1,3 +1,4 @@
+import type { title } from 'node:process'
 import { getCardTemplates } from '@fiction/cards'
 import { shortId, waitFor } from '@fiction/core'
 import { describe, expect, it } from 'vitest'
@@ -41,7 +42,7 @@ describe('card', async () => {
   })
 
   it('card computes total estimated time correctly', async () => {
-    generation.fieldsUserConfig.value = { heading: { isUserEnabled: true }, subHeading: { isUserEnabled: true } }
+    generation.fieldsUserConfig.value = { title: { isUserEnabled: true }, subTitle: { isUserEnabled: true } }
 
     await waitFor(50)
 
@@ -60,8 +61,8 @@ describe('card', async () => {
   })
 
   it('updates to Card reflect in userConfig and other properties', () => {
-    card.updateUserConfig({ path: 'heading', value: 'New Headline' })
-    expect(card.userConfig.value.heading).toBe('New Headline')
+    card.updateUserConfig({ path: 'title', value: 'New Headline' })
+    expect(card.userConfig.value.title).toBe('New Headline')
 
     card.update({ title: 'Updated Card' }, { caller: 'cardunit' })
     expect(card.title.value).toBe('Updated Card')
@@ -70,7 +71,7 @@ describe('card', async () => {
   })
 
   it('should compute total estimated time correctly', async () => {
-    generation.fieldsUserConfig.value = { heading: { isUserEnabled: true }, subHeading: { isUserEnabled: true } }
+    generation.fieldsUserConfig.value = { title: { isUserEnabled: true }, subTitle: { isUserEnabled: true } }
 
     const totalEstimatedTime = await generation.getTotalEstimatedTime()
 
@@ -82,28 +83,28 @@ describe('card', async () => {
     const inputConfig = await generation.getJsonPropConfig()
 
     expect(inputConfig).toEqual(expect.objectContaining({
-      heading: expect.any(Object),
+      title: expect.any(Object),
       overlays: expect.any(Object),
       splash: expect.any(Object),
-      subHeading: expect.any(Object),
+      subTitle: expect.any(Object),
       superColor: expect.any(Object),
       superHeading: expect.any(Object),
       superIcon: expect.any(Object),
 
     }))
 
-    expect(inputConfig.subHeading.label).toEqual('Sub Heading')
+    expect(inputConfig.subTitle.label).toEqual('Sub Heading')
 
     expect(Object.values(inputConfig).filter(c => c.isUserEnabled && c.hasTag).length).toBe(2)
 
     expect(inputConfig).toMatchInlineSnapshot(`
       {
-        "heading": {
+        "title": {
           "cumulativeTime": 4000,
           "estimatedMs": 4000,
           "hasTag": true,
           "isUserEnabled": true,
-          "key": "heading",
+          "key": "title",
           "label": "Heading",
           "prompt": "Primary hero headline, 3 to 13 words",
         },
@@ -123,12 +124,12 @@ describe('card', async () => {
           "label": "Splash",
           "prompt": "Splash picture for hero",
         },
-        "subHeading": {
+        "subTitle": {
           "cumulativeTime": 8000,
           "estimatedMs": 4000,
           "hasTag": true,
           "isUserEnabled": true,
-          "key": "subHeading",
+          "key": "subTitle",
           "label": "Sub Heading",
           "prompt": "Secondary hero headline, 10 to 30 words",
         },
@@ -138,7 +139,7 @@ describe('card', async () => {
           "hasTag": true,
           "key": "superColor",
           "label": "Super Color",
-          "prompt": "change color of super heading",
+          "prompt": "change color of super title",
         },
         "superHeading": {
           "cumulativeTime": 8000,
@@ -154,7 +155,7 @@ describe('card', async () => {
           "hasTag": true,
           "key": "superIcon",
           "label": "Super Icon",
-          "prompt": "Icon for the super heading",
+          "prompt": "Icon for the super title",
         },
       }
     `)

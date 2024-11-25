@@ -28,8 +28,8 @@ describe('cardCompletion', async () => {
               "logprobs": null,
               "message": {
                 "content": "{
-        "heading": "Mastering Espionage & Intelligence",
-        "subHeading": "Discover the world of elite intelligence services, crafted for the modern era's most challenging missions.",
+        "title": "Mastering Espionage & Intelligence",
+        "subTitle": "Discover the world of elite intelligence services, crafted for the modern era's most challenging missions.",
         "superHeading": "Welcome to the Vanguard of Global Security",
         "actions": [
           {
@@ -72,7 +72,7 @@ describe('cardCompletion', async () => {
             "role": "system",
           },
           {
-            "content": "provide output in the format of this json schema: {"type":"object","properties":{"heading":{"type":"string","minLength":18,"maxLength":80},"subHeading":{"type":"string","minLength":30,"maxLength":150},"superHeading":{"type":"string"},"actions":{"type":"array","items":{"type":"object","properties":{"name":{"type":"string"},"href":{"type":"string"},"btn":{"type":"string"},"size":{"type":"string"}},"additionalProperties":false}}},"required":["heading","subHeading"],"additionalProperties":false,"$schema":"http://json-schema.org/draft-07/schema#"}.",
+            "content": "provide output in the format of this json schema: {"type":"object","properties":{"title":{"type":"string","minLength":18,"maxLength":80},"subTitle":{"type":"string","minLength":30,"maxLength":150},"superHeading":{"type":"string"},"actions":{"type":"array","items":{"type":"object","properties":{"name":{"type":"string"},"href":{"type":"string"},"btn":{"type":"string"},"size":{"type":"string"}},"additionalProperties":false}}},"required":["title","subTitle"],"additionalProperties":false,"$schema":"http://json-schema.org/draft-07/schema#"}.",
             "role": "system",
           },
           {

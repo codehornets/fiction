@@ -7,8 +7,8 @@ import zodToJsonSchema from 'zod-to-json-schema'
 import { FictionAi } from '..'
 
 const pageSchema = z.object({
-  heading: z.string().min(18).max(60).describe('The heading for the page'),
-  subHeading: z.string().min(48).max(150).describe('The sub heading underneath the heading'),
+  title: z.string().min(18).max(60).describe('The title for the page'),
+  subTitle: z.string().min(48).max(150).describe('The sub title underneath the title'),
   images: z.array(z.object({ url: z.string() })).min(1).max(3).describe('The splash image url, landscape'),
 })
 
@@ -62,13 +62,13 @@ describe('ai completions', async () => {
     }, { server: true })
 
     const completion = r4.data?.completion as CompletionType
-    expect(Object.keys(completion || {}).sort()).toStrictEqual(['heading', 'images', 'subHeading'])
+    expect(Object.keys(completion || {}).sort()).toStrictEqual(['title', 'images', 'subTitle'])
 
     expect(Object.keys(completion?.images?.[0] || {}).sort()).toStrictEqual(['url'])
 
     expect(r4.data?.completion).toMatchInlineSnapshot(`
       {
-        "heading": "Elevate Your Style with Jane Smith's Vision",
+        "title": "Elevate Your Style with Jane Smith's Vision",
         "images": [
           {
             "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556210/arpowers_minimal_midshot_photo_of_object_futuristic_ancient_gre_f7c28b0f-3148-44fe-927f-b0fe57460f6c_cwyamv.png",
@@ -77,7 +77,7 @@ describe('ai completions', async () => {
             "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556206/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_c954fed0-a698-4b95-8470-e8a0541b0b55_qkrjxn.png",
           },
         ],
-        "subHeading": "Discover innovative fashion designs that blend cutting-edge trends with timeless elegance. Transform your wardrobe and express your unique personality through Jane's signature creations.",
+        "subTitle": "Discover innovative fashion designs that blend cutting-edge trends with timeless elegance. Transform your wardrobe and express your unique personality through Jane's signature creations.",
       }
     `)
   }, 90000)

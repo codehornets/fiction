@@ -4,8 +4,8 @@ import type { UserConfig } from '.'
 import { vue } from '@fiction/core'
 import CardText from '../CardText.vue'
 import CardButtons from '../el/CardButtons.vue'
-
 import NavDots from '../el/NavDots.vue'
+import SuperTitle from '../el/SuperTitle.vue'
 
 const props = defineProps({
   card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
@@ -67,10 +67,11 @@ function setActiveItem(index: number) {
         </template>
         <div class="absolute inset-0 flex flex-col justify-center items-center text-center text-white p-4 z-20">
           <div class="max-w-screen-lg  p-6">
+            <SuperTitle :card :base-path="`items.${i}.superTitle`" />
             <CardText :card tag="h3" :path="`items.${i}.superHeader`" animate="fade" class="mb-5 opacity-60 lg:text-[calc(10px+1vw)] font-normal font-sans text-balance" />
             <div class="space-y-8">
-              <CardText :card tag="h1" :path="`items.${i}.header`" animate="fade" class="text-6xl lg:text-[calc(20px+5vw)] font-bold x-font-title text-balance" />
-              <CardText :card tag="p" :path="`items.${i}.subHeader`" animate="fade" class="mt-2 text-3xl lg:text-[calc(16px+2.5vw)] text-balance leading-none" />
+              <CardText :card tag="h1" :path="`items.${i}.title`" animate="fade" class="text-6xl lg:text-[calc(20px+5vw)] font-bold x-font-title text-balance" />
+              <CardText :card tag="p" :path="`items.${i}.subTitle`" animate="fade" class="mt-2 text-3xl lg:text-[calc(16px+2.5vw)] text-balance leading-none" />
             </div>
             <CardButtons
               :card

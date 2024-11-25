@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { SuperTitle } from '@fiction/core'
 import type { Card } from '@fiction/site'
-import { vue } from '@fiction/core'
+import { getNested, vue } from '@fiction/core'
 import XIcon from '@fiction/ui/media/XIcon.vue'
 import { getColorThemeStyles } from '@fiction/ui/utils'
 import CardText from '../CardText.vue'
@@ -9,11 +9,15 @@ import CardText from '../CardText.vue'
 const { card, basePath, superTitle } = defineProps<{
   card: Card
   basePath: string
-  superTitle: SuperTitle
+  superTitle?: SuperTitle
 }>()
 
+const sup = vue.computed(() => {
+  return superTitle || (getNested({ data: card.fullConfig.value, path: basePath }) || {}) as SuperTitle
+})
+
 const colorStyle = vue.computed(() => {
-  const theme = superTitle.theme
+  const theme = sup.value.theme
   if (!theme) {
     return {
       icon: 'text-primary-500 dark:text-theme-100 bg-primary-100/80 dark:bg-theme-700/80',
@@ -35,11 +39,11 @@ const colorStyle = vue.computed(() => {
     :class="[colorStyle.text]"
   >
     <div
-      v-if="superTitle.icon"
+      v-if="sup.icon"
       :class="colorStyle.icon"
       class="size-10 rounded-full flex items-center justify-center"
     >
-      <XIcon :media="superTitle.icon" class="size-6" />
+      <XIcon :media="sup.icon" class="size-6" />
     </div>
     <CardText
       tag="h3"

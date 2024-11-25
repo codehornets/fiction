@@ -1,8 +1,8 @@
 import { superTitleSchema } from '@fiction/core'
 import { refineOptions } from '@fiction/site/utils/schema'
-import { afterEach, describe, expect, it } from 'vitest'
+import { InputOption } from '@fiction/ui'
+import { describe, expect, it } from 'vitest'
 import { z } from 'zod'
-import { standardOption } from '../inputSets'
 
 describe('refine options with schema', () => {
   it('refines options', async () => {
@@ -18,77 +18,58 @@ describe('refine options with schema', () => {
       })).optional().describe('List of details with contact details, location, etc.'),
     })
 
-    const navItemOptions = standardOption.navItems({ label: 'Details', key: 'details', maxDepth: 0 })
     const { options, unusedSchema } = await refineOptions({ options: [
-      standardOption.headers(),
-      navItemOptions,
+      new InputOption({ key: 'title', input: 'InputText', label: 'Title' }),
+      new InputOption({ key: 'subTitle', input: 'InputTextarea', label: 'Sub Title' }),
+      new InputOption({ key: 'superTitle.text', input: 'InputTextarea', label: 'Super Title' }),
+      new InputOption({ key: 'superTitle.icon', input: 'InputIcon', label: 'Super Title Icon' }),
+      new InputOption({ key: 'superTitle.theme', input: 'InputSelect', label: 'Super Title Color', list: ['red', 'blue'] }),
+      new InputOption({ key: 'details', input: 'InputList', label: 'Details', options: [
+        new InputOption({ key: 'label', input: 'InputText', label: 'Label' }),
+        new InputOption({ key: 'description', input: 'InputTextarea', label: 'Description' }),
+        new InputOption({ key: 'icon', input: 'InputText', label: 'Icon' }),
+        new InputOption({ key: 'href', input: 'InputText', label: 'Href' }),
+      ] }),
     ], schema })
 
-    expect(unusedSchema).toMatchInlineSnapshot(`
-      {
-        "details.0.icon": "string",
-      }
-    `)
+    expect(unusedSchema).toMatchInlineSnapshot(`{}`)
+
+    if (!options)
+      throw new Error('no options')
 
     const option = options[0]
 
-    expect(option.options.value.map(k => k.key.value)).toEqual([
+    expect(options.map(k => k.key.value)).toMatchInlineSnapshot(`
+      [
+        "title",
+        "subTitle",
+        "superTitle.text",
+        "superTitle.icon",
+        "superTitle.theme",
+        "details",
+      ]
+    `)
+
+    expect(options.map(k => k.key.value)).toEqual([
       'title',
       'subTitle',
-      'superTitle',
-      'superColor',
-      'superIcon',
+      'superTitle.text',
+      'superTitle.icon',
+      'superTitle.theme',
+      'details',
     ])
 
-    expect(option.options.value.length, 'nav items should be title and inputList').toBe(5)
-    expect(option.options.value[0].key.value).toBe('title')
-    expect(option.options.value[1].key.value).toBe('subTitle')
+    expect(options.length, 'nav items should be title and inputList').toBe(6)
+    expect(options[0].key.value).toBe('title')
+    expect(options[1].key.value).toBe('subTitle')
 
-    const option2 = options[1]
-
-    expect(option2.options.value.map(_ => _.key.value)).toMatchInlineSnapshot(`
+    expect(options.find(_ => _.key.value === 'details')?.options.value.map(_ => _.key.value)).toMatchInlineSnapshot(`
       [
-        "details_config_0",
-        "details_advanced_0",
+        "label",
+        "description",
+        "icon",
+        "href",
       ]
     `)
-
-    const detailsOptions = option2.options.value[1].options.value
-
-    expect(detailsOptions.map(i => i.key.value).sort()).toMatchInlineSnapshot(`
-      [
-        "authState",
-        "desc",
-        "itemStyle",
-        "itemTheme",
-        "target",
-      ]
-    `)
-
-    expect(detailsOptions.length).toBe(navItemOptions.options.value[1].options.value.length)
-  })
-})
-
-describe('navItemOptionSet Schema Generation', () => {
-  afterEach(() => {
-
-  })
-  it('initializes correctly and returns all input options', () => {
-    const option = standardOption.navItems({ key: 'nav', refine: {} })
-
-    expect(option.options.value.length).toBe(2)
-    expect(option.options.value[0].options.value[0].key.value).toBe('label')
-    expect(option.options.value[1].options.value[0].key.value).toBe('target')
-  })
-})
-
-describe('headerOptionSet', () => {
-  it('initializes correctly and returns all input options', () => {
-    const option = standardOption.headers()
-    const subOptions = option.options.value || []
-    expect(option.options.value.length).toBe(5)
-    expect(subOptions[0].key.value).toBe('title')
-    expect(subOptions[1].key.value).toBe('subTitle')
-    expect(subOptions[2].key.value).toBe('superTitle')
   })
 })
