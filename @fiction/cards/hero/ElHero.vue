@@ -16,10 +16,10 @@ const layout = vue.computed(() => uc.value.layout || 'center')
 // Layout classes based on user config
 const layoutClasses = vue.computed(() => ({
   wrapper: [
-    'gap-8 lg:gap-20 items-center',
+    'gap-8  items-center',
     {
-      'flex flex-col lg:flex-row-reverse': layout.value === 'right',
-      'flex flex-col lg:flex-row': layout.value === 'left',
+      'flex flex-col lg:flex-row-reverse lg:gap-28': layout.value === 'right',
+      'flex flex-col lg:flex-row lg:gap-20': layout.value === 'left',
     },
   ],
   text: [
@@ -66,7 +66,7 @@ const overlays = vue.computed(() => uc.value.overlays || [])
     <div :class="layoutClasses.wrapper">
       <!-- Content Section -->
       <div :class="layoutClasses.text">
-        <CardHeader :card :actions="uc.actions" />
+        <CardHeader :card />
       </div>
 
       <!-- Media Section -->

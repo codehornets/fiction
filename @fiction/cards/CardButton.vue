@@ -3,13 +3,14 @@ import type { Card } from '@fiction/site/card'
 import { type ActionButton, vue } from '@fiction/core'
 import XButton from '@fiction/ui/buttons/XButton.vue'
 
-const { card, href, theme, design, size, rounding } = defineProps<{
+const { card, href, theme, design, size, rounding, hover } = defineProps<{
   card: Card
   href?: string
   theme?: ActionButton['theme']
   design?: ActionButton['design']
   size?: ActionButton['size']
   rounding?: ActionButton['rounding']
+  hover?: ActionButton['hover']
 } >()
 
 const attrs = vue.useAttrs()
@@ -23,7 +24,7 @@ const buttonProps = vue.computed(() => {
     size,
     rounding: rounding || siteStyling.value?.rounding,
     design: design || siteStyling.value?.design,
-    hover: siteStyling.value?.hover,
+    hover: hover || siteStyling.value?.hover,
   }
 })
 </script>

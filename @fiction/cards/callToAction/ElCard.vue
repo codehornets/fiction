@@ -4,11 +4,9 @@ import type { UserConfig } from './config'
 import { vue } from '@fiction/core'
 import { animateItemEnter, useElementVisible } from '@fiction/ui/anim'
 import XIcon from '@fiction/ui/media/XIcon.vue'
-import CaptureAction from '../capture/CaptureAction.vue'
 import CardText from '../CardText.vue'
-import CardButtons from '../el/CardButtons.vue'
+import CardActionArea from '../el/CardActionArea.vue'
 import SuperTitle from '../el/SuperTitle.vue'
-import CommunityJoin from './CommunityJoin.vue'
 
 defineOptions({ name: 'CtaAlpha' })
 
@@ -38,7 +36,7 @@ vue.onMounted(() => {
     <div :class="card.classes.value.contentWidth">
       <div class="">
         <div class="grid gap-20 xl:gap-32" :class="uc.benefits?.items?.length ? 'lg:grid-cols-12' : ''">
-          <div class="gap-8 xl:gap-10 flex flex-col justify-center md:col-span-7">
+          <div class="gap-8 xl:gap-8 flex flex-col justify-center md:col-span-7">
             <div class="space-y-4 xl:space-y-6">
               <SuperTitle
                 v-if="uc.superTitle"
@@ -65,19 +63,12 @@ vue.onMounted(() => {
               />
             </div>
 
-            <!-- Action Area -->
-            <div class="max-w-screen-md animate-item">
-              <CardButtons v-if="uc.actions?.type === 'buttons' && uc.actions?.buttons" class="flex gap-4" :card :actions="uc.actions.buttons" ui-size="xl" />
-              <CaptureAction v-else :card />
-            </div>
-
-            <div>
-              <CommunityJoin
-                v-if="uc.communityJoin?.isEnabled"
-                :count="uc.communityJoin?.count"
-                :text="uc.communityJoin?.count ? `Join ${uc.communityJoin?.count}+ leaders` : 'Join The Community'"
-              />
-            </div>
+            <CardActionArea
+              :card
+              :classes="{ buttons: 'flex gap-4' }"
+              base-path="action"
+              size="xl"
+            />
           </div>
 
           <!-- Benefits Grid -->

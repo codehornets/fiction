@@ -35,7 +35,7 @@ export async function createDemoPage(args: { site: Site, template: CardTemplate<
           },
           title: template.settings.title,
           subTitle: template.settings.subTitle || template.settings.description?.slice(0, 100),
-          actions: [],
+          action: { buttons: [] },
         },
       }),
       ...crds,

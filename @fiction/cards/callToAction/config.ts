@@ -1,31 +1,14 @@
-import { ActionButtonSchema, colorThemeUser, MediaBasicSchema, MediaIconSchema, navListSchema, superTitleSchema } from '@fiction/core'
+import { actionAreaSchema, MediaBasicSchema, navListSchema, superTitleSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
 // Updated schema with new structure
 export const schema = z.object({
-
   title: z.string().optional(),
   subTitle: z.string().optional(),
   superTitle: superTitleSchema.optional(),
   benefits: navListSchema.optional(),
-  actions: z.object({
-    type: z.enum(['buttons', 'subscribe']).optional(),
-    buttons: z.array(ActionButtonSchema).optional(),
-    subscribe: z.object({
-      placeholder: z.string().optional(),
-      buttonText: z.string().optional(),
-      successTitle: z.string().optional(),
-      successMessage: z.string().optional(),
-    }).optional(),
-  }).optional(),
-
-  communityJoin: z.object({
-    isEnabled: z.boolean().default(true),
-    text: z.string().optional(),
-    count: z.number().optional(),
-    thumbCount: z.number().optional(),
-  }).optional(),
+  action: actionAreaSchema.optional(),
   media: MediaBasicSchema.optional(),
 })
 
@@ -211,20 +194,24 @@ export function getDefaultConfig(): UserConfig {
         },
       ],
     },
-    actions: {
-      type: 'subscribe',
+    action: {
+      variant: 'subscribe',
       subscribe: {
         placeholder: 'Your email address',
-        buttonText: 'Get Started',
-        successTitle: 'Perfect!',
-        successMessage: 'Watch your inbox for our welcome message',
+        button: { text: 'Get Started' },
+        success: {
+          title: 'Perfect!',
+          message: 'Watch your inbox for our welcome message',
+        },
       },
-    },
-    communityJoin: {
-      isEnabled: true,
-      text: 'already using this template',
-      count: 1250,
-      thumbCount: 3,
+      proof: {
+        community: {
+          isEnabled: true,
+          text: `join 1250+ others`,
+          count: 1250,
+          thumbCount: 3,
+        },
+      },
     },
   }
 }
@@ -265,20 +252,25 @@ export function getDemoConfigs(templateId: string): Record<string, { templateId:
             },
           ],
         },
-        actions: {
-          type: 'subscribe',
+        action: {
+          variant: 'subscribe',
           subscribe: {
             placeholder: 'Enter your email address',
-            buttonText: 'Claim Your Spot',
-            successTitle: 'Welcome to the inner circle!',
-            successMessage: 'Your first strategy brief is on its way',
+            button: { text: 'Claim Your Spot' },
+            success: {
+              title: 'Success!',
+              message: 'Check your inbox for a confirmation email',
+            },
           },
-        },
-        communityJoin: {
-          isEnabled: true,
-          text: 'marketers growing their brands',
-          count: 15430,
-          thumbCount: 4,
+          proof: {
+            community: {
+              isEnabled: true,
+              text: 'marketers growing their brands',
+              count: 15430,
+              thumbCount: 4,
+            },
+          },
+
         },
       },
     },
@@ -312,8 +304,8 @@ export function getDemoConfigs(templateId: string): Record<string, { templateId:
             },
           ],
         },
-        actions: {
-          type: 'buttons',
+        action: {
+          variant: 'buttons',
           buttons: [
             {
               label: 'Start Free Trial',
@@ -326,12 +318,14 @@ export function getDemoConfigs(templateId: string): Record<string, { templateId:
               icon: { class: 'i-tabler-player-play' },
             },
           ],
-        },
-        communityJoin: {
-          isEnabled: true,
-          text: 'teams boosting productivity',
-          count: 8750,
-          thumbCount: 5,
+          proof: {
+            community: {
+              isEnabled: true,
+              text: 'teams boosting productivity',
+              count: 8750,
+              thumbCount: 5,
+            },
+          },
         },
       },
     },

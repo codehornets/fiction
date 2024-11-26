@@ -2,10 +2,10 @@
 import type { Card } from '@fiction/site'
 import type { UserConfig } from './config'
 import CardText from '@fiction/cards/CardText.vue'
-import CardButtons from '@fiction/cards/el/CardButtons.vue'
 import { vue } from '@fiction/core'
 import XIcon from '@fiction/ui/media/XIcon.vue'
 import { getColorThemeStyles } from '@fiction/ui/utils'
+import CardActionArea from '../el/CardActionArea.vue'
 
 const props = defineProps({
   card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
@@ -27,7 +27,7 @@ function getFeatureStyle() {
   const style = getColorThemeStyles(props.feature.color || 'primary')
   const isCards = props.layout?.style === 'cards'
   const wrapper = isCards
-    ? 'bg-white dark:bg-theme-800/20 border border-theme-200 dark:border-theme-700 p-6 md:p-8 xl:p-12'
+    ? 'bg-white dark:bg-theme-800/20 border border-theme-200 dark:border-theme-700 p-4 lg:p-8 xl:p-12'
     : ''
   return {
     wrapper,
@@ -52,15 +52,14 @@ const iconSize = vue.computed(() => ({
     class="group relative rounded-2xl transition-all flex flex-col "
     :class="[
       getFeatureStyle().wrapper,
-      layout?.align === 'center' ? 'text-center items-center' : 'text-left items-start',
+      layout?.align === 'center' ? 'text-left items-start md:text-center md:items-center' : 'text-left items-start',
       layout?.style === 'cards' && layout?.align === 'center' ? 'justify-center' : '',
     ]"
   >
     <div
       class="max-w-[60ch]"
       :class="[
-        layout?.align === 'center' ? 'flex flex-col items-center justify-center' : '',
-
+        layout?.align === 'center' ? 'flex flex-col md:items-center justify-center' : '',
       ]"
     >
       <div
@@ -82,7 +81,7 @@ const iconSize = vue.computed(() => ({
         tag="h3"
         :card="card"
         :path="`features.${index}.title`"
-        class="text-2xl font-semibold x-font-title"
+        class="text-xl lg:text-2xl font-semibold x-font-title"
         animate="fade"
       />
 
@@ -94,11 +93,11 @@ const iconSize = vue.computed(() => ({
         animate="fade"
       />
 
-      <CardButtons
-        v-if="feature.actions?.length"
-        :card="card"
-        :actions="feature.actions"
-        class="mt-6 flex gap-4"
+      <CardActionArea
+        class="mt-6"
+        :card
+        :base-path="`features.${index}.action`"
+        :classes="{ buttons: 'flex gap-4' }"
         theme="primary"
       />
     </div>

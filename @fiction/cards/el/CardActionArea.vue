@@ -1,0 +1,59 @@
+<script lang="ts" setup>
+import type { ActionArea, ButtonDesign, ColorThemeUser, StandardSize } from '@fiction/core'
+import type { Card } from '@fiction/site/card'
+import { getNested, simpleHandlebarsParser, vue } from '@fiction/core'
+
+import CommunityJoin from '../callToAction/CommunityJoin.vue'
+import CaptureAction from '../capture/CaptureAction.vue'
+import CardButtons from '../el/CardButtons.vue'
+
+const { card, basePath, action, size = 'md', theme, design } = defineProps<{
+  card: Card
+  basePath: string
+  action?: ActionArea
+  size?: StandardSize
+  theme?: ColorThemeUser
+  design?: ButtonDesign
+  classes: { buttons?: string, proof?: string, subscribe?: string }
+}>()
+
+const uc = vue.computed(() => {
+  return action || getNested({ data: card.fullConfig.value, path: basePath }) as ActionArea | undefined
+})
+
+const joinText = vue.computed(() => {
+  const rawText = uc.value?.proof?.community?.text || '{{count}}+'
+  const count = uc.value?.proof?.community?.count || 0
+  return simpleHandlebarsParser(rawText, { count: count.toString() })
+})
+</script>
+
+<template>
+  <div class="space-y-8">
+    <div>
+      <CaptureAction
+        v-if="uc?.variant === 'subscribe'"
+        :size="uc?.size || size"
+        :card
+        :theme="uc?.theme || theme"
+      />
+      <CardButtons
+        v-else-if="uc?.buttons?.length"
+        :class="classes.buttons"
+        :card
+        :actions="uc?.buttons || []"
+        :theme="uc?.theme || theme"
+        :design="uc?.design || design"
+        :ui-size="size"
+      />
+    </div>
+
+    <div v-if="uc?.proof">
+      <CommunityJoin
+        v-if="uc?.proof.community?.isEnabled"
+        :count="uc?.proof.community?.count"
+        :text="joinText"
+      />
+    </div>
+  </div>
+</template>

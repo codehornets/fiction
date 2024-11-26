@@ -148,7 +148,18 @@ export function textInputClasses(args: { inputClass?: string, uiSize?: UiElement
 
   const cls = inputClasses({ uiSize })
 
-  return twMerge([cls.base, cls.padX, cls.padY, cls.textSize, cls.bg, cls.border, cls.focus, cls.text, isDisabled ? cls.disabled : '', inputClass])
+  return twMerge([
+    cls.base,
+    cls.padX,
+    cls.padY,
+    cls.textSize,
+    cls.bg,
+    cls.border,
+    cls.focus,
+    cls.text,
+    isDisabled ? cls.disabled : '',
+    inputClass,
+  ])
 }
 
 export function getCheckboxClasses(uiSize: StandardSize) {

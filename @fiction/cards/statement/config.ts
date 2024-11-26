@@ -3,7 +3,7 @@ import type { ConfigResponse } from '@fiction/site/card'
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { SiteUserConfig } from '@fiction/site/schema'
 import type { StockMedia } from '@fiction/ui/stock'
-import { ActionButtonSchema, colorThemeUser } from '@fiction/core'
+import { actionAreaSchema, ActionButtonSchema, colorThemeUser } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
@@ -11,7 +11,7 @@ import { z } from 'zod'
 export const StatementSchema = z.object({
   title: z.string().optional().describe('The headline that captures attention (3-8 words) [ai]'),
   content: z.string().optional().describe('The main message that drives your point home'),
-  actions: z.array(ActionButtonSchema).optional().describe('Compelling call-to-action buttons'),
+  action: actionAreaSchema.optional().describe('call-to-action area'),
 })
 
 export type Statement = z.infer<typeof StatementSchema>
@@ -84,17 +84,17 @@ export async function getUserConfig(): Promise<UserConfig> {
       {
         title: 'Transform Your Vision Into Reality',
         content: 'Notice how this statement immediately engages your audience with a powerful promise. Each word is chosen to create emotional impact and paint a picture of possibilities.',
-        actions: [{ label: 'Start Your Journey', href: '#', theme: 'primary', design: 'solid' }],
+        action: { buttons: [{ label: 'Start Your Journey', href: '#', theme: 'primary', design: 'solid' }] },
       },
       {
         title: 'See Your Impact Multiply',
         content: 'Feel the momentum build as each statement connects with your audience. This example shows how to maintain engagement through a story arc that builds excitement and trust.',
-        actions: [{ label: 'Learn Our Method', href: '#', theme: 'primary', design: 'outline' }],
+        action: { buttons: [{ label: 'Learn Our Method', href: '#', theme: 'primary', design: 'outline' }] },
       },
       {
         title: 'Become an Industry Leader',
         content: 'Imagine your message resonating with perfect clarity. This final statement demonstrates how to close with a compelling vision that motivates action.',
-        actions: [{ label: 'Join Leading Brands', href: '#', theme: 'primary', design: 'ghost' }],
+        action: { buttons: [{ label: 'Join Leading Brands', href: '#', theme: 'primary', design: 'ghost' }] },
       },
     ],
     transition: 'fade',
@@ -129,12 +129,12 @@ export async function getDemoConfig(args: { stock: StockMedia }): Promise<UserCo
       {
         title: 'Revolutionize Your Customer Experience',
         content: 'Watch as our AI-powered platform transforms every interaction into an opportunity for growth. Our solutions have helped companies increase satisfaction by an average of 47%.',
-        actions: [{ label: 'Schedule Demo', href: '#', theme: 'blue', design: 'solid' }],
+        action: { buttons: [{ label: 'Schedule Demo', href: '#', theme: 'blue', design: 'solid' }] },
       },
       {
         title: 'Data-Driven Decisions Made Simple',
         content: 'Experience the clarity of seeing your entire business at a glance. Our intuitive dashboards turn complex data into actionable insights that drive growth.',
-        actions: [{ label: 'Try It Free', href: '#', theme: 'emerald', design: 'solid' }],
+        action: { buttons: [{ label: 'Try It Free', href: '#', theme: 'emerald', design: 'solid' }] },
       },
     ],
     standard: {

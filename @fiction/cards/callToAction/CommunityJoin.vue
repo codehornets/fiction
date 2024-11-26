@@ -37,7 +37,7 @@ vue.onMounted(async () => {
         >
       </div>
       <XNumber
-        class="font-sans rounded-full bg-theme-500 dark:bg-theme-700 text-white ring-4 ring-white dark:ring-theme-800 -ml-2 flex items-center justify-center font-medium aspect-square px-2"
+        class="font-sans rounded-full bg-theme-500 dark:bg-theme-600 text-white ring-4 ring-white dark:ring-theme-800 -ml-2 flex items-center justify-center font-medium aspect-square px-2.5"
         :class="size === 'sm' ? 'h-4' : size === 'lg' ? 'h-8' : 'h-8'"
         :model-value="count"
         suffix="+"
@@ -45,7 +45,7 @@ vue.onMounted(async () => {
         :animate="true"
       />
     </div>
-    <div class="font-medium font-sans text-sm dark:text-theme-400 text-theme-500">
+    <div class="font-sans text-sm dark:text-theme-300 text-theme-500">
       {{ text }}
     </div>
   </div>

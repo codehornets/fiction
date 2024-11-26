@@ -101,7 +101,7 @@ export function getThemeColors(item: BentoItem, el: HTMLElement | null = null) {
   }
   else {
     colorItems = {
-      background: `rgba(${colors[100]} / 0.7)`,
+      background: `rgba(${colors[50]} / 1)`,
       text: `rgba(${colors[950]} / 1)`,
       subtext: `rgba(${colors[800]} / 1)`,
       supertext: `rgba(${colors[600]} / 1)`,

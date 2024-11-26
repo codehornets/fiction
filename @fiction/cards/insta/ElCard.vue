@@ -5,7 +5,6 @@ import type { CardRequests } from './queries'
 import { log, vue } from '@fiction/core'
 import ElSpinner from '@fiction/ui/loaders/ElSpinner.vue'
 import XMedia from '@fiction/ui/media/XMedia.vue'
-import CardButtons from '../el/CardButtons.vue'
 
 const props = defineProps<{
   card: Card<UserConfig, { requests: CardRequests }>
@@ -291,21 +290,6 @@ vue.watch(
       <p class="mt-2 text-sm">
         {{ config.account?.handle ? 'Please check the account handle and try again' : 'Please configure your Instagram handle in the settings' }}
       </p>
-    </div>
-
-    <!-- Action Button -->
-    <div v-if="actionConfig.show && data?.profile" class="mt-8 flex justify-center">
-      <CardButtons
-        :card="card"
-        :actions="[{
-          label: actionConfig.text || 'Follow on Instagram',
-          href: actionConfig.link || `https://instagram.com/${data.profile.username}`,
-          theme: 'rose',
-          design: 'solid',
-          target: '_blank',
-          icon: { class: 'i-tabler-brand-instagram' },
-        }]"
-      />
     </div>
   </div>
 </template>

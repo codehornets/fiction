@@ -1,6 +1,6 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { StockMedia } from '@fiction/ui/stock'
-import { ActionButtonSchema, MediaIconSchema, MediaTypographySchema, navListItemSchema, navListSchema } from '@fiction/core'
+import { actionAreaSchema, ActionButtonSchema, MediaTypographySchema, navListItemSchema, navListSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
@@ -15,12 +15,12 @@ export const schema = z.object({
     logo: MediaTypographySchema.optional(),
     title: z.string().optional(),
     subTitle: z.string().optional(),
-    actions: z.array(ActionButtonSchema).optional(),
+    action: actionAreaSchema.optional(),
   }).optional(),
   columns: z.array(navListSchema).optional(),
   badges: z.object({
     title: z.string().optional(),
-    actions: z.array(ActionButtonSchema).optional(),
+    action: actionAreaSchema.optional(),
   }).optional(),
   additional: z.object({
     links: z.array(navListItemSchema).optional(),
@@ -33,56 +33,38 @@ export type UserConfig = z.infer<typeof schema>
 function getDefaultConfig(): UserConfig {
   return {
     brand: {
-      title: 'Your Brand',
-      subTitle: 'Build something amazing',
-      actions: [
-        { label: 'Get Started', theme: 'primary', design: 'ghost', size: 'sm' },
-        { label: 'Contact Sales', theme: 'default', design: 'ghost', size: 'sm' },
-      ],
+      title: 'Add Your Brand',
+      subTitle: 'Add your brand tagline here',
+      action: {
+        buttons: [],
+      },
     },
     columns: [
       {
-        title: 'Product',
-        items: [
-          { label: 'Features', href: '/features', icon: { iconId: 'sparkles' } },
-          { label: 'Solutions', href: '/solutions', icon: { iconId: 'puzzle' } },
-          { label: 'Enterprise', href: '/enterprise', icon: { iconId: 'building' } },
-        ],
-      },
-      {
         title: 'Resources',
         items: [
-          { label: 'Documentation', href: '/docs', icon: { iconId: 'book' } },
-          { label: 'API Reference', href: '/api', icon: { iconId: 'code' } },
-          { label: 'Status', href: '/status', icon: { iconId: 'activity' } },
+          { label: 'Add Site Links', href: '/status', icon: { iconId: 'activity' } },
         ],
       },
     ],
     badges: {
       title: 'Trusted By',
-      actions: [
-        {
-          icon: { iconId: 'shield' },
-          label: 'SOC 2 Type II',
-          href: '/security',
-        },
-        {
-          icon: { iconId: 'check' },
-          label: 'GDPR Compliant',
-          href: '/privacy',
-        },
-      ],
+      action: {
+        buttons: [
+          {
+            icon: { iconId: 'star' },
+            label: 'Certified',
+            href: '#',
+          },
+        ],
+      },
     },
     additional: {
       links: [
-        { label: 'Privacy', href: '/privacy' },
         { label: 'Terms', href: '/terms' },
-        { label: 'Security', href: '/security' },
       ],
       social: [
         { label: 'X', href: 'https://x.com', media: { iconId: 'x' } },
-        { label: 'GitHub', href: 'https://github.com', media: { iconId: 'github' } },
-        { label: 'LinkedIn', href: 'https://linkedin.com', media: { iconId: 'linkedin' } },
       ],
     },
   }
@@ -246,10 +228,12 @@ async function getDemoConfig(args: { templateId: string, stock: StockMedia }): P
           logo: stock.getLocalMedia({ key: 'lorem1' }),
           title: 'CloudFlow',
           subTitle: 'Simplify Your Cloud Infrastructure',
-          actions: [
-            { label: 'Start Free', theme: 'primary', icon: { iconId: 'bolt' } },
-            { label: 'Talk to Sales', theme: 'default', icon: { iconId: 'phone' } },
-          ],
+          action: {
+            buttons: [
+              { label: 'Start Free', theme: 'primary', icon: { iconId: 'bolt' } },
+              { label: 'Talk to Sales', theme: 'default', icon: { iconId: 'phone' } },
+            ],
+          },
         },
         columns: [
           {
@@ -280,7 +264,7 @@ async function getDemoConfig(args: { templateId: string, stock: StockMedia }): P
         ],
         badges: {
           title: 'Certifications',
-          actions: [
+          action: { buttons: [
             {
               icon: { iconId: 'star' },
               label: 'Read Reviews',
@@ -296,7 +280,7 @@ async function getDemoConfig(args: { templateId: string, stock: StockMedia }): P
               label: 'Satisfaction Guaranteed',
               theme: 'green',
             },
-          ],
+          ] },
         },
         additional: {
           links: [

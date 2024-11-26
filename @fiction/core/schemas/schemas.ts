@@ -236,7 +236,6 @@ export type NavListItem = z.infer<typeof BaseNavListItemSchema> & {
 }
 
 export const ActionButtonSchema = z.object({
-  // name: z.string().optional(),
   label: z.string().optional(),
   href: z.string().optional(),
   size: SizeSchema.optional(),
@@ -255,6 +254,35 @@ export const ActionButtonSchema = z.object({
 })
 
 export type ActionButton = z.infer<typeof ActionButtonSchema>
+
+export const actionAreaSchema = z.object({
+  title: z.string().optional(),
+  variant: z.enum(['buttons', 'subscribe']).optional(),
+  buttons: z.array(ActionButtonSchema).optional(),
+  size: SizeSchema.optional(),
+  theme: ButtonColorThemeSchema.optional(),
+  design: ButtonDesignSchema.optional(),
+  subscribe: z.object({
+    placeholder: z.string().optional(),
+    button: z.object({
+      text: z.string().optional(),
+    }),
+    success: z.object({
+      title: z.string().optional(),
+      message: z.string().optional(),
+    }).optional(),
+  }).optional(),
+  proof: z.object({
+    community: z.object({
+      isEnabled: z.boolean().optional(),
+      text: z.string().optional(),
+      count: z.number().optional(),
+      thumbCount: z.number().optional(),
+    }).optional(),
+  }).optional(),
+})
+
+export type ActionArea = z.infer<typeof actionAreaSchema>
 
 export const superTitleSchema = z.object({
   text: z.string().optional(),

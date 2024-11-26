@@ -7,7 +7,7 @@ import XIcon from '@fiction/ui/media/XIcon.vue'
 import XLogo from '@fiction/ui/media/XLogo.vue'
 import CardNavLink from '../CardNavLink.vue'
 import CardText from '../CardText.vue'
-import CardButtons from '../el/CardButtons.vue'
+import CardActionArea from '../el/CardActionArea.vue'
 
 defineOptions({ name: 'FooterPro' })
 
@@ -62,11 +62,11 @@ vue.onMounted(() => {
                 animate="fade"
               />
             </div>
-            <CardButtons
-              v-if="uc.brand?.actions?.length"
+            <CardActionArea
+              v-if="uc.brand?.action"
               :card
-              :actions="uc.brand.actions"
-              class="flex gap-4 animate-item"
+              base-path="brand.action"
+              :classes="{ buttons: 'flex gap-4' }"
               animate="fade"
               design="solid"
             />
@@ -108,12 +108,11 @@ vue.onMounted(() => {
         <!-- Bottom Section -->
         <div class="mt-16 pt-8 border-t border-theme-200 dark:border-theme-800">
           <div class="flex flex-col gap-8 md:flex-row justify-between items-start">
-            <CardButtons
-              v-if="uc.badges?.actions"
+            <CardActionArea
+              v-if="uc.badges?.action"
               :card
-              :actions="uc.badges?.actions"
-              class="flex flex-wrap gap-6"
-              animate="fade"
+              base-path="badges.action"
+              :classes="{ buttons: 'flex flex-wrap gap-4' }"
               design="ghost"
             />
 

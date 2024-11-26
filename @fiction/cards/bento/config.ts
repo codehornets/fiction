@@ -1,22 +1,20 @@
 import type { ConfigResponse } from '@fiction/site/card.js'
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { StockMedia } from '@fiction/ui/stock/index.js'
-import { ActionButtonSchema, colorTheme, colorThemeUser, MediaDisplaySchema, MediaIconSchema, SizeSchema } from '@fiction/core'
+import { actionAreaSchema, ActionButtonSchema, colorTheme, colorThemeUser, MediaDisplaySchema, MediaIconSchema, SizeSchema, superTitleSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
 const BentoItemSchema = z.object({
   cols: z.number().min(1).max(12).optional(),
   rows: z.number().min(1).max(12).optional(),
-  superTitle: z.string().optional(),
-  superIcon: MediaIconSchema.optional(),
-  superColor: z.enum(colorThemeUser).optional(),
+  superTitle: superTitleSchema.optional(),
   title: z.string().optional(),
   content: z.string().optional(),
   media: MediaDisplaySchema.optional(),
   bg: MediaDisplaySchema.optional(),
   href: z.string().optional(),
-  actions: z.array(ActionButtonSchema).optional(),
+  action: actionAreaSchema.optional(),
   theme: z.enum(colorThemeUser).optional(),
   themeMode: z.enum(['light', 'dark', 'auto']).optional(),
   verticalPosition: z.enum(['top', 'center', 'bottom']).optional(),
@@ -61,32 +59,34 @@ const options: InputOption[] = [
 
 export async function getUserConfig(args: { factory: CardFactory, templateId: string, stock: StockMedia }): Promise<UserConfig> {
   const { stock } = args
-  const actions = [
-    { name: 'Learn More', href: '#' },
-  ]
+  const action = {
+    buttons: [
+      { name: 'Learn More', href: '#' },
+    ],
+  }
   return {
     items: [
       {
         cols: 4,
         rows: 2,
         title: 'Feature Title Here',
-        superTitle: 'Badge Text', // Optional upper badge/label
+        superTitle: { text: 'Badge Text' },
         content: 'Add a brief description of your feature. Keep it concise and compelling - about 1-2 lines.',
-        actions,
+        action,
       },
       {
         cols: 4,
         rows: 2,
         title: 'Second Feature',
         content: 'Add a brief description of your feature. Keep it concise and compelling - about 1-2 lines.',
-        actions,
+        action,
       },
       {
         cols: 4,
         rows: 2,
         title: 'Third Feature',
         content: 'Add a brief description of your feature. Keep it concise and compelling - about 1-2 lines.',
-        actions,
+        action,
       },
       {
         cols: 12,
@@ -99,7 +99,7 @@ export async function getUserConfig(args: { factory: CardFactory, templateId: st
         },
         verticalPosition: 'center', // Try: top, center, bottom
         horizontalPosition: 'center', // Try: left, center, right
-        actions,
+        action,
       },
     ],
   }
@@ -116,7 +116,7 @@ export async function getDemoUserConfig(args: { factory: CardFactory, stock: Sto
       {
         cols: 12,
         rows: 4,
-        superTitle: 'Welcome to Bento',
+        superTitle: { text: 'Welcome to Bento' },
         title: 'Imagine Your Content as Art',
         content: 'Notice how different sized tiles create visual rhythm and guide your viewer\'s attention. Start with a bold statement that spans the full width.',
         theme: 'blue',
@@ -127,17 +127,19 @@ export async function getDemoUserConfig(args: { factory: CardFactory, stock: Sto
           ...stock.getRandomByTags(['abstract', 'aspect:landscape']),
           overlay: { opacity: 0.3 },
         },
-        actions: [
-          { label: 'See Examples' },
-          { label: 'Try It Now' },
-        ],
+        action: {
+          buttons: [
+            { label: 'See Examples' },
+            { label: 'Try It Now' },
+          ],
+        },
       },
 
       // Left Feature Block - Visual Balance
       {
         cols: 6,
         rows: 4,
-        superTitle: 'Pro Tip',
+        superTitle: { text: 'Pro Tip' },
         title: 'Create Visual Balance',
         content: 'See what happens when you pair a larger tile with smaller companions? The asymmetry draws the eye while maintaining harmony. Try adjusting the column and row spans to find your perfect balance.',
         theme: 'emerald',
@@ -153,7 +155,7 @@ export async function getDemoUserConfig(args: { factory: CardFactory, stock: Sto
         cols: 6,
         rows: 2,
         title: 'Add Depth with Color',
-        superTitle: 'Design Tip',
+        superTitle: { text: 'Design Tip' },
         content: 'Notice how alternating light and dark themes creates depth? Experiment with theme colors and modes to establish visual hierarchy.',
         theme: 'violet',
         themeMode: 'light',
@@ -164,7 +166,7 @@ export async function getDemoUserConfig(args: { factory: CardFactory, stock: Sto
         cols: 6,
         rows: 2,
         title: 'Perfect Your Text',
-        superTitle: 'Typography',
+        superTitle: { text: 'Typography' },
         content: 'Watch how text automatically adjusts to tile size. Try different vertical and horizontal positions to find the sweet spot.',
         theme: 'amber',
         themeMode: 'dark',
@@ -186,9 +188,11 @@ export async function getDemoUserConfig(args: { factory: CardFactory, stock: Sto
           ...stock.getRandomByTags(['technology']),
           overlay: { opacity: 0.5 },
         },
-        actions: [
-          { label: 'Learn About Images', design: 'outline' },
-        ],
+        action: {
+          buttons: [
+            { label: 'Learn About Images', design: 'outline' },
+          ],
+        },
       },
 
       // Feature Grid - 3 Column Balance
@@ -196,7 +200,7 @@ export async function getDemoUserConfig(args: { factory: CardFactory, stock: Sto
         cols: 4,
         rows: 3,
         title: 'Start Simple',
-        superTitle: '01',
+        superTitle: { text: '01' },
         content: 'Begin with a basic layout. You can always add complexity as you go.',
         theme: 'rose',
         themeMode: 'light',
@@ -205,7 +209,7 @@ export async function getDemoUserConfig(args: { factory: CardFactory, stock: Sto
         cols: 4,
         rows: 3,
         title: 'Add Variety',
-        superTitle: '02',
+        superTitle: { text: '02' },
         content: 'Mix up your content types. Try combining text, images, and calls-to-action.',
         theme: 'cyan',
         themeMode: 'light',
@@ -214,7 +218,7 @@ export async function getDemoUserConfig(args: { factory: CardFactory, stock: Sto
         cols: 4,
         rows: 3,
         title: 'Perfect It',
-        superTitle: '03',
+        superTitle: { text: '03' },
         content: 'Fine-tune spacing and alignment. Small adjustments make a big difference.',
         theme: 'indigo',
         themeMode: 'light',
@@ -239,15 +243,17 @@ export async function getDemoUserConfig(args: { factory: CardFactory, stock: Sto
         cols: 4,
         rows: 4,
         title: 'Ready to Create?',
-        superTitle: 'Get Started',
+        superTitle: { text: 'Get Started' },
         content: 'Your perfect layout is just a few clicks away. Start with this template and make it your own.',
         theme: 'emerald',
         themeMode: 'dark',
         verticalPosition: 'center',
         horizontalPosition: 'center',
-        actions: [
-          { label: 'Start Building' },
-        ],
+        action: {
+          buttons: [
+            { label: 'Start Building' },
+          ],
+        },
       },
     ],
   }

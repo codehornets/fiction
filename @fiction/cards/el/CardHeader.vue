@@ -5,7 +5,7 @@ import { vue } from '@fiction/core'
 import XIcon from '@fiction/ui/media/XIcon.vue'
 import { getColorThemeStyles } from '@fiction/ui/utils'
 import CardText from '../CardText.vue'
-import CardActions from './CardActions.vue'
+import CardActionArea from './CardActionArea.vue'
 
 export type UserConfig = {
   title?: string
@@ -66,8 +66,9 @@ const layout = vue.computed(() => {
 </script>
 
 <template>
-  <div>
+  <div class="space-y-8">
     <div
+
       :class="textWrapClass"
       data-option-path="layout"
       :data-layout="layout"
@@ -108,13 +109,18 @@ const layout = vue.computed(() => {
         />
       </div>
     </div>
-    <CardActions
+    <CardActionArea
       v-if="withActions"
-      class="mt-10 flex items-center gap-x-6"
+      base-path="action"
       :card
-      :actions
-      :justify="['justify', 'left', 'right'].includes(layout) ? 'left' : 'center'"
-      :ui-size="layout === 'justify' ? 'lg' : 'xl'"
+      :classes="{
+        buttons: [
+          ['justify', 'left', 'right'].includes(layout)
+            ? 'justify-start' : 'justify-start md:justify-center',
+          'flex gap-4 lg:gap-6',
+        ].join(' '),
+      }"
+      :size="layout === 'justify' ? 'lg' : 'xl'"
     />
   </div>
 </template>

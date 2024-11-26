@@ -37,7 +37,7 @@ vue.onMounted(async () => {
 
 const activeitemIndex = vue.ref(-1)
 const activeItem = vue.computed(() => posts.value[activeitemIndex.value])
-const proseClass = `prose dark:prose-invert prose-sm md:prose-lg lg:prose-2xl max-w-[45ch]`
+const proseClass = `prose dark:prose-invert prose-sm md:prose-lg max-w-[45ch]`
 
 function featuredImageAspect(media: MediaObject) {
   const img = media
@@ -134,55 +134,67 @@ function next() {
         @update:vis="activeitemIndex = -1"
       >
         <ElClose class="absolute right-2 top-2 z-40" @click="activeitemIndex = -1" />
-        <div class="py-16 md:py-24 px-6 lg:px-16">
-          <div class="flex flex-col md:flex-row gap-8 md:gap-12 justify-center">
-            <div class="md:basis-[300px] shrink-0">
-              <div class="mb-8 not-prose space-y-4 text-center md:text-right">
-                <CardText
-                  tag="h1"
-                  :card
-                  class="mb-0 text-2xl lg:text-4xl font-semibold x-font-title "
-                  :path="`posts.entries.${activeitemIndex}.title`"
-                  animate="fade"
-                />
-                <CardText
-                  tag="h3"
-                  :card
-                  class="my-0 text-theme-500 dark:text-theme-400 text-lg lg:text-2xl"
-                  :path="`posts.entries.${activeitemIndex}.subTitle`"
-                  animate="fade"
-                />
-              </div>
-            </div>
-            <div class="grow space-y-6 min-w-0 max-w-screen-sm">
-              <div v-if="activeItem?.media?.value" class="max-w-screen-sm">
-                <XMedia
-                  :animate="true"
-                  :media="activeItem?.media?.value"
-                  image-mode="inline"
-                />
-              </div>
-              <div :class="proseClass">
-                <CardText
-                  tag="div"
-                  :card
-                  class="my-12 font-serif"
-                  :path="`posts.entries.${activeitemIndex}.content`"
-                  animate="fade"
-                />
-              </div>
+        <transition
+          enter-active-class="ease-out duration-300"
+          enter-from-class="opacity-0 translate-x-12"
+          enter-to-class="opacity-100 translate-x-0"
+          leave-active-class="ease-in duration-300"
+          leave-from-class="opacity-100 translate-x-0"
+          leave-to-class="opacity-0 -translate-x-12"
+          mode="out-in"
+        >
+          <div :key="activeitemIndex" class="py-16 px-6 lg:px-16 ">
+            <div class="flex flex-col md:flex-row gap-8 md:gap-12 justify-center">
+              <div class="md:basis-[300px] shrink-0">
+                <div class="sticky top-12 mb-8 not-prose space-y-4 text-left ">
+                  <div class="flex justify-between gap-4 mb-12">
+                    <XButton size="sm" icon="i-tabler-arrow-left" @click="prev()">
+                      Previous
+                    </XButton>
+                    <XButton size="sm" icon-after="i-tabler-arrow-right" @click="next()">
+                      Next
+                    </XButton>
+                  </div>
 
-              <div class="flex justify-between">
-                <XButton icon="i-tabler-arrow-left" @click="prev()">
-                  Previous
-                </XButton>
-                <XButton icon-after="i-tabler-arrow-right" @click="next()">
-                  Next
-                </XButton>
+                  <CardText
+                    tag="h1"
+                    :card
+                    class="mb-0 text-2xl lg:text-4xl font-semibold x-font-title "
+                    :path="`posts.entries.${activeitemIndex}.title`"
+                    animate="fade"
+                  />
+                  <CardText
+                    tag="h3"
+                    :card
+                    class="my-0 text-theme-500 dark:text-theme-400 text-lg lg:text-2xl"
+                    :path="`posts.entries.${activeitemIndex}.subTitle`"
+                    animate="fade"
+                  />
+
+                  <div :class="proseClass">
+                    <CardText
+                      tag="div"
+                      :card
+                      class="my-12 font-serif"
+                      :path="`posts.entries.${activeitemIndex}.content`"
+                      animate="fade"
+                    />
+                  </div>
+                </div>
               </div>
+              <div class="grow space-y-6 min-w-0 max-w-screen-sm">
+                <div v-if="activeItem?.media?.value" class="max-w-screen-sm">
+                  <XMedia
+                    :animate="true"
+                    :media="activeItem?.media?.value"
+                    image-mode="inline"
+                  />
+                </div>
+              </div>
+              <div />
             </div>
           </div>
-        </div>
+        </transition>
       </ElModal>
     </div>
   </div>

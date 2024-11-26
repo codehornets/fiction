@@ -2,9 +2,8 @@
 import type { Card } from '@fiction/site'
 import type { UserConfig } from '.'
 import { vue } from '@fiction/core'
-import ElActions from '@fiction/ui/buttons/ElActions.vue'
 import CardText from '../CardText.vue'
-import CardButtons from '../el/CardButtons.vue'
+import CardActionArea from '../el/CardActionArea.vue'
 
 const props = defineProps({
   card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
@@ -12,11 +11,6 @@ const props = defineProps({
   mode: { type: String as vue.PropType<'normal' | 'overlay'>, default: 'normal' },
 })
 const uc = vue.computed(() => props.card.userConfig.value || {})
-const activeItem = vue.computed(() => uc.value.items?.[props.itemIndex] || {})
-
-const actions = vue.computed(() => {
-  return activeItem.value.actions
-})
 </script>
 
 <template>
@@ -43,7 +37,12 @@ const actions = vue.computed(() => {
             class="text-lg md:text-xl xl:text-2xl text-pretty !leading-[1.4] line-clamp-4"
           />
         </div>
-        <CardButtons v-if="actions" :card :actions class="flex gap-4" />
+        <CardActionArea
+          size="lg"
+          :card
+          :base-path="`items.${itemIndex}.action`"
+          :classes="{ buttons: 'flex gap-4' }"
+        />
       </div>
     </transition>
   </div>

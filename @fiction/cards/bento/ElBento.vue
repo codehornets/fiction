@@ -3,10 +3,10 @@ import type { Card } from '@fiction/site'
 import type { UserConfig } from './config'
 import { vue } from '@fiction/core'
 import ClipPathAnim from '@fiction/ui/anim/AnimClipPath.vue'
-import XIcon from '@fiction/ui/media/XIcon.vue'
 import XLogo from '@fiction/ui/media/XLogo.vue'
 import XMedia from '@fiction/ui/media/XMedia.vue'
-import CardButtons from '../el/CardButtons.vue'
+import CardActionArea from '../el/CardActionArea.vue'
+import SuperTitle from '../el/SuperTitle.vue'
 import {
   getContentMaxWidth,
   getContentStyles,
@@ -42,8 +42,8 @@ const gapClass = vue.computed(() => {
   <div :class="card.classes.value.contentWidth">
     <div ref="bentoWrapEl" class="grid grid-cols-12 auto-rows-[200px]" :class="[gapClass]">
       <ClipPathAnim
-        v-for="(item, index) in uc.items"
-        :key="index"
+        v-for="(item, i) in uc.items"
+        :key="i"
         :animate="uc.animate || 'expand'"
         caller="bento"
         class="bento-item relative overflow-hidden group rounded-3xl transition-all duration-300 @container"
@@ -67,17 +67,12 @@ const gapClass = vue.computed(() => {
               class="max-w-full mb-6"
               :style="{ width: item.media.displayWidthPercent ? `${item.media.displayWidthPercent}%` : 'auto' }"
             />
-            <div v-if="item.superTitle || item.superIcon" class="flex gap-3  items-center">
-              <div v-if="item.superIcon" class="size-10 rounded-full flex items-center justify-center">
-                <XIcon :media="item.superIcon" class="size-6" />
-              </div>
-              <div
-                class="text-sm @lg:text-base @2xl:text-lg font-medium opacity-90 font-sans"
-                :style="getContentStyles(item, 'super', bentoWrapEl)"
-              >
-                {{ item.superTitle }}
-              </div>
-            </div>
+            <SuperTitle
+              :card
+              :base-path="`items.${i}.superTitle`"
+              :classes="{ text: 'text-sm @lg:text-base @2xl:text-lg font-medium opacity-90 font-sans' }"
+              :theme="item.bg?.url ? 'overlay' : (item.theme || 'default')"
+            />
 
             <h3
               v-if="item.title"
@@ -95,13 +90,13 @@ const gapClass = vue.computed(() => {
               {{ item.content }}
             </p>
 
-            <CardButtons
-              v-if="item.actions?.length"
+            <CardActionArea
               :card
-              class="flex gap-3 mt-4"
-              :actions="item.actions"
-              :theme="(item.bg?.url ? 'overlay' : (item.theme || 'default'))"
+              class="mt-4"
+              :base-path="`items.${i}.action`"
+              :classes="{ buttons: 'flex gap-3' }"
               design="outline"
+              :theme="(item.bg?.url ? 'overlay' : (item.theme || 'default'))"
             />
 
             <XLogo

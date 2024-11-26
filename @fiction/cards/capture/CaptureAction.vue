@@ -1,19 +1,21 @@
 <script lang="ts" setup>
-import type { StandardSize } from '@fiction/core'
+import type { ColorTheme, ColorThemeUser, StandardSize } from '@fiction/core'
 import type { FictionSubscribe } from '@fiction/plugin-subscribe'
 import type { Card } from '@fiction/site'
 import { useService, vue } from '@fiction/core'
 import XButton from '@fiction/ui/buttons/XButton.vue'
 import ElForm from '@fiction/ui/inputs/ElForm.vue'
 import ElEmail from '@fiction/ui/inputs/InputEmail.vue'
+import { getColorThemeStyles } from '@fiction/ui/utils'
 import ConfirmModal from './ConfirmModal.vue'
 
-const { card, confirmText, actionText, size = 'xl' } = defineProps<{
+const { card, confirmText, actionText, size = 'lg', theme = 'primary' } = defineProps<{
   card: Card
   animate?: boolean
   confirmText?: { title: string, content: string }
   actionText?: string
   size?: StandardSize
+  theme?: ColorThemeUser
 }>()
 
 const emit = defineEmits<{
@@ -25,6 +27,10 @@ const orgId = vue.computed(() => card.site?.settings.orgId)
 const loading = vue.ref(false)
 const showConfirmModal = vue.ref(false)
 const email = vue.ref('')
+
+const colorThemeStyle = vue.computed(() => {
+  return theme ? getColorThemeStyles(theme) : undefined
+})
 
 async function createSubscription() {
   loading.value = true
@@ -70,7 +76,7 @@ async function createSubscription() {
 <template>
   <div class="@container">
     <ElForm
-      class="flex flex-col gap-4 sm:flex-row sm:flex-wrap"
+      class="flex flex-col gap-5 sm:flex-row sm:flex-wrap"
       @submit="createSubscription()"
     >
       <ElEmail
@@ -79,9 +85,9 @@ async function createSubscription() {
         :ui-size="size"
         :input-class="[
           'bg-theme-50',
-          'dark:bg-theme-800/30',
-          'dark:ring-primary-700/70',
-          'ring-2',
+          'dark:bg-theme-700/30',
+          'dark:ring-primary-500/70',
+          'ring-1',
           'w-full',
           'sm:basis-80', /* 320px base width */
           'min-w-72', /* 288px minimum */
@@ -100,7 +106,7 @@ async function createSubscription() {
         hover="pop"
         class="shrink-0 w-full sm:w-auto"
       >
-        {{ actionText || 'Become a Subscriber' }}
+        {{ actionText || 'Subscribe' }}
       </XButton>
 
       <ConfirmModal

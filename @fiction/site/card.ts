@@ -132,7 +132,7 @@ export class CardTemplate<
   } & CardSettings) {
     const { cardId, site, baseConfig = {}, userConfig } = args
     const { getUserConfig, getEffects, getConfig } = this.settings
-    const factory = new CardFactory({ site, templates: [this] })
+    const factory = new CardFactory({ site, templates: site?.theme.value?.templates || [] })
 
     const config = getConfig ? await getConfig({ ...args, factory }) : {}
     const asyncUserConfig = getUserConfig ? await getUserConfig({ ...args, factory }) : {}

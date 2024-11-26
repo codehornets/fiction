@@ -250,10 +250,12 @@ export async function getConfig(args: {
                 logo: stock.getLocalMedia({ key: 'fictionLogo' }),
                 title: 'Fiction',
                 subTitle: `Your story begins here...`,
-                actions: [
-                  { label: 'Start Free', theme: 'primary', icon: { iconId: 'bolt' } },
-                  { label: 'Talk to Sales', theme: 'default', icon: { iconId: 'phone' } },
-                ],
+                action: {
+                  buttons: [
+                    { label: 'Start Free', theme: 'primary', icon: { iconId: 'bolt' } },
+                    { label: 'Talk to Sales', theme: 'default', icon: { iconId: 'phone' } },
+                  ],
+                },
               },
               columns: [
                 {
@@ -292,14 +294,16 @@ export async function getConfig(args: {
 
               badges: {
                 title: '',
-                actions: [
-                  {
-                    href: 'https://stripe.com/partners',
-                    target: '_blank',
-                    label: 'Stripe Verified Partner',
-                    icon: { iconId: 'stripe' },
-                  },
-                ],
+                action: {
+                  buttons: [
+                    {
+                      href: 'https://stripe.com/partners',
+                      target: '_blank',
+                      label: 'Stripe Verified Partner',
+                      icon: { iconId: 'stripe' },
+                    },
+                  ],
+                },
 
               },
             },

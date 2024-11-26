@@ -1,5 +1,5 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
-import { ActionButtonSchema, colorTheme, MediaBasicSchema, MediaIconSchema, superTitleSchema } from '@fiction/core'
+import { actionAreaSchema, ActionButtonSchema, MediaBasicSchema, MediaIconSchema, superTitleSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
@@ -19,7 +19,7 @@ export const schema = z.object({
   superTitle: superTitleSchema.optional().describe('Eyebrow text with icon and color [ai]'),
   splash: MediaBasicSchema.optional().describe('Hero\'s focal image or illustration [ai]'),
   caption: z.string().optional().describe('Optional text description for the splash image'),
-  actions: z.array(ActionButtonSchema).optional().describe('Call-to-action buttons'),
+  action: actionAreaSchema.optional().describe('Primary call-to-action area'),
   overlays: z.array(LayerMediaScheme).optional().describe('Decorative image layers for visual depth [ai]'),
 })
 
@@ -27,13 +27,11 @@ type UserConfig = z.infer<typeof schema>
 
 // Default configuration showcasing best practices
 const defaultContent: UserConfig = {
-  title: 'Transform Your Ideas Into Reality',
-  subTitle: 'Start your journey with our intuitive platform. We help creators, entrepreneurs, and visionaries bring their digital dreams to life.',
-  superTitle: { text: 'Build With Confidence', icon: { class: 'i-tabler-rocket' }, theme: 'blue' },
-  actions: [
-    { label: 'Get Started', theme: 'primary', design: 'solid', size: 'xl' },
-    { label: 'Watch Demo', theme: 'default', design: 'ghost', size: 'xl' },
-  ],
+  title: 'Enter Your Title',
+  subTitle: 'Write a sentence or two that adds context to your headline',
+  action: {
+    buttons: [],
+  },
 }
 
 // Structured input options for the design interface
@@ -144,10 +142,12 @@ async function getDemoPage(args: { templateId: string, factory: CardFactory }) {
         superTitle: { text: 'New Release', icon: { class: 'i-tabler-sparkles' }, theme: 'blue' },
 
         splash: splash('aspect:portrait'),
-        actions: [
-          { label: 'Start Free Trial', theme: 'primary', design: 'solid', size: 'xl' },
-          { label: 'Watch Demo', theme: 'default', design: 'ghost', size: 'xl' },
-        ],
+        action: {
+          buttons: [
+            { label: 'Start Free Trial', theme: 'primary', design: 'solid', size: 'xl' },
+            { label: 'Watch Demo', theme: 'default', design: 'ghost', size: 'xl' },
+          ],
+        },
       },
     },
     // Service Showcase Hero
@@ -159,10 +159,12 @@ async function getDemoPage(args: { templateId: string, factory: CardFactory }) {
         subTitle: 'From stunning websites to powerful marketing tools, we provide everything you need to grow your online business and connect with your audience.',
         superTitle: { text: 'Professional Services', icon: { class: 'i-tabler-brush' }, theme: 'purple' },
         splash: splash('aspect:portrait'),
-        actions: [
-          { label: 'Explore Services', theme: 'primary', design: 'solid', size: 'xl' },
-          { label: 'View Portfolio', theme: 'default', design: 'ghost', size: 'xl' },
-        ],
+        action: {
+          buttons: [
+            { label: 'Explore Services', theme: 'primary', design: 'solid', size: 'xl' },
+            { label: 'View Portfolio', theme: 'default', design: 'ghost', size: 'xl' },
+          ],
+        },
       },
     },
     // Event Promotion Hero
@@ -174,10 +176,12 @@ async function getDemoPage(args: { templateId: string, factory: CardFactory }) {
         subTitle: 'Be part of the largest virtual tech conference of 2024. Connect with industry leaders, discover emerging trends, and shape the future of technology.',
         superTitle: { text: 'Virtual Summit 2024', icon: { class: 'i-tabler-calendar-event' }, theme: 'indigo' },
         splash: splash(),
-        actions: [
-          { label: 'Register Now', theme: 'primary', design: 'solid', size: 'xl' },
-          { label: 'View Schedule', theme: 'default', design: 'ghost', size: 'xl' },
-        ],
+        action: {
+          buttons: [
+            { label: 'Register Now', theme: 'primary', design: 'solid', size: 'xl' },
+            { label: 'View Schedule', theme: 'default', design: 'ghost', size: 'xl' },
+          ],
+        },
       },
     },
     {

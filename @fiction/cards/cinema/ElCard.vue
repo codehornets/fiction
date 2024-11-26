@@ -3,7 +3,8 @@ import type { Card } from '@fiction/site'
 import type { UserConfig } from '.'
 import { vue } from '@fiction/core'
 import CardText from '../CardText.vue'
-import CardButtons from '../el/CardButtons.vue'
+import CardActionArea from '../el/CardActionArea.vue'
+
 import NavDots from '../el/NavDots.vue'
 import SuperTitle from '../el/SuperTitle.vue'
 
@@ -73,11 +74,12 @@ function setActiveItem(index: number) {
               <CardText :card tag="h1" :path="`items.${i}.title`" animate="fade" class="text-6xl lg:text-[calc(20px+5vw)] font-bold x-font-title text-balance" />
               <CardText :card tag="p" :path="`items.${i}.subTitle`" animate="fade" class="mt-2 text-3xl lg:text-[calc(16px+2.5vw)] text-balance leading-none" />
             </div>
-            <CardButtons
+            <CardActionArea
               :card
-              class="mt-12 flex gap-4 justify-center"
-              :actions="item.actions || []"
-              ui-size="xl"
+              :base-path="`items.${i}.action`"
+              :classes="{ buttons: 'flex gap-4 justify-center' }"
+              class="mt-12"
+              size="xl"
               animate="rise"
               theme="overlay"
             />

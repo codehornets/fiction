@@ -21,7 +21,7 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
       icon: 'text-theme-500 dark:text-theme-500',
     },
     outline: {
-      base: 'bg-transparent text-theme-700 dark:text-theme-300',
+      base: 'bg-transparent text-theme-700 dark:text-theme-50',
       border: 'border-theme-500 dark:border-theme-400',
       hover: 'hover:opacity-70',
       icon: 'text-theme-700 dark:text-theme-300',
@@ -67,9 +67,9 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
       icon: 'text-primary-0 dark:text-primary-50',
     },
     ghost: {
-      base: 'bg-primary-100 dark:bg-primary-800/20 text-primary-900 dark:text-primary-100',
+      base: 'bg-primary-100 dark:bg-primary-800/40 text-primary-900 dark:text-primary-0',
       border: 'border-primary-100 dark:border-primary-800/20',
-      hover: 'hover:bg-primary-200 dark:hover:bg-primary-800/40',
+      hover: 'hover:bg-primary-200 dark:hover:bg-primary-800/60',
       icon: 'text-primary-500 dark:text-primary-500',
     },
     outline: {

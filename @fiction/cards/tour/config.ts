@@ -36,10 +36,12 @@ async function getDemoContent(args: { factory: CardFactory, stock: StockMedia })
           { media: stock.getRandomByTags(['object']), position: 'bottomLeft', widthPercent: 25 },
           { media: stock.getRandomByTags(['abstract']), position: 'topRight', widthPercent: 25 },
         ],
-        actions: [
-          { label: 'Start Creating', theme: 'primary', design: 'solid' },
-          { label: 'See Examples', theme: 'default', design: 'ghost' },
-        ],
+        action: {
+          buttons: [
+            { label: 'Start Creating', theme: 'primary', design: 'solid' },
+            { label: 'See Examples', theme: 'default', design: 'ghost' },
+          ],
+        },
       },
       {
         layout: 'left',
@@ -54,10 +56,12 @@ async function getDemoContent(args: { factory: CardFactory, stock: StockMedia })
         overlays: [
           { media: stock.getRandomByTags(['object']), position: 'bottomRight', widthPercent: 30 },
         ],
-        actions: [
-          { label: 'Explore Tools', theme: 'primary', design: 'solid' },
-          { label: 'View Gallery', theme: 'default', design: 'ghost' },
-        ],
+        action: {
+          buttons: [
+            { label: 'Explore Tools', theme: 'primary', design: 'solid' },
+            { label: 'View Gallery', theme: 'default', design: 'ghost' },
+          ],
+        },
       },
       {
         layout: 'center',
@@ -73,10 +77,12 @@ async function getDemoContent(args: { factory: CardFactory, stock: StockMedia })
           { media: stock.getRandomByTags(['object']), position: 'bottomLeft', widthPercent: 25 },
           { media: stock.getRandomByTags(['object']), position: 'topRight', widthPercent: 25 },
         ],
-        actions: [
-          { label: 'Get Started Now', theme: 'primary', design: 'solid' },
-          { label: 'Watch Demo', theme: 'default', design: 'ghost' },
-        ],
+        action: {
+          buttons: [
+            { label: 'Get Started Now', theme: 'primary', design: 'solid', icon: { iconId: 'rocket' } },
+            { label: 'Watch Demo', theme: 'default', design: 'ghost' },
+          ],
+        },
       },
     ],
   }

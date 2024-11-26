@@ -103,7 +103,11 @@ export class CardFactory<U extends readonly CardTemplate<any>[] = readonly CardT
 
     // Ensure that 'templates' contains 'templateId'
     if (!template) {
-      log.error('CardFactory', `Template with key "${templateId}" not found in provided templates.`)
+      log.error(
+        'CardFactory',
+        `Template with key "${templateId}" not found in provided templates.`,
+        { data: { templateId, templates: this.templates } },
+      )
       return { templateId: 'hero', userConfig: { heading: `Template not found (${templateId})` } }
     }
 

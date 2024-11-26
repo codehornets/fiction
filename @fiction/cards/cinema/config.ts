@@ -1,7 +1,7 @@
 import type { ConfigResponse } from '@fiction/site'
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { SiteUserConfig } from '@fiction/site/schema'
-import { ActionButtonSchema, MediaBasicSchema, superTitleSchema } from '@fiction/core'
+import { actionAreaSchema, ActionButtonSchema, MediaBasicSchema, superTitleSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 // Import media assets
@@ -17,7 +17,7 @@ export const CinemaItemSchema = z.object({
   title: z.string().optional().describe('Primary title text - should be compelling and descriptive'),
   subTitle: z.string().optional().describe('Supporting text that provides additional context or call to action'),
   media: MediaBasicSchema.optional().describe('Background media - supports images or videos for visual impact'),
-  actions: z.array(ActionButtonSchema).optional().describe('Call-to-action buttons for driving engagement'),
+  action: actionAreaSchema.optional(),
 })
 
 export const schema = z.object({
@@ -95,15 +95,17 @@ const photographyDemo: CinemaItem[] = [
       format: 'video',
       url: mountainPhoto,
     },
-    actions: [
-      {
-        label: 'View Gallery',
-        href: '#',
-        design: 'outline',
-        icon: 'i-tabler-camera',
-        theme: 'overlay',
-      },
-    ],
+    action: {
+      buttons: [
+        {
+          label: 'View Gallery',
+          href: '#',
+          design: 'outline',
+          icon: 'i-tabler-camera',
+          theme: 'overlay',
+        },
+      ],
+    },
   },
   {
     superTitle: { text: 'Services' },
@@ -113,10 +115,12 @@ const photographyDemo: CinemaItem[] = [
       format: 'video',
       url: desertPhoto,
     },
-    actions: [
-      { label: 'Book a Session', href: '#', design: 'outline', theme: 'overlay' },
-      { label: 'View Pricing', href: '#', design: 'textOnly', iconAfter: 'i-tabler-chevron-right' },
-    ],
+    action: {
+      buttons: [
+        { label: 'Book a Session', href: '#', design: 'outline', theme: 'overlay' },
+        { label: 'View Pricing', href: '#', design: 'textOnly', iconAfter: 'i-tabler-chevron-right' },
+      ],
+    },
   },
   {
     superTitle: { text: 'Projects' },
@@ -126,9 +130,11 @@ const photographyDemo: CinemaItem[] = [
       format: 'video',
       url: wildlifePhoto,
     },
-    actions: [
-      { label: 'Explore Projects', href: '#', design: 'outline', theme: 'overlay' },
-    ],
+    action: {
+      buttons: [
+        { label: 'Explore Projects', href: '#', design: 'outline', theme: 'overlay' },
+      ],
+    },
   },
 ]
 
@@ -141,10 +147,12 @@ const eventDemo: CinemaItem[] = [
       format: 'url',
       url: cityPhoto,
     },
-    actions: [
-      { label: 'Get Tickets', href: '#', design: 'solid', theme: 'primary' },
-      { label: 'Learn More', href: '#', design: 'outline', theme: 'overlay' },
-    ],
+    action: {
+      buttons: [
+        { label: 'Get Tickets', href: '#', design: 'solid', theme: 'primary' },
+        { label: 'Learn More', href: '#', design: 'outline', theme: 'overlay' },
+      ],
+    },
   },
   {
     superTitle: { text: 'After Dark' },
@@ -154,9 +162,11 @@ const eventDemo: CinemaItem[] = [
       format: 'video',
       url: nightPhoto,
     },
-    actions: [
-      { label: 'Register Now', href: '#', design: 'outline', theme: 'overlay' },
-    ],
+    action: {
+      buttons: [
+        { label: 'Register Now', href: '#', design: 'outline', theme: 'overlay' },
+      ],
+    },
   },
 ]
 

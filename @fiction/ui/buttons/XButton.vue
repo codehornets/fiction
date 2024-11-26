@@ -117,6 +117,7 @@ const linkProps = vue.computed(() => {
     :class="[cls.buttonClasses, animateSelected && animate ? 'animate-selected' : '']"
     :data-loading="loading"
     :data-theme="theme"
+    :data-design="design"
     :data-size="size"
     :data-hover="hover"
     @click="onClick()"

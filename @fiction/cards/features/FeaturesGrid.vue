@@ -21,9 +21,9 @@ const columns = vue.computed(() => ({
 }[layout?.columns || '3']))
 
 const spacing = vue.computed(() => ({
-  tight: 'gap-10',
-  normal: 'gap-14',
-  relaxed: 'gap-20',
+  tight: 'gap-8 lg:gap-10',
+  normal: 'gap-10 lg:gap-14',
+  relaxed: 'gap-12 lg:gap-20',
 }[layout?.spacing || 'normal']))
 </script>
 

@@ -215,7 +215,7 @@ const imageModeClass = vue.computed(() => props.imageMode === 'contain' ? 'objec
         <img
           v-else-if="mediaFormat === 'image' && media.url"
           class="inset-0 z-0"
-          :class="[imageClass, imageModeClass, inlineImage ? 'block' : 'absolute h-full w-full']"
+          :class="[imageClass, imageModeClass, inlineImage ? 'block w-full' : 'absolute h-full w-full']"
           :src="media.url"
           :style="filterStyle"
         >

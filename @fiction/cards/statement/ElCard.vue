@@ -3,10 +3,8 @@ import type { Card } from '@fiction/site'
 import type { Statement, UserConfig } from '.'
 import { vue } from '@fiction/core'
 import EffectCarousel from '@fiction/ui/effect/EffectCarousel.vue'
-import EffectFitText from '@fiction/ui/effect/EffectFitText.vue'
 import CardText from '../CardText.vue'
-import CardButtons from '../el/CardButtons.vue'
-
+import CardActionArea from '../el/CardActionArea.vue'
 import NavDots from '../el/NavDots.vue'
 
 const props = defineProps({
@@ -29,7 +27,7 @@ function onSlideChange(index: number) {
 <template>
   <div class="">
     <EffectCarousel v-model:active-index="activeIndex" :slides="items" :options="carouselOptions" @slide-change="onSlideChange">
-      <template #default="{ slide, index }">
+      <template #default="{ index }">
         <div
           class="carousel-cell w-[80%] sm:w-[70%] lg:w-[60%] mr-24"
         >
@@ -56,12 +54,12 @@ function onSlideChange(index: number) {
               />
             </div>
 
-            <CardButtons
+            <CardActionArea
               :card
-              class="mt-12"
-              :actions="(slide as Statement).actions || []"
-              ui-size="2xl"
-              animate="rise"
+              :base-path="`items.${index}.action`"
+              :classes="{ buttons: 'flex gap-4' }"
+              class="mt-8"
+              size="2xl"
               @click.stop
             />
           </div>

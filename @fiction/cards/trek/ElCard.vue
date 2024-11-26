@@ -5,11 +5,11 @@ import { vue } from '@fiction/core'
 import EffectParallaxBackground from '@fiction/ui/effect/EffectParallaxBackground.vue'
 import CardContent from './CardContent.vue'
 
-const props = defineProps({
-  card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
-})
+const { card } = defineProps<{
+  card: Card<UserConfig>
+}>()
 
-const uc = vue.computed(() => props.card.userConfig.value || {})
+const uc = vue.computed(() => card.userConfig.value || {})
 
 const activeItemIndex = vue.ref(0)
 
@@ -22,7 +22,7 @@ vue.onMounted(() => {
     })
   }, { threshold: 0.5 })
 
-  const items = document.querySelectorAll('.trek-item')
+  const items = document.querySelectorAll(`[data-card-id="${card.cardId}"] .trek-item`)
   items.forEach((item, index) => {
     item.setAttribute('data-index', index.toString())
     observer.observe(item)

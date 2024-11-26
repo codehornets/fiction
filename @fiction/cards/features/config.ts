@@ -1,6 +1,6 @@
 import type { ConfigResponse } from '@fiction/site/card'
 import type { CardFactory } from '@fiction/site/cardFactory'
-import { ActionButtonSchema, colorThemeUser, MediaIconSchema, SizeSchema } from '@fiction/core'
+import { actionAreaSchema, ActionButtonSchema, colorThemeUser, MediaIconSchema, SizeSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
@@ -11,7 +11,7 @@ const featureSchema = z.object({
   href: z.string().optional(),
   icon: MediaIconSchema.optional(),
   color: z.enum(colorThemeUser).optional(),
-  actions: z.array(ActionButtonSchema).optional(),
+  action: actionAreaSchema.optional(),
   emphasis: z.boolean().optional(),
   // Masonry column width
   columns: z.enum(['1', '2', '3', '4', '5', '6']).optional(),
@@ -114,7 +114,7 @@ const options: InputOption[] = [
         input: 'InputUrl',
       }),
       new InputOption({
-        key: 'actions',
+        key: 'action',
         label: 'Actions',
         input: 'InputActions',
       }),
@@ -207,7 +207,7 @@ function getMasonryDemo(): UserConfig {
         icon: { iconId: 'brush' },
         color: 'blue',
         columns: '3',
-        actions: [{ label: 'Edit Brand Settings', design: 'ghost' }],
+        action: { buttons: [{ label: 'Edit Brand Settings', design: 'ghost' }] },
         emphasis: true,
       },
       {
@@ -245,7 +245,7 @@ function getMasonryDemo(): UserConfig {
         icon: { iconId: 'users' },
         color: 'indigo',
         columns: '2',
-        actions: [{ label: 'Invite Team', design: 'solid' }],
+        action: { buttons: [{ label: 'Invite Team', design: 'solid' }] },
       },
       {
         title: 'Brand Protection',
@@ -258,7 +258,7 @@ function getMasonryDemo(): UserConfig {
       {
         title: 'Design System',
         description: 'Experience how your brand guidelines automatically translate into beautiful, consistent designs.',
-        icon: { class: 'i-tabler-3d-cube' },
+        icon: { class: 'i-tabler-cube' },
         color: 'green',
         columns: '4',
         href: '/design-system',
@@ -285,7 +285,7 @@ function getCarouselDemo(): UserConfig {
         description: 'Notice how the carousel guides visitors through your brand story? Each slide reveals another compelling reason to engage.',
         icon: { iconId: 'rocket' },
         color: 'blue',
-        actions: [{ label: 'Get Started', design: 'ghost' }],
+        action: { buttons: [{ label: 'Get Started', design: 'ghost' }] },
       },
       {
         title: 'Brand Evolution',
@@ -311,7 +311,7 @@ function getCarouselDemo(): UserConfig {
         description: 'Ready to make your mark? Transform visitors into brand advocates with clear next steps.',
         icon: { iconId: 'rocket' },
         color: 'rose',
-        actions: [{ label: 'Launch Now', design: 'solid' }],
+        action: { buttons: [{ label: 'Launch Now', design: 'solid' }] },
       },
     ],
     style: {
@@ -331,7 +331,7 @@ function getLayoutDemos(): UserConfig[] {
           description: 'See how a balanced grid creates visual harmony? Perfect for showcasing your core brand elements.',
           icon: { iconId: 'grid' },
           color: 'blue',
-          actions: [{ label: 'Customize', design: 'ghost' }],
+          action: { buttons: [{ label: 'Customize', design: 'ghost' }] },
         },
         {
           title: 'Visual Elements',
@@ -367,7 +367,7 @@ function getLayoutDemos(): UserConfig[] {
           description: 'Experience how card layouts create a sophisticated, memorable impression of your brand.',
           icon: { iconId: 'bookmark' },
           color: 'blue',
-          actions: [{ label: 'Explore', design: 'ghost' }],
+          action: { buttons: [{ label: 'Explore', design: 'ghost' }] },
         },
         {
           title: 'Customer Journey',
