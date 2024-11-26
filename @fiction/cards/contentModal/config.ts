@@ -34,36 +34,42 @@ export async function getConfig(args: { templateId: string, factory: CardFactory
           description: 'See our platform in action with our newly released demo video. Click to watch in high-definition.',
           icon: { iconId: 'play' },
           color: 'blue',
-          actions: [{
-            label: 'Watch Demo',
-            icon: { iconId: 'play' },
-            theme: 'primary',
-            href: '?_pop=https://www.youtube.com/watch?v=6bDrYTXQLu8&autoplay=1',
-          }],
+          action: {
+            buttons: [{
+              label: 'Watch Demo',
+              icon: { iconId: 'play' },
+              theme: 'primary',
+              href: '?_pop=https://www.youtube.com/watch?v=6bDrYTXQLu8&autoplay=1',
+            }],
+          },
         },
         {
           title: 'Behind The Scenes',
           description: 'Get an exclusive look at how we create and deliver value for our customers.',
           icon: { iconId: 'video' },
           color: 'violet',
-          actions: [{
-            label: 'Watch Now',
-            icon: { iconId: 'play' },
-            theme: 'violet',
-            href: '?_pop=https://vimeo.com/824804225&width=90vw',
-          }],
+          action: {
+            buttons: [{
+              label: 'Watch Now',
+              icon: { iconId: 'play' },
+              theme: 'violet',
+              href: '?_pop=https://vimeo.com/824804225&width=90vw',
+            }],
+          },
         },
         {
           title: 'Product Updates',
           description: 'Explore the latest features and improvements we\'ve added to the platform.',
           icon: { iconId: 'presentation' },
           color: 'emerald',
-          actions: [{
-            label: 'Latest Updates',
-            icon: { iconId: 'play' },
-            theme: 'emerald',
-            href: '?_pop=https://www.youtube.com/watch?v=6bDrYTXQLu8&size=large',
-          }],
+          action: {
+            buttons: [{
+              label: 'Latest Updates',
+              icon: { iconId: 'play' },
+              theme: 'emerald',
+              href: '?_pop=https://www.youtube.com/watch?v=6bDrYTXQLu8&size=large',
+            }],
+          },
         },
       ],
       style: {

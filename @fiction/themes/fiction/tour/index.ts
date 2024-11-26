@@ -19,15 +19,17 @@ export async function getPage(args: { factory: CardFactory }) {
               superTitle: { text: 'Welcome to Fiction', theme: 'green', icon: { class: 'i-tabler-arrow-up-right' } },
               subTitle: `Fiction is the easiest way to market yourself online.`,
               title: `Are you ready to be seen and to <span data-text-effect data-effect-type="squiggle" data-effect-theme="primary">make your impact?</span>`,
-              actions: [
-                {
-                  label: 'I Am Ready',
-                  href: '/app/login?_reload=1',
-                  theme: 'primary',
-                  design: 'solid',
-                  iconAfter: 'i-tabler-arrow-big-right-lines',
-                },
-              ],
+              action: {
+                buttons: [
+                  {
+                    label: 'I Am Ready',
+                    href: '/app/login?_reload=1',
+                    theme: 'primary',
+                    design: 'solid',
+                    iconAfter: 'i-tabler-arrow-big-right-lines',
+                  },
+                ],
+              },
             },
           }),
           await factory.fromTemplate<typeof logosTemplate>({
@@ -213,14 +215,14 @@ export async function getPage(args: { factory: CardFactory }) {
               },
               title: `Is Personal Marketing Right For You?`,
               subTitle: `Are you ready to take control of your future? They say: where there is a will, there is a way. Fiction is the way.`,
-              actions: [
+              action: { buttons: [
                 {
                   label: 'Let\'s Get Started',
                   icon: 'i-tabler-rocket',
                   href: '/auth/login?_reload=1',
                   theme: 'primary',
                 },
-              ],
+              ] },
             },
           }),
         ],

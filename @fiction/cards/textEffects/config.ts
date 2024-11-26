@@ -19,10 +19,12 @@ export async function getConfig(_args: { factory: CardFactory, templateId: strin
             },
             title: '[text_effect type=circle theme=blue]Transform[/text_effect] Your Content With [text_effect type=squiggle theme=orange]Dynamic[/text_effect] Effects',
             subTitle: 'Add visual interest to your text with animated underlines and highlights. Perfect for emphasizing key messages and creating engaging content.',
-            actions: [
-              { label: 'View Examples', design: 'ghost' },
-              { label: 'Try it Now', design: 'solid', theme: 'primary' },
-            ],
+            action: {
+              buttons: [
+                { label: 'View Examples', design: 'ghost' },
+                { label: 'Try it Now', design: 'solid', theme: 'primary' },
+              ],
+            },
           },
         }),
         await factory.fromTemplate<typeof featuresTemplate>({
@@ -63,7 +65,7 @@ export async function getConfig(_args: { factory: CardFactory, templateId: strin
           userConfig: {
             title: 'Ready to [text_effect type=circle theme=primary]Transform[/text_effect] Your Content?',
             subTitle: 'Start adding [text_effect type=line theme=emerald]eye-catching effects[/text_effect] to your text with simple shortcodes.',
-            actions: {
+            action: {
               buttons: [
                 {
                   label: 'Get Started',

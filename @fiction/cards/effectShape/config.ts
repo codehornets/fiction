@@ -420,10 +420,12 @@ export async function getConfig(args: { templateId: string, factory: CardFactory
           title: 'Basic Shapes & Rotation',
           subTitle: 'Basic example showing shape positioning and continuous rotation animations. Notice the gentle circular and triangular motion.',
           layout: 'center',
-          actions: [
-            { label: 'Configure Shapes', theme: 'primary' },
-            { label: 'Watch Demo', theme: 'default' },
-          ],
+          action: {
+            buttons: [
+              { label: 'Configure Shapes', theme: 'primary' },
+              { label: 'Watch Demo', theme: 'default' },
+            ],
+          },
         },
         effects: [
           { templateId, userConfig: PRESETS.basicShapes },
@@ -437,10 +439,12 @@ export async function getConfig(args: { templateId: string, factory: CardFactory
           title: 'Interactive Shapes',
           subTitle: 'Move your cursor around to see the shapes follow. Hover over the shapes to trigger scale effects. The shapes maintain continuous rotation while following movement.',
           layout: 'center',
-          actions: [
-            { label: 'Try Interaction', theme: 'primary' },
-            { label: 'Learn More', theme: 'default' },
-          ],
+          action: {
+            buttons: [
+              { label: 'Try Interaction', theme: 'primary' },
+              { label: 'Learn More', theme: 'default' },
+            ],
+          },
         },
         effects: [
           { templateId, userConfig: PRESETS.interactive },
@@ -454,10 +458,12 @@ export async function getConfig(args: { templateId: string, factory: CardFactory
           title: 'Blend Modes & Opacity',
           subTitle: 'Demonstration of overlapping shapes with different blend modes. The circles use "overlay" and "multiply" blend modes with increased opacity for rich color mixing.',
           layout: 'center',
-          actions: [
-            { label: 'Explore Blending', theme: 'primary' },
-            { label: 'View Guide', theme: 'default' },
-          ],
+          action: {
+            buttons: [
+              { label: 'Explore Blending', theme: 'primary' },
+              { label: 'View Guide', theme: 'default' },
+            ],
+          },
         },
         effects: [
           { templateId, userConfig: PRESETS.blendingShapes },

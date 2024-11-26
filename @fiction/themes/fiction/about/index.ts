@@ -21,7 +21,7 @@ export async function page(args: { site: Site, factory: CardFactory }) {
       title: `About`,
       splash: { format: 'url', url: spectrum },
       layout: 'justify',
-      actions: [],
+      action: { buttons: [] },
     },
   })
 
@@ -33,7 +33,7 @@ export async function page(args: { site: Site, factory: CardFactory }) {
       title: `Helping People.`,
       splash: { format: 'url' as const, url: pro },
       layout: 'left',
-      actions: [],
+      action: { buttons: [] },
     },
   })
 
@@ -45,7 +45,7 @@ export async function page(args: { site: Site, factory: CardFactory }) {
       title: `Open Source Software.`,
       splash: { format: 'url', url: girlComputer },
       layout: 'right',
-      actions: [],
+      action: { buttons: [] },
     },
   })
 

@@ -135,7 +135,7 @@ export async function loadSiteFromCard(args: { cardId: string, siteRouter: Ficti
             },
             title: tpl.settings.title,
             subTitle: tpl.settings.description,
-            actions: [],
+            action: { buttons: [] },
           },
         }),
         ...cards,

@@ -41,19 +41,21 @@ export async function page(args: { site: Site, factory: CardFactory }) {
               },
               title: `The Personal Branding Platform`,
               subTitle: `Create your personal brand and quickly build your audience.`,
-              actions: [
-                {
-                  label: 'Create Account',
-                  href: '/app?_reload=1',
-                  theme: 'primary',
-                  icon: 'i-tabler-user-circle',
-                },
-                {
-                  label: 'Why Fiction',
-                  href: '/tour',
-                  icon: 'i-tabler-compass',
-                },
-              ],
+              action: {
+                buttons: [
+                  {
+                    label: 'Create Account',
+                    href: '/app?_reload=1',
+                    theme: 'primary',
+                    icon: 'i-tabler-user-circle',
+                  },
+                  {
+                    label: 'Why Fiction',
+                    href: '/tour',
+                    icon: 'i-tabler-compass',
+                  },
+                ],
+              },
             },
           }),
           await factory.fromTemplate<typeof marqueeTemplate>({
