@@ -56,7 +56,7 @@ const primaryNav = vue.computed<NavItem[]>(() => {
     const icon = isActive && itemUc.navIconAlt ? itemUc.navIconAlt : itemUc.navIcon
     return {
       testId: slug,
-      name: itemUc.navTitle || item.title.value || '',
+      label: itemUc.navTitle || item.title.value || '',
       href: `/${slug}`,
       icon,
       isActive,
@@ -88,17 +88,17 @@ const bottomNav = vue.computed<NavItem[]>(() => {
 const accountMenu: vue.ComputedRef<IndexItem[]> = vue.computed(() => {
   return [
     {
-      name: 'Account Settings',
+      label: 'Account Settings',
       href: props.card.link({ path: '/settings/account' }),
       icon: 'i-tabler-settings',
     },
     {
-      name: 'Dark/Light Mode',
+      label: 'Dark/Light Mode',
       icon: props.card.site?.isLightMode ? 'i-tabler-sun' : 'i-tabler-moon-stars',
       figure: { el: DashDarkModeToggle },
     },
     {
-      name: 'Sign Out',
+      label: 'Sign Out',
       icon: 'i-tabler-arrow-big-left',
       onClick: async (): Promise<void> => {
         loading.value = true

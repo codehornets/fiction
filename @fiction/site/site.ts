@@ -97,7 +97,12 @@ export class Site<T extends SiteSettings = SiteSettings> extends FictionObject<T
   customDomains = vue.ref(this.settings.customDomains || [])
   isAnimationDisabled = vue.ref(false)
   themeId = vue.ref(this.settings.themeId)
-  theme = vue.computed(() => this.fictionSites.themes.value.find(t => t.themeId === this.themeId.value))
+  theme = vue.computed(() => {
+    const themes = this.fictionSites.themes.value
+    const found = themes.find(t => t.themeId === this.themeId.value)
+    return found || themes[0]
+  })
+
   userConfig = vue.ref(this.settings.userConfig || {})
   themeConfig = vue.ref<ThemeConfig>()
   fullConfig = vue.computed(() => deepMerge([this.themeConfig.value?.userConfig, this.userConfig.value]))

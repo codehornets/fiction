@@ -51,7 +51,7 @@ const cls = {
               :card
               class="group nav-item flex cursor-pointer items-center py-3 px-4 space-x-3 truncate rounded-full font-sans text-base  focus:outline-none transition-all duration-100"
               :href="sub.href"
-              :class=" sub.isActive ? cls.active : cls.inactive "
+              :class="sub.isActive ? cls.active : cls.inactive "
               :data-test-id="`dashboard-nav-${sub.testId}`"
               @click="handleClick($event, sub)"
             >
