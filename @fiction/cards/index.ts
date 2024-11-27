@@ -1,10 +1,12 @@
-import type { FictionEnv } from '@fiction/core'
+import type { FictionEnv, FictionPluginSettings, FictionRouter } from '@fiction/core'
+import type { FictionSites } from '@fiction/site'
 import type { CardTemplate } from '@fiction/site/card'
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { Site } from '@fiction/site/site.js'
-import { envConfig, safeDirname, vue } from '@fiction/core'
+import { envConfig, FictionPlugin, safeDirname, vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site/card'
 import { z } from 'zod'
+import { generateCardStructure } from './utils/generateStructure'
 
 // Register path for tailwindcss to scan for styles
 envConfig.register({
@@ -13,7 +15,7 @@ envConfig.register({
 })
 
 // Template imports organized by category
-const templates = {
+export const templates = {
   layout: {
     wrap: () => import('./wrap'),
     area: () => import('./area'),
@@ -185,4 +187,36 @@ export async function getDemoPages(args: {
   })
 
   return await Promise.all(demoPagePromises)
+}
+
+export type CardsPluginSettings = {
+  fictionEnv: FictionEnv
+  fictionSites: FictionSites
+  fictionRouterSites: FictionRouter
+} & FictionPluginSettings
+
+export class FictionCards extends FictionPlugin<CardsPluginSettings> {
+  constructor(settings: CardsPluginSettings) {
+    const s = { ...settings, root: safeDirname(import.meta.url) }
+
+    super('FictionCards', s)
+  }
+
+  override setup() {
+    this.addStructureFile()
+  }
+
+  addStructureFile() {
+    this.fictionEnv.generators.push(async () => {
+      const cardTemplates = await getCardTemplates()
+
+      const results = await generateCardStructure({
+        templates: cardTemplates,
+        fictionSites: this.settings.fictionSites,
+        fictionRouterSites: this.settings.fictionRouterSites,
+      })
+
+      return { fileName: 'cardStructure.json', content: results.json }
+    })
+  }
 }

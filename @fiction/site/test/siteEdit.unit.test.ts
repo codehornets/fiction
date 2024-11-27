@@ -8,14 +8,13 @@ import { requestManageSite } from '../load'
 import { Site } from '../site'
 import { requestManagePage, updatePage } from '../utils/region'
 import { saveSite } from '../utils/site'
-import { setup } from './test-theme'
+import { theme as testTheme } from './test-theme'
 import { createSiteTestUtils } from './testUtils'
 
 describe('site plugin tests', async () => {
   const testUtils = await createSiteTestUtils()
   let site = await testUtils.createSite()
 
-  const testTheme = await setup(testUtils)
   const r = await testUtils.init()
   const userId = r?.user?.userId ?? ''
   const orgId = r?.user?.orgs?.[0]?.orgId ?? ''
@@ -25,7 +24,7 @@ describe('site plugin tests', async () => {
     fictionSites: testUtils.fictionSites,
     siteMode: 'standard',
   } as const
-  const config = await testTheme.getConfig({ site })
+  const config = await testTheme.getThemeConfig({ site })
   const defaultNumPages = config.pages.filter(_ => _.regionId === 'main').length
 
   it('creates site', async (ctx) => {

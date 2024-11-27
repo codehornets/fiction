@@ -5,7 +5,7 @@ import { objectId } from '@fiction/core'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { Card } from '../card'
 import { Site } from '../site'
-import { setup } from './test-theme'
+import { theme as testTheme } from './test-theme'
 import { createSiteTestUtils } from './testUtils'
 
 async function getDbSite(testUtils: SiteTestUtils, r: InitializedTestUtils) {
@@ -297,7 +297,6 @@ describe('managePage query', async () => {
 
 describe('upsert action', async () => {
   const testUtils = await createSiteTestUtils()
-  const testTheme = await setup(testUtils)
   const r = await testUtils.init()
   const userId = r?.user?.userId ?? ''
   const orgId = r?.user?.orgs?.[0]?.orgId ?? ''

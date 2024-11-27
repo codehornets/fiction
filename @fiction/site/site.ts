@@ -121,7 +121,9 @@ export class Site<T extends SiteSettings = SiteSettings> extends FictionObject<T
     if (!theme)
       throw new Error(`Theme with ID ${this.themeId.value} not found`)
 
-    const c = await theme.getConfig({ site: this })
+    await theme.loadThemeTemplates()
+
+    const c = await theme.getThemeConfig({ site: this })
 
     this.themeConfig.value = c
 

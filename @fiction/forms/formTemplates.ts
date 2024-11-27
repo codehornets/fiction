@@ -27,7 +27,11 @@ export class FormTemplate extends FictionObject<FormTemplateConfig> {
 export async function getFormTemplates(args: { site?: Site }) {
   const { site } = args
 
-  const factory = new CardFactory({ site, templates: await getCardTemplates() })
+  const factory = new CardFactory({
+    site,
+    templates: await getCardTemplates(),
+    caller: 'getFormTemplates',
+  })
   return [
     new FormTemplate({
       formTemplateId: 'contact',

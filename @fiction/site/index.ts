@@ -16,6 +16,7 @@ import { FictionSiteBuilder } from './plugin-builder/index.js'
 import { getRoutes } from './routes.js'
 import { tables, type TableSiteConfig } from './tables.js'
 import { Theme } from './theme.js'
+import { generateThemeStructure } from './utils/themeStructure.js'
 
 export * from './card.js'
 export * from './site.js'
@@ -71,6 +72,21 @@ export class FictionSites extends FictionPlugin<SitesPluginSettings> {
 
     this.addSitemaps()
     this.admin()
+    this.addStructureFile()
+  }
+
+  addStructureFile() {
+    this.fictionEnv.generators.push(async () => {
+      const themes = await this.settings.themes()
+
+      const results = await generateThemeStructure({
+        fictionSites: this,
+        fictionRouterSites: this.settings.fictionRouterSites,
+        themes,
+      })
+
+      return { fileName: 'themeStructure.json', content: results.json }
+    })
   }
 
   admin() {
@@ -164,10 +180,11 @@ export class FictionSites extends FictionPlugin<SitesPluginSettings> {
       themeId: 'empty',
       root: import.meta.url,
       getConfig: async () => ({ userConfig: {}, pages: [], sections: {} }),
-      fictionEnv: this.settings.fictionEnv,
     })
 
     const addedThemes = await this.settings.themes()
+
+    addedThemes.forEach(theme => this.fictionEnv.addUiRoot(theme.settings.root))
 
     this.themes.value = [defaultTheme, ...addedThemes]
   }

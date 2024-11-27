@@ -1,5 +1,5 @@
 import path from 'node:path'
-import { generateStaticConfig } from '@fiction/core/plugin-env/generate.js'
+import { generateStaticConfig } from '@fiction/core/plugin-env/utils/generate.js'
 import { createTestUtils } from '@fiction/core/test-utils/init.js'
 import { safeDirname } from '@fiction/core/utils'
 import fs from 'fs-extra'

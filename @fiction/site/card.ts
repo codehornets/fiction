@@ -108,7 +108,11 @@ export class CardTemplate<
 
   async getConfig(args: { site?: Site }) {
     const { site } = args
-    const factory = new CardFactory({ site, templates: site?.theme.value?.templates || [] })
+    const factory = new CardFactory({
+      site,
+      templates: site?.theme.value?.templates || [],
+      caller: 'cardTemplateGetConfig',
+    })
     const a = { site, factory }
     if (this.settings.getConfig) {
       return this.settings.getConfig(a)
@@ -124,15 +128,19 @@ export class CardTemplate<
     }
   }
 
-  async toCard(args: {
+  async toCard(cardSettings: {
     cardId?: string
     site?: Site
     userConfig?: CardTemplateUserConfigAll<S>
     baseConfig?: CardTemplateUserConfigAll<S>
-  } & CardSettings) {
-    const { cardId, site, baseConfig = {}, userConfig } = args
+  } & CardSettings, args: { factory?: CardFactory } = {}) {
+    const { cardId, site, baseConfig = {}, userConfig } = cardSettings
     const { getUserConfig, getEffects, getConfig } = this.settings
-    const factory = new CardFactory({ site, templates: site?.theme.value?.templates || [] })
+    const factory = args.factory || new CardFactory({
+      site,
+      templates: site?.theme.value?.templates || [],
+      caller: `toCard-${site?.theme.value.themeId}`,
+    })
 
     const config = getConfig ? await getConfig({ ...args, factory }) : {}
     const asyncUserConfig = getUserConfig ? await getUserConfig({ ...args, factory }) : {}
@@ -153,7 +161,7 @@ export class CardTemplate<
     return new Card({
       cardId: cardId || objectId({ prefix: 'crd' }),
       templateId: this.settings.templateId,
-      ...args,
+      ...cardSettings,
       userConfig: finalUserConfig,
       effects,
     })

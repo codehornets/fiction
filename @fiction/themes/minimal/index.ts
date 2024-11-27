@@ -1,9 +1,8 @@
-import type { FictionEnv } from '@fiction/core'
 import { getCardTemplates } from '@fiction/cards/index.js'
 import { safeDirname } from '@fiction/core'
-import { Theme, type ThemeMeta } from '@fiction/site/theme.js'
+import { Theme } from '@fiction/site/theme.js'
 
-export const meta: ThemeMeta = {
+export const theme = new Theme({
   root: safeDirname(import.meta.url),
   title: 'Minimal',
   themeId: 'minimal',
@@ -19,18 +18,9 @@ export const meta: ThemeMeta = {
   },
 
   isPublic: true,
-} as const
-
-export async function setup(args: { fictionEnv: FictionEnv }) {
-  const { fictionEnv } = args
-
-  const templates = await getCardTemplates()
-
-  return new Theme({
-    ...meta,
-    fictionEnv,
-    templates,
-    userConfig: {
+  getTemplates: () => getCardTemplates(),
+  getBaseConfig: () => {
+    return {
       styling: {
         fonts: {
           sans: { stack: 'sans' as const },
@@ -39,22 +29,21 @@ export async function setup(args: { fictionEnv: FictionEnv }) {
         },
         prefersColorScheme: 'dark',
       },
-    },
-    getConfig: async (args) => {
-      const configs = await Promise.all([
-        import('./config/pages').then(m => m.getPages(args)),
-        import('./config/header').then(m => m.getHeader(args)),
-        import('./config/footer').then(m => m.getFooter(args)),
-        import('./config/sections').then(m => m.getHidden(args)),
-      ])
+    }
+  },
+  getConfig: async (args) => {
+    const configs = await Promise.all([
+      import('./config/pages').then(m => m.getPages(args)),
+      import('./config/header').then(m => m.getHeader(args)),
+      import('./config/footer').then(m => m.getFooter(args)),
+      import('./config/sections').then(m => m.getHidden(args)),
+    ])
 
-      const [pages, header, footer, hidden] = configs
+    const [pages, header, footer, hidden] = configs
 
-      return {
-        pages,
-        sections: { header, footer, hidden },
-      } as const
-    },
-
-  })
-}
+    return {
+      pages,
+      sections: { header, footer, hidden },
+    } as const
+  },
+})

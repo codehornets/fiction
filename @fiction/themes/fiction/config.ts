@@ -46,11 +46,11 @@ const social: NavItem[] = [
 export async function getConfig(args: {
   site: Site
   factory: CardFactory
-  fictionStripe?: FictionStripe
   domain: string
-  fictionEnv: FictionEnv
 }) {
-  const { site, factory, domain, fictionEnv } = args
+  const { site, factory, domain } = args
+
+  const { fictionEnv } = site.fictionSites.fictionEnv.getService()
 
   const demoPages = await getDemoPages({ templates: factory.templates, fictionEnv, site, factory })
   const stock = await factory.getStockMedia()

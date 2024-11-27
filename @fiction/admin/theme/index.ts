@@ -1,8 +1,8 @@
 import type { FictionEnv } from '@fiction/core/index.js'
+import type { CardFactory } from '@fiction/site/cardFactory.js'
 import type { FictionAdmin } from '../index.js'
-import { getCardTemplates } from '@fiction/cards'
+import { getCardTemplates, templates } from '@fiction/cards'
 import { safeDirname, vue } from '@fiction/core/index.js'
-import { CardFactory } from '@fiction/site/cardFactory.js'
 import { Theme } from '@fiction/site/theme.js'
 import favicon from '@fiction/ui/brand/favicon.svg'
 import icon from '@fiction/ui/brand/icon.png'
@@ -15,7 +15,7 @@ export const fictionLogo = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" 
 
 export async function getTemplates() {
   const tpl = await getCardTemplates()
-  return [...tpl, dash.template] as const
+  return [...tpl, dash.template]
 }
 
 export async function getPages(args: { factory: CardFactory }) {
@@ -99,54 +99,52 @@ export async function getPages(args: { factory: CardFactory }) {
   ]
 }
 
-export async function setup(args: { fictionEnv: FictionEnv, fictionAdmin: FictionAdmin }) {
-  const { fictionEnv, fictionAdmin } = args
-  const templates = await getTemplates()
-  const factory = new CardFactory({ templates })
-  return new Theme({
-    fictionEnv,
-    root: safeDirname(import.meta.url),
-    themeId: 'admin',
-    title: 'Admin',
-    version: '1.0.0',
-    templates,
-    isPublic: false,
-    getConfig: async () => {
-      const pg = await getPages({ factory })
-      const adminPages = await fictionAdmin.getAdminPages({ factory })
-      const pages = [...pg, ...adminPages]
-      return {
-        pages,
-        sections: {},
-        userConfig: {
-          branding: {
-            shareImage: { url: shareImage, format: 'image' },
-            favicon: { url: favicon, format: 'image' },
-            icon: { url: icon, format: 'image' },
-          },
-          styling: {
-            fonts: {
-              body: { fontKey: 'Inter', stack: 'sans' },
-              sans: { fontKey: 'Inter', stack: 'sans' },
-            },
-            buttons: { design: 'solid', rounding: 'full', hover: 'fade' },
-          },
-          standard: {
-            spacing: { contentWidth: 'sm', verticalSpacing: `none` },
-          },
+export const theme = new Theme({
+  root: safeDirname(import.meta.url),
+  themeId: 'admin',
+  title: 'Admin',
+  version: '1.0.0',
+  getTemplates: async () => await getTemplates(),
+  isPublic: false,
+  getConfig: async (args) => {
+    const { factory, site } = args
+    const pg = await getPages({ factory })
+    const service = site.fictionSites.fictionEnv.getService<{ fictionAdmin: FictionAdmin }>()
+    const adminPages = await service.fictionAdmin.getAdminPages({ factory })
+    const pages = [...pg, ...adminPages]
+    return {
+      pages,
+      sections: {},
+      userConfig: {
+        branding: {
+          shareImage: { url: shareImage, format: 'image' },
+          favicon: { url: favicon, format: 'image' },
+          icon: { url: icon, format: 'image' },
         },
-      }
-    },
-    templateDefaults: { page: 'dash', transaction: 'transaction' },
-    userConfig: {
+        styling: {
+          fonts: {
+            body: { fontKey: 'Inter', stack: 'sans' },
+            sans: { fontKey: 'Inter', stack: 'sans' },
+          },
+          buttons: { design: 'solid', rounding: 'full', hover: 'fade' },
+        },
+        standard: {
+          spacing: { contentWidth: 'sm', verticalSpacing: `none` },
+        },
+      },
+    }
+  },
+  templateDefaults: { page: 'dash', transaction: 'transaction' },
+  getBaseConfig: () => {
+    return {
       spacing: { contentWidthSize: 'sm', spacingSize: `none` },
       branding: {
         logo: { format: 'html' as const, html: fictionLogo },
       },
-    },
+    }
+  },
 
-  })
-}
+})
 
 // createCard({
 //   templates,

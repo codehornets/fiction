@@ -19,6 +19,9 @@ importers:
       '@fiction/core':
         specifier: workspace:*
         version: link:@fiction/core
+      '@fiction/site':
+        specifier: workspace:*
+        version: link:@fiction/site
       '@fiction/ui':
         specifier: workspace:*
         version: link:@fiction/ui
@@ -1242,33 +1245,9 @@ importers:
       '@fiction/theme-fiction':
         specifier: workspace:*
         version: link:../themes/fiction
-      '@fiction/theme-omega':
-        specifier: workspace:*
-        version: link:../themes/omega
       playwright:
         specifier: ^1.49.0
         version: 1.49.0
-
-  '@fiction/themes/exec':
-    dependencies:
-      '@fiction/cards':
-        specifier: workspace:*
-        version: link:../../cards
-      '@fiction/core':
-        specifier: workspace:*
-        version: link:../../core
-      '@fiction/site':
-        specifier: workspace:*
-        version: link:../../site
-      '@fiction/ui':
-        specifier: workspace:*
-        version: link:../../ui
-      tailwindcss:
-        specifier: ^3.4.15
-        version: 3.4.15(ts-node@10.9.2(@swc/wasm@1.9.2)(@types/node@22.9.1)(typescript@5.6.3))
-      vue:
-        specifier: ^3.5.13
-        version: 3.5.13(typescript@5.6.3)
 
   '@fiction/themes/fiction':
     dependencies:
@@ -1292,27 +1271,6 @@ importers:
         version: 3.5.13(typescript@5.6.3)
 
   '@fiction/themes/minimal':
-    dependencies:
-      '@fiction/cards':
-        specifier: workspace:*
-        version: link:../../cards
-      '@fiction/core':
-        specifier: workspace:*
-        version: link:../../core
-      '@fiction/site':
-        specifier: workspace:*
-        version: link:../../site
-      '@fiction/ui':
-        specifier: workspace:*
-        version: link:../../ui
-      tailwindcss:
-        specifier: ^3.4.15
-        version: 3.4.15(ts-node@10.9.2(@swc/wasm@1.9.2)(@types/node@22.9.1)(typescript@5.6.3))
-      vue:
-        specifier: ^3.5.13
-        version: 3.5.13(typescript@5.6.3)
-
-  '@fiction/themes/omega':
     dependencies:
       '@fiction/cards':
         specifier: workspace:*
@@ -1551,9 +1509,6 @@ importers:
       '@fiction/theme-minimal':
         specifier: workspace:*
         version: link:../themes/minimal
-      '@fiction/theme-omega':
-        specifier: workspace:*
-        version: link:../themes/omega
       '@fiction/ui':
         specifier: workspace:*
         version: link:../ui

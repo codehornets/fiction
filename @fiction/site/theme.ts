@@ -1,9 +1,9 @@
 import type { FictionAdmin } from '@fiction/admin/index.js'
-import type { FictionEnv, FictionPluginSettings, ServiceList } from '@fiction/core'
+import type { ColorThemeBright, FictionEnv, FictionPluginSettings, ServiceList } from '@fiction/core'
 import type { CardTemplate } from './card.js'
 import type { SiteUserConfig } from './schema.js'
 import type { TableCardConfig } from './tables.js'
-import { deepMerge, FictionPlugin, toLabel, vue } from '@fiction/core'
+import { deepMerge, FictionObject, toLabel, vue } from '@fiction/core'
 import { CardFactory } from './cardFactory.js'
 import { Site, type SiteSettings } from './site.js'
 
@@ -18,38 +18,59 @@ export type ThemeMeta = {
   themeId: string
   title?: string
   version?: string
+  subTitle?: string
+  category?: string[]
+  icon?: string
+  colorTheme?: ColorThemeBright
   description?: string
   screenshots?: { light?: { desktop?: string, mobile?: string }, dark?: { desktop?: string, mobile?: string } }
   isPublic?: boolean
 }
 
 export type ThemeSettings<T extends Record<string, unknown> = Record<string, unknown>> = {
-  templates?: readonly CardTemplate<any>[] | CardTemplate<any>[]
-  userConfig?: Partial<SiteUserConfig> & T
-  getConfig: (args: { site: Site, factory: CardFactory, userConfig: SiteUserConfig }) => Promise<ThemeConfig>
+
+  getTemplates?: () => Promise<CardTemplate<any>[]>
+  getBaseConfig?: () => Partial<SiteUserConfig> & T
+  getConfig: (args: {
+    site: Site
+    factory: CardFactory
+    userConfig: SiteUserConfig
+    templates: CardTemplate<any>[]
+  }) => Promise<ThemeConfig>
+
   templateDefaults?: {
     page?: string
     transaction?: string
   }
-} & FictionPluginSettings & ThemeMeta
+} & ThemeMeta
 
 export type ThemeSetup = (args: ServiceList & { fictionEnv: FictionEnv, fictionAdmin: FictionAdmin }) => Promise<Theme>
 
-export class Theme<T extends Record<string, unknown> = Record<string, unknown>> extends FictionPlugin<ThemeSettings<T>> {
+export class Theme<T extends Record<string, unknown> = Record<string, unknown>> extends FictionObject<ThemeSettings<T>> {
   themeId = this.settings.themeId
   title = this.settings.title || toLabel(this.themeId)
-  templates = this.settings.templates || []
+  templates: CardTemplate<any>[] = []
   templateDefaults = vue.computed(() => ({ page: 'wrap', transaction: 'wrap', ...this.settings.templateDefaults }))
 
   constructor(settings: ThemeSettings<T>) {
     super('Theme', settings)
   }
 
-  async getConfig(args: { site: Site }) {
+  async loadThemeTemplates() {
+    this.templates = await this.settings.getTemplates?.() || []
+  }
+
+  async getThemeConfig(args: { site: Site }) {
     const { site } = args
-    const factory = new CardFactory({ site, templates: this.templates })
-    const userConfig = deepMerge([this.defaultConfig(), this.settings.userConfig])
-    const config = await this.settings.getConfig({ site, factory, userConfig })
+    const factory = new CardFactory({ site, templates: this.templates, caller: 'Theme.getConfig' })
+    const baseConfig = this.settings.getBaseConfig?.() || {}
+    const userConfig = deepMerge([this.defaultConfig(), baseConfig])
+    const config = await this.settings.getConfig({
+      site,
+      factory,
+      userConfig,
+      templates: this.templates,
+    })
 
     const fullUserConfig = deepMerge([userConfig, config.userConfig])
 

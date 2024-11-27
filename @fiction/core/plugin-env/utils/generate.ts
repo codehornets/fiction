@@ -1,9 +1,12 @@
 import type { JSONSchema } from 'json-schema-to-typescript'
-import type { FictionEnv } from './index.js'
+import type { FictionEnv } from '../index.js'
 import path from 'node:path'
 import fs from 'fs-extra'
-import { log } from '../plugin-log/index.js'
-import { stringify } from '../utils/utils.js'
+import { log } from '../../plugin-log/index.js'
+import { stringify } from '../../utils/utils.js'
+import { generateProjectStructure } from './projectStructure.js'
+
+export type ConfigFileGenerator = ((args: { fictionEnv: FictionEnv }) => Promise<{ fileName?: string, content?: string }>)
 
 export async function generateStaticConfig(fictionEnv: FictionEnv): Promise<void> {
   const context = 'generateStaticConfig'
@@ -13,8 +16,10 @@ export async function generateStaticConfig(fictionEnv: FictionEnv): Promise<void
   if (!cwd)
     throw new Error(`${context}: cwd not found`)
 
-  const genConfigPath = path.join(cwd, '/.fiction')
+  const genConfigPath = fictionEnv.generatedFolder
   await fs.emptyDir(genConfigPath)
+
+  fictionEnv.generators.push(() => generateProjectStructure({ fictionEnv }))
 
   /**
    * Handle Schema
@@ -47,20 +52,33 @@ export async function generateStaticConfig(fictionEnv: FictionEnv): Promise<void
     style: { singleQuote: true, semi: false },
   })
 
-  const types = path.join(genConfigPath, 'config.ts')
+  const typesPath = path.join(genConfigPath, 'config.ts')
 
   const staticConfig = await fictionEnv.runHooks('staticConfig', {})
 
   const stringed = stringify(staticConfig)
 
-  const json = path.join(genConfigPath, 'config.json')
+  const jsonPath = path.join(genConfigPath, 'config.json')
 
-  await fs.ensureFile(json)
+  await fs.ensureFile(jsonPath)
 
-  /**
-   * Write files
-   */
-  await Promise.all([fs.writeFile(json, stringed), fs.writeFile(types, ts)])
+  const generators = await Promise.all(fictionEnv.generators.map(generator => generator({ fictionEnv })))
 
-  log.debug(context, 'generated static schema', { data: { json, types } })
+  const genPaths = generators.filter(generator => generator.fileName && generator.content).map((generator) => {
+    return { filePath: path.join(genConfigPath, generator.fileName || ''), ...generator }
+  })
+
+  const generateFilePromises = genPaths.map(({ filePath, content }) => {
+    return fs.writeFile(filePath, content || '')
+  })
+
+  await Promise.all([
+    fs.writeFile(jsonPath, stringed),
+    fs.writeFile(typesPath, ts),
+    ...generateFilePromises,
+  ])
+
+  const filePaths = [jsonPath, typesPath, ...genPaths.map(r => r.filePath)]
+
+  log.debug(context, 'generated static schema', { data: filePaths })
 }

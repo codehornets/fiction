@@ -1,0 +1,499 @@
+{
+  "version": "1.0",
+  "generatedAt": "2024-11-27T18:54:32.813Z",
+  "templates": [
+    {
+      "templateId": "wrap",
+      "title": "Page Wrapper",
+      "description": "A foundational layout component that provides consistent structure and behavior for your entire page.",
+      "subTitle": "The foundational wrapper for site pages.",
+      "icon": "i-tabler-layout-board-split",
+      "isPublic": false
+    },
+    {
+      "templateId": "area",
+      "title": "Content Area",
+      "description": "A flexible container that groups and styles content elements. Perfect for creating distinct sections within your page.",
+      "subTitle": "Group and style content elements with custom backgrounds, spacing, and layouts",
+      "category": [
+        "layout",
+        "basic"
+      ],
+      "icon": "i-tabler-layout-board",
+      "colorTheme": "blue",
+      "isPublic": true
+    },
+    {
+      "templateId": "nav",
+      "title": "Brand Navigation",
+      "description": "Create an engaging brand experience with this premium navigation component.\n    Features intelligent layouts, mega menus, and contextual user interactions.\n    Perfect for modern digital brands that need sophisticated information architecture\n    with visual hierarchy and clear user pathways.",
+      "subTitle": "NO_SUBTITLE",
+      "category": [
+        "navigation"
+      ],
+      "icon": "i-tabler-menu-2",
+      "colorTheme": "indigo",
+      "isPublic": true
+    },
+    {
+      "templateId": "footerPro",
+      "title": "Footer Pro",
+      "description": "Create a premium brand experience with this advanced footer component.\n    Features a sophisticated layout with brand messaging, column-based navigation, trust badges,\n    and social proof elements. Perfect for SaaS, enterprise, and digital-first brands.\n    Includes animated reveals, smart content organization, and comprehensive brand elements.",
+      "subTitle": "Professional footer for modern digital brands",
+      "category": [
+        "navigation"
+      ],
+      "icon": "i-tabler-box-align-bottom",
+      "colorTheme": "blue",
+      "isPublic": true
+    },
+    {
+      "templateId": "footerX",
+      "title": "Footer X",
+      "description": "Transform your site's footer into a powerful navigation hub and brand anchor.\n    This versatile footer adapts to various brand personalities - from corporate polish to creative flair.\n    Features animated reveal effects, smart content sections, and seamless dark mode support.\n    Perfect for multi-section navigation, contact information, and legal requirements.",
+      "subTitle": "Create a lasting impression with a thoughtfully designed footer",
+      "category": [
+        "navigation"
+      ],
+      "icon": "i-tabler-layout-bottombar",
+      "colorTheme": "violet",
+      "isPublic": true
+    },
+    {
+      "templateId": "hero",
+      "title": "Hero Section",
+      "description": "Create compelling hero sections that combine headlines, imagery, and calls-to-action to engage visitors. Perfect for homepages, product launches, and landing pages. The hero should communicate your core value proposition within seconds, using persuasive headlines (5-7 words), supporting text (10-30 words), and strategic imagery that reinforces your message. Include clear calls-to-action that guide visitors toward your primary conversion goals.",
+      "subTitle": "Create impactful first impressions with a visually striking hero section.",
+      "category": [
+        "basic",
+        "marketing"
+      ],
+      "icon": "i-tabler-presentation",
+      "colorTheme": "blue",
+      "isPublic": true
+    },
+    {
+      "templateId": "story",
+      "title": "Scrolling Story",
+      "description": "Create engaging narratives that unfold as users scroll, combining captivating media with elegantly revealed text. Perfect for case studies, company histories, or feature presentations.",
+      "subTitle": "Transform your narrative into an immersive scrolling experience",
+      "category": [
+        "content"
+      ],
+      "icon": "i-tabler-book-2",
+      "colorTheme": "emerald",
+      "isPublic": true
+    },
+    {
+      "templateId": "quotes",
+      "title": "Elegant Quotes",
+      "description": "Transform customer testimonials into compelling social proof that builds trust and drives conversions. Perfect for showcasing client success stories, expert endorsements, and team perspectives.",
+      "subTitle": "Watch your results soar with beautifully designed quotes that capture attention and inspire action",
+      "category": [
+        "content",
+        "marketing"
+      ],
+      "icon": "i-tabler-quote",
+      "colorTheme": "emerald",
+      "isPublic": true
+    },
+    {
+      "templateId": "profile",
+      "title": "Profile & Bio Card",
+      "description": "Create compelling personal profiles with dynamic layouts combining professional photos, bio content, and social connections. Perfect for team pages, speaker bios, or personal websites.",
+      "subTitle": "Transform your personal brand into an engaging visual story",
+      "category": [
+        "marketing",
+        "content"
+      ],
+      "icon": "i-tabler-user-circle",
+      "colorTheme": "blue",
+      "isPublic": true
+    },
+    {
+      "templateId": "features",
+      "title": "Feature Showcase",
+      "description": "Present your product or service features in an engaging, visually appealing layout that highlights benefits and drives conversion.",
+      "subTitle": "Transform feature lists into compelling visual stories that connect with your audience",
+      "category": [
+        "marketing",
+        "content"
+      ],
+      "icon": "i-tabler-layout-list",
+      "colorTheme": "blue",
+      "isPublic": true
+    },
+    {
+      "templateId": "faq",
+      "title": "FAQ & Information Lists",
+      "description": "Add a clean, expandable FAQ section to answer common questions. Perfect for product pages, support sections, or any content that benefits from a Q&A format.",
+      "subTitle": "Simple expandable questions and answers",
+      "category": [
+        "content"
+      ],
+      "icon": "i-tabler-list-details",
+      "colorTheme": "emerald",
+      "isPublic": true
+    },
+    {
+      "templateId": "statement",
+      "title": "Dynamic Statements",
+      "description": "Transform your key messages into captivating statements that command attention. Perfect for showcasing testimonials, company values, or product benefits in an engaging, interactive format.",
+      "subTitle": "Create a sequence of powerful messages that guide your audience and drive action",
+      "category": [
+        "content",
+        "marketing"
+      ],
+      "icon": "i-tabler-message-circle-2",
+      "colorTheme": "indigo",
+      "isPublic": true
+    },
+    {
+      "templateId": "testimonials",
+      "title": "Testimonials",
+      "description": "Transform customer stories into compelling visual testimonials. Choose from multiple layouts to create emotional connections and build trust through authentic experiences.",
+      "subTitle": "Share customer success stories that resonate and inspire trust",
+      "category": [
+        "content"
+      ],
+      "icon": "i-tabler-messages",
+      "colorTheme": "emerald",
+      "isPublic": true
+    },
+    {
+      "templateId": "metrics",
+      "title": "Impact Metrics",
+      "description": "Transform raw numbers into compelling stories that showcase your brand's success. Features animated counters, customizable styling, and multiple display formats to help visitors instantly grasp your achievements.",
+      "subTitle": "Visualize key performance metrics that build trust and credibility",
+      "category": [
+        "stats",
+        "marketing"
+      ],
+      "icon": "i-tabler-chart-dots",
+      "colorTheme": "emerald",
+      "isPublic": true
+    },
+    {
+      "templateId": "people",
+      "title": "Team Showcase",
+      "description": "Transform your about page with a dynamic team showcase that highlights the human side of your business. Perfect for building credibility, showcasing expertise, and creating meaningful connections with your audience through professional profiles, achievements, and social presence.",
+      "subTitle": "Build trust and connection with faces.",
+      "category": [
+        "content",
+        "marketing",
+        "engagement"
+      ],
+      "icon": "i-tabler-users-group",
+      "colorTheme": "blue",
+      "isPublic": true
+    },
+    {
+      "templateId": "logos",
+      "title": "Logo Showcase",
+      "description": "Build trust and credibility by showcasing brands that use or endorse your product. Features multiple layout options with hover animations and customizable styling.",
+      "subTitle": "Display partner logos, client brands, or featured press mentions",
+      "category": [
+        "marketing"
+      ],
+      "icon": "i-tabler-building-store",
+      "colorTheme": "blue",
+      "isPublic": true
+    },
+    {
+      "templateId": "numberedList",
+      "title": "Numbered List",
+      "description": "Transform complex ideas into clear, sequential steps with rich media support. Perfect for tutorials, processes, or feature highlights. Each point can include images and custom styling to boost engagement.",
+      "subTitle": "Engaging list of key points with optional media",
+      "category": [
+        "marketing"
+      ],
+      "icon": "i-tabler-list-numbers",
+      "colorTheme": "rose",
+      "isPublic": true
+    },
+    {
+      "templateId": "bento",
+      "title": "Bento Grid Layout",
+      "description": "Create visually striking layouts with a flexible grid system that combines images, text, and interactive elements. Perfect for showcasing features, portfolios, or content collections in an engaging masonry-style format.",
+      "subTitle": "Transform your content into an engaging visual story with customizable grid layouts",
+      "category": [
+        "layout",
+        "content"
+      ],
+      "icon": "i-tabler-layout-grid",
+      "colorTheme": "violet",
+      "isPublic": true
+    },
+    {
+      "templateId": "postList",
+      "title": "Post List",
+      "description": "Display your blog posts and articles in a clean, organized list format. Choose from grid or scroll layouts to showcase your content effectively, with customizable display options for titles, excerpts, dates, and featured images.",
+      "subTitle": "A versatile posts display card with grid and scroll layouts",
+      "category": [
+        "posts"
+      ],
+      "icon": "i-tabler-article",
+      "colorTheme": "blue",
+      "isPublic": true
+    },
+    {
+      "templateId": "magazine",
+      "title": "Magazine",
+      "description": "Transform your blog into a visually stunning magazine with customizable layouts, featured posts, and rich media integration. Perfect for showcasing editorial content, news articles, and thought leadership pieces with style.",
+      "subTitle": "Create dynamic blog layouts with featured posts and immersive content",
+      "category": [
+        "posts"
+      ],
+      "icon": "i-tabler-notebook",
+      "colorTheme": "blue",
+      "isPublic": true
+    },
+    {
+      "templateId": "insta",
+      "title": "Insta",
+      "description": "Instagram galleries for your site",
+      "subTitle": "NO_SUBTITLE",
+      "category": [
+        "social"
+      ],
+      "icon": "i-tabler-image",
+      "colorTheme": "rose",
+      "isPublic": false
+    },
+    {
+      "templateId": "cinema",
+      "title": "Cinema Showcase",
+      "description": "Perfect for photography portfolios, event promotion, product launches, or any content that benefits from dramatic full-screen visuals with overlaid text and calls-to-action.",
+      "subTitle": "Create immersive full-screen presentations with background videos and images",
+      "category": [
+        "marketing",
+        "portfolio",
+        "media"
+      ],
+      "icon": "i-tabler-movie",
+      "colorTheme": "rose",
+      "isPublic": true
+    },
+    {
+      "templateId": "gallery",
+      "title": "Visual Gallery",
+      "description": "Transform your images and videos into an immersive visual story with our dynamic masonry gallery.\nPerfect for portfolios, product showcases, or photo collections. Features automatic layout optimization,\nhover effects, lightbox viewing, and customizable grid arrangements.",
+      "subTitle": "Create stunning masonry layouts that showcase your visual content in an engaging, responsive grid",
+      "category": [
+        "media"
+      ],
+      "icon": "i-tabler-library-photo",
+      "colorTheme": "emerald",
+      "isPublic": true
+    },
+    {
+      "templateId": "contentModal",
+      "title": "Content Modal",
+      "description": "Dynamic modal popup system for videos, audio, and external content. Automatically handles various content types like YouTube, Vimeo, Spotify, and more. Perfect for showcasing media content without leaving your page.",
+      "subTitle": "Create engaging media experiences with automatic content detection",
+      "category": [
+        "media",
+        "engagement"
+      ],
+      "icon": "i-tabler-player-play",
+      "colorTheme": "pink",
+      "isPublic": true
+    },
+    {
+      "templateId": "showcase",
+      "title": "Media Showcase",
+      "description": "Create an immersive gallery experience with a responsive grid layout and elegant popup viewer. Perfect for portfolios, product catalogs, case studies, or any visual storytelling needs.",
+      "subTitle": "Transform your visual content into an engaging story that captures attention and drives interaction",
+      "category": [
+        "portfolio",
+        "content"
+      ],
+      "icon": "i-tabler-photo-up",
+      "colorTheme": "amber",
+      "isPublic": true
+    },
+    {
+      "templateId": "capture",
+      "title": "Email Capture",
+      "description": "Convert visitors into subscribers with a versatile email capture form. Features multiple display modes (inline, scroll trigger, exit intent), customizable messaging, and social proof elements. Perfect for building email lists, delivering lead magnets, or growing newsletter subscriptions. Optimized for high conversion rates with A/B tested layouts.",
+      "subTitle": "High-converting email capture form with multiple display modes and customizable messaging.",
+      "category": [
+        "marketing",
+        "conversion"
+      ],
+      "icon": "i-tabler-mail",
+      "colorTheme": "blue",
+      "isPublic": true
+    },
+    {
+      "templateId": "contact",
+      "title": "Contact & Support",
+      "description": "Create professional contact pages with integrated forms and multiple contact methods.\nFeatures customizable layouts, notification settings, and social media integration. Perfect for\ncustomer support, sales inquiries, or general contact information.",
+      "subTitle": "Connect with visitors through customizable contact forms and support channels",
+      "category": [
+        "form",
+        "marketing"
+      ],
+      "icon": "i-tabler-mail-fast",
+      "colorTheme": "blue",
+      "isPublic": true
+    },
+    {
+      "templateId": "maps",
+      "title": "Interactive Map",
+      "description": "Add interactive maps to showcase locations, highlight regions of interest, and provide contextual geographic information. Perfect for business locations, travel itineraries, or geographic data visualization.",
+      "subTitle": "NO_SUBTITLE",
+      "category": [
+        "advanced"
+      ],
+      "icon": "i-tabler-map-2",
+      "colorTheme": "blue",
+      "isPublic": true
+    },
+    {
+      "templateId": "pricing",
+      "title": "Pricing Plans",
+      "description": "Create compelling pricing tables that convert visitors into customers. Features interactive toggles for monthly/annual pricing, customizable tiers, and visual hierarchy to highlight your best plans.",
+      "subTitle": "Design strategic pricing tables that guide customers to the perfect plan",
+      "category": [
+        "marketing",
+        "conversion"
+      ],
+      "icon": "i-tabler-report-money",
+      "colorTheme": "emerald",
+      "isPublic": true
+    },
+    {
+      "templateId": "tour",
+      "title": "Visual Tour",
+      "description": "Create immersive visual narratives that guide viewers through your story.\nPerfect for product showcases, case studies, or multi-step journeys where each section\nbuilds compelling momentum toward your goals.",
+      "subTitle": "Guide viewers through your story with immersive visual narratives",
+      "category": [
+        "marketing",
+        "content"
+      ],
+      "icon": "i-tabler-compass",
+      "colorTheme": "cyan",
+      "isPublic": true
+    },
+    {
+      "templateId": "callToAction",
+      "title": "Call To Action",
+      "description": "Create high-converting sections that drive user action through clear value propositions,\nsocial proof, and benefit-focused content. Includes multiple layouts for email capture, product trials,\ndemo requests, and other conversion goals. Features customizable messaging, benefit highlights, and\ncommunity social proof to boost conversion rates.",
+      "subTitle": "Convert visitors into subscribers, customers, or leads with compelling offers",
+      "category": [
+        "navigation"
+      ],
+      "icon": "i-tabler-speakerphone",
+      "colorTheme": "red",
+      "isPublic": true
+    },
+    {
+      "templateId": "effectShape",
+      "title": "Shape Background",
+      "description": "Create engaging visual depth with floating geometric shapes that respond to user interaction.\nPerfect for enhancing hero sections, testimonials, or content areas with subtle animation and movement.\nFeatures include customizable shapes, colors, animations, and interactive effects.",
+      "subTitle": "Add depth and visual interest with animated geometric shapes",
+      "category": [
+        "effect"
+      ],
+      "icon": "i-tabler-shape",
+      "colorTheme": "emerald",
+      "isPublic": false
+    },
+    {
+      "templateId": "fitText",
+      "title": "Dynamic Text Display",
+      "description": "Create attention-grabbing headlines and text displays that automatically fit their container while maintaining perfect proportions. Perfect for hero sections, impact statements, and brand messaging.",
+      "subTitle": "Transform your message into a perfectly-sized visual statement that commands attention",
+      "category": [
+        "content",
+        "typography"
+      ],
+      "icon": "i-tabler-text-size",
+      "colorTheme": "indigo",
+      "isPublic": true
+    },
+    {
+      "templateId": "marquee",
+      "title": "Dynamic Media Marquee",
+      "description": "Create engaging, animated media showcases with smooth scrolling effects. Perfect for portfolios, product galleries, or featured content that captures attention through fluid motion.",
+      "subTitle": "Transform static galleries into captivating motion displays",
+      "category": [
+        "marketing",
+        "content"
+      ],
+      "icon": "i-tabler-carousel-horizontal",
+      "colorTheme": "pink",
+      "isPublic": true
+    },
+    {
+      "templateId": "overSlide",
+      "title": "Overlay Profile Slider",
+      "description": "Create an engaging visual journey with this dynamic slider featuring overlaid text and smooth transitions. Perfect for showcasing team members, services, or key offerings with impact.",
+      "subTitle": "Create an engaging visual journey with this dynamic slider",
+      "category": [
+        "marketing",
+        "portfolio"
+      ],
+      "icon": "i-tabler-layers-intersect",
+      "colorTheme": "teal",
+      "isPublic": true
+    },
+    {
+      "templateId": "textEffects",
+      "title": "Dynamic Text Effects",
+      "description": "Add visual interest to your headlines and text with customizable animations, transforms, and effects. Perfect for creating engaging headlines, CTAs, or emphasizing key messages.",
+      "subTitle": "Enhance your content with eye-catching text animations",
+      "category": [
+        "typography"
+      ],
+      "icon": "i-tabler-text-size",
+      "colorTheme": "indigo",
+      "isPublic": true
+    },
+    {
+      "templateId": "ticker",
+      "title": "Animated Ticker",
+      "description": "Create eye-catching scrolling announcements with 3D effects, custom fonts, and scroll-reactive animations. Perfect for highlighting time-sensitive offers, news updates, or key messages that demand attention.",
+      "subTitle": "Transform static announcements into dynamic, engaging messages that capture your audience's attention",
+      "category": [
+        "marketing",
+        "content"
+      ],
+      "icon": "i-tabler-arrow-autofit-width",
+      "colorTheme": "blue",
+      "isPublic": true
+    },
+    {
+      "templateId": "trek",
+      "title": "Parallax Story",
+      "description": "Create an immersive visual journey with parallax scrolling and sticky content. Perfect for storytelling, product showcases, or virtual tours that guide visitors through a compelling narrative.",
+      "subTitle": "Transform your story into an engaging visual experience that captures attention and drives engagement",
+      "category": [
+        "content"
+      ],
+      "icon": "i-tabler-route",
+      "colorTheme": "cyan",
+      "isPublic": true
+    },
+    {
+      "templateId": "404",
+      "title": "404",
+      "description": "NO_DESCRIPTION",
+      "subTitle": "A simple yet effective not-found page.",
+      "category": [
+        "special"
+      ],
+      "icon": "i-tabler-error-404",
+      "colorTheme": "red",
+      "isPublic": false
+    },
+    {
+      "templateId": "transaction",
+      "title": "Transaction",
+      "description": "NO_DESCRIPTION",
+      "subTitle": "NO_SUBTITLE",
+      "isPublic": false
+    }
+  ]
+}

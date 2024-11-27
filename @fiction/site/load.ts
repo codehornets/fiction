@@ -112,14 +112,14 @@ export async function loadSiteFromCard(args: { cardId: string, siteRouter: Ficti
   if (!tpl)
     throw new Error(`no template found for card ${cardId}`)
 
-  const card = await tpl.settings.demoPage?.({ site, factory: new CardFactory({ site, templates }) })
+  const factory = new CardFactory({ templates, site, caller: 'siteFromCard' })
+
+  const card = await tpl.settings.demoPage?.({ site, factory })
 
   // local stored config, useful for development
   const staticConfig = await localSiteConfig({ siteId })
 
   const cards = card?.cards || []
-
-  const factory = new CardFactory({ templates, site })
 
   await site.update({ pages: [
     await factory.fromTemplate({
@@ -171,7 +171,7 @@ export async function loadSite(args: { fictionSites: FictionSites, siteRouter: F
 
     if (themeId) {
       site = await loadSiteFromTheme({ fictionOrgId, fictionSiteId, themeId, siteRouter, fictionSites, siteMode, caller })
-      logger.debug('Loading site from theme', { data: { themeId, site: site.toConfig() } })
+      logger.debug(`loading site from theme (${themeId})`, { data: { themeId, site: site.toConfig() } })
     }
     else if (cardId) {
       logger.debug('Loading site from card template', { data: { cardId } })

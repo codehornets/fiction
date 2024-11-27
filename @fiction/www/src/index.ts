@@ -2,6 +2,7 @@ import type { ServiceConfig } from '@fiction/core/index.js'
 import path from 'node:path'
 import { FictionAdmin } from '@fiction/admin/index.js'
 import { FictionAnalytics } from '@fiction/analytics/index.js'
+import { FictionCards } from '@fiction/cards'
 import FSite from '@fiction/cards/CardSite.vue'
 import { apiRoot, AppRoute, FictionApp, FictionAws, FictionCache, FictionDb, FictionEmail, FictionEnv, FictionMedia, FictionRouter, FictionServer, FictionUser, safeDirname } from '@fiction/core/index.js'
 import { FictionDevRestart } from '@fiction/core/plugin-env/restart'
@@ -177,6 +178,7 @@ const fictionAnalytics = new FictionAnalytics({
 })
 
 const fictionSites = new FictionSites({ ...s, fictionAnalytics, fictionAppSites, fictionRouterSites, flyApiToken, flyAppId: 'fiction-sites', adminBaseRoute: '/admin', themes })
+const fictionCards = new FictionCards({ ...s, fictionSites })
 const fictionTeam = new FictionTeam({ ...s })
 const fictionForms = new FictionForms({ ...s, fictionSites })
 const fictionUi = new FictionUi({ fictionEnv, apps: [fictionApp, fictionAppSites] })
@@ -185,7 +187,7 @@ const fictionPosts = new FictionPosts(s)
 const fictionNewsletter = new FictionNewsletter({ fictionPosts, fictionSubscribe, ...s })
 const fictionBrand = new FictionBrand({ ...s })
 
-const baseService = { ...s, fictionForms, fictionBrand, fictionAnalytics, fictionSites, fictionTeam, fictionUi, fictionStripe, fictionSubscribe, fictionNewsletter, fictionPosts, fictionOnboard }
+const baseService = { ...s, fictionForms, fictionBrand, fictionAnalytics, fictionSites, fictionCards, fictionTeam, fictionUi, fictionStripe, fictionSubscribe, fictionNewsletter, fictionPosts, fictionOnboard }
 
 export type SpecificService = typeof baseService
 
@@ -274,7 +276,6 @@ export function setup(): ServiceConfig {
           await fictionApp.buildApp({ serve, render: false })
         }
         else if (command === 'generate') {
-          await fictionDb.init()
           await fictionEnv.generate()
         }
       }

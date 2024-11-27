@@ -1,22 +1,22 @@
-import type { RunVars } from '../inject.js'
+import type { RunVars, StandardServices } from '../inject.js'
 import type { CleanupCallback } from '../types/index.js'
 import type { HookType, UserNotification } from '../utils/index.js'
 import type { CliCommand } from './commands.js'
 import type { FictionEnvHookDictionary } from './hooks.js'
-import type { CliOptions, CliVars, ResetUiScope, ResetUiTrigger, ServerModuleDef, ServiceConfig } from './types.js'
+import type { CliOptions, CliVars, ResetUiScope, ResetUiTrigger, ServerModuleDef, ServiceConfig, ServiceList } from './types.js'
 import path from 'node:path'
 import dotenv from 'dotenv'
 import { version as fictionVersion } from '../package.json'
 import { FictionObject } from '../plugin.js'
 import { type BrowserEventObject, onBrowserEvent } from '../utils/eventBrowser.js'
 import { TypedEventTarget } from '../utils/eventTarget.js'
-import { crossVar, isApp, isCi, isDev, isNode, isTest, onResetUi, resetUi, runHooks, runHooksSync, shortId, toSlug, toSnake, vue, waitFor } from '../utils/index.js'
+import { crossVar, isApp, isCi, isDev, isNode, isTest, onResetUi, resetUi, runHooks, runHooksSync, safeDirname, shortId, toSlug, toSnake, vue, waitFor } from '../utils/index.js'
 import { logMemoryUsage } from '../utils/nodeUtils.js'
 import { standardAppCommands } from './commands.js'
 import { compileApplication } from './entry.js'
-import { generateStaticConfig } from './generate.js'
 import { envConfig, EnvVar, vars } from './onImport.js'
 import { commonServerOnlyModules } from './serverOnly.js'
+import { type ConfigFileGenerator, generateStaticConfig } from './utils/generate.js'
 
 export { envConfig, EnvVar, vars }
 export * from './commands.js'
@@ -25,6 +25,7 @@ export * from './types.js'
 
 export interface FictionControlSettings {
   hooks?: HookType<FictionEnvHookDictionary>[]
+  generators?: ConfigFileGenerator[]
   envFiles?: string[]
   envFilesProd?: string[]
   env?: Record<string, string>
@@ -80,10 +81,12 @@ export class FictionEnv<
   generatedConfig?: S
   commands = this.settings.commands || standardAppCommands
   hooks = this.settings.hooks || []
+  generators = this.settings.generators || []
   envFiles = this.settings.envFiles || []
   envFilesProd = this.settings.envFilesProd || []
   env = this.settings.env || {}
   cwd = this.settings.cwd
+  monorepoRoot = safeDirname(import.meta.url, '../../..')
   mainFilePath = this.settings.mainFilePath || path.join(this.cwd, 'index.ts')
   meta = this.settings.meta || { }
   id = this.settings.id || toSlug(this.meta.app?.name) || 'fiction'
@@ -112,6 +115,7 @@ export class FictionEnv<
   serverOnlyImports: Record<string, true | Record<string, string>> = commonServerOnlyModules()
 
   distFolder = this.settings.distFolder || path.join(this.cwd, 'dist')
+  generatedFolder = path.join(this.cwd, '/.fiction')
 
   heldKeys = vue.ref<Record<string, boolean>>({})
 
@@ -119,6 +123,10 @@ export class FictionEnv<
   // plugins that add services need to edit this
   // the services are then accessed via useService provide
   service = vue.shallowRef<{ runVars?: Partial<RunVars>, [key: string]: unknown }>({})
+
+  getService<Y extends ServiceList>(): Y & StandardServices {
+    return this.service.value as Y & StandardServices
+  }
 
   async runHooks<T extends keyof FictionEnvHookDictionary>(hook: T, ...args: FictionEnvHookDictionary[T]['args']) {
     return runHooks<FictionEnvHookDictionary, T>({ list: this.hooks, hook, args })
@@ -417,12 +425,6 @@ export class FictionEnv<
     })
   }
 
-  override async afterSetup() {
-    if (!this.isProd.value && !this.isApp.value && !this.isTest.value && !this.isRestart()) {
-      await this.generate()
-    }
-  }
-
   async generate() {
     await generateStaticConfig(this)
   }
@@ -525,9 +527,9 @@ export class FictionEnv<
     return v || ''
   }
 
-  addUiRoot(root: string) {
+  addUiRoot(root?: string) {
     // prevent memory leak
-    if (this.isApp.value) {
+    if (this.isApp.value || !root) {
       return
     }
 

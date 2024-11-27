@@ -1,7 +1,8 @@
 import type { TestUtils } from '@fiction/core/test-utils/init'
-import type { ThemeSetup } from '../index.js'
+import type { Theme, ThemeSetup } from '../index.js'
 import { FictionAdmin } from '@fiction/admin'
 import FSite from '@fiction/cards/CardSite.vue'
+import { FictionCards } from '@fiction/cards/index.js'
 import { AppRoute, FictionApp, FictionAws, FictionMedia, FictionRouter, getEnvVars, randomBetween, shortId } from '@fiction/core'
 import { runServicesSetup } from '@fiction/core/plugin-env/entry'
 import { testEnvFile } from '@fiction/core/test-utils'
@@ -14,10 +15,12 @@ import * as minimalTheme from '@fiction/theme-minimal'
 import { FictionSites } from '..'
 import { Site } from '../site.js'
 import * as testTheme from './test-theme'
+
 import { setup } from './testUtils.main.js'
 
 export type SiteTestUtils = TestUtils & {
   fictionSites: FictionSites
+  fictionCards: FictionCards
   fictionRouterSites: FictionRouter
   fictionAppSites: FictionApp
   fictionMedia: FictionMedia
@@ -34,7 +37,7 @@ export type SiteTestUtils = TestUtils & {
 export async function createSiteTestUtils(args: {
   mainFilePath?: string
   context?: 'node' | 'app'
-  themes?: ThemeSetup[]
+  themes?: Theme[]
   delaySiteRouterCreation?: boolean
 } = {}): Promise<SiteTestUtils> {
   const { mainFilePath, context = 'node', delaySiteRouterCreation = false } = args
@@ -72,13 +75,13 @@ export async function createSiteTestUtils(args: {
   out.fictionSubscribe = new FictionSubscribe({ ...(out as SiteTestUtils) })
 
   const themes = async () => Promise.all([
-    minimalTheme.setup(out),
-    testTheme.setup(out),
-    ...(args.themes || []).map(async _ => _(out as SiteTestUtils)),
+    minimalTheme.theme,
+    testTheme.theme,
+    ...(args.themes || []),
   ])
 
   out.fictionSites = new FictionSites({ ...(out as SiteTestUtils), flyApiToken, flyAppId, themes })
-
+  out.fictionCards = new FictionCards({ ...out, fictionSites: out.fictionSites, fictionRouterSites: out.fictionRouterSites })
   await runServicesSetup(out, { context: 'test' })
 
   out.fictionEnv.log.info(`Site Test Utils Created (${context})`)

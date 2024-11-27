@@ -11,7 +11,7 @@ describe('verify template settings config', async () => {
   const templates = await getCardTemplates()
 
   it('has template options set correctly', async () => {
-    const factory = new CardFactory({ site, templates })
+    const factory = new CardFactory({ site, templates, caller: 'verifyTemplateSettings' })
     const demoPages = await getDemoPages({ templates, site, factory })
 
     const templatesOptionConfigPromises = templates.map(async (_) => {

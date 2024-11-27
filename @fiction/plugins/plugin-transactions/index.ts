@@ -46,7 +46,7 @@ export class FictionTransactions extends FictionPlugin<FictionTransactionsSettin
         if (!theme?.templates || !theme.templates.find(_ => _.settings.templateId === transactionTemplateId))
           return pages
 
-        const factory = new CardFactory({ templates: theme.templates, site })
+        const factory = new CardFactory({ templates: theme.templates, site, caller: 'setPages' })
 
         return [
           ...pages,

@@ -11,7 +11,7 @@ export async function setup(args: { context?: 'node' | 'app', mainFilePath?: str
   const testUtils = await createSiteTestUtils({
     mainFilePath,
     context,
-    themes: [fictionTheme.setup, adminTheme.setup],
+    themes: [fictionTheme.theme, adminTheme.theme],
     delaySiteRouterCreation: true, // created on editor start
   })
 

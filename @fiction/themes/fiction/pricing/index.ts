@@ -18,8 +18,10 @@ async function purchaseUrl(args: { priceId: string, fictionStripe?: FictionStrip
   return await getCheckoutUrl({ fictionStripe, query: { ...args, loginPath } })
 }
 
-export async function page(args: { fictionStripe?: FictionStripe, factory: CardFactory, site: Site }) {
-  const { fictionStripe, factory } = args
+export async function page(args: { factory: CardFactory, site: Site }) {
+  const { site, factory } = args
+
+  const { fictionStripe } = site.fictionSites.fictionEnv.getService<{ fictionStripe: FictionStripe }>()
 
   const pricingCard = await factory.fromTemplate<typeof pricingTemplate>({
     templateId: 'pricing',

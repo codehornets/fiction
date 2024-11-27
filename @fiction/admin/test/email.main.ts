@@ -9,7 +9,7 @@ export async function setup(args: { context?: 'node' | 'app' } = {}) {
   const { context = 'node' } = args
   const mainFilePath = new URL(import.meta.url).pathname
 
-  const testUtils = await createSiteTestUtils({ mainFilePath, context, themes: [adminTheme.setup] }) satisfies { fictionAi: FictionAi }
+  const testUtils = await createSiteTestUtils({ mainFilePath, context, themes: [adminTheme.theme] }) satisfies { fictionAi: FictionAi }
 
   const siteRouter = testUtils.fictionRouter
   const component = CardSite

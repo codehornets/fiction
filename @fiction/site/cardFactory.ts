@@ -63,6 +63,7 @@ type CreateCardArgs<
 type CardFactorySettings<U extends readonly CardTemplate[]> = {
   templates: U
   site?: Site
+  caller: string
 }
 
 type TemplateSurface<T extends CardTemplate> = T extends CardTemplate<infer S> ? S : never
@@ -78,11 +79,13 @@ type CardMakeArgs<T extends CardTemplate> = {
 
 export class CardFactory<U extends readonly CardTemplate<any>[] = readonly CardTemplate<any>[]> extends FictionObject<CardFactorySettings<U>> {
   templates: U
+  caller: string
 
   constructor(settings: CardFactorySettings<U>) {
     super('CardFactory', settings)
 
     this.templates = this.settings.templates
+    this.caller = this.settings.caller || 'CardFactory(Unknown)'
   }
 
   async getStockMedia() {
@@ -103,15 +106,20 @@ export class CardFactory<U extends readonly CardTemplate<any>[] = readonly CardT
 
     // Ensure that 'templates' contains 'templateId'
     if (!template) {
-      log.error(
-        'CardFactory',
-        `Template with key "${templateId}" not found in provided templates.`,
+      this.log.error(
+        `Template with key "${templateId}" not found in provided templates (${this.caller})`,
         { data: { templateId, templates: this.templates } },
       )
       return { templateId: 'hero', userConfig: { heading: `Template not found (${templateId})` } }
     }
 
-    const createdCard = await template.toCard({ ...args, inlineTemplate, site: this.settings.site, userConfig, baseConfig })
+    const createdCard = await template.toCard({
+      ...args,
+      inlineTemplate,
+      site: this.settings.site,
+      userConfig,
+      baseConfig,
+    }, { factory: this })
 
     return createdCard.toConfig() as TableCardConfig
   }
