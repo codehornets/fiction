@@ -110,6 +110,7 @@ export const theme = new Theme({
     const { factory, site } = args
     const pg = await getPages({ factory })
     const service = site.fictionSites.fictionEnv.getService<{ fictionAdmin: FictionAdmin }>()
+
     const adminPages = await service.fictionAdmin.getAdminPages({ factory })
     const pages = [...pg, ...adminPages]
     return {

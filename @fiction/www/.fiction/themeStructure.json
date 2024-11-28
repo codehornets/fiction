@@ -1,0 +1,1400 @@
+{
+  "version": "1.0",
+  "generatedAt": "2024-11-28T00:28:13.500Z",
+  "theme": [
+    {
+      "themeId": "minimal",
+      "title": "Minimal",
+      "description": "A refined, distraction-free theme that puts your work center stage. Perfect for creatives, photographers, and professionals who want their content to make the strongest impact. Features thoughtfully crafted typography, intentional white space, and smooth transitions that guide visitors through your story.",
+      "subTitle": "Elegant simplicity that lets your content shine",
+      "category": [
+        "portfolio",
+        "personal"
+      ],
+      "icon": "i-tabler-layout-grid",
+      "colorTheme": "blue",
+      "isPublic": true,
+      "config": {
+        "userConfig": {
+          "styling": {
+            "fonts": {
+              "mono": {
+                "fontKey": "DM Mono",
+                "stack": "monospace"
+              },
+              "input": {
+                "fontKey": "DM Mono",
+                "stack": "sans"
+              },
+              "title": {
+                "fontKey": "Space Mono",
+                "stack": "sans",
+                "weight": "600"
+              },
+              "sans": {
+                "fontKey": "Plus+Jakarta+Sans",
+                "stack": "sans"
+              },
+              "body": {
+                "stack": "sans"
+              },
+              "serif": {
+                "stack": "serif"
+              },
+              "highlight": {
+                "fontKey": "Caveat",
+                "stack": "sans"
+              }
+            },
+            "prefersColorScheme": "dark"
+          }
+        },
+        "pages": [
+          {
+            "cardId": "crd6747b91d69feaea03dab1a24",
+            "templateId": "wrap",
+            "slug": "_home",
+            "cards": [
+              {
+                "parentId": "crd6747b91d69feaea03dab1a24",
+                "cardId": "crd6747b91df96b1f0f8d9d1790",
+                "templateId": "profile",
+                "userConfig": {
+                  "superTitle": {
+                    "text": "Your Professional Role"
+                  },
+                  "title": "Crafting Your Perfect Professional Story",
+                  "content": "<p>Notice how a well-structured bio can capture attention instantly? Start with your most compelling achievements or unique value proposition. Keep it concise yet impactful.</p>\n<p>Imagine connecting with your audience through carefully chosen words that reflect your authentic voice while maintaining professional credibility. Remember to highlight your expertise and what makes you uniquely qualified.</p>",
+                  "theme": "blue",
+                  "mediaItems": [
+                    {
+                      "media": {
+                        "format": "image",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441014/arpowers_minimal_stock_background_for_profile_photo_professiona_43973f4e-64f7-4db6-9dce-8debb2752090_vywbzt.png",
+                        "tags": [
+                          "annotated",
+                          "aspect:portrait",
+                          "color:warm",
+                          "person",
+                          "silhouette",
+                          "woman",
+                          "image"
+                        ],
+                        "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_43973f4e-64f7-4db6-9dce-8debb2752090_vywbzt"
+                      }
+                    },
+                    {
+                      "media": {
+                        "format": "image",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556306/arpowers_minimal_midshot_photo_of_object_1990s_style_futuristic_14001eab-faa2-4c3d-a043-321b080b73cd_juorma.png",
+                        "tags": [
+                          "annotated",
+                          "aspect:portrait",
+                          "aspect:square",
+                          "color:warm",
+                          "object",
+                          "image"
+                        ],
+                        "slug": "arpowers_minimal_midshot_photo_of_object_1990s_style_futuristic_14001eab-faa2-4c3d-a043-321b080b73cd_juorma"
+                      }
+                    }
+                  ],
+                  "detailsTitle": "Let's Connect",
+                  "details": [
+                    {
+                      "label": "Location",
+                      "value": "Your City, Country",
+                      "icon": {
+                        "iconId": "map"
+                      }
+                    },
+                    {
+                      "label": "Email",
+                      "value": "hello@yourdomain.com",
+                      "href": "mailto:hello@example.com",
+                      "icon": {
+                        "iconId": "mail"
+                      }
+                    },
+                    {
+                      "label": "Availability",
+                      "value": "Open to Opportunities",
+                      "icon": {
+                        "iconId": "calendar"
+                      }
+                    },
+                    {
+                      "label": "Phone",
+                      "value": "(555) 123-4567",
+                      "href": "tel:+15551234567",
+                      "icon": {
+                        "iconId": "phone"
+                      }
+                    }
+                  ],
+                  "socials": [
+                    {
+                      "label": "Connect on LinkedIn",
+                      "href": "#",
+                      "icon": {
+                        "iconId": "linkedin"
+                      }
+                    },
+                    {
+                      "label": "Follow on X",
+                      "href": "#",
+                      "icon": {
+                        "iconId": "x"
+                      }
+                    },
+                    {
+                      "label": "View Portfolio",
+                      "href": "#",
+                      "icon": {
+                        "iconId": "external-link"
+                      }
+                    }
+                  ]
+                },
+                "effects": [],
+                "regionId": "main",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "depth": 1
+              },
+              {
+                "parentId": "crd6747b91d69feaea03dab1a24",
+                "cardId": "crd6747b91d0fd7faf2004746fd",
+                "templateId": "bento",
+                "userConfig": {
+                  "items": [
+                    {
+                      "cols": 4,
+                      "rows": 2,
+                      "title": "Feature Title Here",
+                      "superTitle": {
+                        "text": "Badge Text"
+                      },
+                      "content": "Add a brief description of your feature. Keep it concise and compelling - about 1-2 lines.",
+                      "action": {
+                        "buttons": [
+                          {
+                            "name": "Learn More",
+                            "href": "#"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "cols": 4,
+                      "rows": 2,
+                      "title": "Second Feature",
+                      "content": "Add a brief description of your feature. Keep it concise and compelling - about 1-2 lines.",
+                      "action": {
+                        "buttons": [
+                          {
+                            "name": "Learn More",
+                            "href": "#"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "cols": 4,
+                      "rows": 2,
+                      "title": "Third Feature",
+                      "content": "Add a brief description of your feature. Keep it concise and compelling - about 1-2 lines.",
+                      "action": {
+                        "buttons": [
+                          {
+                            "name": "Learn More",
+                            "href": "#"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "cols": 12,
+                      "rows": 2,
+                      "title": "Card With Media",
+                      "content": "Add media or background images to create visual interest.",
+                      "bg": {
+                        "format": "video",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/video/upload/f_auto,q_auto/v1724636730/replicate-prediction-3wpk2r7bysrj40chhgkvt8zcr0_vxo6ss.mp4",
+                        "tags": [
+                          "aspect:landscape",
+                          "background",
+                          "video"
+                        ],
+                        "slug": "replicate-prediction-3wpk2r7bysrj40chhgkvt8zcr0_vxo6ss",
+                        "overlay": {
+                          "opacity": 0.4
+                        }
+                      },
+                      "verticalPosition": "center",
+                      "horizontalPosition": "center",
+                      "action": {
+                        "buttons": [
+                          {
+                            "name": "Learn More",
+                            "href": "#"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "effects": [],
+                "regionId": "main",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "depth": 1
+              },
+              {
+                "parentId": "crd6747b91d69feaea03dab1a24",
+                "cardId": "crd6747b91d5c75ca4832477521",
+                "templateId": "quotes",
+                "userConfig": {
+                  "display": {
+                    "style": "grid",
+                    "columns": 2,
+                    "showDividers": true,
+                    "highlightActive": true
+                  },
+                  "quotes": [
+                    {
+                      "text": "Notice how a well-crafted testimonial can instantly build trust?",
+                      "layout": "featured",
+                      "theme": "emerald",
+                      "author": {
+                        "name": "Sarah Chen",
+                        "title": "Marketing Director",
+                        "image": {
+                          "format": "image",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441017/arpowers_minimal_stock_background_for_profile_photo_professiona_2ae2a119-2213-4f21-9941-66c64bc38841_msz7zx.png",
+                          "tags": [
+                            "annotated",
+                            "aspect:portrait",
+                            "aspect:square",
+                            "color:warm",
+                            "person",
+                            "silhouette",
+                            "woman",
+                            "image"
+                          ],
+                          "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_2ae2a119-2213-4f21-9941-66c64bc38841_msz7zx"
+                        }
+                      },
+                      "org": {
+                        "name": "GrowthMetrics",
+                        "image": {
+                          "format": "html",
+                          "html": "lorem1.svg",
+                          "tags": [
+                            "lorem",
+                            "image"
+                          ]
+                        }
+                      },
+                      "actions": [
+                        {
+                          "label": "View Case Study",
+                          "href": "#"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "effects": [],
+                "regionId": "main",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "depth": 1
+              }
+            ],
+            "userConfig": {
+              "standard": {
+                "spacing": {
+                  "verticalSpacing": "none"
+                },
+                "handling": {
+                  "showOnSingle": true
+                }
+              }
+            },
+            "effects": [],
+            "regionId": "main",
+            "isHome": false,
+            "is404": false
+          },
+          {
+            "cardId": "crd6747b91d7e761ddd445403a8",
+            "templateId": "wrap",
+            "slug": "blog",
+            "cards": [
+              {
+                "parentId": "crd6747b91d7e761ddd445403a8",
+                "cardId": "crd6747b91d024c1fab17a76e1d",
+                "templateId": "magazine",
+                "userConfig": {
+                  "standard": {
+                    "handling": {
+                      "showOnSingle": true
+                    },
+                    "headers": {
+                      "title": "Latest Articles",
+                      "subTitle": "Discover our latest insights and stories"
+                    }
+                  },
+                  "posts": {
+                    "format": "local",
+                    "limit": 12,
+                    "entries": [
+                      {
+                        "title": "The Hidden Story in Your Data",
+                        "subTitle": "Unlock the narrative power hiding in your numbers",
+                        "slug": "data-storytelling",
+                        "authors": [
+                          {
+                            "fullName": "Marcus Lee",
+                            "title": "Data Journalist",
+                            "email": "marcus@example.com",
+                            "avatar": {
+                              "format": "image",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556328/arpowers_incredibly_beautiful_profile_photo_of_woman_business_49449508-c18f-4070-9ffc-15539e9e8def_1_qw77rl.png",
+                              "tags": [
+                                "annotated",
+                                "aspect:square",
+                                "color:warm",
+                                "person",
+                                "realistic",
+                                "image"
+                              ],
+                              "slug": "arpowers_incredibly_beautiful_profile_photo_of_woman_business_49449508-c18f-4070-9ffc-15539e9e8def_1_qw77rl"
+                            }
+                          }
+                        ],
+                        "content": "\n        <article>\n          <p><em>Close your eyes and imagine</em> your data coming to life, each number transforming into a compelling story that captivates your readers. What if your charts could speak directly to your audience's deepest concerns?</p>\n\n          <h2>When Numbers Tell Tales</h2>\n          <p>Think about the last time a statistic genuinely moved you. What made it memorable? Was it the number itself, or the story it told? Let's discover how to create these moments for your readers.</p>\n\n          <div >\n            <h2>Your Data Storytelling Journey</h2>\n            <ol style=\"margin: 20px 0;\">\n              <li>\n                <h3>Find the Heart of Your Data</h3>\n                <p>Notice how raw numbers feel cold until you connect them to human experience? Start by asking: \"Why would my reader care about this?\"</p>\n              </li>\n              <li>\n                <h3>Build the Bridge</h3>\n                <p>What if you could connect your data directly to your readers' lives? Look for the personal impact in every statistic.</p>\n              </li>\n              <li>\n                <h3>Create the Aha Moment</h3>\n                <p>Remember the last time you had a sudden insight? That's what we want to create for your readers.</p>\n              </li>\n            </ol>\n          </div>\n\n          <aside >\n            <h3>Visualization Secrets Revealed</h3>\n            <ul style=\"margin: 16px 0;\">\n              <li>\n                <strong>Choose Your Story Type:</strong>\n                <p>See how different charts evoke different emotional responses? Match your visualization to your narrative.</p>\n              </li>\n              <li>\n                <strong>Simplify for Impact:</strong>\n                <p>Ever notice how the clearest charts often have the strongest impact?</p>\n              </li>\n              <li>\n                <strong>Guide the Eye:</strong>\n                <p>What catches your attention first in a visualization? Use this natural tendency to lead your readers through the data.</p>\n              </li>\n            </ul>\n          </aside>\n\n          <blockquote>\n            \"The goal isn't to tell your readers about data—it's to show them what matters. Imagine the moment they finally see what you see.\"\n            <footer style=\"margin-top: 8px;\">\n              <cite>— Marcus Lee</cite>\n            </footer>\n          </blockquote>\n\n          <p>Ready to transform your data from forgettable figures into unforgettable stories? Let's begin your journey into data storytelling mastery.</p>\n        </article>\n      ",
+                        "excerpt": "Transform dry statistics into compelling narratives that your readers can't resist. Discover the storyteller hiding in your spreadsheets.",
+                        "categories": [
+                          "Analytics"
+                        ],
+                        "tags": [
+                          "data",
+                          "storytelling",
+                          "visualization"
+                        ],
+                        "media": {
+                          "format": "image",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556125/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_36012f77-cda6-4bae-9ae1-5c6bcaf6be56_uj42se.png",
+                          "tags": [
+                            "annotated",
+                            "color:warm",
+                            "image",
+                            "man",
+                            "object",
+                            "aspect:wide"
+                          ],
+                          "slug": "arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_36012f77-cda6-4bae-9ae1-5c6bcaf6be56_uj42se"
+                        },
+                        "dateAt": "2024-03-18T00:00:00.000Z"
+                      },
+                      {
+                        "title": "Why Your SEO Isn't Working (And How to Fix It)",
+                        "subTitle": "Discover the human side of search engine optimization",
+                        "slug": "seo-content-guide",
+                        "authors": [
+                          {
+                            "fullName": "Priya Sharma",
+                            "title": "SEO Strategist",
+                            "email": "priya@example.com",
+                            "avatar": {
+                              "format": "image",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441024/arpowers_interesting_profile_photo_business_attire_creative_pos_f48aa512-1c55-4d48-b536-1c10de1078d8_txkt1l.png",
+                              "tags": [
+                                "annotated",
+                                "aspect:square",
+                                "color:warm",
+                                "person",
+                                "woman",
+                                "image"
+                              ],
+                              "slug": "arpowers_interesting_profile_photo_business_attire_creative_pos_f48aa512-1c55-4d48-b536-1c10de1078d8_txkt1l"
+                            }
+                          }
+                        ],
+                        "content": "\n        <article>\n          <p><em>Remember the last time</em> you searched for something important? That feeling of finding exactly what you needed? That's not luck—it's strategic SEO at work. Let's make your content the answer people are searching for.</p>\n\n          <section>\n            <h2>The Truth About Modern SEO</h2>\n            <p>Forget everything you think you know about SEO. Imagine if ranking well was less about technical tricks and more about genuinely understanding your readers. Let's explore how this shift changes everything.</p>\n\n            <div >\n              <div>\n                <h3>What Search Engines See</h3>\n                <ul style=\"margin: 16px 0;\">\n                  <li>\n                    <strong>Clear Structure</strong>\n                    <p>Notice how well-organized content ranks better? It's not coincidence.</p>\n                  </li>\n                  <li>\n                    <strong>Natural Language</strong>\n                    <p>What if your keywords flowed as naturally as a conversation?</p>\n                  </li>\n                  <li>\n                    <strong>Valuable Links</strong>\n                    <p>Think of links as virtual handshakes—they build trust.</p>\n                  </li>\n                </ul>\n              </div>\n\n              <div>\n                <h3>What Readers Experience</h3>\n                <ul style=\"margin: 16px 0;\">\n                  <li>\n                    <strong>Instant Relevance</strong>\n                    <p>Feel that moment when content perfectly matches your need?</p>\n                  </li>\n                  <li>\n                    <strong>Easy Navigation</strong>\n                    <p>Imagine finding everything you need without trying.</p>\n                  </li>\n                  <li>\n                    <strong>Complete Answers</strong>\n                    <p>What if every search led to a satisfying conclusion?</p>\n                  </li>\n                </ul>\n              </div>\n            </div>\n          </section>\n\n          <aside >\n            <h3>Your SEO Transformation Checklist</h3>\n            <p>Watch how your content changes when you focus on these elements:</p>\n            <ol style=\"margin: 16px 0;\">\n              <li>Is your content answering real questions?</li>\n              <li>Could a friend understand your headlines?</li>\n              <li>Does your page structure feel natural?</li>\n              <li>Are you using terms your audience uses?</li>\n            </ol>\n          </aside>\n\n          <div>\n            <h3 style=\"color: #166534;\">The Secret Most SEO Experts Won't Tell You</h3>\n            <p>The best SEO strategy is creating content so good, so useful, that people can't help but share it. Imagine your content becoming the go-to resource in your field.</p>\n          </div>\n\n          <p>Ready to see your content climb the rankings while genuinely helping your readers? Let's make your SEO work for both search engines and humans.</p>\n        </article>\n      ",
+                        "excerpt": "Stop fighting algorithms and start connecting with readers. Discover how human-centered SEO transforms your search rankings.",
+                        "categories": [
+                          "SEO"
+                        ],
+                        "tags": [
+                          "optimization",
+                          "search",
+                          "content strategy"
+                        ],
+                        "media": {
+                          "format": "image",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556063/arpowers_minimal_mid_shot_photo_of_item_ancient_greek_ideal_bea_e307b13e-b4f1-4aea-94e2-840ac89186fd_fo5hbs.png",
+                          "tags": [
+                            "annotated",
+                            "aspect:landscape",
+                            "aspect:square",
+                            "color:warm",
+                            "object",
+                            "image"
+                          ],
+                          "slug": "arpowers_minimal_mid_shot_photo_of_item_ancient_greek_ideal_bea_e307b13e-b4f1-4aea-94e2-840ac89186fd_fo5hbs"
+                        },
+                        "dateAt": "2024-03-17T00:00:00.000Z"
+                      },
+                      {
+                        "title": "The Art of Compelling Headlines",
+                        "subTitle": "Transform your ordinary titles into attention-grabbing headlines",
+                        "slug": "headline-writing-guide",
+                        "authors": [
+                          {
+                            "fullName": "Sarah Chen",
+                            "title": "Content Strategy Lead",
+                            "email": "sarah@example.com",
+                            "avatar": {
+                              "format": "image",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724440976/arpowers_minimal_stock_background_for_profile_photo_professiona_63facb31-584d-410e-9b14-62ab9d55f79b_zepla8.png",
+                              "tags": [
+                                "annotated",
+                                "aspect:portrait",
+                                "color:warm",
+                                "headshot",
+                                "person",
+                                "silhouette",
+                                "woman",
+                                "image"
+                              ],
+                              "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_63facb31-584d-410e-9b14-62ab9d55f79b_zepla8"
+                            }
+                          }
+                        ],
+                        "content": "\n        <article>\n          <p><em>Picture this:</em> Your brilliant article sits unread while others get all the attention. The difference? Often it's just the headline. Let's transform your headlines from forgotten to unforgettable.</p>\n\n          <h2>The 4 U's That Make Headlines Irresistible</h2>\n\n          <p>Notice how great headlines seem to pull you in effortlessly? Here's the framework behind that magic:</p>\n\n          <ul style=\"margin: 24px 0;\">\n            <li>\n              <h3>Useful</h3>\n              <p>Imagine your reader asking \"What's in it for me?\" Your headline should answer that instantly.</p>\n            </li>\n            <li>\n              <h3>Urgent</h3>\n              <p>Feel that slight anxiety when you might miss out on something important? That's urgency at work.</p>\n            </li>\n            <li>\n              <h3>Unique</h3>\n              <p>What would it feel like if your headline stood out from thousands of others? That's the power of uniqueness.</p>\n            </li>\n            <li>\n              <h3>Ultra-specific</h3>\n              <p>See how detailed headlines build instant credibility? They promise—and deliver—clear value.</p>\n            </li>\n          </ul>\n\n          <h2>Transform Your Headlines Today</h2>\n\n          <aside >\n            <p><strong>Try this exercise:</strong> Take your last three blog titles and rewrite each one using the 4 U's. Watch how they transform from basic statements into compelling invitations.</p>\n          </aside>\n\n          <p>Have you ever noticed how some blogs seem to consistently capture attention while others struggle? The secret often lies in their headlines. Let's unlock that secret together.</p>\n\n          <blockquote>\n            \"The headlines which work best are those that promise a story the audience already cares about. Now imagine how powerful your writing becomes when you master this art.\"\n            <footer>\n              <cite>— John Caples, Advertising Legend</cite>\n            </footer>\n          </blockquote>\n\n          <p>Ready to see your engagement numbers transform? Your next great headline is waiting to be written. Let's create it together.</p>\n        </article>\n      ",
+                        "excerpt": "Discover the secrets of headlines that don't just attract clicks—they compel action. Transform your titles from skippable to unforgettable.",
+                        "categories": [
+                          "Writing"
+                        ],
+                        "tags": [
+                          "headlines",
+                          "copywriting",
+                          "engagement"
+                        ],
+                        "media": {
+                          "format": "image",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556419/arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_b5557989-a67c-4dad-85a8-c21f2c0dedae_vbwpdu.png",
+                          "tags": [
+                            "annotated",
+                            "aspect:wide",
+                            "color:warm",
+                            "object"
+                          ],
+                          "slug": "arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_b5557989-a67c-4dad-85a8-c21f2c0dedae_vbwpdu"
+                        },
+                        "dateAt": "2024-03-20T00:00:00.000Z"
+                      },
+                      {
+                        "title": "Visual Hierarchy in Blog Design",
+                        "subTitle": "Master the invisible force that guides your readers' journey",
+                        "slug": "visual-hierarchy-guide",
+                        "authors": [
+                          {
+                            "fullName": "Alex Rivera",
+                            "title": "UX Design Director",
+                            "email": "alex@example.com",
+                            "avatar": {
+                              "format": "image",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724442515/arpowers_minimal_stock_background_for_profile_photo_professiona_a7960150-7d50-4a78-a4d6-8b2e2b87eb39_da7u7u.png",
+                              "tags": [
+                                "annotated",
+                                "aspect:landscape",
+                                "aspect:square",
+                                "color:warm",
+                                "nature",
+                                "people",
+                                "person",
+                                "silhouette",
+                                "woman",
+                                "image"
+                              ],
+                              "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_a7960150-7d50-4a78-a4d6-8b2e2b87eb39_da7u7u"
+                            }
+                          }
+                        ],
+                        "content": "\n        <article>\n          <p><em>Imagine</em> your readers flowing effortlessly through your content, intuitively knowing where to look next. That's not magic—it's visual hierarchy at work. Let's explore how to create this seamless experience for your readers.</p>\n\n          <h2>The Secret Language of Visual Design</h2>\n\n          <p>Have you ever wondered why some blog posts feel professional while others seem amateur? The difference often lies in the subtle art of visual hierarchy. Let's decode this visual language together.</p>\n\n          <div>\n            <section>\n              <h3>Size & Scale</h3>\n              <p>Watch how your eye naturally moves to larger elements first. Notice how this natural behavior creates a visual journey through your content. What if you could harness this power to guide your readers exactly where you want them to go?</p>\n            </section>\n\n            <section>\n              <h3>Color & Contrast</h3>\n              <p>Feel the pull of contrasting elements, the way they catch your attention and direct your focus. Imagine using this powerful tool to highlight your most important messages.</p>\n            </section>\n          </div>\n\n          <aside>\n            <h3 style=\"color: #1e40af; margin-top: 0;\">Designer's Secret Weapon</h3>\n            <p>Picture your perfect reader skimming your content. Where do their eyes go first? Second? By understanding this journey, you can craft a visual experience that feels both natural and engaging.</p>\n          </aside>\n\n          <h2>Transform Your Blog's Visual Appeal</h2>\n\n          <ol >\n            <li>\n              <h4>Establish Clear Hierarchy</h4>\n              <p>See how different heading sizes create natural breakpoints in your content?</p>\n            </li>\n            <li>\n              <h4>Use White Space Strategically</h4>\n              <p>Notice how breathing room around elements makes them feel more important?</p>\n            </li>\n            <li>\n              <h4>Create Visual Patterns</h4>\n              <p>What if your design elements worked together to create a cohesive reading experience?</p>\n            </li>\n          </ol>\n\n          <div >\n            <h3 >Pro Tip That Changes Everything</h3>\n            <p>Always test your design with real content. Notice how beautiful typography with poor content hierarchy still fails to engage readers? That's why we always start with content strategy.</p>\n          </div>\n\n          <p>Ready to transform your blog's visual impact? Let's take your first step toward a more engaging design today.</p>\n        </article>\n      ",
+                        "excerpt": "Master the invisible forces that guide your readers through your content. Transform your blog from chaotic to captivating through strategic visual design.",
+                        "categories": [
+                          "Design"
+                        ],
+                        "tags": [
+                          "visual design",
+                          "typography",
+                          "layout"
+                        ],
+                        "media": {
+                          "format": "image",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556115/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_f5334b4a-7d58-4b67-9a10-5e5677736e72_p9knuw.png",
+                          "tags": [
+                            "annotated",
+                            "color:warm",
+                            "image",
+                            "object",
+                            "aspect:wide"
+                          ],
+                          "slug": "arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_f5334b4a-7d58-4b67-9a10-5e5677736e72_p9knuw"
+                        },
+                        "dateAt": "2024-03-19T00:00:00.000Z"
+                      },
+                      {
+                        "title": "Write Like a Master Storyteller",
+                        "subTitle": "Weave psychological triggers into your narratives",
+                        "slug": "storytelling-psychology",
+                        "authors": [
+                          {
+                            "fullName": "Maya Patel",
+                            "title": "Narrative Psychologist",
+                            "email": "maya@example.com",
+                            "avatar": {
+                              "format": "image",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724443230/arpowers_minimal_midshot_photo_stylistic_attire_1990s_style_Sil_02b568a7-9788-46ea-8f95-93fe956cfa8d_xyoufp.png",
+                              "tags": [
+                                "annotated",
+                                "aspect:landscape",
+                                "aspect:square",
+                                "color:warm",
+                                "midshot",
+                                "modern",
+                                "person",
+                                "woman",
+                                "image"
+                              ],
+                              "slug": "arpowers_minimal_midshot_photo_stylistic_attire_1990s_style_Sil_02b568a7-9788-46ea-8f95-93fe956cfa8d_xyoufp"
+                            }
+                          }
+                        ],
+                        "content": "\n        <article>\n          <p><em>What if</em> every piece you wrote could hold readers spellbound until the very last word? The ancient art of storytelling isn't just for novelists—it's a powerful tool for anyone sharing ideas.</p>\n\n          <h2>The Hidden Structure of Captivating Writing</h2>\n          <p>Notice how certain passages seem to pull you through them effortlessly? This isn't accident—it's psychology at work.</p>\n\n          <h3>The Three Pillars of Magnetic Writing</h3>\n          <ol>\n            <li>\n              <h4>Tension and Release</h4>\n              <p>Feel how your mind leans forward when a question is posed? Watch how master writers create tiny mysteries throughout their work, leading you paragraph by paragraph.</p>\n            </li>\n            <li>\n              <h4>Sensory Bridges</h4>\n              <p>Remember the last time a piece of writing made you feel like you were actually there? That's the power of engaging multiple senses in your descriptions.</p>\n            </li>\n            <li>\n              <h4>Emotional Resonance</h4>\n              <p>Have you noticed how the most memorable writing makes you feel something? Let's explore how to weave emotion into every paragraph.</p>\n            </li>\n          </ol>\n\n          <h3>Transform Your Next Piece</h3>\n          <p>Imagine starting your next article not with facts, but with a scene that pulls readers into your world:</p>\n\n          <blockquote>\n            <p>\"The cursor blinked accusingly on the empty screen. You know that feeling—when you have something important to say, but the words seem just out of reach...\"</p>\n          </blockquote>\n\n          <h3>The Psychology Behind the Magic</h3>\n          <ul>\n            <li>Pattern interrupts that wake up the reader's mind</li>\n            <li>Strategic curiosity gaps that pull readers forward</li>\n            <li>Memory hooks that make your ideas stick</li>\n            <li>Narrative arcs that satisfy the brain's need for completion</li>\n          </ul>\n\n          <p>What powerful story are you ready to tell? Let's make your next piece of writing unforgettable.</p>\n        </article>\n      ",
+                        "excerpt": "Master the psychological principles that make readers hang on your every word. Transform your writing from merely informative to utterly captivating.",
+                        "categories": [
+                          "Writing"
+                        ],
+                        "tags": [
+                          "psychology",
+                          "storytelling",
+                          "writing"
+                        ],
+                        "media": {
+                          "format": "image",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556409/arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_987cdbab-8c09-4024-8c47-a07f7e02525b_xnvddt.png",
+                          "tags": [
+                            "annotated",
+                            "aspect:square",
+                            "color:cool",
+                            "object"
+                          ],
+                          "slug": "arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_987cdbab-8c09-4024-8c47-a07f7e02525b_xnvddt"
+                        },
+                        "dateAt": "2024-03-14T00:00:00.000Z"
+                      },
+                      {
+                        "title": "The Science of Memorable Ideas",
+                        "subTitle": "Why some concepts spread while others fade",
+                        "slug": "idea-memorability",
+                        "authors": [
+                          {
+                            "fullName": "David Zhang",
+                            "title": "Cognitive Science Researcher",
+                            "email": "david@example.com",
+                            "avatar": {
+                              "format": "image",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724440972/arpowers_minimal_stock_background_for_profile_photo_professiona_8c9d8ca7-baed-4c38-a0c5-7280b9fd1aab_sv1wnv.png",
+                              "tags": [
+                                "annotated",
+                                "aspect:portrait",
+                                "color:neutral",
+                                "man",
+                                "person",
+                                "image"
+                              ],
+                              "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_8c9d8ca7-baed-4c38-a0c5-7280b9fd1aab_sv1wnv"
+                            }
+                          }
+                        ],
+                        "content": "\n        <article>\n          <p><em>Consider</em> the last idea that stayed with you for days. What made it stick? The science of memorable ideas isn't about being clever—it's about understanding how the human mind processes and retains information.</p>\n\n          <h2>The Architecture of Memorable Ideas</h2>\n          <p>Watch how your mind naturally gravitates toward certain concepts while others slip away. Let's decode this fascinating process.</p>\n\n          <h3>Core Elements of Sticky Ideas</h3>\n          <ul>\n            <li>\n              <h4>The Concrete Principle</h4>\n              <p>Notice how abstract concepts become clearer when anchored to tangible examples? That's your brain's preference for the concrete over the abstract.</p>\n            </li>\n            <li>\n              <h4>The Pattern Effect</h4>\n              <p>What happens when you recognize a familiar pattern in a new context? Your brain suddenly lights up with understanding.</p>\n            </li>\n            <li>\n              <h4>The Emotion Gateway</h4>\n              <p>Remember how ideas connected to strong emotions seem to write themselves directly into your memory?</p>\n            </li>\n          </ul>\n\n          <h3>Making Your Ideas Unforgettable</h3>\n          <ol>\n            <li>\n              <h4>The Velcro Method</h4>\n              <p>Imagine your idea as a hook looking for loops in your reader's mind. What existing knowledge can you connect to?</p>\n            </li>\n            <li>\n              <h4>The Curiosity Bridge</h4>\n              <p>Feel that slight tension when a story is left unfinished? That's your brain's natural desire for completion—use it.</p>\n            </li>\n            <li>\n              <h4>The Echo Chamber</h4>\n              <p>What if your idea could replay itself in your reader's mind, getting stronger with each iteration?</p>\n            </li>\n          </ol>\n\n          <blockquote>\n            <p>\"The most memorable ideas aren't just understood—they're felt, seen, and experienced.\"</p>\n            <footer>\n              <cite>— Dr. Eleanor Hughes, Memory Researcher</cite>\n            </footer>\n          </blockquote>\n\n          <h3>Transform Your Next Idea</h3>\n          <p>Before you share your next big concept, ask yourself:</p>\n          <ul>\n            <li>Could a child understand this?</li>\n            <li>Does it connect to something people already know?</li>\n            <li>Will it make them feel something?</li>\n            <li>Can they see it in action?</li>\n          </ul>\n\n          <p>Ready to make your ideas impossible to forget? Let's build something memorable together.</p>\n        </article>\n      ",
+                        "excerpt": "Discover why some ideas stick while others slip away. Learn the cognitive science behind creating concepts that lodge themselves in memory.",
+                        "categories": [
+                          "Psychology"
+                        ],
+                        "tags": [
+                          "cognition",
+                          "memory",
+                          "communication"
+                        ],
+                        "media": {
+                          "format": "image",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556382/arpowers_minimal_close_photo_of_object_ancient_greek_ideal_beau_6782b71e-739f-4d30-abaf-cee8f4e4163e_wigvas.png",
+                          "tags": [
+                            "annotated",
+                            "aspect:square",
+                            "color:warm",
+                            "object",
+                            "image"
+                          ],
+                          "slug": "arpowers_minimal_close_photo_of_object_ancient_greek_ideal_beau_6782b71e-739f-4d30-abaf-cee8f4e4163e_wigvas"
+                        },
+                        "dateAt": "2024-03-13T00:00:00.000Z"
+                      },
+                      {
+                        "title": "Email Marketing Psychology",
+                        "subTitle": "The neuroscience of inbox engagement",
+                        "slug": "email-psychology",
+                        "authors": [
+                          {
+                            "fullName": "Emma Rodriguez",
+                            "title": "Email Marketing Strategist",
+                            "email": "emma@example.com",
+                            "avatar": {
+                              "format": "image",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724440969/arpowers_minimal_stock_background_for_profile_photo_professiona_e06445db-2279-4cd6-bc11-31c91ebe4535_lxcwmx.png",
+                              "tags": [
+                                "annotated",
+                                "aspect:landscape",
+                                "aspect:square",
+                                "color:warm",
+                                "person",
+                                "silhouette",
+                                "woman",
+                                "image"
+                              ],
+                              "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_e06445db-2279-4cd6-bc11-31c91ebe4535_lxcwmx"
+                            }
+                          }
+                        ],
+                        "content": "[Previous post content structure but focused on email marketing psychology]",
+                        "excerpt": "Unlock the psychological triggers that make emails irresistible to open and act upon. Transform your campaigns from inbox noise to anticipated value.",
+                        "categories": [
+                          "Marketing"
+                        ],
+                        "tags": [
+                          "email",
+                          "psychology",
+                          "conversion"
+                        ],
+                        "media": {
+                          "format": "image",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1726725066/arpowers_Minimalist_futuristic_interpretation_of_an_ancient_Gre_e3f548f9-8daa-4a3f-9e8f-16e6ef735eb2_c3cuko.png",
+                          "tags": [
+                            "aspect:square",
+                            "color:warm",
+                            "image",
+                            "object",
+                            "annotated"
+                          ],
+                          "slug": "arpowers_Minimalist_futuristic_interpretation_of_an_ancient_Gre_e3f548f9-8daa-4a3f-9e8f-16e6ef735eb2_c3cuko"
+                        },
+                        "dateAt": "2024-03-12T00:00:00.000Z"
+                      },
+                      {
+                        "title": "Color Theory for Conversions",
+                        "subTitle": "Using color psychology to drive action",
+                        "slug": "color-psychology",
+                        "authors": [
+                          {
+                            "fullName": "James Wilson",
+                            "title": "Conversion Design Expert",
+                            "email": "james@example.com",
+                            "avatar": {
+                              "format": "image",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724443255/arpowers_minimal_midshot_photo_stylistic_attire_1990s_style_fut_1633893b-f298-4d6a-b1eb-f02c8069fe64_za5ifd.png",
+                              "tags": [
+                                "annotated",
+                                "aspect:landscape",
+                                "color:warm",
+                                "man",
+                                "person",
+                                "wideshot",
+                                "woman",
+                                "image"
+                              ],
+                              "slug": "arpowers_minimal_midshot_photo_stylistic_attire_1990s_style_fut_1633893b-f298-4d6a-b1eb-f02c8069fe64_za5ifd"
+                            }
+                          }
+                        ],
+                        "content": "[Previous post content structure but focused on color psychology]",
+                        "excerpt": "Master the subtle art of color psychology to create designs that don't just look good—they convert. Learn the science behind color-driven decision making.",
+                        "categories": [
+                          "Design"
+                        ],
+                        "tags": [
+                          "color",
+                          "psychology",
+                          "conversion"
+                        ],
+                        "media": {
+                          "format": "image",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1726725064/arpowers_Minimalist_futuristic_interpretation_of_a_athena_elega_43b7721b-2af4-4f8c-b431-02f571a8e80c_h4joml.png",
+                          "tags": [
+                            "aspect:landscape",
+                            "color:warm",
+                            "image",
+                            "object",
+                            "annotated"
+                          ],
+                          "slug": "arpowers_Minimalist_futuristic_interpretation_of_a_athena_elega_43b7721b-2af4-4f8c-b431-02f571a8e80c_h4joml"
+                        },
+                        "dateAt": "2024-03-11T00:00:00.000Z"
+                      },
+                      {
+                        "title": "The Art of Social Proof",
+                        "subTitle": "Build trust through strategic social evidence",
+                        "slug": "social-proof",
+                        "authors": [
+                          {
+                            "fullName": "Sophia Kim",
+                            "title": "Trust Marketing Specialist",
+                            "email": "sophia@example.com",
+                            "avatar": {
+                              "format": "image",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724443235/arpowers_minimal_midshot_photo_stylistic_attire_1990s_style_fut_151aeb1d-43c1-4253-9024-589479de3d89_cvvv2k.png",
+                              "tags": [
+                                "annotated",
+                                "aspect:landscape",
+                                "aspect:square",
+                                "color:cool",
+                                "midshot",
+                                "person",
+                                "woman",
+                                "image"
+                              ],
+                              "slug": "arpowers_minimal_midshot_photo_stylistic_attire_1990s_style_fut_151aeb1d-43c1-4253-9024-589479de3d89_cvvv2k"
+                            }
+                          }
+                        ],
+                        "content": "[Previous post content structure but focused on social proof]",
+                        "excerpt": "Discover how to leverage social proof to build instant credibility. Transform skeptical visitors into confident customers through strategic trust signals.",
+                        "categories": [
+                          "Marketing"
+                        ],
+                        "tags": [
+                          "trust",
+                          "conversion",
+                          "psychology"
+                        ],
+                        "media": {
+                          "format": "image",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556503/arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_47d32e8b-3593-4402-adec-8314db0bce48_hpig5h.png",
+                          "tags": [
+                            "annotated",
+                            "aspect:tall",
+                            "color:cool",
+                            "object",
+                            "image"
+                          ],
+                          "slug": "arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_47d32e8b-3593-4402-adec-8314db0bce48_hpig5h"
+                        },
+                        "dateAt": "2024-03-10T00:00:00.000Z"
+                      }
+                    ]
+                  },
+                  "layout": {
+                    "featuredCount": 3,
+                    "showAuthors": true,
+                    "showExcerpts": true,
+                    "showReadTime": true
+                  }
+                },
+                "effects": [],
+                "regionId": "main",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "depth": 1
+              }
+            ],
+            "userConfig": {
+              "standard": {
+                "spacing": {
+                  "verticalSpacing": "none"
+                },
+                "handling": {
+                  "showOnSingle": true
+                }
+              }
+            },
+            "effects": [],
+            "regionId": "main",
+            "isHome": false,
+            "is404": false
+          },
+          {
+            "cardId": "crd6747b91dfaecc178eda5aa25",
+            "templateId": "wrap",
+            "slug": "contact",
+            "cards": [
+              {
+                "parentId": "crd6747b91dfaecc178eda5aa25",
+                "cardId": "crd6747b91d7bfc649eec8612ab",
+                "templateId": "hero",
+                "userConfig": {
+                  "title": "Contact Us",
+                  "subTitle": "We'll get back to you as soon as possible.",
+                  "action": {
+                    "buttons": []
+                  },
+                  "superTitle": {
+                    "text": "Get in Touch",
+                    "icon": {
+                      "class": "i-tabler-phone"
+                    },
+                    "theme": "orange"
+                  }
+                },
+                "effects": [],
+                "regionId": "main",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "depth": 1
+              },
+              {
+                "parentId": "crd6747b91dfaecc178eda5aa25",
+                "cardId": "crd6747b91de13482b2115b8262",
+                "templateId": "contact",
+                "userConfig": {
+                  "layout": "right",
+                  "title": "Get in Touch",
+                  "subTitle": "Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.",
+                  "groups": [
+                    {
+                      "title": "Contact Methods",
+                      "items": [
+                        {
+                          "label": "Email",
+                          "value": "hello@example.com",
+                          "href": "mailto:hello@example.com",
+                          "icon": {
+                            "iconId": "mail"
+                          }
+                        },
+                        {
+                          "label": "Phone",
+                          "value": "+1 (555) 123-4567",
+                          "href": "tel:+15551234567",
+                          "icon": {
+                            "iconId": "phone"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Location",
+                      "items": [
+                        {
+                          "label": "Office",
+                          "value": "123 Business Ave, Suite 100, City, ST 12345",
+                          "href": "https://maps.google.com",
+                          "icon": {
+                            "iconId": "map"
+                          }
+                        },
+                        {
+                          "label": "Hours",
+                          "value": "Mon-Fri: 9AM-5PM EST",
+                          "icon": {
+                            "iconId": "clock"
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "socials": [
+                    {
+                      "label": "@company at LinkedIn",
+                      "href": "https://linkedin.com/company",
+                      "icon": {
+                        "iconId": "linkedin"
+                      }
+                    },
+                    {
+                      "label": "@company at X",
+                      "href": "https://x.com/company",
+                      "icon": {
+                        "iconId": "x"
+                      }
+                    }
+                  ],
+                  "form": {
+                    "notifyEmails": [
+                      {
+                        "email": "notifications@example.com"
+                      }
+                    ],
+                    "successMessage": "Thank you! We'll be in touch soon."
+                  }
+                },
+                "effects": [],
+                "regionId": "main",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "depth": 1
+              },
+              {
+                "parentId": "crd6747b91dfaecc178eda5aa25",
+                "cardId": "crd6747b91dafb44422f31308b1",
+                "templateId": "maps",
+                "userConfig": {
+                  "maps": [
+                    {
+                      "lat": 33.652199,
+                      "lng": -117.747719,
+                      "zoom": 13,
+                      "pitch": 0,
+                      "mapStyle": "mode",
+                      "markers": [
+                        {
+                          "lat": 33.652199,
+                          "lng": -117.747719,
+                          "label": "Headquarters"
+                        }
+                      ],
+                      "aspectRatio": "ultrawide"
+                    }
+                  ],
+                  "standard": {
+                    "headers": {
+                      "title": "Company Location",
+                      "subTitle": "Visit us at our headquarters"
+                    }
+                  }
+                },
+                "effects": [],
+                "regionId": "main",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "depth": 1
+              }
+            ],
+            "userConfig": {
+              "standard": {
+                "spacing": {
+                  "verticalSpacing": "none"
+                },
+                "handling": {
+                  "showOnSingle": true
+                }
+              }
+            },
+            "effects": [],
+            "regionId": "main",
+            "isHome": false,
+            "is404": false
+          }
+        ],
+        "sections": {
+          "header": {
+            "cardId": "crd6747b91d9ff2049d3a0d85ba",
+            "templateId": "area",
+            "regionId": "header",
+            "cards": [
+              {
+                "parentId": "crd6747b91d9ff2049d3a0d85ba",
+                "cardId": "crd6747b91df4e1be0cf4b33207",
+                "templateId": "nav",
+                "userConfig": {
+                  "standard": {
+                    "spacing": {
+                      "verticalSpacing": "xs"
+                    }
+                  },
+                  "brand": {
+                    "logo": {
+                      "typography": {
+                        "text": "Minimal",
+                        "scale": 1.2,
+                        "weight": "600",
+                        "font": "Space Mono"
+                      },
+                      "format": "typography"
+                    },
+                    "tagline": "Build Better Websites",
+                    "theme": "indigo"
+                  },
+                  "layout": "navCenter",
+                  "primaryNav": [
+                    {
+                      "label": "Home",
+                      "href": "/"
+                    },
+                    {
+                      "label": "Blog",
+                      "href": "/blog"
+                    }
+                  ],
+                  "utilityNav": [
+                    {
+                      "label": "Connect",
+                      "list": {
+                        "items": [
+                          {
+                            "label": "@fictionco",
+                            "href": "https://www.x.com/fictionco",
+                            "icon": {
+                              "class": "i-tabler-brand-x"
+                            }
+                          },
+                          {
+                            "label": "GitHub",
+                            "href": "https://www.github.com/fiction",
+                            "icon": {
+                              "class": "i-tabler-brand-github"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "label": "Contact",
+                      "href": "/contact",
+                      "variant": "button",
+                      "theme": "primary"
+                    }
+                  ]
+                },
+                "effects": [],
+                "regionId": "header",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "depth": 1
+              }
+            ],
+            "userConfig": {
+              "standard": {
+                "spacing": {
+                  "verticalSpacing": "none"
+                }
+              }
+            },
+            "effects": [],
+            "isHome": false,
+            "is404": false
+          },
+          "footer": {
+            "cardId": "crd6747b91d6b350eb29a44ef07",
+            "templateId": "area",
+            "regionId": "footer",
+            "cards": [
+              {
+                "parentId": "crd6747b91d6b350eb29a44ef07",
+                "cardId": "crd6747b91d7aa93eb13586d9bc",
+                "templateId": "ticker",
+                "userConfig": {
+                  "settings": {
+                    "fontSize": 8,
+                    "scrollEffect": true,
+                    "scrollIntensity": 35
+                  },
+                  "items": [
+                    {
+                      "text": "Get the newsletter ✌️",
+                      "speed": 30,
+                      "href": "?_subscribe"
+                    }
+                  ]
+                },
+                "effects": [],
+                "regionId": "footer",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "depth": 1
+              },
+              {
+                "parentId": "crd6747b91d6b350eb29a44ef07",
+                "cardId": "crd6747b91d19acb7de1e60c197",
+                "templateId": "callToAction",
+                "userConfig": {
+                  "superTitle": {
+                    "text": "Customizable CTA Section",
+                    "icon": {
+                      "class": "i-tabler-star"
+                    }
+                  },
+                  "title": "Design Your Perfect Call-to-Action",
+                  "subTitle": "This template helps you create compelling CTAs. Edit the content below to match your goals - whether it's growing your newsletter, showcasing benefits, or driving conversions.",
+                  "benefits": {
+                    "title": "Key Benefits",
+                    "items": [
+                      {
+                        "label": "Choose Your Action Type",
+                        "description": "Switch between email subscription and custom buttons",
+                        "icon": {
+                          "class": "i-tabler-adjustments"
+                        }
+                      },
+                      {
+                        "label": "Social Proof",
+                        "description": "Enable community bar to showcase your audience",
+                        "icon": {
+                          "class": "i-tabler-users-group"
+                        }
+                      },
+                      {
+                        "label": "Visual Hierarchy",
+                        "description": "Organize content with super title, main title, and subtitle",
+                        "icon": {
+                          "class": "i-tabler-layout-list"
+                        }
+                      }
+                    ]
+                  },
+                  "action": {
+                    "variant": "subscribe",
+                    "subscribe": {
+                      "placeholder": "Your email address",
+                      "button": {
+                        "text": "Get Started"
+                      },
+                      "success": {
+                        "title": "Perfect!",
+                        "message": "Watch your inbox for our welcome message"
+                      }
+                    },
+                    "proof": {
+                      "community": {
+                        "isEnabled": true,
+                        "text": "join 1250+ others",
+                        "count": 1250,
+                        "thumbCount": 3
+                      }
+                    }
+                  },
+                  "standard": {
+                    "spacing": {
+                      "verticalSpacing": "sm"
+                    }
+                  }
+                },
+                "effects": [],
+                "regionId": "footer",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "depth": 1
+              },
+              {
+                "parentId": "crd6747b91d6b350eb29a44ef07",
+                "cardId": "crd6747b91d8c68d847cb7f352d",
+                "templateId": "footerX",
+                "userConfig": {
+                  "title": "Your Brand",
+                  "subTitle": "An inspiring tagline goes here",
+                  "menus": [
+                    {
+                      "title": "Discover",
+                      "items": [
+                        {
+                          "label": "Our Vision",
+                          "href": "/about",
+                          "icon": {
+                            "iconId": "eye"
+                          }
+                        },
+                        {
+                          "label": "Services",
+                          "href": "/services",
+                          "icon": {
+                            "iconId": "star"
+                          }
+                        },
+                        {
+                          "label": "Success Stories",
+                          "href": "/case-studies",
+                          "icon": {
+                            "iconId": "trophy"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Connect",
+                      "items": [
+                        {
+                          "label": "Schedule a Call",
+                          "href": "/contact",
+                          "icon": {
+                            "iconId": "calendar"
+                          },
+                          "description": "Book a 30-min strategy session"
+                        },
+                        {
+                          "label": "Join Newsletter",
+                          "href": "/newsletter",
+                          "icon": {
+                            "iconId": "mail"
+                          },
+                          "description": "Weekly insights on digital growth"
+                        }
+                      ]
+                    }
+                  ],
+                  "additional": {
+                    "list1": [
+                      {
+                        "label": "Privacy Promise",
+                        "href": "/privacy"
+                      },
+                      {
+                        "label": "Terms of Delight",
+                        "href": "/terms"
+                      }
+                    ],
+                    "list2": [
+                      {
+                        "label": "© 2024 Brand Visionaries. Crafting Digital Excellence."
+                      },
+                      {
+                        "label": "Made with ♥ and Fiction"
+                      }
+                    ]
+                  }
+                },
+                "effects": [],
+                "regionId": "footer",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "depth": 1
+              }
+            ],
+            "userConfig": {
+              "standard": {
+                "spacing": {
+                  "verticalSpacing": "none"
+                }
+              }
+            },
+            "effects": [],
+            "isHome": false,
+            "is404": false
+          },
+          "hidden": {
+            "cardId": "crd6747b91de35f4873b4a39d5d",
+            "templateId": "area",
+            "cards": [
+              {
+                "parentId": "crd6747b91de35f4873b4a39d5d",
+                "cardId": "crd6747b91d3a12bdb5918980f8",
+                "templateId": "contentModal",
+                "userConfig": {},
+                "effects": [],
+                "regionId": "main",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "depth": 1
+              },
+              {
+                "parentId": "crd6747b91de35f4873b4a39d5d",
+                "cardId": "crd6747b91dc2f6e8a0efc7426e",
+                "templateId": "textEffects",
+                "userConfig": {},
+                "effects": [],
+                "regionId": "main",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "depth": 1
+              },
+              {
+                "parentId": "crd6747b91de35f4873b4a39d5d",
+                "cardId": "crd6747b91de272c5cea25e8f13",
+                "templateId": "capture",
+                "userConfig": {
+                  "superTitle": {
+                    "text": "Join 20,000+ Weekly Readers"
+                  },
+                  "title": "Get Our Free Growth Guide",
+                  "subTitle": "Weekly actionable tips to grow your business. No fluff, just proven strategies.",
+                  "media": {
+                    "html": "<svg viewBox=\"0 0 169 40\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M10.0148 2.5V40H0V2.5H10.0148Z\" fill=\"currentColor\"></path>\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M15.0222 2.5H36.3037C43.2175 2.5 48.8222 8.09644 48.8222 15C48.8222 21.9036 43.2175 27.5 36.3037 27.5H25.037V40H15.0222V2.5ZM25.037 17.5H36.3037C37.6865 17.5 38.8074 16.3807 38.8074 15C38.8074 13.6193 37.6865 12.5 36.3037 12.5H25.037V17.5Z\" fill=\"currentColor\"></path>\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M86.3778 2.5V21.875C86.3778 26.3623 90.0208 30 94.5148 30C99.0088 30 102.652 26.3623 102.652 21.875V2.5H112.667V21.875C112.667 31.8852 104.54 40 94.5148 40C84.4898 40 76.363 31.8852 76.363 21.875V2.5H86.3778Z\" fill=\"currentColor\"></path>\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M52.5778 20C52.5778 10.335 60.4244 2.5 70.1037 2.5H72.6074V12.5H70.1037C65.9554 12.5 62.5926 15.8579 62.5926 20V21.25C62.5926 31.6053 54.1855 40 43.8148 40H42.563V30H43.8148C48.6545 30 52.5778 26.0825 52.5778 21.25V20Z\" fill=\"currentColor\"></path>\n<path d=\"M169 3.75C169 5.82107 167.319 7.5 165.244 7.5C163.17 7.5 161.489 5.82107 161.489 3.75C161.489 1.67893 163.17 0 165.244 0C167.319 0 169 1.67893 169 3.75Z\" fill=\"currentColor\"></path>\n<path d=\"M123.42 40L128.199 20.0181L131.752 32.0393C133.87 39.2091 144.041 39.2091 146.16 32.0393L149.712 20.0181L154.491 40H164.787L157.273 8.57949C155.486 1.10744 144.941 0.830781 142.763 8.19891L138.956 21.0833L135.148 8.19892C132.971 0.830824 122.425 1.1074 120.638 8.57948L113.124 40H123.42Z\" fill=\"currentColor\"></path>\n</svg>",
+                    "format": "html"
+                  },
+                  "buttonText": "Get the Guide",
+                  "thanksText": "Welcome aboard! Check your inbox for your guide."
+                },
+                "effects": [],
+                "regionId": "main",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "depth": 1
+              }
+            ],
+            "userConfig": {
+              "standard": {
+                "spacing": {
+                  "verticalSpacing": "none"
+                }
+              }
+            },
+            "effects": [],
+            "regionId": "main",
+            "isHome": false,
+            "is404": false
+          }
+        }
+      },
+      "templates": [
+        "wrap",
+        "area",
+        "nav",
+        "footerPro",
+        "footerX",
+        "hero",
+        "story",
+        "quotes",
+        "profile",
+        "features",
+        "faq",
+        "statement",
+        "testimonials",
+        "metrics",
+        "people",
+        "logos",
+        "numberedList",
+        "bento",
+        "postList",
+        "magazine",
+        "insta",
+        "cinema",
+        "gallery",
+        "contentModal",
+        "showcase",
+        "capture",
+        "contact",
+        "maps",
+        "pricing",
+        "tour",
+        "callToAction",
+        "effectShape",
+        "fitText",
+        "marquee",
+        "overSlide",
+        "textEffects",
+        "ticker",
+        "trek",
+        "404",
+        "transaction"
+      ]
+    }
+  ]
+}

@@ -7,6 +7,8 @@ import { deepMerge, FictionObject, toLabel, vue } from '@fiction/core'
 import { CardFactory } from './cardFactory.js'
 import { Site, type SiteSettings } from './site.js'
 
+type ThemeCategory = 'blog' | 'portfolio' | 'business' | 'personal' | 'ecommerce' | 'landing' | 'internal'
+
 export type ThemeConfig = {
   userConfig?: SiteUserConfig
   pages: TableCardConfig[]
@@ -19,7 +21,7 @@ export type ThemeMeta = {
   title?: string
   version?: string
   subTitle?: string
-  category?: string[]
+  category?: ThemeCategory[]
   icon?: string
   colorTheme?: ColorThemeBright
   description?: string
@@ -57,11 +59,13 @@ export class Theme<T extends Record<string, unknown> = Record<string, unknown>> 
   }
 
   async loadThemeTemplates() {
-    this.templates = await this.settings.getTemplates?.() || []
+    if (!this.templates.length)
+      this.templates = await this.settings.getTemplates?.() || []
   }
 
   async getThemeConfig(args: { site: Site }) {
     const { site } = args
+    await this.loadThemeTemplates()
     const factory = new CardFactory({ site, templates: this.templates, caller: 'Theme.getConfig' })
     const baseConfig = this.settings.getBaseConfig?.() || {}
     const userConfig = deepMerge([this.defaultConfig(), baseConfig])

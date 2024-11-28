@@ -49,11 +49,17 @@ export async function runCommand(command: string, optionsFromCli: Record<string,
 
     const fictionEnv = serviceConfig.service.fictionEnv
 
-    if (fictionEnv)
-      await fictionEnv.serverRunCurrentCommand({ serviceConfig, cliVars })
+    if (fictionEnv) {
+      // set global service
+      fictionEnv.service.value = serviceConfig.service
 
-    else
+      // run the command
+      await fictionEnv.serverRunCurrentCommand({ serviceConfig, cliVars })
+    }
+
+    else {
       logger.error(`no fictionEnv at [${mainFilePath}]. Can't run command ${command}`)
+    }
   }
   catch (error) {
     logger.error(`Command: [${command}] - ${(error as Error).message}`, { error })

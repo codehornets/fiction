@@ -1239,7 +1239,8 @@
           "schema.unit.test.ts": null,
           "site.unit.test.ts": null,
           "siteCert.unit.test.ts": null
-        }
+        },
+        "themeStructure.ts": null
       }
     },
     "themes": {

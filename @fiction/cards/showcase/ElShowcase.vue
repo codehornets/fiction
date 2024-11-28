@@ -145,7 +145,7 @@ function next() {
         >
           <div :key="activeitemIndex" class="py-16 px-6 lg:px-16 ">
             <div class="flex flex-col md:flex-row gap-8 md:gap-12 justify-center">
-              <div class="md:basis-[300px] shrink-0">
+              <div class="md:basis-[350px] shrink-0">
                 <div class="sticky top-12 mb-8 not-prose space-y-4 text-left ">
                   <div class="flex justify-between gap-4 mb-12">
                     <XButton size="sm" icon="i-tabler-arrow-left" @click="prev()">
@@ -159,14 +159,14 @@ function next() {
                   <CardText
                     tag="h1"
                     :card
-                    class="mb-0 text-2xl lg:text-4xl font-semibold x-font-title "
+                    class="mb-0 text-2xl lg:text-3xl font-semibold x-font-title "
                     :path="`posts.entries.${activeitemIndex}.title`"
                     animate="fade"
                   />
                   <CardText
                     tag="h3"
                     :card
-                    class="my-0 text-theme-500 dark:text-theme-400 text-lg lg:text-2xl"
+                    class="my-0 text-theme-500 dark:text-theme-400 text-lg lg:text-xl"
                     :path="`posts.entries.${activeitemIndex}.subTitle`"
                     animate="fade"
                   />
