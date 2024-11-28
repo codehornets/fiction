@@ -4,17 +4,27 @@ import { animateItemEnter, splitLetters, useElementVisible } from '../anim'
 
 export type InputModes = 'text' | 'markdown' | 'html' | 'number' | 'email' | 'url' | 'password' | 'phone' | 'date'
 
-const props = defineProps({
-  tag: { type: String as vue.PropType<'h1' | 'h2' | 'h3' | 'h4' | 'div' | 'span' | 'p' | 'a' | 'RouterLink'>, default: 'div' },
-  placeholder: { type: String, default: '' },
-  isEditable: { type: Boolean, default: false },
-  modelValue: { type: String, default: '' },
-  animate: { type: [String, Boolean] as vue.PropType<'rise' | 'fade' | boolean>, default: undefined },
-  prefix: { type: String, default: '' },
-  suffix: { type: String, default: '' },
-  fallback: { type: String, default: '' },
-  mode: { type: String as vue.PropType<InputModes>, default: 'text' },
-})
+const {
+  tag = 'div',
+  placeholder = '',
+  isEditable = false,
+  modelValue = '',
+  animate = undefined,
+  prefix = '',
+  suffix = '',
+  fallback = '',
+  mode = 'text',
+} = defineProps<{
+  tag?: 'h1' | 'h2' | 'h3' | 'h4' | 'div' | 'span' | 'p' | 'a' | 'RouterLink'
+  placeholder?: string
+  isEditable?: boolean
+  modelValue?: string
+  animate?: 'rise' | 'fade' | boolean
+  prefix?: string
+  suffix?: string
+  fallback?: string
+  mode?: InputModes
+}>()
 
 const emit = defineEmits<{
   (event: 'input', payload: string): void
@@ -36,7 +46,7 @@ function getValue(rawValue: string) {
 }
 
 const isContentEditable = vue.computed(() => {
-  return props.isEditable || isEditing.value
+  return isEditable || isEditing.value
 })
 
 // set the displayed text, only do this when not editing
@@ -46,9 +56,9 @@ function setTextValue() {
 }
 
 function valueFromModelValue() {
-  const v = props.modelValue || ''
+  const v = modelValue || ''
 
-  return `${props.prefix}${v}${props.suffix}`
+  return `${prefix}${v}${suffix}`
 }
 
 function handleBlur() {
@@ -58,7 +68,7 @@ function handleBlur() {
 }
 
 function inputValidations(inputValue: string) {
-  switch (props.mode) {
+  switch (mode) {
     case 'number':
       inputValue = inputValue.replace(/[^0-9.]/g, '')
       break
@@ -96,25 +106,26 @@ vue.watchEffect(() => {
   setTextValue()
 })
 
-const hasAnimation = vue.computed(() => props.animate && !isEditing.value)
+const hasAnimation = vue.computed(() => animate && !isEditing.value)
 
 function loadAnimation() {
-  splitLetters({ selector: `#${randomId}` })
+  const animId = `[data-anim-id="${randomId}"]`
+  splitLetters({ selector: animId })
 
-  const themeId = typeof props.animate == 'string' ? props.animate : 'rise'
+  const themeId = typeof animate == 'string' ? animate : 'rise'
 
   useElementVisible({
     caller: 'xText',
-    selector: `[data-anim-id="${randomId}"]`,
+    selector: animId,
     onVisible: () => {
       loaded.value = true
-      animateItemEnter({ targets: `#${randomId} .fx`, themeId })
+      animateItemEnter({ targets: `${animId} .fx`, themeId })
     },
   })
 }
 
 vue.onMounted(() => {
-  if (hasAnimation.value && !props.isEditable)
+  if (hasAnimation.value && !isEditable)
     loadAnimation()
   else
     loaded.value = true
@@ -153,7 +164,7 @@ function setIsEditing(type: 'click' | 'focus') {
  * Use render to control SSR which struggles with custom tag, etc.
  */
 function render() {
-  if (!((isContentEditable.value && props.placeholder) || textValue.value || props.fallback)) {
+  if (!((isContentEditable.value && placeholder) || textValue.value || fallback)) {
     return null
   }
 
@@ -162,7 +173,7 @@ function render() {
     'ref': elementRef,
     'data-anim-id': randomId,
     'class': ['focus:outline-none xtext', loaded.value ? '' : 'invisible'],
-    'innerHTML': textValue.value || props.fallback,
+    'innerHTML': textValue.value || fallback,
   }
 
   // Editing-related props
@@ -170,7 +181,7 @@ function render() {
     ? {
         contenteditable: 'true',
         spellcheck: 'false',
-        placeholder: props.placeholder,
+        placeholder,
         onInput: (event: Event) => onInput(event),
         onPaste: (event: ClipboardEvent) => onPaste(event),
         onClick: () => setIsEditing('click'),
@@ -190,7 +201,7 @@ function render() {
     ].flat().filter(Boolean),
   }
 
-  return vue.h(props.tag, mergedProps)
+  return vue.h(tag, mergedProps)
 }
 </script>
 

@@ -73,7 +73,7 @@ const hoverClass = 'group-hover/nav-link:text-theme-500 dark:group-hover/nav-lin
       <!-- Text Content -->
       <CardText
         v-if="item.basePath"
-        :card="card"
+        :card
         :path="`${item.basePath}.label`"
         tag="span"
         class="block relative"
@@ -84,7 +84,7 @@ const hoverClass = 'group-hover/nav-link:text-theme-500 dark:group-hover/nav-lin
             : '',
           item.isActive ? 'is-active' : '',
         ]"
-        :animate="animate"
+        :animate
       />
       <span
         v-else-if="$slots.default"

@@ -6,55 +6,64 @@ import XText from '@fiction/ui/common/XText.vue'
 
 defineOptions({ name: 'CardText' })
 
-const props = defineProps({
-  card: { type: Object as vue.PropType<Card>, required: true },
-  tag: { type: String as vue.PropType<'h1' | 'h2' | 'h3' | 'h4' | 'div' | 'span' | 'p' | 'a' | 'RouterLink'>, default: 'div' },
-  path: { type: String, required: true },
-  placeholder: { type: String, default: 'Placeholder' },
-  fallback: { type: String, default: '' },
-  animate: { type: [String, Boolean] as vue.PropType<'rise' | 'fade' | boolean>, default: undefined },
-  mode: { type: String as vue.PropType<InputModes>, default: 'text' },
-  editKey: { type: [Boolean, String], default: true },
-})
+const {
+  card,
+  tag = 'div',
+  path,
+  placeholder = 'Placeholder',
+  fallback = '',
+  animate = undefined,
+  editKey = true,
+} = defineProps<{
+  card: Card
+  tag?: 'h1' | 'h2' | 'h3' | 'h4' | 'div' | 'span' | 'p' | 'a' | 'RouterLink'
+  path: string
+  placeholder?: string
+  fallback?: string
+  animate?: boolean | 'rise' | 'fade'
+  mode?: InputModes
+  editKey?: boolean
+}>()
 
 const emit = defineEmits<{
   (event: 'isEditing', payload: boolean): void
 }>()
+
 const attrs = vue.useAttrs()
 const textEl = vue.ref<HTMLElement>()
 
-const data = vue.computed(() => props.card.fullConfig.value)
+const data = vue.computed(() => card.fullConfig.value)
 
 function getNewUserConfig(v: string) {
-  return setNested({ data: data.value, path: props.path, value: v })
+  return setNested({ data: data.value, path, value: v })
 }
 
 function onValue(v: string) {
-  props.card.userConfig.value = getNewUserConfig(v)
+  card.userConfig.value = getNewUserConfig(v)
 }
 
 function onInput(v: string) {
   const userConfig = getNewUserConfig(v)
-  const cardId = props.card.cardId
-  props.card?.syncCard({ caller: 'updateUserConfig', cardConfig: { cardId, userConfig } })
+  const cardId = card.cardId
+  card?.syncCard({ caller: 'updateUserConfig', cardConfig: { cardId, userConfig } })
 }
 
 const value = vue.computed(() => {
-  return getNested({ path: props.path, data: data.value }) as string
+  return getNested({ path, data: data.value }) as string
 })
 
-const isContentEditable = vue.computed(() => props.card.site?.isEditable.value)
+const isContentEditable = vue.computed(() => card.site?.isEditable.value)
 
 function shouldStopProp(event: MouseEvent) {
   if (isContentEditable.value) {
     event.stopPropagation()
     event.preventDefault()
-    const cardId = props.card.cardId
-    props.card?.site?.setActiveCard({ cardId })
+    const cardId = card.cardId
+    card?.site?.setActiveCard({ cardId })
   }
 }
 
-const editOrAnimate = vue.computed(() => props.card.site?.siteMode.value === 'editable' ? false : props.animate)
+const editOrAnimate = vue.computed(() => card.site?.siteMode.value === 'editable' ? false : animate)
 </script>
 
 <template>
