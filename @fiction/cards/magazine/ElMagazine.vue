@@ -13,7 +13,7 @@ import ElMagazineSingle from './ElMagazineSingle.vue'
 const { card } = defineProps<{ card: Card<UserConfig> }>()
 const { fictionPosts } = useService<{ fictionPosts: FictionPosts }>()
 
-const loading = vue.ref(false)
+const loading = vue.ref(true)
 const posts = vue.shallowRef<Post[]>([])
 const singlePost = vue.shallowRef()
 const nextPost = vue.shallowRef()
@@ -73,7 +73,7 @@ vue.onServerPrefetch(fetchPosts)
       leave-to-class="opacity-0 -translate-y-10"
       mode="out-in"
     >
-      <div v-if="loading" class="flex justify-center py-12">
+      <div v-if="loading" class="flex justify-center py-12 h-[80vh]">
         <ElSpinner class="size-8 text-theme-500" />
       </div>
 

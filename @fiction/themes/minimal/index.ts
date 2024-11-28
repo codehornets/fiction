@@ -36,18 +36,8 @@ export const theme = new Theme({
     }
   },
   getConfig: async (args) => {
-    const configs = await Promise.all([
-      import('./config/pages').then(m => m.getPages(args)),
-      import('./config/header').then(m => m.getHeader(args)),
-      import('./config/footer').then(m => m.getFooter(args)),
-      import('./config/sections').then(m => m.getHidden(args)),
-    ])
+    const { getConfig } = await import('./config')
 
-    const [pages, header, footer, hidden] = configs
-
-    return {
-      pages,
-      sections: { header, footer, hidden },
-    } as const
+    return getConfig(args)
   },
 })

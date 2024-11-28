@@ -1,7 +1,7 @@
 import type { ConfigResponse } from '@fiction/site/card.js'
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { StockMedia } from '@fiction/ui/stock/index.js'
-import { actionAreaSchema, ActionButtonSchema, colorTheme, colorThemeUser, MediaDisplaySchema, MediaIconSchema, SizeSchema, superTitleSchema } from '@fiction/core'
+import { type ActionArea, actionAreaSchema, ActionButtonSchema, colorTheme, colorThemeUser, MediaDisplaySchema, MediaIconSchema, SizeSchema, superTitleSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
@@ -61,9 +61,9 @@ export async function getUserConfig(args: { factory: CardFactory, templateId: st
   const { stock } = args
   const action = {
     buttons: [
-      { name: 'Learn More', href: '#' },
+      { label: 'Learn More', href: '#' },
     ],
-  }
+  } satisfies ActionArea
   return {
     items: [
       {

@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generatedAt": "2024-11-28T18:00:33.249Z",
+  "generatedAt": "2024-11-28T19:48:26.119Z",
   "theme": [
     {
       "themeId": "minimal",
@@ -51,13 +51,13 @@
         },
         "pages": [
           {
-            "cardId": "crd6748afc1ce5e37ee638e0384",
+            "cardId": "crd6748c90a561bd72d6787d745",
             "templateId": "wrap",
             "slug": "_home",
             "cards": [
               {
-                "parentId": "crd6748afc1ce5e37ee638e0384",
-                "cardId": "crd6748afc18a72f1b1ae1b9658",
+                "parentId": "crd6748c90a561bd72d6787d745",
+                "cardId": "crd6748c90acc60e784edcef021",
                 "templateId": "profile",
                 "userConfig": {
                   "superTitle": {
@@ -70,33 +70,33 @@
                     {
                       "media": {
                         "format": "image",
-                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556341/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_12401694-bb22-4f7b-9617-4e52872c0a66_jpfqrt.png",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724440983/arpowers_minimal_stock_background_for_profile_photo_professiona_e88ac2a8-eeb3-42e0-9edb-43e7361f0aaf_t6cfzb.png",
                         "tags": [
                           "annotated",
                           "aspect:portrait",
-                          "aspect:square",
                           "color:warm",
-                          "nature",
-                          "object",
-                          "people",
+                          "man",
+                          "midshot",
+                          "person",
+                          "silhouette",
                           "image"
                         ],
-                        "slug": "arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_12401694-bb22-4f7b-9617-4e52872c0a66_jpfqrt"
+                        "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_e88ac2a8-eeb3-42e0-9edb-43e7361f0aaf_t6cfzb"
                       }
                     },
                     {
                       "media": {
                         "format": "image",
-                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556244/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_4b9aa180-978e-48ca-b88f-7e385e01efd3_loes2x.png",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556252/arpowers_minimal_midshot_photo_of_object_2030s_futuristic_ancie_421c505b-190c-47bb-a1d0-ca92b08cab3c_yybbhm.png",
                         "tags": [
                           "annotated",
                           "aspect:portrait",
                           "aspect:square",
-                          "color:cool",
+                          "color:warm",
                           "object",
                           "image"
                         ],
-                        "slug": "arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_4b9aa180-978e-48ca-b88f-7e385e01efd3_loes2x"
+                        "slug": "arpowers_minimal_midshot_photo_of_object_2030s_futuristic_ancie_421c505b-190c-47bb-a1d0-ca92b08cab3c_yybbhm"
                       }
                     }
                   ],
@@ -165,8 +165,8 @@
                 "depth": 1
               },
               {
-                "parentId": "crd6748afc1ce5e37ee638e0384",
-                "cardId": "crd6748afc1f1aa53dd02dc9408",
+                "parentId": "crd6748c90a561bd72d6787d745",
+                "cardId": "crd6748c90a934b02a74c2720ff",
                 "templateId": "bento",
                 "userConfig": {
                   "items": [
@@ -221,18 +221,14 @@
                       "title": "Card With Media",
                       "content": "Add media or background images to create visual interest.",
                       "bg": {
-                        "format": "image",
-                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724603280/arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_e3943227-f092-44b6-b30b-3dffdd5b4277_jap0i5.png",
+                        "format": "video",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/video/upload/f_auto,q_auto/v1724634795/replicate-prediction-72wpc12x35rj00chhgqregjfn8_szl5ln.mp4",
                         "tags": [
-                          "annotated",
                           "aspect:landscape",
-                          "aspect:square",
                           "background",
-                          "color:warm",
-                          "nature",
-                          "image"
+                          "video"
                         ],
-                        "slug": "arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_e3943227-f092-44b6-b30b-3dffdd5b4277_jap0i5",
+                        "slug": "replicate-prediction-72wpc12x35rj00chhgqregjfn8_szl5ln",
                         "overlay": {
                           "opacity": 0.4
                         }
@@ -258,8 +254,8 @@
                 "depth": 1
               },
               {
-                "parentId": "crd6748afc1ce5e37ee638e0384",
-                "cardId": "crd6748afc1cc6fef33c7e334bc",
+                "parentId": "crd6748c90a561bd72d6787d745",
+                "cardId": "crd6748c90af91ae5b86c7393b1",
                 "templateId": "quotes",
                 "userConfig": {
                   "display": {
@@ -278,18 +274,16 @@
                         "title": "Marketing Director",
                         "image": {
                           "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724443253/arpowers_minimal_midshot_photo_stylistic_attire_1990s_style_fut_66bb224b-8c74-43bf-a013-b9389b334282_plxete.png",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724440997/arpowers_incredibly_beautiful_profile_photo_of_woman_business_a_f766e1d7-f5fc-482e-9087-44e3cff07d66_pldzlt.png",
                           "tags": [
                             "annotated",
                             "aspect:landscape",
-                            "aspect:square",
-                            "color:warm",
-                            "midshot",
+                            "color:cool",
                             "person",
                             "woman",
-                            "image"
+                            "aspect:square"
                           ],
-                          "slug": "arpowers_minimal_midshot_photo_stylistic_attire_1990s_style_fut_66bb224b-8c74-43bf-a013-b9389b334282_plxete"
+                          "slug": "arpowers_incredibly_beautiful_profile_photo_of_woman_business_a_f766e1d7-f5fc-482e-9087-44e3cff07d66_pldzlt"
                         }
                       },
                       "org": {
@@ -336,13 +330,13 @@
             "is404": false
           },
           {
-            "cardId": "crd6748afc1f626bdf68c100551",
+            "cardId": "crd6748c90a05e75dc07542e79a",
             "templateId": "wrap",
             "slug": "blog",
             "cards": [
               {
-                "parentId": "crd6748afc1f626bdf68c100551",
-                "cardId": "crd6748afc15f3e0ee6f0912882",
+                "parentId": "crd6748c90a05e75dc07542e79a",
+                "cardId": "crd6748c90af25ab348e70e4a24",
                 "templateId": "magazine",
                 "userConfig": {
                   "standard": {
@@ -369,18 +363,18 @@
                             "email": "marcus@example.com",
                             "avatar": {
                               "format": "image",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441001/arpowers_minimal_stock_background_for_profile_photo_professiona_909d4236-58a0-4a68-993a-acee3d331dc8_vxwpyq.png",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441625/arpowers_minimal_stock_background_for_profile_photo_professiona_3a694c25-ee52-4e0e-932f-4efc62c2f4f0_ol7wns.png",
                               "tags": [
                                 "annotated",
                                 "aspect:landscape",
-                                "aspect:square",
-                                "color:warm",
+                                "color:neutral",
+                                "headshot",
+                                "man",
                                 "person",
                                 "silhouette",
-                                "woman",
                                 "image"
                               ],
-                              "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_909d4236-58a0-4a68-993a-acee3d331dc8_vxwpyq"
+                              "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_3a694c25-ee52-4e0e-932f-4efc62c2f4f0_ol7wns"
                             }
                           }
                         ],
@@ -396,15 +390,15 @@
                         ],
                         "media": {
                           "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556274/arpowers_minimal_midshot_photo_of_object_futuristic_ancient_gre_685c05c4-b02c-407a-8ffb-c150dbafbe08_jz6nfc.png",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1726725062/arpowers_Minimalist_futuristic_interpretation_of_a_athena_elega_70f59d52-1d22-42c3-8408-d12af87deaae_zgtllj.png",
                           "tags": [
-                            "annotated",
-                            "aspect:portrait",
+                            "aspect:landscape",
                             "color:warm",
+                            "image",
                             "object",
-                            "image"
+                            "annotated"
                           ],
-                          "slug": "arpowers_minimal_midshot_photo_of_object_futuristic_ancient_gre_685c05c4-b02c-407a-8ffb-c150dbafbe08_jz6nfc"
+                          "slug": "arpowers_Minimalist_futuristic_interpretation_of_a_athena_elega_70f59d52-1d22-42c3-8408-d12af87deaae_zgtllj"
                         },
                         "dateAt": "2024-03-18T00:00:00.000Z"
                       },
@@ -417,248 +411,6 @@
                             "fullName": "Priya Sharma",
                             "title": "SEO Strategist",
                             "email": "priya@example.com",
-                            "avatar": {
-                              "format": "image",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724440997/arpowers_incredibly_beautiful_profile_photo_of_woman_business_a_f766e1d7-f5fc-482e-9087-44e3cff07d66_pldzlt.png",
-                              "tags": [
-                                "annotated",
-                                "aspect:landscape",
-                                "color:cool",
-                                "person",
-                                "woman",
-                                "aspect:square"
-                              ],
-                              "slug": "arpowers_incredibly_beautiful_profile_photo_of_woman_business_a_f766e1d7-f5fc-482e-9087-44e3cff07d66_pldzlt"
-                            }
-                          }
-                        ],
-                        "content": "\n        <article>\n          <p><em>Remember the last time</em> you searched for something important? That feeling of finding exactly what you needed? That's not luck—it's strategic SEO at work. Let's make your content the answer people are searching for.</p>\n\n          <section>\n            <h2>The Truth About Modern SEO</h2>\n            <p>Forget everything you think you know about SEO. Imagine if ranking well was less about technical tricks and more about genuinely understanding your readers. Let's explore how this shift changes everything.</p>\n\n            <div >\n              <div>\n                <h3>What Search Engines See</h3>\n                <ul style=\"margin: 16px 0;\">\n                  <li>\n                    <strong>Clear Structure</strong>\n                    <p>Notice how well-organized content ranks better? It's not coincidence.</p>\n                  </li>\n                  <li>\n                    <strong>Natural Language</strong>\n                    <p>What if your keywords flowed as naturally as a conversation?</p>\n                  </li>\n                  <li>\n                    <strong>Valuable Links</strong>\n                    <p>Think of links as virtual handshakes—they build trust.</p>\n                  </li>\n                </ul>\n              </div>\n\n              <div>\n                <h3>What Readers Experience</h3>\n                <ul style=\"margin: 16px 0;\">\n                  <li>\n                    <strong>Instant Relevance</strong>\n                    <p>Feel that moment when content perfectly matches your need?</p>\n                  </li>\n                  <li>\n                    <strong>Easy Navigation</strong>\n                    <p>Imagine finding everything you need without trying.</p>\n                  </li>\n                  <li>\n                    <strong>Complete Answers</strong>\n                    <p>What if every search led to a satisfying conclusion?</p>\n                  </li>\n                </ul>\n              </div>\n            </div>\n          </section>\n\n          <aside >\n            <h3>Your SEO Transformation Checklist</h3>\n            <p>Watch how your content changes when you focus on these elements:</p>\n            <ol style=\"margin: 16px 0;\">\n              <li>Is your content answering real questions?</li>\n              <li>Could a friend understand your headlines?</li>\n              <li>Does your page structure feel natural?</li>\n              <li>Are you using terms your audience uses?</li>\n            </ol>\n          </aside>\n\n          <div>\n            <h3 style=\"color: #166534;\">The Secret Most SEO Experts Won't Tell You</h3>\n            <p>The best SEO strategy is creating content so good, so useful, that people can't help but share it. Imagine your content becoming the go-to resource in your field.</p>\n          </div>\n\n          <p>Ready to see your content climb the rankings while genuinely helping your readers? Let's make your SEO work for both search engines and humans.</p>\n        </article>\n      ",
-                        "excerpt": "Stop fighting algorithms and start connecting with readers. Discover how human-centered SEO transforms your search rankings.",
-                        "categories": [
-                          "SEO"
-                        ],
-                        "tags": [
-                          "optimization",
-                          "search",
-                          "content strategy"
-                        ],
-                        "media": {
-                          "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556157/arpowers_minimal_midshot_photo_of_object_incredible_light_and_s_237498ba-11da-4fbf-813d-69d9650e3c1e_hvqyv1.png",
-                          "tags": [
-                            "annotated",
-                            "color:warm",
-                            "image",
-                            "object",
-                            "aspect:wide"
-                          ],
-                          "slug": "arpowers_minimal_midshot_photo_of_object_incredible_light_and_s_237498ba-11da-4fbf-813d-69d9650e3c1e_hvqyv1"
-                        },
-                        "dateAt": "2024-03-17T00:00:00.000Z"
-                      },
-                      {
-                        "title": "The Art of Compelling Headlines",
-                        "subTitle": "Transform your ordinary titles into attention-grabbing headlines",
-                        "slug": "headline-writing-guide",
-                        "authors": [
-                          {
-                            "fullName": "Sarah Chen",
-                            "title": "Content Strategy Lead",
-                            "email": "sarah@example.com",
-                            "avatar": {
-                              "format": "image",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724440990/arpowers_incredibly_beautiful_profile_photo_of_man_business_att_cfd28c13-6711-4866-af51-26ad43d4063f_lcfrvd.png",
-                              "tags": [
-                                "annotated",
-                                "aspect:landscape",
-                                "aspect:square",
-                                "color:warm",
-                                "man",
-                                "person",
-                                "image"
-                              ],
-                              "slug": "arpowers_incredibly_beautiful_profile_photo_of_man_business_att_cfd28c13-6711-4866-af51-26ad43d4063f_lcfrvd"
-                            }
-                          }
-                        ],
-                        "content": "\n        <article>\n          <p><em>Picture this:</em> Your brilliant article sits unread while others get all the attention. The difference? Often it's just the headline. Let's transform your headlines from forgotten to unforgettable.</p>\n\n          <h2>The 4 U's That Make Headlines Irresistible</h2>\n\n          <p>Notice how great headlines seem to pull you in effortlessly? Here's the framework behind that magic:</p>\n\n          <ul style=\"margin: 24px 0;\">\n            <li>\n              <h3>Useful</h3>\n              <p>Imagine your reader asking \"What's in it for me?\" Your headline should answer that instantly.</p>\n            </li>\n            <li>\n              <h3>Urgent</h3>\n              <p>Feel that slight anxiety when you might miss out on something important? That's urgency at work.</p>\n            </li>\n            <li>\n              <h3>Unique</h3>\n              <p>What would it feel like if your headline stood out from thousands of others? That's the power of uniqueness.</p>\n            </li>\n            <li>\n              <h3>Ultra-specific</h3>\n              <p>See how detailed headlines build instant credibility? They promise—and deliver—clear value.</p>\n            </li>\n          </ul>\n\n          <h2>Transform Your Headlines Today</h2>\n\n          <aside >\n            <p><strong>Try this exercise:</strong> Take your last three blog titles and rewrite each one using the 4 U's. Watch how they transform from basic statements into compelling invitations.</p>\n          </aside>\n\n          <p>Have you ever noticed how some blogs seem to consistently capture attention while others struggle? The secret often lies in their headlines. Let's unlock that secret together.</p>\n\n          <blockquote>\n            \"The headlines which work best are those that promise a story the audience already cares about. Now imagine how powerful your writing becomes when you master this art.\"\n            <footer>\n              <cite>— John Caples, Advertising Legend</cite>\n            </footer>\n          </blockquote>\n\n          <p>Ready to see your engagement numbers transform? Your next great headline is waiting to be written. Let's create it together.</p>\n        </article>\n      ",
-                        "excerpt": "Discover the secrets of headlines that don't just attract clicks—they compel action. Transform your titles from skippable to unforgettable.",
-                        "categories": [
-                          "Writing"
-                        ],
-                        "tags": [
-                          "headlines",
-                          "copywriting",
-                          "engagement"
-                        ],
-                        "media": {
-                          "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556099/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_5811ac26-6ab8-4125-b62f-7e8800e5bbd2_jwvckr.png",
-                          "tags": [
-                            "annotated",
-                            "color:warm",
-                            "image",
-                            "object",
-                            "aspect:wide"
-                          ],
-                          "slug": "arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_5811ac26-6ab8-4125-b62f-7e8800e5bbd2_jwvckr"
-                        },
-                        "dateAt": "2024-03-20T00:00:00.000Z"
-                      },
-                      {
-                        "title": "Visual Hierarchy in Blog Design",
-                        "subTitle": "Master the invisible force that guides your readers' journey",
-                        "slug": "visual-hierarchy-guide",
-                        "authors": [
-                          {
-                            "fullName": "Alex Rivera",
-                            "title": "UX Design Director",
-                            "email": "alex@example.com",
-                            "avatar": {
-                              "format": "image",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441064/arpowers_incredibly_beautiful_profile_photo_of_man_business_att_b7b0bc9f-3f06-4d55-a205-5314d5c26b82_jvuipg.png",
-                              "tags": [
-                                "annotated",
-                                "aspect:landscape",
-                                "aspect:square",
-                                "color:warm",
-                                "man",
-                                "person",
-                                "image"
-                              ],
-                              "slug": "arpowers_incredibly_beautiful_profile_photo_of_man_business_att_b7b0bc9f-3f06-4d55-a205-5314d5c26b82_jvuipg"
-                            }
-                          }
-                        ],
-                        "content": "\n        <article>\n          <p><em>Imagine</em> your readers flowing effortlessly through your content, intuitively knowing where to look next. That's not magic—it's visual hierarchy at work. Let's explore how to create this seamless experience for your readers.</p>\n\n          <h2>The Secret Language of Visual Design</h2>\n\n          <p>Have you ever wondered why some blog posts feel professional while others seem amateur? The difference often lies in the subtle art of visual hierarchy. Let's decode this visual language together.</p>\n\n          <div>\n            <section>\n              <h3>Size & Scale</h3>\n              <p>Watch how your eye naturally moves to larger elements first. Notice how this natural behavior creates a visual journey through your content. What if you could harness this power to guide your readers exactly where you want them to go?</p>\n            </section>\n\n            <section>\n              <h3>Color & Contrast</h3>\n              <p>Feel the pull of contrasting elements, the way they catch your attention and direct your focus. Imagine using this powerful tool to highlight your most important messages.</p>\n            </section>\n          </div>\n\n          <aside>\n            <h3 style=\"color: #1e40af; margin-top: 0;\">Designer's Secret Weapon</h3>\n            <p>Picture your perfect reader skimming your content. Where do their eyes go first? Second? By understanding this journey, you can craft a visual experience that feels both natural and engaging.</p>\n          </aside>\n\n          <h2>Transform Your Blog's Visual Appeal</h2>\n\n          <ol >\n            <li>\n              <h4>Establish Clear Hierarchy</h4>\n              <p>See how different heading sizes create natural breakpoints in your content?</p>\n            </li>\n            <li>\n              <h4>Use White Space Strategically</h4>\n              <p>Notice how breathing room around elements makes them feel more important?</p>\n            </li>\n            <li>\n              <h4>Create Visual Patterns</h4>\n              <p>What if your design elements worked together to create a cohesive reading experience?</p>\n            </li>\n          </ol>\n\n          <div >\n            <h3 >Pro Tip That Changes Everything</h3>\n            <p>Always test your design with real content. Notice how beautiful typography with poor content hierarchy still fails to engage readers? That's why we always start with content strategy.</p>\n          </div>\n\n          <p>Ready to transform your blog's visual impact? Let's take your first step toward a more engaging design today.</p>\n        </article>\n      ",
-                        "excerpt": "Master the invisible forces that guide your readers through your content. Transform your blog from chaotic to captivating through strategic visual design.",
-                        "categories": [
-                          "Design"
-                        ],
-                        "tags": [
-                          "visual design",
-                          "typography",
-                          "layout"
-                        ],
-                        "media": {
-                          "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556413/arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_03472686-63d4-4669-b4f1-8ebb5a56fb6a_zlysqy.png",
-                          "tags": [
-                            "annotated",
-                            "aspect:square",
-                            "color:cool",
-                            "object",
-                            "image"
-                          ],
-                          "slug": "arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_03472686-63d4-4669-b4f1-8ebb5a56fb6a_zlysqy"
-                        },
-                        "dateAt": "2024-03-19T00:00:00.000Z"
-                      },
-                      {
-                        "title": "Write Like a Master Storyteller",
-                        "subTitle": "Weave psychological triggers into your narratives",
-                        "slug": "storytelling-psychology",
-                        "authors": [
-                          {
-                            "fullName": "Maya Patel",
-                            "title": "Narrative Psychologist",
-                            "email": "maya@example.com",
-                            "avatar": {
-                              "format": "image",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441013/arpowers_minimal_stock_background_for_profile_photo_professiona_3dfbcab8-fc4a-4079-b5a8-2b81a26e24df_qoijpt.png",
-                              "tags": [
-                                "annotated",
-                                "aspect:portrait",
-                                "color:cool",
-                                "person",
-                                "silhouette",
-                                "woman",
-                                "image"
-                              ],
-                              "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_3dfbcab8-fc4a-4079-b5a8-2b81a26e24df_qoijpt"
-                            }
-                          }
-                        ],
-                        "content": "\n        <article>\n          <p><em>What if</em> every piece you wrote could hold readers spellbound until the very last word? The ancient art of storytelling isn't just for novelists—it's a powerful tool for anyone sharing ideas.</p>\n\n          <h2>The Hidden Structure of Captivating Writing</h2>\n          <p>Notice how certain passages seem to pull you through them effortlessly? This isn't accident—it's psychology at work.</p>\n\n          <h3>The Three Pillars of Magnetic Writing</h3>\n          <ol>\n            <li>\n              <h4>Tension and Release</h4>\n              <p>Feel how your mind leans forward when a question is posed? Watch how master writers create tiny mysteries throughout their work, leading you paragraph by paragraph.</p>\n            </li>\n            <li>\n              <h4>Sensory Bridges</h4>\n              <p>Remember the last time a piece of writing made you feel like you were actually there? That's the power of engaging multiple senses in your descriptions.</p>\n            </li>\n            <li>\n              <h4>Emotional Resonance</h4>\n              <p>Have you noticed how the most memorable writing makes you feel something? Let's explore how to weave emotion into every paragraph.</p>\n            </li>\n          </ol>\n\n          <h3>Transform Your Next Piece</h3>\n          <p>Imagine starting your next article not with facts, but with a scene that pulls readers into your world:</p>\n\n          <blockquote>\n            <p>\"The cursor blinked accusingly on the empty screen. You know that feeling—when you have something important to say, but the words seem just out of reach...\"</p>\n          </blockquote>\n\n          <h3>The Psychology Behind the Magic</h3>\n          <ul>\n            <li>Pattern interrupts that wake up the reader's mind</li>\n            <li>Strategic curiosity gaps that pull readers forward</li>\n            <li>Memory hooks that make your ideas stick</li>\n            <li>Narrative arcs that satisfy the brain's need for completion</li>\n          </ul>\n\n          <p>What powerful story are you ready to tell? Let's make your next piece of writing unforgettable.</p>\n        </article>\n      ",
-                        "excerpt": "Master the psychological principles that make readers hang on your every word. Transform your writing from merely informative to utterly captivating.",
-                        "categories": [
-                          "Writing"
-                        ],
-                        "tags": [
-                          "psychology",
-                          "storytelling",
-                          "writing"
-                        ],
-                        "media": {
-                          "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556445/arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_fa5deba3-358d-4d98-9bd2-798d155aee7a_ddlyns.png",
-                          "tags": [
-                            "annotated",
-                            "aspect:square",
-                            "color:warm",
-                            "object",
-                            "image"
-                          ],
-                          "slug": "arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_fa5deba3-358d-4d98-9bd2-798d155aee7a_ddlyns"
-                        },
-                        "dateAt": "2024-03-14T00:00:00.000Z"
-                      },
-                      {
-                        "title": "The Science of Memorable Ideas",
-                        "subTitle": "Why some concepts spread while others fade",
-                        "slug": "idea-memorability",
-                        "authors": [
-                          {
-                            "fullName": "David Zhang",
-                            "title": "Cognitive Science Researcher",
-                            "email": "david@example.com",
-                            "avatar": {
-                              "format": "image",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441005/arpowers_incredibly_beautiful_profile_photo_of_man_business_att_7ebcd8f4-c725-4951-a6b4-0b6a1edcfbaf_oowzv5.png",
-                              "tags": [
-                                "annotated",
-                                "aspect:landscape",
-                                "color:warm",
-                                "man",
-                                "midshot",
-                                "person",
-                                "image"
-                              ],
-                              "slug": "arpowers_incredibly_beautiful_profile_photo_of_man_business_att_7ebcd8f4-c725-4951-a6b4-0b6a1edcfbaf_oowzv5"
-                            }
-                          }
-                        ],
-                        "content": "\n        <article>\n          <p><em>Consider</em> the last idea that stayed with you for days. What made it stick? The science of memorable ideas isn't about being clever—it's about understanding how the human mind processes and retains information.</p>\n\n          <h2>The Architecture of Memorable Ideas</h2>\n          <p>Watch how your mind naturally gravitates toward certain concepts while others slip away. Let's decode this fascinating process.</p>\n\n          <h3>Core Elements of Sticky Ideas</h3>\n          <ul>\n            <li>\n              <h4>The Concrete Principle</h4>\n              <p>Notice how abstract concepts become clearer when anchored to tangible examples? That's your brain's preference for the concrete over the abstract.</p>\n            </li>\n            <li>\n              <h4>The Pattern Effect</h4>\n              <p>What happens when you recognize a familiar pattern in a new context? Your brain suddenly lights up with understanding.</p>\n            </li>\n            <li>\n              <h4>The Emotion Gateway</h4>\n              <p>Remember how ideas connected to strong emotions seem to write themselves directly into your memory?</p>\n            </li>\n          </ul>\n\n          <h3>Making Your Ideas Unforgettable</h3>\n          <ol>\n            <li>\n              <h4>The Velcro Method</h4>\n              <p>Imagine your idea as a hook looking for loops in your reader's mind. What existing knowledge can you connect to?</p>\n            </li>\n            <li>\n              <h4>The Curiosity Bridge</h4>\n              <p>Feel that slight tension when a story is left unfinished? That's your brain's natural desire for completion—use it.</p>\n            </li>\n            <li>\n              <h4>The Echo Chamber</h4>\n              <p>What if your idea could replay itself in your reader's mind, getting stronger with each iteration?</p>\n            </li>\n          </ol>\n\n          <blockquote>\n            <p>\"The most memorable ideas aren't just understood—they're felt, seen, and experienced.\"</p>\n            <footer>\n              <cite>— Dr. Eleanor Hughes, Memory Researcher</cite>\n            </footer>\n          </blockquote>\n\n          <h3>Transform Your Next Idea</h3>\n          <p>Before you share your next big concept, ask yourself:</p>\n          <ul>\n            <li>Could a child understand this?</li>\n            <li>Does it connect to something people already know?</li>\n            <li>Will it make them feel something?</li>\n            <li>Can they see it in action?</li>\n          </ul>\n\n          <p>Ready to make your ideas impossible to forget? Let's build something memorable together.</p>\n        </article>\n      ",
-                        "excerpt": "Discover why some ideas stick while others slip away. Learn the cognitive science behind creating concepts that lodge themselves in memory.",
-                        "categories": [
-                          "Psychology"
-                        ],
-                        "tags": [
-                          "cognition",
-                          "memory",
-                          "communication"
-                        ],
-                        "media": {
-                          "format": "video",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/video/upload/f_auto,q_auto/v1724640270/replicate-prediction-zh0pg61bmsrj40chhj5skkhe4m_fftcwx.mp4",
-                          "tags": [
-                            "object",
-                            "video",
-                            "aspect:landscape"
-                          ],
-                          "slug": "replicate-prediction-zh0pg61bmsrj40chhj5skkhe4m_fftcwx"
-                        },
-                        "dateAt": "2024-03-13T00:00:00.000Z"
-                      },
-                      {
-                        "title": "Email Marketing Psychology",
-                        "subTitle": "The neuroscience of inbox engagement",
-                        "slug": "email-psychology",
-                        "authors": [
-                          {
-                            "fullName": "Emma Rodriguez",
-                            "title": "Email Marketing Strategist",
-                            "email": "emma@example.com",
                             "avatar": {
                               "format": "image",
                               "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724440979/arpowers_incredibly_beautiful_profile_photo_of_man_business_att_f254b6af-df34-44b8-b3dc-ab101ba764be_z5pwdm.png",
@@ -674,6 +426,259 @@
                             }
                           }
                         ],
+                        "content": "\n        <article>\n          <p><em>Remember the last time</em> you searched for something important? That feeling of finding exactly what you needed? That's not luck—it's strategic SEO at work. Let's make your content the answer people are searching for.</p>\n\n          <section>\n            <h2>The Truth About Modern SEO</h2>\n            <p>Forget everything you think you know about SEO. Imagine if ranking well was less about technical tricks and more about genuinely understanding your readers. Let's explore how this shift changes everything.</p>\n\n            <div >\n              <div>\n                <h3>What Search Engines See</h3>\n                <ul style=\"margin: 16px 0;\">\n                  <li>\n                    <strong>Clear Structure</strong>\n                    <p>Notice how well-organized content ranks better? It's not coincidence.</p>\n                  </li>\n                  <li>\n                    <strong>Natural Language</strong>\n                    <p>What if your keywords flowed as naturally as a conversation?</p>\n                  </li>\n                  <li>\n                    <strong>Valuable Links</strong>\n                    <p>Think of links as virtual handshakes—they build trust.</p>\n                  </li>\n                </ul>\n              </div>\n\n              <div>\n                <h3>What Readers Experience</h3>\n                <ul style=\"margin: 16px 0;\">\n                  <li>\n                    <strong>Instant Relevance</strong>\n                    <p>Feel that moment when content perfectly matches your need?</p>\n                  </li>\n                  <li>\n                    <strong>Easy Navigation</strong>\n                    <p>Imagine finding everything you need without trying.</p>\n                  </li>\n                  <li>\n                    <strong>Complete Answers</strong>\n                    <p>What if every search led to a satisfying conclusion?</p>\n                  </li>\n                </ul>\n              </div>\n            </div>\n          </section>\n\n          <aside >\n            <h3>Your SEO Transformation Checklist</h3>\n            <p>Watch how your content changes when you focus on these elements:</p>\n            <ol style=\"margin: 16px 0;\">\n              <li>Is your content answering real questions?</li>\n              <li>Could a friend understand your headlines?</li>\n              <li>Does your page structure feel natural?</li>\n              <li>Are you using terms your audience uses?</li>\n            </ol>\n          </aside>\n\n          <div>\n            <h3 style=\"color: #166534;\">The Secret Most SEO Experts Won't Tell You</h3>\n            <p>The best SEO strategy is creating content so good, so useful, that people can't help but share it. Imagine your content becoming the go-to resource in your field.</p>\n          </div>\n\n          <p>Ready to see your content climb the rankings while genuinely helping your readers? Let's make your SEO work for both search engines and humans.</p>\n        </article>\n      ",
+                        "excerpt": "Stop fighting algorithms and start connecting with readers. Discover how human-centered SEO transforms your search rankings.",
+                        "categories": [
+                          "SEO"
+                        ],
+                        "tags": [
+                          "optimization",
+                          "search",
+                          "content strategy"
+                        ],
+                        "media": {
+                          "format": "image",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1726725068/arpowers_minimal_mid_photo_of_famous_landmark_interesting_looki_f175193b-d8c8-451f-b5ac-78d4846cec27_s4t94r.png",
+                          "tags": [
+                            "aspect:landscape",
+                            "color:multi",
+                            "image",
+                            "object",
+                            "annotated"
+                          ],
+                          "slug": "arpowers_minimal_mid_photo_of_famous_landmark_interesting_looki_f175193b-d8c8-451f-b5ac-78d4846cec27_s4t94r"
+                        },
+                        "dateAt": "2024-03-17T00:00:00.000Z"
+                      },
+                      {
+                        "title": "The Art of Compelling Headlines",
+                        "subTitle": "Transform your ordinary titles into attention-grabbing headlines",
+                        "slug": "headline-writing-guide",
+                        "authors": [
+                          {
+                            "fullName": "Sarah Chen",
+                            "title": "Content Strategy Lead",
+                            "email": "sarah@example.com",
+                            "avatar": {
+                              "format": "image",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441622/arpowers_minimal_stock_background_for_mid_shot_profile_photo_Si_dd1a1ffb-2f07-41c4-92e8-d622217be765_qfecff.png",
+                              "tags": [
+                                "annotated",
+                                "aspect:landscape",
+                                "aspect:square",
+                                "color:cool",
+                                "headshot",
+                                "man",
+                                "person",
+                                "silhouette",
+                                "image"
+                              ],
+                              "slug": "arpowers_minimal_stock_background_for_mid_shot_profile_photo_Si_dd1a1ffb-2f07-41c4-92e8-d622217be765_qfecff"
+                            }
+                          }
+                        ],
+                        "content": "\n        <article>\n          <p><em>Picture this:</em> Your brilliant article sits unread while others get all the attention. The difference? Often it's just the headline. Let's transform your headlines from forgotten to unforgettable.</p>\n\n          <h2>The 4 U's That Make Headlines Irresistible</h2>\n\n          <p>Notice how great headlines seem to pull you in effortlessly? Here's the framework behind that magic:</p>\n\n          <ul style=\"margin: 24px 0;\">\n            <li>\n              <h3>Useful</h3>\n              <p>Imagine your reader asking \"What's in it for me?\" Your headline should answer that instantly.</p>\n            </li>\n            <li>\n              <h3>Urgent</h3>\n              <p>Feel that slight anxiety when you might miss out on something important? That's urgency at work.</p>\n            </li>\n            <li>\n              <h3>Unique</h3>\n              <p>What would it feel like if your headline stood out from thousands of others? That's the power of uniqueness.</p>\n            </li>\n            <li>\n              <h3>Ultra-specific</h3>\n              <p>See how detailed headlines build instant credibility? They promise—and deliver—clear value.</p>\n            </li>\n          </ul>\n\n          <h2>Transform Your Headlines Today</h2>\n\n          <aside >\n            <p><strong>Try this exercise:</strong> Take your last three blog titles and rewrite each one using the 4 U's. Watch how they transform from basic statements into compelling invitations.</p>\n          </aside>\n\n          <p>Have you ever noticed how some blogs seem to consistently capture attention while others struggle? The secret often lies in their headlines. Let's unlock that secret together.</p>\n\n          <blockquote>\n            \"The headlines which work best are those that promise a story the audience already cares about. Now imagine how powerful your writing becomes when you master this art.\"\n            <footer>\n              <cite>— John Caples, Advertising Legend</cite>\n            </footer>\n          </blockquote>\n\n          <p>Ready to see your engagement numbers transform? Your next great headline is waiting to be written. Let's create it together.</p>\n        </article>\n      ",
+                        "excerpt": "Discover the secrets of headlines that don't just attract clicks—they compel action. Transform your titles from skippable to unforgettable.",
+                        "categories": [
+                          "Writing"
+                        ],
+                        "tags": [
+                          "headlines",
+                          "copywriting",
+                          "engagement"
+                        ],
+                        "media": {
+                          "format": "image",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556068/arpowers_minimal_mid_shot_photo_of_item_ancient_greek_ideal_bea_2fc9cea8-00b4-47b4-957f-aa995071aaad_xekbep.png",
+                          "tags": [
+                            "annotated",
+                            "aspect:landscape",
+                            "color:warm",
+                            "object",
+                            "image"
+                          ],
+                          "slug": "arpowers_minimal_mid_shot_photo_of_item_ancient_greek_ideal_bea_2fc9cea8-00b4-47b4-957f-aa995071aaad_xekbep"
+                        },
+                        "dateAt": "2024-03-20T00:00:00.000Z"
+                      },
+                      {
+                        "title": "Visual Hierarchy in Blog Design",
+                        "subTitle": "Master the invisible force that guides your readers' journey",
+                        "slug": "visual-hierarchy-guide",
+                        "authors": [
+                          {
+                            "fullName": "Alex Rivera",
+                            "title": "UX Design Director",
+                            "email": "alex@example.com",
+                            "avatar": {
+                              "format": "image",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724440983/arpowers_minimal_stock_background_for_profile_photo_professiona_e88ac2a8-eeb3-42e0-9edb-43e7361f0aaf_t6cfzb.png",
+                              "tags": [
+                                "annotated",
+                                "aspect:portrait",
+                                "color:warm",
+                                "man",
+                                "midshot",
+                                "person",
+                                "silhouette",
+                                "image"
+                              ],
+                              "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_e88ac2a8-eeb3-42e0-9edb-43e7361f0aaf_t6cfzb"
+                            }
+                          }
+                        ],
+                        "content": "\n        <article>\n          <p><em>Imagine</em> your readers flowing effortlessly through your content, intuitively knowing where to look next. That's not magic—it's visual hierarchy at work. Let's explore how to create this seamless experience for your readers.</p>\n\n          <h2>The Secret Language of Visual Design</h2>\n\n          <p>Have you ever wondered why some blog posts feel professional while others seem amateur? The difference often lies in the subtle art of visual hierarchy. Let's decode this visual language together.</p>\n\n          <div>\n            <section>\n              <h3>Size & Scale</h3>\n              <p>Watch how your eye naturally moves to larger elements first. Notice how this natural behavior creates a visual journey through your content. What if you could harness this power to guide your readers exactly where you want them to go?</p>\n            </section>\n\n            <section>\n              <h3>Color & Contrast</h3>\n              <p>Feel the pull of contrasting elements, the way they catch your attention and direct your focus. Imagine using this powerful tool to highlight your most important messages.</p>\n            </section>\n          </div>\n\n          <aside>\n            <h3 style=\"color: #1e40af; margin-top: 0;\">Designer's Secret Weapon</h3>\n            <p>Picture your perfect reader skimming your content. Where do their eyes go first? Second? By understanding this journey, you can craft a visual experience that feels both natural and engaging.</p>\n          </aside>\n\n          <h2>Transform Your Blog's Visual Appeal</h2>\n\n          <ol >\n            <li>\n              <h4>Establish Clear Hierarchy</h4>\n              <p>See how different heading sizes create natural breakpoints in your content?</p>\n            </li>\n            <li>\n              <h4>Use White Space Strategically</h4>\n              <p>Notice how breathing room around elements makes them feel more important?</p>\n            </li>\n            <li>\n              <h4>Create Visual Patterns</h4>\n              <p>What if your design elements worked together to create a cohesive reading experience?</p>\n            </li>\n          </ol>\n\n          <div >\n            <h3 >Pro Tip That Changes Everything</h3>\n            <p>Always test your design with real content. Notice how beautiful typography with poor content hierarchy still fails to engage readers? That's why we always start with content strategy.</p>\n          </div>\n\n          <p>Ready to transform your blog's visual impact? Let's take your first step toward a more engaging design today.</p>\n        </article>\n      ",
+                        "excerpt": "Master the invisible forces that guide your readers through your content. Transform your blog from chaotic to captivating through strategic visual design.",
+                        "categories": [
+                          "Design"
+                        ],
+                        "tags": [
+                          "visual design",
+                          "typography",
+                          "layout"
+                        ],
+                        "media": {
+                          "format": "image",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556449/arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_ab26cfca-1bda-41cc-851f-5ebf4e60fe29_tvavol.png",
+                          "tags": [
+                            "annotated",
+                            "aspect:tall",
+                            "color:warm",
+                            "object",
+                            "image"
+                          ],
+                          "slug": "arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_ab26cfca-1bda-41cc-851f-5ebf4e60fe29_tvavol"
+                        },
+                        "dateAt": "2024-03-19T00:00:00.000Z"
+                      },
+                      {
+                        "title": "Write Like a Master Storyteller",
+                        "subTitle": "Weave psychological triggers into your narratives",
+                        "slug": "storytelling-psychology",
+                        "authors": [
+                          {
+                            "fullName": "Maya Patel",
+                            "title": "Narrative Psychologist",
+                            "email": "maya@example.com",
+                            "avatar": {
+                              "format": "image",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441620/arpowers_minimal_stock_background_for_profile_photo_professiona_aeaaa73b-5b44-4f95-bf63-fd0efb7a64ab_r4styd.png",
+                              "tags": [
+                                "annotated",
+                                "aspect:landscape",
+                                "color:warm",
+                                "man",
+                                "midshot",
+                                "person",
+                                "aspect:square"
+                              ],
+                              "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_aeaaa73b-5b44-4f95-bf63-fd0efb7a64ab_r4styd"
+                            }
+                          }
+                        ],
+                        "content": "\n        <article>\n          <p><em>What if</em> every piece you wrote could hold readers spellbound until the very last word? The ancient art of storytelling isn't just for novelists—it's a powerful tool for anyone sharing ideas.</p>\n\n          <h2>The Hidden Structure of Captivating Writing</h2>\n          <p>Notice how certain passages seem to pull you through them effortlessly? This isn't accident—it's psychology at work.</p>\n\n          <h3>The Three Pillars of Magnetic Writing</h3>\n          <ol>\n            <li>\n              <h4>Tension and Release</h4>\n              <p>Feel how your mind leans forward when a question is posed? Watch how master writers create tiny mysteries throughout their work, leading you paragraph by paragraph.</p>\n            </li>\n            <li>\n              <h4>Sensory Bridges</h4>\n              <p>Remember the last time a piece of writing made you feel like you were actually there? That's the power of engaging multiple senses in your descriptions.</p>\n            </li>\n            <li>\n              <h4>Emotional Resonance</h4>\n              <p>Have you noticed how the most memorable writing makes you feel something? Let's explore how to weave emotion into every paragraph.</p>\n            </li>\n          </ol>\n\n          <h3>Transform Your Next Piece</h3>\n          <p>Imagine starting your next article not with facts, but with a scene that pulls readers into your world:</p>\n\n          <blockquote>\n            <p>\"The cursor blinked accusingly on the empty screen. You know that feeling—when you have something important to say, but the words seem just out of reach...\"</p>\n          </blockquote>\n\n          <h3>The Psychology Behind the Magic</h3>\n          <ul>\n            <li>Pattern interrupts that wake up the reader's mind</li>\n            <li>Strategic curiosity gaps that pull readers forward</li>\n            <li>Memory hooks that make your ideas stick</li>\n            <li>Narrative arcs that satisfy the brain's need for completion</li>\n          </ul>\n\n          <p>What powerful story are you ready to tell? Let's make your next piece of writing unforgettable.</p>\n        </article>\n      ",
+                        "excerpt": "Master the psychological principles that make readers hang on your every word. Transform your writing from merely informative to utterly captivating.",
+                        "categories": [
+                          "Writing"
+                        ],
+                        "tags": [
+                          "psychology",
+                          "storytelling",
+                          "writing"
+                        ],
+                        "media": {
+                          "format": "image",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1726725067/arpowers_Minimalist_futuristic_interpretation_of_a_aphrodite_el_f46ef008-6dab-4623-945e-fce9017b0f84_td7h3n.png",
+                          "tags": [
+                            "aspect:landscape",
+                            "color:warm",
+                            "image",
+                            "object",
+                            "annotated"
+                          ],
+                          "slug": "arpowers_Minimalist_futuristic_interpretation_of_a_aphrodite_el_f46ef008-6dab-4623-945e-fce9017b0f84_td7h3n"
+                        },
+                        "dateAt": "2024-03-14T00:00:00.000Z"
+                      },
+                      {
+                        "title": "The Science of Memorable Ideas",
+                        "subTitle": "Why some concepts spread while others fade",
+                        "slug": "idea-memorability",
+                        "authors": [
+                          {
+                            "fullName": "David Zhang",
+                            "title": "Cognitive Science Researcher",
+                            "email": "david@example.com",
+                            "avatar": {
+                              "format": "image",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724440967/arpowers_incredibly_beautiful_profile_photo_business_attire_Sil_dd158f53-8be3-46fe-91da-e9fbda1d4516_tffnws.png",
+                              "tags": [
+                                "annotated",
+                                "aspect:landscape",
+                                "aspect:square",
+                                "color:warm",
+                                "nature",
+                                "people",
+                                "person",
+                                "silhouette",
+                                "woman",
+                                "image"
+                              ],
+                              "slug": "arpowers_incredibly_beautiful_profile_photo_business_attire_Sil_dd158f53-8be3-46fe-91da-e9fbda1d4516_tffnws"
+                            }
+                          }
+                        ],
+                        "content": "\n        <article>\n          <p><em>Consider</em> the last idea that stayed with you for days. What made it stick? The science of memorable ideas isn't about being clever—it's about understanding how the human mind processes and retains information.</p>\n\n          <h2>The Architecture of Memorable Ideas</h2>\n          <p>Watch how your mind naturally gravitates toward certain concepts while others slip away. Let's decode this fascinating process.</p>\n\n          <h3>Core Elements of Sticky Ideas</h3>\n          <ul>\n            <li>\n              <h4>The Concrete Principle</h4>\n              <p>Notice how abstract concepts become clearer when anchored to tangible examples? That's your brain's preference for the concrete over the abstract.</p>\n            </li>\n            <li>\n              <h4>The Pattern Effect</h4>\n              <p>What happens when you recognize a familiar pattern in a new context? Your brain suddenly lights up with understanding.</p>\n            </li>\n            <li>\n              <h4>The Emotion Gateway</h4>\n              <p>Remember how ideas connected to strong emotions seem to write themselves directly into your memory?</p>\n            </li>\n          </ul>\n\n          <h3>Making Your Ideas Unforgettable</h3>\n          <ol>\n            <li>\n              <h4>The Velcro Method</h4>\n              <p>Imagine your idea as a hook looking for loops in your reader's mind. What existing knowledge can you connect to?</p>\n            </li>\n            <li>\n              <h4>The Curiosity Bridge</h4>\n              <p>Feel that slight tension when a story is left unfinished? That's your brain's natural desire for completion—use it.</p>\n            </li>\n            <li>\n              <h4>The Echo Chamber</h4>\n              <p>What if your idea could replay itself in your reader's mind, getting stronger with each iteration?</p>\n            </li>\n          </ol>\n\n          <blockquote>\n            <p>\"The most memorable ideas aren't just understood—they're felt, seen, and experienced.\"</p>\n            <footer>\n              <cite>— Dr. Eleanor Hughes, Memory Researcher</cite>\n            </footer>\n          </blockquote>\n\n          <h3>Transform Your Next Idea</h3>\n          <p>Before you share your next big concept, ask yourself:</p>\n          <ul>\n            <li>Could a child understand this?</li>\n            <li>Does it connect to something people already know?</li>\n            <li>Will it make them feel something?</li>\n            <li>Can they see it in action?</li>\n          </ul>\n\n          <p>Ready to make your ideas impossible to forget? Let's build something memorable together.</p>\n        </article>\n      ",
+                        "excerpt": "Discover why some ideas stick while others slip away. Learn the cognitive science behind creating concepts that lodge themselves in memory.",
+                        "categories": [
+                          "Psychology"
+                        ],
+                        "tags": [
+                          "cognition",
+                          "memory",
+                          "communication"
+                        ],
+                        "media": {
+                          "format": "image",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556270/arpowers_minimal_midshot_photo_of_object_2030s_futuristic_ancie_14b3b37f-7efe-4b14-ab12-18a4734835d1_so76cm.png",
+                          "tags": [
+                            "annotated",
+                            "aspect:portrait",
+                            "aspect:square",
+                            "color:warm",
+                            "object",
+                            "image"
+                          ],
+                          "slug": "arpowers_minimal_midshot_photo_of_object_2030s_futuristic_ancie_14b3b37f-7efe-4b14-ab12-18a4734835d1_so76cm"
+                        },
+                        "dateAt": "2024-03-13T00:00:00.000Z"
+                      },
+                      {
+                        "title": "Email Marketing Psychology",
+                        "subTitle": "The neuroscience of inbox engagement",
+                        "slug": "email-psychology",
+                        "authors": [
+                          {
+                            "fullName": "Emma Rodriguez",
+                            "title": "Email Marketing Strategist",
+                            "email": "emma@example.com",
+                            "avatar": {
+                              "format": "image",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441017/arpowers_minimal_stock_background_for_profile_photo_professiona_2ae2a119-2213-4f21-9941-66c64bc38841_msz7zx.png",
+                              "tags": [
+                                "annotated",
+                                "aspect:portrait",
+                                "aspect:square",
+                                "color:warm",
+                                "person",
+                                "silhouette",
+                                "woman",
+                                "image"
+                              ],
+                              "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_2ae2a119-2213-4f21-9941-66c64bc38841_msz7zx"
+                            }
+                          }
+                        ],
                         "content": "[Previous post content structure but focused on email marketing psychology]",
                         "excerpt": "Unlock the psychological triggers that make emails irresistible to open and act upon. Transform your campaigns from inbox noise to anticipated value.",
                         "categories": [
@@ -686,7 +691,7 @@
                         ],
                         "media": {
                           "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556118/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_4d9b8248-1cb0-4f19-8309-c75321133f82_woikyd.png",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556115/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_f5334b4a-7d58-4b67-9a10-5e5677736e72_p9knuw.png",
                           "tags": [
                             "annotated",
                             "color:warm",
@@ -694,7 +699,7 @@
                             "object",
                             "aspect:wide"
                           ],
-                          "slug": "arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_4d9b8248-1cb0-4f19-8309-c75321133f82_woikyd"
+                          "slug": "arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_f5334b4a-7d58-4b67-9a10-5e5677736e72_p9knuw"
                         },
                         "dateAt": "2024-03-12T00:00:00.000Z"
                       },
@@ -709,17 +714,18 @@
                             "email": "james@example.com",
                             "avatar": {
                               "format": "image",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724440970/arpowers_incredibly_beautiful_headshot_of_woman_business_attire_88472b73-95d1-4756-ae38-f47ba2c84677_koglpc.png",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724440976/arpowers_minimal_stock_background_for_profile_photo_professiona_63facb31-584d-410e-9b14-62ab9d55f79b_zepla8.png",
                               "tags": [
                                 "annotated",
-                                "aspect:square",
+                                "aspect:portrait",
                                 "color:warm",
                                 "headshot",
                                 "person",
+                                "silhouette",
                                 "woman",
                                 "image"
                               ],
-                              "slug": "arpowers_incredibly_beautiful_headshot_of_woman_business_attire_88472b73-95d1-4756-ae38-f47ba2c84677_koglpc"
+                              "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_63facb31-584d-410e-9b14-62ab9d55f79b_zepla8"
                             }
                           }
                         ],
@@ -735,15 +741,15 @@
                         ],
                         "media": {
                           "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556431/arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gr_73a93aad-b34c-4328-8ef9-6a90f4ac55bd_3_cgpasf.png",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556080/arpowers_minimal_mid_shot_photo_of_item_ancient_greek_ideal_bea_ade3f08e-801f-458c-9741-cbcc750bdabf_aeadrc.png",
                           "tags": [
                             "annotated",
-                            "aspect:tall",
+                            "aspect:landscape",
                             "color:warm",
                             "object",
                             "image"
                           ],
-                          "slug": "arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gr_73a93aad-b34c-4328-8ef9-6a90f4ac55bd_3_cgpasf"
+                          "slug": "arpowers_minimal_mid_shot_photo_of_item_ancient_greek_ideal_bea_ade3f08e-801f-458c-9741-cbcc750bdabf_aeadrc"
                         },
                         "dateAt": "2024-03-11T00:00:00.000Z"
                       },
@@ -758,17 +764,18 @@
                             "email": "sophia@example.com",
                             "avatar": {
                               "format": "image",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441017/arpowers_minimal_stock_background_for_profile_photo_professiona_60c1bd31-1ca6-41b4-9d73-7abe5a377202_fjh5s1.png",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441004/arpowers_interesting_stock_profile_photo_professional_attire_Si_dc7cbdd0-e7ff-4ee8-a1bc-7e7471e78775_xpjber.png",
                               "tags": [
                                 "annotated",
-                                "aspect:landscape",
-                                "color:cool",
-                                "headshot",
+                                "aspect:portrait",
+                                "aspect:square",
+                                "color:warm",
+                                "midshot",
                                 "person",
                                 "woman",
                                 "image"
                               ],
-                              "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_60c1bd31-1ca6-41b4-9d73-7abe5a377202_fjh5s1"
+                              "slug": "arpowers_interesting_stock_profile_photo_professional_attire_Si_dc7cbdd0-e7ff-4ee8-a1bc-7e7471e78775_xpjber"
                             }
                           }
                         ],
@@ -784,15 +791,15 @@
                         ],
                         "media": {
                           "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556041/arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gr_a5b0b102-c7c9-4df5-925a-f0495048518f_0_t445xo.png",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556130/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_16ec2682-8379-4aeb-a5b6-518d10b73c68_jcjjol.png",
                           "tags": [
                             "annotated",
-                            "aspect:square",
                             "color:warm",
+                            "image",
                             "object",
-                            "image"
+                            "aspect:wide"
                           ],
-                          "slug": "arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gr_a5b0b102-c7c9-4df5-925a-f0495048518f_0_t445xo"
+                          "slug": "arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_16ec2682-8379-4aeb-a5b6-518d10b73c68_jcjjol"
                         },
                         "dateAt": "2024-03-10T00:00:00.000Z"
                       }
@@ -829,13 +836,13 @@
             "is404": false
           },
           {
-            "cardId": "crd6748afc10bd787a1260ae190",
+            "cardId": "crd6748c90a41f3a498c459039b",
             "templateId": "wrap",
             "slug": "contact",
             "cards": [
               {
-                "parentId": "crd6748afc10bd787a1260ae190",
-                "cardId": "crd6748afc1be69b86990b0d4ed",
+                "parentId": "crd6748c90a41f3a498c459039b",
+                "cardId": "crd6748c90a5adbec27fa111d41",
                 "templateId": "hero",
                 "userConfig": {
                   "title": "Contact Us",
@@ -859,8 +866,8 @@
                 "depth": 1
               },
               {
-                "parentId": "crd6748afc10bd787a1260ae190",
-                "cardId": "crd6748afc1e06d27056dc08609",
+                "parentId": "crd6748c90a41f3a498c459039b",
+                "cardId": "crd6748c90aa66d04c8ea3c1d38",
                 "templateId": "contact",
                 "userConfig": {
                   "layout": "right",
@@ -942,8 +949,8 @@
                 "depth": 1
               },
               {
-                "parentId": "crd6748afc10bd787a1260ae190",
-                "cardId": "crd6748afc16c757a40cec4deac",
+                "parentId": "crd6748c90a41f3a498c459039b",
+                "cardId": "crd6748c90a3074a323963698fc",
                 "templateId": "maps",
                 "userConfig": {
                   "maps": [
@@ -996,13 +1003,13 @@
         ],
         "sections": {
           "header": {
-            "cardId": "crd6748afc1f9077199c5131c0c",
+            "cardId": "crd6748c90a00efbe5e79862d37",
             "templateId": "area",
             "regionId": "header",
             "cards": [
               {
-                "parentId": "crd6748afc1f9077199c5131c0c",
-                "cardId": "crd6748afc13599d15e2f0fa6bb",
+                "parentId": "crd6748c90a00efbe5e79862d37",
+                "cardId": "crd6748c90a2fdd78f4bf73145e",
                 "templateId": "nav",
                 "userConfig": {
                   "standard": {
@@ -1084,13 +1091,13 @@
             "is404": false
           },
           "footer": {
-            "cardId": "crd6748afc16d5c357fa24acb10",
+            "cardId": "crd6748c90a9250051c282a37e9",
             "templateId": "area",
             "regionId": "footer",
             "cards": [
               {
-                "parentId": "crd6748afc16d5c357fa24acb10",
-                "cardId": "crd6748afc17f0d50fd6cff2319",
+                "parentId": "crd6748c90a9250051c282a37e9",
+                "cardId": "crd6748c90a4b6e8c0639171f90",
                 "templateId": "ticker",
                 "userConfig": {
                   "settings": {
@@ -1114,8 +1121,8 @@
                 "depth": 1
               },
               {
-                "parentId": "crd6748afc16d5c357fa24acb10",
-                "cardId": "crd6748afc10bd37dbcbf03c7e0",
+                "parentId": "crd6748c90a9250051c282a37e9",
+                "cardId": "crd6748c90aadedc2244c254408",
                 "templateId": "callToAction",
                 "userConfig": {
                   "superTitle": {
@@ -1187,8 +1194,8 @@
                 "depth": 1
               },
               {
-                "parentId": "crd6748afc16d5c357fa24acb10",
-                "cardId": "crd6748afc10016a02c2de627c6",
+                "parentId": "crd6748c90a9250051c282a37e9",
+                "cardId": "crd6748c90a9f172ea2fb59e6c1",
                 "templateId": "footerX",
                 "userConfig": {
                   "title": "Your Brand",
@@ -1283,12 +1290,12 @@
             "is404": false
           },
           "hidden": {
-            "cardId": "crd6748afc1d3ff5213251cca05",
+            "cardId": "crd6748c90a92a3a5d6fbd836b6",
             "templateId": "area",
             "cards": [
               {
-                "parentId": "crd6748afc1d3ff5213251cca05",
-                "cardId": "crd6748afc1b7e978beeb1e9fb3",
+                "parentId": "crd6748c90a92a3a5d6fbd836b6",
+                "cardId": "crd6748c90a9fc883a685772f9c",
                 "templateId": "contentModal",
                 "userConfig": {},
                 "effects": [],
@@ -1299,8 +1306,8 @@
                 "depth": 1
               },
               {
-                "parentId": "crd6748afc1d3ff5213251cca05",
-                "cardId": "crd6748afc171d07bbc4029fdc0",
+                "parentId": "crd6748c90a92a3a5d6fbd836b6",
+                "cardId": "crd6748c90aa45a4b8949c86c2a",
                 "templateId": "textEffects",
                 "userConfig": {},
                 "effects": [],
@@ -1311,8 +1318,8 @@
                 "depth": 1
               },
               {
-                "parentId": "crd6748afc1d3ff5213251cca05",
-                "cardId": "crd6748afc149bfc5c6ea565019",
+                "parentId": "crd6748c90a92a3a5d6fbd836b6",
+                "cardId": "crd6748c90a666be79c906a5eef",
                 "templateId": "capture",
                 "userConfig": {
                   "superTitle": {

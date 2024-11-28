@@ -1386,12 +1386,7 @@
         }
       },
       "minimal": {
-        "config": {
-          "footer.ts": null,
-          "header.ts": null,
-          "pages.ts": null,
-          "sections.ts": null
-        },
+        "config.ts": null,
         "img": {
           "dark-desktop.png": null,
           "light-desktop.png": null
@@ -1424,6 +1419,7 @@
       "anim": {
         "AnimClipPath.vue": null,
         "AnimGradientBg.vue": null,
+        "AnimItemPop.vue": null,
         "TransitionSlide.vue": null,
         "animateText.ts": null,
         "gradientUtil.ts": null,
@@ -1748,7 +1744,6 @@
     "verify-commit.mjs": null,
     "xcache.sh": null
   },
-  "structure.json": null,
   "supereon.png": null,
   "tailwind.config.ts": null,
   "tsconfig.json": null,

@@ -51,7 +51,7 @@ export class CardStructureGenerator {
         ? await zodToSimpleSchema(config.schema)
         : undefined
 
-      out = { ...out, schema: schemaStructure, demoPage: config.demoPage?.cards[0] }
+      out = { ...out, optionDotPaths: schemaStructure, demoPage: config.demoPage?.cards[0] }
     }
 
     return out

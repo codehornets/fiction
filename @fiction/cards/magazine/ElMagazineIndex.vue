@@ -49,7 +49,7 @@ function changePage(newPage: number) {
 </script>
 
 <template>
-  <div :class="card.classes.value.contentWidth">
+  <div>
     <!-- Grid Container -->
     <div v-if="posts.length" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 auto-rows-[minmax(280px,20vh)]">
       <!-- Loop through posts -->
