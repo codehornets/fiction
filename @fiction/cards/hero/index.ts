@@ -10,7 +10,7 @@ export const template = cardTemplate({
   category: ['basic', 'marketing'],
   isPublic: true,
   icon: 'i-tabler-presentation',
-  colorTheme: 'blue',
+  colorTheme: 'violet',
   description: 'Create compelling hero sections that combine headlines, imagery, and calls-to-action to engage visitors. Perfect for homepages, product launches, and landing pages. The hero should communicate your core value proposition within seconds, using persuasive headlines (5-7 words), supporting text (10-30 words), and strategic imagery that reinforces your message. Include clear calls-to-action that guide visitors toward your primary conversion goals.',
 
   // Async load the component for better performance

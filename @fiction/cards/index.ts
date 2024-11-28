@@ -37,6 +37,7 @@ export const templates = {
     logos: () => import('./logos'),
     numberedList: () => import('./numberedList'),
     bento: () => import('./bento'),
+    timeline: () => import('./timeline'),
   },
   posts: {
     postList: () => import('./postList'),

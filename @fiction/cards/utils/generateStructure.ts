@@ -61,7 +61,7 @@ export class CardStructureGenerator {
     const structure = {
       version: '1.0',
       generatedAt: new Date().toISOString(),
-      templates: await Promise.all(this.templates.map(t => this.processTemplate(t))),
+      templates: await Promise.all(this.templates.filter(t => t.settings.isPublic).map(t => this.processTemplate(t))),
     }
 
     return {

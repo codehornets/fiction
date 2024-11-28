@@ -10,7 +10,7 @@ export const template = cardTemplate({
   description: 'Create engaging narratives that unfold as users scroll, combining captivating media with elegantly revealed text. Perfect for case studies, company histories, or feature presentations.',
   subTitle: 'Transform your narrative into an immersive scrolling experience',
   icon: 'i-tabler-book-2',
-  colorTheme: 'emerald',
+  colorTheme: 'fuchsia',
   isPublic: true,
   el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
 

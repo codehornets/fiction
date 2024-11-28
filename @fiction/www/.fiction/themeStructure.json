@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generatedAt": "2024-11-28T00:28:13.500Z",
+  "generatedAt": "2024-11-28T18:00:33.249Z",
   "theme": [
     {
       "themeId": "minimal",
@@ -51,13 +51,13 @@
         },
         "pages": [
           {
-            "cardId": "crd6747b91d69feaea03dab1a24",
+            "cardId": "crd6748afc1ce5e37ee638e0384",
             "templateId": "wrap",
             "slug": "_home",
             "cards": [
               {
-                "parentId": "crd6747b91d69feaea03dab1a24",
-                "cardId": "crd6747b91df96b1f0f8d9d1790",
+                "parentId": "crd6748afc1ce5e37ee638e0384",
+                "cardId": "crd6748afc18a72f1b1ae1b9658",
                 "templateId": "profile",
                 "userConfig": {
                   "superTitle": {
@@ -70,32 +70,33 @@
                     {
                       "media": {
                         "format": "image",
-                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441014/arpowers_minimal_stock_background_for_profile_photo_professiona_43973f4e-64f7-4db6-9dce-8debb2752090_vywbzt.png",
-                        "tags": [
-                          "annotated",
-                          "aspect:portrait",
-                          "color:warm",
-                          "person",
-                          "silhouette",
-                          "woman",
-                          "image"
-                        ],
-                        "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_43973f4e-64f7-4db6-9dce-8debb2752090_vywbzt"
-                      }
-                    },
-                    {
-                      "media": {
-                        "format": "image",
-                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556306/arpowers_minimal_midshot_photo_of_object_1990s_style_futuristic_14001eab-faa2-4c3d-a043-321b080b73cd_juorma.png",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556341/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_12401694-bb22-4f7b-9617-4e52872c0a66_jpfqrt.png",
                         "tags": [
                           "annotated",
                           "aspect:portrait",
                           "aspect:square",
                           "color:warm",
+                          "nature",
+                          "object",
+                          "people",
+                          "image"
+                        ],
+                        "slug": "arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_12401694-bb22-4f7b-9617-4e52872c0a66_jpfqrt"
+                      }
+                    },
+                    {
+                      "media": {
+                        "format": "image",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556244/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_4b9aa180-978e-48ca-b88f-7e385e01efd3_loes2x.png",
+                        "tags": [
+                          "annotated",
+                          "aspect:portrait",
+                          "aspect:square",
+                          "color:cool",
                           "object",
                           "image"
                         ],
-                        "slug": "arpowers_minimal_midshot_photo_of_object_1990s_style_futuristic_14001eab-faa2-4c3d-a043-321b080b73cd_juorma"
+                        "slug": "arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_4b9aa180-978e-48ca-b88f-7e385e01efd3_loes2x"
                       }
                     }
                   ],
@@ -164,8 +165,8 @@
                 "depth": 1
               },
               {
-                "parentId": "crd6747b91d69feaea03dab1a24",
-                "cardId": "crd6747b91d0fd7faf2004746fd",
+                "parentId": "crd6748afc1ce5e37ee638e0384",
+                "cardId": "crd6748afc1f1aa53dd02dc9408",
                 "templateId": "bento",
                 "userConfig": {
                   "items": [
@@ -220,14 +221,18 @@
                       "title": "Card With Media",
                       "content": "Add media or background images to create visual interest.",
                       "bg": {
-                        "format": "video",
-                        "url": "https://res.cloudinary.com/fiction-com-inc/video/upload/f_auto,q_auto/v1724636730/replicate-prediction-3wpk2r7bysrj40chhgkvt8zcr0_vxo6ss.mp4",
+                        "format": "image",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724603280/arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_e3943227-f092-44b6-b30b-3dffdd5b4277_jap0i5.png",
                         "tags": [
+                          "annotated",
                           "aspect:landscape",
+                          "aspect:square",
                           "background",
-                          "video"
+                          "color:warm",
+                          "nature",
+                          "image"
                         ],
-                        "slug": "replicate-prediction-3wpk2r7bysrj40chhgkvt8zcr0_vxo6ss",
+                        "slug": "arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_e3943227-f092-44b6-b30b-3dffdd5b4277_jap0i5",
                         "overlay": {
                           "opacity": 0.4
                         }
@@ -253,8 +258,8 @@
                 "depth": 1
               },
               {
-                "parentId": "crd6747b91d69feaea03dab1a24",
-                "cardId": "crd6747b91d5c75ca4832477521",
+                "parentId": "crd6748afc1ce5e37ee638e0384",
+                "cardId": "crd6748afc1cc6fef33c7e334bc",
                 "templateId": "quotes",
                 "userConfig": {
                   "display": {
@@ -273,18 +278,18 @@
                         "title": "Marketing Director",
                         "image": {
                           "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441017/arpowers_minimal_stock_background_for_profile_photo_professiona_2ae2a119-2213-4f21-9941-66c64bc38841_msz7zx.png",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724443253/arpowers_minimal_midshot_photo_stylistic_attire_1990s_style_fut_66bb224b-8c74-43bf-a013-b9389b334282_plxete.png",
                           "tags": [
                             "annotated",
-                            "aspect:portrait",
+                            "aspect:landscape",
                             "aspect:square",
                             "color:warm",
+                            "midshot",
                             "person",
-                            "silhouette",
                             "woman",
                             "image"
                           ],
-                          "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_2ae2a119-2213-4f21-9941-66c64bc38841_msz7zx"
+                          "slug": "arpowers_minimal_midshot_photo_stylistic_attire_1990s_style_fut_66bb224b-8c74-43bf-a013-b9389b334282_plxete"
                         }
                       },
                       "org": {
@@ -331,13 +336,13 @@
             "is404": false
           },
           {
-            "cardId": "crd6747b91d7e761ddd445403a8",
+            "cardId": "crd6748afc1f626bdf68c100551",
             "templateId": "wrap",
             "slug": "blog",
             "cards": [
               {
-                "parentId": "crd6747b91d7e761ddd445403a8",
-                "cardId": "crd6747b91d024c1fab17a76e1d",
+                "parentId": "crd6748afc1f626bdf68c100551",
+                "cardId": "crd6748afc15f3e0ee6f0912882",
                 "templateId": "magazine",
                 "userConfig": {
                   "standard": {
@@ -364,16 +369,18 @@
                             "email": "marcus@example.com",
                             "avatar": {
                               "format": "image",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556328/arpowers_incredibly_beautiful_profile_photo_of_woman_business_49449508-c18f-4070-9ffc-15539e9e8def_1_qw77rl.png",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441001/arpowers_minimal_stock_background_for_profile_photo_professiona_909d4236-58a0-4a68-993a-acee3d331dc8_vxwpyq.png",
                               "tags": [
                                 "annotated",
+                                "aspect:landscape",
                                 "aspect:square",
                                 "color:warm",
                                 "person",
-                                "realistic",
+                                "silhouette",
+                                "woman",
                                 "image"
                               ],
-                              "slug": "arpowers_incredibly_beautiful_profile_photo_of_woman_business_49449508-c18f-4070-9ffc-15539e9e8def_1_qw77rl"
+                              "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_909d4236-58a0-4a68-993a-acee3d331dc8_vxwpyq"
                             }
                           }
                         ],
@@ -389,16 +396,15 @@
                         ],
                         "media": {
                           "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556125/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_36012f77-cda6-4bae-9ae1-5c6bcaf6be56_uj42se.png",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556274/arpowers_minimal_midshot_photo_of_object_futuristic_ancient_gre_685c05c4-b02c-407a-8ffb-c150dbafbe08_jz6nfc.png",
                           "tags": [
                             "annotated",
+                            "aspect:portrait",
                             "color:warm",
-                            "image",
-                            "man",
                             "object",
-                            "aspect:wide"
+                            "image"
                           ],
-                          "slug": "arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_36012f77-cda6-4bae-9ae1-5c6bcaf6be56_uj42se"
+                          "slug": "arpowers_minimal_midshot_photo_of_object_futuristic_ancient_gre_685c05c4-b02c-407a-8ffb-c150dbafbe08_jz6nfc"
                         },
                         "dateAt": "2024-03-18T00:00:00.000Z"
                       },
@@ -413,16 +419,16 @@
                             "email": "priya@example.com",
                             "avatar": {
                               "format": "image",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441024/arpowers_interesting_profile_photo_business_attire_creative_pos_f48aa512-1c55-4d48-b536-1c10de1078d8_txkt1l.png",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724440997/arpowers_incredibly_beautiful_profile_photo_of_woman_business_a_f766e1d7-f5fc-482e-9087-44e3cff07d66_pldzlt.png",
                               "tags": [
                                 "annotated",
-                                "aspect:square",
-                                "color:warm",
+                                "aspect:landscape",
+                                "color:cool",
                                 "person",
                                 "woman",
-                                "image"
+                                "aspect:square"
                               ],
-                              "slug": "arpowers_interesting_profile_photo_business_attire_creative_pos_f48aa512-1c55-4d48-b536-1c10de1078d8_txkt1l"
+                              "slug": "arpowers_incredibly_beautiful_profile_photo_of_woman_business_a_f766e1d7-f5fc-482e-9087-44e3cff07d66_pldzlt"
                             }
                           }
                         ],
@@ -438,16 +444,15 @@
                         ],
                         "media": {
                           "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556063/arpowers_minimal_mid_shot_photo_of_item_ancient_greek_ideal_bea_e307b13e-b4f1-4aea-94e2-840ac89186fd_fo5hbs.png",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556157/arpowers_minimal_midshot_photo_of_object_incredible_light_and_s_237498ba-11da-4fbf-813d-69d9650e3c1e_hvqyv1.png",
                           "tags": [
                             "annotated",
-                            "aspect:landscape",
-                            "aspect:square",
                             "color:warm",
+                            "image",
                             "object",
-                            "image"
+                            "aspect:wide"
                           ],
-                          "slug": "arpowers_minimal_mid_shot_photo_of_item_ancient_greek_ideal_bea_e307b13e-b4f1-4aea-94e2-840ac89186fd_fo5hbs"
+                          "slug": "arpowers_minimal_midshot_photo_of_object_incredible_light_and_s_237498ba-11da-4fbf-813d-69d9650e3c1e_hvqyv1"
                         },
                         "dateAt": "2024-03-17T00:00:00.000Z"
                       },
@@ -462,18 +467,17 @@
                             "email": "sarah@example.com",
                             "avatar": {
                               "format": "image",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724440976/arpowers_minimal_stock_background_for_profile_photo_professiona_63facb31-584d-410e-9b14-62ab9d55f79b_zepla8.png",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724440990/arpowers_incredibly_beautiful_profile_photo_of_man_business_att_cfd28c13-6711-4866-af51-26ad43d4063f_lcfrvd.png",
                               "tags": [
                                 "annotated",
-                                "aspect:portrait",
+                                "aspect:landscape",
+                                "aspect:square",
                                 "color:warm",
-                                "headshot",
+                                "man",
                                 "person",
-                                "silhouette",
-                                "woman",
                                 "image"
                               ],
-                              "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_63facb31-584d-410e-9b14-62ab9d55f79b_zepla8"
+                              "slug": "arpowers_incredibly_beautiful_profile_photo_of_man_business_att_cfd28c13-6711-4866-af51-26ad43d4063f_lcfrvd"
                             }
                           }
                         ],
@@ -489,14 +493,15 @@
                         ],
                         "media": {
                           "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556419/arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_b5557989-a67c-4dad-85a8-c21f2c0dedae_vbwpdu.png",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556099/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_5811ac26-6ab8-4125-b62f-7e8800e5bbd2_jwvckr.png",
                           "tags": [
                             "annotated",
-                            "aspect:wide",
                             "color:warm",
-                            "object"
+                            "image",
+                            "object",
+                            "aspect:wide"
                           ],
-                          "slug": "arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_b5557989-a67c-4dad-85a8-c21f2c0dedae_vbwpdu"
+                          "slug": "arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_5811ac26-6ab8-4125-b62f-7e8800e5bbd2_jwvckr"
                         },
                         "dateAt": "2024-03-20T00:00:00.000Z"
                       },
@@ -511,20 +516,17 @@
                             "email": "alex@example.com",
                             "avatar": {
                               "format": "image",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724442515/arpowers_minimal_stock_background_for_profile_photo_professiona_a7960150-7d50-4a78-a4d6-8b2e2b87eb39_da7u7u.png",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441064/arpowers_incredibly_beautiful_profile_photo_of_man_business_att_b7b0bc9f-3f06-4d55-a205-5314d5c26b82_jvuipg.png",
                               "tags": [
                                 "annotated",
                                 "aspect:landscape",
                                 "aspect:square",
                                 "color:warm",
-                                "nature",
-                                "people",
+                                "man",
                                 "person",
-                                "silhouette",
-                                "woman",
                                 "image"
                               ],
-                              "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_a7960150-7d50-4a78-a4d6-8b2e2b87eb39_da7u7u"
+                              "slug": "arpowers_incredibly_beautiful_profile_photo_of_man_business_att_b7b0bc9f-3f06-4d55-a205-5314d5c26b82_jvuipg"
                             }
                           }
                         ],
@@ -540,15 +542,15 @@
                         ],
                         "media": {
                           "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556115/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_f5334b4a-7d58-4b67-9a10-5e5677736e72_p9knuw.png",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556413/arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_03472686-63d4-4669-b4f1-8ebb5a56fb6a_zlysqy.png",
                           "tags": [
                             "annotated",
-                            "color:warm",
-                            "image",
+                            "aspect:square",
+                            "color:cool",
                             "object",
-                            "aspect:wide"
+                            "image"
                           ],
-                          "slug": "arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_f5334b4a-7d58-4b67-9a10-5e5677736e72_p9knuw"
+                          "slug": "arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_03472686-63d4-4669-b4f1-8ebb5a56fb6a_zlysqy"
                         },
                         "dateAt": "2024-03-19T00:00:00.000Z"
                       },
@@ -563,19 +565,17 @@
                             "email": "maya@example.com",
                             "avatar": {
                               "format": "image",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724443230/arpowers_minimal_midshot_photo_stylistic_attire_1990s_style_Sil_02b568a7-9788-46ea-8f95-93fe956cfa8d_xyoufp.png",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441013/arpowers_minimal_stock_background_for_profile_photo_professiona_3dfbcab8-fc4a-4079-b5a8-2b81a26e24df_qoijpt.png",
                               "tags": [
                                 "annotated",
-                                "aspect:landscape",
-                                "aspect:square",
-                                "color:warm",
-                                "midshot",
-                                "modern",
+                                "aspect:portrait",
+                                "color:cool",
                                 "person",
+                                "silhouette",
                                 "woman",
                                 "image"
                               ],
-                              "slug": "arpowers_minimal_midshot_photo_stylistic_attire_1990s_style_Sil_02b568a7-9788-46ea-8f95-93fe956cfa8d_xyoufp"
+                              "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_3dfbcab8-fc4a-4079-b5a8-2b81a26e24df_qoijpt"
                             }
                           }
                         ],
@@ -591,14 +591,15 @@
                         ],
                         "media": {
                           "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556409/arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_987cdbab-8c09-4024-8c47-a07f7e02525b_xnvddt.png",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556445/arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_fa5deba3-358d-4d98-9bd2-798d155aee7a_ddlyns.png",
                           "tags": [
                             "annotated",
                             "aspect:square",
-                            "color:cool",
-                            "object"
+                            "color:warm",
+                            "object",
+                            "image"
                           ],
-                          "slug": "arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_987cdbab-8c09-4024-8c47-a07f7e02525b_xnvddt"
+                          "slug": "arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_fa5deba3-358d-4d98-9bd2-798d155aee7a_ddlyns"
                         },
                         "dateAt": "2024-03-14T00:00:00.000Z"
                       },
@@ -613,16 +614,17 @@
                             "email": "david@example.com",
                             "avatar": {
                               "format": "image",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724440972/arpowers_minimal_stock_background_for_profile_photo_professiona_8c9d8ca7-baed-4c38-a0c5-7280b9fd1aab_sv1wnv.png",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441005/arpowers_incredibly_beautiful_profile_photo_of_man_business_att_7ebcd8f4-c725-4951-a6b4-0b6a1edcfbaf_oowzv5.png",
                               "tags": [
                                 "annotated",
-                                "aspect:portrait",
-                                "color:neutral",
+                                "aspect:landscape",
+                                "color:warm",
                                 "man",
+                                "midshot",
                                 "person",
                                 "image"
                               ],
-                              "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_8c9d8ca7-baed-4c38-a0c5-7280b9fd1aab_sv1wnv"
+                              "slug": "arpowers_incredibly_beautiful_profile_photo_of_man_business_att_7ebcd8f4-c725-4951-a6b4-0b6a1edcfbaf_oowzv5"
                             }
                           }
                         ],
@@ -637,16 +639,14 @@
                           "communication"
                         ],
                         "media": {
-                          "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556382/arpowers_minimal_close_photo_of_object_ancient_greek_ideal_beau_6782b71e-739f-4d30-abaf-cee8f4e4163e_wigvas.png",
+                          "format": "video",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/video/upload/f_auto,q_auto/v1724640270/replicate-prediction-zh0pg61bmsrj40chhj5skkhe4m_fftcwx.mp4",
                           "tags": [
-                            "annotated",
-                            "aspect:square",
-                            "color:warm",
                             "object",
-                            "image"
+                            "video",
+                            "aspect:landscape"
                           ],
-                          "slug": "arpowers_minimal_close_photo_of_object_ancient_greek_ideal_beau_6782b71e-739f-4d30-abaf-cee8f4e4163e_wigvas"
+                          "slug": "replicate-prediction-zh0pg61bmsrj40chhj5skkhe4m_fftcwx"
                         },
                         "dateAt": "2024-03-13T00:00:00.000Z"
                       },
@@ -661,18 +661,16 @@
                             "email": "emma@example.com",
                             "avatar": {
                               "format": "image",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724440969/arpowers_minimal_stock_background_for_profile_photo_professiona_e06445db-2279-4cd6-bc11-31c91ebe4535_lxcwmx.png",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724440979/arpowers_incredibly_beautiful_profile_photo_of_man_business_att_f254b6af-df34-44b8-b3dc-ab101ba764be_z5pwdm.png",
                               "tags": [
                                 "annotated",
-                                "aspect:landscape",
                                 "aspect:square",
-                                "color:warm",
+                                "color:cool",
+                                "man",
                                 "person",
-                                "silhouette",
-                                "woman",
                                 "image"
                               ],
-                              "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_e06445db-2279-4cd6-bc11-31c91ebe4535_lxcwmx"
+                              "slug": "arpowers_incredibly_beautiful_profile_photo_of_man_business_att_f254b6af-df34-44b8-b3dc-ab101ba764be_z5pwdm"
                             }
                           }
                         ],
@@ -688,15 +686,15 @@
                         ],
                         "media": {
                           "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1726725066/arpowers_Minimalist_futuristic_interpretation_of_an_ancient_Gre_e3f548f9-8daa-4a3f-9e8f-16e6ef735eb2_c3cuko.png",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556118/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_4d9b8248-1cb0-4f19-8309-c75321133f82_woikyd.png",
                           "tags": [
-                            "aspect:square",
+                            "annotated",
                             "color:warm",
                             "image",
                             "object",
-                            "annotated"
+                            "aspect:wide"
                           ],
-                          "slug": "arpowers_Minimalist_futuristic_interpretation_of_an_ancient_Gre_e3f548f9-8daa-4a3f-9e8f-16e6ef735eb2_c3cuko"
+                          "slug": "arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_4d9b8248-1cb0-4f19-8309-c75321133f82_woikyd"
                         },
                         "dateAt": "2024-03-12T00:00:00.000Z"
                       },
@@ -711,18 +709,17 @@
                             "email": "james@example.com",
                             "avatar": {
                               "format": "image",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724443255/arpowers_minimal_midshot_photo_stylistic_attire_1990s_style_fut_1633893b-f298-4d6a-b1eb-f02c8069fe64_za5ifd.png",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724440970/arpowers_incredibly_beautiful_headshot_of_woman_business_attire_88472b73-95d1-4756-ae38-f47ba2c84677_koglpc.png",
                               "tags": [
                                 "annotated",
-                                "aspect:landscape",
+                                "aspect:square",
                                 "color:warm",
-                                "man",
+                                "headshot",
                                 "person",
-                                "wideshot",
                                 "woman",
                                 "image"
                               ],
-                              "slug": "arpowers_minimal_midshot_photo_stylistic_attire_1990s_style_fut_1633893b-f298-4d6a-b1eb-f02c8069fe64_za5ifd"
+                              "slug": "arpowers_incredibly_beautiful_headshot_of_woman_business_attire_88472b73-95d1-4756-ae38-f47ba2c84677_koglpc"
                             }
                           }
                         ],
@@ -738,15 +735,15 @@
                         ],
                         "media": {
                           "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1726725064/arpowers_Minimalist_futuristic_interpretation_of_a_athena_elega_43b7721b-2af4-4f8c-b431-02f571a8e80c_h4joml.png",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556431/arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gr_73a93aad-b34c-4328-8ef9-6a90f4ac55bd_3_cgpasf.png",
                           "tags": [
-                            "aspect:landscape",
+                            "annotated",
+                            "aspect:tall",
                             "color:warm",
-                            "image",
                             "object",
-                            "annotated"
+                            "image"
                           ],
-                          "slug": "arpowers_Minimalist_futuristic_interpretation_of_a_athena_elega_43b7721b-2af4-4f8c-b431-02f571a8e80c_h4joml"
+                          "slug": "arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gr_73a93aad-b34c-4328-8ef9-6a90f4ac55bd_3_cgpasf"
                         },
                         "dateAt": "2024-03-11T00:00:00.000Z"
                       },
@@ -761,18 +758,17 @@
                             "email": "sophia@example.com",
                             "avatar": {
                               "format": "image",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724443235/arpowers_minimal_midshot_photo_stylistic_attire_1990s_style_fut_151aeb1d-43c1-4253-9024-589479de3d89_cvvv2k.png",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441017/arpowers_minimal_stock_background_for_profile_photo_professiona_60c1bd31-1ca6-41b4-9d73-7abe5a377202_fjh5s1.png",
                               "tags": [
                                 "annotated",
                                 "aspect:landscape",
-                                "aspect:square",
                                 "color:cool",
-                                "midshot",
+                                "headshot",
                                 "person",
                                 "woman",
                                 "image"
                               ],
-                              "slug": "arpowers_minimal_midshot_photo_stylistic_attire_1990s_style_fut_151aeb1d-43c1-4253-9024-589479de3d89_cvvv2k"
+                              "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_60c1bd31-1ca6-41b4-9d73-7abe5a377202_fjh5s1"
                             }
                           }
                         ],
@@ -788,15 +784,15 @@
                         ],
                         "media": {
                           "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556503/arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_47d32e8b-3593-4402-adec-8314db0bce48_hpig5h.png",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556041/arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gr_a5b0b102-c7c9-4df5-925a-f0495048518f_0_t445xo.png",
                           "tags": [
                             "annotated",
-                            "aspect:tall",
-                            "color:cool",
+                            "aspect:square",
+                            "color:warm",
                             "object",
                             "image"
                           ],
-                          "slug": "arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_47d32e8b-3593-4402-adec-8314db0bce48_hpig5h"
+                          "slug": "arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gr_a5b0b102-c7c9-4df5-925a-f0495048518f_0_t445xo"
                         },
                         "dateAt": "2024-03-10T00:00:00.000Z"
                       }
@@ -833,13 +829,13 @@
             "is404": false
           },
           {
-            "cardId": "crd6747b91dfaecc178eda5aa25",
+            "cardId": "crd6748afc10bd787a1260ae190",
             "templateId": "wrap",
             "slug": "contact",
             "cards": [
               {
-                "parentId": "crd6747b91dfaecc178eda5aa25",
-                "cardId": "crd6747b91d7bfc649eec8612ab",
+                "parentId": "crd6748afc10bd787a1260ae190",
+                "cardId": "crd6748afc1be69b86990b0d4ed",
                 "templateId": "hero",
                 "userConfig": {
                   "title": "Contact Us",
@@ -863,8 +859,8 @@
                 "depth": 1
               },
               {
-                "parentId": "crd6747b91dfaecc178eda5aa25",
-                "cardId": "crd6747b91de13482b2115b8262",
+                "parentId": "crd6748afc10bd787a1260ae190",
+                "cardId": "crd6748afc1e06d27056dc08609",
                 "templateId": "contact",
                 "userConfig": {
                   "layout": "right",
@@ -946,8 +942,8 @@
                 "depth": 1
               },
               {
-                "parentId": "crd6747b91dfaecc178eda5aa25",
-                "cardId": "crd6747b91dafb44422f31308b1",
+                "parentId": "crd6748afc10bd787a1260ae190",
+                "cardId": "crd6748afc16c757a40cec4deac",
                 "templateId": "maps",
                 "userConfig": {
                   "maps": [
@@ -1000,13 +996,13 @@
         ],
         "sections": {
           "header": {
-            "cardId": "crd6747b91d9ff2049d3a0d85ba",
+            "cardId": "crd6748afc1f9077199c5131c0c",
             "templateId": "area",
             "regionId": "header",
             "cards": [
               {
-                "parentId": "crd6747b91d9ff2049d3a0d85ba",
-                "cardId": "crd6747b91df4e1be0cf4b33207",
+                "parentId": "crd6748afc1f9077199c5131c0c",
+                "cardId": "crd6748afc13599d15e2f0fa6bb",
                 "templateId": "nav",
                 "userConfig": {
                   "standard": {
@@ -1088,13 +1084,13 @@
             "is404": false
           },
           "footer": {
-            "cardId": "crd6747b91d6b350eb29a44ef07",
+            "cardId": "crd6748afc16d5c357fa24acb10",
             "templateId": "area",
             "regionId": "footer",
             "cards": [
               {
-                "parentId": "crd6747b91d6b350eb29a44ef07",
-                "cardId": "crd6747b91d7aa93eb13586d9bc",
+                "parentId": "crd6748afc16d5c357fa24acb10",
+                "cardId": "crd6748afc17f0d50fd6cff2319",
                 "templateId": "ticker",
                 "userConfig": {
                   "settings": {
@@ -1118,8 +1114,8 @@
                 "depth": 1
               },
               {
-                "parentId": "crd6747b91d6b350eb29a44ef07",
-                "cardId": "crd6747b91d19acb7de1e60c197",
+                "parentId": "crd6748afc16d5c357fa24acb10",
+                "cardId": "crd6748afc10bd37dbcbf03c7e0",
                 "templateId": "callToAction",
                 "userConfig": {
                   "superTitle": {
@@ -1191,8 +1187,8 @@
                 "depth": 1
               },
               {
-                "parentId": "crd6747b91d6b350eb29a44ef07",
-                "cardId": "crd6747b91d8c68d847cb7f352d",
+                "parentId": "crd6748afc16d5c357fa24acb10",
+                "cardId": "crd6748afc10016a02c2de627c6",
                 "templateId": "footerX",
                 "userConfig": {
                   "title": "Your Brand",
@@ -1287,12 +1283,12 @@
             "is404": false
           },
           "hidden": {
-            "cardId": "crd6747b91de35f4873b4a39d5d",
+            "cardId": "crd6748afc1d3ff5213251cca05",
             "templateId": "area",
             "cards": [
               {
-                "parentId": "crd6747b91de35f4873b4a39d5d",
-                "cardId": "crd6747b91d3a12bdb5918980f8",
+                "parentId": "crd6748afc1d3ff5213251cca05",
+                "cardId": "crd6748afc1b7e978beeb1e9fb3",
                 "templateId": "contentModal",
                 "userConfig": {},
                 "effects": [],
@@ -1303,8 +1299,8 @@
                 "depth": 1
               },
               {
-                "parentId": "crd6747b91de35f4873b4a39d5d",
-                "cardId": "crd6747b91dc2f6e8a0efc7426e",
+                "parentId": "crd6748afc1d3ff5213251cca05",
+                "cardId": "crd6748afc171d07bbc4029fdc0",
                 "templateId": "textEffects",
                 "userConfig": {},
                 "effects": [],
@@ -1315,8 +1311,8 @@
                 "depth": 1
               },
               {
-                "parentId": "crd6747b91de35f4873b4a39d5d",
-                "cardId": "crd6747b91de272c5cea25e8f13",
+                "parentId": "crd6748afc1d3ff5213251cca05",
+                "cardId": "crd6748afc149bfc5c6ea565019",
                 "templateId": "capture",
                 "userConfig": {
                   "superTitle": {
@@ -1372,6 +1368,7 @@
         "logos",
         "numberedList",
         "bento",
+        "timeline",
         "postList",
         "magazine",
         "insta",

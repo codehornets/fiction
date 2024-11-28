@@ -11,7 +11,7 @@ export const template = cardTemplate({
   description: 'Present your product or service features in an engaging, visually appealing layout that highlights benefits and drives conversion.',
   subTitle: 'Transform feature lists into compelling visual stories that connect with your audience',
   icon: 'i-tabler-layout-list',
-  colorTheme: 'blue',
+  colorTheme: 'lime',
   isPublic: true,
   el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
 

@@ -1,15 +1,7 @@
 {
   "version": "1.0",
-  "generatedAt": "2024-11-28T00:28:13.610Z",
+  "generatedAt": "2024-11-28T18:00:33.377Z",
   "templates": [
-    {
-      "templateId": "wrap",
-      "title": "Page Wrapper",
-      "description": "A foundational layout component that provides consistent structure and behavior for your entire page.",
-      "subTitle": "The foundational wrapper for site pages.",
-      "icon": "i-tabler-layout-board-split",
-      "isPublic": false
-    },
     {
       "templateId": "area",
       "title": "Content Area",
@@ -27,12 +19,12 @@
       "templateId": "nav",
       "title": "Brand Navigation",
       "description": "Create an engaging brand experience with this premium navigation component.\n    Features intelligent layouts, mega menus, and contextual user interactions.\n    Perfect for modern digital brands that need sophisticated information architecture\n    with visual hierarchy and clear user pathways.",
-      "subTitle": "NO_SUBTITLE",
+      "subTitle": "Sophisticated navigation for modern websites",
       "category": [
         "navigation"
       ],
       "icon": "i-tabler-menu-2",
-      "colorTheme": "indigo",
+      "colorTheme": "green",
       "isPublic": true
     },
     {
@@ -69,7 +61,7 @@
         "marketing"
       ],
       "icon": "i-tabler-presentation",
-      "colorTheme": "blue",
+      "colorTheme": "violet",
       "isPublic": true
     },
     {
@@ -81,7 +73,7 @@
         "content"
       ],
       "icon": "i-tabler-book-2",
-      "colorTheme": "emerald",
+      "colorTheme": "fuchsia",
       "isPublic": true
     },
     {
@@ -120,7 +112,7 @@
         "content"
       ],
       "icon": "i-tabler-layout-list",
-      "colorTheme": "blue",
+      "colorTheme": "lime",
       "isPublic": true
     },
     {
@@ -196,7 +188,7 @@
         "marketing"
       ],
       "icon": "i-tabler-building-store",
-      "colorTheme": "blue",
+      "colorTheme": "yellow",
       "isPublic": true
     },
     {
@@ -233,7 +225,7 @@
         "posts"
       ],
       "icon": "i-tabler-article",
-      "colorTheme": "blue",
+      "colorTheme": "rose",
       "isPublic": true
     },
     {
@@ -247,18 +239,6 @@
       "icon": "i-tabler-notebook",
       "colorTheme": "blue",
       "isPublic": true
-    },
-    {
-      "templateId": "insta",
-      "title": "Insta",
-      "description": "Instagram galleries for your site",
-      "subTitle": "NO_SUBTITLE",
-      "category": [
-        "social"
-      ],
-      "icon": "i-tabler-image",
-      "colorTheme": "rose",
-      "isPublic": false
     },
     {
       "templateId": "cinema",
@@ -342,7 +322,7 @@
       "templateId": "maps",
       "title": "Interactive Map",
       "description": "Add interactive maps to showcase locations, highlight regions of interest, and provide contextual geographic information. Perfect for business locations, travel itineraries, or geographic data visualization.",
-      "subTitle": "NO_SUBTITLE",
+      "subTitle": "Beautiful interactive maps in a variety of styles",
       "category": [
         "advanced"
       ],
@@ -387,18 +367,6 @@
       "icon": "i-tabler-speakerphone",
       "colorTheme": "red",
       "isPublic": true
-    },
-    {
-      "templateId": "effectShape",
-      "title": "Shape Background",
-      "description": "Create engaging visual depth with floating geometric shapes that respond to user interaction.\nPerfect for enhancing hero sections, testimonials, or content areas with subtle animation and movement.\nFeatures include customizable shapes, colors, animations, and interactive effects.",
-      "subTitle": "Add depth and visual interest with animated geometric shapes",
-      "category": [
-        "effect"
-      ],
-      "icon": "i-tabler-shape",
-      "colorTheme": "emerald",
-      "isPublic": false
     },
     {
       "templateId": "fitText",
@@ -475,25 +443,6 @@
       "icon": "i-tabler-route",
       "colorTheme": "cyan",
       "isPublic": true
-    },
-    {
-      "templateId": "404",
-      "title": "404",
-      "description": "NO_DESCRIPTION",
-      "subTitle": "A simple yet effective not-found page.",
-      "category": [
-        "special"
-      ],
-      "icon": "i-tabler-error-404",
-      "colorTheme": "red",
-      "isPublic": false
-    },
-    {
-      "templateId": "transaction",
-      "title": "Transaction",
-      "description": "NO_DESCRIPTION",
-      "subTitle": "NO_SUBTITLE",
-      "isPublic": false
     }
   ]
 }

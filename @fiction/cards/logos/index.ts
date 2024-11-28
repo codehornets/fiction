@@ -10,7 +10,7 @@ export const template = cardTemplate({
   description: 'Build trust and credibility by showcasing brands that use or endorse your product. Features multiple layout options with hover animations and customizable styling.',
   subTitle: 'Display partner logos, client brands, or featured press mentions',
   icon: 'i-tabler-building-store',
-  colorTheme: 'blue',
+  colorTheme: 'yellow',
   isPublic: true,
   el: vue.defineAsyncComponent(async () => import('./ElLogos.vue')),
 

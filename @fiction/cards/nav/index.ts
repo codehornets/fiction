@@ -9,7 +9,8 @@ export const template = cardTemplate({
   category: ['navigation'],
   icon: 'i-tabler-menu-2',
   title: 'Brand Navigation',
-  colorTheme: 'indigo',
+  subTitle: 'Sophisticated navigation for modern websites',
+  colorTheme: 'green',
   description: `Create an engaging brand experience with this premium navigation component.
     Features intelligent layouts, mega menus, and contextual user interactions.
     Perfect for modern digital brands that need sophisticated information architecture
