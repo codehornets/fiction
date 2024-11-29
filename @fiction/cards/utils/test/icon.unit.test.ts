@@ -127,7 +127,7 @@ describe('icon Utils', () => {
     it('falls back to default icons when custom not provided', () => {
       const siteMock = {
         title: { value: 'Test Site' },
-        fullConfig: { value: { branding: {} } },
+        fullConfig: { value: { brand: {} } },
       } as any
 
       const config = getHeadIconConfig({ site: siteMock })
@@ -149,7 +149,7 @@ describe('icon Utils', () => {
       tests.forEach(({ ext, expected }) => {
         const siteMock = {
           title: { value: 'Test Site' },
-          fullConfig: { value: { branding: { favicon: { url: `icon.${ext}` } } } },
+          fullConfig: { value: { brand: { favicon: { url: `icon.${ext}` } } } },
         } as any
 
         const config = getHeadIconConfig({ site: siteMock })

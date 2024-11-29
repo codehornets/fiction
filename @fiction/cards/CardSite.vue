@@ -94,7 +94,7 @@ unhead.useHead({
     { property: 'og:url', content: () => site.value?.frame.displayUrl.value },
     { property: 'og:site_name', content: () => site.value?.title.value || '' },
     { property: 'og:locale', content: () => site.value?.fullConfig.value.seo?.locale || 'en_US' },
-    { property: 'og:image', content: () => site.value?.fullConfig.value.branding?.shareImage?.url || iconUrls.value.ogImageUrl },
+    { property: 'og:image', content: () => site.value?.fullConfig.value.brand?.shareImage?.url || iconUrls.value.ogImageUrl },
     { property: 'og:image:width', content: '1200' },
     { property: 'og:image:height', content: '630' },
   ],

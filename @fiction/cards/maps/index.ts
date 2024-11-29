@@ -22,4 +22,4 @@ export const template = cardTemplate({
 
 })
 
-export type { UserConfig } from './config'
+export type { MapUserConfig, UserConfig } from './config'

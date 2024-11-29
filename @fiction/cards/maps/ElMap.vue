@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { MapConfig } from './config'
+import type { MapUserConfig } from './config'
 import { isDarkOrLightMode, vue } from '@fiction/core'
 import AnimClipPath from '@fiction/ui/anim/AnimClipPath.vue'
 
@@ -8,7 +8,7 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 
 const props = defineProps({
   container: { type: String, default: 'mapbox' },
-  mapConfig: { type: Object as vue.PropType<MapConfig>, default: () => ({}) },
+  mapConfig: { type: Object as vue.PropType<MapUserConfig>, default: () => ({}) },
   mapboxAccessToken: { type: String, default: '' },
   animate: { type: Boolean, default: true },
 })

@@ -49,7 +49,7 @@ export const schema = z.object({
   maps: z.array(mapSchema).optional(),
 })
 
-export type MapConfig = z.infer<typeof mapSchema>
+export type MapUserConfig = z.infer<typeof mapSchema>
 export type UserConfig = z.infer<typeof schema>
 
 export const defaultMap = {

@@ -38,7 +38,7 @@ vue.onMounted(() => {
         <div class="grid gris-cols-1 md:grid-cols-2 gap-6 md:gap-24">
           <!-- Brand section -->
           <div class="w-full grow gap-6 space-y-2 pb-6">
-            <EffectFitText :content="uc.title || ''" tag="h2" class="max-w-lg" :max-size="70">
+            <EffectFitText :content="uc.title || ''" tag="h2" class="max-w-lg" :max-size="60">
               <CardText
                 tag="span"
                 :card

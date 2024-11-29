@@ -144,7 +144,7 @@ function getTransformStyle(item: TickerConfig) {
           'line-height': '1.2',
           'transition': 'transform 0.1s linear',
         }"
-        class="transition-all"
+        class="transition-all block"
         :class="item.href ? 'hover:opacity-80' : ''"
         :href="item.href"
         @click.stop

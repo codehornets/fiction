@@ -4,7 +4,7 @@ import { getColorScheme } from '@fiction/core'
 export function getSiteBrandColors(args: { site?: Site }) {
   const { site } = args
 
-  const clr = site?.fullConfig.value.branding?.primaryColor || 'slate'
+  const clr = site?.fullConfig.value.brand?.primaryColor || 'slate'
 
   return getColorScheme(clr, { outputFormat: 'hex' })
 }
@@ -31,7 +31,7 @@ export function getStructuredData(args: { site?: Site }) {
         '@id': `${url}/#person`,
         'name': org?.orgName || site.title.value,
         'url': url,
-        'image': config.branding?.shareImage?.url || org?.avatar?.url,
+        'image': config.brand?.shareImage?.url || org?.avatar?.url,
         'description': config.seo?.description,
       },
 

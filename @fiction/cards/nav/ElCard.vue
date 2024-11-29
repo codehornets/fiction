@@ -114,7 +114,7 @@ function closeMenu() {
           <XNav
             :nav="nav.primary"
             :card
-            class="hidden lg:flex gap-x-6 items-center "
+            class="hidden lg:flex gap-x-8 items-center "
             :class="layoutClass.primary"
             item-class="py-1.5 text-base font-sans font-medium inline-flex items-center"
             :active-item="activeItem"

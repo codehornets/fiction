@@ -117,7 +117,7 @@ export const theme = new Theme({
       pages,
       sections: {},
       userConfig: {
-        branding: {
+        brand: {
           shareImage: { url: shareImage, format: 'image' },
           favicon: { url: favicon, format: 'image' },
           icon: { url: icon, format: 'image' },
@@ -139,7 +139,7 @@ export const theme = new Theme({
   getBaseConfig: () => {
     return {
       spacing: { contentWidthSize: 'sm', spacingSize: `none` },
-      branding: {
+      brand: {
         logo: { format: 'html' as const, html: fictionLogo },
       },
     }

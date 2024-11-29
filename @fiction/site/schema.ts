@@ -1,4 +1,4 @@
-import { ButtonDesignSchema, ButtonHoverSchema, ButtonRoundingSchema, ColorThemeSchema, colorThemeUser, FontConfigValSchema, FontStyleSchema, HeaderLayoutSchema, MediaDisplaySchema, MediaIconSchema, SizeSchemaComplete, UiOriginSchema } from '@fiction/core'
+import { ButtonDesignSchema, ButtonHoverSchema, ButtonRoundingSchema, ColorThemeSchema, colorThemeUser, FontConfigValSchema, FontStyleSchema, HeaderLayoutSchema, MediaDisplaySchema, MediaIconSchema, MediaTypographySchema, SizeSchemaComplete, UiOriginSchema } from '@fiction/core'
 import { z } from 'zod'
 
 export type SizeBasic = z.infer<typeof SizeSchemaComplete>
@@ -86,11 +86,11 @@ const ButtonTypeSchema = z.object({
 })
 
 export const SiteUserConfigSchema = z.object({
-  branding: z.object({
+  brand: z.object({
     favicon: MediaDisplaySchema.optional(),
     icon: MediaDisplaySchema.optional(),
     shareImage: MediaDisplaySchema.optional(),
-    logo: MediaDisplaySchema.optional(),
+    logo: MediaTypographySchema.optional(),
     primaryColor: ColorThemeSchema.optional(),
   }).optional(),
   seo: z.object({

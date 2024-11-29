@@ -87,64 +87,81 @@ export async function getHeader(args: SectionArgs) {
     regionId: 'header',
     templateId: 'area',
     cards: [
-      await factory.fromTemplate<typeof navTemplate>({ templateId: 'nav', userConfig: {
-        brand: {
-          logo: {
-            format: 'typography',
-            typography: {
-              font: userConfig.styling?.fonts?.title.fontKey || 'Poppins',
-              text: 'Minimal',
-              weight: userConfig.styling?.fonts?.title.weight || '600',
+      await factory.fromTemplate<typeof navTemplate>({
+        templateId: 'nav',
+        userConfig: {
+          brand: {
+            logo: {
+              format: 'typography',
+              typography: {
+                font: userConfig.styling?.fonts?.title.fontKey || 'Poppins',
+                text: 'Minimal',
+                weight: userConfig.styling?.fonts?.title.weight || '600',
+              },
             },
           },
+          primaryNav: [
+            { label: 'Home', href: '/' },
+            { label: 'Blog', href: '/blog' },
+          ],
+          utilityNav: [
+            {
+              label: 'Connect',
+              list: {
+                items: [
+                  { label: '@fictionco', href: 'https://www.x.com/fictionco', icon: { class: 'i-tabler-brand-x' } },
+                  { label: 'GitHub', href: 'https://www.github.com/fiction', icon: { class: 'i-tabler-brand-github' } },
+                ],
+              },
+            },
+            {
+              label: 'Contact',
+              href: '/contact',
+              variant: 'button',
+              theme: 'primary',
+            },
+          ],
         },
-        primaryNav: [
-          { label: 'Home', href: '/' },
-          { label: 'Blog', href: '/blog' },
-        ],
-        utilityNav: [
-          {
-            label: 'Connect',
-            list: {
-              items: [
-                { label: '@fictionco', href: 'https://www.x.com/fictionco', icon: { class: 'i-tabler-brand-x' } },
-                { label: 'GitHub', href: 'https://www.github.com/fiction', icon: { class: 'i-tabler-brand-github' } },
-              ],
-            },
-          },
-          {
-            label: 'Contact',
-            href: '/contact',
-            variant: 'button',
-            theme: 'primary',
-          },
-        ],
-      } }),
+      }),
     ],
   })
 }
 
 export async function getFooter(args: SectionArgs) {
-  const { factory, userConfig } = args
-  const font = userConfig.styling?.fonts?.title.fontKey || 'Poppins'
-  const weight = userConfig.styling?.fonts?.title.weight || '600'
+  const { factory } = args
   return await factory.fromTemplate<typeof areaTemplate>({
     regionId: 'footer',
     templateId: 'area',
     cards: [
-      await factory.fromTemplate<typeof TickerTemplate>({ templateId: 'ticker', userConfig: {
-
-        items: [
-          {
-            text: 'Subscribe for exclusive updates',
-            href: '?_subscribe',
+      await factory.fromTemplate<typeof TickerTemplate>({
+        templateId: 'ticker',
+        userConfig: {
+          settings: {
+            fontSize: 6,
+            scrollEffect: true,
+            scrollIntensity: 15,
           },
-        ],
-      } }),
-      await factory.fromTemplate<typeof callToActionTemplate>({ templateId: 'callToAction', userConfig: {
-        standard: { spacing: { verticalSpacing: 'sm' } },
-      } }),
-      await factory.fromTemplate<typeof footerXTemplate>({ templateId: 'footerX', userConfig: { } }),
+          items: [{
+            text: 'Subscribe to the Newsletter',
+            href: '?_subscribe',
+            speed: 20,
+            direction: 'left',
+
+          }],
+        },
+      }),
+      await factory.fromTemplate<typeof callToActionTemplate>({
+        templateId: 'callToAction',
+        userConfig: {
+          standard: { spacing: { verticalSpacing: 'sm' } },
+        },
+      }),
+      await factory.fromTemplate<typeof footerXTemplate>({
+        templateId: 'footerX',
+        userConfig: {
+          title: 'Minimal',
+        },
+      }),
     ],
   })
 }

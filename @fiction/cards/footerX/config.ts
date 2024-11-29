@@ -151,15 +151,15 @@ export function getDemoConfigs(templateId: string): Record<string, { templateId:
 export function getOptions(): InputOption[] {
   return [
     new InputOption({
-      key: 'branding',
+      key: 'personalBrand',
       label: 'Brand Voice',
       description: 'Shape your brand\'s narrative and voice',
       input: 'group',
       options: [
         new InputOption({
           key: 'title',
-          label: 'Brand Statement',
-          description: 'Make a memorable impact with your brand name or tagline',
+          label: 'Title',
+          description: 'Enter your brand name or tagline',
           input: 'InputText',
           isRequired: true,
           props: {
@@ -168,11 +168,11 @@ export function getOptions(): InputOption[] {
         }),
         new InputOption({
           key: 'subTitle',
-          label: 'Value Proposition',
-          description: 'Briefly explain your unique value to visitors',
+          label: 'Tagline',
+          description: 'Add a memorable phrase or mission statement',
           input: 'InputText',
           props: {
-            placeholder: 'e.g., "Empowering Creators Since 2020"',
+            placeholder: '',
           },
         }),
       ],

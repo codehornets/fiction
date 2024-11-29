@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { Card } from '@fiction/site/card'
-import type { MapConfig, UserConfig } from './config'
+import type { MapUserConfig, UserConfig } from './config'
 import { vue } from '@fiction/core'
 import ElMap from './ElMap.vue'
 
@@ -23,7 +23,7 @@ function getAspectRatioClass(ratio: string = 'landscape') {
   return ratioMap[ratio as keyof typeof ratioMap]
 }
 
-function getCustomRatioStyle(map: MapConfig) {
+function getCustomRatioStyle(map: MapUserConfig) {
   if (map.aspectRatio !== 'custom' || !map.customRatio)
     return {}
 
