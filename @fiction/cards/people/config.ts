@@ -1,6 +1,6 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { StockMedia } from '@fiction/ui/stock/index.js'
-import { MediaBasicSchema, navListItemSchema } from '@fiction/core'
+import { actionAreaSchema, MediaBasicSchema, navListItemSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
@@ -20,7 +20,7 @@ const schema = z.object({
     desc: z.string().optional(),
     title: z.string().optional(),
     media: MediaBasicSchema.optional(),
-    social: z.array(socialSchema).optional(),
+    action: actionAreaSchema.optional(),
   })).optional(),
 })
 
@@ -126,11 +126,15 @@ async function getDefaultConfig(args: { stock: StockMedia }): Promise<UserConfig
       title: 'Share Their Role',
       desc: 'Imagine the impact of sharing their unique story. What expertise do they bring? What accomplishments make them stand out? Use this space to help visitors connect with your team personally.',
       media: stock.getRandomByTags(['person']),
-      social: [{
-        label: 'LinkedIn',
-        media: { class: 'i-tabler-brand-linkedin' },
-        href: 'https://linkedin.com/in/username',
-      }],
+      action: {
+        buttons: [
+          {
+            label: 'LinkedIn',
+            icon: { class: 'i-tabler-brand-linkedin' },
+            href: 'https://linkedin.com/in/username',
+          },
+        ],
+      },
     }],
   }
 }
@@ -147,19 +151,23 @@ async function getDemoConfigs(args: { stock: StockMedia }): Promise<Record<strin
         title: 'Innovation Lead',
         desc: 'Visualize the possibilities with Alexandra leading the way. Previously scaled three AI startups, now revolutionizing how we approach machine learning ethics.',
         media: stock.getRandomByTags(['woman']),
-        social: [
-          { label: 'LinkedIn', media: { class: 'i-tabler-brand-linkedin' }, href: '#' },
-          { label: 'Twitter', media: { class: 'i-tabler-brand-x' }, href: '#' },
-        ],
+        action: {
+          buttons: [
+            { label: 'LinkedIn', icon: { class: 'i-tabler-brand-linkedin' }, href: '#' },
+            { label: 'Twitter', icon: { class: 'i-tabler-brand-x' }, href: '#' },
+          ],
+        },
       }, {
         name: 'David Kim',
         title: 'Product Architect',
         desc: 'Experience seamless innovation through David\'s vision. His design-thinking approach has transformed user experiences for over 2M+ customers globally.',
         media: stock.getRandomByTags(['man']),
-        social: [
-          { label: 'LinkedIn', media: { class: 'i-tabler-brand-linkedin' }, href: '#' },
-          { label: 'GitHub', media: { class: 'i-tabler-brand-github' }, href: '#' },
-        ],
+        action: {
+          buttons: [
+            { label: 'LinkedIn', icon: { class: 'i-tabler-brand-linkedin' }, href: '#' },
+            { label: 'GitHub', icon: { class: 'i-tabler-brand-github' }, href: '#' },
+          ],
+        },
       }],
     },
     creative: {
@@ -171,19 +179,23 @@ async function getDemoConfigs(args: { stock: StockMedia }): Promise<Record<strin
         title: 'Creative Director',
         desc: 'Watch your brand transform under Sophie\'s creative direction. Her award-winning campaigns have captured hearts and headlines across three continents.',
         media: stock.getRandomByTags(['woman']),
-        social: [
-          { label: 'Instagram', media: { class: 'i-tabler-brand-instagram' }, href: '#' },
-          { label: 'Behance', media: { class: 'i-tabler-brand-behance' }, href: '#' },
-        ],
+        action: {
+          buttons: [
+            { label: 'Instagram', icon: { class: 'i-tabler-brand-instagram' }, href: '#' },
+            { label: 'Behance', icon: { class: 'i-tabler-brand-behance' }, href: '#' },
+          ],
+        },
       }, {
         name: 'Marcus Chen',
         title: 'Brand Strategist',
         desc: 'Feel the impact of strategic storytelling with Marcus at the helm. His data-driven approach has helped startups achieve 300% growth in brand recognition.',
         media: stock.getRandomByTags(['man']),
-        social: [
-          { label: 'LinkedIn', media: { class: 'i-tabler-brand-linkedin' }, href: '#' },
-          { label: 'Medium', media: { class: 'i-tabler-brand-medium' }, href: '#' },
-        ],
+        action: {
+          buttons: [
+            { label: 'LinkedIn', icon: { class: 'i-tabler-brand-linkedin' }, href: '#' },
+            { label: 'Medium', icon: { class: 'i-tabler-brand-medium' }, href: '#' },
+          ],
+        },
       }],
     },
     default: await getDefaultConfig({ stock }),

@@ -46,11 +46,12 @@ async function generateMediaObjects(): Promise<MediaObject[]> {
         font: 'Montserrat',
         weight: 'normal',
         letterSpacing: '-0.02em',
+        scale: 1.5,
       },
       format: 'typography',
     },
     // HTML (SVG) examples
-    { html: `<div class="flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+    { html: `<div class="flex items-center gap-1 h-full"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
   <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
 </svg><div class="font-sans">test</div></div>`, format: 'html' },
     { html: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 122">
@@ -142,7 +143,7 @@ vue.onMounted(async () => {
               <div class="bg-theme-100 dark:bg-theme-700 rounded" :class="scenario.class">
                 <XLogo
                   :media="media"
-                  :alignment-class="alignment"
+                  :class="alignment"
                   class="w-full h-full"
                 />
               </div>

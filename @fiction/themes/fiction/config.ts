@@ -53,24 +53,39 @@ export async function getAboutPage(args: { site: Site, factory: CardFactory }) {
   const topHeroCard = await factory.fromTemplate<typeof heroTemplate>({
     templateId: 'hero',
     userConfig: {
-      superTitle: { text: 'Company' },
-      subTitle: `A company built to help you tell your story. Made in California.`,
-      title: `About`,
+      superTitle: {
+        icon: { class: 'i-tabler-home' },
+        theme: 'primary',
+        text: 'Welcome Home',
+      },
+      subTitle: `Born in California, Fiction exists to help people tell their story.`,
+      title: `A Place For Every Story`,
       splash: {
         format: 'url',
-        url: new URL('img/about/spectrum.jpg', import.meta.url).href,
+        url: new URL('img/about/fiction-office.webp', import.meta.url).href,
       },
       layout: 'justify',
-      action: { buttons: [] },
+      action: { buttons: [
+        {
+          label: 'Join The Community',
+          href: '/auth/login',
+          theme: 'primary',
+          icon: 'i-tabler-users',
+        },
+      ] },
     },
   })
 
   const missionHeroCard = await factory.fromTemplate<typeof heroTemplate>({
     templateId: 'hero',
     userConfig: {
-      superTitle: { text: 'Mission' },
-      subTitle: `We believe everyone has a story to tell and a reputation to build. Fiction's mission is to elevate people and remove barriers to success.`,
-      title: `Helping People.`,
+      superTitle: {
+        icon: { class: 'i-tabler-trending-up' },
+        text: 'The Vision',
+        theme: 'orange',
+      },
+      subTitle: `In a world of noise, authentic stories stand out. Fiction helps amplify genuine voices, build meaningful connections, and transform expertise into lasting impact.`,
+      title: `Where Stories Matter`,
       splash: {
         format: 'url' as const,
         url: new URL('img/about/pro.webp', import.meta.url).href,
@@ -83,9 +98,13 @@ export async function getAboutPage(args: { site: Site, factory: CardFactory }) {
   const missionHeroCard2 = await factory.fromTemplate<typeof heroTemplate>({
     templateId: 'hero',
     userConfig: {
-      superTitle: { text: 'Mission' },
-      subTitle: `We don't believe in compromising products for profit. Fiction is open-source and free to use. We believe in the power of community and the value of giving back.`,
-      title: `Open Source Software.`,
+      superTitle: {
+        icon: { class: 'i-tabler-users' },
+        text: 'People First',
+        theme: 'green',
+      },
+      subTitle: `Great software should be accessible to everyone. Fiction grows stronger with every voice that joins. When the community thrives, possibilities expand for everyone.`,
+      title: `Built Together`,
       splash: {
         format: 'url',
         url: new URL('img/about/girl-computer.webp', import.meta.url).href,
@@ -98,21 +117,24 @@ export async function getAboutPage(args: { site: Site, factory: CardFactory }) {
   const teamCard = await factory.fromTemplate<typeof peopleTemplate>({
     templateId: 'people',
     userConfig: {
-      subTitle: `People helping build your story`,
-      title: `Team`,
+      subTitle: `Building the future of personal branding together`,
+      title: `The Team`,
       profiles: [{
         name: 'Andrew Powers',
         title: 'Founder',
-        desc: 'Andrew is the founder of Fiction. He has a background in software engineering and has worked in the tech industry for over 20 years. He is passionate about building tools that help people tell their stories.',
+        desc: 'With two decades in software development, Andrew started Fiction with a simple belief: everyone deserves access to professional branding tools, regardless of their background or resources. Today, that vision grows stronger with each new member of the Fiction community.',
         media: {
           format: 'url',
           url: new URL('img/about/ap.webp', import.meta.url).href,
         },
-        social: [{
-          label: 'LinkedIn',
-          media: { class: 'i-tabler-linkedin' },
-          href: 'https://www.linkedin.com/in/arpowers',
-        }],
+        action: {
+          buttons: [{
+            label: 'LinkedIn',
+            theme: 'cyan',
+            icon: { class: 'i-tabler-brand-linkedin' },
+            href: 'https://www.linkedin.com/in/arpowers',
+          }],
+        },
       }],
       layout: 'mediabox',
     },
@@ -146,13 +168,47 @@ export async function getAboutPage(args: { site: Site, factory: CardFactory }) {
   const valueCard = await factory.fromTemplate<typeof faqTemplate>({
     templateId: 'faq',
     userConfig: {
-      standard: { headers: { title: 'Values', subTitle: 'What we believe in' } },
+      layout: 'visible',
+      standard: {
+        headers: {
+          title: 'Core Values',
+          subTitle: 'The principles that guide Fiction',
+        },
+      },
       items: [
-        { title: 'Focused', content: `Create big value for a small group of people. Don't try and be everything to everyone.` },
-        { title: `Karma`, content: `Focus on making a contribution, the rest takes care of itself.` },
-        { title: `Crafted`, content: `Take the time to do things extremely well. It's better to do nothing, than release something below our standards.` },
-        { title: `Minimal`, content: `Simplicity is the ultimate form of elegance. Do what's needed and nothing more.` },
+        {
+          title: 'Purpose-Driven Focus',
+          content: `Creating extraordinary value means understanding specific needs. Fiction helps you connect deeply with the people who resonate most with your message.`,
+          icon: { iconId: 'target' },
+          isHighlighted: true,
+        },
+        {
+          title: `Give First`,
+          content: `Success grows through sharing. The Fiction community thrives on meaningful contributions, creating a space where positive impact leads to collective growth.`,
+          icon: { class: 'i-tabler-heart-handshake' },
+        },
+        {
+          title: `Crafted Excellence`,
+          content: `Quality elevates everyone. Fiction provides tools that exceed expectations, because sharing your story deserves nothing less than the best.`,
+          icon: { iconId: 'sparkles' },
+        },
+        {
+          title: `Beautiful Simplicity`,
+          content: `In a complex world, clarity stands out. Fiction strips away the unnecessary, letting you focus on what truly matters - connecting with your audience.`,
+          icon: { iconId: 'sparkles' },
+        },
       ],
+      support: {
+        text: 'Ready to be part of something bigger?',
+        actions: [
+          {
+            label: 'Join Fiction Today',
+            href: '/tour',
+            theme: 'primary',
+            icon: 'i-tabler-rocket',
+          },
+        ],
+      },
     },
   })
 
@@ -290,12 +346,12 @@ export async function getHomePage(args: { factory: CardFactory, stock: StockMedi
             templateId: 'hero',
             userConfig: {
               superTitle: {
-                text: 'The #1 Platform for Personal Branding',
+                text: 'Personal Websites and Audience Growth Tools',
                 theme: 'orange',
-                icon: { class: 'i-tabler-medal' },
+                icon: { class: 'i-tabler-rosette-number-1' },
               },
-              title: `The Personal Branding Platform`,
-              subTitle: `Create your personal brand and quickly build your audience.`,
+              title: `Own Your Online Presence, Control Your Future`,
+              subTitle: `In just 5 minutes, get a professional home for your personal brand that you actually own - no coding needed. Join thousands who've taken control and started growing real, lasting influence.`,
               action: {
                 buttons: [
                   {
@@ -303,6 +359,7 @@ export async function getHomePage(args: { factory: CardFactory, stock: StockMedi
                     href: '/app?_reload=1',
                     theme: 'primary',
                     icon: 'i-tabler-user-circle',
+                    design: 'solid',
                   },
                   {
                     label: 'Why Fiction',
@@ -428,8 +485,12 @@ export async function getTourPage(args: { factory: CardFactory, stock: StockMedi
           await factory.fromTemplate<typeof heroTemplate>({
             templateId: 'hero',
             userConfig: {
-              superTitle: { text: 'Welcome to Fiction', theme: 'green', icon: { class: 'i-tabler-arrow-up-right' } },
-              subTitle: `Fiction is the easiest way to market yourself online.`,
+              superTitle: {
+                text: 'Your Story Deserves To Be Heard',
+                theme: 'green',
+                icon: { class: 'i-tabler-arrow-up-right' },
+              },
+              subTitle: `Fiction helps you to share your story authentically and build genuine connections that last. No more juggling multiple tools or feeling lost in the digital noise.`,
               title: `Are you ready to be seen and to <span data-text-effect data-effect-type="squiggle" data-effect-theme="primary">make your impact?</span>`,
               action: {
                 buttons: [
@@ -444,77 +505,73 @@ export async function getTourPage(args: { factory: CardFactory, stock: StockMedi
               },
             },
           }),
-          await factory.fromTemplate<typeof logosTemplate>({
-            templateId: 'logos',
-            userConfig: {
-              layout: 'stacked',
-              items: [
-                {
-                  label: 'Coke',
-                  href: 'https://www.nytimes.com/2022/10/21/technology/generative-ai.html',
-                  media: stock.getLocalMedia({ key: 'logoCoke' }),
-                },
 
-                {
-                  label: 'Roblox',
-                  href: 'https://www.theguardian.com/culture/2022/jun/09/what-exactly-is-ai-generated-art-how-does-it-work-will-it-replace-human-visual-artists',
-                  media: stock.getLocalMedia({ key: 'logoRoblox' }),
-                },
-                {
-                  label: 'BBC',
-                  href: 'https://techcrunch.com/2022/08/02/ai-art-generated/',
-                  media: stock.getLocalMedia({ key: 'logoBBC' }),
-                },
-                {
-                  label: 'Balenciaga',
-                  href: 'https://www.nytimes.com/2022/10/21/technology/generative-ai.html',
-                  media: stock.getLocalMedia({ key: 'logoBalenciaga' }),
-                },
-              ],
-              label: 'Used by Influencers and Executives In These Companies',
-            },
-          }),
           await factory.fromTemplate<typeof tourTemplate>({
             templateId: 'tour',
             userConfig: {
               items: [
                 {
                   layout: 'right',
-                  title: 'Watch Your Personal Brand Come to Life',
-                  subTitle: 'Notice how effortlessly your brand guide, site, blog, newsletter, and audience growth tools work together in perfect harmony. Picture having everything you need in one seamless workspace.',
-                  splash: { url: new URL('img/fig-website-screen.svg', import.meta.url).href },
-                  overlays: [{ media: { url: new URL('img/fig-website-alt-1.svg', import.meta.url).href } }],
+                  superTitle: {
+                    icon: { iconId: 'browser' },
+                    text: 'World-Class Personal Websites',
+                    theme: 'orange',
+                  },
+                  title: 'See Your Personal Brand Come to Life',
+                  subTitle: 'Effortlessly create your online presence. Show off a high-quality website, create brilliant content to capture and grow your influence.',
+                  splash: { url: new URL('img/tour/fig-website-screen.svg', import.meta.url).href },
+                  overlays: [{ media: { url: new URL('img/tour/fig-website-alt-1.svg', import.meta.url).href } }],
                   action: {},
                 },
                 {
                   layout: 'left',
-                  title: 'Feel Your Audience Growing Daily',
-                  subTitle: 'Imagine waking up to new engaged subscribers every morning. See how your authentic voice resonates as you build a community that\'s truly yours to nurture and grow.',
-                  splash: { url: new URL('img/fig-subscribe-screen.svg', import.meta.url).href },
-                  overlays: [{ media: { url: new URL('img/fig-subscribe-alt-1.svg', import.meta.url).href } }],
+                  superTitle: {
+                    icon: { iconId: 'trending-up' },
+                    text: 'Audience Growth Tools',
+                    theme: 'rose',
+                  },
+                  title: 'Watch Your Audience Growing Daily',
+                  subTitle: 'Wake up to new engaged subscribers every morning. See how your persona resonates as you build an audience that\'s truly yours to nurture and grow.',
+                  splash: { url: new URL('img/tour/fig-subscribe-screen.svg', import.meta.url).href },
+                  overlays: [{ media: { url: new URL('img/tour/fig-subscribe-alt-1.svg', import.meta.url).href } }],
                   action: {},
                 },
                 {
                   layout: 'right',
+                  superTitle: {
+                    icon: { iconId: 'newspaper' },
+                    text: 'Newsletter and Email Marketing',
+                    theme: 'sky',
+                  },
                   title: 'Connect Deeply Through Personal Updates',
                   subTitle: 'Experience the difference when your newsletters feel like personal letters. Notice how your audience engagement grows as you share your journey in your authentic voice.',
-                  splash: { url: new URL('img/fig-email-screen.svg', import.meta.url).href },
-                  overlays: [{ media: { url: new URL('img/fig-email-alt-1.svg', import.meta.url).href } }],
+                  splash: { url: new URL('img/tour/fig-email-screen.svg', import.meta.url).href },
+                  overlays: [{ media: { url: new URL('img/tour/fig-email-alt-1.svg', import.meta.url).href } }],
                   action: {},
                 },
                 {
                   layout: 'left',
+                  superTitle: {
+                    icon: { iconId: 'rocket' },
+                    text: '10x Your Influence',
+                    theme: 'purple',
+                  },
                   title: 'Transform Your Influence Into Income',
                   subTitle: 'Visualize your expertise turning into memberships and opportunities. Feel the freedom as your personal brand opens doors to passive income streams.',
-                  splash: { url: new URL('img/fig-money-screen.svg', import.meta.url).href },
-                  overlays: [{ media: { url: new URL('img/fig-money-alt-1.svg', import.meta.url).href } }],
+                  splash: { url: new URL('img/tour/fig-money-screen.svg', import.meta.url).href },
+                  overlays: [{ media: { url: new URL('img/tour/fig-money-alt-1.svg', import.meta.url).href } }],
                   action: {},
                 },
                 {
                   layout: 'right',
+                  superTitle: {
+                    icon: { iconId: 'chart-bar' },
+                    text: 'Brand Automation',
+                    theme: 'yellow',
+                  },
                   title: 'Your Brand Works While You Sleep',
                   subTitle: 'Picture your personal brand working 24/7, automatically showcasing your best self. See how our AI-powered tools craft your perfect professional narrative.',
-                  splash: { url: new URL('img/fig-contact-screen.svg', import.meta.url).href },
+                  splash: { url: new URL('img/tour/fig-contact-screen.svg', import.meta.url).href },
                   action: {},
                 },
               ],
@@ -530,9 +587,22 @@ export async function getTourPage(args: { factory: CardFactory, stock: StockMedi
             templateId: 'metrics',
             userConfig: {
               metrics: [
-                { label: 'Launched', description: 'Websites Deployed', value: 8000 },
-                { label: 'Emails Sent', description: 'To Subscribers', value: 2_020_000 },
-                { label: 'Dollars Earned', description: 'Revenue', format: 'abbreviatedDollar', value: 12_000_000 },
+                {
+                  label: 'Personal Brands',
+                  description: 'Built & Thriving',
+                  value: 8000,
+                },
+                {
+                  label: 'Audience Connections',
+                  description: 'Meaningful Engagements',
+                  value: 2_020_000,
+                },
+                {
+                  label: 'Creator Success',
+                  description: 'Generated for Our Users',
+                  format: 'abbreviatedDollar',
+                  value: 12_000_000,
+                },
               ],
             },
           }),
@@ -541,7 +611,7 @@ export async function getTourPage(args: { factory: CardFactory, stock: StockMedi
             userConfig: {
               quotes: [
                 {
-                  text: `Going on a date? Your 'blind' date has Googled your name. Going to a job interview? Ditto.`,
+                  text: `While you're reading this, someone is Googling your name. The story they find will shape their decision to work with you, hire you, or invest in you. Can you afford to let others control your narrative?`,
                   author: {
                     name: 'Tim Ferris',
                     image: {
@@ -553,10 +623,9 @@ export async function getTourPage(args: { factory: CardFactory, stock: StockMedi
                   org: {
                     name: 'Tim Ferris',
                   },
-
                 },
                 {
-                  text: `In today's digital world, your personal brand is often your first impression - make it count.`,
+                  text: `Your personal brand isn't just your first impression anymore—it's your only impression. Every day you wait to build yours is an opportunity passing you by.`,
                   author: {
                     name: 'Gary Vaynerchuk',
                     image: {
@@ -567,6 +636,34 @@ export async function getTourPage(args: { factory: CardFactory, stock: StockMedi
                   },
                   org: {
                     name: 'VaynerMedia',
+                  },
+                },
+                {
+                  text: `The best time to build your personal brand was five years ago. The second best time is today. In the digital age, invisibility is a bigger risk than failure.`,
+                  author: {
+                    name: 'Brené Brown',
+                    image: {
+                      format: 'image',
+                      url: new URL('img/tour/person-brene.webp', import.meta.url).href,
+                    },
+                    title: 'Research Professor & Author',
+                  },
+                  org: {
+                    name: 'University of Houston',
+                  },
+                },
+                {
+                  text: `Every second you're not building your brand online, someone else is building theirs. And they're connecting with the audience that could have been yours.`,
+                  author: {
+                    name: 'Simon Sinek',
+                    image: {
+                      format: 'image',
+                      url: new URL('img/tour/person-simon.jpg', import.meta.url).href,
+                    },
+                    title: 'Leadership Expert & Best-Selling Author',
+                  },
+                  org: {
+                    name: 'Start With Why',
                   },
                 },
               ],
@@ -602,16 +699,23 @@ export async function getTourPage(args: { factory: CardFactory, stock: StockMedi
               standard: {
                 spacing: { verticalSpacing: 'lg' },
               },
-              title: `Is Personal Marketing Right For You?`,
-              subTitle: `Are you ready to take control of your future? They say: where there is a will, there is a way. Fiction is the way.`,
-              action: { buttons: [
-                {
-                  label: 'Let\'s Get Started',
-                  icon: 'i-tabler-rocket',
-                  href: '/auth/login?_reload=1',
-                  theme: 'primary',
-                },
-              ] },
+              superTitle: {
+                icon: { iconId: 'rocket' },
+                text: 'Finally launch your personal brand!',
+                theme: 'orange',
+              },
+              title: `Your Story Is [text_effect type=squiggle]Worth Telling[/text_effect]`,
+              subTitle: `Lots of people struggle to build a personal brand! Fiction simplifies the process, give it a try and see the difference.`,
+              action: {
+                buttons: [
+                  {
+                    label: 'Start Now',
+                    icon: 'i-tabler-rocket',
+                    href: '/auth/login?_reload=1',
+                    theme: 'primary',
+                  },
+                ],
+              },
             },
           }),
         ],

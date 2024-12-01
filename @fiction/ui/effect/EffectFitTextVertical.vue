@@ -1,22 +1,18 @@
 <script lang="ts" setup>
 import { vue, waitFor } from '@fiction/core'
-import { twMerge } from 'tailwind-merge'
 
-const props = defineProps<{
+const {
+  minSize = 16,
+  maxSize = 350,
+  scale = 1,
+  tag = 'div',
+} = defineProps<{
   wrapClass?: string
   minSize?: number
   maxSize?: number
   scale?: number
   tag?: 'div' | 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 }>()
-
-const {
-  wrapClass = '',
-  minSize = 16,
-  maxSize = 350,
-  scale = 1,
-  tag = 'div',
-} = props
 
 const textRef = vue.ref<HTMLElement | null>(null)
 const containerRef = vue.ref<HTMLElement | null>(null)
@@ -125,8 +121,6 @@ vue.onBeforeUnmount(() => {
   }
 })
 
-const cls = vue.computed(() => twMerge(wrapClass))
-
 // Force recalculation method
 function forceRecalculate() {
   isTextVisible.value = false
@@ -148,8 +142,10 @@ defineExpose({
   <component
     :is="tag"
     ref="containerRef"
-    class="relative flex items-center"
-    :class="cls"
+    class="relative inline-flex items-center"
+    :data-scale="scale"
+    :data-min-size="minSize"
+    :data-max-size="maxSize"
   >
     <div
       ref="textRef"

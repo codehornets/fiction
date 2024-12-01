@@ -9,7 +9,7 @@ import EffectGlare from '@fiction/ui/effect/EffectGlare.vue'
 import XIcon from '@fiction/ui/media/XIcon.vue'
 import XMedia from '@fiction/ui/media/XMedia.vue'
 import CardText from '../CardText.vue'
-import CardButtons from '../el/CardButtons.vue'
+import CardActionArea from '../el/CardActionArea.vue'
 import NavDots from '../el/NavDots.vue'
 import SuperTitle from '../el/SuperTitle.vue'
 
@@ -136,7 +136,7 @@ const hoverClasses = 'group-hover/item:text-primary-600 dark:group-hover/item:te
               </div>
             </div>
 
-            <CardButtons :card :actions="uc.socials || []" class="flex gap-4 text-2xl justify-center md:justify-start" />
+            <CardActionArea :card base-path="links" :classes="{ buttons: 'flex gap-4 text-2xl justify-center md:justify-start' }" />
           </div>
         </div>
       </div>

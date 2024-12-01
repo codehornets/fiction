@@ -204,12 +204,6 @@ const containerClass = vue.computed(() => {
               format="block"
               design="solid"
             />
-            <CardButtons
-              v-if="plan.actions?.length"
-              :card
-              :actions="plan.actions"
-              design="ghost"
-            />
           </div>
         </div>
       </div>

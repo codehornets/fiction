@@ -39,7 +39,6 @@ const containerClass = vue.computed(() => {
     'relative',
     'inline-flex',
     'items-center',
-    'justify-center',
   ]
   return twMerge(classes.join(' '), props.wrapClass)
 })
@@ -153,14 +152,25 @@ vue.onBeforeUnmount(() => {
       @load="handleImageLoad"
     >
 
+    <!-- Video Format -->
+    <video
+      v-else-if="mediaFormat === 'video' && media.url"
+      :src="media.url"
+      :alt="alt || media.alt || ''"
+      :class="contentClass"
+      autoplay
+      loop
+      muted
+    />
+
     <!-- HTML/SVG Format -->
     <div
       v-else-if="mediaFormat === 'html'"
-      class="w-full h-full flex items-center justify-center"
+      class="h-full inline-flex items-center justify-center"
     >
       <div
         ref="svgRef"
-        class="svg-wrapper w-full h-full"
+        class="svg-wrapper h-full inline-flex items-center justify-center"
         v-html="media.html"
       />
     </div>
@@ -169,19 +179,23 @@ vue.onBeforeUnmount(() => {
     <EffectFitTextVertical
       v-else-if="mediaFormat === 'typography'"
       :content="media.typography?.text || ''"
-      class="w-full h-full"
+      class="h-full whitespace-nowrap"
       :style="typographyStyle"
       :scale="media.typography?.scale"
+      :data-media-scale="media.typography?.scale"
     >
       {{ media.typography?.text }}
     </EffectFitTextVertical>
 
     <!-- Icon Format -->
-    <XIcon
-      v-else-if="mediaFormat === 'iconId'"
-      :media="media"
-      class="w-full h-full"
-    />
+    <div v-else-if="mediaFormat === 'iconId'" class="h-full">
+      <XIcon
+
+        :media="media"
+        class="h-full w-full aspect-square"
+        :class="contentClass"
+      />
+    </div>
 
     <!-- Component Format -->
     <component
@@ -196,24 +210,12 @@ vue.onBeforeUnmount(() => {
       v-else
       class="text-theme-500 dark:text-theme-400 text-sm"
     >
-      Invalid Media Format
+      Invalid Media Format ({{ mediaFormat }})
     </span>
   </div>
 </template>
 
 <style scoped>
-.xlogo {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.svg-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .svg-wrapper :deep(svg) {
   width: 100%;
   height: 100%;

@@ -81,7 +81,7 @@ export const systemIcons = [
   { name: 'Play', iconId: 'play', iconClass: 'i-tabler-player-play' },
   { name: 'Pause', iconId: 'pause', iconClass: 'i-tabler-player-pause' },
   { name: 'Stop', iconId: 'stop', iconClass: 'i-tabler-player-stop' },
-  { name: 'Newspaper', iconId: 'newspaper', iconClass: 'i-tabler-newspaper' },
+  { name: 'Newspaper', iconId: 'newspaper', iconClass: 'i-tabler-news' },
   { name: 'School', iconId: 'school', iconClass: 'i-tabler-school' },
   { name: 'Microphone', iconId: 'microphone', iconClass: 'i-tabler-microphone' },
   { name: 'Camera', iconId: 'camera', iconClass: 'i-tabler-camera' },

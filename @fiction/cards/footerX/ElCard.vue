@@ -33,7 +33,7 @@ vue.onMounted(() => {
 <template>
   <div :id="card.cardId">
     <div :class="card.classes.value.contentWidth">
-      <div class="px-6 lg:px-0 border-t border-theme-200 dark:border-theme-700/80 pt-16 mt-16 ">
+      <div class="px-6 lg:px-0 border-t border-theme-200 dark:border-theme-700/80 pt-16 mt-4 ">
         <!-- Main grid layout -->
         <div class="grid gris-cols-1 md:grid-cols-2 gap-6 md:gap-24">
           <!-- Brand section -->
@@ -82,7 +82,7 @@ vue.onMounted(() => {
           </div>
         </div>
 
-        <div class="border-t border-theme-200 dark:border-theme-700/50 pt-16 mt-16">
+        <div class="border-t border-theme-200 dark:border-theme-700/50 pt-16 mt-4">
           <div class="flex justify-between gap-6 flex-col md:flex-row">
             <div>
               <div class="flex flex-wrap gap-x-8 gap-y-4 mb-8">

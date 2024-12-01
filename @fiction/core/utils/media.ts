@@ -40,16 +40,18 @@ export function determineMediaFormat(media?: MediaObject): MediaObject['format']
   }
 
   // Main logic
-  if (media.format && media.format !== 'url')
-    return media.format
-  if (media.iconId)
-    return 'iconId'
-  if (media.class)
-    return 'iconClass'
-  if (media.html)
-    return 'html'
-  if (media.typography)
-    return 'typography'
+  if (media.format !== 'url') {
+    if (media.format)
+      return media.format
+    if (media.iconId)
+      return 'iconId'
+    if (media.class)
+      return 'iconClass'
+    if (media.html)
+      return 'html'
+    if (media.typography)
+      return 'typography'
+  }
 
   if (media.url && isValidUrl(media.url)) {
     const url = new URL(media.url, 'http://dummybase.com')

@@ -35,7 +35,7 @@ vue.onMounted(() => {
   <div :id="card.cardId" class="relative overflow-hidden bg-theme-50/50 dark:bg-theme-950/50">
     <div :class="card.classes.value.contentWidth">
       <div class="">
-        <div class="grid gap-20 xl:gap-32" :class="uc.benefits?.items?.length ? 'lg:grid-cols-12' : ''">
+        <div class="grid gap-12 md:gap-20 xl:gap-32" :class="uc.benefits?.items?.length ? 'lg:grid-cols-12' : ''">
           <div class="gap-8 xl:gap-8 flex flex-col justify-center md:col-span-7">
             <div class="space-y-4 xl:space-y-6">
               <SuperTitle
@@ -73,19 +73,19 @@ vue.onMounted(() => {
 
           <!-- Benefits Grid -->
           <div v-if="uc.benefits?.items?.length" class="flex flex-col gap-4 lg:gap-6 justify-center md:col-span-5">
-            <CardText :card path="benefits.title" class="text-theme-400 dark:text-theme-500 text-2xl x-font-title" />
+            <CardText :card path="benefits.title" class="text-theme-400 dark:text-theme-500 text-lg md:text-2xl x-font-title" />
             <div
               v-for="(benefit, i) in uc.benefits.items"
               :key="i"
               class="flex gap-4  animate-item max-w-sm items-center justify-start w-full"
             >
-              <XIcon v-if="benefit.icon" :media="benefit.icon" class="size-12 text-theme-400/70 dark:text-theme-500/70" />
+              <XIcon v-if="benefit.icon" :media="benefit.icon" class="size-8 lg:size-12 text-theme-400/70 dark:text-theme-500/70" />
               <div class="grow w-full">
                 <CardText
                   tag="h3"
                   :card
                   :path="`benefits.items.${i}.label`"
-                  class="font-semibold mb-1 text-2xl x-font-title"
+                  class="font-semibold mb-1 text-lg lg:text-2xl x-font-title"
                 />
               </div>
             </div>

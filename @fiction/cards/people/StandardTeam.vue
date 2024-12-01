@@ -4,7 +4,7 @@ import type { UserConfig } from './config.js'
 import { vue } from '@fiction/core'
 import XMedia from '@fiction/ui/media/XMedia.vue'
 import CardText from '../CardText.vue'
-import CardSocials from '../el/CardSocials.vue'
+import CardActionArea from '../el/CardActionArea.vue'
 
 const props = defineProps({
   card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
@@ -29,8 +29,15 @@ const uc = vue.computed(() => props.card.userConfig.value || {})
       <div :class="uc.layout === 'mediabox' ? 'max-w-xl flex-auto' : ''">
         <CardText animate="fade" :card :path="`profiles.${i}.name`" tag="h3" class="lg:mt-6 text-lg lg:text-3xl x-font-title font-semibold leading-8" />
         <CardText animate="fade" :card :path="`profiles.${i}.title`" tag="p" class="text-base dark:text-theme-400 text-theme-500 x-font-title" />
-        <CardText animate="fade" :card :path="`profiles.${i}.desc`" tag="p" class="mt-4 text-lg " />
-        <CardSocials v-if="profile.social" :card class="mt-6 justify-center md:justify-start" :socials="profile.social" />
+        <CardText animate="fade" :card :path="`profiles.${i}.desc`" tag="p" class="mt-4 text-lg lg:text-xl" />
+        <CardActionArea
+          v-if="profile.action"
+          :card
+          :base-path="`profiles.${i}.action`"
+          :classes="{ buttons: 'justify-center md:justify-start' }"
+          class="mt-6"
+          :action="profile.action"
+        />
       </div>
     </li>
   </ul>

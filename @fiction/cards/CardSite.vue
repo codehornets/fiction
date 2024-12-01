@@ -77,6 +77,19 @@ function getTitleTag() {
 
 const iconUrls = vue.computed(() => getHeadIconConfig({ site: site.value }))
 
+const colors = vue.computed(() => {
+  const config = site.value?.fullConfig.value || {}
+
+  const { primary = 'blue', theme = 'gray' } = config.standard?.scheme?.base || {}
+
+  return {
+    primary: getColorScheme(primary),
+    primaryHex: getColorScheme(primary, { outputFormat: 'hex' }),
+    theme: getColorScheme(theme),
+    themeHex: getColorScheme(theme, { outputFormat: 'hex' }),
+  }
+})
+
 unhead.useHead({
   htmlAttrs: { lang: 'en', dir: 'ltr' },
   title: () => getTitleTag(),
@@ -86,6 +99,7 @@ unhead.useHead({
     { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
     { name: 'description', content: () => page.value?.userConfig.value.seo?.description || page.value?.description.value || '' },
     { name: 'robots', content: () => site.value?.userConfig.value.seo?.robotsTxt || 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' },
+    { name: 'theme-color', content: () => colors.value.themeHex[900] },
     // Social media tags
     { name: 'twitter:card', content: 'summary_large_image' },
     { name: 'twitter:site', content: '@fiction_com' },
@@ -105,6 +119,8 @@ unhead.useHead({
       type: () => iconUrls.value.faviconType,
       sizes: () => iconUrls.value.faviconType === 'svg' ? 'any' : '',
     },
+
+    { rel: 'mask-icon', href: () => iconUrls.value.faviconUrl, color: () => colors.value.themeHex['900'] },
     { rel: 'apple-touch-icon', sizes: '180x180', href: () => iconUrls.value.appleTouchIconUrl },
     { rel: 'icon', sizes: '32x32', href: () => iconUrls.value.appleTouchIconUrl },
     { rel: 'icon', sizes: '16x16', href: () => iconUrls.value.appleTouchIconUrl },
@@ -160,14 +176,6 @@ vue.onMounted(async () => {
 
     cleanups.push(sw)
   }
-})
-
-const colors = vue.computed(() => {
-  const config = site.value?.fullConfig.value || {}
-
-  const { primary = 'blue', theme = 'gray' } = config.standard?.scheme?.base || {}
-
-  return { primary: getColorScheme(primary), theme: getColorScheme(theme) }
 })
 
 fictionEnv.events.on('cleanup', () => {

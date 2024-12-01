@@ -33,9 +33,9 @@ const layoutClasses = vue.computed(() => ({
     ],
     aspect: [
       'w-full',
-      ['right', 'left'].includes(layout.value)
-        ? 'aspect-[1/1]'
-        : 'aspect-[2/1]',
+      // ['right', 'left'].includes(layout.value)
+      //   ? 'aspect-[1/1]'
+      //   : 'aspect-[2/1]',
     ],
   },
 }))
@@ -78,9 +78,9 @@ const overlays = vue.computed(() => uc.value.overlays || [])
         <!-- Main Image -->
         <XMedia
           data-option-path="splash"
-          class="rounded-lg overflow-hidden dark:ring-1 dark:ring-theme-800"
           :class="layoutClasses.media.aspect"
           :media="uc.splash"
+          image-mode="inline"
           :animate="true"
         />
 

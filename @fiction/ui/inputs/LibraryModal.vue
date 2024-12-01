@@ -98,29 +98,44 @@ function updateCurrentSelection(updates: Partial<MediaObject>) {
       <!-- Preview section -->
       <div class="relative  py-2 border-b border-theme-300/50 dark:border-theme-700/70">
         <div class="absolute top-0 w-full flex justify-between items-center text-theme-500 dark:text-theme-400 px-4 py-2">
-          <div class="text-sm opacity-60">
-            Preview
+          <div class="text-xs opacity-60 flex gap-3">
+            <div>Preview</div>
+            <div>
+              <span class="opacity-60">
+                Format &rarr;
+              </span>
+              <span class="uppercase">{{ currentSelection.format || 'None' }}</span>
+            </div>
           </div>
-          <div class="text-xs text-right" :data-format="currentSelection.format">
-            <div class="opacity-60">
-              Format
-            </div> <div>{{ currentSelection.format || 'None' }}</div>
+          <div>
+            <XButton
+              v-if="currentSelection.url"
+              theme="default"
+              design="outline"
+              size="xs"
+              icon="i-tabler-trash"
+              @click="updateCurrentSelection({ url: undefined, iconId: undefined })"
+            >
+              Clear Media
+            </XButton>
           </div>
         </div>
-        <div class="flex justify-center items-center truncate p-4">
-          <XLogo v-if="['iconId', 'iconClass', 'typography'].includes(currentSelection.format || '')" :media="currentSelection" :class="['typography'].includes(currentSelection.format || '') ? 'h-[60px]' : 'h-[150px]'" />
-          <XMedia v-else class="h-[150px] aspect-video" :media="currentSelection" />
-        </div>
-        <div class="absolute right-2 bottom-2 z-10 px-4 py-2">
-          <XButton
-            v-if="currentSelection.url"
-            theme="default"
-            size="xs"
-            icon="i-tabler-x"
-            @click="updateCurrentSelection({ url: undefined, iconId: undefined })"
-          >
-            Remove
-          </XButton>
+        <div
+          class="flex justify-start items-center truncate p-4"
+          :data-media-data="JSON.stringify(currentSelection)"
+        >
+          <XLogo
+            v-if="['iconId', 'iconClass', 'typography'].includes(currentSelection.format || '')"
+            :media="currentSelection"
+            :class="['typography'].includes(currentSelection.format || '') ? 'h-[60px]' : 'h-[150px]'"
+          />
+          <XMedia
+            v-else
+            class="h-[150px] max-w-full"
+            image-mode="inline"
+            :media="currentSelection"
+            :data-media-format="currentSelection.format"
+          />
         </div>
       </div>
 

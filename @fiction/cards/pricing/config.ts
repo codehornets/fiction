@@ -16,7 +16,6 @@ const priceSchema = z.object({
   icon: MediaIconSchema.optional().describe('plan icon - helps visually differentiate tiers'),
   badge: z.string().optional().describe('optional badge text like "Most Popular" or "Best Value"'),
   buttonText: z.string().optional().describe('call-to-action text'),
-  actions: z.array(ActionButtonSchema).optional().describe('additional actions beyond main CTA'),
 })
 
 const schema = z.object({

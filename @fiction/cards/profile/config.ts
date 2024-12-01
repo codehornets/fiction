@@ -1,7 +1,7 @@
 import type { ConfigResponse } from '@fiction/site/card'
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { SiteUserConfig } from '@fiction/site/schema'
-import { ActionButtonSchema, colorThemeUser, MediaIconSchema, navListItemSchema, superTitleSchema } from '@fiction/core'
+import { actionAreaSchema, ActionButtonSchema, colorThemeUser, navListItemSchema, superTitleSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
@@ -27,7 +27,7 @@ export const schema = z.object({
   mediaItems: z.array(mediaSchema).optional().describe('Splash pictures in portrait format [ai seconds=40]'),
   detailsTitle: z.string().optional().describe('Title for list of details [ai]'),
   details: z.array(detailSchema).optional().describe('List of details with contact details, location, etc.'),
-  socials: z.array(ActionButtonSchema).optional().describe('List of social media links'),
+  links: actionAreaSchema.optional().describe('List of social media links'),
 })
 
 export type UserConfig = z.infer<typeof schema>
@@ -72,14 +72,14 @@ const options: InputOption[] = [
     ],
   }),
   new InputOption({
-    key: 'socials',
+    key: 'links.buttons',
     input: 'InputList',
-    label: 'Social Links',
-    props: { itemName: 'Social Profile' },
+    label: 'Links',
+    props: { itemName: 'Link' },
     options: [
-      new InputOption({ key: 'label', input: 'InputText', label: 'Platform Name' }),
-      new InputOption({ key: 'href', input: 'InputUrl', label: 'Profile URL' }),
-      new InputOption({ key: 'icon', input: 'InputIcon', label: 'Platform Icon' }),
+      new InputOption({ key: 'label', input: 'InputText', label: 'Label' }),
+      new InputOption({ key: 'href', input: 'InputUrl', label: 'URL' }),
+      new InputOption({ key: 'icon', input: 'InputIcon', label: 'Icon' }),
     ],
   }),
 ]
@@ -106,11 +106,13 @@ async function getUserConfig(args: { factory: CardFactory }): Promise<UserConfig
       { label: 'Availability', value: 'Open to Opportunities', icon: { iconId: 'calendar' } },
       { label: 'Phone', value: '(555) 123-4567', href: 'tel:+15551234567', icon: { iconId: 'phone' } },
     ],
-    socials: [
-      { label: 'Connect on LinkedIn', href: '#', icon: { iconId: 'linkedin' } },
-      { label: 'Follow on X', href: '#', icon: { iconId: 'x' } },
-      { label: 'View Portfolio', href: '#', icon: { iconId: 'external-link' } },
-    ],
+    links: {
+      buttons: [
+        { label: 'Connect on LinkedIn', href: '#', icon: { iconId: 'linkedin' } },
+        { label: 'Follow on X', href: '#', icon: { iconId: 'x' } },
+        { label: 'View Portfolio', href: '#', icon: { iconId: 'external-link' } },
+      ],
+    },
   }
 }
 
@@ -136,10 +138,12 @@ async function getDemoUserConfig(args: { factory: CardFactory }): Promise<UserCo
         { label: 'Office', value: 'Global HQ, New York', icon: { iconId: 'building' } },
         { label: 'Assistant', value: 'executive.office@company.com', href: 'mailto:example@company.com', icon: { iconId: 'mail' } },
       ],
-      socials: [
-        { label: 'View Leadership Profile', href: '#', icon: { iconId: 'briefcase' }, theme: 'primary' },
-        { label: 'LinkedIn Presence', href: '#', icon: { iconId: 'linkedin' } },
-      ],
+      links: {
+        buttons: [
+          { label: 'View Leadership Profile', href: '#', icon: { iconId: 'briefcase' }, theme: 'primary' },
+          { label: 'LinkedIn Presence', href: '#', icon: { iconId: 'linkedin' } },
+        ],
+      },
     },
 
     // Creative Professional
@@ -159,10 +163,12 @@ async function getDemoUserConfig(args: { factory: CardFactory }): Promise<UserCo
         { label: 'Studio', value: 'Brooklyn Design District', icon: { iconId: 'palette' } },
         { label: 'Portfolio', value: 'View Latest Work', href: '#', icon: { iconId: 'image' } },
       ],
-      socials: [
-        { label: 'Instagram Portfolio', href: '#', icon: { iconId: 'instagram' }, theme: 'violet' },
-        { label: 'Behance Projects', href: '#', icon: { iconId: 'external-link' } },
-      ],
+      links: {
+        buttons: [
+          { label: 'Instagram Portfolio', href: '#', icon: { iconId: 'instagram' }, theme: 'violet' },
+          { label: 'Behance Projects', href: '#', icon: { iconId: 'external-link' } },
+        ],
+      },
     },
 
     // Technology Expert
@@ -185,10 +191,12 @@ async function getDemoUserConfig(args: { factory: CardFactory }): Promise<UserCo
         { label: 'Specialties', description: 'AI & Machine Learning', icon: { iconId: 'code' } },
         { label: 'GitHub', description: '@techleader', href: '#', icon: { iconId: 'github' } },
       ],
-      socials: [
-        { label: 'Tech Blog', href: '#', icon: { iconId: 'rss' }, theme: 'orange' },
-        { label: 'Stack Overflow', href: '#', icon: { iconId: 'terminal' }, theme: 'orange', design: 'outline' },
-      ],
+      links: {
+        buttons: [
+          { label: 'Tech Blog', href: '#', icon: { iconId: 'rss' }, theme: 'orange' },
+          { label: 'Stack Overflow', href: '#', icon: { iconId: 'terminal' }, theme: 'orange', design: 'outline' },
+        ],
+      },
     },
   ]
 }

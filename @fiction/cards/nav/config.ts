@@ -33,19 +33,19 @@ function getOptions(): InputOption[] {
       input: 'group',
       options: [
         new InputOption({
-          key: 'logo',
+          key: 'brand.logo',
           label: 'Logo',
           input: 'InputLogo',
           description: 'Your brand logo or wordmark - supports text or image',
         }),
         new InputOption({
-          key: 'tagline',
+          key: 'brand.tagline',
           label: 'Tagline',
           input: 'InputText',
           description: 'Short brand message or tagline',
         }),
         new InputOption({
-          key: 'theme',
+          key: 'brand.theme',
           label: 'Brand Theme',
           input: 'InputColorScheme',
           description: 'Primary brand color theme',

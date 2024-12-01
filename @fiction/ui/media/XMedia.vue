@@ -6,12 +6,18 @@ import ClipPathAnim from '../anim/AnimClipPath.vue'
 
 defineOptions({ name: 'XMedia' })
 
-const props = defineProps({
-  media: { type: Object as vue.PropType<MediaObject>, default: undefined },
-  imageClass: { type: String, default: '' },
-  animate: { type: [Boolean, String] as vue.PropType<AnimateType>, default: false },
-  imageMode: { type: String as vue.PropType<ImageMode>, default: 'cover' },
-})
+const {
+  media,
+  imageClass = '',
+  animate = false,
+  imageMode = 'cover',
+} = defineProps<{
+  media?: MediaObject
+  imageClass?: string
+  animate?: AnimateType
+  imageMode?: ImageMode
+}>()
+
 type ImageMode = 'inline' | 'cover' | 'contain'
 type AnimateType = 'swipe' | 'expand' | '' | boolean
 
@@ -21,7 +27,7 @@ const loading = vue.ref(true)
 const blurCanvas = vue.ref<HTMLCanvasElement>()
 
 const mediaFormat = vue.computed(() => {
-  return determineMediaFormat(props.media)
+  return determineMediaFormat(media)
 })
 
 async function loadImage(src: string): Promise<HTMLImageElement> {
@@ -34,10 +40,10 @@ async function loadImage(src: string): Promise<HTMLImageElement> {
 }
 
 const blurhash = vue.computed(() => {
-  if (props.media?.blurhash)
-    return props.media.blurhash
+  if (media?.blurhash)
+    return media.blurhash
 
-  const urlObj = new URL(props.media?.url || '', 'http://dummybase.com')
+  const urlObj = new URL(media?.url || '', 'http://dummybase.com')
   const params = new URLSearchParams(urlObj.search)
   return params.get('blurhash') || ''
 })
@@ -57,7 +63,7 @@ async function setBlurHash() {
 
 vue.onMounted(() => {
   vue.watch(
-    () => props.media?.url,
+    () => media?.url,
     async (url) => {
       loading.value = true
       setBlurHash()
@@ -88,7 +94,7 @@ const cls = vue.computed(() => {
   return c.includes('absolute') ? '' : 'relative'
 })
 
-const filters = vue.computed(() => props.media?.filters || [])
+const filters = vue.computed(() => media?.filters || [])
 
 function generateColorString(point: GradientPoint): string {
   if (point.color)
@@ -122,15 +128,15 @@ function createGradientString(gradient: GradientSetting): string {
 }
 
 const bgStyle = vue.computed(() => ({
-  backgroundColor: props.media?.backgroundColor || undefined,
-  backgroundImage: props.media?.gradient ? createGradientString(props.media.gradient) : undefined,
-  backgroundRepeat: props.media?.backgroundRepeat || undefined,
-  backgroundPosition: props.media?.backgroundPosition || undefined,
-  backgroundSize: props.media?.backgroundSize || undefined,
+  backgroundColor: media?.backgroundColor || undefined,
+  backgroundImage: media?.gradient ? createGradientString(media.gradient) : undefined,
+  backgroundRepeat: media?.backgroundRepeat || undefined,
+  backgroundPosition: media?.backgroundPosition || undefined,
+  backgroundSize: media?.backgroundSize || undefined,
 }))
 
 const overlayStyle = vue.computed(() => {
-  const overlay = props.media?.overlay
+  const overlay = media?.overlay
   if (!overlay)
     return {}
 
@@ -142,7 +148,7 @@ const overlayStyle = vue.computed(() => {
 })
 
 const flipClass = vue.computed(() => {
-  const flip = props.media?.modify?.flip
+  const flip = media?.modify?.flip
   if (!flip)
     return ''
 
@@ -153,8 +159,8 @@ const filterStyle = vue.computed(() => ({
   filter: filters.value.map(filter => `${filter.filter}(${filter.value ?? `${filter.percent}%`})`).join(' '),
 }))
 
-const inlineImage = vue.computed(() => props.imageMode === 'inline')
-const imageModeClass = vue.computed(() => props.imageMode === 'contain' ? 'object-contain' : 'object-cover')
+const inlineImage = vue.computed(() => imageMode === 'inline')
+const imageModeClass = vue.computed(() => imageMode === 'contain' ? 'object-contain' : 'object-cover')
 </script>
 
 <template>

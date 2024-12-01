@@ -6,7 +6,7 @@ import TransitionSlide from '@fiction/ui/anim/TransitionSlide.vue'
 import XIcon from '@fiction/ui/media/XIcon.vue'
 import XMedia from '@fiction/ui/media/XMedia.vue'
 import CardText from '../CardText.vue'
-import CardButtons from '../el/CardButtons.vue'
+import CardActionArea from '../el/CardActionArea.vue'
 
 const props = defineProps({
   card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
@@ -115,7 +115,7 @@ function isItemOpen(index: number) {
 
     <!-- Support Section -->
     <div
-      v-if="uc.support?.text || uc.support?.actions?.length"
+      v-if="uc.support?.text || uc.support?.action?.buttons?.length"
       class="mt-10 text-center max-w-[768px] mx-auto space-y-6"
     >
       <CardText
@@ -125,11 +125,12 @@ function isItemOpen(index: number) {
         class="text-lg text-theme-600 dark:text-theme-400 x-font-title"
       />
 
-      <CardButtons
-        v-if="uc.support.actions?.length"
+      <CardActionArea
+        v-if="uc.support.action"
         :card
-        :actions="uc.support.actions"
-        class="justify-center gap-4 flex"
+        base-path="support.action"
+        :actions="uc.support.action"
+        :classes="{ buttons: 'flex gap-4 justify-center' }"
       />
     </div>
   </div>

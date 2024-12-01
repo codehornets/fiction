@@ -1,7 +1,7 @@
 import type { ConfigResponse } from '@fiction/site'
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { StockMedia } from '@fiction/ui/stock'
-import { ActionButtonSchema, MediaBasicSchema, MediaIconSchema } from '@fiction/core'
+import { actionAreaSchema, ActionButtonSchema, MediaBasicSchema, MediaIconSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
@@ -16,7 +16,7 @@ const schema = z.object({
   })).optional().describe('FAQ items with questions and detailed answers'),
   support: z.object({
     text: z.string().optional(),
-    actions: z.array(ActionButtonSchema).optional(),
+    action: actionAreaSchema.optional(),
   }).optional().describe('Optional support section shown below FAQs'),
 })
 
@@ -145,18 +145,20 @@ function getDemoConfigs(args: { templateId: string, factory: CardFactory, stock:
         ],
         support: {
           text: 'Ready to see it in action?',
-          actions: [
-            {
-              label: 'Watch Demo',
-              theme: 'primary',
-              icon: { class: 'i-tabler-player-play' },
-            },
-            {
-              label: 'Book Consultation',
-              theme: 'default',
-              icon: { class: 'i-tabler-calendar' },
-            },
-          ],
+          action: {
+            buttons: [
+              {
+                label: 'Watch Demo',
+                theme: 'primary',
+                icon: { class: 'i-tabler-player-play' },
+              },
+              {
+                label: 'Book Consultation',
+                theme: 'default',
+                icon: { class: 'i-tabler-calendar' },
+              },
+            ],
+          },
         },
       },
     },
@@ -179,13 +181,15 @@ function getDemoConfigs(args: { templateId: string, factory: CardFactory, stock:
         ],
         support: {
           text: 'Looking for advanced customization?',
-          actions: [
-            {
-              label: 'View API Docs',
-              theme: 'primary',
-              icon: { class: 'i-tabler-code' },
-            },
-          ],
+          action: {
+            buttons: [
+              {
+                label: 'View API Docs',
+                theme: 'primary',
+                icon: { class: 'i-tabler-code' },
+              },
+            ],
+          },
         },
       },
     },
@@ -209,13 +213,15 @@ function getDemoConfigs(args: { templateId: string, factory: CardFactory, stock:
         ],
         support: {
           text: 'Need immediate assistance?',
-          actions: [
-            {
-              label: 'Live Chat',
-              theme: 'primary',
-              icon: { class: 'i-tabler-message-circle' },
-            },
-          ],
+          action: {
+            buttons: [
+              {
+                label: 'Live Chat',
+                theme: 'primary',
+                icon: { class: 'i-tabler-message-circle' },
+              },
+            ],
+          },
         },
       },
     },

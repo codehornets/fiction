@@ -6,6 +6,7 @@ import XIcon from '@fiction/ui/media/XIcon.vue'
 import { getColorThemeStyles } from '@fiction/ui/utils'
 import CardText from '../CardText.vue'
 import CardActionArea from './CardActionArea.vue'
+import XSuperTitle from './SuperTitle.vue'
 
 export type UserConfig = {
   title?: string
@@ -68,49 +69,51 @@ const layout = vue.computed(() => {
 <template>
   <div class="space-y-8">
     <div
-
       :class="textWrapClass"
       data-option-path="layout"
       :data-layout="layout"
     >
-      <div class="max-w-screen-lg" :class="layout === 'justify' ? 'lg:min-w-[50%]' : 'mx-auto'">
-        <div v-if="uc.superTitle?.text || uc.superTitle?.icon" class="flex gap-3 items-center mb-4" :class="[colorStyle.text, layout === 'center' ? 'md:justify-center' : '']">
-          <div v-if="uc.superTitle?.icon" :class="colorStyle.icon" class="size-10 rounded-full flex items-center justify-center">
-            <XIcon :media="uc.superTitle?.icon" class="size-6" />
-          </div>
-          <CardText
-            tag="h3"
-            :card
-            class="font-sans text-sm lg:text-lg font-medium"
-            path="superTitle.text"
-            placeholder="Super Title"
-            animate="fade"
-          />
-        </div>
+      <div class="max-w-screen-lg space-y-4" :class="layout === 'justify' ? 'lg:min-w-[50%]' : 'mx-auto'">
+        <XSuperTitle
+          :card
+          base-path="superTitle"
+          :class="[layout === 'center' ? 'md:justify-center' : '']"
+          :super-title="uc.superTitle"
+        />
         <CardText
           tag="h1"
           :card
-          class="x-font-title font-semibold md:text-balance text-4xl sm:text-5xl lg:text-[3.2rem] !leading-[1.1]"
-          :class="[layout === 'justify' || layout === 'left' ? 'mt-3' : 'my-7']"
+          class="x-font-title font-semibold md:text-balance text-4xl sm:text-5xl !leading-[1.1]"
           path="title"
           placeholder="Title"
           animate="fade"
         />
       </div>
-      <div class="max-w-screen-md" :class="layout === 'justify' ? 'lg:max-w-[50%]' : 'mx-auto'">
+      <div class="max-w-screen-md space-y-4" :class="layout === 'justify' ? 'lg:max-w-[40%]' : 'mx-auto'">
         <CardText
           tag="h3"
           :card
-          class="mt-8 text-xl lg:text-2xl !leading-[1.5] md:text-balance text-theme-700 dark:text-theme-300/90"
+          class="mt-8 text-xl lg:text-2xl !leading-[1.5] md:text-balance text-theme-800 dark:text-theme-200"
           :class="layout === 'justify' ? 'lg:text-right' : ''"
           path="subTitle"
           placeholder="Sub Title"
           animate="fade"
         />
+        <CardActionArea
+          v-if="withActions && layout === 'justify'"
+          base-path="action"
+          :card
+          :classes="{
+            buttons: [
+              'flex gap-4 lg:gap-6 justify-end',
+            ].join(' '),
+          }"
+          size="md"
+        />
       </div>
     </div>
     <CardActionArea
-      v-if="withActions"
+      v-if="withActions && layout !== 'justify'"
       base-path="action"
       :card
       :classes="{
@@ -120,7 +123,7 @@ const layout = vue.computed(() => {
           'flex gap-4 lg:gap-6',
         ].join(' '),
       }"
-      :size="layout === 'justify' ? 'lg' : 'xl'"
+      size="xl"
     />
   </div>
 </template>
