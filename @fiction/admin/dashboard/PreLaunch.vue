@@ -43,16 +43,6 @@ const hasAccessCode = vue.ref(false)
       <div
         class="flex min-h-full flex-col items-center justify-center p-4 text-center sm:items-center sm:p-0"
       >
-        <!--
-        Modal panel, show/hide based on modal state.
-
-        Entering: "ease-out duration-300"
-          From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-          To: "opacity-100 translate-y-0 sm:scale-100"
-        Leaving: "ease-in duration-200"
-          From: "opacity-100 translate-y-0 sm:scale-100"
-          To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-      -->
         <div class="p-8 text-white">
           <XMedia class="mx-auto h-[25px]" :media="card.userConfig.value.homeIcon" />
         </div>

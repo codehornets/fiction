@@ -200,14 +200,16 @@ export async function getAboutPage(args: { site: Site, factory: CardFactory }) {
       ],
       support: {
         text: 'Ready to be part of something bigger?',
-        actions: [
-          {
-            label: 'Join Fiction Today',
-            href: '/tour',
-            theme: 'primary',
-            icon: 'i-tabler-rocket',
-          },
-        ],
+        action: {
+          buttons: [
+            {
+              label: 'Join Fiction Today',
+              href: '/tour',
+              theme: 'primary',
+              icon: 'i-tabler-rocket',
+            },
+          ],
+        },
       },
     },
   })
