@@ -1,64 +1,64 @@
 <script lang="ts" setup>
-import type { StandardSize } from '@fiction/core'
+import type { FontFamily, StandardSize } from '@fiction/core'
 import type { FontEntry } from '@fiction/core/utils/lib/fontList'
-import { vue } from '@fiction/core'
+import { groupBy, vue } from '@fiction/core'
 import { safeStacks } from '@fiction/core/utils/fonts'
 import InputSelectCustom from './InputSelectCustom.vue'
 
-const props = defineProps({
-  modelValue: { type: String, default: '' },
-  uiSize: { type: String as vue.PropType<StandardSize>, default: 'md' },
-  noPreview: { type: Boolean, default: false },
-})
-
-const emit = defineEmits<{
-  (event: 'update:modelValue', payload: string): void
+const { modelValue = {}, uiSize = 'md', noPreview = false } = defineProps<{
+  modelValue?: FontFamily
+  uiSize?: StandardSize
+  noPreview?: boolean
 }>()
 
-interface FontItem {
-  family: string
-  variants: string[]
-  category: string
-}
+const emit = defineEmits<{
+  (event: 'update:modelValue', payload: FontFamily): void
+}>()
 
 const fontsList = vue.ref<FontEntry[]>()
 
 function getGoogleLink(family: string, variants: string[]) {
-  return `https://fonts.googleapis.com/css?family=${encodeURIComponent(family)}:${variants.join(',')}`
+  return `https://fonts.googleapis.com/css?family=${encodeURIComponent(family)}:wght@300;400;500;600;700;800;900`
+}
+
+async function getFontsList() {
+  const { fonts } = await import('@fiction/core/utils/lib/fontList')
+  return fonts
 }
 
 const list = vue.computed(() => {
   const safeStackItems = Object.entries(safeStacks).map(([key, stack]) => {
     return {
       name: key.charAt(0).toUpperCase() + key.slice(1),
-      desc: `Default ${key}`,
       value: key,
     }
   })
 
-  const fonts = fontsList.value || []
-  const glist = fonts.map(
-    ({ family, variants, category }: FontItem) => {
-      return { name: `${family} (${category})`, value: family, isGoogleFont: true }
+  const fonts = groupBy(fontsList.value || [], 'category') as Record<string, FontEntry[]>
+
+  const glist = Object.entries(fonts).flatMap(
+    ([category, entries]) => {
+      const vals = entries.map((entry) => {
+        const { family, variants } = entry
+        return { name: `${family} (${category})`, value: family, source: 'google' }
+      })
+      return [{ format: 'title', name: category }, ...vals]
     },
   )
 
   return [
     { name: 'Default', value: '' },
-    { format: 'title', name: 'Google Fonts' },
-    ...glist.sort((a, b) => a.name.localeCompare(b.name)),
-    { format: 'title', name: 'Defaults' },
+    ...glist,
+    { format: 'title', name: 'Native Fonts' },
     ...safeStackItems,
   ]
 })
 
 vue.onMounted(async () => {
-  const { fonts } = await import('@fiction/core/utils/lib/fontList')
-
-  fontsList.value = fonts as FontEntry[]
+  fontsList.value = await getFontsList()
 })
 
-vue.watch(() => props.modelValue, (newFont) => {
+vue.watch(() => modelValue, (newFont) => {
   const fontItem = fontsList.value?.find(font => font.family === newFont)
   if (fontItem && fontItem.variants.length > 0) {
     const link = getGoogleLink(fontItem.family, fontItem.variants)
@@ -77,7 +77,7 @@ vue.watch(() => props.modelValue, (newFont) => {
 }, { immediate: true })
 
 const fontFamily = vue.computed(() => {
-  const selectedFont = props.modelValue || ''
+  const selectedFont = modelValue.family || ''
   return safeStacks[selectedFont as keyof typeof safeStacks] || selectedFont
 })
 
@@ -91,8 +91,12 @@ const previewFontSize = vue.computed(() => {
     'xl': 'text-2xl py-3 px-8',
     '2xl': 'text-3xl py-3.5 px-8',
   }
-  return sizes[props.uiSize as keyof typeof sizes] || 'text-base py-2 px-8'
+  return sizes[uiSize as keyof typeof sizes] || 'text-base py-2 px-8'
 })
+
+function handleFamilyChange(family?: string) {
+  emit('update:modelValue', { family })
+}
 </script>
 
 <script lang="ts">
@@ -113,6 +117,12 @@ export default {
         <span>Editable Font Preview </span>
       </div>
     </div>
-    <InputSelectCustom v-bind="{ ...$attrs, list }" :ui-size="uiSize" :model-value="modelValue" class="grow" @update:model-value="emit('update:modelValue', $event as string)" />
+    <InputSelectCustom
+      v-bind="{ ...$attrs, list }"
+      :ui-size="uiSize"
+      :model-value="modelValue.family"
+      class="grow"
+      @update:model-value="handleFamilyChange($event as string | undefined)"
+    />
   </div>
 </template>

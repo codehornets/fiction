@@ -1,28 +1,28 @@
 import type { Site } from '..'
-import { vue } from '@fiction/core'
+import { type FontFamily, vue } from '@fiction/core'
 import { googleFontsUtility, safeStacks } from '@fiction/core/utils/fonts'
 import { deepMerge } from '@fiction/core/utils/obj'
 
-export type FontConfigVal = { fontKey?: string, stack: 'monospace' | 'sans' | 'serif' }
 export type FontConfig = {
-  mono?: FontConfigVal
-  input?: FontConfigVal
-  title?: FontConfigVal
-  sans?: FontConfigVal
-  body?: FontConfigVal
-  serif?: FontConfigVal
-  highlight?: FontConfigVal
-  [key: string]: FontConfigVal | undefined
+  mono?: FontFamily
+  input?: FontFamily
+  title?: FontFamily
+  sans?: FontFamily
+  body?: FontFamily
+  serif?: FontFamily
+  highlight?: FontFamily
+  [key: string]: FontFamily | undefined
 }
 
 const defaultSiteFonts: FontConfig = {
-  mono: { fontKey: 'DM Mono', stack: 'monospace' },
-  input: { fontKey: 'DM Mono', stack: 'sans' },
-  title: { fontKey: 'Poppins', stack: 'sans' },
-  sans: { fontKey: 'Plus+Jakarta+Sans', stack: 'sans' },
+  mono: { family: 'DM Mono', stack: 'monospace' },
+  input: { family: 'DM Mono', stack: 'sans' },
+  title: { family: 'Poppins', stack: 'sans' },
+  sans: { family: 'Plus+Jakarta+Sans', stack: 'sans' },
   body: { stack: 'serif' },
   serif: { stack: 'serif' },
-  highlight: { fontKey: 'Caveat', stack: 'sans' },
+  highlight: { family: 'Caveat', stack: 'sans' },
+  inherit: undefined,
 }
 
 export function fontFamilyByKey(key?: string) {
@@ -38,7 +38,7 @@ export function fontFamilyByKey(key?: string) {
 export function activeSiteFont(site?: Site) {
   return vue.computed(() => {
     const userFonts = site?.userFonts.value || {}
-    const themeFonts = site?.fullConfig.value?.styling?.fonts || {}
+    const themeFonts = site?.fullConfig.value?.site?.styling?.fonts || {}
 
     const config = deepMerge<FontConfig>([defaultSiteFonts, themeFonts])
 
@@ -52,19 +52,19 @@ export function activeSiteFont(site?: Site) {
       if (!value)
         return [key, '']
 
-      const fontList = [safeStacks[value.stack || '']]
+      const fontList = value.stack ? [safeStacks[value.stack]] : [safeStacks.sans]
 
-      if (value.fontKey)
-        fontList.unshift(`'${value.fontKey}'`)
+      if (value.family)
+        fontList.unshift(`'${value.family}'`)
 
       const deduped = [...new Set(fontList)]
       return [key, deduped.join(', ')]
     })) as Record<keyof FontConfig, string>
 
-    const fontKeys = Object.values(config).flatMap(_ => [_?.fontKey]).filter(Boolean) as string[]
+    const fontFamilies = Object.values(config).filter(f => f?.family) as FontFamily[]
 
     // Use GoogleFontsUtility to create the fonts URL
-    const fontsUrl = googleFontsUtility.createGoogleFontsLink({ fontKeys })
+    const fontsUrl = googleFontsUtility.createGoogleFontsLink({ fontFamilies })
 
     return { stacks, fontsUrl }
   })

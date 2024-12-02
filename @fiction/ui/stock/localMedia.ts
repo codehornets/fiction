@@ -13,9 +13,9 @@ import Lorem9 from './img/lorem9.svg?raw'
 export type LocalMediaKeys = keyof typeof localMedia
 
 export const localMedia = {
-  fictionShareImage: { format: 'url', url: new URL('../img/brand/shareImage.png', import.meta.url).href },
-  fictionFaviconSvg: { format: 'url', url: new URL('../img/brand/favicon.svg', import.meta.url).href },
-  fictionIcon: { format: 'url', url: new URL('../img/brand/icon.png', import.meta.url).href },
+  fictionShareImage: { format: 'url', url: new URL('../brand/shareImage.png', import.meta.url).href },
+  fictionFaviconSvg: { format: 'url', url: new URL('../brand/favicon.svg', import.meta.url).href },
+  fictionIcon: { format: 'url', url: new URL('../brand/icon.png', import.meta.url).href },
   fictionLogo: { format: 'html', html: FictionLogo, tags: ['brand', 'logo'] },
   fictionIconInline: {
     format: 'html',

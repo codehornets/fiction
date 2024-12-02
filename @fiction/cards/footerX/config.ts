@@ -1,10 +1,10 @@
-import { navListItemSchema, navListSchema } from '@fiction/core/schemas/schemas'
+import type { SiteUserConfig } from '@fiction/site/schema'
+import { brandSchema, navListItemSchema, navListSchema } from '@fiction/core/schemas/schemas'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
 export const schema = z.object({
-  title: z.string().optional(),
-  subTitle: z.string().optional(),
+  brand: brandSchema.optional(),
   menus: z.array(navListSchema).optional(),
   additional: z.object({
     list1: z.array(navListItemSchema).optional(),
@@ -12,12 +12,14 @@ export const schema = z.object({
   }).optional(),
 })
 
-export type UserConfig = z.infer<typeof schema>
+export type UserConfig = z.infer<typeof schema> & SiteUserConfig
 
 export function getDefaultConfig(): UserConfig {
   return {
-    title: 'Your Brand',
-    subTitle: 'An inspiring tagline goes here',
+    brand: {
+      logo: { variant: 'typography', typography: { label: 'Your Brand' } },
+      tagline: 'A tagline goes here',
+    },
     menus: [
       {
         title: 'Discover',
@@ -63,8 +65,10 @@ export function getDemoConfigs(templateId: string): Record<string, { templateId:
     creator: {
       templateId,
       userConfig: {
-        title: 'Alex Rivera',
-        subTitle: 'Empowering Creators to Build Their Digital Empire',
+        brand: {
+          logo: { variant: 'typography', typography: { label: 'Alex Rivera' } },
+          tagline: 'Empowering Creators to Build Their Digital Empire',
+        },
         menus: [
           {
             title: 'Content Library',
@@ -99,8 +103,10 @@ export function getDemoConfigs(templateId: string): Record<string, { templateId:
     saas: {
       templateId,
       userConfig: {
-        title: 'FlowSpace',
-        subTitle: 'Where Teams Flow Together',
+        brand: {
+          logo: { variant: 'typography', typography: { label: 'FlowSpace' } },
+          tagline: 'Where Teams Flow Together',
+        },
         menus: [
           {
             title: 'Product Suite',

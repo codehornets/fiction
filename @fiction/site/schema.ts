@@ -1,4 +1,17 @@
-import { ButtonDesignSchema, ButtonHoverSchema, ButtonRoundingSchema, ColorThemeSchema, colorThemeUser, FontConfigValSchema, FontStyleSchema, HeaderLayoutSchema, MediaDisplaySchema, MediaIconSchema, MediaTypographySchema, SizeSchemaComplete, UiOriginSchema } from '@fiction/core'
+import {
+  ButtonDesignSchema,
+  ButtonHoverSchema,
+  ButtonRoundingSchema,
+  ColorThemeSchema,
+  fontFamilySchema,
+  fontStyleSchema,
+  HeaderLayoutSchema,
+  logoSchema,
+  MediaDisplaySchema,
+  SizeSchemaComplete,
+  superTitleSchema,
+  UiOriginSchema,
+} from '@fiction/core'
 import { z } from 'zod'
 
 export type SizeBasic = z.infer<typeof SizeSchemaComplete>
@@ -8,11 +21,11 @@ const KnownFontKeys = ['mono', 'input', 'title', 'sans', 'body', 'serif', 'highl
 export const prefersColorScheme = ['light', 'dark', 'auto', ''] as const
 
 const BaseFontsSchema = z.object(
-  Object.fromEntries(KnownFontKeys.map(key => [key, FontConfigValSchema.optional()])),
+  Object.fromEntries(KnownFontKeys.map(key => [key, fontFamilySchema.optional()])),
 )
 
 // .catchall(). This method allows the schema to accept any additional properties of the specified type.
-const FontsSchema = BaseFontsSchema.catchall(FontConfigValSchema)
+const FontsSchema = BaseFontsSchema.catchall(fontFamilySchema)
 
 const Scheme = z.object({
   bg: MediaDisplaySchema.optional(),
@@ -35,9 +48,9 @@ export const CardStandardSchema = z.object({
   }).optional(),
 
   fontStyle: z.object({
-    title: FontStyleSchema.optional(),
-    body: FontStyleSchema.optional(),
-    highlight: FontStyleSchema.optional(),
+    title: fontStyleSchema.optional(),
+    body: fontStyleSchema.optional(),
+    highlight: fontStyleSchema.optional(),
   }).optional(),
 
   spacing: z.object({
@@ -49,9 +62,7 @@ export const CardStandardSchema = z.object({
   headers: z.object({
     layout: HeaderLayoutSchema.optional(),
     size: SizeSchemaComplete.optional(),
-    superTitle: z.string().optional(),
-    superIcon: MediaIconSchema.optional(),
-    superColor: z.enum(colorThemeUser).optional(),
+    superTitle: superTitleSchema.optional(),
     title: z.string().optional(),
     subTitle: z.string().optional(),
   }).optional(),
@@ -86,36 +97,38 @@ const ButtonTypeSchema = z.object({
 })
 
 export const SiteUserConfigSchema = z.object({
-  brand: z.object({
-    favicon: MediaDisplaySchema.optional(),
-    icon: MediaDisplaySchema.optional(),
-    shareImage: MediaDisplaySchema.optional(),
-    logo: MediaTypographySchema.optional(),
-    primaryColor: ColorThemeSchema.optional(),
-  }).optional(),
-  seo: z.object({
-    title: z.string().optional(),
-    description: z.string().optional(),
-    keywords: z.string().optional(),
-    robotsTxt: z.string().optional(),
-    locale: z.string().optional(),
-    titleTemplate: z.string().optional(),
-  }).optional(),
-  customCode: z.object({
-    gtmContainerId: z.string().optional(),
-  }).optional(),
-  ai: z.object({
-    objectives: z.object({
-      about: z.string().optional(),
-      targetCustomer: z.string().optional(),
-      imageStyle: z.string().optional(),
+  site: z.object({
+    brand: z.object({
+      favicon: MediaDisplaySchema.optional(),
+      icon: MediaDisplaySchema.optional(),
+      shareImage: MediaDisplaySchema.optional(),
+      logo: logoSchema.optional(),
+      primaryColor: ColorThemeSchema.optional(),
     }).optional(),
-  }).optional(),
-  styling: z.object({
-    isLightMode: z.boolean().optional(),
-    fonts: FontsSchema.optional(),
-    buttons: ButtonTypeSchema.optional(),
-    prefersColorScheme: z.enum(prefersColorScheme).optional(),
+    seo: z.object({
+      title: z.string().optional(),
+      description: z.string().optional(),
+      keywords: z.string().optional(),
+      robotsTxt: z.string().optional(),
+      locale: z.string().optional(),
+      titleTemplate: z.string().optional(),
+    }).optional(),
+    customCode: z.object({
+      gtmContainerId: z.string().optional(),
+    }).optional(),
+    ai: z.object({
+      objectives: z.object({
+        about: z.string().optional(),
+        targetCustomer: z.string().optional(),
+        imageStyle: z.string().optional(),
+      }).optional(),
+    }).optional(),
+    styling: z.object({
+      isLightMode: z.boolean().optional(),
+      fonts: FontsSchema.optional(),
+      buttons: ButtonTypeSchema.optional(),
+      prefersColorScheme: z.enum(prefersColorScheme).optional(),
+    }).optional(),
   }).optional(),
   standard: CardStandardSchema.optional(),
 })

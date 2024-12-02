@@ -2,6 +2,7 @@ import type { ConfigResponse } from '@fiction/site/card'
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { SiteUserConfig } from '@fiction/site/schema'
 import type { StockMedia } from '@fiction/ui/stock'
+import type { text } from 'express'
 import { MediaBasicSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { createStockMediaHandler } from '@fiction/ui/stock'
@@ -173,7 +174,7 @@ export async function getConfig(args: { factory: CardFactory, templateId: string
             layout: 'mega',
             standard: {
               headers: {
-                superTitle: 'High-Impact Stories',
+                superTitle: { text: 'High-Impact Stories' },
                 title: 'Create Instant [text_effect]Credibility[/text_effect]',
                 subTitle: 'Watch how the mega layout amplifies your most powerful customer stories. Perfect for featuring industry leaders or remarkable transformations.',
               },
@@ -187,7 +188,7 @@ export async function getConfig(args: { factory: CardFactory, templateId: string
             layout: 'masonry',
             standard: {
               headers: {
-                superTitle: 'Social Proof at Scale',
+                superTitle: { text: 'Social Proof at Scale' },
                 title: 'Build a Wall of Trust',
                 subTitle: 'Notice how multiple stories create an overwhelming sense of credibility. Ideal for showcasing diverse experiences and results.',
               },
@@ -201,7 +202,7 @@ export async function getConfig(args: { factory: CardFactory, templateId: string
             layout: 'slider',
             standard: {
               headers: {
-                superTitle: 'Guided Discovery',
+                superTitle: { text: 'Guided Discovery' },
                 title: 'Tell Your Story Step by Step',
                 subTitle: 'Experience how the slider layout creates a natural progression of trust. Perfect for walking prospects through a journey of transformation.',
               },

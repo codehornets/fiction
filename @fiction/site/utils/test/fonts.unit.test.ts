@@ -43,7 +43,7 @@ describe('activeSiteFont', async () => {
 
   it('should correctly handle user-provided font config', async () => {
     site.userFonts.value = {
-      test: { fontKey: 'Space+Mono', stack: 'sans' },
+      test: { family: 'Space+Mono', stack: 'sans' },
     }
 
     const fontConfig = activeSiteFont(site)
@@ -55,8 +55,8 @@ describe('activeSiteFont', async () => {
 
   it('should deduplicate font keys', async () => {
     site.userFonts.value = {
-      test1: { fontKey: 'Space+Mono', stack: 'sans' },
-      test2: { fontKey: 'Space+Mono', stack: 'sans' },
+      test1: { family: 'Space+Mono', stack: 'sans' },
+      test2: { family: 'Space+Mono', stack: 'sans' },
     }
 
     const fontConfig = activeSiteFont(site)
@@ -79,7 +79,7 @@ describe('activeSiteFont', async () => {
 
   it('should handle fonts with spaces in their names', async () => {
     site.userFonts.value = {
-      test: { fontKey: 'Space Mono', stack: 'sans' },
+      test: { family: 'Space Mono', stack: 'sans' },
     }
 
     const fontConfig = activeSiteFont(site)

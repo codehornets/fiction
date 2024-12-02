@@ -4,7 +4,7 @@ import { getColorScheme } from '@fiction/core'
 export function getSiteBrandColors(args: { site?: Site }) {
   const { site } = args
 
-  const clr = site?.fullConfig.value.brand?.primaryColor || 'slate'
+  const clr = site?.fullConfig.value?.site?.brand?.primaryColor || 'blue'
 
   return getColorScheme(clr, { outputFormat: 'hex' })
 }
@@ -17,6 +17,7 @@ export function getStructuredData(args: { site?: Site }) {
   const url = site.frame.displayUrl.value
   const org = site.org
   const config = site.fullConfig.value
+  const siteConfig = config.site || {}
   const page = site.currentPage.value
   let slug = page?.slug.value || ''
 
@@ -31,8 +32,8 @@ export function getStructuredData(args: { site?: Site }) {
         '@id': `${url}/#person`,
         'name': org?.orgName || site.title.value,
         'url': url,
-        'image': config.brand?.shareImage?.url || org?.avatar?.url,
-        'description': config.seo?.description,
+        'image': siteConfig.brand?.shareImage?.url || org?.avatar?.url,
+        'description': siteConfig.seo?.description,
       },
 
       // Current WebPage
@@ -41,9 +42,9 @@ export function getStructuredData(args: { site?: Site }) {
         '@id': `${url}${slug}#webpage`,
         'url': `${url}${slug || ''}`,
         'name': page?.title.value,
-        'description': page?.description.value || config.seo?.description,
+        'description': page?.description.value || siteConfig.seo?.description,
         'mainEntity': { '@id': `${url}/#person` },
-        'inLanguage': config.seo?.locale || 'en-US',
+        'inLanguage': siteConfig.seo?.locale || 'en-US',
       },
     ],
   }
@@ -54,7 +55,7 @@ export function getStructuredData(args: { site?: Site }) {
 export function getHeadScripts(args: { site?: Site, noscript?: boolean }) {
   const { site, noscript = false } = args
 
-  const gtmContainerId = site?.fullConfig.value.customCode?.gtmContainerId
+  const gtmContainerId = site?.fullConfig.value?.site?.customCode?.gtmContainerId
 
   if (noscript) {
     return gtmContainerId

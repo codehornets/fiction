@@ -68,7 +68,7 @@ export function getDemoCards(args: { templateId: string, demoUserConfig: UserCon
       userConfig: {
         standard: {
           headers: {
-            superTitle: 'Design Insights',
+            superTitle: { text: 'Design Insights' },
             title: 'Curated Perspectives',
             subTitle: 'Exploring innovation through expert analysis and fresh ideas',
           },
@@ -81,7 +81,7 @@ export function getDemoCards(args: { templateId: string, demoUserConfig: UserCon
       userConfig: {
         standard: {
           headers: {
-            superTitle: 'Tech & Culture',
+            superTitle: { text: 'Tech & Culture' },
             title: 'Digital Frontier',
             subTitle: 'Where technology meets human experience',
           },
@@ -101,7 +101,7 @@ export function getDemoCards(args: { templateId: string, demoUserConfig: UserCon
       userConfig: {
         standard: {
           headers: {
-            superTitle: 'Future Impact',
+            superTitle: { text: 'Future Impact' },
             title: 'Tomorrow\'s Stories',
             subTitle: 'Ideas and innovations shaping our world',
           },

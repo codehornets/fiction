@@ -1,30 +1,40 @@
 <script lang="ts" setup>
-import type { MediaObject } from '@fiction/core'
+import type { LogoObject } from '@fiction/core'
 import { determineMediaFormat, vue } from '@fiction/core'
 import { googleFontsUtility } from '@fiction/core/utils/fonts'
 import { twMerge } from 'tailwind-merge'
-import EffectFitTextVertical from '../effect/EffectFitTextVertical.vue'
-import XIcon from '../media/XIcon.vue'
+import XIcon from './XIcon.vue'
 
-defineOptions({ name: 'XLogo' })
+defineOptions({ name: 'XLogoType' })
 
-const props = defineProps<{
-  media: MediaObject
+const { logo, classes = {} } = defineProps<{
+  logo: LogoObject
+  classes: { media?: string, text?: string, image?: string }
   alt?: string
-  wrapClass?: string
-  width?: number
-  height?: number
 }>()
+
+const variant = vue.computed(() => {
+  if (logo.variant) {
+    return logo.variant
+  }
+  else if (logo.media?.url && !logo.typography?.label) {
+    return 'media'
+  }
+  else {
+    return 'text'
+  }
+})
 
 const containerRef = vue.ref<HTMLElement | null>(null)
 const imageRef = vue.ref<HTMLImageElement | null>(null)
 const svgRef = vue.ref<SVGElement | null>(null)
 
-const mediaFormat = vue.computed(() => determineMediaFormat(props.media))
+const media = vue.computed(() => logo.media)
+const mediaFormat = vue.computed(() => determineMediaFormat(logo.media))
 
 // Load Google Fonts for typography format
 vue.watch(
-  () => props.media.typography?.font,
+  () => logo.typography?.font,
   async (font) => {
     if (font) {
       await googleFontsUtility.loadFont(font)
@@ -33,19 +43,33 @@ vue.watch(
   { immediate: true },
 )
 
+// Typography styles based on media config
+const typographyStyle = vue.computed(() => {
+  const t = logo.typography
+  if (!t)
+    return {}
+
+  return {
+    fontFamily: t.font?.family,
+    fontWeight: t.weight,
+    lineHeight: t.lineHeight || '1.2',
+    letterSpacing: t.letterSpacing,
+    fontSize: t.scale ? `${t.scale}em` : 'inherit',
+  }
+})
+
 // Handle container classes
-const containerClass = vue.computed(() => {
-  const classes = [
+const mediaClass = vue.computed(() => {
+  const cls = [
     'relative',
     'inline-flex',
     'items-center',
   ]
-  return twMerge(classes.join(' '), props.wrapClass)
+  return twMerge(cls.join(' '), classes.media)
 })
 
-// Handle content classes for different formats
-const contentClass = vue.computed(() => {
-  const classes = [
+const imageClass = vue.computed(() => {
+  const cls = [
     'max-w-full',
     'max-h-full',
     'object-contain',
@@ -53,12 +77,11 @@ const contentClass = vue.computed(() => {
     'duration-200',
   ]
 
-  // Add format-specific classes
   if (mediaFormat.value === 'image' || mediaFormat.value === 'url') {
-    classes.push('w-auto h-auto')
+    cls.push('w-auto h-auto')
   }
 
-  return classes.join(' ')
+  return twMerge(cls.join(' '), classes.image)
 })
 
 // Handle SVG specific sizing and scaling
@@ -96,20 +119,6 @@ function handleImageLoad() {
   }
 }
 
-// Typography styles based on media config
-const typographyStyle = vue.computed(() => {
-  const typography = props.media.typography
-  if (!typography)
-    return {}
-
-  return {
-    fontFamily: typography.font,
-    fontWeight: typography.weight,
-    lineHeight: typography.lineHeight || '1.2',
-    letterSpacing: typography.letterSpacing,
-  }
-})
-
 // ResizeObserver for container size changes
 let resizeObserver: ResizeObserver | undefined
 vue.onMounted(() => {
@@ -133,27 +142,27 @@ vue.onBeforeUnmount(() => {
 
 <template>
   <div
-    ref="containerRef"
-    class="xlogo"
-    :class="containerClass"
-    :data-media-format="mediaFormat"
+    v-if="variant === 'media'"
+    :media="logo.media"
+    image-mode="inline"
+    :class="mediaClass"
   >
     <!-- Image/URL Format -->
     <img
-      v-if="(mediaFormat === 'image' || mediaFormat === 'url') && media.url"
+      v-if="(mediaFormat === 'image' || mediaFormat === 'url') && media?.url"
       ref="imageRef"
       :src="media.url"
       :alt="alt || media.alt || ''"
-      :class="contentClass"
+      :class="imageClass"
       @load="handleImageLoad"
     >
 
     <!-- Video Format -->
     <video
-      v-else-if="mediaFormat === 'video' && media.url"
+      v-else-if="mediaFormat === 'video' && media?.url"
       :src="media.url"
       :alt="alt || media.alt || ''"
-      :class="contentClass"
+      :class="imageClass"
       autoplay
       loop
       muted
@@ -167,35 +176,36 @@ vue.onBeforeUnmount(() => {
       <div
         ref="svgRef"
         class="svg-wrapper h-full inline-flex items-center justify-center"
-        v-html="media.html"
+        v-html="media?.html"
       />
     </div>
 
     <!-- Icon Format -->
     <div v-else-if="mediaFormat === 'iconId'" class="h-full">
       <XIcon
-
+        v-if="media"
         :media="media"
         class="h-full w-full aspect-square"
-        :class="contentClass"
+        :class="imageClass"
       />
     </div>
 
     <!-- Component Format -->
     <component
-      :is="media.el"
+      :is="media?.el"
       v-else-if="mediaFormat === 'component'"
-      v-bind="media.props"
-      :class="contentClass"
+      v-bind="media?.props"
+      :class="imageClass"
     />
-
-    <!-- Fallback -->
-    <span
-      v-else
-      class="text-theme-500 dark:text-theme-400 text-sm"
-    >
-      Invalid Media Format ({{ mediaFormat }})
-    </span>
+  </div>
+  <div
+    v-else
+    class="x-logo-type"
+    :class="classes.text"
+    :data-logo-variant="variant"
+    :data-media-scale="logo.typography?.scale"
+  >
+    <span :style="typographyStyle">{{ logo.typography?.label || 'Logo' }}</span>
   </div>
 </template>
 

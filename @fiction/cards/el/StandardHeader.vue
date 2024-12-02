@@ -4,6 +4,7 @@ import { vue } from '@fiction/core'
 import XIcon from '@fiction/ui/media/XIcon.vue'
 import { getColorThemeStyles } from '@fiction/ui/utils'
 import CardText from '../CardText.vue'
+import SuperTitle from './SuperTitle.vue'
 
 const props = defineProps({
   card: { type: Object as vue.PropType<Card>, required: true },
@@ -14,27 +15,6 @@ const headers = vue.computed(() => props.card.userConfig.value.standard?.headers
 
 type HeaderSize = 'xs' | 'sm' | 'md' | 'lg'
 const headerSize = vue.computed(() => (headers.value.size as HeaderSize) || 'md')
-
-const colorStyle = vue.computed(() => {
-  const color = headers.value.superColor
-  if (!color) {
-    return {
-      icon: 'text-primary-500 dark:text-theme-100 bg-primary-100/80 dark:bg-theme-700/80',
-      text: 'text-theme-500 dark:text-theme-300/80',
-    }
-  }
-
-  const r = getColorThemeStyles(headers.value.superColor || 'theme')
-
-  if (!r) {
-    return { icon: '', text: '' }
-  }
-
-  return {
-    icon: [r.bg, r.text, r.border].join(' '),
-    text: r.text,
-  }
-})
 
 const textWrapClass = vue.computed(() => {
   const out = []
@@ -99,32 +79,14 @@ const currentSizeClasses = vue.computed(() => sizeClasses[headerSize.value])
       :data-layout="layout"
     >
       <div :class="layout === 'justify' ? 'lg:min-w-[50%]' : 'mx-auto'">
-        <div
-          v-if="headers.superTitle || headers.superIcon"
-          class="flex items-center"
+        <SuperTitle
+          :card
+          base-path="standard.superTitle"
           :class="[
-            colorStyle.text,
             layout === 'center' ? 'md:justify-center' : layout === 'right' ? 'md:justify-end' : '',
             currentSizeClasses.spacing,
           ]"
-        >
-          <div
-            v-if="headers.superIcon"
-            :class="colorStyle.icon"
-            class="size-10 rounded-full flex items-center justify-center"
-          >
-            <XIcon :media="headers.superIcon" class="size-8" />
-          </div>
-          <CardText
-            tag="h4"
-            :card
-            class="font-sans font-normal"
-            :class="[currentSizeClasses.superTitle]"
-            path="standard.headers.superTitle"
-            placeholder="Super Heading"
-            animate="fade"
-          />
-        </div>
+        />
         <CardText
           tag="h2"
           :card

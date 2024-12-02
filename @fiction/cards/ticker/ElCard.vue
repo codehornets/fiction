@@ -1,10 +1,9 @@
 <script lang="ts" setup>
 import type { Card } from '@fiction/site'
-import type { FontConfigVal } from '@fiction/site/utils/fonts'
 import type { TickerConfig, UserConfig } from './config'
 import CardText from '@fiction/cards/CardText.vue'
 import CardLink from '@fiction/cards/el/CardLink.vue'
-import { getTextColorBasedOnBackground, isDarkOrLightMode, vue } from '@fiction/core'
+import { type FontFamily, getTextColorBasedOnBackground, isDarkOrLightMode, vue } from '@fiction/core'
 import { fontFamilyByKey } from '@fiction/site/utils/fonts'
 
 const props = defineProps({
@@ -21,9 +20,9 @@ vue.watch(() => uc.value.items, () => {
   const fonts = items.map(item => item.font).filter(Boolean) as string[]
 
   const fontObject = fonts.reduce((acc, font) => {
-    acc[font] = { fontKey: font, stack: 'sans' }
+    acc[font] = { family: font, stack: 'sans' }
     return acc
-  }, {} as Record<string, FontConfigVal>)
+  }, {} as Record<string, FontFamily>)
 
   const site = props.card.site
   if (site) {
@@ -35,7 +34,7 @@ const items = vue.computed(() => {
   const conf = uc.value
   const initItems = conf.items || []
   return initItems.map(item => ({
-    font: 'inherit',
+    font: { family: 'inherit' },
     fontSize: `${conf.settings?.fontSize || '8'}vw`,
     direction: 'left' as const,
     speed: 50,
@@ -135,7 +134,7 @@ function getTransformStyle(item: TickerConfig) {
         :key="i"
         :card
         :style="{
-          'fontFamily': fontFamilyByKey(item.font),
+          'fontFamily': fontFamilyByKey(item.font.family),
           'fontSize': item.fontSize,
           ...getTransformStyle(item),
           '-webkit-text-stroke-width': item.outline ? '1px' : '',

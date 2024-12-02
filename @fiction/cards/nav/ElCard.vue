@@ -5,7 +5,7 @@ import type { UserConfig } from './config'
 import CardNavLink from '@fiction/cards/CardNavLink.vue'
 import { useService, vue } from '@fiction/core'
 import TransitionSlide from '@fiction/ui/anim/TransitionSlide.vue'
-import XLogo from '@fiction/ui/media/XLogo.vue'
+import XLogoType from '@fiction/ui/media/XLogoType.vue'
 import NavMobile from '@fiction/ui/NavMobile.vue'
 import CardLink from '../el/CardLink.vue'
 import { processNavItems } from '../utils/nav'
@@ -99,14 +99,15 @@ function closeMenu() {
               href="/"
               class="flex items-end group"
             >
-              <XLogo
-                :media="uc.brand.logo"
-                class="h-7 flex leading-[1] x-font-title text-2xl font-medium transition-all group-hover:opacity-80 group-hover:scale-[1.03] duration-300"
+              <XLogoType
+                :logo="uc.brand.logo"
+                :classes="{
+                  media: 'h-10',
+                  image: '',
+                  text: 'x-font-title text-2xl font-medium' }"
+                class="transition-all group-hover:opacity-80 duration-200"
                 data-test-id="nav-logo"
               />
-              <span v-if="uc.brand.tagline" class="hidden leading-[1] ml-3 text-xs text-theme-400 dark:text-theme-500 font-sans">
-                {{ uc.brand.tagline }}
-              </span>
             </CardLink>
           </div>
 

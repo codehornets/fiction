@@ -2,65 +2,77 @@
 import type { ListItem } from '@fiction/core'
 import { normalizeList, vue } from '@fiction/core'
 
-const props = defineProps({
-  modelValue: { type: [String, Number], default: '' },
-  list: { type: Array as vue.PropType<ListItem[]>, default: () => [] },
-})
+const props = defineProps<{
+  modelValue?: string | number
+  list: ListItem[]
+  size?: 'sm' | 'md' | 'lg'
+}>()
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits<{
+  'update:modelValue': [value: string | number | undefined]
+}>()
+
 const parsedList = vue.computed(() => normalizeList(props.list))
 
-function buttonClass(v: ListItem, i: number): string {
-  const out: string[] = []
-
-  if (i === 0)
-    out.push('rounded-l-md')
-  else if (i === parsedList.value.length - 1)
-    out.push('rounded-r-md')
-
-  if (i !== 0)
-    out.push('-ml-px')
-
-  if (props.modelValue === v.value) {
-    out.push('bg-theme-400 dark:bg-theme-600 border-theme-600 text-theme-500 dark:text-theme-0 z-20')
+// Compute dynamic size classes
+const sizeClasses = vue.computed(() => {
+  switch (props.size) {
+    case 'sm':
+      return 'px-2 py-1 text-[11px]'
+    case 'lg':
+      return 'px-6 py-2.5 text-base'
+    default:
+      return 'px-2.5 py-1 text-xs'
   }
-  else {
-    out.push(
-      'bg-theme-100 dark:bg-theme-800 text-theme-600 dark:text-theme-100 border-theme-300 dark:border-theme-600 hover:border-theme-300',
-    )
-  }
+})
 
-  return out.join(' ')
+function getButtonClasses(item: ListItem, index: number): string {
+  const isSelected = props.modelValue === item.value
+  const isFirst = index === 0
+  const isLast = index === parsedList.value.length - 1
+
+  return [
+    // Base classes
+    'relative inline-flex items-center justify-center font-medium transition-all duration-200 antialiased',
+    'focus:outline-none  ',
+    sizeClasses.value,
+
+    // Border handling
+    isFirst ? 'rounded-l-lg' : '',
+    isLast ? 'rounded-r-lg' : '',
+    !isFirst ? '-ml-px' : '',
+    'border',
+
+    // Selected state
+    isSelected
+      ? [
+          'border-theme-500 bg-theme-500 text-white',
+          'dark:bg-primary-900 dark:border-primary-600 dark:text-white',
+          'z-10',
+        ]
+      : [
+          'border-theme-300 bg-white text-theme-700 hover:bg-theme-50',
+          'dark:border-theme-600 dark:bg-theme-800 dark:text-theme-200 dark:hover:bg-theme-700',
+        ],
+  ].flatMap(_ => _).filter(Boolean).join(' ')
 }
-function select(v: ListItem): void {
-  emit('update:modelValue', v.value)
-}
-
-const classes = [
-  'relative',
-  'inline-flex',
-  'items-center',
-  'border',
-  'px-input-x',
-  'py-input-y',
-  'text-input-size',
-
-  'focus:z-10',
-  'focus:outline-none',
-  'focus:ring-0',
-]
 </script>
 
 <template>
-  <span class="relative z-0 inline-flex rounded-lg shadow-sm">
+  <div
+    class="inline-flex rounded-lg shadow-sm isolate"
+    role="radiogroup"
+  >
     <button
-      v-for="(li, i) in parsedList"
-      :key="i"
+      v-for="(item, index) in parsedList"
+      :key="item.value"
       type="button"
-      :class="[classes, buttonClass(li, i)]"
-      @click="select(li)"
+      :class="getButtonClasses(item, index)"
+      :aria-checked="modelValue === item.value"
+      role="radio"
+      @click="emit('update:modelValue', item.value)"
     >
-      {{ li.name }}
+      {{ item.name }}
     </button>
-  </span>
+  </div>
 </template>

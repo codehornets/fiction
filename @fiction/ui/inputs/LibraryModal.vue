@@ -29,7 +29,6 @@ const availableTools = [
   { label: 'Library', value: 'library', icon: 'i-tabler-photo' },
   { label: 'HTML/Embed', value: 'html', icon: 'i-tabler-code' },
   { label: 'System Icons', value: 'icons', icon: 'i-tabler-category' },
-  { label: 'Text + Font', value: 'typography', icon: 'i-tabler-typography' },
   { label: 'Background', value: 'background', icon: 'i-tabler-palette' },
 ] as const
 
@@ -42,8 +41,6 @@ function getDefaultTool() {
   let v: LibraryTool
   if (format === 'html')
     v = 'html'
-  else if (format === 'typography')
-    v = 'typography'
   else if (format === 'iconId')
     v = 'icons'
   else v = 'upload'
@@ -175,52 +172,6 @@ function updateCurrentSelection(updates: Partial<MediaObject>) {
         v-model="currentSelection"
         @update:model-value="selectMedia"
       />
-
-      <div v-else-if="navItemActive.value === 'typography'" class="p-8">
-        <div class="max-w-md mx-auto space-y-4">
-          <ElInput
-            :model-value="currentSelection.typography?.text"
-            label="Logo Text"
-            input="InputText"
-            data-test-id="typography-text"
-            :input-props="{ placeholder: 'Enter text for logo' }"
-            @update:model-value="updateCurrentSelection({ typography: { ...currentSelection.typography, text: $event }, format: 'typography' })"
-          />
-          <ElInput
-            :model-value="currentSelection.typography?.font"
-            label="Font"
-            input="InputFont"
-            data-test-id="typography-font"
-            :input-props="{ placeholder: 'Select font for logo', noPreview: true }"
-            @update:model-value="updateCurrentSelection({ typography: { ...currentSelection.typography, font: $event }, format: 'typography' })"
-          />
-          <ElInput
-            :model-value="currentSelection.typography?.weight"
-            label="Weight"
-            input="InputSelect"
-            data-test-id="typography-weight"
-            :list="[
-              { value: 'inherit', name: 'Inherit' },
-              { value: '400', name: 'Regular' },
-              { value: '500', name: 'Medium' },
-              { value: '600', name: 'Medium' },
-              { value: '700', name: 'Bold' },
-              { value: '800', name: 'Extra-Bold' },
-              { value: '900', name: 'Black' },
-              { value: '300', name: 'Light' },
-            ]"
-            @update:model-value="updateCurrentSelection({ typography: { ...currentSelection.typography, weight: $event }, format: 'typography' })"
-          />
-          <ElInput
-            :model-value="currentSelection.typography?.scale"
-            label="Scale"
-            input="InputRange"
-            data-test-id="typography-scale"
-            :input-props="{ min: .5, max: 2, step: .01, startValue: 1 }"
-            @update:model-value="updateCurrentSelection({ typography: { ...currentSelection.typography, scale: $event }, format: 'typography' })"
-          />
-        </div>
-      </div>
 
       <LibraryBackground
         v-else-if="navItemActive.value === 'background'"

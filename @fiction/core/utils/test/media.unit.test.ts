@@ -33,7 +33,7 @@ describe('determineMediaFormat', () => {
   })
 
   it('should return "typography" for media with typography', () => {
-    const media: MediaObject = { typography: { text: 'Some text', font: 'Arial' } }
+    const media: MediaObject = { typography: { label: 'Some text', font: { family: 'Arial' } } }
     expect(determineMediaFormat(media)).toBe('typography')
   })
 

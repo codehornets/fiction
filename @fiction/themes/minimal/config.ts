@@ -92,11 +92,9 @@ export async function getHeader(args: SectionArgs) {
         userConfig: {
           brand: {
             logo: {
-              format: 'typography',
+              variant: 'typography',
               typography: {
-                font: userConfig.styling?.fonts?.title.fontKey || 'Poppins',
-                text: 'Minimal',
-                weight: userConfig.styling?.fonts?.title.weight || '600',
+                label: 'Minimal',
               },
             },
           },
@@ -159,7 +157,10 @@ export async function getFooter(args: SectionArgs) {
       await factory.fromTemplate<typeof footerXTemplate>({
         templateId: 'footerX',
         userConfig: {
-          title: 'Minimal',
+          brand: {
+            logo: { variant: 'typography', typography: { label: 'Minimal' } },
+            tagline: 'Minimal Theme by Fiction',
+          },
         },
       }),
     ],

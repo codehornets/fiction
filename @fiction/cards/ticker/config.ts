@@ -1,4 +1,4 @@
-import { colorThemeUser } from '@fiction/core'
+import { colorThemeUser, fontFamilySchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
@@ -11,7 +11,7 @@ export const SchemaTicker = z.object({
   direction: z.enum(['left', 'right']).default('left').optional().describe('Scroll direction'),
 
   // Styling
-  font: z.string().optional().describe('Custom font family'),
+  font: fontFamilySchema.optional().describe('Custom font family'),
   backgroundColor: z.string().optional().describe('Background color in light mode'),
   backgroundColorDark: z.string().optional().describe('Background color in dark mode'),
   textColor: z.enum(colorThemeUser).optional().describe('Text color theme'),
@@ -251,7 +251,7 @@ export function getDemoConfigs(templateId: string): Record<string, { templateId:
             text: 'Design • Develop • Deploy',
             speed: 35,
             direction: 'right',
-            font: 'highlight',
+            font: { family: 'highlight' },
             transform: {
               rotateX: 5,
               rotateY: -10,

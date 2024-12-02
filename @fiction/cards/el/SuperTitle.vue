@@ -36,6 +36,7 @@ const colorStyle = vue.computed(() => {
 
 <template>
   <div
+    v-if="sup.text || sup.icon"
     class="flex gap-3 items-center"
     :class="[colorStyle.text]"
   >

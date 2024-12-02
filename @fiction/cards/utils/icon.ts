@@ -109,7 +109,7 @@ export function getSiteIcons(args: { site?: Site }) {
 
 export function getHeadIconConfig(args: { site?: Site }) {
   const { site } = args
-  const config = site?.fullConfig.value.brand || {}
+  const config = site?.fullConfig.value.site?.brand || {}
 
   // Get configured icons or defaults
   const defaultIcons = getSiteIcons({ site })

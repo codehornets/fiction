@@ -3,11 +3,11 @@
  */
 
 import { beforeEach, describe, expect, it } from 'vitest'
-import { createGoogleFontsLink, googleFontsUtility, variantToGoogleFontsFormat } from '../fonts'
+import { googleFontsUtility, variantToGoogleFontsFormat } from '../fonts'
 import { fonts } from '../lib/fontList'
 
-const fontA = 'Space Mono'
-const fontB = 'Libre Baskerville'
+const fontA = { family: 'Space Mono' }
+const fontB = { family: 'Libre Baskerville' }
 
 describe('googleFontsUtility', () => {
   beforeEach(() => {
@@ -28,17 +28,17 @@ describe('googleFontsUtility', () => {
 
   describe('createGoogleFontsLink', () => {
     it('should return correct URL for valid font keys', () => {
-      const fontLink = googleFontsUtility.createGoogleFontsLink({ fontKeys: [fontA, fontB] })
+      const fontLink = googleFontsUtility.createGoogleFontsLink({ fontFamilies: [fontA, fontB] })
       expect(fontLink).toContain('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap')
     })
 
     it('should encode spaces as plus signs in font family names', () => {
-      const fontLink = googleFontsUtility.createGoogleFontsLink({ fontKeys: ['Libre Baskerville'] })
+      const fontLink = googleFontsUtility.createGoogleFontsLink({ fontFamilies: [{ family: 'Libre Baskerville' }] })
       expect(fontLink).toContain('Libre+Baskerville')
     })
 
     it('should return an empty string when no font keys are provided', () => {
-      const fontLink = googleFontsUtility.createGoogleFontsLink({ fontKeys: [] })
+      const fontLink = googleFontsUtility.createGoogleFontsLink({ fontFamilies: [] })
       expect(fontLink).toBe('')
     })
   })
@@ -80,20 +80,20 @@ describe('variantToGoogleFontsFormat', () => {
   })
 })
 
-describe('createGoogleFontsLink', () => {
-  it('should return correct URL for valid font keys', () => {
-    const fontLink = createGoogleFontsLink({ fontKeys: [fontA, fontB], fonts })
-    const expectedLink = 'https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap'
-    expect(fontLink).toBe(expectedLink)
-  })
+// describe('createGoogleFontsLink', () => {
+//   it('should return correct URL for valid font keys', () => {
+//     const fontLink = createGoogleFontsLink({ fontF: [fontA, fontB], fonts })
+//     const expectedLink = 'https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap'
+//     expect(fontLink).toBe(expectedLink)
+//   })
 
-  it('should encode spaces as plus signs in font family names', () => {
-    const fontLink = createGoogleFontsLink({ fontKeys: [fontA], fonts })
-    expect(fontLink).toContain('Space+Mono')
-  })
+//   it('should encode spaces as plus signs in font family names', () => {
+//     const fontLink = createGoogleFontsLink({ fontF: [fontA], fonts })
+//     expect(fontLink).toContain('Space+Mono')
+//   })
 
-  it('should return an empty string when no font keys are provided', () => {
-    const fontLink = createGoogleFontsLink({ fontKeys: [], fonts })
-    expect(fontLink).toBe('')
-  })
-})
+//   it('should return an empty string when no font keys are provided', () => {
+//     const fontLink = createGoogleFontsLink({ fontF: [], fonts })
+//     expect(fontLink).toBe('')
+//   })
+// })

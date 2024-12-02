@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import type { MediaObject } from '@fiction/core'
+import type { LogoObject } from '@fiction/core'
 import { vue } from '@fiction/core'
 import XButton from '../buttons/XButton.vue'
-import XLogo from '../media/XLogo.vue'
+import XLogoType from '../media/XLogoType.vue'
 import { createStockMediaHandler } from '../stock/index.js'
 
 const darkMode = vue.ref(false)
@@ -22,7 +22,7 @@ const containerScenarios = [
 
 const stock = vue.ref<Awaited<ReturnType<typeof createStockMediaHandler>>>()
 
-async function generateMediaObjects(): Promise<MediaObject[]> {
+async function generateMediaObjects(): Promise<LogoObject[]> {
   if (!stock.value) {
     stock.value = await createStockMediaHandler()
   }
@@ -33,28 +33,36 @@ async function generateMediaObjects(): Promise<MediaObject[]> {
     // Typography examples
     {
       typography: {
-        text: 'Fiction.com',
-        font: 'Quicksand',
+        label: 'Fiction.com',
+        font: { family: 'Quicksand' },
         weight: 'bold',
         letterSpacing: '-0.02em',
       },
-      format: 'typography',
+      variant: 'typography',
     },
     {
       typography: {
-        text: 'Fiction.com',
-        font: 'Montserrat',
+        label: 'Fiction.com',
+        font: { family: 'Montserrat' },
         weight: 'normal',
         letterSpacing: '-0.02em',
         scale: 1.5,
       },
-      format: 'typography',
+      variant: 'typography',
     },
     // HTML (SVG) examples
-    { html: `<div class="flex items-center gap-1 h-full"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+    {
+      media: {
+        html: `<div class="flex items-center gap-1 h-full"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
   <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
-</svg><div class="font-sans">test</div></div>`, format: 'html' },
-    { html: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 122">
+</svg><div class="font-sans">test</div></div>`,
+        format: 'html',
+      },
+    },
+    {
+      variant: 'media',
+      media: {
+        html: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 122">
   <style>
     path { fill: currentColor; transition: fill 0.3s ease; }
   </style>
@@ -65,31 +73,52 @@ async function generateMediaObjects(): Promise<MediaObject[]> {
   <path d="M461.596 117.798C461.19 116.205 461.003 114.557 461.057 112.908C461.063 110.889 461.243 108.877 461.596 106.892L465.389 81.8807C465.808 79.6144 466.034 77.3138 466.061 74.9994C466.061 69.265 463.891 66.0578 458.069 66.0578C448.593 66.0578 445.479 75.4183 444.255 83.6731L438.971 117.777H417.85L426.814 59.2521C427.066 57.2536 427.2 55.2483 427.213 53.2361C427.226 51.8008 427.14 50.3586 426.947 48.937H447.775C448.087 50.4548 448.227 52.0068 448.181 53.5589C448.154 55.2895 448.021 57.0064 447.775 58.7164H447.908C452.785 52.0068 459.965 47.6734 468.23 47.6734C481.492 47.6734 488 54.2457 488 67.7953C487.993 70.9819 487.714 74.1616 487.168 77.2932L482.424 107.765C482.177 109.475 482.038 111.198 482.018 112.922C481.991 114.563 482.131 116.205 482.424 117.819L461.596 117.798Z" />
   <path d="M181.593 47.7951C182.718 40.9825 183.43 35.2206 191.561 34.0188C194.576 33.6617 195.707 33.5312 198.548 33.8746L202.295 15.8541C197.71 15.0506 192.852 15.1743 188.747 15.5726C168.205 17.571 162.515 29.8159 159.707 47.7814H149.06L146.911 65.6095H157.045C157.045 65.6095 151.003 100.167 150.597 102.66C150.191 105.153 147.756 118.819 147.756 118.819L169.602 118.503C169.602 118.503 169.229 118.641 170.354 111.396L178.512 65.6301H193.371L187.15 104.858C186.724 107.316 185.706 118.311 185.706 118.311L206.62 118.153C206.76 113.188 206.92 111.904 207.345 107.756C207.771 103.601 212.822 76.3298 212.822 76.3298C213.62 71.1585 214.845 63.5905 215.936 57.547C216.928 52.0461 216.375 47.8089 216.375 47.8089H181.593V47.7951Z" />
   <path d="M101.983 122H50.8045C47.484 122 44.3565 120.668 42.0075 118.237L3.01319 77.9858C0.0653321 74.9503 -0.806383 70.4109 0.783998 66.4414C2.38103 62.4651 6.1008 59.8898 10.2731 59.8898H58.0577V10.5739C58.0577 6.28166 60.5464 2.44269 64.3926 0.79448C68.1789 -0.83313 72.6906 0.0939898 75.5852 3.08138L114.599 43.3458C116.948 45.7838 118.239 49.0047 118.239 52.4248V105.229C118.233 114.48 110.946 122 101.983 122ZM52.9472 103.856H100.659V54.6155L75.6384 28.7935V78.0339H27.927L52.9472 103.856Z" />
-</svg>`, format: 'html' },
-    { html: `<div class="bg-primary-500 text-white flex items-center rounded"><div>Custom HTML Logo</div></div>`, format: 'html' },
+</svg>`,
+        format: 'html',
+      },
+    },
+    {
+      variant: 'media',
+      media: {
+        html: `<div class="bg-primary-500 text-white flex items-center rounded"><div>Custom HTML Logo</div></div>`,
+        format: 'html',
+      },
+    },
     // Icon example
-    { iconId: 'github', format: 'iconId' },
+    {
+      media: {
+        iconId: 'github',
+        format: 'iconId',
+      },
+    },
     // Image example
     {
-      ...stock.value.getRandomByAspectRatio('aspect:wide', { format: 'image' }),
-      alt: 'Wide image logo',
-      format: 'image',
+      media: {
+        ...stock.value.getRandomByAspectRatio('aspect:wide', { format: 'image' }),
+        alt: 'Wide image logo',
+        format: 'image',
+      },
     },
     // Video example
-    { ...stock.value.getRandomMedia({ format: 'video' }), format: 'video' },
+    {
+      media: {
+        ...stock.value.getRandomMedia({ format: 'video' }),
+        format: 'video',
+      },
+    },
   ]
 }
 
-const mediaObjects = vue.ref<MediaObject[]>([])
+const logoObjects = vue.ref<LogoObject[]>([])
 
 async function refreshMedia() {
-  mediaObjects.value = await generateMediaObjects()
+  logoObjects.value = await generateMediaObjects()
 }
 
 // Grid layout example
 const gridItems = vue.computed(() => {
-  return mediaObjects.value.map((media, index) => ({
-    media,
+  return logoObjects.value.map((logo, index) => ({
+    logo,
     href: index % 2 === 0 ? `https://example.com/logo${index}` : undefined,
   }))
 })
@@ -104,7 +133,7 @@ const heightExamples = [
 ]
 
 vue.onMounted(async () => {
-  mediaObjects.value = await generateMediaObjects()
+  logoObjects.value = await generateMediaObjects()
 })
 </script>
 
@@ -124,12 +153,12 @@ vue.onMounted(async () => {
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div
-          v-for="(media, mediaIndex) in mediaObjects"
+          v-for="(logo, mediaIndex) in logoObjects"
           :key="mediaIndex"
           class="bg-white dark:bg-theme-800 p-6 rounded-lg shadow-lg"
         >
           <h2 class="text-xl font-semibold mb-4 text-theme-800 dark:text-white">
-            {{ media.format }} {{ media.alt ? `(${media.alt})` : '' }}
+            {{ logo.variant }} {{ logo.media?.alt ? `(${logo.media?.alt})` : '' }}
           </h2>
 
           <div v-for="scenario in containerScenarios" :key="scenario.label" class="mb-6">
@@ -141,8 +170,9 @@ vue.onMounted(async () => {
                 {{ alignment }}
               </p>
               <div class="bg-theme-100 dark:bg-theme-700 rounded" :class="scenario.class">
-                <XLogo
-                  :media="media"
+                <XLogoType
+                  :classes="{}"
+                  :logo="logo"
                   :class="alignment"
                   class="w-full h-full"
                 />
@@ -163,8 +193,9 @@ vue.onMounted(async () => {
               {{ example.label }}
             </h3>
             <div class="bg-theme-100 dark:bg-theme-700 rounded" :class="example.class">
-              <XLogo
-                :media="mediaObjects[0] ?? {}"
+              <XLogoType
+                :classes="{}"
+                :logo="logoObjects[0] ?? {}"
                 :class="example.class"
               />
             </div>
@@ -187,8 +218,9 @@ vue.onMounted(async () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <XLogo
-              :media="item.media"
+            <XLogoType
+              :classes="{}"
+              :logo="item.logo"
               class="w-full h-full"
             />
           </a>

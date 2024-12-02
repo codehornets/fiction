@@ -33,8 +33,8 @@ export async function getConfig(args: { templateId: string, factory: CardFactory
           light: { bg: { backgroundColor: '#ffffff' }, theme: 'gray', primary: 'violet' },
         },
         fontStyle: {
-          title: { fontKey: 'Plus+Jakarta+Sans', weight: '600' },
-          body: { fontKey: 'Inter' },
+          title: { family: 'Plus+Jakarta+Sans', weight: '600' },
+          body: { family: 'Inter' },
         },
       },
     },
@@ -68,8 +68,8 @@ export async function getConfig(args: { templateId: string, factory: CardFactory
           base: { bg: { backgroundColor: '#d02020' }, theme: 'amber', primary: 'rose' },
         },
         fontStyle: {
-          title: { fontKey: 'Playfair+Display', weight: '400' },
-          body: { fontKey: 'Lora' },
+          title: { family: 'Playfair+Display', weight: '400' },
+          body: { family: 'Lora' },
         },
       },
     },
@@ -88,7 +88,7 @@ export async function getConfig(args: { templateId: string, factory: CardFactory
           },
         },
         fontStyle: {
-          title: { fontKey: 'Space+Grotesk', weight: '500' },
+          title: { family: 'Space+Grotesk', weight: '500' },
         },
       },
     },
@@ -120,8 +120,8 @@ export async function getConfig(args: { templateId: string, factory: CardFactory
           light: { bg: { backgroundColor: '#fafafa' }, theme: 'gray' },
         },
         fontStyle: {
-          title: { fontKey: 'DM+Sans', weight: '500' },
-          body: { fontKey: 'DM+Sans' },
+          title: { family: 'DM+Sans', weight: '500' },
+          body: { family: 'DM+Sans' },
         },
       },
     },
@@ -145,7 +145,7 @@ export async function getConfig(args: { templateId: string, factory: CardFactory
           },
         },
         fontStyle: {
-          title: { fontKey: 'DM+Sans', weight: '500' },
+          title: { family: 'DM+Sans', weight: '500' },
         },
       },
     },
@@ -158,8 +158,8 @@ export async function getConfig(args: { templateId: string, factory: CardFactory
           base: { bg: { backgroundColor: '#ffffff' }, theme: 'gray', primary: 'slate' },
         },
         fontStyle: {
-          title: { fontKey: 'Satoshi', weight: '500' },
-          body: { fontKey: 'Satoshi' },
+          title: { family: 'Satoshi', weight: '500' },
+          body: { family: 'Satoshi' },
         },
       },
     },

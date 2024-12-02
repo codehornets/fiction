@@ -47,14 +47,14 @@ const containerStyle = vue.computed(() => {
   }
 
   // Set font variables
-  if (fonts.title?.fontKey) {
-    style['--font-family-title'] = fontFamilyByKey(fonts.title?.fontKey)
+  if (fonts.title?.family) {
+    style['--font-family-title'] = fontFamilyByKey(fonts.title?.family)
   }
   if (fonts.title?.weight) {
     style['--font-weight-title'] = fonts.title.weight
   }
-  if (fonts.body?.fontKey) {
-    style['--font-family-body'] = fontFamilyByKey(fonts.body?.fontKey)
+  if (fonts.body?.family) {
+    style['--font-family-body'] = fontFamilyByKey(fonts.body?.family)
   }
   if (fonts.body?.weight) {
     style['--font-weight-body'] = fonts.body.weight
@@ -68,10 +68,10 @@ vue.watch(() => standardUc.value?.fontStyle, (fontStyle) => {
 
   const site = props.card.site
   Object.entries(fontStyle || {}).forEach(([_key, f]) => {
-    const fontKey = f?.fontKey
+    const family = f?.family
 
-    if (fontKey && site && !site.userFonts.value[fontKey]) {
-      const fontObject = { [fontKey]: { fontKey, stack: 'sans' as const } }
+    if (family && site && !site.userFonts.value[family]) {
+      const fontObject = { [family]: { family, stack: 'sans' as const } }
       addFonts = { ...addFonts, ...fontObject }
     }
   })
@@ -103,8 +103,8 @@ const autoSetDark = vue.computed(() => {
     ]"
     :data-card-content-pad="standardUc?.spacing?.contentPad"
     :data-card-template-id="card.templateId.value"
-    :data-font-title="standardUc?.fontStyle?.title?.fontKey"
-    :data-font-body="standardUc?.fontStyle?.body?.fontKey"
+    :data-font-title="standardUc?.fontStyle?.title?.family"
+    :data-font-body="standardUc?.fontStyle?.body?.family"
     :data-card-depth="card.depth.value"
     :data-primary-scheme="colorScheme?.primary"
     :data-theme-scheme="colorScheme?.theme"

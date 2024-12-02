@@ -54,13 +54,17 @@ const ClickHandlerSchema = z.function()
   )
   .returns(z.any())
 
-export const FontConfigValSchema = z.object({
-  fontKey: z.string().optional(),
-  stack: z.enum(['monospace', 'sans', 'serif']),
-  weight: FontWeightsSchema.optional(),
+export const fontFamilySchema = z.object({
+  family: z.string().optional(),
+  stack: z.enum(['monospace', 'sans', 'serif']).optional(),
+  variants: z.array(z.string()).optional(),
+  source: z.enum(['google', 'system']).optional(),
 })
-export const FontStyleSchema = z.object({
-  fontKey: z.string().optional(),
+
+export type FontFamily = z.infer<typeof fontFamilySchema>
+
+export const fontStyleSchema = z.object({
+  family: z.string().optional(),
   weight: FontWeightsSchema.optional(),
 })
 export const GradientPointSchema = z.object({
@@ -97,6 +101,7 @@ export const MediaBasicSchema = z.object({
   html: z.string().optional(),
   url: z.string().optional(),
   format: MediaFormat.optional(),
+  alt: z.string().optional(),
 
   el: z.custom<vue.AsyncComponentLoader | vue.Component>((val) => {
     return typeof val === 'function' || val instanceof Promise
@@ -109,20 +114,37 @@ export const MediaIconSchema = MediaBasicSchema.extend({
   class: z.string().optional().describe('tabler iconify class i-tabler-[icon-name]'),
 })
 
+export const typographySchema = z.object({
+  label: z.string().optional(),
+  weight: z.string().optional(),
+  lineHeight: z.string().optional(),
+  letterSpacing: z.string().optional(),
+  font: fontFamilySchema.optional(),
+  scale: z.number().optional(),
+})
+
+export type TypographyObject = z.infer<typeof typographySchema>
+
+export const logoSchema = z.object({
+  variant: z.enum(['media', 'typography']).optional(),
+  media: MediaIconSchema.optional(),
+  typography: typographySchema.optional(),
+})
+
+export const brandSchema = z.object({
+  logo: logoSchema.optional(),
+  tagline: z.string().optional(),
+})
+
+export type LogoObject = z.infer<typeof logoSchema>
+
 export const MediaTypographySchema = MediaBasicSchema.extend({
-  typography: z.object({
-    text: z.string().optional(),
-    weight: z.string().optional(),
-    lineHeight: z.string().optional(),
-    letterSpacing: z.string().optional(),
-    font: z.string().optional(),
-    scale: z.number().optional(),
-  }).optional(),
+  typography: typographySchema.optional(),
 })
 
 // MediaContent schema (includes MediaBasic)
 export const MediaContentSchema = MediaIconSchema.extend({
-  alt: z.string().optional(),
+
   caption: z.string().optional(),
   mime: z.string().optional(),
   blurhash: z.string().optional(),

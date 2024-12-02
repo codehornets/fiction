@@ -334,9 +334,11 @@ export async function getHomePage(args: { factory: CardFactory, stock: StockMedi
     slug: '_home',
     title: 'Home',
     userConfig: {
-      seo: {
-        title: 'Fiction - Personal Branding Platform',
-        description: 'Transform your expertise into influence using Fiction\'s AI-powered personal branding platform. Create authentic content, grow your audience, and build authority - all guided by intelligent automation.',
+      site: {
+        seo: {
+          title: 'Fiction - Personal Branding Platform',
+          description: 'Transform your expertise into influence using Fiction\'s AI-powered personal branding platform. Create authentic content, grow your audience, and build authority - all guided by intelligent automation.',
+        },
       },
     },
     cards: [
@@ -755,17 +757,19 @@ export async function getConfig(args: {
   ])
 
   const userConfig: SiteUserConfig = {
-    brand: {
-      shareImage: { url: shareImage, format: 'image' },
-      favicon: { url: favicon, format: 'image' },
-      icon: { url: icon, format: 'image' },
-    },
-    seo: {
-      titleTemplate: `{{pageTitle}} - Fiction`,
-    },
-    customCode: { gtmContainerId: `GTM-5LQBZDJ` },
-    styling: {
-      buttons: { design: 'ghost', rounding: 'full', hover: 'pop' },
+    site: {
+      brand: {
+        shareImage: { url: shareImage, format: 'image' },
+        favicon: { url: favicon, format: 'image' },
+        icon: { url: icon, format: 'image' },
+      },
+      seo: {
+        titleTemplate: `{{pageTitle}} - Fiction`,
+      },
+      customCode: { gtmContainerId: `GTM-5LQBZDJ` },
+      styling: {
+        buttons: { design: 'ghost', rounding: 'full', hover: 'pop' },
+      },
     },
   }
 
@@ -787,8 +791,10 @@ export async function getConfig(args: {
               layout: 'navCenter',
               brand: {
                 logo: {
-                  format: 'component',
-                  el: vue.defineAsyncComponent(() => import('@fiction/ui/brand/FictionLogo.vue')),
+                  media: {
+                    format: 'component',
+                    el: vue.defineAsyncComponent(() => import('@fiction/ui/brand/FictionLogo.vue')),
+                  },
                 },
               },
 

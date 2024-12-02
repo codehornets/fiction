@@ -1,3 +1,4 @@
+import type { FontFamily } from '../schemas/schemas.js'
 import type { FontEntry } from './lib/fontList.js'
 import { toCamel } from './casing'
 import { fonts } from './lib/fontList.js'
@@ -28,31 +29,31 @@ export function variantToGoogleFontsFormat(variant: string): string {
   return `${isItalic ? '1' : '0'},${weight}`
 }
 
-export function createGoogleFontsLink(args: { fontKeys: string[], fonts?: FontEntry[] }) {
-  const deduped = [...new Set(args.fontKeys || [])]
-  const fontEntries = args.fonts || fonts
+// export function createGoogleFontsLink(args: { fontKeys: string[], fonts?: FontEntry[] }) {
+//   const deduped = [...new Set(args.fontKeys || [])]
+//   const fontEntries = args.fonts || fonts
 
-  const fontParams = deduped.map((fontKey) => {
-    const normalizedFontKey = toCamel(fontKey)
+//   const fontParams = deduped.map((fontKey) => {
+//     const normalizedFontKey = toCamel(fontKey)
 
-    const font = fontEntries.find(f => toCamel(f.family) === normalizedFontKey)
-    if (!font) {
-      console.error(`Font family not found: ${fontKey} (${normalizedFontKey})`)
-      return ''
-    }
+//     const font = fontEntries.find(f => toCamel(f.family) === normalizedFontKey)
+//     if (!font) {
+//       console.error(`Font family not found: ${fontKey} (${normalizedFontKey})`)
+//       return ''
+//     }
 
-    // Process each variant and convert to the correct format
-    const variants = font.variants
-      .map(variantToGoogleFontsFormat)
-      .sort()
-      .join(';')
+//     // Process each variant and convert to the correct format
+//     const variants = font.variants
+//       .map(variantToGoogleFontsFormat)
+//       .sort()
+//       .join(';')
 
-    const family = font.family.replace(/ /g, '+')
-    return `${family}:ital,wght@${variants}`
-  }).filter(Boolean).join('&family=')
+//     const family = font.family.replace(/ /g, '+')
+//     return `${family}:ital,wght@${variants}`
+//   }).filter(Boolean).join('&family=')
 
-  return fontParams ? `https://fonts.googleapis.com/css2?family=${fontParams}&display=swap` : ''
-}
+//   return fontParams ? `https://fonts.googleapis.com/css2?family=${fontParams}&display=swap` : ''
+// }
 
 class GoogleFontsUtility {
   private fontsList: FontEntry[] = fonts
@@ -76,20 +77,22 @@ class GoogleFontsUtility {
     return `${isItalic ? '1' : '0'},${weight}`
   }
 
-  public createGoogleFontsLink(args: { fontKeys: string[], fonts?: FontEntry[] }): string {
-    const { fontKeys, fonts: providedFonts = [] } = args
-    const deduped = [...new Set(fontKeys)]
+  public createGoogleFontsLink(args: { fontFamilies: FontFamily[], fonts?: FontEntry[] }): string {
+    const { fontFamilies, fonts: providedFonts = [] } = args
+    const deduped = [...new Set(fontFamilies.map(_ => _.family))]
+
     const fontEntries = [...this.fontsList, ...providedFonts]
 
     if (!fontEntries.length) {
       throw new Error('No fonts provided')
     }
 
-    const fontParams = deduped.map((fontKey) => {
-      const normalizedFontKey = toCamel(fontKey)
+    const fontParams = deduped.map((familyName) => {
+      const fam = fontFamilies.find(_ => _.family === familyName)
+      const normalizedFontKey = toCamel(familyName)
       const font = fontEntries.find(f => toCamel(f.family) === normalizedFontKey)
       if (!font) {
-        console.error(`Font family not found: ${fontKey} (${normalizedFontKey}-${fontEntries.map(f => toCamel(f.family)).join(', ')})`)
+        console.error(`Font family not found: ${familyName} (${normalizedFontKey}-${fontEntries.map(f => toCamel(f.family)).join(', ')})`)
         return ''
       }
       const variants = font.variants
@@ -97,13 +100,14 @@ class GoogleFontsUtility {
         .sort()
         .join(';')
       const family = font.family.replace(/ /g, '+')
-      return `${family}:ital,wght@${variants}`
+      return `${family}:wght@300;400;500;600;700;800;900`
     }).filter(Boolean).join('&family=')
 
     return fontParams ? `https://fonts.googleapis.com/css2?family=${fontParams}&display=swap` : ''
   }
 
-  public async loadFont(family: string): Promise<void> {
+  public async loadFont(fontFamily: FontFamily): Promise<void> {
+    const { family = '' } = fontFamily
     if (typeof window === 'undefined' || this.loadedFonts.has(family)) {
       return
     }
@@ -111,7 +115,10 @@ class GoogleFontsUtility {
     const fontEntry = this.fontsList?.find(font => toCamel(font.family) === toCamel(family))
     if (fontEntry) {
       const link = document.createElement('link')
-      link.href = this.createGoogleFontsLink({ fontKeys: [family], fonts: this.fontsList || undefined })
+      link.href = this.createGoogleFontsLink({
+        fontFamilies: [fontFamily],
+        fonts: this.fontsList || undefined,
+      })
       link.rel = 'stylesheet'
       link.id = `google-font-${family.replace(/\s+/g, '-').toLowerCase()}`
       document.head.appendChild(link)
@@ -119,7 +126,8 @@ class GoogleFontsUtility {
     }
   }
 
-  public isFontLoaded(family: string): boolean {
+  public isFontLoaded(fontFamily: FontFamily): boolean {
+    const { family = '' } = fontFamily
     return this.loadedFonts.has(family)
   }
 

@@ -4,8 +4,10 @@ import type { UserConfig } from './config'
 import { vue } from '@fiction/core'
 import { animateItemEnter, useElementVisible } from '@fiction/ui/anim'
 import EffectFitText from '@fiction/ui/effect/EffectFitText.vue'
+import XLogoType from '@fiction/ui/media/XLogoType.vue'
 import CardNavLink from '../CardNavLink.vue'
 import CardText from '../CardText.vue'
+import CardLink from '../el/CardLink.vue'
 
 defineOptions({ name: 'FooterX' })
 
@@ -35,22 +37,29 @@ vue.onMounted(() => {
     <div :class="card.classes.value.contentWidth">
       <div class="px-6 lg:px-0 border-t border-theme-200 dark:border-theme-700/80 pt-16 mt-4 ">
         <!-- Main grid layout -->
-        <div class="grid gris-cols-1 md:grid-cols-2 gap-6 md:gap-24">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-24">
           <!-- Brand section -->
           <div class="w-full grow gap-6 space-y-2 pb-6">
-            <EffectFitText :content="uc.title || ''" tag="h2" class="max-w-lg" :max-size="60">
-              <CardText
-                tag="span"
-                :card
-                path="title"
-                class="font-medium x-font-title mb-4 animate-item"
-                animate="fade"
+            <CardLink
+              v-if="uc.brand?.logo"
+              :card
+              href="/"
+              class="flex items-end group"
+            >
+              <XLogoType
+                :logo="uc.brand?.logo"
+                :classes="{
+                  media: 'h-10',
+                  image: '',
+                  text: 'x-font-title text-2xl font-medium' }"
+                class="transition-all group-hover:opacity-80 duration-200"
+                data-test-id="nav-logo"
               />
-            </EffectFitText>
+            </CardLink>
             <CardText
               tag="p"
               :card
-              path="subTitle"
+              path="tagline"
               class="text-2xl text-theme-500 dark:text-theme-400 animate-item"
               animate="fade"
             />
@@ -61,7 +70,7 @@ vue.onMounted(() => {
               <CardText
                 tag="h3"
                 :card
-                :path="`menus.${i}.itemsTitle`"
+                :path="`menus.${i}.title`"
                 class="text-2xl font-medium x-font-title mb-6 text-primary-500 dark:text-theme-500 animate-item"
                 animate="fade"
               />

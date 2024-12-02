@@ -1,5 +1,7 @@
 import type { FictionEnv } from '@fiction/core/index.js'
 import type { CardFactory } from '@fiction/site/cardFactory.js'
+import type { SiteUserConfig } from '@fiction/site/schema.js'
+import type { format } from 'node:path'
 import type { FictionAdmin } from '../index.js'
 import { getCardTemplates, templates } from '@fiction/cards'
 import { safeDirname, vue } from '@fiction/core/index.js'
@@ -117,22 +119,24 @@ export const theme = new Theme({
       pages,
       sections: {},
       userConfig: {
-        brand: {
-          shareImage: { url: shareImage, format: 'image' },
-          favicon: { url: favicon, format: 'image' },
-          icon: { url: icon, format: 'image' },
-        },
-        styling: {
-          fonts: {
-            body: { fontKey: 'Inter', stack: 'sans' },
-            sans: { fontKey: 'Inter', stack: 'sans' },
+        site: {
+          brand: {
+            shareImage: { url: shareImage, format: 'image' },
+            favicon: { url: favicon, format: 'image' },
+            icon: { url: icon, format: 'image' },
           },
-          buttons: { design: 'solid', rounding: 'full', hover: 'fade' },
+          styling: {
+            fonts: {
+              body: { family: 'Inter', stack: 'sans' },
+              sans: { family: 'Inter', stack: 'sans' },
+            },
+            buttons: { design: 'solid', rounding: 'full', hover: 'fade' },
+          },
         },
         standard: {
           spacing: { contentWidth: 'sm', verticalSpacing: `none` },
         },
-      },
+      } satisfies SiteUserConfig,
     }
   },
   templateDefaults: { page: 'dash', transaction: 'transaction' },

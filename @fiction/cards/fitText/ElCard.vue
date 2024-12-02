@@ -21,19 +21,22 @@ const fitOpts = vue.computed(() => ({
 
 // Typography styles
 const textStyles = vue.computed(() => ({
-  fontFamily: fontFamilyByKey(uc.value.font),
+  fontFamily: fontFamilyByKey(uc.value.font?.family),
   textAlign: uc.value.align || 'inherit',
   fontWeight: uc.value.weight || 'inherit',
 }))
 
 // Register font when changed
 vue.watch(() => uc.value.font, (newFont) => {
-  if (!newFont || !props.card.site)
+  if (!newFont?.family || !props.card.site)
     return
 
   props.card.site.userFonts.value = {
     ...props.card.site.userFonts.value,
-    [newFont]: { fontKey: newFont, stack: 'sans' as const },
+    [newFont.family]: {
+      family: newFont.family,
+      stack: 'sans' as const,
+    },
   }
 }, { immediate: true })
 </script>

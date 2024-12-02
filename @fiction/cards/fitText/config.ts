@@ -1,5 +1,6 @@
 import type { ConfigResponse } from '@fiction/site/card'
 import type { SiteUserConfig } from '@fiction/site/schema'
+import { fontFamilySchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
@@ -8,7 +9,7 @@ const schema = z.object({
   lines: z.number().optional().describe('Number of lines to display (1-5)'),
   minFontSize: z.number().optional().describe('Minimum font size to maintain readability'),
   maxFontSize: z.number().optional().describe('Maximum font size for visual impact'),
-  font: z.string().optional().describe('Font family selection for brand personality'),
+  font: fontFamilySchema.optional().describe('Font family selection for brand personality'),
   align: z.enum(['inherit', 'left', 'center', 'right']).optional().describe('Text alignment'),
   weight: z.enum(['inherit', 'normal', 'medium', 'semibold', 'bold']).optional().describe('Font weight'),
 })
@@ -109,7 +110,7 @@ export function getUserConfig(): UserConfig {
     lines: 1,
     minFontSize: 24,
     maxFontSize: 180,
-    font: 'Poppins',
+    font: { family: 'Poppins' },
     align: 'center',
     weight: 'bold',
   }
@@ -131,7 +132,7 @@ function getDemoConfigs(templateId: string): Record<string, { templateId: string
         lines: 1,
         minFontSize: 32,
         maxFontSize: 200,
-        font: 'Fraunces',
+        font: { family: 'Fraunces' },
         align: 'center',
       },
     },
@@ -149,7 +150,7 @@ function getDemoConfigs(templateId: string): Record<string, { templateId: string
         lines: 2,
         minFontSize: 28,
         maxFontSize: 120,
-        font: 'Cormorant',
+        font: { family: 'Cormorant' },
         align: 'center',
         weight: 'medium',
       },
@@ -167,7 +168,7 @@ function getDemoConfigs(templateId: string): Record<string, { templateId: string
         lines: 3,
         minFontSize: 24,
         maxFontSize: 90,
-        font: 'Space Grotesk',
+        font: { family: 'Space Grotesk' },
         align: 'left',
         weight: 'medium',
       },
@@ -185,7 +186,7 @@ function getDemoConfigs(templateId: string): Record<string, { templateId: string
         lines: 1,
         minFontSize: 32,
         maxFontSize: 160,
-        font: 'Caveat',
+        font: { family: 'Caveat' },
         align: 'center',
         weight: 'bold',
       },
@@ -203,7 +204,7 @@ function getDemoConfigs(templateId: string): Record<string, { templateId: string
         lines: 2,
         minFontSize: 28,
         maxFontSize: 100,
-        font: 'Plus Jakarta Sans',
+        font: { family: 'Plus Jakarta Sans' },
         align: 'center',
         weight: 'semibold',
       },

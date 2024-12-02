@@ -1,4 +1,4 @@
-import type { FictionRouter } from '@fiction/core'
+import type { FictionRouter, FontFamily } from '@fiction/core'
 import type { Card, CardTemplate } from './card.js'
 import type { FictionSites, ThemeConfig } from './index.js'
 
@@ -9,7 +9,7 @@ import type { LayoutOrder } from './utils/layout.js'
 import type { QueryVarHook } from './utils/site.js'
 import { deepMerge, FictionObject, localRef, objectId, resetUi, Shortcodes, shortId, vue, waitFor } from '@fiction/core'
 import { TypedEventTarget } from '@fiction/core/utils/eventTarget.js'
-import { activeSiteFont, type FontConfigVal } from './utils/fonts.js'
+import { activeSiteFont } from './utils/fonts.js'
 import { SiteFrameTools } from './utils/frame.js'
 import { flattenCards, setLayoutOrder } from './utils/layout.js'
 import { activePageId, getPageById, getViewMap, updatePages } from './utils/page.js'
@@ -142,9 +142,9 @@ export class Site<T extends SiteSettings = SiteSettings> extends FictionObject<T
     return this
   }
 
-  userFonts = vue.ref<Record<string, FontConfigVal>>({})
+  userFonts = vue.ref<Record<string, FontFamily>>({})
   siteFonts = activeSiteFont(this)
-  configPrefersColorScheme = vue.computed(() => this.fullConfig.value.styling?.prefersColorScheme || 'auto')
+  configPrefersColorScheme = vue.computed(() => this.fullConfig.value.site?.styling?.prefersColorScheme || 'auto')
   userPrefersColorScheme = localRef<typeof prefersColorScheme[number]>({ key: `fictionPrefersColorScheme`, def: '', lifecycle: 'session' })
   prefersColorScheme = vue.computed<typeof prefersColorScheme[number]>({
     get: () => {

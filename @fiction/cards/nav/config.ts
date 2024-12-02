@@ -1,17 +1,13 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { SiteUserConfig } from '@fiction/site/schema'
 import type { StockMedia } from '@fiction/ui/stock'
-import { MediaTypographySchema, navListItemSchema } from '@fiction/core'
+import { brandSchema, logoSchema, navListItemSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
 // Schema definition
 export const schema = z.object({
-  brand: z.object({
-    logo: MediaTypographySchema.optional(),
-    tagline: z.string().optional(),
-    theme: z.enum(['primary', 'blue', 'green', 'red', 'purple', 'indigo', 'pink', 'yellow', 'default']).optional(),
-  }).optional(),
+  brand: brandSchema.optional(),
 
   layout: z.enum([
     'navCenter', // Navigation centered, logo on side
@@ -37,18 +33,6 @@ function getOptions(): InputOption[] {
           label: 'Logo',
           input: 'InputLogo',
           description: 'Your brand logo or wordmark - supports text or image',
-        }),
-        new InputOption({
-          key: 'brand.tagline',
-          label: 'Tagline',
-          input: 'InputText',
-          description: 'Short brand message or tagline',
-        }),
-        new InputOption({
-          key: 'brand.theme',
-          label: 'Brand Theme',
-          input: 'InputColorScheme',
-          description: 'Primary brand color theme',
         }),
       ],
     }),
@@ -201,30 +185,10 @@ function getOptions(): InputOption[] {
 function getDefaultConfig(): UserConfig {
   return {
     brand: {
-      logo: { typography: { text: 'Atlas', scale: 1.2, weight: '600' } },
-      tagline: 'Build Better Websites',
-      theme: 'indigo',
+      logo: { typography: { label: 'Your Logo' } },
     },
     layout: 'navCenter',
     primaryNav: [
-      {
-        label: 'Solutions',
-        href: '/solutions',
-        list: {
-          items: [
-            {
-              label: 'For Agencies',
-              href: '/solutions/agencies',
-              icon: { iconId: 'briefcase' },
-            },
-            {
-              label: 'For Startups',
-              href: '/solutions/startups',
-              icon: { iconId: 'rocket' },
-            },
-          ],
-        },
-      },
       {
         label: 'Get Started',
         href: '/start',
@@ -275,9 +239,8 @@ async function getDemoCards(args: { templateId: string, stock: StockMedia }): Pr
       userConfig: {
         standard: { headers: { title: 'Centered Logo' }, spacing: { verticalSpacing: 'md' } },
         brand: {
-          logo: stock.getLocalMedia({ key: 'lorem2' }),
+          logo: { media: stock.getLocalMedia({ key: 'lorem2' }) },
           tagline: 'Creative Digital Agency',
-          theme: 'purple',
         },
         layout: 'logoCenter',
         primaryNav: [
@@ -343,8 +306,11 @@ async function getDemoCards(args: { templateId: string, stock: StockMedia }): Pr
       userConfig: {
         standard: { headers: { title: 'Left Aligned Nav' }, spacing: { verticalSpacing: 'md' } },
         brand: {
-          logo: stock.getLocalMedia({ key: 'lorem3' }),
-          theme: 'blue',
+          logo: {
+            variant: 'media',
+            media: stock.getRandomByTags(['aspect:wide']),
+            typography: { label: 'Atlas', scale: 1.4, weight: '700' },
+          },
         },
         layout: 'justified',
         primaryNav: [
@@ -455,9 +421,8 @@ async function getDemoCards(args: { templateId: string, stock: StockMedia }): Pr
       userConfig: {
         standard: { headers: { title: 'Modern Platform Navigation' }, spacing: { verticalSpacing: 'md' } },
         brand: {
-          logo: { html: 'Atlas', typography: { scale: 1.4, weight: '700' } },
+          logo: { typography: { label: 'Modern', scale: 1.4, weight: '700' } },
           tagline: 'Elevate Your Digital Experience',
-          theme: 'indigo',
         },
         layout: 'navCenter',
         primaryNav: [
