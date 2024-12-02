@@ -16,8 +16,7 @@ const options = [
 export const template = cardTemplate({
   templateId: 'wrap',
   el: vue.defineAsyncComponent(async () => import('./CardWrap.vue')),
-  schema: UserConfigSchema,
-  options,
+
   isPublic: false,
   isPageCard: true,
   title: 'Page Wrapper',
@@ -27,6 +26,12 @@ export const template = cardTemplate({
   getBaseConfig: () => {
     return {
       standard: { spacing: { verticalSpacing: 'none' }, handling: { showOnSingle: true } },
+    }
+  },
+  getConfig: async () => {
+    return {
+      schema: UserConfigSchema,
+      options,
     }
   },
 })

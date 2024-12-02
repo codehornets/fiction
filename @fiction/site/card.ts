@@ -81,17 +81,17 @@ interface CardTemplateSettings<
   isPageCard?: boolean // full page wrap
   isContainer?: boolean // ui drawer
   isRegion?: boolean
-  options?: InputOption[]
-  schema?: CardTemplateSurface<S>[ 'schema' ]
+  // options?: InputOption[]
+  // schema?: CardTemplateSurface<S>[ 'schema' ]
   sections?: Record<string, CardConfigPortable>
   onSiteLoad?: (args: { site: Site }) => void
   getConfig?: (args: ConfigArgs) => Promise<ConfigResponse<S>>
   getBaseConfig?: (args: CardSettings<CardTemplateUserConfigAll<S>>) => CardTemplateUserConfigAll<S>
-  getUserConfig?: (args: ConfigArgs) => Promise<CardTemplateUserConfigAll<S>> | (CardTemplateUserConfigAll<S>)
-  getEffects?: (args: ConfigArgs) => Promise<TableCardConfig[]>
-  demoPage?: (args: ConfigArgs) => Promise<{
-    cards: (CardConfigPortable< CardTemplateUserConfigAll<S>> & { el?: vue.Component })[]
-  }>
+  // getUserConfig?: (args: ConfigArgs) => Promise<CardTemplateUserConfigAll<S>> | (CardTemplateUserConfigAll<S>)
+  // getEffects?: (args: ConfigArgs) => Promise<TableCardConfig[]>
+  // demoPage?: (args: ConfigArgs) => Promise<{
+  //   cards: (CardConfigPortable< CardTemplateUserConfigAll<S>> & { el?: vue.Component })[]
+  // }>
   getQueries?: (args: CardQuerySettings) => CardTemplateSurface<S>[ 'queries' ]
   getSitemapPaths?: (args: { site: Site, card: Card<CardTemplateUserConfigAll<S>>, pagePath: string }) => Promise<string[]>
 
@@ -119,11 +119,11 @@ export class CardTemplate<
     }
     else {
       return {
-        schema: this.settings.schema,
-        options: this.settings.options,
-        userConfig: await this.settings.getUserConfig?.(a) || {},
-        effects: await this.settings.getEffects?.(a) || [],
-        demoPage: await this.settings.demoPage?.(a),
+        // schema: this.settings.schema,
+        // options: this.settings.options,
+        // userConfig: await this.settings.getUserConfig?.(a) || {},
+        // effects: await this.settings.getEffects?.(a) || [],
+        // demoPage: await this.settings.demoPage?.(a),
       }
     }
   }
@@ -135,7 +135,7 @@ export class CardTemplate<
     baseConfig?: CardTemplateUserConfigAll<S>
   } & CardSettings, args: { factory?: CardFactory } = {}) {
     const { cardId, site, baseConfig = {}, userConfig } = cardSettings
-    const { getUserConfig, getEffects, getConfig } = this.settings
+    const { getConfig } = this.settings
     const factory = args.factory || new CardFactory({
       site,
       templates: site?.theme.value?.templates || [],
@@ -143,12 +143,9 @@ export class CardTemplate<
     })
 
     const config = getConfig ? await getConfig({ ...args, factory }) : {}
-    const asyncUserConfig = getUserConfig ? await getUserConfig({ ...args, factory }) : {}
-    const effects = getEffects ? (await getEffects({ ...args, factory })) : []
 
     const specificUserConfig = deepMerge([
       baseConfig,
-      asyncUserConfig,
       config.userConfig,
       userConfig,
     ].filter(Boolean))
@@ -163,7 +160,6 @@ export class CardTemplate<
       templateId: this.settings.templateId,
       ...cardSettings,
       userConfig: finalUserConfig,
-      effects,
     })
   }
 }

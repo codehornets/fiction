@@ -22,8 +22,9 @@ describe('showcase card', async () => {
 })
 
 describe('validate option keys', async () => {
+  const templateConfig = await template.getConfig({})
   it('showcase: validate option keys', async () => {
-    const optionKeys = template.settings.options || []
+    const optionKeys = templateConfig?.options || []
     const keys = collectKeysFromOptions(optionKeys)
 
     expect(keys).toMatchInlineSnapshot(`

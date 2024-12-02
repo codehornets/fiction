@@ -114,7 +114,9 @@ export async function loadSiteFromCard(args: { cardId: string, siteRouter: Ficti
 
   const factory = new CardFactory({ templates, site, caller: 'siteFromCard' })
 
-  const card = await tpl.settings.demoPage?.({ site, factory })
+  const templateConfig = await tpl.getConfig?.({ site })
+
+  const card = templateConfig.demoPage
 
   // local stored config, useful for development
   const staticConfig = await localSiteConfig({ siteId })

@@ -25,5 +25,5 @@ export const template = cardTemplate({
     authRedirect: '/auth/login',
     standard: { spacing: { verticalSpacing: 'none' } },
   }),
-  schema,
+  getConfig: async () => ({ schema }),
 })

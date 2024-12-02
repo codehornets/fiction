@@ -22,7 +22,7 @@ describe('verify template settings config', async () => {
         templateId: _.settings.templateId,
         unusedSchema: conf.unusedSchema,
         isPublic: _.settings.isPublic,
-        hasDemo: !!(_.settings.demoPage || demoPages.some(d => d.slug === `card-${_.settings.templateId}`)),
+        hasDemo: !!(config.demoPage || demoPages.some(d => d.slug === `card-${_.settings.templateId}`)),
       }
     })
 

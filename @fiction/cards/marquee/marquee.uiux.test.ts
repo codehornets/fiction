@@ -24,8 +24,9 @@ describe('marquee card', async () => {
 })
 
 describe('validate option keys', async () => {
+  const config = await template.getConfig({})
   it('marquee: validate option keys', async () => {
-    const optionKeys = template.settings.options || []
+    const optionKeys = config.options || []
     const keys = collectKeysFromOptions(optionKeys)
 
     expect(keys).toMatchInlineSnapshot(`

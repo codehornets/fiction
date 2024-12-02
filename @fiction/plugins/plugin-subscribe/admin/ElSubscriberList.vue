@@ -18,19 +18,19 @@ const subscribers = vue.shallowRef<Subscriber[]>([])
 
 const list = vue.computed<IndexItem[]>(() => {
   return subscribers.value.map((p) => {
-    const name = p.user?.fullName || p.user?.email || p.email || 'Unknown'
-    const desc = [`Added ${dayjs(p.createdAt).format('MMM D, YYYY')}`]
+    const label = p.user?.fullName || p.user?.email || p.email || 'Unknown'
+    const description = [`Added ${dayjs(p.createdAt).format('MMM D, YYYY')}`]
 
     if (p.tags)
-      desc.push(`Tags: ${p.tags.join(', ')}`)
+      description.push(`Tags: ${p.tags.join(', ')}`)
 
-    if (!name.includes('@'))
-      desc.push(`Email: ${p.email}`)
+    if (!label.includes('@'))
+      description.push(`Email: ${p.email}`)
 
     return {
       key: p.subscriptionId,
-      name,
-      desc: desc.join(' | '),
+      label,
+      description: description.join(' | '),
       href: props.card.link(`/audience/view?subscriptionId=${p.subscriptionId}`),
       media: p.user?.avatar || p.avatar,
     } as IndexItem

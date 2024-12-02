@@ -20,8 +20,8 @@ const list = vue.computed<IndexItem[]>(() => {
   return brandIndex.map((brand) => {
     return {
       key: brand.brandId,
-      name: brand.title || 'Untitled',
-      desc: brand.description || 'No description',
+      label: brand.title || 'Untitled',
+      description: brand.description || 'No description',
       href: card.link(`/manage-brand?brandId=${brand.brandId}`),
       icon: 'i-tabler-briefcase',
     } as IndexItem

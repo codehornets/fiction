@@ -57,7 +57,7 @@ export function getOptions(): InputOption[] {
           props: { rows: 3, placeholder: 'Describe your core offering or unique value proposition' },
         }),
         new InputOption({
-          key: 'superHeading',
+          key: 'superTitle',
           label: 'Eyebrow Text',
           input: 'InputText',
           description: 'Short text above headline (2-5 words)',

@@ -4,8 +4,9 @@ import { zodToJsonSchema } from 'zod-to-json-schema'
 import { template } from '.'
 
 describe('minimalProfile', async () => {
+  const config = await template.getConfig({})
   it('has correct schema', async () => {
-    if (!template.settings.schema)
+    if (!config?.schema)
       throw new Error('no schema')
 
     const tpl = template
@@ -14,14 +15,14 @@ describe('minimalProfile', async () => {
       throw new Error('no template')
 
     const conf = await refineOptions({
-      options: tpl.settings.options || [],
-      schema: tpl.settings.schema,
+      options: config.options || [],
+      schema: config.schema,
       templateId: tpl.settings.templateId,
     })
 
     expect(conf.unusedSchema).toMatchInlineSnapshot(`{}`)
 
-    const jsonSchema = zodToJsonSchema(template.settings.schema)
+    const jsonSchema = zodToJsonSchema(config.schema)
     expect(jsonSchema).toMatchInlineSnapshot(`
       {
         "$schema": "http://json-schema.org/draft-07/schema#",

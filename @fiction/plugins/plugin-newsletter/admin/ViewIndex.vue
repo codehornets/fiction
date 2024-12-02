@@ -25,8 +25,8 @@ const list = vue.computed<IndexItem[]>(() => {
     return {
       ...campaign.toConfig(),
       key: campaign.campaignId,
-      name: campaign.title.value || p.title.value || 'Untitled',
-      desc: p.subTitle.value || 'No description',
+      label: campaign.title.value || p.title.value || 'Untitled',
+      description: p.subTitle.value || 'No description',
       href: props.card.link(`/manage-newsletter?campaignId=${campaign.campaignId}`),
       media: p.media.value,
       icon: 'i-tabler-mail',

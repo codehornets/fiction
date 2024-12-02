@@ -30,13 +30,18 @@ export const theme = new Theme({
       cardTemplate({
         templateId: 'testBlog',
         el: def(async () => import('./TemplateWrap.vue')),
-        schema: z.object({
-          posts: z.array(z.object({
-            slug: z.string(),
-            title: z.string(),
-            content: z.string(),
-          })),
-        }),
+        getConfig: async () => {
+          return {
+            schema: z.object({
+              posts: z.array(z.object({
+                slug: z.string(),
+                title: z.string(),
+                content: z.string(),
+              })),
+            }),
+          }
+        },
+
         getSitemapPaths: async ({ card, pagePath }) => {
           const posts = card.userConfig.value.posts || []
           return posts.map(post => `${pagePath}/${post.slug}`)

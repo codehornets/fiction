@@ -22,15 +22,17 @@ describe('hero: card', async () => {
 })
 
 describe('validate option keys', async () => {
+  const config = await template.getConfig({})
   it('hero: validate option keys', async () => {
-    const optionKeys = template.settings.options || []
+    const optionKeys = config.options || []
     const keys = collectKeysFromOptions(optionKeys)
 
     expect(keys).toMatchInlineSnapshot(`
       [
-        "heading",
-        "subHeading",
+        "title",
+        "subTitle",
         "superHeading",
+        "layout",
         "superColor",
         "superIcon",
         "superIcon.url",
@@ -39,8 +41,12 @@ describe('validate option keys', async () => {
         "superIcon.iconId",
         "superIcon.el",
         "superIcon.class",
-        "layout",
+        "superIcon.props",
+        "splash",
+        "splash.*",
+        "caption",
         "actions",
+        "actions.0.testId",
         "actions.0.design",
         "actions.0.href",
         "actions.0.icon",
@@ -49,23 +55,10 @@ describe('validate option keys', async () => {
         "actions.0.size",
         "actions.0.target",
         "actions.0.theme",
-        "splash",
-        "splash.url",
-        "splash.format",
-        "splash.html",
-        "splash.el",
-        "splash.modify.*",
-        "caption",
-        "overlays",
-        "overlays.0.media",
-        "overlays.0.media.url",
-        "overlays.0.media.format",
-        "overlays.0.media.html",
-        "overlays.0.media.el",
-        "overlays.0.media.modify.*",
-        "overlays.0.opacity",
-        "overlays.0.position",
-        "overlays.0.widthPercent",
+        "actions.0.rounding",
+        "actions.0.disabled",
+        "actions.0.format",
+        "actions.0.loading",
       ]
     `)
   })

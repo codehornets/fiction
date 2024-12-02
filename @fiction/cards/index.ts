@@ -162,11 +162,7 @@ function createDemoTemplate(config: typeof demoTemplates[keyof typeof demoTempla
     ...config,
     category: ['advanced'],
     el: vue.defineAsyncComponent(config.component),
-    schema: z.object({}),
     isPublic: false,
-    demoPage: async () => ({
-      cards: [{ templateId: config.templateId }],
-    }),
   })
 }
 

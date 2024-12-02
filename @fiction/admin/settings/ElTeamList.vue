@@ -18,16 +18,16 @@ const list = vue.computed<IndexItem[]>(() => {
   const activeOrganization = service.fictionUser.activeOrganization.value
   const members = activeOrganization?.members || []
   return members.map((p) => {
-    const name = p.fullName || p.email || 'Unknown'
-    const desc = [`Added ${dayjs(p.createdAt).format('MMM D, YYYY')}`]
+    const label = p.fullName || p.email || 'Unknown'
+    const description = [`Added ${dayjs(p.createdAt).format('MMM D, YYYY')}`]
 
-    if (!name.includes('@'))
-      desc.push(`Email: ${p.email}`)
+    if (!label.includes('@'))
+      description.push(`Email: ${p.email}`)
 
     return {
       key: p.userId,
-      name,
-      desc: desc.join(' - '),
+      label,
+      description: description.join(' - '),
       href: card.link(`/settings/team-member?userId=${p.userId}`),
       media: p.avatar,
     } as IndexItem
