@@ -31,8 +31,8 @@ import * as affiliate from './affiliate/index.js'
 import * as developer from './developer/index.js'
 
 const social: NavItem[] = [
-  { key: 'linkedin', href: 'https://www.linkedin.com/company/fictionco', target: '_blank', label: 'LinkedIn', media: { iconId: `linkedin` } },
-  { key: 'github', href: 'https://github.com/fictionco', target: '_blank', label: 'Github', media: { iconId: `github` } },
+  { key: 'linkedin', href: 'https://www.linkedin.com/company/fictionco', target: '_blank', label: 'LinkedIn', media: { iconId: `brand-linkedin` } },
+  { key: 'github', href: 'https://github.com/fictionco', target: '_blank', label: 'Github', media: { iconId: `brand-github` } },
   { key: 'x', href: 'https://www.x.com/fictionplatform', target: '_blank', label: 'X', media: { iconId: `x` } },
 ]
 
@@ -350,12 +350,13 @@ export async function getHomePage(args: { factory: CardFactory, stock: StockMedi
             templateId: 'hero',
             userConfig: {
               superTitle: {
-                text: 'Personal Websites and Audience Growth Tools',
+                text: 'The Personal Marketing Platform',
                 theme: 'orange',
                 icon: { class: 'i-tabler-rosette-number-1' },
               },
-              title: `Own Your Online Presence, Control Your Future`,
-              subTitle: `In just 5 minutes, get a professional home for your personal brand that you actually own - no coding needed. Join thousands who've taken control and started growing real, lasting influence.`,
+              title: `It all starts with your story...`,
+              subTitle: `Discover how Fiction helps experts like you build your brand online—without wrestling with technical chaos.`,
+
               action: {
                 buttons: [
                   {
@@ -543,7 +544,7 @@ export async function getTourPage(args: { factory: CardFactory, stock: StockMedi
                 {
                   layout: 'right',
                   superTitle: {
-                    icon: { iconId: 'newspaper' },
+                    icon: { iconId: 'news' },
                     text: 'Newsletter and Email Marketing',
                     theme: 'sky',
                   },
@@ -791,141 +792,144 @@ export async function getConfig(args: {
               layout: 'navCenter',
               brand: {
                 logo: {
+                  variant: 'media',
                   media: {
                     format: 'component',
                     el: vue.defineAsyncComponent(() => import('@fiction/ui/brand/FictionLogo.vue')),
                   },
                 },
               },
+              nav: {
+                primary: [
+                  { label: 'Why Fiction', href: '/tour' },
+                  { label: 'About', href: '/about' },
+                  {
+                    label: 'Web Elements',
+                    list: {
+                      description: 'Professional components for your website',
+                      variant: 'expanded',
+                      items: [
+                        {
+                          label: 'Content',
+                          list: {
+                            items: [
+                              { label: 'Bento', href: '/demo-bento' },
+                              { label: 'Trek', href: '/demo-trek' },
+                              { label: 'Numbered List', href: '/demo-numberedList' },
+                              { label: 'People', href: '/demo-people' },
+                              { label: 'Features', href: '/demo-features' },
+                              { label: 'Tour', href: '/demo-tour' },
+                              { label: 'Hero', href: '/demo-hero' },
+                              { label: 'Statement', href: '/demo-statement' },
+                            ],
+                          },
 
-              primaryNav: [
-                { label: 'Why Fiction', href: '/tour' },
-                { label: 'About', href: '/about' },
-                {
-                  label: 'Web Elements',
-                  list: {
-                    description: 'Professional components for your website',
-                    variant: 'expanded',
-                    items: [
-                      {
-                        label: 'Content',
-                        list: {
-                          items: [
-                            { label: 'Bento', href: '/demo-bento' },
-                            { label: 'Trek', href: '/demo-trek' },
-                            { label: 'Numbered List', href: '/demo-numberedList' },
-                            { label: 'People', href: '/demo-people' },
-                            { label: 'Features', href: '/demo-features' },
-                            { label: 'Tour', href: '/demo-tour' },
-                            { label: 'Hero', href: '/demo-hero' },
-                            { label: 'Statement', href: '/demo-statement' },
-                          ],
+                        },
+                        {
+                          label: 'Conversion',
+                          list: {
+                            items: [
+                              { label: 'Capture', href: '/demo-capture' },
+                              { label: 'Call to Action', href: '/demo-callToAction' },
+                              { label: 'Pricing', href: '/demo-pricing' },
+                              { label: 'Contact', href: '/demo-contact' },
+                              { label: 'FAQ / List', href: '/demo-faq' },
+                            ],
+                          },
+
+                        },
+                        {
+                          label: 'Portfolio',
+                          list: {
+                            items: [
+                              { label: 'Gallery', href: '/demo-gallery' },
+                              { label: 'Showcase', href: '/demo-showcase' },
+                              { label: 'Cinema', href: '/demo-cinema' },
+                              { label: 'Marquee', href: '/demo-marquee' },
+                              { label: 'Logos', href: '/demo-logos' },
+                              { label: 'Metrics', href: '/demo-metrics' },
+                              { label: 'Testimonials', href: '/demo-testimonials' },
+                            ],
+                          },
+
+                        },
+                        {
+                          label: 'Site',
+                          list: {
+                            items: [
+                              { label: 'Nav', href: '/demo-nav' },
+                              { label: 'Footer Pro', href: '/demo-footerPro' },
+                              { label: 'Footer X', href: '/demo-footerX' },
+                              { label: 'Maps', href: '/demo-maps' },
+                              { label: 'Area', href: '/demo-area' },
+                            ],
+                          },
+                        },
+                        {
+                          label: 'Typography',
+                          list: {
+                            items: [
+                              { label: 'Ticker', href: '/demo-ticker' },
+                              { label: 'Fit Text', href: '/demo-fitText' },
+                              { label: 'Quotes', href: '/demo-quotes' },
+                            ],
+                          },
+
+                        },
+                        {
+                          label: 'Posts',
+                          list: {
+                            items: [
+                              { label: 'Magazine', href: '/demo-magazine' },
+                              { label: 'Post List', href: '/demo-postList' },
+                            ],
+                          },
+
+                        },
+                        {
+                          label: 'Profile',
+                          list: {
+                            items: [
+                              { label: 'Over Slide', href: '/demo-overSlide' },
+                              { label: 'Profile', href: '/demo-profile' },
+                              { label: 'Story', href: '/demo-story' },
+                            ],
+                          },
+
                         },
 
-                      },
-                      {
-                        label: 'Conversion',
-                        list: {
-                          items: [
-                            { label: 'Capture', href: '/demo-capture' },
-                            { label: 'Call to Action', href: '/demo-callToAction' },
-                            { label: 'Pricing', href: '/demo-pricing' },
-                            { label: 'Contact', href: '/demo-contact' },
-                            { label: 'FAQ / List', href: '/demo-faq' },
-                          ],
-                        },
+                        {
+                          label: 'Standard UI',
+                          list: {
+                            items: [
+                              { label: 'Buttons', href: '/demo-xbutton' },
+                              { label: 'Inputs', href: '/demo-xinput' },
+                              { label: 'Media', href: '/demo-xmedia' },
+                              { label: 'Logo', href: '/demo-xlogo' },
+                              { label: 'Shapes', href: '/demo-effectShape' },
+                            ],
+                          },
 
-                      },
-                      {
-                        label: 'Portfolio',
-                        list: {
-                          items: [
-                            { label: 'Gallery', href: '/demo-gallery' },
-                            { label: 'Showcase', href: '/demo-showcase' },
-                            { label: 'Cinema', href: '/demo-cinema' },
-                            { label: 'Marquee', href: '/demo-marquee' },
-                            { label: 'Logos', href: '/demo-logos' },
-                            { label: 'Metrics', href: '/demo-metrics' },
-                            { label: 'Testimonials', href: '/demo-testimonials' },
-                          ],
                         },
-
-                      },
-                      {
-                        label: 'Site',
-                        list: {
-                          items: [
-                            { label: 'Nav', href: '/demo-nav' },
-                            { label: 'Footer Pro', href: '/demo-footerPro' },
-                            { label: 'Footer X', href: '/demo-footerX' },
-                            { label: 'Maps', href: '/demo-maps' },
-                            { label: 'Area', href: '/demo-area' },
-                          ],
-                        },
-                      },
-                      {
-                        label: 'Typography',
-                        list: {
-                          items: [
-                            { label: 'Ticker', href: '/demo-ticker' },
-                            { label: 'Fit Text', href: '/demo-fitText' },
-                            { label: 'Quotes', href: '/demo-quotes' },
-                          ],
-                        },
-
-                      },
-                      {
-                        label: 'Posts',
-                        list: {
-                          items: [
-                            { label: 'Magazine', href: '/demo-magazine' },
-                            { label: 'Post List', href: '/demo-postList' },
-                          ],
-                        },
-
-                      },
-                      {
-                        label: 'Profile',
-                        list: {
-                          items: [
-                            { label: 'Over Slide', href: '/demo-overSlide' },
-                            { label: 'Profile', href: '/demo-profile' },
-                            { label: 'Story', href: '/demo-story' },
-                          ],
-                        },
-
-                      },
-
-                      {
-                        label: 'Standard UI',
-                        list: {
-                          items: [
-                            { label: 'Buttons', href: '/demo-xbutton' },
-                            { label: 'Inputs', href: '/demo-xinput' },
-                            { label: 'Media', href: '/demo-xmedia' },
-                            { label: 'Logo', href: '/demo-xlogo' },
-                            { label: 'Shapes', href: '/demo-effectShape' },
-                          ],
-                        },
-
-                      },
-                    ],
+                      ],
+                    },
                   },
-                },
-              ],
-              utilityNav: [
-                {
-                  label: 'Account',
-                  href: '/app?_reload=1',
-                  variant: 'avatar',
-                  list: {
-                    items: [
-                      { label: 'Sign In', href: '/app/auth/login?_reload=1', onAuthState: 'loggedOut' },
-                      { label: 'Dashboard', href: '/app?_reload=1', onAuthState: 'loggedIn' },
-                    ],
+                ],
+                utility: [
+                  {
+                    label: 'Account',
+                    href: '/app?_reload=1',
+                    variant: 'avatar',
+                    list: {
+                      items: [
+                        { label: 'Sign In', href: '/app/auth/login?_reload=1', onAuthState: 'loggedOut' },
+                        { label: 'Dashboard', href: '/app?_reload=1', onAuthState: 'loggedIn' },
+                      ],
+                    },
                   },
-                },
-              ],
+                ],
+
+              },
 
             },
           }),
@@ -989,7 +993,7 @@ export async function getConfig(args: {
                       href: 'https://stripe.com/partners',
                       target: '_blank',
                       label: 'Stripe Verified Partner',
-                      icon: { iconId: 'stripe' },
+                      icon: { iconId: 'brand-stripe' },
                     },
                   ],
                 },

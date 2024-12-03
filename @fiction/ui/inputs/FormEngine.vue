@@ -178,8 +178,8 @@ function getGroupClasses(opt: InputOption) {
         <ElToolSep
           v-else-if="opt.input.value === 'title'"
           :text="opt.label.value"
-          class="mb-2"
-          :class="i === 0 ? 'mt-0' : 'mt-8'"
+          class="mb-1"
+          :class="i === 0 ? 'mt-0' : 'mt-1'"
         />
         <input v-else-if="opt.input.value === 'hidden'" :data-option-path="opt.key.value" type="hidden" :value="getNested({ path: getOptionPath(opt.key.value), data: modelValue })">
 

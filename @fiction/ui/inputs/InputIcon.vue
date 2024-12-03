@@ -62,6 +62,7 @@ function handleIconUpdate(newValue: MediaObject) {
       v-model:vis="vis"
       :model-value="v"
       :tools="['icons', 'upload', 'library', 'html']"
+      default-tool="icons"
       title="Icon Selector"
       @update:model-value="handleIconUpdate"
     />

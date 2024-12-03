@@ -32,7 +32,7 @@ const options: InputOption[] = [
     key: 'items',
     label: 'Statement Slides',
     description: 'Create a sequence of impactful messages that tell your story',
-    props: { itemName: 'Statement' },
+    props: { itemLabel: 'Statement' },
     options: [
       new InputOption({
         key: 'title',

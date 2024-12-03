@@ -17,12 +17,13 @@ const emit = defineEmits<{
 
 const fontsList = vue.ref<FontEntry[]>()
 
-function getGoogleLink(family: string, variants: string[]) {
+function getGoogleLink(family: string) {
   return `https://fonts.googleapis.com/css?family=${encodeURIComponent(family)}:wght@300;400;500;600;700;800;900`
 }
 
-async function getFontsList() {
-  const { fonts } = await import('@fiction/core/utils/lib/fontList')
+async function requestFontsList() {
+  const { getFontList } = await import('@fiction/core/utils/lib/fontList')
+  const fonts = await getFontList()
   return fonts
 }
 
@@ -36,11 +37,26 @@ const list = vue.computed(() => {
 
   const fonts = groupBy(fontsList.value || [], 'category') as Record<string, FontEntry[]>
 
-  const glist = Object.entries(fonts).flatMap(
-    ([category, entries]) => {
+  const categories: FontEntry['category'][] = [
+    'sans-serif',
+    'serif',
+    'handwriting',
+    'display',
+    'monospace',
+  ]
+
+  const glist = categories.flatMap(
+    (category) => {
+      const entries = fonts[category] || []
       const vals = entries.map((entry) => {
-        const { family, variants } = entry
-        return { name: `${family} (${category})`, value: family, source: 'google' }
+        const { family, reason } = entry
+
+        return {
+          label: family,
+          subLabel: [category, reason].filter(Boolean).join(', '),
+          value: family,
+          source: 'google',
+        }
       })
       return [{ format: 'title', name: category }, ...vals]
     },
@@ -55,13 +71,13 @@ const list = vue.computed(() => {
 })
 
 vue.onMounted(async () => {
-  fontsList.value = await getFontsList()
+  fontsList.value = await requestFontsList()
 })
 
 vue.watch(() => modelValue, (newFont) => {
   const fontItem = fontsList.value?.find(font => font.family === newFont)
-  if (fontItem && fontItem.variants.length > 0) {
-    const link = getGoogleLink(fontItem.family, fontItem.variants)
+  if (fontItem) {
+    const link = getGoogleLink(fontItem.family)
     const fontLink = document.getElementById('google-font-preview') as HTMLLinkElement
     if (fontLink) {
       fontLink.href = link

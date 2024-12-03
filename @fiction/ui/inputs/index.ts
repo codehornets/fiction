@@ -7,6 +7,7 @@ const def = vue.defineAsyncComponent
 type InputEntry = { el: vue.Component, shape?: string[] }
 
 export const inputs = {
+  InputNav: { el: def(() => import('./InputNav.vue')) },
   InputControl: { el: def(() => import('./InputControl.vue')) },
   InputProse: { el: def(() => import('./InputProse.vue')) },
   InputActionList: { el: def(() => import('./InputActionList.vue')) },
@@ -54,6 +55,8 @@ export const inputs = {
   InputGradient: { el: def(() => import('./InputGradient.vue')), shape: ['angle', 'stops', 'stops.0.color', 'stops.0.percent', 'css'] },
 } as const satisfies Record<string, InputEntry>
 
+export type InputProps<T extends keyof typeof inputs> = InstanceType<(typeof inputs)[T]['el']>['$props'] & { [key: string]: any }
+
 type SchemaCallback = (args: { z: typeof z, subSchema: z.AnyZodObject }) => z.Schema
 
 export type InputOptionGeneration = {
@@ -79,6 +82,8 @@ export type ValueResponse = {
   format?: 'text' | 'html' | 'media'
 }
 
+type InputComponent = keyof typeof inputs | 'title' | 'group' | 'hidden' | vue.Component
+
 export interface InputOptionSettings {
   testId?: string
   key?: string
@@ -87,7 +92,7 @@ export interface InputOptionSettings {
   description?: string
   subLabel?: string
   placeholder?: string
-  input?: keyof typeof inputs | 'title' | 'group' | 'hidden' | vue.Component
+  input?: InputComponent
   isRequired?: boolean
   isClosed?: boolean
   disabled?: boolean | string

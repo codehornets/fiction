@@ -21,15 +21,15 @@ const nav = vue.computed(() => {
   const siteRouter = props.card.site?.siteRouter
   const out = {
     primary: processNavItems({
-      items: uc.value.primaryNav || [],
-      basePathPrefix: 'primaryNav',
+      items: uc.value.nav?.primary || [],
+      basePathPrefix: 'nav.primary',
       fictionRouter: siteRouter,
       fictionUser,
     }),
     utility: processNavItems({
-      items: uc.value.utilityNav || [],
+      items: uc.value.nav?.utility || [],
       fictionRouter: siteRouter,
-      basePathPrefix: 'utilityNav',
+      basePathPrefix: 'nav.utility',
       fictionUser,
     }),
   }
@@ -102,9 +102,9 @@ function closeMenu() {
               <XLogoType
                 :logo="uc.brand.logo"
                 :classes="{
-                  media: 'h-10',
-                  image: '',
-                  text: 'x-font-title text-2xl font-medium' }"
+                  text: 'x-font-title text-2xl font-medium',
+                }"
+                :media-handling="{ height: 1.75 }"
                 class="transition-all group-hover:opacity-80 duration-200"
                 data-test-id="nav-logo"
               />

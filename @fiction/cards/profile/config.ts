@@ -53,7 +53,7 @@ const options: InputOption[] = [
     key: 'mediaItems',
     label: 'Profile Media',
     input: 'InputList',
-    props: { itemName: 'Image / Video' },
+    props: { itemLabel: 'Image / Video' },
     options: [new InputOption({ key: 'media', input: 'InputMedia' })],
   }),
   new InputOption({ key: 'title', input: 'InputText', label: 'Main Headline' }),
@@ -63,7 +63,7 @@ const options: InputOption[] = [
   new InputOption({
     key: 'details',
     input: 'InputList',
-    props: { itemName: 'Contact Detail' },
+    props: { itemLabel: 'Contact Detail' },
     options: [
       new InputOption({ key: 'label', input: 'InputText', label: 'Label' }),
       new InputOption({ key: 'description', input: 'InputText', label: 'Value' }),
@@ -75,7 +75,7 @@ const options: InputOption[] = [
     key: 'links.buttons',
     input: 'InputList',
     label: 'Links',
-    props: { itemName: 'Link' },
+    props: { itemLabel: 'Link' },
     options: [
       new InputOption({ key: 'label', input: 'InputText', label: 'Label' }),
       new InputOption({ key: 'href', input: 'InputUrl', label: 'URL' }),
@@ -108,8 +108,8 @@ async function getUserConfig(args: { factory: CardFactory }): Promise<UserConfig
     ],
     links: {
       buttons: [
-        { label: 'Connect on LinkedIn', href: '#', icon: { iconId: 'linkedin' } },
-        { label: 'Follow on X', href: '#', icon: { iconId: 'x' } },
+        { label: 'Connect on LinkedIn', href: '#', icon: { iconId: 'brand-linkedin' } },
+        { label: 'Follow on X', href: '#', icon: { iconId: 'brand-x' } },
         { label: 'View Portfolio', href: '#', icon: { iconId: 'external-link' } },
       ],
     },
@@ -141,7 +141,7 @@ async function getDemoUserConfig(args: { factory: CardFactory }): Promise<UserCo
       links: {
         buttons: [
           { label: 'View Leadership Profile', href: '#', icon: { iconId: 'briefcase' }, theme: 'primary' },
-          { label: 'LinkedIn Presence', href: '#', icon: { iconId: 'linkedin' } },
+          { label: 'LinkedIn Presence', href: '#', icon: { iconId: 'brand-linkedin' } },
         ],
       },
     },
@@ -161,11 +161,11 @@ async function getDemoUserConfig(args: { factory: CardFactory }): Promise<UserCo
       detailsTitle: 'Studio Details',
       details: [
         { label: 'Studio', value: 'Brooklyn Design District', icon: { iconId: 'palette' } },
-        { label: 'Portfolio', value: 'View Latest Work', href: '#', icon: { iconId: 'image' } },
+        { label: 'Portfolio', value: 'View Latest Work', href: '#', icon: { iconId: 'photo' } },
       ],
       links: {
         buttons: [
-          { label: 'Instagram Portfolio', href: '#', icon: { iconId: 'instagram' }, theme: 'violet' },
+          { label: 'Instagram Portfolio', href: '#', icon: { iconId: 'brand-instagram' }, theme: 'violet' },
           { label: 'Behance Projects', href: '#', icon: { iconId: 'external-link' } },
         ],
       },
@@ -189,7 +189,7 @@ async function getDemoUserConfig(args: { factory: CardFactory }): Promise<UserCo
       detailsTitle: 'Tech Connect',
       details: [
         { label: 'Specialties', description: 'AI & Machine Learning', icon: { iconId: 'code' } },
-        { label: 'GitHub', description: '@techleader', href: '#', icon: { iconId: 'github' } },
+        { label: 'GitHub', description: '@techleader', href: '#', icon: { iconId: 'brand-github' } },
       ],
       links: {
         buttons: [

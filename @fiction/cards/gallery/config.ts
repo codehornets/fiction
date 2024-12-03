@@ -101,7 +101,7 @@ const options: InputOption[] = [
     input: 'InputList',
     key: 'items',
     label: 'Gallery Items',
-    props: { itemName: 'Visual Item' },
+    props: { itemLabel: 'Visual Item' },
     options: [
       new InputOption({
         key: 'title',

@@ -1,8 +1,8 @@
-import type { IconId } from '@fiction/ui/lib/systemIcons.js'
+import type { IconName } from '@fiction/ui/lib/systemIcons.js'
 import type { vue } from '../utils/libraries.js'
 import { z } from 'zod'
 import { OrFilterGroupSchema } from '../types/endpoint.js'
-import { ColorScaleSchema, colorTheme, colorThemeUser, colorThemeWithInvert } from '../utils/colors.js'
+import { ColorScaleSchema, colorThemeUser, colorThemeWithInvert } from '../utils/colors.js'
 
 export const PostStatusSchema = z.enum(['draft', 'scheduled', 'published', 'hidden', 'protected', 'deleted', 'archived', 'trashed', 'spam'])
 export const ProgressStatusSchema = z.enum(['pending', 'requested', 'processing', 'ready', 'error', 'cancelled'])
@@ -110,7 +110,7 @@ export const MediaBasicSchema = z.object({
 })
 
 export const MediaIconSchema = MediaBasicSchema.extend({
-  iconId: z.string().optional().describe('iconId is common icon name (e.g. user, check, lock)') as z.Schema<IconId | undefined>,
+  iconId: z.string().optional().describe('iconId is common icon name (e.g. user, check, lock)') as z.Schema<IconName | undefined>,
   class: z.string().optional().describe('tabler iconify class i-tabler-[icon-name]'),
 })
 
@@ -120,7 +120,6 @@ export const typographySchema = z.object({
   lineHeight: z.string().optional(),
   letterSpacing: z.string().optional(),
   font: fontFamilySchema.optional(),
-  scale: z.number().optional(),
 })
 
 export type TypographyObject = z.infer<typeof typographySchema>
@@ -129,6 +128,7 @@ export const logoSchema = z.object({
   variant: z.enum(['media', 'typography']).optional(),
   media: MediaIconSchema.optional(),
   typography: typographySchema.optional(),
+  scale: z.number().optional(),
 })
 
 export const brandSchema = z.object({

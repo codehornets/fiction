@@ -172,7 +172,7 @@ export function getDefaultConfig(): UserConfig {
       icon: { class: 'i-tabler-star' },
     },
     title: 'Design Your Perfect Call-to-Action',
-    subTitle: 'This template helps you create compelling CTAs. Edit the content below to match your goals - whether it\'s growing your newsletter, showcasing benefits, or driving conversions.',
+    subTitle: 'This template helps you create compelling CTAs.',
 
     benefits: {
       title: 'Key Benefits',

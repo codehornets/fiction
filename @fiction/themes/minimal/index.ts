@@ -1,3 +1,4 @@
+import type { SiteUserConfig } from '@fiction/site/schema'
 import { getCardTemplates } from '@fiction/cards/index.js'
 import { safeDirname } from '@fiction/core'
 import { Theme } from '@fiction/site/theme.js'
@@ -25,15 +26,13 @@ export const theme = new Theme({
   getTemplates: () => getCardTemplates(),
   getBaseConfig: () => {
     return {
-      styling: {
-        fonts: {
-          sans: { stack: 'sans' as const },
-          title: { fontKey: 'Space Mono', stack: 'sans' as const, weight: '600' },
-          body: { stack: 'sans' as const },
+      site: {
+        styling: {
+          fonts: { },
+          prefersColorScheme: 'dark',
         },
-        prefersColorScheme: 'dark',
       },
-    }
+    } satisfies SiteUserConfig
   },
   getConfig: async (args) => {
     const { getConfig } = await import('./config')

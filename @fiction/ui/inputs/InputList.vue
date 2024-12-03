@@ -8,10 +8,15 @@ import FormEngine from './FormEngine.vue'
 
 export type BasicItem = Record<string, unknown> & { _key?: string }
 
-const { modelValue = [], options = [], itemName = 'Item', depth = 0, inputClass = '', min = 0, max = 100 } = defineProps<{
+const {
+  modelValue = [],
+  options = [],
+  itemLabel = 'Item',
+  depth = 0,
+} = defineProps<{
   modelValue?: BasicItem[]
   options?: InputOption[]
-  itemName?: string
+  itemLabel?: string | ((args: { item?: BasicItem, index?: number }) => string)
   inputClass?: string
   depth?: number
   min?: number
@@ -86,10 +91,23 @@ function getDefaultItem() {
   return item
 }
 
+function getItemLabel(item?: BasicItem, index: number = -1) {
+  if (typeof itemLabel === 'function')
+    return itemLabel({ item, index })
+
+  const out: any[] = [itemLabel]
+
+  if (index > -1)
+    out.push(`${index + 1}`)
+
+  return out.join(' ')
+}
+
 function addItem() {
   const _key = shortId()
   const defaultItem = getDefaultItem()
-  const val = [...modelValue, { name: `New ${itemName}`, _key, ...defaultItem }]
+  const itemLabel = getItemLabel()
+  const val = [...modelValue, { name: `New ${itemLabel}`, _key, ...defaultItem }]
   openItem.value = val.length - 1
   updateModelValue(val)
 }
@@ -161,7 +179,7 @@ vue.onMounted(async () => {
         <div class="flex gap-1 items-center cursor-move">
           <div class="text-lg text-theme-300 dark:text-theme-500 i-tabler-grip-vertical" />
           <div class="text-theme-500 dark:text-theme-50">
-            {{ itemName }} {{ i + 1 }}
+            {{ getItemLabel(item, i) }}
           </div>
         </div>
         <div class="flex gap-1 items-center">
@@ -192,7 +210,7 @@ vue.onMounted(async () => {
         icon="i-tabler-plus"
         @click.prevent="addItem()"
       >
-        Add {{ itemName }}
+        Add {{ getItemLabel() }}
       </XButton>
     </div>
   </div>

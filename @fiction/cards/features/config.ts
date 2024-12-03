@@ -235,7 +235,7 @@ function getMasonryDemo(): UserConfig {
       {
         title: 'Brand Analytics',
         description: 'Track engagement in real-time.',
-        icon: { iconId: 'chart' },
+        icon: { iconId: 'chart-line' },
         color: 'amber',
         columns: '2',
       },
@@ -336,7 +336,7 @@ function getLayoutDemos(): UserConfig[] {
         {
           title: 'Visual Elements',
           description: 'Notice how consistent spacing and alignment reinforce your brand\'s professional image?',
-          icon: { iconId: 'image' },
+          icon: { iconId: 'photo' },
           color: 'violet',
           emphasis: true,
         },
@@ -379,7 +379,7 @@ function getLayoutDemos(): UserConfig[] {
         {
           title: 'Growth Metrics',
           description: 'Watch your brand metrics improve as you optimize each touchpoint.',
-          icon: { iconId: 'chart' },
+          icon: { iconId: 'chart-line' },
           color: 'emerald',
         },
       ],

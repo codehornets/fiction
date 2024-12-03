@@ -5,17 +5,14 @@ defineProps({
 </script>
 
 <template>
-  <div class="relative ">
-    <div
-      class="absolute inset-0 flex items-center"
-      aria-hidden="true"
-    >
-      <div class="w-full border-t border-theme-200" />
-    </div>
+  <div class="flex gap-2 items-center">
     <div class="relative flex justify-start">
       <span
-        class="bg-theme-0 pr-2 text-[10px] uppercase text-theme-300"
+        class=" text-xs text-theme-300 dark:text-theme-500"
       >{{ text }}</span>
     </div>
+    <div
+      class="h-[1px] grow bg-theme-200 dark:bg-theme-700"
+    />
   </div>
 </template>

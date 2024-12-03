@@ -46,9 +46,9 @@ async function generateMediaObjects(): Promise<LogoObject[]> {
         font: { family: 'Montserrat' },
         weight: 'normal',
         letterSpacing: '-0.02em',
-        scale: 1.5,
       },
       variant: 'typography',
+      scale: 1.5,
     },
     // HTML (SVG) examples
     {
@@ -87,7 +87,7 @@ async function generateMediaObjects(): Promise<LogoObject[]> {
     // Icon example
     {
       media: {
-        iconId: 'github',
+        iconId: 'brand-github',
         format: 'iconId',
       },
     },

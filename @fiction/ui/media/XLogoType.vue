@@ -3,14 +3,16 @@ import type { LogoObject } from '@fiction/core'
 import { determineMediaFormat, vue } from '@fiction/core'
 import { googleFontsUtility } from '@fiction/core/utils/fonts'
 import { twMerge } from 'tailwind-merge'
+import { h } from 'vue'
 import XIcon from './XIcon.vue'
 
 defineOptions({ name: 'XLogoType' })
 
-const { logo, classes = {} } = defineProps<{
+const { logo, classes = {}, mediaHandling = {} } = defineProps<{
   logo: LogoObject
   classes: { media?: string, text?: string, image?: string }
   alt?: string
+  mediaHandling?: { height?: number, width?: number } // height or width in rem
 }>()
 
 const variant = vue.computed(() => {
@@ -54,7 +56,7 @@ const typographyStyle = vue.computed(() => {
     fontWeight: t.weight,
     lineHeight: t.lineHeight || '1.2',
     letterSpacing: t.letterSpacing,
-    fontSize: t.scale ? `${t.scale}em` : 'inherit',
+    fontSize: logo.scale ? `${logo.scale}em` : 'inherit',
   }
 })
 
@@ -70,8 +72,6 @@ const mediaClass = vue.computed(() => {
 
 const imageClass = vue.computed(() => {
   const cls = [
-    'max-w-full',
-    'max-h-full',
     'object-contain',
     'transition-all',
     'duration-200',
@@ -119,6 +119,41 @@ function handleImageLoad() {
   }
 }
 
+// Add computed style for natural size scaling
+const elementStyle = vue.computed(() => {
+  const styles: Record<string, string> = {}
+
+  // Handle media-handling dimensions first
+  if (mediaHandling) {
+    if (mediaHandling.height) {
+      styles.height = `${mediaHandling.height}rem`
+      styles.width = 'auto' // Maintain aspect ratio
+    }
+    if (mediaHandling.width) {
+      styles.width = `${mediaHandling.width}rem`
+      styles.height = 'auto' // Maintain aspect ratio
+    }
+  }
+
+  // Apply scale after dimensions if present
+  if (logo.scale && logo.scale !== 1) {
+    const scale = logo.scale
+    // Scale from the base rem size if media-handling is present
+    if (mediaHandling?.height) {
+      styles.height = `${mediaHandling.height * scale}rem`
+    }
+    if (mediaHandling?.width) {
+      styles.width = `${mediaHandling.width * scale}rem`
+    }
+    // If no media-handling, scale naturally
+    if (!mediaHandling) {
+      styles.transform = `scale(${scale})`
+      styles.transformOrigin = 'left center'
+    }
+  }
+
+  return styles
+})
 // ResizeObserver for container size changes
 let resizeObserver: ResizeObserver | undefined
 vue.onMounted(() => {
@@ -143,7 +178,8 @@ vue.onBeforeUnmount(() => {
 <template>
   <div
     v-if="variant === 'media'"
-    :media="logo.media"
+    :data-media-format="mediaFormat || 'none'"
+    :data-media-url="media?.url || 'no-url'"
     image-mode="inline"
     :class="mediaClass"
   >
@@ -154,6 +190,7 @@ vue.onBeforeUnmount(() => {
       :src="media.url"
       :alt="alt || media.alt || ''"
       :class="imageClass"
+      :style="elementStyle"
       @load="handleImageLoad"
     >
 
@@ -166,12 +203,14 @@ vue.onBeforeUnmount(() => {
       autoplay
       loop
       muted
+      :style="elementStyle"
     />
 
     <!-- HTML/SVG Format -->
     <div
       v-else-if="mediaFormat === 'html'"
       class="h-full inline-flex items-center justify-center"
+      :style="elementStyle"
     >
       <div
         ref="svgRef"
@@ -187,6 +226,7 @@ vue.onBeforeUnmount(() => {
         :media="media"
         class="h-full w-full aspect-square"
         :class="imageClass"
+        :style="elementStyle"
       />
     </div>
 
@@ -196,6 +236,7 @@ vue.onBeforeUnmount(() => {
       v-else-if="mediaFormat === 'component'"
       v-bind="media?.props"
       :class="imageClass"
+      :style="elementStyle"
     />
   </div>
   <div
@@ -203,7 +244,7 @@ vue.onBeforeUnmount(() => {
     class="x-logo-type"
     :class="classes.text"
     :data-logo-variant="variant"
-    :data-media-scale="logo.typography?.scale"
+    :data-media-scale="logo?.scale"
   >
     <span :style="typographyStyle">{{ logo.typography?.label || 'Logo' }}</span>
   </div>

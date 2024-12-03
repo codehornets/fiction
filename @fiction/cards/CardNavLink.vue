@@ -67,7 +67,7 @@ const hoverClass = 'group-hover/nav-link:text-theme-500 dark:group-hover/nav-lin
         v-else-if="item.icon"
         :media="item.icon"
         :class="hoverClass"
-        class="size-[1.1em] mr-1"
+        class="size-[1.1em]"
       />
 
       <!-- Text Content -->

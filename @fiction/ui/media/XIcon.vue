@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { MediaObject } from '@fiction/core'
 import { clean, determineMediaFormat, vue } from '@fiction/core'
-import { systemIcons } from '@fiction/ui/lib/systemIcons'
+import { recommendedIcons } from '@fiction/ui/lib/systemIcons'
 
 defineOptions({ name: 'XIcon' })
 
@@ -24,8 +24,14 @@ const iconContent = vue.computed(() => {
     case 'html':
       return clean(iconData.value.html || '')
     case 'iconId': {
-      const icon = systemIcons.find(icon => icon.iconId === iconData.value.iconId)
-      return icon ? icon.iconClass : 'i-tabler-check'
+      const icon = recommendedIcons.find((icon) => {
+        const iconClass = icon.class
+        const iconId = iconData.value.iconId || ''
+        const found = iconClass === `i-tabler-${iconId}`
+
+        return found || iconClass.includes(iconId)
+      })
+      return icon ? icon.class : 'i-tabler-check'
     }
     case 'iconClass':
       return iconData.value.class || 'i-tabler-check'

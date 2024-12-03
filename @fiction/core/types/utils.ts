@@ -9,6 +9,7 @@ export interface ListItem {
   desc?: string
 
   label?: string
+  subLabel?: string
   description?: string
   value?: string | number
 

@@ -98,27 +98,30 @@ export async function getHeader(args: SectionArgs) {
               },
             },
           },
-          primaryNav: [
-            { label: 'Home', href: '/' },
-            { label: 'Blog', href: '/blog' },
-          ],
-          utilityNav: [
-            {
-              label: 'Connect',
-              list: {
-                items: [
-                  { label: '@fictionco', href: 'https://www.x.com/fictionco', icon: { class: 'i-tabler-brand-x' } },
-                  { label: 'GitHub', href: 'https://www.github.com/fiction', icon: { class: 'i-tabler-brand-github' } },
-                ],
+          nav: {
+            primary: [
+              { label: 'Home', href: '/' },
+              { label: 'Blog', href: '/blog' },
+            ],
+            utility: [
+              {
+                label: 'Connect',
+                list: {
+                  items: [
+                    { label: '@fictionco', href: 'https://www.x.com/fictionco', icon: { class: 'i-tabler-brand-x' } },
+                    { label: 'GitHub', href: 'https://www.github.com/fiction', icon: { class: 'i-tabler-brand-github' } },
+                  ],
+                },
               },
-            },
-            {
-              label: 'Contact',
-              href: '/contact',
-              variant: 'button',
-              theme: 'primary',
-            },
-          ],
+              {
+                label: 'Contact',
+                href: '/contact',
+                variant: 'button',
+                theme: 'primary',
+              },
+            ],
+          },
+
         },
       }),
     ],

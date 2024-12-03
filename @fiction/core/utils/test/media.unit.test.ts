@@ -18,7 +18,7 @@ describe('determineMediaFormat', () => {
   })
 
   it('should return "iconId" for media with iconId', () => {
-    const media: MediaObject = { iconId: 'airplane' }
+    const media: MediaObject = { iconId: 'plane' }
     expect(determineMediaFormat(media)).toBe('iconId')
   })
 

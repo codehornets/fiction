@@ -69,14 +69,14 @@ const globalQueryOptions: InputOption[] = [
     subLabel: 'Must match any of these filters (OR logic)',
     description: 'Filters are applied to the global query. If you don\'t want to filter, leave this empty.',
     input: 'InputList',
-    props: { itemName: 'Filter' },
+    props: { itemLabel: 'Filter' },
     options: [
       new InputOption({
         key: 'filters',
         label: 'Filters',
         subLabel: 'Must match all of these filters (AND logic)',
         description: 'These are applied with OR logic. If using AND logic, add a new top level filter.',
-        props: { itemName: 'Filter' },
+        props: { itemLabel: 'Filter' },
         input: 'InputList',
         options: filterOptions,
       }),
@@ -144,7 +144,7 @@ const options = vue.computed(() => {
         label: 'Local Posts',
         input: 'InputList',
         options: localPostOptions,
-        props: { itemName: 'Post' },
+        props: { itemLabel: 'Post' },
       }),
       limitOption,
     ] as InputOption[]

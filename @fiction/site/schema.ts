@@ -20,12 +20,12 @@ const KnownFontKeys = ['mono', 'input', 'title', 'sans', 'body', 'serif', 'highl
 
 export const prefersColorScheme = ['light', 'dark', 'auto', ''] as const
 
-const BaseFontsSchema = z.object(
+const baseFontsSchema = z.object(
   Object.fromEntries(KnownFontKeys.map(key => [key, fontFamilySchema.optional()])),
 )
 
 // .catchall(). This method allows the schema to accept any additional properties of the specified type.
-const FontsSchema = BaseFontsSchema.catchall(fontFamilySchema)
+const fontsSchema = baseFontsSchema.catchall(fontFamilySchema)
 
 const Scheme = z.object({
   bg: MediaDisplaySchema.optional(),
@@ -125,7 +125,7 @@ export const SiteUserConfigSchema = z.object({
     }).optional(),
     styling: z.object({
       isLightMode: z.boolean().optional(),
-      fonts: FontsSchema.optional(),
+      fonts: fontsSchema.optional(),
       buttons: ButtonTypeSchema.optional(),
       prefersColorScheme: z.enum(prefersColorScheme).optional(),
     }).optional(),

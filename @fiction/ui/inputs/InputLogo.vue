@@ -23,18 +23,13 @@ const v = vue.computed(() => props.modelValue || {})
 const variant = vue.computed(() => v.value.variant || 'typography')
 const media = vue.computed(() => v.value.media || {})
 const typography = vue.computed(() => v.value.typography || {})
-const hasLogo = vue.computed(() => media.value.url || media.value.html || media.value.iconId)
-
-function openLogoSelector() {
-  vis.value = true
-}
 
 function handleLogoUpdate(newValue: LogoObject) {
   emit('update:modelValue', newValue)
 }
 
-function handleMediaUpdate(newValue: MediaObject) {
-  handleLogoUpdate({ ...v.value, media: newValue })
+function handleMediaUpdate(mediaValue: MediaObject) {
+  handleLogoUpdate({ ...v.value, media: mediaValue })
   vis.value = false
 }
 
@@ -53,6 +48,12 @@ const mediaOptions = [
         label: 'Logo Media',
         input: 'InputMedia',
       }),
+      new InputOption({
+        key: 'scale',
+        label: 'Size Scale',
+        input: 'InputRange',
+        props: { min: 0.5, max: 3, step: 0.01, startValue: 1 },
+      }),
     ],
   }),
 ]
@@ -64,18 +65,18 @@ const typographyOptions = [
     input: 'group',
     options: [
       new InputOption({
-        key: 'label',
+        key: 'typography.label',
         label: 'Logo Text',
         input: 'InputText',
       }),
       new InputOption({
-        key: 'font',
+        key: 'typography.font',
         label: 'Font',
         input: 'InputFont',
         props: { noPreview: true },
       }),
       new InputOption({
-        key: 'weight',
+        key: 'typography.weight',
         label: 'Weight',
         input: 'InputSelect',
         list: [
@@ -93,7 +94,7 @@ const typographyOptions = [
         key: 'scale',
         label: 'Size Scale',
         input: 'InputRange',
-        props: { min: 0.5, max: 2, step: 0.01, startValue: 1 },
+        props: { min: 0.5, max: 3, step: 0.01, startValue: 1 },
       }),
     ],
   }),
@@ -113,29 +114,21 @@ const typographyOptions = [
       <FormEngine
         state-key="typographyHandling"
         :depth="2"
-        :model-value="media"
+        :model-value="modelValue"
         ui-size="md"
         :options="mediaOptions"
-        @update:model-value="handleMediaUpdate"
+        @update:model-value="handleLogoUpdate"
       />
     </div>
     <div v-else>
       <FormEngine
         state-key="typographyHandling"
         :depth="2"
-        :model-value="typography"
+        :model-value="modelValue"
         ui-size="md"
         :options="typographyOptions"
-        @update:model-value="handleTypeographyUpdate"
+        @update:model-value="handleLogoUpdate"
       />
     </div>
-
-    <LibraryModal
-      v-model="media"
-      v-model:vis="vis"
-      :tools="['upload', 'library', 'html']"
-      title="Media Selector"
-      @update:model-value="handleMediaUpdate"
-    />
   </div>
 </template>

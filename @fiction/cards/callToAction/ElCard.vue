@@ -49,7 +49,7 @@ vue.onMounted(() => {
                 tag="h2"
                 :card
                 path="title"
-                class="font-semibold x-font-title text-5xl animate-item text-balance"
+                class="font-semibold x-font-title text-4xl animate-item text-balance"
                 animate="fade"
               />
 
@@ -58,7 +58,7 @@ vue.onMounted(() => {
                 tag="p"
                 :card
                 path="subTitle"
-                class="text-xl lg:text-2xl text-theme-600 dark:text-theme-300 max-w-2xl animate-item"
+                class="text-xl text-theme-600 dark:text-theme-300 max-w-2xl animate-item leading-relaxed"
                 animate="fade"
               />
             </div>
@@ -79,13 +79,13 @@ vue.onMounted(() => {
               :key="i"
               class="flex gap-4  animate-item max-w-sm items-center justify-start w-full"
             >
-              <XIcon v-if="benefit.icon" :media="benefit.icon" class="size-8 lg:size-12 text-theme-400/70 dark:text-theme-500/70" />
+              <XIcon v-if="benefit.icon" :media="benefit.icon" class="size-8 lg:size-10 text-theme-400/70 dark:text-theme-500/70" />
               <div class="grow w-full">
                 <CardText
                   tag="h3"
                   :card
                   :path="`benefits.items.${i}.label`"
-                  class="font-semibold mb-1 text-lg lg:text-2xl x-font-title"
+                  class="font-semibold mb-1 text-lg lg:text-xl x-font-title"
                 />
               </div>
             </div>

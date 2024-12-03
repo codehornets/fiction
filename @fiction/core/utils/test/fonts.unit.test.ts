@@ -4,7 +4,6 @@
 
 import { beforeEach, describe, expect, it } from 'vitest'
 import { googleFontsUtility, variantToGoogleFontsFormat } from '../fonts'
-import { fonts } from '../lib/fontList'
 
 const fontA = { family: 'Space Mono' }
 const fontB = { family: 'Libre Baskerville' }
@@ -79,21 +78,3 @@ describe('variantToGoogleFontsFormat', () => {
     expect(variantToGoogleFontsFormat('700italic')).toBe('1,700')
   })
 })
-
-// describe('createGoogleFontsLink', () => {
-//   it('should return correct URL for valid font keys', () => {
-//     const fontLink = createGoogleFontsLink({ fontF: [fontA, fontB], fonts })
-//     const expectedLink = 'https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap'
-//     expect(fontLink).toBe(expectedLink)
-//   })
-
-//   it('should encode spaces as plus signs in font family names', () => {
-//     const fontLink = createGoogleFontsLink({ fontF: [fontA], fonts })
-//     expect(fontLink).toContain('Space+Mono')
-//   })
-
-//   it('should return an empty string when no font keys are provided', () => {
-//     const fontLink = createGoogleFontsLink({ fontF: [], fonts })
-//     expect(fontLink).toBe('')
-//   })
-// })

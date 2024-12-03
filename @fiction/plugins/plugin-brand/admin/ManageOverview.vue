@@ -241,7 +241,7 @@ const options = vue.computed(() => {
               label: 'Core Values',
               input: 'InputList',
               props: {
-                itemName: 'Core Value',
+                itemLabel: 'Core Value',
                 uiSize: 'lg',
               },
               options: [

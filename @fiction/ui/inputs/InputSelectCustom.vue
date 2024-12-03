@@ -230,8 +230,8 @@ function handleKeydown(event: KeyboardEvent) {
                 @click="selectValue(item)"
               >
                 <div class="min-w-0 grow">
-                  <div class="shrink-0  font-medium" :class="item.description || item.desc ? '' : 'w-full'">
-                    {{ item.label || item.name }}
+                  <div class="shrink-0 font-medium truncate" :class="item.description || item.desc ? '' : 'w-full'">
+                    {{ item.label || item.name }} <span v-if="item.subLabel" class="text-[.9em] text-theme-500 dark:text-theme-400">{{ item.subLabel }}</span>
                   </div>
                   <div
                     v-if="item.description || item.desc"

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { MediaObject } from '@fiction/core'
 import type { LibraryTool } from './LibraryModal.vue'
-import { removeUndefined, vue } from '@fiction/core'
+import { determineMediaFormat, removeUndefined, vue } from '@fiction/core'
 import XButton from '../buttons/XButton.vue'
 import XMedia from '../media/XMedia.vue'
 import LibraryModal from './LibraryModal.vue'
@@ -16,6 +16,11 @@ const { modelValue = {}, isBackground = false } = defineProps<{
 const emit = defineEmits<{
   (event: 'update:modelValue', payload: MediaObject): void
 }>()
+
+const val = vue.computed(() => {
+  const format = determineMediaFormat(modelValue)
+  return { ...modelValue, format }
+})
 
 const vis = vue.ref(false)
 const v = vue.computed(() => modelValue || {})
@@ -75,8 +80,9 @@ const tools = vue.computed(() => {
 
     <LibraryModal
       v-model:vis="vis"
-      :model-value="v"
+      :model-value="val"
       :tools="tools"
+      default-tool="library"
       title="Media Manager"
       @update:model-value="handleMediaUpdate"
     />

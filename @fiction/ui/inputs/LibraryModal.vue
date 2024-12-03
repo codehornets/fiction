@@ -13,22 +13,30 @@ import LibraryMedia from './LibraryMedia.vue'
 
 defineOptions({ name: 'LibraryModal' })
 
-const props = defineProps({
-  modelValue: { type: Object as vue.PropType<MediaObject>, default: () => ({}) },
-  vis: { type: Boolean, default: false },
-  tools: { type: Array as vue.PropType<LibraryTool[]>, default: () => ['upload'] },
-  title: { type: String, default: 'Library' },
-})
+const {
+  modelValue = {},
+  vis = false,
+  tools = ['upload'],
+  title = 'Library',
+  defaultTool,
+} = defineProps<{
+  modelValue: MediaObject
+  vis: boolean
+  tools: LibraryTool[]
+  title: string
+  defaultTool: LibraryTool
+}>()
+
 const emit = defineEmits<{
   (event: 'update:modelValue', payload: MediaObject): void
   (event: 'update:vis', payload: boolean): void
 }>()
 
 const availableTools = [
-  { label: 'Upload', value: 'upload', icon: 'i-tabler-upload' },
-  { label: 'Library', value: 'library', icon: 'i-tabler-photo' },
-  { label: 'HTML/Embed', value: 'html', icon: 'i-tabler-code' },
-  { label: 'System Icons', value: 'icons', icon: 'i-tabler-category' },
+  { label: 'Upload New', value: 'upload', icon: 'i-tabler-upload' },
+  { label: 'Media Library', value: 'library', icon: 'i-tabler-photo' },
+  { label: 'HTML (SVG/Embed)', value: 'html', icon: 'i-tabler-code' },
+  { label: 'Icon Library', value: 'icons', icon: 'i-tabler-category' },
   { label: 'Background', value: 'background', icon: 'i-tabler-palette' },
 ] as const
 
@@ -43,7 +51,7 @@ function getDefaultTool() {
     v = 'html'
   else if (format === 'iconId')
     v = 'icons'
-  else v = 'upload'
+  else v = defaultTool
 
   return availableTools.find(item => item.value === v) || availableTools[0]
 }
@@ -53,9 +61,9 @@ function selectMedia(media: MediaObject) {
   currentSelection.value = { ...currentSelection.value, format, ...media }
 }
 
-selectMedia(props.modelValue)
+selectMedia(modelValue)
 
-const navItems = vue.computed(() => props.tools.map(t => availableTools.find(item => item.value === t)).filter(Boolean) as typeof availableTools[number][])
+const navItems = vue.computed(() => tools.map(t => availableTools.find(item => item.value === t)).filter(Boolean) as typeof availableTools[number][])
 
 const navItemActive = vue.ref(getDefaultTool())
 
@@ -93,7 +101,7 @@ function updateCurrentSelection(updates: Partial<MediaObject>) {
       </div>
 
       <!-- Preview section -->
-      <div class="relative  py-2 border-b border-theme-300/50 dark:border-theme-700/70">
+      <div v-if="currentSelection.format" class="relative  py-2 border-b border-theme-300/50 dark:border-theme-700/70">
         <div class="absolute top-0 w-full flex justify-between items-center text-theme-500 dark:text-theme-400 px-4 py-2">
           <div class="text-xs opacity-60 flex gap-3">
             <div>Preview</div>
@@ -123,12 +131,13 @@ function updateCurrentSelection(updates: Partial<MediaObject>) {
         >
           <XLogo
             v-if="['iconId', 'iconClass', 'typography'].includes(currentSelection.format || '')"
+            class="mx-auto"
             :media="currentSelection"
             :class="['typography'].includes(currentSelection.format || '') ? 'h-[60px]' : 'h-[150px]'"
           />
           <XMedia
             v-else
-            class="h-[150px] max-w-full"
+            class="h-[150px] max-w-full mx-auto"
             image-mode="inline"
             :media="currentSelection"
             :data-media-format="currentSelection.format"

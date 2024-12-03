@@ -224,12 +224,12 @@ function getDefaultConfig(): UserConfig {
       {
         label: '@company at LinkedIn',
         href: 'https://linkedin.com/company',
-        icon: { iconId: 'linkedin' },
+        icon: { iconId: 'brand-linkedin' },
       },
       {
         label: '@company at X',
         href: 'https://x.com/company',
-        icon: { iconId: 'x' },
+        icon: { iconId: 'brand-x' },
       },
     ],
     form: {
@@ -252,7 +252,7 @@ function getSupportConfig(): UserConfig {
             label: 'Live Chat',
             value: 'Available 24/7',
             href: '#chat',
-            icon: { iconId: 'chat' },
+            icon: { iconId: 'message' },
           },
           {
             label: 'Support Email',
@@ -284,12 +284,12 @@ function getSupportConfig(): UserConfig {
       {
         label: '@example at Discord',
         href: 'https://discord.gg/example',
-        icon: { iconId: 'discord' },
+        icon: { iconId: 'brand-discord' },
       },
       {
         label: '@example at GitHub',
         href: 'https://github.com/example',
-        icon: { iconId: 'github' },
+        icon: { iconId: 'brand-github' },
       },
     ],
     form: {
@@ -344,7 +344,7 @@ function getEnterpriseConfig(): UserConfig {
       {
         label: 'Follow us on LinkedIn',
         href: 'https://linkedin.com/company/example',
-        icon: { iconId: 'linkedin' },
+        icon: { iconId: 'brand-linkedin' },
       },
     ],
     form: {

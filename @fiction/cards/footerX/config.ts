@@ -73,7 +73,7 @@ export function getDemoConfigs(templateId: string): Record<string, { templateId:
           {
             title: 'Content Library',
             items: [
-              { label: 'YouTube Channel', href: 'https://youtube.com/@alexrivera', icon: { iconId: 'youtube' } },
+              { label: 'YouTube Channel', href: 'https://youtube.com/@alexrivera', icon: { iconId: 'brand-youtube' } },
               { label: 'Podcast Episodes', href: '/podcast', icon: { iconId: 'microphone' } },
               { label: 'Free Resources', href: '/resources', icon: { iconId: 'gift' } },
             ],
@@ -122,7 +122,7 @@ export function getDemoConfigs(templateId: string): Record<string, { templateId:
             items: [
               { label: 'Help Center', href: '/help', icon: { iconId: 'help' } },
               { label: 'API Docs', href: '/api', icon: { iconId: 'code' } },
-              { label: 'System Status', href: '/status', icon: { iconId: 'chart' } },
+              { label: 'System Status', href: '/status', icon: { iconId: 'chart-line' } },
             ],
           },
           {
@@ -130,7 +130,7 @@ export function getDemoConfigs(templateId: string): Record<string, { templateId:
             items: [
               { label: 'About Us', href: '/about', icon: { iconId: 'users' } },
               { label: 'Careers', href: '/careers', icon: { iconId: 'briefcase' } },
-              { label: 'Blog', href: '/blog', icon: { iconId: 'newspaper' } },
+              { label: 'Blog', href: '/blog', icon: { iconId: 'news' } },
             ],
           },
         ],
@@ -190,7 +190,7 @@ export function getOptions(): InputOption[] {
       description: 'Design intuitive pathways through your content',
       input: 'InputList',
       props: {
-        itemName: 'Menu Group',
+        itemLabel: 'Menu Group',
         addButtonText: 'Add Navigation Group',
       },
       options: [
@@ -209,7 +209,7 @@ export function getOptions(): InputOption[] {
           description: 'Build your navigation hierarchy',
           input: 'InputList',
           props: {
-            itemName: 'Navigation Link',
+            itemLabel: 'Navigation Link',
             addButtonText: 'Add Navigation Item',
           },
           options: [
@@ -253,7 +253,7 @@ export function getOptions(): InputOption[] {
           description: 'Essential links for transparency and compliance',
           input: 'InputList',
           props: {
-            itemName: 'Legal Link',
+            itemLabel: 'Legal Link',
             addButtonText: 'Add Legal Link',
           },
           options: [
@@ -281,7 +281,7 @@ export function getOptions(): InputOption[] {
           description: 'Add your copyright and brand signature',
           input: 'InputList',
           props: {
-            itemName: 'Footer Text',
+            itemLabel: 'Footer Text',
             addButtonText: 'Add Footer Line',
           },
           options: [

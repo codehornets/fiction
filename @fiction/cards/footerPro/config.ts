@@ -100,7 +100,7 @@ function getOptions(): InputOption[] {
       key: 'columns',
       label: 'Navigation Columns',
       input: 'InputList',
-      props: { itemName: 'Column' },
+      props: { itemLabel: 'Column' },
       options: [
         new InputOption({
           key: 'title',
@@ -111,7 +111,7 @@ function getOptions(): InputOption[] {
           key: 'items',
           label: 'Navigation Items',
           input: 'InputList',
-          props: { itemName: 'Navigation Link' },
+          props: { itemLabel: 'Navigation Link' },
           options: [
             new InputOption({
               key: 'name',
@@ -146,7 +146,7 @@ function getOptions(): InputOption[] {
           key: 'items',
           label: 'Badge Items',
           input: 'InputList',
-          props: { itemName: 'Badge' },
+          props: { itemLabel: 'Badge' },
           options: [
             new InputOption({
               key: 'media',
@@ -176,7 +176,7 @@ function getOptions(): InputOption[] {
           key: 'links',
           label: 'Footer Links',
           input: 'InputList',
-          props: { itemName: 'Link' },
+          props: { itemLabel: 'Link' },
           options: [
             new InputOption({
               key: 'name',
@@ -194,7 +194,7 @@ function getOptions(): InputOption[] {
           key: 'social',
           label: 'Social Links',
           input: 'InputList',
-          props: { itemName: 'Social Link' },
+          props: { itemLabel: 'Social Link' },
           options: [
             new InputOption({
               key: 'name',
@@ -291,9 +291,9 @@ async function getDemoConfig(args: { templateId: string, stock: StockMedia }): P
           ],
           social: [
             { label: 'X', href: 'https://x.com', media: { iconId: 'x' } },
-            { label: 'GitHub', href: 'https://github.com', media: { iconId: 'github' } },
-            { label: 'LinkedIn', href: 'https://linkedin.com', media: { iconId: 'linkedin' } },
-            { label: 'YouTube', href: 'https://youtube.com', media: { iconId: 'youtube' } },
+            { label: 'GitHub', href: 'https://github.com', media: { iconId: 'brand-github' } },
+            { label: 'LinkedIn', href: 'https://linkedin.com', media: { iconId: 'brand-linkedin' } },
+            { label: 'YouTube', href: 'https://youtube.com', media: { iconId: 'brand-youtube' } },
           ],
         },
       },

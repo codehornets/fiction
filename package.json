@@ -22,6 +22,7 @@
     "test:pkgJson": "npx npmPkgJsonLint .",
     "fix-deps": "syncpack fix-mismatches",
     "cloudinary:urls": "tsx ./scripts/cloudinaryUrls.ts",
+    "gen:googleFonts": "tsx ./scripts/genGoogleFontList.ts",
     "generate": "npm exec -w @fiction/www -- fiction run generate",
     "changelog": "npm exec -- conventional-changelog -p angular -i CHANGELOG.md -s",
     "app:dev": "npm exec -w @fiction/www -- fiction run dev",
