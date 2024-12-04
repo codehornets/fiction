@@ -1,13 +1,12 @@
-import type { ConfigResponse } from '@fiction/site/card'
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { SiteUserConfig } from '@fiction/site/schema'
 import type { StockMedia } from '@fiction/ui/stock'
-import { actionAreaSchema, ActionButtonSchema, colorThemeUser, navListItemSchema, superTitleSchema } from '@fiction/core'
-import { InputOption } from '@fiction/ui'
+import { ActionAreaSchema, colorThemeUser, type MediaObject, NavListItemSchema, superTitleSchema } from '@fiction/core'
+import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
 // Schema definitions
-const detailSchema = navListItemSchema.pick({
+const detailSchema = NavListItemSchema.pick({
   label: true,
   description: true,
   value: true,
@@ -15,7 +14,7 @@ const detailSchema = navListItemSchema.pick({
   href: true,
 })
 
-const mediaSchema = navListItemSchema.pick({
+const mediaSchema = NavListItemSchema.pick({
   media: true,
 })
 
@@ -24,65 +23,110 @@ export const schema = z.object({
   content: z.string().optional().describe('Formatted markdown of profile with paragraphs, 30 to 60 words, 2 paragraphs [ai]'),
   superTitle: superTitleSchema.optional(),
   layout: z.enum(['left', 'right']).optional().describe('Media on left or right'),
-  theme: z.enum(colorThemeUser).optional().describe('Color theme for the profile'),
   mediaItems: z.array(mediaSchema).optional().describe('Splash pictures in portrait format [ai seconds=40]'),
   detailsTitle: z.string().optional().describe('Title for list of details [ai]'),
   details: z.array(detailSchema).optional().describe('List of details with contact details, location, etc.'),
-  links: actionAreaSchema.optional().describe('List of social media links'),
+  action: ActionAreaSchema.optional().describe('List of social media links'),
 })
 
 export type UserConfig = z.infer<typeof schema>
+type DetailConfig = z.infer<typeof detailSchema>
 
 // Input options configuration
-const options: InputOption[] = [
-  new InputOption({
-    key: 'layout',
-    input: 'InputSelect',
-    label: 'Layout Style',
-    list: [
-      { name: 'Media on Left', value: 'left' },
-      { name: 'Media on Right', value: 'right' },
-    ],
-  }),
-  new InputOption({
-    key: 'theme',
-    input: 'InputSelect',
-    label: 'Color Theme',
-    props: { list: colorThemeUser },
-  }),
-  new InputOption({
-    key: 'mediaItems',
-    label: 'Profile Media',
-    input: 'InputList',
-    props: { itemLabel: 'Image / Video' },
-    options: [new InputOption({ key: 'media', input: 'InputMedia' })],
-  }),
-  new InputOption({ key: 'title', input: 'InputText', label: 'Main Headline' }),
-  new InputOption({ key: 'superTitle.text', input: 'InputText', label: 'Upper Tagline' }),
-  new InputOption({ key: 'content', input: 'InputProse', label: 'Profile Content' }),
-  new InputOption({ key: 'detailsTitle', input: 'InputText', label: 'Details Section Title' }),
-  new InputOption({
-    key: 'details',
-    input: 'InputList',
-    props: { itemLabel: 'Contact Detail' },
+const options = [
+  createOption({
+    schema,
+    key: 'contentGroup',
+    input: 'group',
+    label: 'Content',
+    icon: { class: 'i-tabler-highlight' },
     options: [
-      new InputOption({ key: 'label', input: 'InputText', label: 'Label' }),
-      new InputOption({ key: 'description', input: 'InputText', label: 'Value' }),
-      new InputOption({ key: 'icon', input: 'InputIcon', label: 'Icon' }),
-      new InputOption({ key: 'href', input: 'InputUrl', label: 'Link URL' }),
+      createOption({ schema, key: 'title', input: 'InputText', label: 'Title' }),
+      createOption({ schema, key: 'content', input: 'InputProse', label: 'Description' }),
+      createOption({ schema, key: 'superTitle', input: 'InputSuperTitle' }),
+      createOption({
+        schema,
+        key: 'detailsGroup',
+        input: 'group',
+        label: 'Details',
+        icon: { class: 'i-tabler-list-details' },
+        options: [
+          createOption({ schema, key: 'detailsTitle', input: 'InputText', label: 'Details Section Title' }),
+          createOption({
+            schema,
+            key: 'details',
+            input: 'InputList',
+            props: {
+              itemName: 'Detail',
+              itemLabel: args => (args?.item as DetailConfig)?.label ?? 'Untitled',
+            },
+            options: [
+              createOption({ schema, key: 'label', input: 'InputText', label: 'Label' }),
+              createOption({ schema, key: 'description', input: 'InputText', label: 'Value' }),
+              createOption({ schema, key: 'icon', input: 'InputIcon', label: 'Icon' }),
+              createOption({ schema, key: 'href', input: 'InputUrl', label: 'Link URL' }),
+            ],
+          }),
+        ],
+      }),
+
     ],
   }),
-  new InputOption({
-    key: 'links.buttons',
-    input: 'InputList',
-    label: 'Links',
-    props: { itemLabel: 'Link' },
+  createOption({
+    schema,
+    key: 'mediaGroup',
+    input: 'group',
+    label: 'Media',
+    icon: { class: 'i-tabler-photo' },
     options: [
-      new InputOption({ key: 'label', input: 'InputText', label: 'Label' }),
-      new InputOption({ key: 'href', input: 'InputUrl', label: 'URL' }),
-      new InputOption({ key: 'icon', input: 'InputIcon', label: 'Icon' }),
+      createOption({
+        schema,
+        key: 'mediaItems',
+        label: 'Profile Media',
+        input: 'InputList',
+        props: {
+          itemName: 'Media Item',
+          itemLabel: args => (args?.item as MediaObject)?.alt ?? `Media Item ${(args?.item as MediaObject)?.format ?? (args.index ? args.index + 1 : '')}`,
+        },
+        options: [createOption({ schema, key: 'media', input: 'InputMedia' })],
+      }),
     ],
   }),
+  createOption({
+    schema,
+    key: 'settingsGroup',
+    input: 'group',
+    label: 'Settings',
+    icon: { class: 'i-tabler-settings' },
+    options: [
+      createOption({
+        schema,
+        key: 'layout',
+        input: 'InputRadioButton',
+        label: 'Layout Style',
+        list: [
+          { name: 'Media on Left', value: 'left' },
+          { name: 'Media on Right', value: 'right' },
+        ],
+      }),
+    ],
+  }),
+  createOption({
+    schema,
+    key: 'mediaGroup',
+    input: 'group',
+    label: 'Action Area',
+    icon: { class: 'i-tabler-click' },
+    options: [
+      createOption({
+        schema,
+        key: 'action',
+        label: 'Profile Media',
+        input: 'InputActionArea',
+      }),
+    ],
+  }),
+
 ]
 
 // Default content with instructional copy
@@ -94,7 +138,7 @@ async function getUserConfig(args: { factory: CardFactory, stock: StockMedia }):
     title: 'Crafting Your Perfect Professional Story',
     content: `<p>Notice how a well-structured bio can capture attention instantly? Start with your most compelling achievements or unique value proposition. Keep it concise yet impactful.</p>
 <p>Imagine connecting with your audience through carefully chosen words that reflect your authentic voice while maintaining professional credibility. Remember to highlight your expertise and what makes you uniquely qualified.</p>`,
-    theme: 'blue',
+
     mediaItems: [
       { media: stock.getRandomByTags(['aspect:portrait']) },
       { media: stock.getRandomByTags(['aspect:portrait']) },
@@ -106,7 +150,7 @@ async function getUserConfig(args: { factory: CardFactory, stock: StockMedia }):
       { label: 'Availability', value: 'Open to Opportunities', icon: { iconId: 'calendar' } },
       { label: 'Phone', value: '(555) 123-4567', href: 'tel:+15551234567', icon: { iconId: 'phone' } },
     ],
-    links: {
+    action: {
       buttons: [
         { label: 'Connect on LinkedIn', href: '#', icon: { iconId: 'brand-linkedin' } },
         { label: 'Follow on X', href: '#', icon: { iconId: 'brand-x' } },
@@ -123,7 +167,6 @@ async function getDemoUserConfig(args: { factory: CardFactory, stock: StockMedia
     // Executive Profile
     {
       layout: 'right',
-      theme: 'slate',
       superTitle: { text: 'Chief Executive Officer' },
       title: 'Leading Innovation Through Vision',
       content: `<p>See how a strong executive presence can be established through thoughtful imagery and precise language? Notice the professional yet approachable tone that builds trust.</p>
@@ -136,7 +179,7 @@ async function getDemoUserConfig(args: { factory: CardFactory, stock: StockMedia
         { label: 'Office', value: 'Global HQ, New York', icon: { iconId: 'building' } },
         { label: 'Assistant', value: 'executive.office@company.com', href: 'mailto:example@company.com', icon: { iconId: 'mail' } },
       ],
-      links: {
+      action: {
         buttons: [
           { label: 'View Leadership Profile', href: '#', icon: { iconId: 'briefcase' }, theme: 'primary' },
           { label: 'LinkedIn Presence', href: '#', icon: { iconId: 'brand-linkedin' } },
@@ -147,7 +190,6 @@ async function getDemoUserConfig(args: { factory: CardFactory, stock: StockMedia
     // Creative Professional
     {
       layout: 'left',
-      theme: 'violet',
       superTitle: { text: 'Design Director & Artist' },
       title: 'Where Creativity Meets Strategy',
       content: `<p>Imagine capturing your creative spirit while maintaining professional credibility. Notice how the layout balances artistic expression with business acumen.</p>
@@ -161,7 +203,7 @@ async function getDemoUserConfig(args: { factory: CardFactory, stock: StockMedia
         { label: 'Studio', value: 'Brooklyn Design District', icon: { iconId: 'palette' } },
         { label: 'Portfolio', value: 'View Latest Work', href: '#', icon: { iconId: 'photo' } },
       ],
-      links: {
+      action: {
         buttons: [
           { label: 'Instagram Portfolio', href: '#', icon: { iconId: 'brand-instagram' }, theme: 'violet' },
           { label: 'Behance Projects', href: '#', icon: { iconId: 'external-link' } },
@@ -172,7 +214,6 @@ async function getDemoUserConfig(args: { factory: CardFactory, stock: StockMedia
     // Technology Expert
     {
       layout: 'right',
-      theme: 'cyan',
       superTitle: {
         text: 'Tech Innovation Lead',
         theme: 'orange',
@@ -189,7 +230,7 @@ async function getDemoUserConfig(args: { factory: CardFactory, stock: StockMedia
         { label: 'Specialties', description: 'AI & Machine Learning', icon: { iconId: 'code' } },
         { label: 'GitHub', description: '@techleader', href: '#', icon: { iconId: 'brand-github' } },
       ],
-      links: {
+      action: {
         buttons: [
           { label: 'Tech Blog', href: '#', icon: { iconId: 'rss' }, theme: 'orange' },
           { label: 'Stack Overflow', href: '#', icon: { iconId: 'terminal' }, theme: 'orange', design: 'outline' },

@@ -5,7 +5,7 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
     solid: { },
     ghost: { },
     outline: { },
-    textOnly: { },
+    link: { },
   },
   default: {
     solid: {
@@ -26,7 +26,7 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
       hover: 'hover:opacity-70',
       icon: 'text-theme-700 dark:text-theme-300',
     },
-    textOnly: {
+    link: {
       base: 'bg-transparent text-theme-600 dark:text-theme-50',
       border: 'border-transparent',
       hover: 'hover:opacity-70',
@@ -52,7 +52,7 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
       hover: 'hover:border-white/80',
       icon: 'text-white',
     },
-    textOnly: {
+    link: {
       base: 'bg-transparent text-white [text-shadow:_0_0.5px_0_rgb(0_0_0_/_40%)]',
       border: 'border-transparent',
       hover: 'hover:opacity-70',
@@ -78,7 +78,7 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
       hover: 'hover:bg-primary-500/10 dark:hover:bg-primary-500/20',
       icon: 'text-primary-700 dark:text-primary-100',
     },
-    textOnly: {
+    link: {
       base: 'bg-transparent text-primary-600 dark:text-primary-400',
       border: 'border-transparent',
       hover: 'hover:opacity-70',
@@ -104,7 +104,7 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
       hover: 'hover:bg-theme-500/10 dark:hover:bg-theme-400/20',
       icon: 'text-theme-500 dark:text-theme-300',
     },
-    textOnly: {
+    link: {
       base: 'bg-transparent text-theme-600 dark:text-theme-400',
       border: 'border-transparent',
       hover: 'hover:opacity-70',
@@ -131,7 +131,7 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
       hover: 'hover:bg-green-500/10 dark:hover:bg-green-400/10',
       icon: 'text-green-500 dark:text-green-50',
     },
-    textOnly: {
+    link: {
       base: 'bg-transparent text-green-600 dark:text-green-400',
       border: 'border-transparent',
       hover: 'hover:opacity-70',
@@ -157,7 +157,7 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
       hover: 'hover:bg-orange-500/10 dark:hover:bg-orange-400/10',
       icon: 'text-orange-500 dark:text-orange-50',
     },
-    textOnly: {
+    link: {
       base: 'bg-transparent text-orange-600 dark:text-orange-400',
       border: 'border-transparent',
       hover: 'hover:opacity-70',
@@ -183,7 +183,7 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
       hover: 'hover:bg-rose-500/10 dark:hover:bg-rose-400/10',
       icon: 'text-rose-500 dark:text-rose-50',
     },
-    textOnly: {
+    link: {
       base: 'bg-transparent text-rose-600 dark:text-rose-400',
       border: 'border-transparent',
       hover: 'hover:opacity-70',
@@ -209,7 +209,7 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
       hover: 'hover:bg-indigo-500/10 dark:hover:bg-indigo-400/10',
       icon: 'text-indigo-500 dark:text-indigo-50',
     },
-    textOnly: {
+    link: {
       base: 'bg-transparent text-indigo-600 dark:text-indigo-400',
       border: 'border-transparent',
       hover: 'hover:text-indigo-700 dark:hover:text-indigo-300',
@@ -235,7 +235,7 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
       hover: 'hover:bg-sky-500/10 dark:hover:bg-sky-400/10',
       icon: 'text-sky-500 dark:text-sky-50',
     },
-    textOnly: {
+    link: {
       base: 'bg-transparent text-sky-600 dark:text-sky-400',
       border: 'border-transparent',
       hover: 'hover:opacity-70',
@@ -261,7 +261,7 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
       hover: 'hover:bg-teal-500/10 dark:hover:bg-teal-400/10',
       icon: 'text-teal-500 dark:text-teal-50',
     },
-    textOnly: {
+    link: {
       base: 'bg-transparent text-teal-600 dark:text-teal-400',
       border: 'border-transparent',
       hover: 'hover:opacity-70',
@@ -287,7 +287,7 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
       hover: 'hover:bg-blue-500/10 dark:hover:bg-blue-400/10',
       icon: 'text-blue-500 dark:text-blue-50',
     },
-    textOnly: {
+    link: {
       base: 'bg-transparent text-blue-600 dark:text-blue-400',
       border: 'border-transparent',
       hover: 'hover:opacity-70',
@@ -313,7 +313,7 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
       hover: 'hover:bg-purple-500/10 dark:hover:bg-purple-400/10',
       icon: 'text-purple-500 dark:text-purple-50',
     },
-    textOnly: {
+    link: {
       base: 'bg-transparent text-purple-600 dark:text-purple-400',
       border: 'border-transparent',
       hover: 'hover:opacity-70',
@@ -339,7 +339,7 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
       hover: 'hover:bg-yellow-500/10 dark:hover:bg-yellow-400/10',
       icon: 'text-yellow-500 dark:text-yellow-50',
     },
-    textOnly: {
+    link: {
       base: 'bg-transparent text-yellow-600 dark:text-yellow-400',
       border: 'border-transparent',
       hover: 'hover:opacity-70',
@@ -365,7 +365,7 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
       hover: 'hover:bg-amber-500/10 dark:hover:bg-amber-400/10',
       icon: 'text-amber-500 dark:text-amber-50',
     },
-    textOnly: {
+    link: {
       base: 'bg-transparent text-amber-600 dark:text-amber-400',
       border: 'border-transparent',
       hover: 'hover:text-amber-700 dark:hover:text-amber-300',
@@ -391,7 +391,7 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
       hover: 'hover:bg-fuchsia-500/10 dark:hover:bg-fuchsia-400/10',
       icon: 'text-fuchsia-500 dark:text-fuchsia-50',
     },
-    textOnly: {
+    link: {
       base: 'bg-transparent text-fuchsia-600 dark:text-fuchsia-400',
       border: 'border-transparent',
       hover: 'hover:text-fuchsia-700 dark:hover:text-fuchsia-300',
@@ -417,7 +417,7 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
       hover: 'hover:bg-slate-500/10 dark:hover:bg-slate-400/10',
       icon: 'text-slate-500 dark:text-slate-50',
     },
-    textOnly: {
+    link: {
       base: 'bg-transparent text-slate-600 dark:text-slate-400',
       border: 'border-transparent',
       hover: 'hover:text-slate-700 dark:hover:text-slate-300',
@@ -443,7 +443,7 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
       hover: 'hover:bg-gray-500/10 dark:hover:bg-gray-400/10',
       icon: 'text-gray-500 dark:text-gray-50',
     },
-    textOnly: {
+    link: {
       base: 'bg-transparent text-gray-600 dark:text-gray-400',
       border: 'border-transparent',
       hover: 'hover:text-gray-700 dark:hover:text-gray-300',
@@ -469,7 +469,7 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
       hover: 'hover:bg-zinc-500/10 dark:hover:bg-zinc-400/10',
       icon: 'text-zinc-500 dark:text-zinc-50',
     },
-    textOnly: {
+    link: {
       base: 'bg-transparent text-zinc-600 dark:text-zinc-400',
       border: 'border-transparent',
       hover: 'hover:text-zinc-700 dark:hover:text-zinc-300',
@@ -495,7 +495,7 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
       hover: 'hover:bg-neutral-500/10 dark:hover:bg-neutral-400/10',
       icon: 'text-neutral-500 dark:text-neutral-50',
     },
-    textOnly: {
+    link: {
       base: 'bg-transparent text-neutral-600 dark:text-neutral-400',
       border: 'border-transparent',
       hover: 'hover:text-neutral-700 dark:hover:text-neutral-300',
@@ -521,7 +521,7 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
       hover: 'hover:bg-stone-500/10 dark:hover:bg-stone-400/10',
       icon: 'text-stone-500 dark:text-stone-50',
     },
-    textOnly: {
+    link: {
       base: 'bg-transparent text-stone-600 dark:text-stone-400',
       border: 'border-transparent',
       hover: 'hover:text-stone-700 dark:hover:text-stone-300',
@@ -547,7 +547,7 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
       hover: 'hover:bg-gray-100 dark:hover:bg-gray-800',
       icon: 'text-black dark:text-white',
     },
-    textOnly: {
+    link: {
       base: 'bg-transparent text-black-600 dark:text-black-400',
       border: 'border-transparent',
       hover: 'hover:text-black-700 dark:hover:text-black-300',
@@ -573,7 +573,7 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
       hover: 'hover:border-gray-300 dark:hover:bg-gray-100',
       icon: 'text-gray-900 dark:text-white',
     },
-    textOnly: {
+    link: {
       base: 'bg-transparent text-white',
       border: 'border-transparent',
       hover: 'hover:text-white/70',
@@ -600,7 +600,7 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
       hover: 'hover:bg-red-500/10 dark:hover:bg-red-400/10',
       icon: 'text-red-500 dark:text-red-50',
     },
-    textOnly: {
+    link: {
       base: 'bg-transparent text-red-600 dark:text-red-400',
       border: 'border-transparent',
       hover: 'hover:text-red-700 dark:hover:text-red-300',
@@ -626,7 +626,7 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
       hover: 'hover:bg-lime-500/10 dark:hover:bg-lime-400/10',
       icon: 'text-lime-500 dark:text-lime-50',
     },
-    textOnly: {
+    link: {
       base: 'bg-transparent text-lime-600 dark:text-lime-400',
       border: 'border-transparent',
       hover: 'hover:text-lime-700 dark:hover:text-lime-300',
@@ -652,7 +652,7 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
       hover: 'hover:bg-emerald-500/10 dark:hover:bg-emerald-400/10',
       icon: 'text-emerald-500 dark:text-emerald-50',
     },
-    textOnly: {
+    link: {
       base: 'bg-transparent text-emerald-600 dark:text-emerald-400',
       border: 'border-transparent',
       hover: 'hover:text-emerald-700 dark:hover:text-emerald-300',
@@ -678,7 +678,7 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
       hover: 'hover:bg-cyan-500/10 dark:hover:bg-cyan-400/10',
       icon: 'text-cyan-500 dark:text-cyan-50',
     },
-    textOnly: {
+    link: {
       base: 'bg-transparent text-cyan-600 dark:text-cyan-400',
       border: 'border-transparent',
       hover: 'hover:text-cyan-700 dark:hover:text-cyan-300',
@@ -704,7 +704,7 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
       hover: 'hover:bg-violet-500/10 dark:hover:bg-violet-400/10',
       icon: 'text-violet-500 dark:text-violet-50',
     },
-    textOnly: {
+    link: {
       base: 'bg-transparent text-violet-600 dark:text-violet-400',
       border: 'border-transparent',
       hover: 'hover:text-violet-700 dark:hover:text-violet-300',
@@ -730,7 +730,7 @@ export const themes: Record<ColorThemeUser, Record<ButtonDesign, { base?: string
       hover: 'hover:bg-pink-500/10 dark:hover:bg-pink-400/10',
       icon: 'text-pink-500 dark:text-pink-50',
     },
-    textOnly: {
+    link: {
       base: 'bg-transparent text-pink-600 dark:text-pink-400',
       border: 'border-transparent',
       hover: 'hover:text-pink-700 dark:hover:text-pink-300',

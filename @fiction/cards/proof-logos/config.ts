@@ -1,11 +1,11 @@
 import type { MediaObject } from '@fiction/core'
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { StockMedia } from '@fiction/ui/stock'
-import { colorThemeUser, navListItemSchema } from '@fiction/core'
+import { colorThemeUser, NavListItemSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
-const logoSchema = navListItemSchema.pick({
+const logoSchema = NavListItemSchema.pick({
   label: true,
   href: true,
   media: true,

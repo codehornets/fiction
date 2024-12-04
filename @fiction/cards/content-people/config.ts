@@ -1,117 +1,123 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { StockMedia } from '@fiction/ui/stock/index.js'
-import { actionAreaSchema, MediaBasicSchema, navListItemSchema } from '@fiction/core'
-import { InputOption } from '@fiction/ui'
+import { ActionAreaSchema, MediaBasicSchema, NavListItemSchema, PostSchema } from '@fiction/core'
+import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
 // Schema definition with all fields optional
-const socialSchema = navListItemSchema.pick({
-  label: true,
+const MemberSchema = PostSchema.pick({
+  title: true,
+  subTitle: true,
+  content: true,
   media: true,
-  href: true,
+  action: true,
 })
 
 const schema = z.object({
   layout: z.enum(['mediabox', 'grid']).optional(),
   title: z.string().optional(),
   subTitle: z.string().optional(),
-  profiles: z.array(z.object({
-    name: z.string().optional(),
-    desc: z.string().optional(),
-    title: z.string().optional(),
-    media: MediaBasicSchema.optional(),
-    action: actionAreaSchema.optional(),
-  })).optional(),
+  profiles: z.array(MemberSchema).optional(),
 })
 
 export type UserConfig = z.infer<typeof schema>
+type MemberConfig = z.infer<typeof MemberSchema>
 
-function getOptions(): InputOption[] {
+function getOptions() {
   return [
-    new InputOption({
-      key: 'layout',
-      input: 'InputSelect',
-      label: 'Layout Style',
-      list: [
-        { value: 'mediabox', label: 'Media Box - Large portraits with side text' },
-        { value: 'grid', label: 'Grid - Modern gallery style layout' },
-      ],
-    }),
-    new InputOption({
-      key: 'title',
-      input: 'InputText',
-      label: 'Main Heading',
-      placeholder: 'e.g., Meet the Minds Behind Our Success',
-    }),
-    new InputOption({
-      key: 'subTitle',
-      input: 'InputText',
-      label: 'Supporting Message',
-      placeholder: 'Share what makes your team unique',
-    }),
-    new InputOption({
-      key: 'profiles',
-      input: 'InputList',
-      label: 'Team Members',
-      props: { itemLabel: 'Team Member' },
+    createOption({
+      schema,
+      input: 'group',
+      key: 'groupPeopleItems',
+      label: 'Members',
+      icon: { class: 'i-tabler-users' },
       options: [
-        new InputOption({
-          key: 'name',
-          input: 'InputText',
-          label: 'Full Name',
-          placeholder: 'e.g., Sarah Chen',
-          isRequired: true,
-        }),
-        new InputOption({
-          key: 'title',
-          input: 'InputText',
-          label: 'Role/Position',
-          placeholder: 'e.g., Chief Innovation Officer',
-        }),
-        new InputOption({
-          key: 'desc',
-          input: 'InputTextarea',
-          label: 'Bio',
-          placeholder: 'Share their story, expertise and impact',
-        }),
-        new InputOption({
-          key: 'media',
-          input: 'InputMedia',
-          label: 'Profile Photo',
-          props: {
-            formats: { url: true },
-            aspectRatio: '4:5',
-            placeholder: 'Upload a professional headshot',
-          },
-        }),
-        new InputOption({
-          key: 'social',
+        createOption({
+          schema,
+          key: 'profiles',
           input: 'InputList',
-          label: 'Social Profiles',
-          props: { itemLabel: 'Social Link' },
+          label: 'Team Members',
+          props: {
+            itemName: 'Member',
+            itemLabel: args => (args?.item as MemberConfig)?.title ?? 'Untitled',
+          },
           options: [
-            new InputOption({
-              key: 'label',
+            createOption({
+              schema,
+              key: 'title',
               input: 'InputText',
-              label: 'Platform',
-              placeholder: 'e.g., LinkedIn, Twitter',
+              label: 'Full Name',
+              placeholder: 'Enter their name',
             }),
-            new InputOption({
-              key: 'href',
-              input: 'InputUrl',
-              label: 'Profile URL',
-              placeholder: 'https://...',
+            createOption({
+              schema,
+              key: 'subTitle',
+              input: 'InputText',
+              label: 'Role or Sub Title',
+              placeholder: 'e.g., Chief Innovation Officer',
             }),
-            new InputOption({
+            createOption({
+              schema,
+              key: 'content',
+              input: 'InputTextarea',
+              label: 'Details',
+              placeholder: 'Share their story, expertise and impact',
+            }),
+            createOption({
+              schema,
               key: 'media',
-              input: 'InputIcon',
-              label: 'Icon',
-              props: { defaultIcon: 'i-tabler-brand-linkedin' },
+              input: 'InputMedia',
+              label: 'Profile Photo',
+              props: {
+                formats: { url: true },
+                aspectRatio: '4:5',
+                placeholder: 'Upload a professional headshot',
+              },
+            }),
+            createOption({
+              schema,
+              key: 'action',
+              input: 'InputActionArea',
+              label: 'Links / Actions',
             }),
           ],
         }),
       ],
     }),
+    createOption({
+      schema,
+      input: 'group',
+      key: 'groupPeopleSettings',
+      label: 'Settings',
+      icon: { class: 'i-tabler-settings' },
+      options: [
+        createOption({
+          schema,
+          key: 'layout',
+          input: 'InputRadioButton',
+          label: 'Layout Style',
+          list: [
+            { value: 'mediabox', label: 'Media Box', description: 'Large portraits with side text' },
+            { value: 'grid', label: 'Grid', description: 'Modern gallery style layout' },
+          ],
+        }),
+        createOption({
+          schema,
+          key: 'title',
+          input: 'InputText',
+          label: 'Overview Heading',
+          placeholder: 'e.g., Meet the Minds Behind Our Success',
+        }),
+        createOption({
+          schema,
+          key: 'subTitle',
+          input: 'InputText',
+          label: 'Overview Subheading',
+          placeholder: 'Share what makes your team unique',
+        }),
+      ],
+    }),
+
   ]
 }
 
@@ -122,9 +128,9 @@ async function getDefaultConfig(args: { stock: StockMedia }): Promise<UserConfig
     title: 'Build Trust with Faces',
     subTitle: 'Notice how a well-crafted team section instantly builds credibility. Add your team members to create meaningful connections with visitors.',
     profiles: [{
-      name: 'Your Team Member',
-      title: 'Share Their Role',
-      desc: 'Imagine the impact of sharing their unique story. What expertise do they bring? What accomplishments make them stand out? Use this space to help visitors connect with your team personally.',
+      title: 'Your Team Member',
+      subTitle: 'Share Their Role',
+      content: 'Imagine the impact of sharing their unique story. What expertise do they bring? What accomplishments make them stand out? Use this space to help visitors connect with your team personally.',
       media: stock.getRandomByTags(['person']),
       action: {
         buttons: [
@@ -147,9 +153,9 @@ async function getDemoConfigs(args: { stock: StockMedia }): Promise<Record<strin
       title: 'Meet Our Innovators',
       subTitle: 'Feel the energy of a team that\'s reshaping the future of technology, one breakthrough at a time.',
       profiles: [{
-        name: 'Alexandra Rivera',
-        title: 'Innovation Lead',
-        desc: 'Visualize the possibilities with Alexandra leading the way. Previously scaled three AI startups, now revolutionizing how we approach machine learning ethics.',
+        title: 'Alexandra Rivera',
+        subTitle: 'Innovation Lead',
+        content: 'Visualize the possibilities with Alexandra leading the way. Previously scaled three AI startups, now revolutionizing how we approach machine learning ethics.',
         media: stock.getRandomByTags(['woman']),
         action: {
           buttons: [
@@ -158,14 +164,14 @@ async function getDemoConfigs(args: { stock: StockMedia }): Promise<Record<strin
           ],
         },
       }, {
-        name: 'David Kim',
-        title: 'Product Architect',
-        desc: 'Experience seamless innovation through David\'s vision. His design-thinking approach has transformed user experiences for over 2M+ customers globally.',
+        title: 'David Kim',
+        subTitle: 'Product Architect',
+        content: 'Experience seamless innovation through David\'s vision. His design-thinking approach has transformed user experiences for over 2M+ customers globally.',
         media: stock.getRandomByTags(['man']),
         action: {
           buttons: [
-            { label: 'LinkedIn', icon: { class: 'i-tabler-brand-linkedin' }, href: '#' },
-            { label: 'GitHub', icon: { class: 'i-tabler-brand-github' }, href: '#' },
+            { label: 'LinkedIn', icon: { class: 'i-tabler-brand-linkedin' }, href: '#', theme: 'cyan' },
+            { label: 'GitHub', icon: { class: 'i-tabler-brand-github' }, href: '#', theme: 'blue' },
           ],
         },
       }],
@@ -175,25 +181,25 @@ async function getDemoConfigs(args: { stock: StockMedia }): Promise<Record<strin
       title: 'Creative Minds',
       subTitle: 'Discover the artists and strategists crafting unforgettable brand experiences.',
       profiles: [{
-        name: 'Sophie Laurent',
-        title: 'Creative Director',
-        desc: 'Watch your brand transform under Sophie\'s creative direction. Her award-winning campaigns have captured hearts and headlines across three continents.',
+        title: 'Sophie Laurent',
+        subTitle: 'Creative Director',
+        content: 'Watch your brand transform under Sophie\'s creative direction. Her award-winning campaigns have captured hearts and headlines across three continents.',
         media: stock.getRandomByTags(['woman']),
         action: {
           buttons: [
-            { label: 'Instagram', icon: { class: 'i-tabler-brand-instagram' }, href: '#' },
-            { label: 'Behance', icon: { class: 'i-tabler-brand-behance' }, href: '#' },
+            { label: 'Instagram', icon: { class: 'i-tabler-brand-instagram' }, href: '#', theme: 'rose' },
+            { label: 'Behance', icon: { class: 'i-tabler-brand-behance' }, href: '#', theme: 'amber' },
           ],
         },
       }, {
-        name: 'Marcus Chen',
-        title: 'Brand Strategist',
-        desc: 'Feel the impact of strategic storytelling with Marcus at the helm. His data-driven approach has helped startups achieve 300% growth in brand recognition.',
+        title: 'Marcus Chen',
+        subTitle: 'Brand Strategist',
+        content: 'Feel the impact of strategic storytelling with Marcus at the helm. His data-driven approach has helped startups achieve 300% growth in brand recognition.',
         media: stock.getRandomByTags(['man']),
         action: {
           buttons: [
-            { label: 'LinkedIn', icon: { class: 'i-tabler-brand-linkedin' }, href: '#' },
-            { label: 'Medium', icon: { class: 'i-tabler-brand-medium' }, href: '#' },
+            { label: 'LinkedIn', icon: { class: 'i-tabler-brand-linkedin' }, href: '#', theme: 'cyan' },
+            { label: 'Medium', icon: { class: 'i-tabler-brand-medium' }, href: '#', theme: 'purple' },
           ],
         },
       }],

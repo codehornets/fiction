@@ -140,7 +140,7 @@ vue.watchEffect(() => {
               <XButton
                 data-test-id="dismiss"
                 size="xs"
-                design="textOnly"
+                design="link"
                 theme="theme"
                 class=" pointer-events-auto cursor-pointer"
                 icon="i-tabler-x"

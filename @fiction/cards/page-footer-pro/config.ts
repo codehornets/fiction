@@ -1,11 +1,11 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { InputOption } from '@fiction/ui'
 import type { StockMedia } from '@fiction/ui/stock'
-import { actionAreaSchema, brandSchema, navListItemSchema, navListSchema } from '@fiction/core'
+import { ActionAreaSchema, brandSchema, NavListItemSchema, NavListSchema } from '@fiction/core'
 import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
-const socialItemSchema = navListItemSchema.pick({
+const socialItemSchema = NavListItemSchema.pick({
   label: true,
   href: true,
   media: true,
@@ -13,10 +13,10 @@ const socialItemSchema = navListItemSchema.pick({
 
 export const schema = z.object({
   brand: brandSchema.optional(),
-  menus: z.array(navListSchema).optional(),
-  badges: actionAreaSchema.optional(),
+  menus: z.array(NavListSchema).optional(),
+  badges: ActionAreaSchema.optional(),
   additional: z.object({
-    links: z.array(navListItemSchema).optional(),
+    links: z.array(NavListItemSchema).optional(),
     social: z.array(socialItemSchema).optional(),
   }).optional(),
 })

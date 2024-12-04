@@ -24,6 +24,8 @@ const options = vue.computed(() => {
       key: 'superTitleGroup',
       label: 'Super Title',
       input: 'group',
+      icon: { class: 'i-tabler-arrow-badge-up' },
+      isClosed: true,
       options: o,
     }),
   ]

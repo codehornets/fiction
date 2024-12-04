@@ -2,7 +2,7 @@ import type { ConfigResponse } from '@fiction/site/card'
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { SiteUserConfig } from '@fiction/site/schema'
 import type { StockMedia } from '@fiction/ui/stock'
-import { actionAreaSchema, ActionButtonSchema, colorThemeUser } from '@fiction/core'
+import { ActionAreaSchema, ActionButtonSchema, colorThemeUser } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
@@ -10,7 +10,7 @@ import { z } from 'zod'
 export const StatementSchema = z.object({
   title: z.string().optional().describe('The headline that captures attention (3-8 words) [ai]'),
   content: z.string().optional().describe('The main message that drives your point home'),
-  action: actionAreaSchema.optional().describe('call-to-action area'),
+  action: ActionAreaSchema.optional().describe('call-to-action area'),
 })
 
 export type Statement = z.infer<typeof StatementSchema>

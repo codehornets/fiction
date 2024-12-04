@@ -48,17 +48,17 @@ function getClasses(uiSize: StandardSize) {
     span: 'inline-block rounded-full transition duration-200 ease-in-out ease-[cubic-bezier(0.25,1,0.33,1)]',
     spanOn: 'bg-primary-0 ring-primary-600',
     spanOff: 'bg-theme-0 ring-theme-300',
-    text: 'text-theme-500 hover:text-primary ml-4 cursor-pointer font-sans text-medium tracking-tight',
+    text: 'text-theme-500 hover:opacity-70 ml-2 cursor-pointer font-sans  ',
   }
 
   const sizeClasses = {
-    'xxs': { button: 'h-3 w-6', span: 'h-2 w-2', text: 'text-[0.6rem]' },
+    'xxs': { button: 'h-3 w-6', span: 'h-2 w-2', text: 'text-[10px]' },
     'xs': { button: 'h-4 w-8', span: 'h-3 w-3', text: 'text-xs' },
-    'sm': { button: 'h-5 w-10', span: 'h-4 w-4', text: 'text-sm' },
-    'md': { button: 'h-6 w-12', span: 'h-5 w-5', text: 'text-base' },
-    'lg': { button: 'h-7 w-14', span: 'h-6 w-6', text: 'text-lg' },
-    'xl': { button: 'h-8 w-16', span: 'h-7 w-7', text: 'text-xl' },
-    '2xl': { button: 'h-9 w-18', span: 'h-8 w-8', text: 'text-2xl' },
+    'sm': { button: 'h-5 w-10', span: 'h-4 w-4', text: 'text-xs' },
+    'md': { button: 'h-6 w-12', span: 'h-5 w-5', text: 'text-xs' },
+    'lg': { button: 'h-7 w-14', span: 'h-6 w-6', text: 'text-sm' },
+    'xl': { button: 'h-8 w-16', span: 'h-7 w-7', text: 'text-sm' },
+    '2xl': { button: 'h-9 w-18', span: 'h-8 w-8', text: 'text-sm' },
   }
 
   return {
@@ -111,6 +111,7 @@ const cls = vue.computed(() => getClasses(props.uiSize))
     <span
       v-if="textOn || textOff"
       id="toggleLabel"
+      class="font-sans select-none"
       :class="cls.text"
     >
       <span v-if="val">{{ textOn }}</span>

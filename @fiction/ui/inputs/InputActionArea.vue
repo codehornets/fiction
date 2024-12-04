@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { ActionArea } from '@fiction/core'
-import { actionAreaSchema as schema, vue } from '@fiction/core'
+import { ActionAreaSchema as schema, vue } from '@fiction/core'
 import FormEngine from './FormEngine.vue'
 import { createOption } from './index.js'
 
@@ -79,7 +79,16 @@ const options = vue.computed(() => {
     ...(modelValue?.variant === 'subscribe' ? subscribeOptions : actionButtonOptions),
   ]
 
-  return o
+  return [
+    createOption({
+      key: 'actionAreaGroup',
+      label: 'Action Area',
+      input: 'group',
+      icon: { class: 'i-tabler-click' },
+      schema,
+      options: o,
+    }),
+  ]
 })
 </script>
 

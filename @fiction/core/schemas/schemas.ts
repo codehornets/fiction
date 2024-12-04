@@ -25,7 +25,7 @@ export const BlendModesSchema = z.enum(['normal', 'multiply', 'screen', 'overlay
 export const HeaderLayoutSchema = z.enum(['left', 'right', 'center', 'justify'])
 export const ButtonColorThemeSchema = z.enum(colorThemeUser)
 export const ButtonFormatSchema = z.enum(['block', 'spread', 'default'])
-export const ButtonDesignSchema = z.enum(['solid', 'ghost', 'outline', 'textOnly'])
+export const ButtonDesignSchema = z.enum(['solid', 'ghost', 'outline', 'link'])
 export const ButtonRoundingSchema = z.enum(['none', 'md', 'full'])
 export const ButtonHoverSchema = z.enum(['none', 'basic', 'rise', 'fade', 'slide', 'pop'])
 export const ButtonShadowSchema = z.enum(['none', 'sm', 'md', 'lg'])
@@ -218,7 +218,7 @@ const BaseNavListItemSchema = z.object({
 })
 
 // Navigation list container
-export const navListSchema = z.object({
+export const NavListSchema = z.object({
   title: z.string().optional().describe('Optional section/group title'),
   description: z.string().optional().describe('Optional section/group description'),
   items: z.array(z.record(z.string(), z.any())).optional().describe('Navigation items in this section'),
@@ -226,11 +226,11 @@ export const navListSchema = z.object({
 })
 
 // Full navigation item with recursive list support
-export const navListItemSchema = BaseNavListItemSchema.extend({
-  list: z.lazy(() => navListSchema).optional().describe('Nested navigation list (e.g., dropdown menu)'),
+export const NavListItemSchema = BaseNavListItemSchema.extend({
+  list: z.lazy(() => NavListSchema).optional().describe('Nested navigation list (e.g., dropdown menu)'),
 })
 
-export type NavList = Omit<z.infer<typeof navListSchema>, 'items'> & { items?: NavListItem[] }
+export type NavList = Omit<z.infer<typeof NavListSchema>, 'items'> & { items?: NavListItem[] }
 
 // Define the complete type including recursive items property
 export type NavListItem = z.infer<typeof BaseNavListItemSchema> & {
@@ -257,7 +257,7 @@ export const ActionButtonSchema = z.object({
 
 export type ActionButton = z.infer<typeof ActionButtonSchema>
 
-export const actionAreaSchema = z.object({
+export const ActionAreaSchema = z.object({
   title: z.string().optional(),
   variant: z.enum(['buttons', 'subscribe']).optional(),
   buttons: z.array(ActionButtonSchema).optional(),
@@ -284,7 +284,7 @@ export const actionAreaSchema = z.object({
   }).optional(),
 })
 
-export type ActionArea = z.infer<typeof actionAreaSchema>
+export type ActionArea = z.infer<typeof ActionAreaSchema>
 
 export const logoSchema = z.object({
   variant: z.enum(['media', 'typography']).optional(),
@@ -296,7 +296,7 @@ export const logoSchema = z.object({
 export const brandSchema = z.object({
   logo: logoSchema.optional(),
   tagline: z.string().optional(),
-  action: actionAreaSchema.optional(),
+  action: ActionAreaSchema.optional(),
 })
 
 export type BrandObject = z.infer<typeof brandSchema>
@@ -325,27 +325,38 @@ export const UserSchema = z.object({
   websiteUrl: z.string().optional(),
 })
 
-export const postSchema = z.object({
-  superTitle: superTitleSchema.optional().describe('Super title of the post'),
-  title: z.string().optional().describe('Title of the post'),
-  subTitle: z.string().optional().describe('Subtitle of the post'),
-  content: z.string().optional().describe('Content of the post'),
-  excerpt: z.string().optional().describe('Excerpt of the post'),
-  status: PostStatusSchema.optional().describe('Status of the post'),
-  emphasis: emphasisSchema.optional().describe('Emphasis of the post'),
-  media: MediaDisplaySchema.optional().describe('Featured Media for the post'),
-  icon: MediaIconSchema.optional().describe('Icon for the post'),
-  slug: z.string().optional().describe('Slug of the post page'),
-  href: z.string().optional().describe('Link to the post page'),
-  tags: z.array(z.string()).optional().describe('Tags for the post'),
-  categories: z.array(z.string()).optional().describe('Categories for the post'),
-  authors: z.array(UserSchema).optional(),
-  actions: z.array(ActionButtonSchema).optional().describe('Action links or buttons for the post'),
-  seo: z.object({
-    title: z.string().optional(),
-    description: z.string().optional(),
-  }).optional(),
-  dateAt: z.string().optional().describe('ISO Date of the post'),
+export const PostSEOSchema = z.object({
+  title: z.string().optional().describe('Custom SEO title, defaults to post title if not specified'),
+  description: z.string().optional().describe('Meta description for search engines and social sharing'),
+}).describe('SEO metadata for the post')
+
+export const PostSchema = z.object({
+  // Core Content
+  title: z.string().optional().describe('Main title/headline of the post'),
+  subTitle: z.string().optional().describe('Secondary title providing additional context'),
+  superTitle: superTitleSchema.optional().describe('Small text above title for categorization or context'),
+  content: z.string().optional().describe('Main body content of the post in HTML/Markdown format'),
+  excerpt: z.string().optional().describe('Short summary of the post for previews and listings'),
+
+  // Meta Information
+  status: PostStatusSchema.optional().describe('Publication status (draft, published, etc)'),
+  emphasis: emphasisSchema.optional().describe('Visual prominence level in listings (featured, standard, minimal)'),
+  dateAt: z.string().optional().describe('ISO 8601 publication date'),
+
+  // Visual Elements
+  media: MediaDisplaySchema.optional().describe('Featured image or video with display settings'),
+  icon: MediaIconSchema.optional().describe('Optional icon for visual identification in listings'),
+
+  // Taxonomy & Organization
+  slug: z.string().optional().describe('URL-friendly version of the title for routing'),
+  href: z.string().optional().describe('Full URL or path to the post'),
+  tags: z.array(z.string()).optional().describe('Topic tags for filtering and related content'),
+  categories: z.array(z.string()).optional().describe('Broad classifications for content organization'),
+
+  // Associated Data
+  authors: z.array(UserSchema).optional().describe('List of post authors with profiles'),
+  action: ActionAreaSchema.optional().describe('Call-to-action buttons and interaction elements'),
+  seo: PostSEOSchema.optional().describe('Search engine and social media optimization settings'),
 })
 
 export const GlobalQuerySchema = z.object({
@@ -365,11 +376,11 @@ export const PostHandlingSchema = z.object({
   format: z.enum(['standard', 'local']).optional().describe('Either get from global posts or inline entries, AI always uses local'),
   limit: z.number().optional().describe('Limit the number of posts to show - default is 12'),
   offset: z.number().optional().describe('Offset the number of posts to show'),
-  entries: z.array(postSchema).optional().describe('Inline post entries for local format'),
+  entries: z.array(PostSchema).optional().describe('Inline post entries for local format'),
   query: GlobalQuerySchema.optional().describe('Query for global posts'),
 })
 
-export type PostObject = z.infer<typeof postSchema>
+export type PostObject = z.infer<typeof PostSchema>
 export type PostHandlingObject = z.infer<typeof PostHandlingSchema>
 
 // export const XButtonSchema = z.object({

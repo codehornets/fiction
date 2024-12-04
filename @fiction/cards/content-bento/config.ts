@@ -1,7 +1,7 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { InputOption } from '@fiction/ui'
 import type { StockMedia } from '@fiction/ui/stock/index.js'
-import { type ActionArea, actionAreaSchema, colorTheme, colorThemeUser, MediaDisplaySchema, MediaIconSchema, SizeSchema, superTitleSchema } from '@fiction/core'
+import { type ActionArea, ActionAreaSchema, colorTheme, colorThemeUser, MediaDisplaySchema, MediaIconSchema, SizeSchema, superTitleSchema } from '@fiction/core'
 import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
@@ -13,7 +13,7 @@ const BentoItemSchema = z.object({
   content: z.string().optional(),
   media: MediaDisplaySchema.optional(),
   href: z.string().optional(),
-  action: actionAreaSchema.optional(),
+  action: ActionAreaSchema.optional(),
   // style
   bg: MediaDisplaySchema.optional(),
   theme: z.enum(colorThemeUser).optional(),

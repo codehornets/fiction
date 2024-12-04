@@ -1,6 +1,6 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { InputOption } from '@fiction/ui'
-import { actionAreaSchema, colorThemeUser, MediaIconSchema, SizeSchema } from '@fiction/core'
+import { ActionAreaSchema, colorThemeUser, MediaIconSchema, SizeSchema } from '@fiction/core'
 import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
@@ -11,7 +11,7 @@ const featureSchema = z.object({
   href: z.string().optional(),
   icon: MediaIconSchema.optional(),
   color: z.enum(colorThemeUser).optional(),
-  action: actionAreaSchema.optional(),
+  action: ActionAreaSchema.optional(),
   // Masonry column width
   columns: z.enum(['1', '2', '3', '4', '5', '6']).optional(),
 })

@@ -2,7 +2,7 @@ import type { CardFactory } from '@fiction/site/cardFactory'
 import type { SiteUserConfig } from '@fiction/site/schema'
 import type { InputOption } from '@fiction/ui'
 import type { StockMedia } from '@fiction/ui/stock'
-import { brandSchema, logoSchema, navListItemSchema } from '@fiction/core'
+import { brandSchema, logoSchema, NavListItemSchema } from '@fiction/core'
 import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
@@ -10,8 +10,8 @@ export const schema = z.object({
   brand: brandSchema.optional(),
   layout: z.enum(['navCenter', 'logoCenter', 'justified']).optional(),
   nav: z.object({
-    primary: z.array(navListItemSchema).optional(),
-    utility: z.array(navListItemSchema).optional(),
+    primary: z.array(NavListItemSchema).optional(),
+    utility: z.array(NavListItemSchema).optional(),
   }).optional(),
 })
 

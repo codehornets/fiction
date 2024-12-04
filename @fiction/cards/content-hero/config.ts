@@ -1,6 +1,6 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { InputOption } from '@fiction/ui'
-import { actionAreaSchema, MediaBasicSchema, superTitleSchema } from '@fiction/core'
+import { ActionAreaSchema, MediaBasicSchema, superTitleSchema } from '@fiction/core'
 import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
@@ -18,7 +18,7 @@ export const schema = z.object({
   superTitle: superTitleSchema.optional().describe('Eyebrow text with icon and color [ai]'),
   splash: MediaBasicSchema.optional().describe('Hero\'s focal image or illustration [ai]'),
   caption: z.string().optional().describe('Optional text description for the splash image'),
-  action: actionAreaSchema.optional().describe('Primary call-to-action area'),
+  action: ActionAreaSchema.optional().describe('Primary call-to-action area'),
   overlays: z.array(LayerMediaScheme).optional().describe('Decorative image layers for visual depth [ai]'),
 })
 

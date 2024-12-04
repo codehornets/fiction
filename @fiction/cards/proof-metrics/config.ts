@@ -1,8 +1,8 @@
-import { colorThemeUser, MediaIconSchema, navListItemSchema, numberFormats } from '@fiction/core'
+import { colorThemeUser, MediaIconSchema, NavListItemSchema, numberFormats } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
-const metricSchema = navListItemSchema.pick({
+const metricSchema = NavListItemSchema.pick({
   label: true,
   description: true,
   value: true,

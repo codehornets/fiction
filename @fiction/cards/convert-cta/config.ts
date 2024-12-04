@@ -1,4 +1,4 @@
-import { actionAreaSchema, MediaBasicSchema, navListSchema, superTitleSchema } from '@fiction/core'
+import { ActionAreaSchema, MediaBasicSchema, NavListSchema, superTitleSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
@@ -7,8 +7,8 @@ export const schema = z.object({
   title: z.string().optional(),
   subTitle: z.string().optional(),
   superTitle: superTitleSchema.optional(),
-  benefits: navListSchema.optional(),
-  action: actionAreaSchema.optional(),
+  benefits: NavListSchema.optional(),
+  action: ActionAreaSchema.optional(),
   media: MediaBasicSchema.optional(),
 })
 

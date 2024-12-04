@@ -110,7 +110,7 @@ const actions = vue.computed<ActionButton[]>(() => {
             class="shrink-0"
             padding="py-1"
             hover="none"
-            design="textOnly"
+            design="link"
             :icon="v?.status === 'ready' ? 'i-tabler-check' : v?.status === 'incomplete' ? 'i-tabler-x' : 'i-tabler-circle-plus'"
             :theme="v?.status === 'ready' ? 'green' : v?.status === 'incomplete' ? 'rose' : 'theme'"
             size="md"

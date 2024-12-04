@@ -1,15 +1,15 @@
 import type { SiteUserConfig } from '@fiction/site/schema'
 import type { InputOption, InputProps } from '@fiction/ui'
-import { brandSchema, navListItemSchema, navListSchema } from '@fiction/core/schemas/schemas'
+import { brandSchema, NavListItemSchema, NavListSchema } from '@fiction/core/schemas/schemas'
 import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
 export const schema = z.object({
   brand: brandSchema.optional(),
-  menus: z.array(navListSchema).optional(),
+  menus: z.array(NavListSchema).optional(),
   additional: z.object({
-    list1: z.array(navListItemSchema).optional(),
-    list2: z.array(navListItemSchema).optional(),
+    list1: z.array(NavListItemSchema).optional(),
+    list2: z.array(NavListItemSchema).optional(),
   }).optional(),
 })
 

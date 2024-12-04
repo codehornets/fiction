@@ -136,7 +136,7 @@ const hoverClasses = 'group-hover/item:text-primary-600 dark:group-hover/item:te
               </div>
             </div>
 
-            <CardActionArea :card base-path="links" :classes="{ buttons: 'flex gap-4 text-2xl justify-center md:justify-start' }" />
+            <CardActionArea :card base-path="action" :classes="{ buttons: 'flex gap-4 text-2xl justify-center md:justify-start' }" />
           </div>
         </div>
       </div>

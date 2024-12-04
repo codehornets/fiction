@@ -1,11 +1,11 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { InputOption } from '@fiction/ui'
 import type { StockMedia } from '@fiction/ui/stock'
-import { actionAreaSchema, MediaBasicSchema, MediaIconSchema, postSchema } from '@fiction/core'
+import { ActionAreaSchema, MediaBasicSchema, MediaIconSchema, PostSchema } from '@fiction/core'
 import { createOption } from '@fiction/ui'
 import { string, z } from 'zod'
 
-const faqItemSchema = postSchema.pick({
+const faqItemSchema = PostSchema.pick({
   title: true,
   content: true,
   icon: true,
@@ -17,7 +17,7 @@ const schema = z.object({
   items: z.array(faqItemSchema).optional().describe('FAQ items with questions and detailed answers'),
   support: z.object({
     text: z.string().optional(),
-    action: actionAreaSchema.optional(),
+    action: ActionAreaSchema.optional(),
   }).optional().describe('Optional support section shown below FAQs'),
 })
 

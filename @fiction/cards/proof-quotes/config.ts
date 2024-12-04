@@ -1,7 +1,7 @@
 import type { ConfigResponse } from '@fiction/site/card.js'
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { StockMedia } from '@fiction/ui/stock/index.js'
-import { ActionButtonSchema, colorThemeUser, MediaDisplaySchema, navListItemSchema } from '@fiction/core'
+import { ActionButtonSchema, colorThemeUser, MediaDisplaySchema, NavListItemSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 

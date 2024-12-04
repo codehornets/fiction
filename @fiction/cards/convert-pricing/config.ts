@@ -1,9 +1,9 @@
 import type { ConfigResponse } from '@fiction/site/card.js'
-import { ActionButtonSchema, MediaIconSchema, navListItemSchema } from '@fiction/core'
+import { ActionButtonSchema, MediaIconSchema, NavListItemSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
-const pricingFeatureSchema = navListItemSchema.pick({ label: true })
+const pricingFeatureSchema = NavListItemSchema.pick({ label: true })
 
 const priceSchema = z.object({
   title: z.string().optional().describe('name of pricing plan'),

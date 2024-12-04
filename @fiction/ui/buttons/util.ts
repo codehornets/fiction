@@ -40,14 +40,14 @@ export function getButtonClasses(args: {
     '2xl': 'sm:text-base md:text-lg',
   }
 
-  const defaultPadding: Record<StandardSize, string> = {
-    'xxs': 'px-2 py-0.5',
-    'xs': 'px-2 py-1',
-    'sm': 'px-2.5 py-1',
-    'md': 'px-3 py-1.5',
-    'lg': 'px-4 py-2',
-    'xl': 'px-6 py-2.5',
-    '2xl': 'px-8 py-3',
+  const paddingConfig: Record<StandardSize, { x: string, y: string }> = {
+    'xxs': { x: 'px-2', y: 'py-0.5' },
+    'xs': { x: 'px-2', y: 'py-1' },
+    'sm': { x: 'px-2', y: '5 py-1' },
+    'md': { x: 'px-3', y: 'py-1.5' },
+    'lg': { x: 'px-4', y: 'py-2' },
+    'xl': { x: 'px-6', y: 'py-2.5' },
+    '2xl': { x: 'px-8', y: 'py-3' },
   }
 
   const formats: Record<ButtonFormat, string> = {
@@ -92,13 +92,17 @@ export function getButtonClasses(args: {
 
   const borderClass = theme === 'naked' ? '' : borderClassList[border]
 
+  const { x, y } = paddingConfig[size]
+
+  const defaultPadding = design === 'link' ? y : `${y} ${x}`
+
   const classNames = [
     baseClasses,
     themeClasses.base || '',
     borderClass,
     hoverClasses,
     sizes[size],
-    padding || defaultPadding[size],
+    padding || defaultPadding,
     formats[format],
     rounding === 'none' ? 'rounded-none' : rounding === 'full' ? 'rounded-full' : roundedSizeMap[size],
     shadows[shadow],

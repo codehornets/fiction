@@ -164,7 +164,7 @@ function setIsEditing(type: 'click' | 'focus') {
  * Use render to control SSR which struggles with custom tag, etc.
  */
 function render() {
-  if (!((isContentEditable.value && placeholder) || textValue.value || fallback)) {
+  if (!(textValue.value || fallback)) {
     return null
   }
 
@@ -215,21 +215,6 @@ function render() {
 }
 .dark &:not(.light *) .xtext{
   --ph-color: var(--theme-600);
-}
-[contentEditable="true"]:empty {
-  &::before {
-    content: attr(placeholder);
-    color: rgba(var(--ph-color) / 0.5);
-  }
-
-  &:hover:not(:focus)::before {
-    cursor: pointer;
-    color: rgba(var(--ph-color) / 0.3);
-  }
-
-  &:focus::before {
-    color: rgba(var(--ph-color) / 0.2);
-  }
 }
 
 .xtext{

@@ -365,7 +365,7 @@ const header = vue.computed(() => {
   if (!isReady) {
     actions.push({
       size: 'md',
-      design: 'textOnly',
+      design: 'link',
       label: isReady ? 'Ready' : `${allControlOptions.length - incompleteItems.length} / ${allControlOptions.length} Complete`,
       disabled: true,
     })

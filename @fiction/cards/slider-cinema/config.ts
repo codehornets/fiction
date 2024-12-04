@@ -1,7 +1,7 @@
 import type { ConfigResponse } from '@fiction/site'
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { SiteUserConfig } from '@fiction/site/schema'
-import { actionAreaSchema, ActionButtonSchema, MediaBasicSchema, superTitleSchema } from '@fiction/core'
+import { ActionAreaSchema, ActionButtonSchema, MediaBasicSchema, superTitleSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 // Import media assets
@@ -17,7 +17,7 @@ export const CinemaItemSchema = z.object({
   title: z.string().optional().describe('Primary title text - should be compelling and descriptive'),
   subTitle: z.string().optional().describe('Supporting text that provides additional context or call to action'),
   media: MediaBasicSchema.optional().describe('Background media - supports images or videos for visual impact'),
-  action: actionAreaSchema.optional(),
+  action: ActionAreaSchema.optional(),
 })
 
 export const schema = z.object({
@@ -118,7 +118,7 @@ const photographyDemo: CinemaItem[] = [
     action: {
       buttons: [
         { label: 'Book a Session', href: '#', design: 'outline', theme: 'overlay' },
-        { label: 'View Pricing', href: '#', design: 'textOnly', iconAfter: 'i-tabler-chevron-right' },
+        { label: 'View Pricing', href: '#', design: 'link', iconAfter: 'i-tabler-chevron-right' },
       ],
     },
   },

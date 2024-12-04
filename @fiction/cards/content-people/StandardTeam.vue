@@ -27,14 +27,14 @@ const uc = vue.computed(() => props.card.userConfig.value || {})
         :animate="true"
       />
       <div :class="uc.layout === 'mediabox' ? 'max-w-xl flex-auto' : ''">
-        <CardText animate="fade" :card :path="`profiles.${i}.name`" tag="h3" class="lg:mt-6 text-lg lg:text-3xl x-font-title font-semibold leading-8" />
-        <CardText animate="fade" :card :path="`profiles.${i}.title`" tag="p" class="text-base dark:text-theme-400 text-theme-500 x-font-title" />
-        <CardText animate="fade" :card :path="`profiles.${i}.desc`" tag="p" class="mt-4 text-lg lg:text-xl" />
+        <CardText animate="fade" :card :path="`profiles.${i}.title`" tag="h3" class="lg:mt-6 text-lg lg:text-3xl x-font-title font-semibold leading-8" />
+        <CardText animate="fade" :card :path="`profiles.${i}.subTitle`" tag="p" class="text-base lg:text-lg dark:text-theme-300 text-theme-500 x-font-title" />
+        <CardText animate="fade" :card :path="`profiles.${i}.content`" tag="p" class="mt-4 text-base lg:text-lg" />
         <CardActionArea
           v-if="profile.action"
           :card
           :base-path="`profiles.${i}.action`"
-          :classes="{ buttons: 'justify-center md:justify-start' }"
+          :classes="{ buttons: 'flex justify-center md:justify-start gap-3' }"
           class="mt-6"
           :action="profile.action"
         />

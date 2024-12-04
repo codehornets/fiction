@@ -20,7 +20,32 @@ type PointConfig = z.infer<typeof pointSchema>
 // Input options configuration remains the same
 function getOptions() {
   return [
-
+    createOption({
+      input: 'group',
+      key: 'itemsGroup',
+      label: 'List Items',
+      options: [
+        createOption({
+          key: 'items',
+          input: 'InputList',
+          props: {
+            itemName: 'Point',
+            itemLabel: args => (args?.item as PointConfig)?.content ?? 'Untitled',
+          },
+          options: [
+            createOption({
+              key: 'content',
+              label: 'Content',
+              input: 'InputTextarea',
+              props: {
+                rows: 3,
+                placeholder: 'Enter your point here...',
+              },
+            }),
+          ],
+        }),
+      ],
+    }),
     createOption({
       input: 'group',
       key: 'settingsGroup',
@@ -47,32 +72,6 @@ function getOptions() {
           label: 'Featured Media',
           input: 'InputMedia',
           description: 'Optional media to accompany your content',
-        }),
-      ],
-    }),
-    createOption({
-      input: 'group',
-      key: 'itemsGroup',
-      label: 'List Items',
-      options: [
-        createOption({
-          key: 'items',
-          input: 'InputList',
-          props: {
-            itemName: 'Point',
-            itemLabel: args => (args?.item as PointConfig)?.content ?? 'Untitled',
-          },
-          options: [
-            createOption({
-              key: 'content',
-              label: 'Content',
-              input: 'InputTextarea',
-              props: {
-                rows: 3,
-                placeholder: 'Enter your point here...',
-              },
-            }),
-          ],
         }),
       ],
     }),

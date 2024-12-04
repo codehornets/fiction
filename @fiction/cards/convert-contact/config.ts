@@ -1,15 +1,15 @@
-import { navListItemSchema } from '@fiction/core'
+import { NavListItemSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
-export const contactItemSchema = navListItemSchema.pick({
+export const contactItemSchema = NavListItemSchema.pick({
   label: true,
   value: true,
   href: true,
   icon: true,
 })
 
-const socialItemSchema = navListItemSchema.pick({
+const socialItemSchema = NavListItemSchema.pick({
   label: true,
   href: true,
   icon: true,

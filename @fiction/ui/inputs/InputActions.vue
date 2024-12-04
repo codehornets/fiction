@@ -38,7 +38,7 @@ const buttonOptions: InputOption[] = [
       createOption({
         key: 'design',
         label: 'Design Style',
-        input: 'InputSelectCustom',
+        input: 'InputRadioButton',
         list: [
           { label: 'Solid', value: 'solid' },
           { label: 'Outline', value: 'outline' },
@@ -50,8 +50,7 @@ const buttonOptions: InputOption[] = [
       createOption({
         key: 'theme',
         label: 'Color Theme',
-        input: 'InputSelectCustom',
-        list: colorThemeUser,
+        input: 'InputColorTheme',
         schema,
       }),
       createOption({
@@ -75,7 +74,7 @@ const buttonOptions: InputOption[] = [
       createOption({
         key: 'target',
         label: 'Link Target',
-        input: 'InputSelectCustom',
+        input: 'InputRadioButton',
         list: [
           { label: 'Same Window', value: '_self' },
           { label: 'New Window', value: '_blank' },

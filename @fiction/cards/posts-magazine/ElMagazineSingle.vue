@@ -50,7 +50,7 @@ const imageAspect = vue.computed(() => {
     <article v-if="post" class="p-8 pb-44">
       <div class="space-y-8 my-[min(max(35px,_5vw),_60px)] prose:max-w-none text-center max-w-screen-lg mx-auto" :class="proseClass">
         <div class="tags space-x-3 not-prose">
-          <CardButton size="sm" :card design="textOnly" :href="allPostsLink({ card })" rounding="full">
+          <CardButton size="sm" :card design="link" :href="allPostsLink({ card })" rounding="full">
             &larr; All Posts
           </CardButton>
           <CardButton
