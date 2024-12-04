@@ -150,7 +150,7 @@ function getGroupClasses(opt: InputOption) {
             @click="hide(opt.key.value, !hide(opt.key.value))"
           >
             <div class="flex items-center gap-2">
-              <XIcon v-if="opt.settings.icon" class="size-[1em]" :media="opt.settings.icon" />
+              <XIcon v-if="opt.settings.icon" class="size-[1.2em]" :media="opt.settings.icon" />
               <div class="font-semibold" v-html="opt.label.value" />
             </div>
             <div v-if="opt.key.value && !disableGroupHide" class="text-lg i-tabler-chevron-up transition-all" :class="hide(opt.key.value) ? 'rotate-180' : ''" />

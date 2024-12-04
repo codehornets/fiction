@@ -1,12 +1,11 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
-import { actionAreaSchema, ActionButtonSchema, MediaBasicSchema, MediaIconSchema, superTitleSchema } from '@fiction/core'
-import { InputOption } from '@fiction/ui'
+import type { InputOption } from '@fiction/ui'
+import { actionAreaSchema, MediaBasicSchema, superTitleSchema } from '@fiction/core'
+import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
-// Schema for visual layer overlays that enhance the hero's depth
 const LayerMediaScheme = z.object({
   media: z.object({ url: z.string().optional() }).optional(),
-  opacity: z.number().optional(),
   position: z.enum(['top', 'bottom', 'left', 'right', 'center', 'bottomRight', 'topRight', 'bottomLeft', 'topLeft']).optional(),
   widthPercent: z.number().optional(),
 })
@@ -37,91 +36,124 @@ const defaultContent: UserConfig = {
 // Structured input options for the design interface
 export function getOptions(): InputOption[] {
   return [
-    new InputOption({
+    createOption({
       key: 'content',
       label: 'Content',
       input: 'group',
       options: [
-        new InputOption({
+        createOption({
           key: 'title',
-          label: 'Main Headline',
+          label: 'Title',
           input: 'InputText',
-          description: 'Your primary message (3-13 words)',
-          props: { placeholder: 'e.g., Transform Your Ideas Into Reality' },
+          schema,
         }),
-        new InputOption({
+        createOption({
           key: 'subTitle',
-          label: 'Supporting Message',
+          label: 'Sub Title',
           input: 'InputTextarea',
-          description: 'Expand on your value proposition',
-          props: { rows: 3, placeholder: 'Describe your core offering or unique value proposition' },
+          props: { rows: 3 },
+          schema,
         }),
-        new InputOption({
+        createOption({
           key: 'superTitle',
-          label: 'Eyebrow Text',
-          input: 'InputText',
-          description: 'Short text above headline (2-5 words)',
-          props: { placeholder: 'e.g., New Release • Limited Time • Featured' },
+          label: 'Super Title',
+          input: 'InputSuperTitle',
+          isClosed: true,
+          schema,
         }),
       ],
     }),
-    new InputOption({
+    createOption({
       key: 'style',
-      label: 'Style',
+      label: 'Layout + Style',
       input: 'group',
       options: [
-        new InputOption({
+        createOption({
           key: 'layout',
           label: 'Layout Style',
           input: 'InputSelect',
-          props: {
-            list: [
-              { label: 'Centered Focus', value: 'center' },
-              { label: 'Left Aligned', value: 'left' },
-              { label: 'Right Aligned', value: 'right' },
-              { label: 'Full Width', value: 'justify' },
-            ],
-          },
-        }),
-        new InputOption({
-          key: 'superColor',
-          label: 'Accent Color',
-          input: 'InputColorScheme',
-          description: 'Color theme for the eyebrow text',
-        }),
-        new InputOption({
-          key: 'superIcon',
-          label: 'Accent Icon',
-          input: 'InputIcon',
-          description: 'Icon to complement the eyebrow text',
+          list: [
+            { label: 'Centered Focus', value: 'center' },
+            { label: 'Left Aligned', value: 'left' },
+            { label: 'Right Aligned', value: 'right' },
+            { label: 'Full Width', value: 'justify' },
+          ],
+          schema,
         }),
       ],
     }),
-    new InputOption({
+    createOption({
       key: 'media',
       label: 'Media',
       input: 'group',
       options: [
-        new InputOption({
+        createOption({
           key: 'splash',
           label: 'Hero Image',
           input: 'InputMedia',
-          description: 'Main visual element',
+          schema,
         }),
-        new InputOption({
+        createOption({
           key: 'caption',
           label: 'Image Caption',
           input: 'InputText',
-          description: 'Optional descriptive text for the image',
+          schema,
+        }),
+        createOption({
+          key: 'overlays',
+          label: 'Image Overlays',
+          icon: { class: 'i-tabler-layers-subtract' },
+          input: 'group',
+          schema,
+          isClosed: true,
+          options: [
+            createOption({
+              key: 'media',
+              label: 'Overlay Image',
+              input: 'InputMedia',
+              schema,
+            }),
+            createOption({
+              key: 'position',
+              label: 'Position',
+              input: 'InputSelect',
+              list: [
+                { label: 'Top Left', value: 'topLeft' },
+                { label: 'Top Center', value: 'top' },
+                { label: 'Top Right', value: 'topRight' },
+                { label: 'Bottom Left', value: 'bottomLeft' },
+                { label: 'Bottom Center', value: 'bottom' },
+                { label: 'Bottom Right', value: 'bottomRight' },
+                { label: 'Center', value: 'center' },
+              ],
+              schema,
+            }),
+            createOption({
+              key: 'widthPercent',
+              label: 'Width %',
+              input: 'InputRange',
+              props: { min: 0, max: 100, step: 5, startValue: 30 },
+              schema,
+            }),
+          ],
         }),
       ],
     }),
-    new InputOption({
-      key: 'actions',
-      label: 'Call-to-Action',
-      input: 'InputActions',
-      description: 'Buttons to drive user engagement',
+    createOption({
+      key: 'actionGroup',
+      label: 'Actions and Links',
+      input: 'group',
+      schema,
+      options: [
+        createOption({
+          key: 'action',
+          label: 'Action Area',
+          input: 'InputActionArea',
+          schema,
+        }),
+      ],
     }),
+
   ]
 }
 

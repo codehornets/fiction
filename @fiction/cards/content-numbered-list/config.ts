@@ -1,61 +1,82 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
 import { MediaBasicSchema } from '@fiction/core'
-import { InputOption } from '@fiction/ui'
+import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
+const pointSchema = z.object({
+  content: z.string().optional(),
+})
 // Schema definition
 export const schema = z.object({
   layout: z.enum(['default', 'left', 'right']).optional(),
   title: z.string().optional(),
   media: MediaBasicSchema.optional(),
-  items: z.array(z.object({
-    content: z.string().optional(),
-  })),
+  items: z.array(pointSchema).optional(),
 })
 
 export type UserConfig = z.infer<typeof schema>
+type PointConfig = z.infer<typeof pointSchema>
 
 // Input options configuration remains the same
-function getOptions(): InputOption[] {
+function getOptions() {
   return [
-    new InputOption({
-      key: 'layout',
-      label: 'Layout Style',
-      input: 'InputSelect',
-      list: [
-        { value: 'default', name: 'Grid Layout' },
-        { value: 'left', name: 'Media Left' },
-        { value: 'right', name: 'Media Right' },
-      ],
-    }),
-    new InputOption({
-      key: 'title',
-      label: 'Section Title',
-      input: 'InputText',
-      isRequired: true,
-    }),
-    new InputOption({
-      key: 'media',
-      label: 'Featured Media',
-      input: 'InputMedia',
-      description: 'Optional media to accompany your content',
-    }),
-    new InputOption({
-      key: 'items',
-      label: 'List Items',
-      input: 'InputList',
+
+    createOption({
+      input: 'group',
+      key: 'settingsGroup',
+      label: 'Settings',
       options: [
-        new InputOption({
-          key: 'content',
-          label: 'Content',
-          input: 'InputTextarea',
-          props: {
-            rows: 3,
-            placeholder: 'Enter your point here...',
-          },
+        createOption({
+          key: 'layout',
+          label: 'Layout Style',
+          input: 'InputRadioButton',
+          list: [
+            { value: 'default', name: 'Grid Layout' },
+            { value: 'left', name: 'Media Left' },
+            { value: 'right', name: 'Media Right' },
+          ],
+        }),
+        createOption({
+          key: 'title',
+          label: 'Section Title',
+          input: 'InputText',
+          isRequired: true,
+        }),
+        createOption({
+          key: 'media',
+          label: 'Featured Media',
+          input: 'InputMedia',
+          description: 'Optional media to accompany your content',
         }),
       ],
     }),
+    createOption({
+      input: 'group',
+      key: 'itemsGroup',
+      label: 'List Items',
+      options: [
+        createOption({
+          key: 'items',
+          input: 'InputList',
+          props: {
+            itemName: 'Point',
+            itemLabel: args => (args?.item as PointConfig)?.content ?? 'Untitled',
+          },
+          options: [
+            createOption({
+              key: 'content',
+              label: 'Content',
+              input: 'InputTextarea',
+              props: {
+                rows: 3,
+                placeholder: 'Enter your point here...',
+              },
+            }),
+          ],
+        }),
+      ],
+    }),
+
   ]
 }
 
@@ -63,6 +84,7 @@ function getOptions(): InputOption[] {
 const demoConfigs = {
   // Default instructional example
   default: {
+    layout: 'default',
     title: 'Create Your Perfect Section',
     items: [
       { content: 'Start with a compelling headline that speaks directly to your audience\'s desires or pain points.' },
