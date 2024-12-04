@@ -53,7 +53,7 @@ export type CardTemplateSurfaceDefault<T extends string = string> = {
 type CardTemplateSurface<T> = MergeTypes<T, CardTemplateSurfaceDefault>
 type CardTemplateUserConfigAll<T extends CardTemplateSurfaceDefault> = SiteUserConfig & T['userConfig']
 
-type ConfigArgs = { site?: Site, factory: CardFactory }
+type ConfigArgs = { site?: Site, factory: CardFactory, templateId: string }
 
 export type ConfigResponse<S extends CardTemplateSurfaceDefault = CardTemplateSurfaceDefault> = {
   schema?: CardTemplateSurface<S>[ 'schema' ]
@@ -81,17 +81,11 @@ interface CardTemplateSettings<
   isPageCard?: boolean // full page wrap
   isContainer?: boolean // ui drawer
   isRegion?: boolean
-  // options?: InputOption[]
-  // schema?: CardTemplateSurface<S>[ 'schema' ]
   sections?: Record<string, CardConfigPortable>
   onSiteLoad?: (args: { site: Site }) => void
   getConfig?: (args: ConfigArgs) => Promise<ConfigResponse<S>>
   getBaseConfig?: (args: CardSettings<CardTemplateUserConfigAll<S>>) => CardTemplateUserConfigAll<S>
-  // getUserConfig?: (args: ConfigArgs) => Promise<CardTemplateUserConfigAll<S>> | (CardTemplateUserConfigAll<S>)
-  // getEffects?: (args: ConfigArgs) => Promise<TableCardConfig[]>
-  // demoPage?: (args: ConfigArgs) => Promise<{
-  //   cards: (CardConfigPortable< CardTemplateUserConfigAll<S>> & { el?: vue.Component })[]
-  // }>
+
   getQueries?: (args: CardQuerySettings) => CardTemplateSurface<S>[ 'queries' ]
   getSitemapPaths?: (args: { site: Site, card: Card<CardTemplateUserConfigAll<S>>, pagePath: string }) => Promise<string[]>
 
@@ -113,7 +107,7 @@ export class CardTemplate<
       templates: site?.theme.value?.templates || [],
       caller: 'cardTemplateGetConfig',
     })
-    const a = { site, factory }
+    const a = { site, factory, templateId: this.settings.templateId }
     if (this.settings.getConfig) {
       return this.settings.getConfig(a)
     }
@@ -142,7 +136,7 @@ export class CardTemplate<
       caller: `toCard-${site?.theme.value.themeId}`,
     })
 
-    const config = getConfig ? await getConfig({ ...args, factory }) : {}
+    const config = getConfig ? await getConfig({ ...args, factory, templateId: this.settings.templateId }) : {}
 
     const specificUserConfig = deepMerge([
       baseConfig,
@@ -205,7 +199,7 @@ type Surface<T> = MergeTypes<T, CardSurface>
 
 function getDetaultTemplateId(card: Card): string {
   const inlineTemplateId = card.settings.inlineTemplate ? card.settings.inlineTemplate.settings.templateId : undefined
-  return inlineTemplateId || card.settings.templateId || (card.parentId ? 'area' : card.site?.theme.value?.templateDefaults.value.page || 'wrap')
+  return inlineTemplateId || card.settings.templateId || (card.parentId ? 'pageArea' : card.site?.theme.value?.templateDefaults.value.page || 'pageWrap')
 }
 
 export class Card<

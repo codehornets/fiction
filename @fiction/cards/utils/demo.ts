@@ -1,5 +1,6 @@
 import type { CardConfigPortable, CardTemplate, Site } from '@fiction/site'
-import type { template as heroTemplate } from '../hero/index.js'
+import type { template as heroTemplate } from '../content-hero/index.js'
+import type { template as pageWrapTemplate } from '../page-wrap/index.js'
 import { CardFactory } from '@fiction/site/cardFactory.js'
 import { getCardTemplates } from '../index.js'
 
@@ -17,16 +18,16 @@ export async function createDemoPage(args: { site: Site, template: CardTemplate<
     return (c.templateId === template.settings.templateId) ? { inlineTemplate: template, ...c } : c
   })
 
-  const pg = await factory.fromTemplate({
+  const pg = await factory.fromTemplate<typeof pageWrapTemplate>({
     slug,
-    templateId: 'wrap',
-    baseConfig: { seo: { title: `${template.settings.title} - Web Element Demo` } },
+    templateId: 'pageWrap',
+    baseConfig: { site: { seo: { title: `${template.settings.title} - Web Element Demo` } } },
     userConfig: {
       // fixedHeader: true,
     },
     cards: [
       await factory.fromTemplate<typeof heroTemplate>({
-        templateId: 'hero',
+        templateId: 'contentHero',
         userConfig: {
           superTitle: {
             text: template.settings.category?.join(', ').toUpperCase(),

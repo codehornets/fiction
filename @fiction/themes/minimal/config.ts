@@ -1,26 +1,26 @@
-import type { template as areaTemplate } from '@fiction/cards/area'
-import type { template as BentoTemplate } from '@fiction/cards/bento'
-import type { template as callToActionTemplate } from '@fiction/cards/callToAction'
-import type { template as captureTemplate } from '@fiction/cards/capture'
-import type { template as ContactTemplate } from '@fiction/cards/contact'
-import type { template as contentModalTemplate } from '@fiction/cards/contentModal'
-import type { template as footerXTemplate } from '@fiction/cards/footerX'
-import type { template as heroTemplate } from '@fiction/cards/hero'
-import type { template as MagazineTemplate } from '@fiction/cards/magazine'
-import type { template as MapsTemplate } from '@fiction/cards/maps'
+import type { template as BentoTemplate } from '@fiction/cards/content-bento'
+import type { template as heroTemplate } from '@fiction/cards/content-hero'
+import type { template as ProfileTemplate } from '@fiction/cards/content-profile'
+import type { template as captureTemplate } from '@fiction/cards/convert-capture'
+import type { template as ContactTemplate } from '@fiction/cards/convert-contact'
+import type { template as callToActionTemplate } from '@fiction/cards/convert-cta'
+import type { template as textEffectsTemplate } from '@fiction/cards/effect-text'
+import type { template as MapsTemplate } from '@fiction/cards/location-maps'
+import type { template as contentModalTemplate } from '@fiction/cards/modal-media'
+import type { template as areaTemplate } from '@fiction/cards/page-area'
 
-import type { template as navTemplate } from '@fiction/cards/nav'
-import type { template as ProfileTemplate } from '@fiction/cards/profile'
+import type { template as footerXTemplate } from '@fiction/cards/page-footer-personal'
+import type { template as navTemplate } from '@fiction/cards/page-nav'
 
-import type { template as QuotesTemplate } from '@fiction/cards/quotes'
-import type { template as textEffectsTemplate } from '@fiction/cards/textEffects'
-import type { template as TickerTemplate } from '@fiction/cards/ticker'
+import type { template as MagazineTemplate } from '@fiction/cards/posts-magazine'
+import type { template as QuotesTemplate } from '@fiction/cards/proof-quotes'
+import type { template as TickerTemplate } from '@fiction/cards/typography-ticker'
 
 import type { Site } from '@fiction/site'
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { SiteUserConfig } from '@fiction/site/schema'
 import type { StockMedia } from '@fiction/ui/stock'
-import { getDemoUserConfig } from '@fiction/cards/magazine/config'
+import { getDemoUserConfig } from '@fiction/cards/posts-magazine/config'
 
 type SectionArgs = {
   factory: CardFactory
@@ -32,7 +32,7 @@ type SectionArgs = {
 export async function getPages(args: SectionArgs) {
   const { factory } = args
 
-  const { defaultMap } = await import('@fiction/cards/maps/config')
+  const { defaultMap } = await import('@fiction/cards/location-maps/config')
 
   const stock = await factory.getStockMedia()
 
@@ -40,16 +40,16 @@ export async function getPages(args: SectionArgs) {
     await factory.fromTemplate({
       slug: '_home',
       cards: [
-        await factory.fromTemplate<typeof ProfileTemplate>({ templateId: 'profile' }),
-        await factory.fromTemplate<typeof BentoTemplate>({ templateId: 'bento' }),
-        await factory.fromTemplate<typeof QuotesTemplate>({ templateId: 'quotes' }),
+        await factory.fromTemplate<typeof ProfileTemplate>({ templateId: 'contentProfile' }),
+        await factory.fromTemplate<typeof BentoTemplate>({ templateId: 'contentBento' }),
+        await factory.fromTemplate<typeof QuotesTemplate>({ templateId: 'proofQuotes' }),
       ],
     }),
     await factory.fromTemplate({
       slug: 'blog',
       cards: [
         await factory.fromTemplate<typeof MagazineTemplate>({
-          templateId: 'magazine',
+          templateId: 'postsMagazine',
           userConfig: await getDemoUserConfig({ factory, stock }),
         }),
       ],
@@ -57,15 +57,15 @@ export async function getPages(args: SectionArgs) {
     await factory.fromTemplate({
       slug: 'contact',
       cards: [
-        await factory.fromTemplate<typeof heroTemplate>({ templateId: 'hero', userConfig: {
+        await factory.fromTemplate<typeof heroTemplate>({ templateId: 'contentHero', userConfig: {
           title: 'Contact Us',
           subTitle: `We'll get back to you as soon as possible.`,
           superTitle: { text: 'Get in Touch', icon: { class: 'i-tabler-phone' }, theme: 'orange' },
         } }),
-        await factory.fromTemplate<typeof ContactTemplate>({ templateId: 'contact', userConfig: {
+        await factory.fromTemplate<typeof ContactTemplate>({ templateId: 'convertContact', userConfig: {
 
         } }),
-        await factory.fromTemplate<typeof MapsTemplate>({ templateId: 'maps', userConfig: {
+        await factory.fromTemplate<typeof MapsTemplate>({ templateId: 'locationMaps', userConfig: {
           standard: {
             headers: {
               title: 'Company Location',
@@ -81,14 +81,14 @@ export async function getPages(args: SectionArgs) {
 }
 
 export async function getHeader(args: SectionArgs) {
-  const { factory, userConfig } = args
+  const { factory } = args
 
   return await factory.fromTemplate<typeof areaTemplate>({
     regionId: 'header',
-    templateId: 'area',
+    templateId: 'pageArea',
     cards: [
       await factory.fromTemplate<typeof navTemplate>({
-        templateId: 'nav',
+        templateId: 'pageNav',
         userConfig: {
           brand: {
             logo: {
@@ -132,10 +132,10 @@ export async function getFooter(args: SectionArgs) {
   const { factory } = args
   return await factory.fromTemplate<typeof areaTemplate>({
     regionId: 'footer',
-    templateId: 'area',
+    templateId: 'pageArea',
     cards: [
       await factory.fromTemplate<typeof TickerTemplate>({
-        templateId: 'ticker',
+        templateId: 'typographyTicker',
         userConfig: {
           settings: {
             fontSize: 6,
@@ -152,13 +152,13 @@ export async function getFooter(args: SectionArgs) {
         },
       }),
       await factory.fromTemplate<typeof callToActionTemplate>({
-        templateId: 'callToAction',
+        templateId: 'convertCta',
         userConfig: {
           standard: { spacing: { verticalSpacing: 'sm' } },
         },
       }),
       await factory.fromTemplate<typeof footerXTemplate>({
-        templateId: 'footerX',
+        templateId: 'pageFooterPersonal',
         userConfig: {
           brand: {
             logo: { variant: 'typography', typography: { label: 'Minimal' } },
@@ -171,13 +171,13 @@ export async function getFooter(args: SectionArgs) {
 }
 
 export async function getHidden(args: SectionArgs) {
-  const { factory, userConfig } = args
+  const { factory } = args
 
   return await factory.fromTemplate({
     cards: [
-      await factory.fromTemplate<typeof contentModalTemplate>({ templateId: 'contentModal', userConfig: { } }),
-      await factory.fromTemplate<typeof textEffectsTemplate>({ templateId: 'textEffects', userConfig: { } }),
-      await factory.fromTemplate<typeof captureTemplate>({ templateId: 'capture', userConfig: { } }),
+      await factory.fromTemplate<typeof contentModalTemplate>({ templateId: 'modalMedia', userConfig: { } }),
+      await factory.fromTemplate<typeof textEffectsTemplate>({ templateId: 'effectText', userConfig: { } }),
+      await factory.fromTemplate<typeof captureTemplate>({ templateId: 'convertCapture', userConfig: { } }),
     ],
   })
 }

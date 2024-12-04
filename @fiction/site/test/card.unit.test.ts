@@ -12,7 +12,7 @@ describe('card', async () => {
   const site = await Site.create({ fictionSites: testUtils.fictionSites, siteRouter: testUtils.fictionRouterSites, themeId: 'test', siteId: `test-${shortId()}` })
 
   const templates = await getCardTemplates()
-  const inlineTemplate = templates.find(t => t.settings.templateId === 'hero')
+  const inlineTemplate = templates.find(t => t.settings.templateId === 'contentHero')
   const card = new Card({
     site,
     inlineTemplate,
@@ -26,7 +26,7 @@ describe('card', async () => {
   })
 
   it('cardTemplate initializes with correct settings', () => {
-    expect(card.tpl.value?.settings.templateId).toBe('hero')
+    expect(card.tpl.value?.settings.templateId).toBe('contentHero')
     expect(card.tpl.value?.settings.title).toBe('Hero')
   })
 
@@ -36,8 +36,8 @@ describe('card', async () => {
   })
 
   it('cardTemplate toCard method generates a card with expected properties', async () => {
-    const newCard = await templates.find(t => t.settings.templateId === 'hero')?.toCard({ site })
-    expect(newCard?.settings.templateId).toBe('hero')
+    const newCard = await templates.find(t => t.settings.templateId === 'contentHero')?.toCard({ site })
+    expect(newCard?.settings.templateId).toBe('contentHero')
     expect(newCard?.settings.title).toBeFalsy()
   })
 
@@ -210,11 +210,11 @@ describe('cardTemplate', async () => {
         "testBlog",
       ]
     `)
-    const card = new Card({ templateId: 'hero', site })
+    const card = new Card({ templateId: 'contentHero', site })
 
     await waitFor(50)
 
-    expect(card.templateId.value).toBe('hero')
+    expect(card.templateId.value).toBe('contentHero')
 
     expect(card.tpl.value).toBeInstanceOf(CardTemplate)
   })

@@ -3,8 +3,8 @@ import type { ActionArea, ButtonDesign, ColorThemeUser, StandardSize } from '@fi
 import type { Card } from '@fiction/site/card'
 import { getNested, simpleHandlebarsParser, vue } from '@fiction/core'
 
-import CommunityJoin from '../callToAction/CommunityJoin.vue'
-import CaptureAction from '../capture/CaptureAction.vue'
+import CaptureAction from '../convert-capture/CaptureAction.vue'
+import CommunityJoin from '../convert-cta/CommunityJoin.vue'
 import CardButtons from '../el/CardButtons.vue'
 
 const { card, basePath, action, size = 'md', theme, design } = defineProps<{

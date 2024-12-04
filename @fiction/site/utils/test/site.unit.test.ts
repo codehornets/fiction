@@ -225,7 +225,7 @@ describe('updateSite / updatePages', async () => {
   it('updates and initializes new partial regions', async () => {
     const site = await Site.create({ ...common, themeId: 'test' })
 
-    await updateSite({ caller: 'testUpdateSite', site, newConfig: { pages: [{ templateId: 'wrap', cardId: 'card1' }] } })
+    await updateSite({ caller: 'testUpdateSite', site, newConfig: { pages: [{ templateId: 'pageWrap', cardId: 'card1' }] } })
 
     expect(site.pages.value[0]?.cardId).toBe('card1')
   })

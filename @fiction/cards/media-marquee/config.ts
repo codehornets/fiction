@@ -1,0 +1,205 @@
+import type { ConfigResponse } from '@fiction/site/card.js'
+import type { CardFactory } from '@fiction/site/cardFactory'
+import type { SiteUserConfig } from '@fiction/site/schema'
+import type { StockMedia } from '@fiction/ui/stock'
+import { MediaDisplaySchema } from '@fiction/core'
+import { InputOption } from '@fiction/ui'
+import { z } from 'zod'
+
+const MarqueeItemSchema = z.object({
+  title: z.string().optional().describe('Primary text shown on hover'),
+  subTitle: z.string().optional().describe('Secondary text shown on hover'),
+  href: z.string().optional().describe('Navigation link - use full URL for external links'),
+  media: MediaDisplaySchema.optional().describe('Background media for the item'),
+})
+
+const schema = z.object({
+  items: z.array(MarqueeItemSchema).describe('Media items to display in the marquee'),
+  direction: z.enum(['left', 'right']).optional().describe('Scroll direction'),
+  stagger: z.boolean().optional().describe('Enable staggered item positioning'),
+  speed: z.number().min(1).max(20).optional().describe('Animation speed in seconds'),
+  showAllText: z.boolean().optional().describe('Show text overlay on items'),
+})
+
+export type MarqueeItem = z.infer<typeof MarqueeItemSchema>
+export type UserConfig = z.infer<typeof schema> & SiteUserConfig
+
+const options: InputOption[] = [
+  new InputOption({
+    key: 'items',
+    label: 'Marquee Items',
+    input: 'InputList',
+    options: [
+      new InputOption({
+        key: 'title',
+        label: 'Title',
+        input: 'InputText',
+        description: 'Main text displayed on hover',
+      }),
+      new InputOption({
+        key: 'subTitle',
+        label: 'Subtitle',
+        input: 'InputText',
+        description: 'Supporting text shown below title',
+      }),
+      new InputOption({
+        key: 'media',
+        label: 'Media',
+        input: 'InputMedia',
+        description: 'Background image or video',
+      }),
+      new InputOption({
+        key: 'href',
+        label: 'Link URL',
+        input: 'InputUrl',
+        description: 'Where the item links to when clicked',
+      }),
+    ],
+  }),
+  new InputOption({
+    key: 'direction',
+    label: 'Scroll Direction',
+    input: 'InputSelect',
+    props: { list: ['left', 'right'] },
+    description: 'Direction of marquee animation',
+  }),
+  new InputOption({
+    key: 'stagger',
+    label: 'Stagger Items',
+    input: 'InputToggle',
+    description: 'Create visual depth with subtle height variations',
+  }),
+  new InputOption({
+    key: 'speed',
+    label: 'Animation Speed',
+    input: 'InputNumber',
+    props: { min: 1, max: 20 },
+    description: 'Duration of the scroll animation in seconds',
+  }),
+  new InputOption({
+    key: 'showAllText',
+    label: 'Show Text Overlay',
+    input: 'InputToggle',
+    description: 'Display title and subtitle over images',
+  }),
+]
+
+async function getUserConfig(args: { stock: StockMedia }): Promise<UserConfig> {
+  const { stock } = args
+
+  const items = await Promise.all([
+    stock.getRandomByTags(['aspect:portrait']),
+    stock.getRandomByTags(['aspect:portrait']),
+    stock.getRandomByTags(['aspect:portrait']),
+    stock.getRandomByTags(['aspect:portrait']),
+    stock.getRandomByTags(['aspect:portrait']),
+  ])
+
+  return {
+    items: [
+      {
+        title: 'Visual Storytelling',
+        subTitle: 'Shape your narrative',
+        media: items[0],
+        href: '#',
+      },
+      {
+        title: 'Dynamic Design',
+        subTitle: 'Craft with purpose',
+        media: items[1],
+        href: '#',
+      },
+      {
+        title: 'Creative Flow',
+        subTitle: 'Inspire movement',
+        media: items[2],
+        href: '#',
+      },
+      {
+        title: 'Bold Vision',
+        subTitle: 'Lead with clarity',
+        media: items[3],
+        href: '#',
+      },
+      {
+        title: 'Artistic Direction',
+        subTitle: 'Guide with style',
+        media: items[4],
+        href: '#',
+      },
+    ],
+    direction: 'left',
+    speed: 7,
+    stagger: false,
+    showAllText: false,
+  }
+}
+
+async function getDemoUserConfig(args: { stock: StockMedia }): Promise<UserConfig[]> {
+  const { stock } = args
+  const base = await getUserConfig({ stock })
+
+  return [
+    {
+      standard: { headers: {
+        title: 'Fluid Motion',
+        subTitle: 'Experience the natural flow of content with smooth transitions',
+      } },
+      ...base,
+      items: base.items.map(item => ({
+        ...item,
+        media: { ...item.media, overlay: { opacity: 0.2 } },
+      })),
+      direction: 'left',
+      stagger: false,
+      showAllText: true,
+      speed: 7,
+    },
+    {
+      standard: { headers: {
+        title: 'Visual Rhythm',
+        subTitle: 'Feel the dynamic energy of staggered elements in motion',
+      } },
+      ...base,
+      items: base.items.map(item => ({
+        ...item,
+        media: { ...item.media, overlay: { opacity: 0 } },
+      })),
+      direction: 'right',
+      stagger: true,
+      speed: 10,
+      showAllText: false,
+    },
+    {
+      standard: { headers: {
+        title: 'Artistic Balance',
+        subTitle: 'Discover the perfect harmony of imagery and typography',
+      } },
+      ...base,
+      items: base.items.map(item => ({
+        ...item,
+        media: { ...item.media, overlay: { opacity: 0.4 } },
+      })),
+      direction: 'left',
+      stagger: true,
+      speed: 5,
+      showAllText: true,
+    },
+  ]
+}
+
+export async function getConfig(args: { templateId: string, factory: CardFactory }){
+  const stock = await args.factory.getStockMedia()
+
+  return {
+    schema,
+    options,
+    userConfig: await getUserConfig({ stock }),
+    demoPage: {
+      cards: (await getDemoUserConfig({ stock })).map(userConfig => ({
+        templateId: args.templateId,
+        userConfig,
+      })),
+    },
+  }
+}

@@ -32,7 +32,7 @@ const options: InputOption[] = [
 
 ]
 
-const page = vue.ref<CardConfigPortable>({ title: '', slug: '', cards: [{ templateId: 'hero' }] })
+const page = vue.ref<CardConfigPortable>({ title: '', slug: '', cards: [{ templateId: 'contentHero' }] })
 
 vue.onMounted(() => {
   /**

@@ -1,18 +1,20 @@
-import type { template as areaTemplate } from '@fiction/cards/area/index.js'
-import type { template as faqTemplate } from '@fiction/cards/faq'
-import type { template as footerProTemplate } from '@fiction/cards/footerPro/index.js'
-import type { template as heroTemplate } from '@fiction/cards/hero'
-import type { template as logosTemplate } from '@fiction/cards/logos/index'
-import type { template as mapsTemplate, MapUserConfig } from '@fiction/cards/maps/index.js'
-import type { template as marqueeTemplate } from '@fiction/cards/marquee/index.js'
-import type { template as templateMetrics } from '@fiction/cards/metrics/index.js'
-import type { template as navTemplate } from '@fiction/cards/nav/index.js'
-import type { template as peopleTemplate } from '@fiction/cards/people/index.js'
-import type { template as pricingTemplate } from '@fiction/cards/pricing'
-import type { template as templateQuotes } from '@fiction/cards/quotes/index.js'
+import type { template as faqTemplate } from '@fiction/cards/content-faq'
+import type { template as heroTemplate } from '@fiction/cards/content-hero'
+import type { template as peopleTemplate } from '@fiction/cards/content-people/index.js'
+import type { template as tourTemplate } from '@fiction/cards/content-tour/index.js'
+import type { template as pricingTemplate } from '@fiction/cards/convert-pricing'
+import type { template as effectText } from '@fiction/cards/effect-text/index.js'
+import type { template as mapsTemplate, MapUserConfig } from '@fiction/cards/location-maps/index.js'
+import type { template as marqueeTemplate } from '@fiction/cards/media-marquee/index.js'
+import type { template as modalMedia } from '@fiction/cards/modal-media/index.js'
+import type { template as areaTemplate } from '@fiction/cards/page-area/index.js'
+import type { template as footerProTemplate } from '@fiction/cards/page-footer-pro/index.js'
+import type { template as navTemplate } from '@fiction/cards/page-nav/index.js'
+import type { template as wrapTemplate } from '@fiction/cards/page-wrap/index.js'
+import type { template as logosTemplate } from '@fiction/cards/proof-logos/index'
 
-import type { template as tourTemplate } from '@fiction/cards/tour/index.js'
-import type { template as wrapTemplate } from '@fiction/cards/wrap/index.js'
+import type { template as templateMetrics } from '@fiction/cards/proof-metrics/index.js'
+import type { template as templateQuotes } from '@fiction/cards/proof-quotes/index.js'
 
 import type { FictionStripe } from '@fiction/plugin-stripe/index.js'
 import type { Site } from '@fiction/site'
@@ -20,7 +22,7 @@ import type { CardFactory } from '@fiction/site/cardFactory'
 import type { SiteUserConfig } from '@fiction/site/schema.js'
 import type { StockMedia } from '@fiction/ui/stock/index.js'
 
-import { getDemoPages } from '@fiction/cards'
+import { getCardDemoListing, getDemoPages } from '@fiction/cards'
 import { dayjs, type NavItem, vue } from '@fiction/core'
 import { getCheckoutUrl } from '@fiction/plugin-stripe/index.js'
 
@@ -51,7 +53,7 @@ async function purchaseUrl(args: { priceId: string, fictionStripe?: FictionStrip
 export async function getAboutPage(args: { site: Site, factory: CardFactory }) {
   const { factory } = args
   const topHeroCard = await factory.fromTemplate<typeof heroTemplate>({
-    templateId: 'hero',
+    templateId: 'contentHero',
     userConfig: {
       superTitle: {
         icon: { class: 'i-tabler-home' },
@@ -77,7 +79,7 @@ export async function getAboutPage(args: { site: Site, factory: CardFactory }) {
   })
 
   const missionHeroCard = await factory.fromTemplate<typeof heroTemplate>({
-    templateId: 'hero',
+    templateId: 'contentHero',
     userConfig: {
       superTitle: {
         icon: { class: 'i-tabler-trending-up' },
@@ -96,7 +98,7 @@ export async function getAboutPage(args: { site: Site, factory: CardFactory }) {
   })
 
   const missionHeroCard2 = await factory.fromTemplate<typeof heroTemplate>({
-    templateId: 'hero',
+    templateId: 'contentHero',
     userConfig: {
       superTitle: {
         icon: { class: 'i-tabler-users' },
@@ -115,7 +117,7 @@ export async function getAboutPage(args: { site: Site, factory: CardFactory }) {
   })
 
   const teamCard = await factory.fromTemplate<typeof peopleTemplate>({
-    templateId: 'people',
+    templateId: 'contentPeople',
     userConfig: {
       subTitle: `Building the future of personal branding together`,
       title: `The Team`,
@@ -159,14 +161,14 @@ export async function getAboutPage(args: { site: Site, factory: CardFactory }) {
   }
 
   const mapCard = await factory.fromTemplate<typeof mapsTemplate>({
-    templateId: 'maps',
+    templateId: 'locationMaps',
     userConfig: {
       maps: [mapIrvine, mapSaltLake],
     },
   })
 
   const valueCard = await factory.fromTemplate<typeof faqTemplate>({
-    templateId: 'faq',
+    templateId: 'contentFaq',
     userConfig: {
       layout: 'visible',
       standard: {
@@ -216,11 +218,11 @@ export async function getAboutPage(args: { site: Site, factory: CardFactory }) {
 
   return factory.fromTemplate({
     regionId: 'main',
-    templateId: 'wrap',
+    templateId: 'pageWrap',
     slug: 'about',
     cards: [
       await factory.fromTemplate<typeof areaTemplate>({
-        templateId: 'area',
+        templateId: 'pageArea',
         cards: [
           topHeroCard,
           missionHeroCard,
@@ -241,7 +243,7 @@ export async function getPricingPage(args: { factory: CardFactory, site: Site })
   const { fictionStripe } = site.fictionSites.fictionEnv.getService<{ fictionStripe: FictionStripe }>()
 
   const pricingCard = await factory.fromTemplate<typeof pricingTemplate>({
-    templateId: 'pricing',
+    templateId: 'convertPricing',
     userConfig: {
       annualDiscountPercent: 40,
       prices: [
@@ -286,7 +288,7 @@ export async function getPricingPage(args: { factory: CardFactory, site: Site })
   })
 
   const topHeroCard = await factory.fromTemplate<typeof heroTemplate>({
-    templateId: 'hero',
+    templateId: 'contentHero',
     userConfig: {
       superTitle: { text: 'Simple Premium Pricing' },
       subTitle: `40% Discount When Paying Annually`,
@@ -295,7 +297,7 @@ export async function getPricingPage(args: { factory: CardFactory, site: Site })
   })
 
   const valueCard = await factory.fromTemplate<typeof faqTemplate>({
-    templateId: 'faq',
+    templateId: 'contentFaq',
     userConfig: {
       standard: { headers: { title: 'Frequently Asked Questions', subTitle: 'Get answers to common questions about Fiction' } },
       items: [
@@ -309,11 +311,11 @@ export async function getPricingPage(args: { factory: CardFactory, site: Site })
 
   return factory.fromTemplate({
     regionId: 'main',
-    templateId: 'wrap',
+    templateId: 'pageWrap',
     slug: 'pricing',
     cards: [
       await factory.fromTemplate({
-        templateId: 'area',
+        templateId: 'pageArea',
         cards: [
           topHeroCard,
           pricingCard,
@@ -330,7 +332,7 @@ export async function getHomePage(args: { factory: CardFactory, stock: StockMedi
 
   return factory.fromTemplate<typeof wrapTemplate>({
     regionId: 'main',
-    templateId: 'wrap',
+    templateId: 'pageWrap',
     slug: '_home',
     title: 'Home',
     userConfig: {
@@ -343,11 +345,11 @@ export async function getHomePage(args: { factory: CardFactory, stock: StockMedi
     },
     cards: [
       await factory.fromTemplate({
-        templateId: 'area',
+        templateId: 'pageArea',
         userConfig: { },
         cards: [
           await factory.fromTemplate<typeof heroTemplate>({
-            templateId: 'hero',
+            templateId: 'contentHero',
             userConfig: {
               superTitle: {
                 text: 'The Personal Marketing Platform',
@@ -376,7 +378,7 @@ export async function getHomePage(args: { factory: CardFactory, stock: StockMedi
             },
           }),
           await factory.fromTemplate<typeof marqueeTemplate>({
-            templateId: 'marquee',
+            templateId: 'mediaMarquee',
             userConfig: {
               items: [
                 {
@@ -446,7 +448,7 @@ export async function getHomePage(args: { factory: CardFactory, stock: StockMedi
             },
           }),
           await factory.fromTemplate<typeof logosTemplate>({
-            templateId: 'logos',
+            templateId: 'proofLogos',
             userConfig: {
               items: [
                 {
@@ -477,18 +479,18 @@ export async function getHomePage(args: { factory: CardFactory, stock: StockMedi
 }
 
 export async function getTourPage(args: { factory: CardFactory, stock: StockMedia }) {
-  const { factory, stock } = args
+  const { factory } = args
   return factory.fromTemplate({
     regionId: 'main',
-    templateId: 'wrap',
+    templateId: 'pageWrap',
     slug: 'tour',
     title: 'Tour',
     cards: [
       await factory.fromTemplate<typeof areaTemplate>({
-        templateId: 'area',
+        templateId: 'pageArea',
         cards: [
           await factory.fromTemplate<typeof heroTemplate>({
-            templateId: 'hero',
+            templateId: 'contentHero',
             userConfig: {
               superTitle: {
                 text: 'Your Story Deserves To Be Heard',
@@ -512,7 +514,7 @@ export async function getTourPage(args: { factory: CardFactory, stock: StockMedi
           }),
 
           await factory.fromTemplate<typeof tourTemplate>({
-            templateId: 'tour',
+            templateId: 'contentTour',
             userConfig: {
               items: [
                 {
@@ -585,11 +587,11 @@ export async function getTourPage(args: { factory: CardFactory, stock: StockMedi
         ],
       }),
       await factory.fromTemplate({
-        templateId: 'area',
+        templateId: 'pageArea',
         userConfig: {},
         cards: [
           await factory.fromTemplate<typeof templateMetrics>({
-            templateId: 'metrics',
+            templateId: 'proofMetrics',
             userConfig: {
               metrics: [
                 {
@@ -612,7 +614,7 @@ export async function getTourPage(args: { factory: CardFactory, stock: StockMedi
             },
           }),
           await factory.fromTemplate<typeof templateQuotes>({
-            templateId: 'quotes',
+            templateId: 'proofQuotes',
             userConfig: {
               quotes: [
                 {
@@ -677,7 +679,7 @@ export async function getTourPage(args: { factory: CardFactory, stock: StockMedi
         ],
       }),
       await factory.fromTemplate({
-        templateId: 'area',
+        templateId: 'pageArea',
         userConfig: {
           standard: {
             scheme: {
@@ -699,7 +701,7 @@ export async function getTourPage(args: { factory: CardFactory, stock: StockMedi
         },
         cards: [
           await factory.fromTemplate<typeof heroTemplate>({
-            templateId: 'hero',
+            templateId: 'contentHero',
             userConfig: {
               standard: {
                 spacing: { verticalSpacing: 'lg' },
@@ -774,20 +776,22 @@ export async function getConfig(args: {
     },
   }
 
+  const webElementDemoItems = await getCardDemoListing()
+
   return {
     userConfig,
     pages,
     sections: {
       hidden: await factory.fromTemplate({
         cards: [
-          await factory.fromTemplate({ templateId: 'contentModal', userConfig: { } }),
-          await factory.fromTemplate({ templateId: 'textEffects', userConfig: { } }),
+          await factory.fromTemplate<typeof modalMedia>({ templateId: 'modalMedia', userConfig: { } }),
+          await factory.fromTemplate<typeof effectText>({ templateId: 'effectText', userConfig: { } }),
         ],
       }),
       header: await factory.fromTemplate({
         cards: [
           await factory.fromTemplate<typeof navTemplate>({
-            templateId: 'nav',
+            templateId: 'pageNav',
             userConfig: {
               layout: 'navCenter',
               brand: {
@@ -808,110 +812,7 @@ export async function getConfig(args: {
                     list: {
                       description: 'Professional components for your website',
                       variant: 'expanded',
-                      items: [
-                        {
-                          label: 'Content',
-                          list: {
-                            items: [
-                              { label: 'Bento', href: '/demo-bento' },
-                              { label: 'Trek', href: '/demo-trek' },
-                              { label: 'Numbered List', href: '/demo-numberedList' },
-                              { label: 'People', href: '/demo-people' },
-                              { label: 'Features', href: '/demo-features' },
-                              { label: 'Tour', href: '/demo-tour' },
-                              { label: 'Hero', href: '/demo-hero' },
-                              { label: 'Statement', href: '/demo-statement' },
-                            ],
-                          },
-
-                        },
-                        {
-                          label: 'Conversion',
-                          list: {
-                            items: [
-                              { label: 'Capture', href: '/demo-capture' },
-                              { label: 'Call to Action', href: '/demo-callToAction' },
-                              { label: 'Pricing', href: '/demo-pricing' },
-                              { label: 'Contact', href: '/demo-contact' },
-                              { label: 'FAQ / List', href: '/demo-faq' },
-                            ],
-                          },
-
-                        },
-                        {
-                          label: 'Portfolio',
-                          list: {
-                            items: [
-                              { label: 'Gallery', href: '/demo-gallery' },
-                              { label: 'Showcase', href: '/demo-showcase' },
-                              { label: 'Cinema', href: '/demo-cinema' },
-                              { label: 'Marquee', href: '/demo-marquee' },
-                              { label: 'Logos', href: '/demo-logos' },
-                              { label: 'Metrics', href: '/demo-metrics' },
-                              { label: 'Testimonials', href: '/demo-testimonials' },
-                            ],
-                          },
-
-                        },
-                        {
-                          label: 'Site',
-                          list: {
-                            items: [
-                              { label: 'Nav', href: '/demo-nav' },
-                              { label: 'Footer Pro', href: '/demo-footerPro' },
-                              { label: 'Footer X', href: '/demo-footerX' },
-                              { label: 'Maps', href: '/demo-maps' },
-                              { label: 'Area', href: '/demo-area' },
-                            ],
-                          },
-                        },
-                        {
-                          label: 'Typography',
-                          list: {
-                            items: [
-                              { label: 'Ticker', href: '/demo-ticker' },
-                              { label: 'Fit Text', href: '/demo-fitText' },
-                              { label: 'Quotes', href: '/demo-quotes' },
-                            ],
-                          },
-
-                        },
-                        {
-                          label: 'Posts',
-                          list: {
-                            items: [
-                              { label: 'Magazine', href: '/demo-magazine' },
-                              { label: 'Post List', href: '/demo-postList' },
-                            ],
-                          },
-
-                        },
-                        {
-                          label: 'Profile',
-                          list: {
-                            items: [
-                              { label: 'Over Slide', href: '/demo-overSlide' },
-                              { label: 'Profile', href: '/demo-profile' },
-                              { label: 'Story', href: '/demo-story' },
-                            ],
-                          },
-
-                        },
-
-                        {
-                          label: 'Standard UI',
-                          list: {
-                            items: [
-                              { label: 'Buttons', href: '/demo-xbutton' },
-                              { label: 'Inputs', href: '/demo-xinput' },
-                              { label: 'Media', href: '/demo-xmedia' },
-                              { label: 'Logo', href: '/demo-xlogo' },
-                              { label: 'Shapes', href: '/demo-effectShape' },
-                            ],
-                          },
-
-                        },
-                      ],
+                      items: webElementDemoItems,
                     },
                   },
                 ],
@@ -938,7 +839,7 @@ export async function getConfig(args: {
       footer: await factory.fromTemplate({
         cards: [
           await factory.fromTemplate<typeof footerProTemplate>({
-            templateId: 'footerPro',
+            templateId: 'pageFooterPro',
             userConfig: {
               brand: {
                 logo: stock.getLocalMedia({ key: 'fictionLogo' }),

@@ -50,8 +50,8 @@ describe('manageSite query', () => {
           _action: 'upsert',
           siteId,
           fields: [
-            { cardId, templateId: 'wrap', title: 'Test Page', slug: 'test-page' },
-            { cardId: objectId({ prefix: 'card' }), templateId: 'wrap', title: 'Another Page', slug: 'another-page' },
+            { cardId, templateId: 'pageWrap', title: 'Test Page', slug: 'test-page' },
+            { cardId: objectId({ prefix: 'card' }), templateId: 'pageWrap', title: 'Another Page', slug: 'another-page' },
           ],
           orgId,
           userId,
@@ -190,7 +190,7 @@ describe('manageSite query', () => {
         pages: [
           {
             cardId: objectId({ prefix: 'crd' }),
-            templateId: 'wrap',
+            templateId: 'pageWrap',
             title: 'Test Page',
             slug: 'test-page',
           },
@@ -347,7 +347,7 @@ describe('manageSite query', () => {
         expect(response.data?.pages.find(p => p.slug === 'test-page')).toMatchObject({
           title: 'Test Page',
           slug: 'test-page',
-          templateId: 'wrap',
+          templateId: 'pageWrap',
         })
       })
 
@@ -392,7 +392,7 @@ describe('manageSite query', () => {
 
     it('should update site pages', async () => {
       const newPage = {
-        templateId: 'wrap',
+        templateId: 'pageWrap',
         title: 'New Page',
         slug: 'new-page',
       }
@@ -429,8 +429,8 @@ describe('manageSite query', () => {
           _action: 'upsert',
           siteId,
           fields: [
-            { cardId, templateId: 'wrap', title: 'Published Page', slug: 'published-page' },
-            { cardId: cardId2, templateId: 'wrap', title: 'Published Page 2', slug: 'published-page-2' },
+            { cardId, templateId: 'pageWrap', title: 'Published Page', slug: 'published-page' },
+            { cardId: cardId2, templateId: 'pageWrap', title: 'Published Page 2', slug: 'published-page-2' },
           ],
           orgId,
           userId,
@@ -471,7 +471,7 @@ describe('manageSite query', () => {
     })
 
     it('should save and retrieve draft pages', async () => {
-      const draftPage = { cardId, templateId: 'wrap', title: 'Draft Page', slug: 'draft-page' }
+      const draftPage = { cardId, templateId: 'pageWrap', title: 'Draft Page', slug: 'draft-page' }
       await testUtils.fictionSites.queries.ManagePage.serve(
         {
           _action: 'saveDraft',
@@ -495,7 +495,7 @@ describe('manageSite query', () => {
     })
 
     it('should not return draft pages when retrieving with publish scope', async () => {
-      const draftPage = { cardId, templateId: 'wrap', title: 'Draft Page', slug: 'draft-page' }
+      const draftPage = { cardId, templateId: 'pageWrap', title: 'Draft Page', slug: 'draft-page' }
       await testUtils.fictionSites.queries.ManagePage.serve(
         {
           _action: 'saveDraft',
@@ -521,7 +521,7 @@ describe('manageSite query', () => {
 
     it('should merge site and page drafts when retrieving with draft scope', async () => {
       const siteDraft = { title: 'Draft Site Title' }
-      const pageDraft = { cardId, templateId: 'wrap', title: 'Draft Page', slug: 'draft-page' }
+      const pageDraft = { cardId, templateId: 'pageWrap', title: 'Draft Page', slug: 'draft-page' }
 
       await testUtils.fictionSites.queries.ManageSite.serve(
         { _action: 'saveDraft', where: { siteId }, fields: siteDraft, orgId, userId, caller: 'test' },
@@ -553,8 +553,8 @@ describe('manageSite query', () => {
     })
 
     it('should maintain separate drafts for multiple pages', async () => {
-      const draftPage1 = { cardId, templateId: 'wrap', title: 'Draft Page 1', slug: 'draft-page-1' }
-      const draftPage2 = { cardId: cardId2, templateId: 'wrap', title: 'Draft Page 2', slug: 'draft-page-2' }
+      const draftPage1 = { cardId, templateId: 'pageWrap', title: 'Draft Page 1', slug: 'draft-page-1' }
+      const draftPage2 = { cardId: cardId2, templateId: 'pageWrap', title: 'Draft Page 2', slug: 'draft-page-2' }
 
       await testUtils.fictionSites.queries.ManagePage.serve(
         {
@@ -580,8 +580,8 @@ describe('manageSite query', () => {
     })
 
     it('should update existing page draft when saving a new draft', async () => {
-      const initialDraft = { cardId, templateId: 'wrap', title: 'Initial Draft', slug: 'draft-page' }
-      const updatedDraft = { cardId, templateId: 'wrap', title: 'Updated Draft', slug: 'draft-page' }
+      const initialDraft = { cardId, templateId: 'pageWrap', title: 'Initial Draft', slug: 'draft-page' }
+      const updatedDraft = { cardId, templateId: 'pageWrap', title: 'Updated Draft', slug: 'draft-page' }
 
       await testUtils.fictionSites.queries.ManagePage.serve(
         {
@@ -638,7 +638,7 @@ describe('manageSite query', () => {
         {
           _action: 'upsert',
           siteId,
-          fields: [{ cardId, templateId: 'wrap', title: 'Published Page', slug: 'published-page' }],
+          fields: [{ cardId, templateId: 'pageWrap', title: 'Published Page', slug: 'published-page' }],
           orgId,
           userId,
           caller: 'test',
@@ -651,7 +651,7 @@ describe('manageSite query', () => {
     it('should revert site and page drafts', async () => {
       // Create drafts for site and page
       const siteDraft = { title: 'Draft Site Title' }
-      const pageDraft = { cardId, templateId: 'wrap', title: 'Draft Page Title', slug: 'published-page' }
+      const pageDraft = { cardId, templateId: 'pageWrap', title: 'Draft Page Title', slug: 'published-page' }
 
       await testUtils.fictionSites.queries.ManageSite.serve(
         { _action: 'saveDraft', where: { siteId }, fields: siteDraft, orgId, userId, caller: 'test' },
@@ -746,7 +746,7 @@ describe('manageSite query', () => {
         {
           _action: 'upsert',
           siteId,
-          fields: [{ cardId, templateId: 'wrap', title: 'Published Page', slug: 'published-page' }],
+          fields: [{ cardId, templateId: 'pageWrap', title: 'Published Page', slug: 'published-page' }],
           orgId,
           userId,
           caller: 'test',
@@ -759,7 +759,7 @@ describe('manageSite query', () => {
     it('should clear site and page drafts when publishing', async () => {
       // Create drafts for site and page
       const siteDraft = { title: 'Draft Site Title' }
-      const pageDraft = { cardId, templateId: 'wrap', title: 'Draft Page Title', slug: 'published-page' }
+      const pageDraft = { cardId, templateId: 'pageWrap', title: 'Draft Page Title', slug: 'published-page' }
 
       await testUtils.fictionSites.queries.ManageSite.serve(
         { _action: 'saveDraft', where: { siteId }, fields: siteDraft, orgId, userId, caller: 'test' },
@@ -817,7 +817,7 @@ describe('manageSite query', () => {
     it('should not clear drafts when updating in draft mode', async () => {
       // Create drafts for site and page
       const siteDraft = { title: 'Draft Site Title' }
-      const pageDraft = { cardId, templateId: 'wrap', title: 'Draft Page Title', slug: 'published-page' }
+      const pageDraft = { cardId, templateId: 'pageWrap', title: 'Draft Page Title', slug: 'published-page' }
 
       await testUtils.fictionSites.queries.ManageSite.serve(
         { _action: 'saveDraft', where: { siteId }, fields: siteDraft, orgId, userId, caller: 'test' },

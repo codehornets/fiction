@@ -11,7 +11,7 @@ export async function setPages(args: { pages?: CardConfigPortable[], site?: Site
 
   const pg = await fictionEnv?.runHooks('setPages', pages, site) || pages || []
 
-  const templateId = site?.theme.value?.templateDefaults.value.page || 'wrap'
+  const templateId = site?.theme.value?.templateDefaults.value.page || 'pageWrap'
 
   const pageCards = pg.map(p => new Card({ site, regionId: 'main', templateId, ...p })) || []
 
@@ -105,7 +105,7 @@ export function getPageById(args: { pageId: string, site: Site }) {
       site,
       cardId: '_special404',
       title: '404',
-      templateId: 'wrap',
+      templateId: 'pageWrap',
       is404: true,
       cards: [{ templateId: '404', userConfig: { heading: 'Nothing here' } }],
     })

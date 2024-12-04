@@ -54,7 +54,7 @@ type CreateCardArgs<
   X extends ComponentConstructor | undefined,
 > = {
   tpl?: W
-  templateId?: T | 'wrap'
+  templateId?: T | 'pageWrap'
   el?: X
   userConfig?: UserConfigType<T, U, W, X>
   baseConfig?: UserConfigType<T, U, W, X>
@@ -95,7 +95,7 @@ export class CardFactory<U extends readonly CardTemplate<any>[] = readonly CardT
   async fromTemplate<T extends CardTemplate<any> = CardTemplate<any>>(args: CardMakeArgs<T>): Promise<TableCardConfig> {
     const { tpl, el, userConfig, baseConfig } = args
 
-    const templateId = args.templateId || (args.slug ? 'wrap' : 'area')
+    const templateId = args.templateId || (args.slug ? 'pageWrap' : 'pageArea')
 
     if (!templateId && !tpl)
       throw new Error('CardFactory: templateId or tpl required')
@@ -108,9 +108,9 @@ export class CardFactory<U extends readonly CardTemplate<any>[] = readonly CardT
     if (!template) {
       this.log.error(
         `Template with key "${templateId}" not found in provided templates (${this.caller})`,
-        { data: { templateId, templates: this.templates } },
+        { data: { templateId, templates: this.templates.map(_ => _.settings.templateId) } },
       )
-      return { templateId: 'hero', userConfig: { heading: `Template not found (${templateId})` } }
+      return { templateId: 'contentHero', userConfig: { heading: `Template not found (${templateId})` } }
     }
 
     const createdCard = await template.toCard({
@@ -133,7 +133,7 @@ export class CardFactory<U extends readonly CardTemplate<any>[] = readonly CardT
   ): Promise<TableCardConfig> {
     const { tpl, el, userConfig, baseConfig } = args
 
-    const templateId = args.templateId || (args.slug ? 'wrap' : 'area')
+    const templateId = args.templateId || (args.slug ? 'pageWrap' : 'pageArea')
 
     if (!templateId && !tpl)
       throw new Error('CardFactory: templateId or tpl required')
@@ -145,7 +145,7 @@ export class CardFactory<U extends readonly CardTemplate<any>[] = readonly CardT
     // Ensure that 'templates' contains 'templateId'
     if (!template) {
       log.error('CardFactory', `Template with key "${templateId}" not found in provided templates.`)
-      return { templateId: 'hero', userConfig: { heading: `Template not found (${templateId})` } }
+      return { templateId: 'contentHero', userConfig: { heading: `Template not found (${templateId})` } }
     }
 
     const createdCard = await template.toCard({ ...args, inlineTemplate, site: this.settings.site, userConfig, baseConfig })

@@ -321,8 +321,8 @@ describe('site plugin tests', async () => {
       }
     `)
 
-    await site.addCard({ templateId: 'area', cardId: testId })
-    await site.addCard({ templateId: 'hero', cardId: testId2 })
+    await site.addCard({ templateId: 'pageArea', cardId: testId })
+    await site.addCard({ templateId: 'contentHero', cardId: testId2 })
 
     await waitFor(200)
 
@@ -376,10 +376,10 @@ describe('site plugin tests', async () => {
       ]
     `)
 
-    await site.addCard({ templateId: 'area', addToCardId: testId })
-    await site.addCard({ templateId: 'hero' })
+    await site.addCard({ templateId: 'pageArea', addToCardId: testId })
+    await site.addCard({ templateId: 'contentHero' })
 
-    expect(site.currentPage.value?.cards?.value.find(_ => _.cardId === testId)?.cards.value[0]?.templateId.value).toBe('area')
+    expect(site.currentPage.value?.cards?.value.find(_ => _.cardId === testId)?.cards.value[0]?.templateId.value).toBe('pageArea')
 
     expect(snap(site.currentPage.value?.toConfig(), { maskedKeys: [''] })).toMatchInlineSnapshot(`
       {
@@ -479,8 +479,8 @@ describe('site plugin tests', async () => {
       }
     `)
 
-    await site.addCard({ templateId: 'marquee', cardId: 'testId_1' })
-    await site.addCard({ templateId: 'hero', cardId: 'testId_2' })
+    await site.addCard({ templateId: 'mediaMarquee', cardId: 'testId_1' })
+    await site.addCard({ templateId: 'contentHero', cardId: 'testId_2' })
 
     expect(site.editor.value.selectedCardId, 'selectedCardId should be set').toBe('testId_2')
     expect(site.activeCard.value?.cardId, 'activeCard should be set to latest').toBe('testId_2')
@@ -497,10 +497,10 @@ describe('site plugin tests', async () => {
 
     // make sure region changes don't affect the settings
     updatePage({ site, cardConfig: { title: 'test', regionId: 'main' } })
-    await site.addCard({ templateId: 'hero', cardId: 'testId_3' })
+    await site.addCard({ templateId: 'contentHero', cardId: 'testId_3' })
     site.activeCard.value?.update({ userConfig: { hello: 'world' } }, { caller: 'test' })
 
-    await site.addCard({ templateId: 'hero', addToCardId: 'testId_2', cardId: 'nestedTestId1' })
+    await site.addCard({ templateId: 'contentHero', addToCardId: 'testId_2', cardId: 'nestedTestId1' })
     site.activeCard.value?.update({ userConfig: { foo: 'bar' } }, { caller: 'test' })
     expect(site.activeCard.value?.userConfig.value.foo).toBe('bar')
 

@@ -23,11 +23,11 @@ describe('setLayoutOrder', async () => {
   } as const
   it('should reorder regions and nested cards based on provided order', async () => {
     // Mock data setup
-    const page1 = new Card({ cardId: 'page1', cards: [{ cardId: 'cardA', templateId: 'area' }] })
-    const page2 = new Card({ cardId: 'page2', slug: 'foo', isHome: true, cards: [{ cardId: 'cardB', templateId: 'area' }] })
-    const page3 = new Card({ cardId: 'page3', cards: [{ cardId: 'cardC', templateId: 'hero' }] })
-    const cardHeader = new Card({ cardId: 'header', cards: [{ cardId: 'headerA', templateId: 'area' }] }).toConfig()
-    const cardFooter = new Card({ cardId: 'footer', cards: [{ cardId: 'footerA', templateId: 'area' }] }).toConfig()
+    const page1 = new Card({ cardId: 'page1', cards: [{ cardId: 'cardA', templateId: 'pageArea' }] })
+    const page2 = new Card({ cardId: 'page2', slug: 'foo', isHome: true, cards: [{ cardId: 'cardB', templateId: 'pageArea' }] })
+    const page3 = new Card({ cardId: 'page3', cards: [{ cardId: 'cardC', templateId: 'contentHero' }] })
+    const cardHeader = new Card({ cardId: 'header', cards: [{ cardId: 'headerA', templateId: 'pageArea' }] }).toConfig()
+    const cardFooter = new Card({ cardId: 'footer', cards: [{ cardId: 'footerA', templateId: 'pageArea' }] }).toConfig()
 
     const pages = [page1, page2, page3].map(c => c.toConfig())
     const sections: Record<string, CardConfigPortable> = { header: cardHeader, footer: cardFooter }
@@ -54,7 +54,7 @@ describe('setLayoutOrder', async () => {
 
     setLayoutOrder({ site, order: order2 })
 
-    await site.addCard({ cardId: 'cardD', templateId: 'hero', addToCardId: 'page3', location: 'top' })
+    await site.addCard({ cardId: 'cardD', templateId: 'contentHero', addToCardId: 'page3', location: 'top' })
 
     expect(site.pages.value.find(p => p.cardId === 'page2')?.cards.value.map(c => c.cardId)).toEqual(['cardC', 'cardA'])
     expect(site.pages.value.find(p => p.cardId === 'page3')?.cards.value.map(c => c.cardId)).toEqual(['cardD', 'cardA', 'cardB'])

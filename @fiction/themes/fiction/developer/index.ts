@@ -5,19 +5,19 @@ import { vue } from '@fiction/core'
 export async function page(args: { site: Site, factory: CardFactory }) {
   const factory = args.factory
 
-  const homeCard = await factory.create({
+  const homeCard = await factory.fromTemplate({
     el: vue.defineAsyncComponent(async () => import('./el/ElCard.vue')),
     userConfig: {
       standard: { spacing: { verticalSpacing: 'none' } },
     },
   })
 
-  return factory.create({
+  return factory.fromTemplate({
     regionId: 'main',
-    templateId: 'wrap',
+    templateId: 'pageWrap',
     slug: 'developer',
     cards: [
-      await factory.create({ templateId: 'area', cards: [homeCard] }),
+      await factory.fromTemplate({ templateId: 'pageArea', cards: [homeCard] }),
 
     ],
   })

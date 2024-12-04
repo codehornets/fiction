@@ -50,7 +50,7 @@ class GoogleFontsUtility {
 
   public createGoogleFontsLink(args: { fontFamilies: FontFamily[] }): string {
     const { fontFamilies } = args
-    const deduped = [...new Set(fontFamilies.map(_ => _.family))]
+    const deduped = [...new Set(fontFamilies.map(_ => _.family))].filter(Boolean)
 
     const fontParams = deduped.map((familyName) => {
       const family = familyName?.replace(/ /g, '+')

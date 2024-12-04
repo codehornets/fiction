@@ -41,7 +41,7 @@ export class FictionTransactions extends FictionPlugin<FictionTransactionsSettin
       context: 'app',
       callback: async (pages, site) => {
         const theme = site?.theme.value
-        const transactionTemplateId = theme?.templateDefaults.value.transaction || 'wrap'
+        const transactionTemplateId = theme?.templateDefaults.value.transaction || 'pageWrap'
 
         if (!theme?.templates || !theme.templates.find(_ => _.settings.templateId === transactionTemplateId))
           return pages

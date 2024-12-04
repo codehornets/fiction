@@ -12,10 +12,10 @@ export async function page(args: { site: Site, factory: CardFactory }) {
 
   return factory.create({
     regionId: 'main',
-    templateId: 'wrap',
+    templateId: 'pageWrap',
     slug: 'affiliate',
     cards: [
-      await factory.create({ templateId: 'area', cards: [homeCard] }),
+      await factory.create({ templateId: 'pageArea', cards: [homeCard] }),
     ],
   })
 }

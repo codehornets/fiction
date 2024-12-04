@@ -13,7 +13,7 @@ describe('generation utils', async () => {
   const site = await Site.create({ fictionSites: testUtils.fictionSites, siteRouter: testUtils.fictionRouterSites, themeId: 'test', siteId: `test-${shortId()}` })
 
   const templates = await getCardTemplates()
-  const inlineTemplate = templates.find(t => t.settings.templateId === 'hero')
+  const inlineTemplate = templates.find(t => t.settings.templateId === 'contentHero')
   const card = new Card({
     site,
     inlineTemplate,

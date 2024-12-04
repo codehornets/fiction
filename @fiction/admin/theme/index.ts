@@ -1,9 +1,8 @@
-import type { FictionEnv } from '@fiction/core/index.js'
+import type { template as TransactionTemplate } from '@fiction/cards/page-transaction/index.js'
 import type { CardFactory } from '@fiction/site/cardFactory.js'
 import type { SiteUserConfig } from '@fiction/site/schema.js'
-import type { format } from 'node:path'
 import type { FictionAdmin } from '../index.js'
-import { getCardTemplates, templates } from '@fiction/cards'
+import { getCardTemplates } from '@fiction/cards'
 import { safeDirname, vue } from '@fiction/core/index.js'
 import { Theme } from '@fiction/site/theme.js'
 import favicon from '@fiction/ui/brand/favicon.svg'
@@ -29,7 +28,7 @@ export async function getPages(args: { factory: CardFactory }) {
       slug: '_404',
       title: 'Not Found (404)',
       cards: [
-        await factory.fromTemplate({ templateId: '404' }),
+        await factory.fromTemplate({ templateId: 'page404' }),
       ],
     }),
     await factory.create({
@@ -41,42 +40,42 @@ export async function getPages(args: { factory: CardFactory }) {
         await factory.fromTemplate({
           el: def(async () => import('../settings/SettingsMain.vue')),
           cards: [
-            await factory.create({
+            await factory.fromTemplate({
               slug: '_home',
               title: 'Organization Settings',
               description: 'Manage your organization profile, branding, and general preferences',
               el: def(async () => import('../settings/PanelOrganization.vue')),
               userConfig: { isNavItem: true, navIcon: 'i-tabler-building', navIconAlt: 'i-tabler-building-cog' },
             }),
-            await factory.create({
+            await factory.fromTemplate({
               slug: 'account',
               title: 'Personal Account',
               description: 'Manage your profile, security settings, and preferences',
               el: def(async () => import('../settings/PanelAccount.vue')),
               userConfig: { isNavItem: true, navIcon: 'i-tabler-user-circle', navIconAlt: 'i-tabler-user-cog' },
             }),
-            await factory.create({
+            await factory.fromTemplate({
               slug: 'team',
               title: 'Team Management',
               description: 'Manage team members, roles, and permissions',
               el: def(async () => import('../settings/PanelTeam.vue')),
               userConfig: { isNavItem: true, navIcon: 'i-tabler-users-group' },
             }),
-            await factory.create({
+            await factory.fromTemplate({
               slug: 'team-member',
               title: 'Team Member Details',
               description: 'View and edit individual team member settings and roles',
               el: def(async () => import('../settings/PanelTeamMember.vue')),
               userConfig: { isNavItem: false, navIcon: 'i-tabler-users-group', parentItemId: 'team' },
             }),
-            await factory.create({
+            await factory.fromTemplate({
               slug: 'billing',
               title: 'Billing & Subscription',
               description: 'Manage subscriptions, payment methods, and billing history',
               el: def(async () => import('../settings/PanelBilling.vue')),
               userConfig: { isNavItem: true, navIcon: 'i-tabler-credit-card', navIconAlt: 'i-tabler-credit-card-filled' },
             }),
-            await factory.create({
+            await factory.fromTemplate({
               slug: 'developer',
               title: 'Developer Tools',
               description: 'Access API keys, documentation, and technical resources',
@@ -87,8 +86,8 @@ export async function getPages(args: { factory: CardFactory }) {
         }),
       ],
     }),
-    await factory.create({
-      templateId: 'transaction',
+    await factory.fromTemplate<typeof TransactionTemplate>({
+      templateId: 'pageTransaction',
       slug: 'auth',
       title: 'Settings',
       cards: [
@@ -139,7 +138,7 @@ export const theme = new Theme({
       } satisfies SiteUserConfig,
     }
   },
-  templateDefaults: { page: 'dash', transaction: 'transaction' },
+  templateDefaults: { page: 'dash', transaction: 'pageTransaction' },
   getBaseConfig: () => {
     return {
       spacing: { contentWidthSize: 'sm', spacingSize: `none` },

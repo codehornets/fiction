@@ -1,3 +1,4 @@
+import type { template as MarqueeTemplate } from '@fiction/cards/media-marquee'
 import { getCardTemplates } from '@fiction/cards'
 import { safeDirname, vue } from '@fiction/core'
 import { z } from 'zod'
@@ -53,8 +54,8 @@ export const theme = new Theme({
     const { site, factory } = args
     const obama = staticFileUrl({ site, filename: 'obama.webp' })
 
-    const mediaGridCard = await factory.fromTemplate({
-      templateId: 'marquee',
+    const mediaGridCard = await factory.fromTemplate<typeof MarqueeTemplate>({
+      templateId: 'mediaMarquee',
       userConfig: {
         items: [
           {
@@ -76,13 +77,23 @@ export const theme = new Theme({
           slug: '_home',
           title: 'Default Page',
           isHome: true,
-          cards: [mediaGridCard, { templateId: 'hero' }, { templateId: 'area', cards: [{ templateId: 'hero' }] }, { templateId: 'hero' }],
+          cards: [
+            mediaGridCard,
+            { templateId: 'contentHero' },
+            { templateId: 'pageArea', cards: [
+              { templateId: 'contentHero' },
+            ] },
+            { templateId: 'contentHero' },
+          ],
         }),
         await factory.fromTemplate({
           slug: 'example',
           title: 'Example Page',
           templateId: 'testWrap',
-          cards: [{ templateId: 'area', cards: [{ templateId: 'hero' }] }],
+          cards: [{
+            templateId: 'pageArea',
+            cards: [{ templateId: 'contentHero' }],
+          }],
         }),
       ],
     }

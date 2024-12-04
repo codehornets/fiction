@@ -1,4 +1,4 @@
-import type { template as heroTemplate } from '@fiction/cards/hero/index.js'
+import type { template as heroTemplate } from '@fiction/cards/content-hero/index.js'
 import type { FictionRouter, RunVars } from '@fiction/core'
 import type { ManageSiteParams } from './endpoint.js'
 import type { FictionSites, TableSiteConfig } from './index.js'
@@ -128,7 +128,7 @@ export async function loadSiteFromCard(args: { cardId: string, siteRouter: Ficti
       slug: '_home',
       cards: [
         await factory.fromTemplate<typeof heroTemplate>({
-          templateId: 'hero',
+          templateId: 'contentHero',
           userConfig: {
             superTitle: {
               text: tpl.settings.category?.join(', '),

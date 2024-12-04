@@ -1,12 +1,13 @@
-import type { FictionEnv, FictionPluginSettings, FictionRouter } from '@fiction/core'
+import type { FictionEnv, FictionPluginSettings, FictionRouter, NavListItem } from '@fiction/core'
 import type { FictionSites } from '@fiction/site'
 import type { CardTemplate } from '@fiction/site/card'
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { Site } from '@fiction/site/site.js'
-import { envConfig, FictionPlugin, safeDirname, vue } from '@fiction/core'
+import { envConfig, FictionPlugin, log, safeDirname, toLabel, vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site/card'
-import { z } from 'zod'
 import { generateCardStructure } from './utils/generateStructure'
+
+const logger = log.contextLogger('cardLoading')
 
 // Register path for tailwindcss to scan for styles
 envConfig.register({
@@ -14,105 +15,126 @@ envConfig.register({
   onLoad: ({ fictionEnv }) => fictionEnv.addUiRoot(safeDirname(import.meta.url)),
 })
 
-// Template imports organized by category
-export const templates = {
-  layout: {
-    wrap: () => import('./wrap'),
-    area: () => import('./area'),
-    nav: () => import('./nav'),
-    footer: () => import('./footerPro'),
-    footerX: () => import('./footerX'),
+type TemplateGroup = {
+  label: string
+  description?: string
+  templates: (() => Promise<{ template: CardTemplate<any> }>)[]
+}
+
+const templateGroups: TemplateGroup[] = [
+
+  {
+    label: 'Marketing Essentials',
+    description: 'Showcase your identity and value proposition',
+    templates: [
+      () => import('./content-hero'), // -> hero-banner
+      () => import('./content-profile'), // -> about-profile
+      () => import('./content-story'), // -> brand-story
+      () => import('./content-features'), // -> value-features
+      () => import('./slider-statement'), // -> brand-statement
+      () => import('./content-bento'), // -> feature-grid
+      () => import('./content-people'), // -> team-showcase
+    ],
   },
-  content: {
-    hero: () => import('./hero'),
-    story: () => import('./story'),
-    quote: () => import('./quotes'),
-    profile: () => import('./profile'),
-    features: () => import('./features'),
-    faq: () => import('./faq'),
-    statement: () => import('./statement'),
-    testimonials: () => import('./testimonials'),
-    metrics: () => import('./metrics'),
-    people: () => import('./people'),
-    logos: () => import('./logos'),
-    numberedList: () => import('./numberedList'),
-    bento: () => import('./bento'),
-    timeline: () => import('./timeline'),
+  {
+    label: 'Social Proof',
+    description: 'Build credibility with testimonials and achievements',
+    templates: [
+      () => import('./proof-testimonials'), // -> client-testimonials
+      () => import('./proof-quotes'), // -> quote-showcase
+      () => import('./proof-metrics'), // -> success-metrics
+      () => import('./proof-logos'), // -> partner-logos
+      () => import('./gallery-showcase'), // -> client-showcase
+    ],
   },
-  posts: {
-    postList: () => import('./postList'),
-    magazine: () => import('./magazine'),
-    insta: () => import('./insta'),
+  {
+    label: 'Content and Posts',
+    description: 'Share your expertise and insights',
+    templates: [
+      () => import('./posts-list'),
+      () => import('./posts-magazine'),
+      () => import('./social-insta'),
+      () => import('./content-numbered-list'),
+      () => import('./content-faq'),
+      () => import('./content-timeline'),
+    ],
   },
-  media: {
-    cinema: () => import('./cinema'),
-    gallery: () => import('./gallery'),
-    contentModal: () => import('./contentModal'),
-    showcase: () => import('./showcase'),
+  {
+    label: 'Media Gallery',
+    description: 'Showcase your work through rich media',
+    templates: [
+      () => import('./slider-cinema/index'),
+      () => import('./gallery-masonry'),
+      () => import('./modal-media'),
+      () => import('./content-tour'),
+    ],
   },
-  interactive: {
-    capture: () => import('./capture'),
-    contact: () => import('./contact'),
-    map: () => import('./maps'),
-    pricing: () => import('./pricing'),
-    tour: () => import('./tour'),
-    ctaAlpha: () => import('./callToAction'),
+  {
+    label: 'Conversion',
+    description: 'Turn visitors into connections',
+    templates: [
+      () => import('./convert-cta'),
+      () => import('./convert-capture'),
+      () => import('./convert-contact'),
+      () => import('./convert-pricing'),
+      () => import('./location-maps'),
+    ],
   },
-  effects: {
-    effectShape: () => import('./effectShape'),
-    fitText: () => import('./fitText'),
-    marquee: () => import('./marquee'),
-    overSlide: () => import('./overSlide'),
-    textEffects: () => import('./textEffects'),
-    ticker: () => import('./ticker'),
-    trek: () => import('./trek'),
+  {
+    label: 'Nav & Structure',
+    description: 'Essential layout components for your site foundation',
+    templates: [
+      () => import('./page-wrap'),
+      () => import('./page-area'),
+      () => import('./page-nav'),
+      () => import('./page-footer-pro'),
+      () => import('./page-footer-personal'),
+    ],
   },
-  special: {
-    four04: () => import('./404'),
-    transaction: () => import('./transactions'),
+  {
+    label: 'Sliders & Carousels',
+    description: 'Add dynamic flair to your content',
+    templates: [
+      () => import('./media-marquee'),
+      () => import('./slider-overlay'),
+      () => import('./typography-ticker'),
+      () => import('./gallery-parallax-scroll'),
+    ],
   },
-} as const
+  {
+    label: 'Effects & Utility',
+    description: 'Essential functional components',
+    templates: [
+      () => import('./typography-fit-text'),
+      () => import('./effect-shape'),
+      () => import('./effect-text'),
+      () => import('./page-404'),
+      () => import('./page-transaction'),
+    ],
+  },
+]
 
 // Type utilities for template configuration
 type TemplateModule = { template: CardTemplate<any> }
 
-async function getTemplateModules() {
-  const loadedTemplates: Record<string, TemplateModule> = {}
-  const loadErrors: Record<string, Error> = {}
-
+async function getTemplateModules(): Promise<TemplateModule[]> {
   // Flatten the nested template structure for parallel loading
-  const templateEntries = Object.values(templates).flatMap(category =>
-    Object.entries(category).map(([key, importFn]) => ({ key, importFn })),
-  )
+  const templateEntries = templateGroups.flatMap(category => category.templates)
 
   // Load all templates in parallel with error handling
   const results = await Promise.allSettled(
-    templateEntries.map(async ({ key, importFn }) => {
+    templateEntries.map(async (importFn, i) => {
       try {
-        const module = await importFn()
-        return { key, module }
+        return await importFn()
       }
       catch (error) {
-        loadErrors[key] = error instanceof Error ? error : new Error('Unknown error loading template')
-        throw error
+        logger.info('Error loading template:', { error, i, importFn })
+        throw new Error('Unknown error loading template')
       }
     }),
   )
 
-  // Process results and populate loadedTemplates
-  results.forEach((result) => {
-    if (result.status === 'fulfilled') {
-      const { key, module } = result.value
-      loadedTemplates[key] = module
-    }
-  })
-
-  // Log any errors that occurred during loading
-  if (Object.keys(loadErrors).length > 0) {
-    console.error('Template loading errors:', loadErrors)
-  }
-
-  return loadedTemplates
+  return results.map(result => result.status === 'fulfilled' ? result.value : null).filter(Boolean) as TemplateModule[]
 }
 
 // Main template getter
@@ -125,45 +147,48 @@ export async function getCardTemplates(): Promise<CardTemplate<any>[]> {
 }
 
 // Demo templates for UI components
-const demoTemplates = {
-  buttons: {
+const uiDemoTemplates = [
+  {
     templateId: 'xbutton',
     title: 'Buttons',
     description: 'Standard button styles',
     icon: 'i-tabler-square-rounded-chevron-right-filled',
     component: () => import('@fiction/ui/buttons/test/TestButtonsAll.vue'),
   },
-  inputs: {
+  {
     templateId: 'xinput',
     title: 'Inputs',
     description: 'Standard input styles',
     icon: 'i-tabler-input-check',
     component: () => import('@fiction/ui/inputs/test/TestInputsAll.vue'),
   },
-  logo: {
+  {
     templateId: 'xlogo',
     title: 'Logo Component',
     description: 'Standard logo handling',
     icon: 'i-tabler-brand-apple',
     component: () => import('@fiction/ui/test/TestLogoHandling.vue'),
   },
-  media: {
+  {
     templateId: 'xmedia',
     title: 'Media Component',
     description: 'Standard media handling',
     icon: 'i-tabler-photo-hexagon',
     component: () => import('@fiction/ui/test/TestMediaHandling.vue'),
   },
-}
+]
 
-// Create demo templates
-function createDemoTemplate(config: typeof demoTemplates[keyof typeof demoTemplates]) {
-  return cardTemplate({
-    ...config,
-    category: ['advanced'],
-    el: vue.defineAsyncComponent(config.component),
-    isPublic: false,
+function getUiDemoCardTemplates() {
+  const uiDemoTemplatesList = uiDemoTemplates.map((t) => {
+    return cardTemplate({
+      ...t,
+      category: ['advanced'],
+      el: vue.defineAsyncComponent(t.component),
+      isPublic: true,
+    })
   })
+
+  return uiDemoTemplatesList
 }
 
 // Get demo pages
@@ -174,7 +199,7 @@ export async function getDemoPages(args: {
   factory: CardFactory
 }) {
   const { createDemoPage } = await import('./utils/demo')
-  const demoTemplatesList = Object.values(demoTemplates).map(createDemoTemplate)
+  const demoTemplatesList = getUiDemoCardTemplates()
   const allTemplates = [...demoTemplatesList, ...args.templates]
 
   const demoPagePromises = allTemplates.map(async (template) => {
@@ -184,6 +209,43 @@ export async function getDemoPages(args: {
   })
 
   return await Promise.all(demoPagePromises)
+}
+
+export async function getCardDemoListing(): Promise<NavListItem[]> {
+  const listing: NavListItem[] = []
+
+  // match the loading of the templates
+  const uiDemoCardModules = getUiDemoCardTemplates().map((t) => {
+    return () => Promise.resolve({ template: t })
+  })
+
+  const demoTemplateGroups: TemplateGroup[] = [
+    ...templateGroups,
+    { label: 'UI Libraries', templates: uiDemoCardModules },
+  ]
+  for (const group of demoTemplateGroups) {
+    const items: NavListItem[] = []
+
+    for (const importFn of group.templates) {
+      const { template } = await importFn()
+      const { isPublic, templateId, title } = template.settings
+      if (isPublic !== false) {
+        items.push({
+          label: title || toLabel(templateId),
+          href: `/demo-${templateId}`,
+        })
+      }
+    }
+
+    if (items.length > 0) {
+      listing.push({
+        label: group.label,
+        list: { items },
+      })
+    }
+  }
+
+  return listing
 }
 
 export type CardsPluginSettings = {

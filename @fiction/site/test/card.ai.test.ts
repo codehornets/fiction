@@ -10,7 +10,7 @@ describe('cardCompletion', async () => {
   await testUtils.init()
   const site = await Site.create({ fictionSites: testUtils.fictionSites, siteRouter: testUtils.fictionRouterSites, themeId: 'test', siteId: `test-${shortId()}` })
   it('generates the content for the card', async () => {
-    const card = new Card({ templateId: 'hero', site })
+    const card = new Card({ templateId: 'contentHero', site })
 
     const genUtil = new CardGeneration({ card })
 
