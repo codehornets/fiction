@@ -1,6 +1,7 @@
 import type { SiteUserConfig } from '@fiction/site/schema'
+import type { InputOption, InputProps } from '@fiction/ui'
 import { brandSchema, navListItemSchema, navListSchema } from '@fiction/core/schemas/schemas'
-import { InputOption } from '@fiction/ui'
+import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
 export const schema = z.object({
@@ -156,144 +157,41 @@ export function getDemoConfigs(templateId: string): Record<string, { templateId:
 
 export function getOptions(): InputOption[] {
   return [
-    new InputOption({
-      key: 'personalBrand',
-      label: 'Brand Voice',
-      description: 'Shape your brand\'s narrative and voice',
+    createOption({
+      key: 'brandGroup',
+      label: 'Brand',
       input: 'group',
+      schema,
       options: [
-        new InputOption({
-          key: 'title',
-          label: 'Title',
-          description: 'Enter your brand name or tagline',
-          input: 'InputText',
-          isRequired: true,
-          props: {
-            placeholder: 'e.g., "Shape Tomorrow\'s Digital Landscape"',
-          },
-        }),
-        new InputOption({
-          key: 'subTitle',
-          label: 'Tagline',
-          description: 'Add a memorable phrase or mission statement',
-          input: 'InputText',
-          props: {
-            placeholder: '',
-          },
-        }),
+        createOption({ key: 'brand', input: 'InputBrand', schema }),
       ],
     }),
 
-    new InputOption({
+    createOption({
       key: 'menus',
-      label: 'Navigation Structure',
-      description: 'Design intuitive pathways through your content',
-      input: 'InputList',
-      props: {
-        itemLabel: 'Menu Group',
-        addButtonText: 'Add Navigation Group',
-      },
-      options: [
-        new InputOption({
-          key: 'itemsTitle',
-          label: 'Section Title',
-          description: 'Create clear categories for your links',
-          input: 'InputText',
-          props: {
-            placeholder: 'e.g., "Explore", "Connect", "Resources"',
-          },
-        }),
-        new InputOption({
-          key: 'items',
-          label: 'Navigation Items',
-          description: 'Build your navigation hierarchy',
-          input: 'InputList',
-          props: {
-            itemLabel: 'Navigation Link',
-            addButtonText: 'Add Navigation Item',
-          },
-          options: [
-            new InputOption({
-              key: 'name',
-              label: 'Link Text',
-              input: 'InputText',
-              props: {
-                placeholder: 'e.g., "Start Here", "Our Story"',
-              },
-            }),
-            new InputOption({
-              key: 'href',
-              label: 'Destination',
-              description: 'Where should this link take visitors?',
-              input: 'InputUrl',
-              props: {
-                placeholder: 'e.g., /about or https://example.com',
-              },
-            }),
-            new InputOption({
-              key: 'media',
-              label: 'Visual Cue',
-              description: 'Add an icon to enhance recognition',
-              input: 'InputIcon',
-            }),
-          ],
-        }),
-      ],
+      label: 'Menus',
+      input: 'InputNavMenu',
+      schema,
     }),
 
-    new InputOption({
+    createOption({
       key: 'additional',
-      label: 'Legal & Trust',
-      description: 'Build trust with clear policies and branding',
+      label: 'Additional Links',
       input: 'group',
       options: [
-        new InputOption({
-          key: 'list1',
-          label: 'Legal Links',
-          description: 'Essential links for transparency and compliance',
-          input: 'InputList',
-          props: {
-            itemLabel: 'Legal Link',
-            addButtonText: 'Add Legal Link',
-          },
-          options: [
-            new InputOption({
-              key: 'name',
-              label: 'Link Text',
-              input: 'InputText',
-              props: {
-                placeholder: 'e.g., "Privacy Policy", "Terms"',
-              },
-            }),
-            new InputOption({
-              key: 'href',
-              label: 'Legal Document URL',
-              input: 'InputUrl',
-              props: {
-                placeholder: 'e.g., /privacy or /terms',
-              },
-            }),
-          ],
+        createOption({
+          key: 'additional.list1',
+          label: 'Primary Links',
+          input: 'InputNav',
+          props: { hasChildNav: false },
+          schema,
         }),
-        new InputOption({
-          key: 'list2',
-          label: 'Brand Footer',
-          description: 'Add your copyright and brand signature',
-          input: 'InputList',
-          props: {
-            itemLabel: 'Footer Text',
-            addButtonText: 'Add Footer Line',
-          },
-          options: [
-            new InputOption({
-              key: 'name',
-              label: 'Text Line',
-              input: 'InputText',
-              props: {
-                placeholder: 'e.g., "© 2024 Your Amazing Brand"',
-              },
-            }),
-          ],
+        createOption({
+          key: 'additional.list2',
+          label: 'Secondary Links',
+          input: 'InputNav',
+          props: { hasChildNav: false },
+          schema,
         }),
       ],
     }),

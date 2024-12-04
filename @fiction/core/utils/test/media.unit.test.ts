@@ -32,11 +32,6 @@ describe('determineMediaFormat', () => {
     expect(determineMediaFormat(media)).toBe('html')
   })
 
-  it('should return "typography" for media with typography', () => {
-    const media: MediaObject = { typography: { label: 'Some text', font: { family: 'Arial' } } }
-    expect(determineMediaFormat(media)).toBe('typography')
-  })
-
   it('should return "image" for valid image URLs', () => {
     const media: MediaObject = { url: 'https://example.com/image.jpg' }
     expect(determineMediaFormat(media)).toBe('image')

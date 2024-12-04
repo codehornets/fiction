@@ -70,7 +70,7 @@ function getButtonClasses(item: ListItem, index: number): string {
       :class="getButtonClasses(item, index)"
       :aria-checked="modelValue === item.value"
       role="radio"
-      @click="emit('update:modelValue', item.value)"
+      @click.prevent="emit('update:modelValue', item.value)"
     >
       {{ item.name }}
     </button>

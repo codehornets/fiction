@@ -3,7 +3,7 @@ import type { FictionSites } from '@fiction/site'
 import type { CardTemplate } from '@fiction/site/card'
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { Site } from '@fiction/site/site.js'
-import { envConfig, FictionPlugin, log, safeDirname, toLabel, vue } from '@fiction/core'
+import { envConfig, FictionPlugin, log, safeDirname, toKebab, toLabel, vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site/card'
 import { generateCardStructure } from './utils/generateStructure'
 
@@ -232,7 +232,7 @@ export async function getCardDemoListing(): Promise<NavListItem[]> {
       if (isPublic !== false) {
         items.push({
           label: title || toLabel(templateId),
-          href: `/demo-${templateId}`,
+          href: `/demo-${toKebab(templateId)}`,
         })
       }
     }

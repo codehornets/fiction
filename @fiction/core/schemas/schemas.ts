@@ -124,24 +124,6 @@ export const typographySchema = z.object({
 
 export type TypographyObject = z.infer<typeof typographySchema>
 
-export const logoSchema = z.object({
-  variant: z.enum(['media', 'typography']).optional(),
-  media: MediaIconSchema.optional(),
-  typography: typographySchema.optional(),
-  scale: z.number().optional(),
-})
-
-export const brandSchema = z.object({
-  logo: logoSchema.optional(),
-  tagline: z.string().optional(),
-})
-
-export type LogoObject = z.infer<typeof logoSchema>
-
-export const MediaTypographySchema = MediaBasicSchema.extend({
-  typography: typographySchema.optional(),
-})
-
 // MediaContent schema (includes MediaBasic)
 export const MediaContentSchema = MediaIconSchema.extend({
 
@@ -169,7 +151,7 @@ export const MediaDisplaySchema = MediaContentSchema.extend({
     flip: z.enum(['horizontal', 'vertical']).optional(),
   }).optional(),
 })
-export type MediaObject = z.infer<typeof MediaDisplaySchema & typeof MediaTypographySchema & typeof MediaIconSchema>
+export type MediaObject = z.infer<typeof MediaDisplaySchema & typeof MediaIconSchema>
 
 // First define base schema without recursive parts
 const BaseNavListItemSchema = z.object({
@@ -305,6 +287,23 @@ export const actionAreaSchema = z.object({
 })
 
 export type ActionArea = z.infer<typeof actionAreaSchema>
+
+export const logoSchema = z.object({
+  variant: z.enum(['media', 'typography']).optional(),
+  media: MediaIconSchema.optional(),
+  typography: typographySchema.optional(),
+  scale: z.number().optional(),
+})
+
+export const brandSchema = z.object({
+  logo: logoSchema.optional(),
+  tagline: z.string().optional(),
+  action: actionAreaSchema.optional(),
+})
+
+export type BrandObject = z.infer<typeof brandSchema>
+
+export type LogoObject = z.infer<typeof logoSchema>
 
 export const superTitleSchema = z.object({
   text: z.string().optional(),

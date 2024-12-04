@@ -50,7 +50,7 @@ const colorStyle = vue.computed(() => {
     <CardText
       tag="h3"
       :card
-      class="font-sans text-sm lg:text-lg font-medium"
+      class="font-sans text-sm lg:text-md"
       :path="`${basePath}.text`"
       placeholder="Super Title"
       animate="fade"

@@ -1,7 +1,7 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { StockMedia } from '@fiction/ui/stock'
-import { actionAreaSchema, ActionButtonSchema, MediaTypographySchema, navListItemSchema, navListSchema } from '@fiction/core'
-import { InputOption } from '@fiction/ui'
+import { actionAreaSchema, brandSchema, navListItemSchema, navListSchema } from '@fiction/core'
+import { createOption, InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
 const socialItemSchema = navListItemSchema.pick({
@@ -11,17 +11,9 @@ const socialItemSchema = navListItemSchema.pick({
 })
 
 export const schema = z.object({
-  brand: z.object({
-    logo: MediaTypographySchema.optional(),
-    title: z.string().optional(),
-    subTitle: z.string().optional(),
-    action: actionAreaSchema.optional(),
-  }).optional(),
-  columns: z.array(navListSchema).optional(),
-  badges: z.object({
-    title: z.string().optional(),
-    action: actionAreaSchema.optional(),
-  }).optional(),
+  brand: brandSchema.optional(),
+  menus: z.array(navListSchema).optional(),
+  badges: actionAreaSchema.optional(),
   additional: z.object({
     links: z.array(navListItemSchema).optional(),
     social: z.array(socialItemSchema).optional(),
@@ -33,13 +25,13 @@ export type UserConfig = z.infer<typeof schema>
 function getDefaultConfig(): UserConfig {
   return {
     brand: {
-      title: 'Add Your Brand',
-      subTitle: 'Add your brand tagline here',
+      logo: { variant: 'typography', typography: { label: 'Add Your Brand' } },
+      tagline: 'Add your brand tagline here',
       action: {
         buttons: [],
       },
     },
-    columns: [
+    menus: [
       {
         title: 'Resources',
         items: [
@@ -48,16 +40,13 @@ function getDefaultConfig(): UserConfig {
       },
     ],
     badges: {
-      title: 'Trusted By',
-      action: {
-        buttons: [
-          {
-            icon: { iconId: 'star' },
-            label: 'Certified',
-            href: '#',
-          },
-        ],
-      },
+      buttons: [
+        {
+          icon: { iconId: 'star' },
+          label: 'Certified',
+          href: '#',
+        },
+      ],
     },
     additional: {
       links: [
@@ -72,146 +61,50 @@ function getDefaultConfig(): UserConfig {
 
 function getOptions(): InputOption[] {
   return [
-    new InputOption({
-      key: 'brand',
-      label: 'Brand Presence',
+    createOption({
+      key: 'brandGroup',
+      label: 'Brand',
       input: 'group',
+      schema,
       options: [
-        new InputOption({
-          key: 'title',
-          label: 'Brand Name',
-          input: 'InputText',
-          props: { placeholder: 'Your Brand Name' },
-        }),
-        new InputOption({
-          key: 'subTitle',
-          label: 'Brand Message',
-          input: 'InputText',
-          props: { placeholder: 'Your brand tagline or message' },
-        }),
-        new InputOption({
-          key: 'actions',
-          label: 'Call to Action',
-          input: 'InputActions',
-        }),
+        createOption({ key: 'brand', input: 'InputBrand', schema }),
       ],
     }),
-    new InputOption({
-      key: 'columns',
-      label: 'Navigation Columns',
-      input: 'InputList',
-      props: { itemLabel: 'Column' },
-      options: [
-        new InputOption({
-          key: 'title',
-          label: 'Column Title',
-          input: 'InputText',
-        }),
-        new InputOption({
-          key: 'items',
-          label: 'Navigation Items',
-          input: 'InputList',
-          props: { itemLabel: 'Navigation Link' },
-          options: [
-            new InputOption({
-              key: 'name',
-              label: 'Link Text',
-              input: 'InputText',
-            }),
-            new InputOption({
-              key: 'href',
-              label: 'Link URL',
-              input: 'InputUrl',
-            }),
-            new InputOption({
-              key: 'media',
-              label: 'Icon',
-              input: 'InputIcon',
-            }),
-          ],
-        }),
-      ],
+    createOption({
+      key: 'menus',
+      label: 'Menus',
+      input: 'InputNavMenu',
+      schema,
     }),
-    new InputOption({
-      key: 'badges',
-      label: 'Trust Badges',
+
+    createOption({
+      key: 'badgesGroup',
+      label: 'Badges',
       input: 'group',
+      schema,
       options: [
-        new InputOption({
-          key: 'title',
-          label: 'Section Title',
-          input: 'InputText',
-        }),
-        new InputOption({
-          key: 'items',
-          label: 'Badge Items',
-          input: 'InputList',
-          props: { itemLabel: 'Badge' },
-          options: [
-            new InputOption({
-              key: 'media',
-              label: 'Badge Icon/Image',
-              input: 'InputMedia',
-            }),
-            new InputOption({
-              key: 'title',
-              label: 'Badge Title',
-              input: 'InputText',
-            }),
-            new InputOption({
-              key: 'href',
-              label: 'Badge Link',
-              input: 'InputUrl',
-            }),
-          ],
-        }),
+        createOption({ key: 'badges', input: 'InputActionArea', schema }),
       ],
     }),
+
     new InputOption({
       key: 'additional',
       label: 'Additional Links',
       input: 'group',
       options: [
-        new InputOption({
-          key: 'links',
-          label: 'Footer Links',
-          input: 'InputList',
-          props: { itemLabel: 'Link' },
-          options: [
-            new InputOption({
-              key: 'name',
-              label: 'Link Text',
-              input: 'InputText',
-            }),
-            new InputOption({
-              key: 'href',
-              label: 'Link URL',
-              input: 'InputUrl',
-            }),
-          ],
+        createOption({
+          key: 'additional.links',
+          label: 'Links',
+          input: 'InputNav',
+          props: { hasChildNav: false },
+          schema,
         }),
-        new InputOption({
-          key: 'social',
-          label: 'Social Links',
-          input: 'InputList',
-          props: { itemLabel: 'Social Link' },
-          options: [
-            new InputOption({
-              key: 'name',
-              label: 'Platform Name',
-              input: 'InputText',
-            }),
-            new InputOption({
-              key: 'href',
-              label: 'Profile URL',
-              input: 'InputUrl',
-            }),
-            new InputOption({
-              key: 'media',
-              label: 'Platform Icon',
-              input: 'InputIcon',
-            }),
-          ],
+        createOption({
+          key: 'additional.social',
+          label: 'Icons',
+          input: 'InputNav',
+          props: { hasChildNav: false, iconOnly: true },
+          schema,
         }),
       ],
     }),
@@ -225,9 +118,12 @@ async function getDemoConfig(args: { templateId: string, stock: StockMedia }): P
       templateId,
       userConfig: {
         brand: {
-          logo: stock.getLocalMedia({ key: 'lorem1' }),
-          title: 'CloudFlow',
-          subTitle: 'Simplify Your Cloud Infrastructure',
+          logo: {
+            variant: 'media',
+            media: stock.getLocalMedia({ key: 'lorem1' }),
+            typography: { label: 'CloudFlow' },
+          },
+          tagline: 'Simplify Your Cloud Infrastructure',
           action: {
             buttons: [
               { label: 'Start Free', theme: 'primary', icon: { iconId: 'bolt' } },
@@ -235,7 +131,7 @@ async function getDemoConfig(args: { templateId: string, stock: StockMedia }): P
             ],
           },
         },
-        columns: [
+        menus: [
           {
             title: 'Platform',
             items: [
@@ -263,8 +159,7 @@ async function getDemoConfig(args: { templateId: string, stock: StockMedia }): P
           },
         ],
         badges: {
-          title: 'Certifications',
-          action: { buttons: [
+          buttons: [
             {
               icon: { iconId: 'star' },
               label: 'Read Reviews',
@@ -280,7 +175,7 @@ async function getDemoConfig(args: { templateId: string, stock: StockMedia }): P
               label: 'Satisfaction Guaranteed',
               theme: 'green',
             },
-          ] },
+          ],
         },
         additional: {
           links: [

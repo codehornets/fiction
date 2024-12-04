@@ -3,13 +3,12 @@ import type { Card } from '@fiction/site/card'
 import type { UserConfig } from './config'
 import { vue } from '@fiction/core'
 import { animateItemEnter, useElementVisible } from '@fiction/ui/anim'
-import EffectFitText from '@fiction/ui/effect/EffectFitText.vue'
 import XLogoType from '@fiction/ui/media/XLogoType.vue'
 import CardNavLink from '../CardNavLink.vue'
 import CardText from '../CardText.vue'
 import CardLink from '../el/CardLink.vue'
 
-defineOptions({ name: 'FooterX' })
+defineOptions({ name: 'PageFooterPersonal' })
 
 const props = defineProps<{
   card: Card<UserConfig>
@@ -49,9 +48,9 @@ vue.onMounted(() => {
               <XLogoType
                 :logo="uc.brand?.logo"
                 :classes="{
-                  media: 'h-10',
-                  image: '',
-                  text: 'x-font-title text-2xl font-medium' }"
+                  text: 'x-font-title text-3xl font-medium',
+                }"
+                :media-handling="{ height: 3 }"
                 class="transition-all group-hover:opacity-80 duration-200"
                 data-test-id="nav-logo"
               />
@@ -59,7 +58,7 @@ vue.onMounted(() => {
             <CardText
               tag="p"
               :card
-              path="tagline"
+              path="brand.tagline"
               class="text-2xl text-theme-500 dark:text-theme-400 animate-item"
               animate="fade"
             />
@@ -91,7 +90,7 @@ vue.onMounted(() => {
           </div>
         </div>
 
-        <div class="border-t border-theme-200 dark:border-theme-700/50 pt-16 mt-4">
+        <div class="border-t border-theme-200 dark:border-theme-700/50 pt-16 mt-16">
           <div class="flex justify-between gap-6 flex-col md:flex-row">
             <div>
               <div class="flex flex-wrap gap-x-8 gap-y-4 mb-8">

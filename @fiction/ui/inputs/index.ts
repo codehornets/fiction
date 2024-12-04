@@ -8,6 +8,9 @@ type InputEntry = { el: vue.Component, shape?: string[] }
 
 export const inputs = {
   InputNav: { el: def(() => import('./InputNav.vue')) },
+  InputNavMenu: { el: def(() => import('./InputNavMenu.vue')) },
+  InputBrand: { el: def(() => import('./InputBrand.vue')) },
+  InputActionArea: { el: def(() => import('./InputActionArea.vue')) },
   InputControl: { el: def(() => import('./InputControl.vue')) },
   InputProse: { el: def(() => import('./InputProse.vue')) },
   InputActionList: { el: def(() => import('./InputActionList.vue')) },
@@ -57,8 +60,6 @@ export const inputs = {
 
 export type InputProps<T extends keyof typeof inputs> = InstanceType<(typeof inputs)[T]['el']>['$props'] & { [key: string]: any }
 
-type SchemaCallback = (args: { z: typeof z, subSchema: z.AnyZodObject }) => z.Schema
-
 export type InputOptionGeneration = {
   prompt?: string
   isUserEnabled?: boolean
@@ -99,8 +100,7 @@ export interface InputOptionSettings {
   props?: Record<string, unknown>
   options?: InputOption[] | ((args: { input: InputOption }) => InputOption[])
   list?: (ListItem | string)[] | readonly (ListItem | string)[]
-  // default?: () => U
-  schema?: SchemaCallback
+  schema?: z.Schema
   generation?: InputOptionGeneration
   isHidden?: boolean
   isUtility?: boolean
@@ -195,4 +195,49 @@ export class InputOption extends FictionObject<InputOptionSettings> {
       shape: this.shape.value,
     })
   }
+}
+
+type OptionPrimitive = string | number | boolean | undefined | null
+
+type PathsToStringProps<T> = T extends OptionPrimitive
+  ? never
+  : T extends any[]
+    ? never
+    : T extends object
+      ? {
+          [K in keyof T & string]: T[K] extends OptionPrimitive
+            ? K
+            : T[K] extends any[]
+              ? K | `${K}.${number}` | `${K}.${number}.${PathsToStringProps<T[K][number]>}`
+              : K | `${K}.${PathsToStringProps<T[K]>}`
+        }[keyof T & string]
+      : never
+
+// Remove undefined from optional properties
+type NonNullableFields<T> = {
+  [P in keyof T]: NonNullable<T[P]>
+}
+
+export type UtilitySchemaDotPaths<T extends object> = PathsToStringProps<NonNullableFields<T>>
+
+type ValidKey<
+  TSchema extends z.ZodObject<any> | undefined,
+  TInput extends InputComponent | undefined,
+> = TInput extends 'group' | 'title'
+  ? string
+  : TSchema extends z.ZodObject<any>
+    ? UtilitySchemaDotPaths<z.infer<TSchema>>
+    : string
+
+export function createOption<
+  TInput extends InputComponent,
+  TSchema extends z.ZodObject<any> | undefined = undefined,
+>(settings: {
+  input: TInput
+  key: ValidKey<TSchema, TInput>
+  schema?: TSchema
+  props?: TInput extends keyof typeof inputs ? InputProps<TInput> : Record<string, unknown>
+} & Omit<InputOptionSettings, 'key' | 'input' | 'props' | 'schema'>) {
+  const { schema, ...inputSettings } = settings
+  return new InputOption(inputSettings)
 }

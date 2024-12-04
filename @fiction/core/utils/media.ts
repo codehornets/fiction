@@ -49,8 +49,6 @@ export function determineMediaFormat(media?: MediaObject): MediaObject['format']
       return 'iconClass'
     if (media.html)
       return 'html'
-    if (media.typography)
-      return 'typography'
   }
 
   if (media.url && isValidUrl(media.url)) {

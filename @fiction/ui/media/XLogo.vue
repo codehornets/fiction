@@ -1,9 +1,7 @@
 <script lang="ts" setup>
 import type { MediaObject } from '@fiction/core'
 import { determineMediaFormat, vue } from '@fiction/core'
-import { googleFontsUtility } from '@fiction/core/utils/fonts'
 import { twMerge } from 'tailwind-merge'
-import EffectFitTextVertical from '../effect/EffectFitTextVertical.vue'
 import XIcon from '../media/XIcon.vue'
 
 defineOptions({ name: 'XLogo' })
@@ -21,17 +19,6 @@ const imageRef = vue.ref<HTMLImageElement | null>(null)
 const svgRef = vue.ref<SVGElement | null>(null)
 
 const mediaFormat = vue.computed(() => determineMediaFormat(props.media))
-
-// Load Google Fonts for typography format
-vue.watch(
-  () => props.media.typography?.font,
-  async (font) => {
-    if (font) {
-      await googleFontsUtility.loadFont(font)
-    }
-  },
-  { immediate: true },
-)
 
 // Handle container classes
 const containerClass = vue.computed(() => {
@@ -95,20 +82,6 @@ function handleImageLoad() {
     }
   }
 }
-
-// Typography styles based on media config
-const typographyStyle = vue.computed(() => {
-  const typography = props.media.typography
-  if (!typography)
-    return {}
-
-  return {
-    fontFamily: typography.font,
-    fontWeight: typography.weight,
-    lineHeight: typography.lineHeight || '1.2',
-    letterSpacing: typography.letterSpacing,
-  }
-})
 
 // ResizeObserver for container size changes
 let resizeObserver: ResizeObserver | undefined

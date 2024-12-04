@@ -35,7 +35,7 @@ import * as developer from './developer/index.js'
 const social: NavItem[] = [
   { key: 'linkedin', href: 'https://www.linkedin.com/company/fictionco', target: '_blank', label: 'LinkedIn', media: { iconId: `brand-linkedin` } },
   { key: 'github', href: 'https://github.com/fictionco', target: '_blank', label: 'Github', media: { iconId: `brand-github` } },
-  { key: 'x', href: 'https://www.x.com/fictionplatform', target: '_blank', label: 'X', media: { iconId: `x` } },
+  { key: 'x', href: 'https://www.x.com/fictionplatform', target: '_blank', label: 'X', media: { iconId: `brand-x` } },
 ]
 
 async function purchaseUrl(args: { priceId: string, fictionStripe?: FictionStripe }) {
@@ -842,9 +842,12 @@ export async function getConfig(args: {
             templateId: 'pageFooterPro',
             userConfig: {
               brand: {
-                logo: stock.getLocalMedia({ key: 'fictionLogo' }),
-                title: 'Fiction',
-                subTitle: `Your story begins here...`,
+                logo: {
+                  variant: 'media',
+                  media: stock.getLocalMedia({ key: 'fictionLogo' }),
+                  typography: { label: 'Fiction' },
+                },
+                tagline: `Your story begins here...`,
                 action: {
                   buttons: [
                     { label: 'Start Free', theme: 'primary', icon: { iconId: 'bolt' } },
@@ -852,7 +855,7 @@ export async function getConfig(args: {
                   ],
                 },
               },
-              columns: [
+              menus: [
                 {
                   title: 'Explore',
                   items: [
@@ -888,17 +891,14 @@ export async function getConfig(args: {
               },
 
               badges: {
-                action: {
-                  buttons: [
-                    {
-                      href: 'https://stripe.com/partners',
-                      target: '_blank',
-                      label: 'Stripe Verified Partner',
-                      icon: { iconId: 'brand-stripe' },
-                    },
-                  ],
-                },
-
+                buttons: [
+                  {
+                    href: 'https://stripe.com/partners',
+                    target: '_blank',
+                    label: 'Stripe Verified Partner',
+                    icon: { iconId: 'brand-stripe' },
+                  },
+                ],
               },
             },
           }),

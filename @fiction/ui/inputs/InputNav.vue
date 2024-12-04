@@ -4,7 +4,10 @@ import type { InputProps } from './index.js'
 import FormEngine from './FormEngine.vue'
 import { InputOption } from './index.js'
 
-const { modelValue } = defineProps<{ modelValue?: NavListItem }>()
+const { modelValue, hasChildNav = true } = defineProps<{
+  modelValue?: NavListItem
+  hasChildNav: boolean
+}>()
 
 const emit = defineEmits<{
   (event: 'update:modelValue', payload: NavListItem): void
@@ -30,6 +33,11 @@ const baseOptions: InputOption[] = [
     input: 'InputUrl',
   }),
   new InputOption({
+    key: 'icon',
+    label: 'Icon',
+    input: 'InputIcon',
+  }),
+  new InputOption({
     key: 'advancedNavItems',
     label: 'Advanced Settings',
     input: 'group',
@@ -41,11 +49,7 @@ const baseOptions: InputOption[] = [
         input: 'InputText',
         description: 'Shown in expanded menus',
       }),
-      new InputOption({
-        key: 'icon',
-        label: 'Icon',
-        input: 'InputIcon',
-      }),
+
       new InputOption({
         key: 'variant',
         label: 'Style Variant',
@@ -67,6 +71,9 @@ const baseOptions: InputOption[] = [
     ],
   }),
 
+]
+
+const childMenuOptions = [
   new InputOption({
     key: 'list',
     label: 'Child Menu',
@@ -132,7 +139,10 @@ const options = [
     key: '*',
     input: 'InputList',
     props: getInputListProps('Nav Item'),
-    options: baseOptions,
+    options: [
+      ...baseOptions,
+      ...(hasChildNav ? childMenuOptions : []),
+    ],
   }),
 ]
 </script>

@@ -8,7 +8,7 @@ export const template = cardTemplate({
   templateId,
   category: ['navigation'],
   icon: 'i-tabler-layout-bottombar',
-  title: 'Footer X',
+  title: 'Personal Footer',
   colorTheme: 'violet',
   subTitle: 'Create a lasting impression with a thoughtfully designed footer',
   description: `Transform your site's footer into a powerful navigation hub and brand anchor.

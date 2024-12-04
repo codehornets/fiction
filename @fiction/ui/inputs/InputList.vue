@@ -176,9 +176,9 @@ vue.onMounted(async () => {
         data-test-id="handle"
         @click="toggleItem(i)"
       >
-        <div class="flex gap-1 items-center cursor-move">
+        <div class="flex gap-1 items-center cursor-move min-w-0">
           <div class="text-lg text-theme-300 dark:text-theme-500 i-tabler-grip-vertical" />
-          <div class="text-theme-500 dark:text-theme-50">
+          <div class="text-theme-500 dark:text-theme-50 truncate w-full min-w-0">
             {{ getItemLabel(item, i) }}
           </div>
         </div>

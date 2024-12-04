@@ -2,7 +2,7 @@ import type { template as heroTemplate } from '@fiction/cards/content-hero/index
 import type { FictionRouter, RunVars } from '@fiction/core'
 import type { ManageSiteParams } from './endpoint.js'
 import type { FictionSites, TableSiteConfig } from './index.js'
-import { log } from '@fiction/core'
+import { log, toCamel } from '@fiction/core'
 import { CardFactory } from './cardFactory.js'
 import { Site } from './index.js'
 import { localSiteConfig } from './utils/site.js'
@@ -102,15 +102,16 @@ export async function loadSiteFromTheme(args: {
 
 export async function loadSiteFromCard(args: { cardId: string, siteRouter: FictionRouter, fictionSites: FictionSites, siteMode: SiteMode, caller?: string }): Promise<Site> {
   const { cardId } = args
-  const siteId = `card-${cardId}`
+  const normCardId = toCamel(cardId)
+  const siteId = `card-${normCardId}`
   const site = await loadSiteFromTheme({ ...args, themeId: 'minimal', fictionSiteId: `card-${cardId}` })
 
   const templates = site.theme.value?.templates || []
 
-  const tpl = templates.find(t => t.settings.templateId === cardId)
+  const tpl = templates.find(t => t.settings.templateId === normCardId)
 
   if (!tpl)
-    throw new Error(`no template found for card ${cardId}`)
+    throw new Error(`no template found for card ${normCardId}`)
 
   const factory = new CardFactory({ templates, site, caller: 'siteFromCard' })
 
@@ -136,7 +137,7 @@ export async function loadSiteFromCard(args: { cardId: string, siteRouter: Ficti
               icon: typeof tpl.settings.icon === 'string' ? { class: tpl.settings.icon } : tpl.settings.icon,
             },
             title: tpl.settings.title,
-            subTitle: tpl.settings.description,
+            subTitle: tpl.settings.subTitle,
             action: { buttons: [] },
           },
         }),

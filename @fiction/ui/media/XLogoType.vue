@@ -3,7 +3,6 @@ import type { LogoObject } from '@fiction/core'
 import { determineMediaFormat, vue } from '@fiction/core'
 import { googleFontsUtility } from '@fiction/core/utils/fonts'
 import { twMerge } from 'tailwind-merge'
-import { h } from 'vue'
 import XIcon from './XIcon.vue'
 
 defineOptions({ name: 'XLogoType' })
