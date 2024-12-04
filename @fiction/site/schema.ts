@@ -16,13 +16,17 @@ import { z } from 'zod'
 
 export type SizeBasic = z.infer<typeof SizeSchemaComplete>
 
-const KnownFontKeys = ['mono', 'input', 'title', 'sans', 'body', 'serif', 'highlight'] as const
-
 export const prefersColorScheme = ['light', 'dark', 'auto', ''] as const
 
-const baseFontsSchema = z.object(
-  Object.fromEntries(KnownFontKeys.map(key => [key, fontFamilySchema.optional()])),
-)
+const baseFontsSchema = z.object({
+  title: fontFamilySchema.optional(),
+  body: fontFamilySchema.optional(),
+  sans: fontFamilySchema.optional(),
+  serif: fontFamilySchema.optional(),
+  mono: fontFamilySchema.optional(),
+  input: fontFamilySchema.optional(),
+  highlight: fontFamilySchema.optional(),
+})
 
 // .catchall(). This method allows the schema to accept any additional properties of the specified type.
 const fontsSchema = baseFontsSchema.catchall(fontFamilySchema)

@@ -10,11 +10,11 @@ dotenv.config({ path: path.resolve(__dirname, '../@fiction/core/.env') })
 
 // Core configuration
 const CATEGORY_LIMITS = {
-  'sans-serif': 40,
-  'serif': 40,
-  'display': 30,
-  'monospace': 30,
-  'handwriting': 30,
+  'sans-serif': 50,
+  'serif': 50,
+  'display': 50,
+  'monospace': 50,
+  'handwriting': 50,
 } as const
 
 const TRENDING_RATIO = 0.4 // 40% trending, 60% popular

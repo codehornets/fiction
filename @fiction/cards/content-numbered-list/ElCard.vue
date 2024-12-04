@@ -99,7 +99,7 @@ vue.onMounted(() => {
                   :card="card"
                   :path="`items.${i}.content`"
                   tag="p"
-                  class="text-2xl x-font-title leading-relaxed"
+                  class="text-2xl leading-relaxed"
                 />
               </div>
             </div>

@@ -74,8 +74,10 @@ vue.onMounted(async () => {
   fontsList.value = await requestFontsList()
 })
 
-vue.watch(() => modelValue, (newFont) => {
-  const fontItem = fontsList.value?.find(font => font.family === newFont)
+vue.watch(() => modelValue, async (newFont) => {
+  const list = await requestFontsList()
+  const fontItem = list.find(font => font.family === newFont.family)
+
   if (fontItem) {
     const link = getGoogleLink(fontItem.family)
     const fontLink = document.getElementById('google-font-preview') as HTMLLinkElement
@@ -97,19 +99,6 @@ const fontFamily = vue.computed(() => {
   return safeStacks[selectedFont as keyof typeof safeStacks] || selectedFont
 })
 
-const previewFontSize = vue.computed(() => {
-  const sizes = {
-    'xxs': 'text-xs p-2',
-    'xs': 'text-sm p-2',
-    'sm': 'text-base p-2',
-    'md': 'text-lg py-2 px-8',
-    'lg': 'text-xl py-2.5 px-8',
-    'xl': 'text-2xl py-3 px-8',
-    '2xl': 'text-3xl py-3.5 px-8',
-  }
-  return sizes[uiSize as keyof typeof sizes] || 'text-base py-2 px-8'
-})
-
 function handleFamilyChange(family?: string) {
   emit('update:modelValue', { family })
 }
@@ -123,16 +112,6 @@ export default {
 
 <template>
   <div class="space-y-2">
-    <div v-if="fontFamily && !noPreview">
-      <div
-        contenteditable="true"
-        class="font-preview inline-block border border-dashed border-theme-200 dark:border-theme-600/60 rounded-md focus:outline-none focus:ring-0  hover:opacity-80"
-        :class="previewFontSize"
-        :style="{ fontFamily }"
-      >
-        <span>Editable Font Preview </span>
-      </div>
-    </div>
     <InputSelectCustom
       v-bind="{ ...$attrs, list }"
       :ui-size="uiSize"
@@ -140,5 +119,14 @@ export default {
       class="grow"
       @update:model-value="handleFamilyChange($event as string | undefined)"
     />
+    <div v-if="fontFamily && !noPreview">
+      <div
+        contenteditable="true"
+        class="w-full py-1 px-4 text-sm font-preview inline-block border border-dashed dark:bg-theme-700/60 text-center border-theme-200 dark:border-theme-600/60 rounded-md focus:outline-none focus:ring-0  hover:opacity-80"
+        :style="{ fontFamily }"
+      >
+        <span>Preview</span>
+      </div>
+    </div>
   </div>
 </template>
