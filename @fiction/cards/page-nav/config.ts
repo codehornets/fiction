@@ -1,19 +1,14 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { SiteUserConfig } from '@fiction/site/schema'
+import type { InputOption } from '@fiction/ui'
 import type { StockMedia } from '@fiction/ui/stock'
 import { brandSchema, logoSchema, navListItemSchema } from '@fiction/core'
-import { InputOption } from '@fiction/ui'
+import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
-// Schema definition
 export const schema = z.object({
   brand: brandSchema.optional(),
-
-  layout: z.enum([
-    'navCenter', // Navigation centered, logo on side
-    'logoCenter', // Logo centered, navigation split
-    'justified', // Fully justified spacing
-  ]).optional(),
+  layout: z.enum(['navCenter', 'logoCenter', 'justified']).optional(),
   nav: z.object({
     primary: z.array(navListItemSchema).optional(),
     utility: z.array(navListItemSchema).optional(),
@@ -24,42 +19,56 @@ export type UserConfig = z.infer<typeof schema> & SiteUserConfig
 
 function getOptions(): InputOption[] {
   return [
-    new InputOption({
+    createOption({
       key: 'brand',
-      label: 'Brand Identity',
+      label: 'Logo',
       input: 'group',
+      schema,
       options: [
-        new InputOption({
+        createOption({
           key: 'brand.logo',
-          label: 'Logo',
           input: 'InputLogo',
-          description: 'Your brand logo or wordmark - supports text or image',
+          schema,
         }),
       ],
     }),
-
-    new InputOption({
-      key: 'layout',
-      label: 'Navigation Layout',
-      input: 'InputRadio',
-      props: {
-        options: [
-          { label: 'Centered Nav', value: 'navCenter', description: 'Navigation centered with logo on side' },
-          { label: 'Centered Logo', value: 'logoCenter', description: 'Logo centered with split navigation' },
-          { label: 'Justified', value: 'justified', description: 'Fully justified spacing' },
-        ],
-      },
+    createOption({
+      key: 'layoutGroup',
+      label: 'Layout',
+      input: 'group',
+      schema,
+      options: [
+        createOption({
+          key: 'layout',
+          input: 'InputRadioButton',
+          schema,
+          list: [
+            { label: 'Centered Nav', value: 'navCenter', description: 'Navigation centered with logo on side' },
+            { label: 'Centered Logo', value: 'logoCenter', description: 'Logo centered with split navigation' },
+            { label: 'Justified', value: 'justified', description: 'Fully justified spacing' },
+          ],
+        }),
+      ],
     }),
-
-    new InputOption({
-      key: 'nav.primary',
-      label: 'Main Navigation',
-      input: 'InputNav',
-    }),
-    new InputOption({
-      key: 'nav.utility',
-      label: 'Utility Navigation',
-      input: 'InputNav',
+    createOption({
+      key: 'navGroup',
+      label: 'Navigation',
+      input: 'group',
+      schema,
+      options: [
+        createOption({
+          key: 'nav.primary',
+          label: 'Main Navigation',
+          input: 'InputNav',
+          schema,
+        }),
+        createOption({
+          key: 'nav.utility',
+          label: 'Utility Navigation',
+          input: 'InputNav',
+          schema,
+        }),
+      ],
     }),
 
   ]
@@ -99,15 +108,6 @@ function getDefaultConfig(): UserConfig {
 
 async function getDemoCards(args: { templateId: string, stock: StockMedia }): Promise<{ templateId: string, userConfig: UserConfig }[]> {
   const { templateId, stock } = args
-
-  const loremSubNav = {
-    items: [
-      { label: 'Lorem', href: '#' },
-      { label: 'Ipsum', href: '#' },
-      { label: 'Dolor', href: '#' },
-      { label: 'Sit', href: '#' },
-    ],
-  }
 
   return [
     // Default demo showing standard navigation

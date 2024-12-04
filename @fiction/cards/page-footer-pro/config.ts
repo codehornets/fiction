@@ -1,7 +1,8 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
+import type { InputOption } from '@fiction/ui'
 import type { StockMedia } from '@fiction/ui/stock'
 import { actionAreaSchema, brandSchema, navListItemSchema, navListSchema } from '@fiction/core'
-import { createOption, InputOption } from '@fiction/ui'
+import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
 const socialItemSchema = navListItemSchema.pick({
@@ -71,10 +72,13 @@ function getOptions(): InputOption[] {
       ],
     }),
     createOption({
-      key: 'menus',
+      key: 'menusGroup',
       label: 'Menus',
-      input: 'InputNavMenu',
+      input: 'group',
       schema,
+      options: [
+        createOption({ key: 'menus', input: 'InputNavMenu', schema }),
+      ],
     }),
 
     createOption({
@@ -87,10 +91,11 @@ function getOptions(): InputOption[] {
       ],
     }),
 
-    new InputOption({
+    createOption({
       key: 'additional',
       label: 'Additional Links',
       input: 'group',
+      schema,
       options: [
         createOption({
           key: 'additional.links',

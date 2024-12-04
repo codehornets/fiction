@@ -38,7 +38,7 @@ vue.onMounted(() => {
         <!-- Main grid layout -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-24">
           <!-- Brand section -->
-          <div class="w-full grow gap-6 space-y-2 pb-6">
+          <div class="w-full grow gap-6 space-y-4 pb-6">
             <CardLink
               v-if="uc.brand?.logo"
               :card

@@ -1,22 +1,26 @@
-import type { ConfigResponse } from '@fiction/site/card.js'
 import type { CardFactory } from '@fiction/site/cardFactory'
+import type { InputOption } from '@fiction/ui'
 import type { StockMedia } from '@fiction/ui/stock/index.js'
-import { type ActionArea, actionAreaSchema, ActionButtonSchema, colorTheme, colorThemeUser, MediaDisplaySchema, MediaIconSchema, SizeSchema, superTitleSchema } from '@fiction/core'
-import { InputOption } from '@fiction/ui'
+import { type ActionArea, actionAreaSchema, colorTheme, colorThemeUser, MediaDisplaySchema, MediaIconSchema, SizeSchema, superTitleSchema } from '@fiction/core'
+import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
 const BentoItemSchema = z.object({
-  cols: z.number().min(1).max(12).optional(),
-  rows: z.number().min(1).max(12).optional(),
+
+  // content
   superTitle: superTitleSchema.optional(),
   title: z.string().optional(),
   content: z.string().optional(),
   media: MediaDisplaySchema.optional(),
-  bg: MediaDisplaySchema.optional(),
   href: z.string().optional(),
   action: actionAreaSchema.optional(),
+  // style
+  bg: MediaDisplaySchema.optional(),
   theme: z.enum(colorThemeUser).optional(),
   themeMode: z.enum(['light', 'dark', 'auto']).optional(),
+  // layout
+  cols: z.number().min(1).max(12).optional(),
+  rows: z.number().min(1).max(12).optional(),
   verticalPosition: z.enum(['top', 'center', 'bottom']).optional(),
   horizontalPosition: z.enum(['left', 'center', 'right']).optional(),
 })
@@ -31,30 +35,88 @@ export type BentoItem = z.infer<typeof BentoItemSchema>
 export type UserConfig = z.infer<typeof schema>
 
 const options: InputOption[] = [
-  new InputOption({
+  createOption({
     key: 'items',
     label: 'Bento Items',
     input: 'InputList',
+    props: {
+      itemLabel: (args) => {
+        if (!args?.item)
+          return 'Bento Item'
+
+        const item = args.item as BentoItem
+        return item?.title || 'Untitled'
+      },
+    },
     options: [
-      new InputOption({ key: 'cols', label: 'Columns', input: 'InputNumber', props: { min: 1, max: 12 } }),
-      new InputOption({ key: 'rows', label: 'Rows', input: 'InputNumber', props: { min: 1, max: 12 } }),
-      new InputOption({ key: 'superTitle', label: 'Super Title', input: 'InputText' }),
-      new InputOption({ key: 'superIcon', label: 'Super Icon', input: 'InputIcon' }),
-      new InputOption({ key: 'superColor', label: 'Super Color', input: 'InputSelect', props: { list: colorTheme } }),
-      new InputOption({ key: 'title', label: 'Title', input: 'InputText' }),
-      new InputOption({ key: 'content', label: 'Content', input: 'InputTextarea' }),
-      new InputOption({ key: 'actions', label: 'Actions', input: 'InputActions' }),
-      new InputOption({ key: 'media', label: 'Media', input: 'InputMedia' }),
-      new InputOption({ key: 'bg', label: 'Background', input: 'InputMedia', props: { isBackground: true } }),
-      new InputOption({ key: 'href', label: 'Link URL', input: 'InputUrl' }),
-      new InputOption({ key: 'theme', label: 'Theme', input: 'InputSelect', props: { list: colorTheme } }),
-      new InputOption({ key: 'themeMode', label: 'Theme Mode', input: 'InputSelect', props: { list: ['light', 'dark', 'auto'] } }),
-      new InputOption({ key: 'verticalPosition', label: 'Vertical Position', input: 'InputSelect', props: { list: ['top', 'center', 'bottom'] } }),
-      new InputOption({ key: 'horizontalPosition', label: 'Horizontal Position', input: 'InputSelect', props: { list: ['left', 'center', 'right'] } }),
+      createOption({
+        key: 'layoutGroup',
+        label: 'Layout',
+        input: 'group',
+        options: [
+          createOption({ key: 'cols', label: 'Columns', input: 'InputNumber', props: { min: 1, max: 12 } }),
+          createOption({ key: 'rows', label: 'Rows', input: 'InputNumber', props: { min: 1, max: 12 } }),
+          createOption({ key: 'verticalPosition', label: 'Vertical Position', input: 'InputSelect', list: ['top', 'center', 'bottom'] }),
+          createOption({ key: 'horizontalPosition', label: 'Horizontal Position', input: 'InputSelect', list: ['left', 'center', 'right'] }),
+        ],
+      }),
+      createOption({
+        key: 'contentGroup',
+        label: 'Content',
+        input: 'group',
+        options: [
+          createOption({ schema, key: 'title', label: 'Title', input: 'InputText' }),
+          createOption({ schema, key: 'content', label: 'Content', input: 'InputTextarea' }),
+          createOption({ schema, key: 'superTitle', label: 'Super Title', input: 'InputSuperTitle' }),
+          createOption({ schema, key: 'action.buttons', label: 'Buttons', input: 'InputActions' }),
+          createOption({ schema, key: 'media', label: 'Inline Media', input: 'InputMedia' }),
+          createOption({ schema, key: 'href', label: 'Item URL', input: 'InputUrl' }),
+        ],
+      }),
+      createOption({
+        key: 'styleGroup',
+        label: 'Color and Style',
+        input: 'group',
+        options: [
+          createOption({
+            key: 'bg',
+            label: 'Background Media',
+            input: 'InputMedia',
+            props: { isBackground: true },
+          }),
+          createOption({ key: 'theme', label: 'Color Theme', input: 'InputColorTheme' }),
+          createOption({
+            key: 'themeMode',
+            label: 'Theme Mode',
+            subLabel: 'Select lighter or darker tones',
+            input: 'InputSelect',
+            list: ['light', 'dark', 'auto'],
+          }),
+        ],
+      }),
+
     ],
   }),
-  new InputOption({ key: 'gapSize', label: 'Gap', input: 'InputSelect', props: { list: ['none', 'xs', 'sm', 'md', 'lg', 'xl'] } }),
-  new InputOption({ key: 'animate', label: 'Animation', input: 'InputSelect', props: { list: ['expand', 'swipe'] } }),
+  createOption({
+    key: 'globalBentoGroup',
+    label: 'General Settings',
+    input: 'group',
+    options: [
+      createOption({
+        key: 'gapSize',
+        label: 'Gap',
+        input: 'InputStandardSize',
+      }),
+      createOption({
+        key: 'animate',
+        label: 'Animation',
+        subLabel: 'Select an animation style for the tiles',
+        input: 'InputSelect',
+        props: { list: ['expand', 'swipe'] },
+      }),
+    ],
+  }),
+
 ]
 
 export async function getUserConfig(args: { factory: CardFactory, templateId: string, stock: StockMedia }): Promise<UserConfig> {

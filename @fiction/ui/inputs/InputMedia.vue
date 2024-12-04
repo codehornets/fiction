@@ -9,7 +9,7 @@ import LibraryModal from './LibraryModal.vue'
 defineOptions({ name: 'InputMedia' })
 
 const { modelValue = {}, isBackground = false } = defineProps<{
-  modelValue: MediaObject
+  modelValue?: MediaObject
   isBackground?: boolean
 }>()
 

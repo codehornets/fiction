@@ -1,12 +1,17 @@
 import type { ActionButton, ListItem, MediaObject } from '@fiction/core'
 import type { z } from 'zod'
 import { FictionObject, removeUndefined, vue } from '@fiction/core'
+import InputColorTheme from './InputColorTheme.vue'
+import InputStandardSize from './InputStandardSize.vue'
 
 const def = vue.defineAsyncComponent
 
 type InputEntry = { el: vue.Component, shape?: string[] }
 
 export const inputs = {
+  InputColorTheme: { el: def(() => import('./InputColorTheme.vue')) },
+  InputSuperTitle: { el: def(() => import('./InputSuperTitle.vue')) },
+  InputStandardSize: { el: def(() => import('./InputStandardSize.vue')) },
   InputNav: { el: def(() => import('./InputNav.vue')) },
   InputNavMenu: { el: def(() => import('./InputNavMenu.vue')) },
   InputBrand: { el: def(() => import('./InputBrand.vue')) },
@@ -208,7 +213,7 @@ type PathsToStringProps<T> = T extends OptionPrimitive
           [K in keyof T & string]: T[K] extends OptionPrimitive
             ? K
             : T[K] extends any[]
-              ? K | `${K}.${number}` | `${K}.${number}.${PathsToStringProps<T[K][number]>}`
+              ? K | `${K}.${number}` | `${K}.${number}.${PathsToStringProps<T[K][number]>}` | PathsToStringProps<T[K][number]>
               : K | `${K}.${PathsToStringProps<T[K]>}`
         }[keyof T & string]
       : never
