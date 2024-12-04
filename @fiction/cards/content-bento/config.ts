@@ -40,13 +40,7 @@ const options: InputOption[] = [
     label: 'Bento Items',
     input: 'InputList',
     props: {
-      itemLabel: (args) => {
-        if (!args?.item)
-          return 'Bento Item'
-
-        const item = args.item as BentoItem
-        return item?.title || 'Untitled'
-      },
+      itemLabel: args => (args?.item as BentoItem)?.title ?? 'Untitled',
     },
     options: [
       createOption({
@@ -54,10 +48,10 @@ const options: InputOption[] = [
         label: 'Layout',
         input: 'group',
         options: [
-          createOption({ key: 'cols', label: 'Columns', input: 'InputNumber', props: { min: 1, max: 12 } }),
-          createOption({ key: 'rows', label: 'Rows', input: 'InputNumber', props: { min: 1, max: 12 } }),
-          createOption({ key: 'verticalPosition', label: 'Vertical Position', input: 'InputSelect', list: ['top', 'center', 'bottom'] }),
-          createOption({ key: 'horizontalPosition', label: 'Horizontal Position', input: 'InputSelect', list: ['left', 'center', 'right'] }),
+          createOption({ schema, key: 'cols', label: 'Columns', input: 'InputNumber', props: { min: 1, max: 12 } }),
+          createOption({ schema, key: 'rows', label: 'Rows', input: 'InputNumber', props: { min: 1, max: 12 } }),
+          createOption({ schema, key: 'verticalPosition', label: 'Vertical Position', input: 'InputSelect', list: ['top', 'center', 'bottom'] }),
+          createOption({ schema, key: 'horizontalPosition', label: 'Horizontal Position', input: 'InputSelect', list: ['left', 'center', 'right'] }),
         ],
       }),
       createOption({

@@ -1,19 +1,20 @@
-import type { ConfigResponse } from '@fiction/site'
 import type { CardFactory } from '@fiction/site/cardFactory'
+import type { InputOption } from '@fiction/ui'
 import type { StockMedia } from '@fiction/ui/stock'
-import { actionAreaSchema, ActionButtonSchema, MediaBasicSchema, MediaIconSchema } from '@fiction/core'
-import { InputOption } from '@fiction/ui'
-import { z } from 'zod'
+import { actionAreaSchema, MediaBasicSchema, MediaIconSchema, postSchema } from '@fiction/core'
+import { createOption } from '@fiction/ui'
+import { string, z } from 'zod'
+
+const faqItemSchema = postSchema.pick({
+  title: true,
+  content: true,
+  icon: true,
+  media: true,
+})
 
 const schema = z.object({
   layout: z.enum(['accordion', 'toggle', 'visible']).optional().describe('Display style: accordion (one at a time), toggle (multiple), or visible (all shown)'),
-  items: z.array(z.object({
-    title: z.string().optional(),
-    content: z.string().optional(),
-    icon: MediaIconSchema.optional(),
-    media: MediaBasicSchema.optional(),
-    isHighlighted: z.boolean().optional(),
-  })).optional().describe('FAQ items with questions and detailed answers'),
+  items: z.array(faqItemSchema).optional().describe('FAQ items with questions and detailed answers'),
   support: z.object({
     text: z.string().optional(),
     action: actionAreaSchema.optional(),
@@ -21,70 +22,72 @@ const schema = z.object({
 })
 
 export type UserConfig = z.infer<typeof schema>
+export type FaqItem = z.infer<typeof faqItemSchema>
 
 const options: InputOption[] = [
-  new InputOption({
+  createOption({
     key: 'layout',
     label: 'Layout Style',
-    input: 'InputRadio',
-    props: {
-      options: [
-        { label: 'Accordion (Single)', value: 'accordion' },
-        { label: 'Toggle (Multiple)', value: 'toggle' },
-        { label: 'Visible (All)', value: 'visible' },
-      ],
-    },
+    input: 'InputRadioButton',
+    list: [
+      { label: 'Accordion (Single)', value: 'accordion' },
+      { label: 'Toggle (Multiple)', value: 'toggle' },
+      { label: 'Visible (All)', value: 'visible' },
+    ],
   }),
-  new InputOption({
+  createOption({
     key: 'items',
     label: 'FAQ Items',
     input: 'InputList',
-    props: { itemLabel: 'FAQ Item' },
+    props: {
+      itemLabel: args => (args?.item as FaqItem)?.title ?? 'Untitled',
+      itemName: 'FAQ Item',
+    },
+    schema,
     options: [
-      new InputOption({
+      createOption({
         key: 'title',
         label: 'Question/Title',
         input: 'InputText',
-        props: { placeholder: 'What would you like to know?' },
+        props: { placeholder: '' },
+        schema,
       }),
-      new InputOption({
+      createOption({
         key: 'content',
         label: 'Answer/Content',
         input: 'InputTextarea',
-        props: { rows: 3, placeholder: 'Provide a clear, engaging answer' },
+        props: { rows: 3 },
+        schema,
       }),
-      new InputOption({
+      createOption({
         key: 'icon',
         label: 'Icon',
         input: 'InputIcon',
       }),
-      new InputOption({
+      createOption({
         key: 'media',
         label: 'Media',
         input: 'InputMedia',
       }),
-      new InputOption({
-        key: 'isHighlighted',
-        label: 'Highlight Item',
-        input: 'InputToggle',
-      }),
     ],
   }),
-  new InputOption({
+  createOption({
     key: 'support',
     label: 'Support Section',
-    input: 'InputControl',
+    input: 'group',
     options: [
-      new InputOption({
-        key: 'text',
+      createOption({
+        key: 'support.text',
         label: 'Support Text',
         input: 'InputText',
         props: { placeholder: 'Need additional help?' },
+        schema,
       }),
-      new InputOption({
-        key: 'actions',
+      createOption({
+        key: 'support.action.buttons',
         label: 'Action Buttons',
         input: 'InputActions',
+        schema,
       }),
     ],
   }),
@@ -99,7 +102,6 @@ function getDefaultConfig(args: { stock: StockMedia }): UserConfig {
         title: 'How can I make my FAQ section more engaging?',
         content: 'Imagine your FAQ as a friendly conversation guide. Notice how icons add visual interest, and see how highlighted items draw attention to key information. Try organizing questions from most to least common, and use clear, conversational language.',
         icon: { class: 'i-tabler-message-circle-2' },
-        isHighlighted: true,
       },
       {
         title: 'Which FAQ layout should I choose?',
@@ -129,7 +131,6 @@ function getDemoConfigs(args: { templateId: string, factory: CardFactory, stock:
             title: 'What sets our AI platform apart?',
             content: 'Picture an AI assistant that truly understands your business context. See how it analyzes your data in real-time, suggesting optimizations you might have missed. Notice the seamless integration with your existing workflows.',
             icon: { class: 'i-tabler-brain' },
-            isHighlighted: true,
             media: stock.getRandomByTags(['aspect:landscape']),
           },
           {
@@ -202,7 +203,6 @@ function getDemoConfigs(args: { templateId: string, factory: CardFactory, stock:
             title: 'Why isn\'t my integration working?',
             content: 'Let\'s walk through common connection issues. First, check if you see the green status indicator. Notice any error messages in the logs. Watch how the system responds as we test the connection.',
             icon: { class: 'i-tabler-plug' },
-            isHighlighted: true,
           },
           {
             title: 'How do I restore a backup?',

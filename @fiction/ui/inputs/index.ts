@@ -10,6 +10,7 @@ type InputEntry = { el: vue.Component, shape?: string[] }
 
 export const inputs = {
   InputColorTheme: { el: def(() => import('./InputColorTheme.vue')) },
+  InputColorScheme: { el: def(() => import('./InputColorScheme.vue')) },
   InputSuperTitle: { el: def(() => import('./InputSuperTitle.vue')) },
   InputStandardSize: { el: def(() => import('./InputStandardSize.vue')) },
   InputNav: { el: def(() => import('./InputNav.vue')) },
@@ -56,7 +57,7 @@ export const inputs = {
   InputDate: { el: def(() => import('./InputDate.vue')) },
   InputColor: { el: def(() => import('./InputColor.vue')) },
   InputFont: { el: def(() => import('./InputFont.vue')) },
-  InputColorScheme: { el: def(() => import('./InputColorScheme.vue')) },
+
   InputRange: { el: def(() => import('./InputRange.vue')) },
   InputDropDown: { el: def(() => import('./InputDropDown.vue')) },
   InputOverlay: { el: def(() => import('./InputOverlay.vue')) },
@@ -206,17 +207,15 @@ type OptionPrimitive = string | number | boolean | undefined | null
 
 type PathsToStringProps<T> = T extends OptionPrimitive
   ? never
-  : T extends any[]
-    ? never
-    : T extends object
-      ? {
-          [K in keyof T & string]: T[K] extends OptionPrimitive
-            ? K
-            : T[K] extends any[]
-              ? K | `${K}.${number}` | `${K}.${number}.${PathsToStringProps<T[K][number]>}` | PathsToStringProps<T[K][number]>
-              : K | `${K}.${PathsToStringProps<T[K]>}`
-        }[keyof T & string]
-      : never
+  : T extends object
+    ? {
+        [K in keyof T & string]: T[K] extends OptionPrimitive
+          ? K
+          : T[K] extends (infer U)[] | undefined // Changed to use infer
+            ? K | PathsToStringProps<U>
+            : K | `${K}.${PathsToStringProps<T[K]>}`
+      }[keyof T & string]
+    : never
 
 // Remove undefined from optional properties
 type NonNullableFields<T> = {

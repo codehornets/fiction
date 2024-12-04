@@ -1,7 +1,7 @@
-import type { ConfigResponse } from '@fiction/site/card'
 import type { CardFactory } from '@fiction/site/cardFactory'
-import { actionAreaSchema, ActionButtonSchema, colorThemeUser, MediaIconSchema, SizeSchema } from '@fiction/core'
-import { InputOption } from '@fiction/ui'
+import type { InputOption } from '@fiction/ui'
+import { actionAreaSchema, colorThemeUser, MediaIconSchema, SizeSchema } from '@fiction/core'
+import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
 // Individual feature schema
@@ -12,7 +12,6 @@ const featureSchema = z.object({
   icon: MediaIconSchema.optional(),
   color: z.enum(colorThemeUser).optional(),
   action: actionAreaSchema.optional(),
-  emphasis: z.boolean().optional(),
   // Masonry column width
   columns: z.enum(['1', '2', '3', '4', '5', '6']).optional(),
 })
@@ -36,123 +35,146 @@ export type FeatureConfig = z.infer<typeof featureSchema>
 export type UserConfig = z.infer<typeof schema>
 
 const options: InputOption[] = [
-  new InputOption({
+  createOption({
+    key: 'featuresGroup',
+    label: 'Features',
+    input: 'group',
+    options: [
+      createOption({
+        key: 'features',
+        input: 'InputList',
+        props: {
+          itemLabel: args => (args?.item as FeatureConfig)?.title ?? 'Untitled',
+          itemName: 'Feature',
+        },
+        options: [
+          createOption({
+            key: 'title',
+            label: 'Title',
+            input: 'InputText',
+            isRequired: true,
+            schema,
+          }),
+          createOption({
+            key: 'description',
+            label: 'Description',
+            input: 'InputTextarea',
+            schema,
+          }),
+          createOption({
+            key: 'icon',
+            label: 'Icon',
+            input: 'InputIcon',
+            schema,
+          }),
+          createOption({
+            key: 'color',
+            label: 'Accent Color',
+            input: 'InputColorTheme',
+            schema,
+          }),
+          createOption({
+            input: 'group',
+            label: 'Links',
+            key: 'linkGroup',
+            options: [
+              createOption({
+                key: 'href',
+                label: 'Link URL',
+                input: 'InputUrl',
+                schema,
+              }),
+              createOption({
+                key: 'action',
+                label: 'Actions',
+                input: 'InputActions',
+                schema,
+              }),
+            ],
+          }),
+          createOption({
+            input: 'group',
+            label: 'Layout',
+            key: 'layoutGroup',
+            isClosed: true,
+            options: [
+              createOption({
+                key: 'columns',
+                label: 'Width (Masonry)',
+                input: 'InputSelect',
+                props: { list: ['1', '2', '3', '4'] },
+                schema,
+              }),
+            ],
+          }),
+
+        ],
+      }),
+    ],
+  }),
+
+  createOption({
     key: 'layout',
     label: 'Layout',
     input: 'group',
     options: [
-      new InputOption({
-        key: 'style',
+      createOption({
+        key: 'layout.style',
         label: 'Style',
+        subLabel: 'Select a style for displaying features',
         input: 'InputSelect',
-        props: {
-          list: [
-            { label: 'Grid', value: 'grid' },
-            { label: 'Masonry', value: 'masonry' },
-            { label: 'Cards', value: 'cards' },
-            { label: 'Carousel', value: 'carousel' },
-          ],
-        },
+        list: [
+          { label: 'Grid', value: 'grid' },
+          { label: 'Masonry', value: 'masonry' },
+          { label: 'Cards', value: 'cards' },
+          { label: 'Carousel', value: 'carousel' },
+        ],
+        schema,
       }),
-      new InputOption({
-        key: 'columns',
+      createOption({
+        key: 'layout.columns',
         label: 'Columns',
+        subLabel: 'How wide should each feature be?',
         input: 'InputSelect',
         props: { list: ['2', '3', '4'] },
+        schema,
       }),
-      new InputOption({
-        key: 'spacing',
+      createOption({
+        key: 'layout.spacing',
         label: 'Spacing',
+        subLabel: 'How much space between features?',
         input: 'InputSelect',
         props: { list: ['tight', 'normal', 'relaxed'] },
+        schema,
       }),
-      new InputOption({
-        key: 'align',
-        label: 'Alignment',
+      createOption({
+        key: 'layout.align',
+        label: 'Text Alignment',
+        subLabel: 'How should text be aligned?',
         input: 'InputSelect',
         props: { list: ['left', 'center'] },
+        schema,
       }),
     ],
   }),
-  new InputOption({
-    key: 'features',
-    label: 'Features',
-    input: 'InputList',
-    props: { itemLabel: 'Feature' },
-    options: [
-      new InputOption({
-        key: 'title',
-        label: 'Title',
-        input: 'InputText',
-        isRequired: true,
-      }),
-      new InputOption({
-        key: 'description',
-        label: 'Description',
-        input: 'InputTextarea',
-      }),
-      new InputOption({
-        key: 'icon',
-        label: 'Icon',
-        input: 'InputIcon',
-      }),
-      new InputOption({
-        key: 'media',
-        label: 'Background Media',
-        input: 'InputMedia',
-        description: 'Used in masonry layout',
-      }),
-      new InputOption({
-        key: 'color',
-        label: 'Accent Color',
-        input: 'InputSelect',
-        props: { list: colorThemeUser },
-      }),
-      new InputOption({
-        key: 'href',
-        label: 'Link URL',
-        input: 'InputUrl',
-      }),
-      new InputOption({
-        key: 'action',
-        label: 'Actions',
-        input: 'InputActions',
-      }),
-      new InputOption({
-        key: 'emphasis',
-        label: 'Emphasize',
-        input: 'InputToggle',
-      }),
-      new InputOption({
-        key: 'columns',
-        label: 'Width (Masonry)',
-        input: 'InputSelect',
-        props: { list: ['1', '2', '3', '4'] },
-      }),
-      new InputOption({
-        key: 'rows',
-        label: 'Height (Masonry)',
-        input: 'InputSelect',
-        props: { list: ['1', '2', '3', '4'] },
-      }),
-    ],
-  }),
-  new InputOption({
-    key: 'style',
+
+  createOption({
+    key: 'styleGroup',
     label: 'Style Options',
     input: 'group',
     options: [
-      new InputOption({
-        key: 'iconSize',
+      createOption({
+        key: 'style.iconSize',
         label: 'Icon Size',
-        input: 'InputSelect',
-        props: { list: ['sm', 'md', 'lg'] },
+        input: 'InputStandardSize',
+        schema,
       }),
-      new InputOption({
-        key: 'iconStyle',
+      createOption({
+        key: 'style.iconStyle',
         label: 'Icon Style',
         input: 'InputSelect',
-        props: { list: ['outline', 'solid', 'duotone'] },
+        list: ['outline', 'solid', 'duotone'],
+        schema,
       }),
     ],
   }),
@@ -208,7 +230,6 @@ function getMasonryDemo(): UserConfig {
         color: 'blue',
         columns: '3',
         action: { buttons: [{ label: 'Edit Brand Settings', design: 'ghost' }] },
-        emphasis: true,
       },
       {
         title: 'Visual Identity',
@@ -253,7 +274,6 @@ function getMasonryDemo(): UserConfig {
         icon: { iconId: 'shield' },
         color: 'slate',
         columns: '4',
-        emphasis: true,
       },
       {
         title: 'Design System',
@@ -292,7 +312,6 @@ function getCarouselDemo(): UserConfig {
         description: 'See how your brand can grow and adapt? The carousel format perfectly showcases your journey and future vision.',
         icon: { iconId: 'trending-up' },
         color: 'violet',
-        emphasis: true,
       },
       {
         title: 'Connect & Engage',
@@ -338,7 +357,7 @@ function getLayoutDemos(): UserConfig[] {
           description: 'Notice how consistent spacing and alignment reinforce your brand\'s professional image?',
           icon: { iconId: 'photo' },
           color: 'violet',
-          emphasis: true,
+
         },
         {
           title: 'Content Strategy',
@@ -374,7 +393,7 @@ function getLayoutDemos(): UserConfig[] {
           description: 'Notice how each card becomes a stepping stone in your customer\'s journey?',
           icon: { iconId: 'map' },
           color: 'violet',
-          emphasis: true,
+
         },
         {
           title: 'Growth Metrics',
@@ -388,16 +407,17 @@ function getLayoutDemos(): UserConfig[] {
   ]
 }
 
-export async function getConfig(args: { factory: CardFactory }) {
+export async function getConfig(args: { factory: CardFactory, templateId: string }) {
+  const { templateId } = args
   return {
     schema,
     options,
     userConfig: getDefaultConfig(),
     demoPage: {
       cards: [
-        { templateId: 'features', userConfig: getDefaultConfig() },
+        { templateId, userConfig: getDefaultConfig() },
         ...getLayoutDemos().map(config => ({
-          templateId: 'features',
+          templateId,
           userConfig: config,
         })),
       ],

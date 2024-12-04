@@ -12,11 +12,13 @@ const {
   modelValue = [],
   options = [],
   itemLabel = 'Item',
+  itemName = 'Item',
   depth = 0,
 } = defineProps<{
   modelValue?: BasicItem[]
   options?: InputOption[]
   itemLabel?: string | ((args: { item?: BasicItem, index?: number }) => string)
+  itemName?: string
   inputClass?: string
   depth?: number
   min?: number
@@ -210,7 +212,7 @@ vue.onMounted(async () => {
         icon="i-tabler-plus"
         @click.prevent="addItem()"
       >
-        Add {{ getItemLabel() }}
+        Add {{ itemName }}
       </XButton>
     </div>
   </div>

@@ -2,7 +2,8 @@ import { z } from 'zod'
 
 export const colorThemeBright = ['teal', 'cyan', 'sky', 'blue', 'indigo', 'violet', 'purple', 'fuchsia', 'pink', 'rose', 'red', 'orange', 'amber', 'yellow', 'lime', 'green', 'emerald'] as const
 export const colorTheme = [...colorThemeBright, 'slate', 'gray', 'zinc', 'neutral', 'stone', 'black', 'white'] as const
-export const colorThemeUser = ['theme', 'primary', 'default', 'overlay', ...colorTheme, 'naked'] as const
+export const onlyUserColorTheme = ['theme', 'primary', 'default', 'overlay'] as const
+export const colorThemeUser = [...onlyUserColorTheme, ...colorTheme] as const
 
 // Create a union type that includes both regular and inverted colors
 export type ColorThemeBright = (typeof colorThemeBright)[number]
@@ -41,7 +42,7 @@ export const colorList: Record<ColorTheme, ColorRecord> = {
   teal: { 0: '#ffffff', 25: '#e8fffd', 50: '#f0fdfa', 100: '#ccfbf1', 200: '#99f6e4', 300: '#5eead4', 400: '#2dd4bf', 500: '#14b8a6', 600: '#0d9488', 700: '#0f766e', 800: '#115e59', 900: '#134e4a', 950: '#042f2e', 975: '#032d2c', 1000: '#000000' },
   cyan: { 0: '#ffffff', 25: '#e0fefe', 50: '#ecfeff', 100: '#cffafe', 200: '#a5f3fc', 300: '#67e8f9', 400: '#22d3ee', 500: '#06b6d4', 600: '#0891b2', 700: '#0e7490', 800: '#155e75', 900: '#164e63', 950: '#083344', 975: '#062f40', 1000: '#000000' },
   sky: { 0: '#ffffff', 25: '#e6faff', 50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc', 400: '#38bdf8', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1', 800: '#075985', 900: '#0c4a6e', 950: '#082f49', 975: '#062d45', 1000: '#000000' },
-  blue: { 0: '#f8f9fa', 25: '#d3e1ff', 50: '#F0F3F9', 100: '#e4ebfb', 200: '#dae4fc', 300: '#639df6', 400: '#60a5fa', 500: '#2C67FF', 600: '#1453f5', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a', 950: '#172554', 975: '#121c3b', 1000: '#0a0b0d' },
+  blue: { 0: '#ffffff', 25: '#f5f8ff', 50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a', 950: '#172554', 975: '#111c44', 1000: '#000000' },
   indigo: { 0: '#ffffff', 25: '#eeeff8', 50: '#eef2ff', 100: '#e0e7ff', 200: '#c7d2fe', 300: '#a5b4fc', 400: '#818cf8', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca', 800: '#3730a3', 900: '#312e81', 950: '#1e1b4b', 975: '#1b1845', 1000: '#000000' },
   violet: { 0: '#ffffff', 25: '#f3f0ff', 50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd', 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6', 900: '#4c1d95', 950: '#2e1065', 975: '#2b0e5e', 1000: '#000000' },
   purple: { 0: '#ffffff', 25: '#faf0ff', 50: '#faf5ff', 100: '#f3e8ff', 200: '#e9d5ff', 300: '#d8b4fe', 400: '#c084fc', 500: '#a855f7', 600: '#9333ea', 700: '#7e22ce', 800: '#6b21a8', 900: '#581c87', 950: '#3b0764', 975: '#37065e', 1000: '#000000' },

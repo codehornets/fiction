@@ -153,6 +153,8 @@ export const MediaDisplaySchema = MediaContentSchema.extend({
 })
 export type MediaObject = z.infer<typeof MediaDisplaySchema & typeof MediaIconSchema>
 
+const emphasisSchema = z.enum(['default', 'highlighted', 'muted'])
+
 // First define base schema without recursive parts
 const BaseNavListItemSchema = z.object({
   // Core content
@@ -183,11 +185,7 @@ const BaseNavListItemSchema = z.object({
     'avatar', // User avatar display
   ]).optional(),
 
-  emphasis: z.enum([
-    'default', // Standard appearance
-    'highlighted', // Emphasized appearance
-    'muted', // Diminished appearance
-  ]).optional(),
+  emphasis: emphasisSchema.optional(),
 
   theme: z.enum(colorThemeUser).optional().describe('Color theme for the item'),
   design: ButtonDesignSchema.optional().describe('Design style for the item'),
@@ -327,14 +325,16 @@ export const UserSchema = z.object({
   websiteUrl: z.string().optional(),
 })
 
-export const PostSchema = z.object({
-  superTitle: z.string().optional().describe('Super title of the post'),
+export const postSchema = z.object({
+  superTitle: superTitleSchema.optional().describe('Super title of the post'),
   title: z.string().optional().describe('Title of the post'),
   subTitle: z.string().optional().describe('Subtitle of the post'),
   content: z.string().optional().describe('Content of the post'),
   excerpt: z.string().optional().describe('Excerpt of the post'),
   status: PostStatusSchema.optional().describe('Status of the post'),
+  emphasis: emphasisSchema.optional().describe('Emphasis of the post'),
   media: MediaDisplaySchema.optional().describe('Featured Media for the post'),
+  icon: MediaIconSchema.optional().describe('Icon for the post'),
   slug: z.string().optional().describe('Slug of the post page'),
   href: z.string().optional().describe('Link to the post page'),
   tags: z.array(z.string()).optional().describe('Tags for the post'),
@@ -365,11 +365,11 @@ export const PostHandlingSchema = z.object({
   format: z.enum(['standard', 'local']).optional().describe('Either get from global posts or inline entries, AI always uses local'),
   limit: z.number().optional().describe('Limit the number of posts to show - default is 12'),
   offset: z.number().optional().describe('Offset the number of posts to show'),
-  entries: z.array(PostSchema).optional().describe('Inline post entries for local format'),
+  entries: z.array(postSchema).optional().describe('Inline post entries for local format'),
   query: GlobalQuerySchema.optional().describe('Query for global posts'),
 })
 
-export type PostObject = z.infer<typeof PostSchema>
+export type PostObject = z.infer<typeof postSchema>
 export type PostHandlingObject = z.infer<typeof PostHandlingSchema>
 
 // export const XButtonSchema = z.object({
