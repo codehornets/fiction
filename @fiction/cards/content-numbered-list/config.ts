@@ -98,7 +98,7 @@ const demoConfigs = {
   problems: {
     title: 'Is This Holding You Back?',
     layout: 'left',
-    media: { format: 'image', tags: ['frustration', 'office', 'stress'] },
+    media: { format: 'image' },
     items: [
       { content: 'Feel overwhelmed by constant changes in your industry? Imagine having a clear path forward.' },
       { content: 'Tired of watching competitors get ahead? Discover how to stand out authentically.' },
@@ -111,7 +111,7 @@ const demoConfigs = {
   future: {
     title: 'Picture Your Success',
     layout: 'right',
-    media: { format: 'image', tags: ['success', 'achievement', 'celebration'] },
+    media: { format: 'image' },
     items: [
       { content: 'Watch as your influence grows and opportunities naturally come to you.' },
       { content: 'Experience the confidence of having a proven system working for you 24/7.' },
@@ -135,7 +135,7 @@ const demoConfigs = {
   results: {
     title: 'Why Others Choose Us',
     layout: 'right',
-    media: { format: 'image', tags: ['testimonial', 'client', 'meeting'] },
+    media: { format: 'image' },
     items: [
       { content: 'Our clients already know the value of investing in their success story.' },
       { content: 'You\'ll appreciate how easily our system fits into your busy schedule.' },
@@ -143,7 +143,7 @@ const demoConfigs = {
       { content: 'Your network will notice the difference in your professional presence.' },
     ],
   },
-}
+} satisfies Record<string, UserConfig>
 
 // Config getter function
 export async function getConfig(args: { templateId: string, factory: CardFactory }) {

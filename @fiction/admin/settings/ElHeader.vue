@@ -25,15 +25,6 @@ function updateValue<T extends keyof PostObject = keyof PostObject>(key: T, valu
         </div>
         <div class="pt-1.5 @xs:pt-0 space-y-1">
           <XText
-            v-if="modelValue.superTitle"
-            tag="h4"
-            :model-value="modelValue.superTitle"
-            class="text-sm font-semibold text-primary-500 dark:text-primary-400 font-sans"
-            :is-editable="editable.includes('superTitle')"
-            @update:model-value="updateValue('superTitle', $event)"
-          />
-
-          <XText
             v-if="modelValue.title"
             tag="h1"
             :model-value="modelValue.title"

@@ -182,7 +182,7 @@ export async function getAboutPage(args: { site: Site, factory: CardFactory }) {
           title: 'Purpose-Driven Focus',
           content: `Creating extraordinary value means understanding specific needs. Fiction helps you connect deeply with the people who resonate most with your message.`,
           icon: { iconId: 'target' },
-          isHighlighted: true,
+
         },
         {
           title: `Give First`,

@@ -221,7 +221,7 @@ const BaseNavListItemSchema = z.object({
 export const navListSchema = z.object({
   title: z.string().optional().describe('Optional section/group title'),
   description: z.string().optional().describe('Optional section/group description'),
-  items: z.array(BaseNavListItemSchema as z.Schema<NavListItem>).optional().describe('Navigation items in this section'),
+  items: z.array(z.record(z.string(), z.any())).optional().describe('Navigation items in this section'),
   variant: z.enum(['default', 'expanded']).optional().describe('Variant of the list'),
 })
 
@@ -230,7 +230,7 @@ export const navListItemSchema = BaseNavListItemSchema.extend({
   list: z.lazy(() => navListSchema).optional().describe('Nested navigation list (e.g., dropdown menu)'),
 })
 
-export type NavList = z.infer<typeof navListSchema>
+export type NavList = Omit<z.infer<typeof navListSchema>, 'items'> & { items?: NavListItem[] }
 
 // Define the complete type including recursive items property
 export type NavListItem = z.infer<typeof BaseNavListItemSchema> & {
