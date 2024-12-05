@@ -26,6 +26,10 @@ const renderCards = vue.computed(() => {
 
   const out = tag === 'main'
     ? c.filter((c) => {
+      if (c.isDetached.value) {
+        return true
+      }
+
       const uc = c.fullConfig.value
       const showOnSingle = uc.standard?.handling?.showOnSingle
       const hideOnPage = uc.standard?.handling?.hideOnPage
@@ -37,46 +41,45 @@ const renderCards = vue.computed(() => {
     out.push(new Card({ templateId: 'page404', site: card?.site }))
   }
 
-  return out
+  return {
+    display: out.filter(c => !c.isDetached.value),
+    detached: out.filter(c => c.isDetached.value),
+  }
 })
 </script>
 
 <template>
   <component :is="tag" class="card-engine" :data-total-cards="card?.cards.value.length">
     <EffectTransitionCardList>
-      <template
-        v-for="(subCard) in renderCards"
+      <CardWrap
+        v-for="(subCard) in renderCards.display"
         :key="subCard.cardId"
+        :card="subCard"
+        :data-card-id="subCard.cardId"
+        class="relative w-full group/engine"
+        :class="[
+          subCard.isActive.value && isEditable ? 'outline-2 outline-dashed outline-theme-300 dark:outline-theme-600' : '',
+          isEditable ? 'hover:outline-2 hover:outline-dashed hover:outline-blue-300 dark:hover:outline-blue-600 cursor-pointer  transition-all' : '',
+        ]"
+        @click="handleCardClick({ cardId: subCard.cardId, event: $event })"
       >
-        <template v-if="subCard.isDetached.value">
-          <component
-            :is="subCard.tpl.value?.settings?.el"
-            :id="subCard.cardId"
-            data-test-id="card-non-inline-component"
-            :data-card-type="subCard.templateId.value"
-            :card="subCard"
-          />
-        </template>
-        <CardWrap
-          v-else
+        <component
+          :is="subCard.tpl.value?.settings?.el"
+          :id="subCard.cardId"
+          data-test-id="card-engine-component"
+          :data-card-type="subCard.templateId.value"
           :card="subCard"
-          :data-card-id="subCard.cardId"
-          class="relative w-full group/engine"
-          :class="[
-            subCard.isActive.value && isEditable ? 'outline-2 outline-dashed outline-theme-300 dark:outline-theme-600' : '',
-            isEditable ? 'hover:outline-2 hover:outline-dashed hover:outline-blue-300 dark:hover:outline-blue-600 cursor-pointer  transition-all' : '',
-          ]"
-          @click="handleCardClick({ cardId: subCard.cardId, event: $event })"
-        >
-          <component
-            :is="subCard.tpl.value?.settings?.el"
-            :id="subCard.cardId"
-            data-test-id="card-engine-component"
-            :data-card-type="subCard.templateId.value"
-            :card="subCard"
-          />
-        </CardWrap>
-      </template>
+        />
+      </CardWrap>
     </EffectTransitionCardList>
+    <component
+      :is="subCard.tpl.value?.settings?.el"
+      v-for="(subCard) in renderCards.detached"
+      :id="subCard.cardId"
+      :key="subCard.cardId"
+      data-test-id="card-non-inline-component"
+      :data-card-type="subCard.templateId.value"
+      :card="subCard"
+    />
   </component>
 </template>

@@ -26,4 +26,6 @@ export const template = cardTemplate({
     const { getConfig } = await import('./config.js')
     return getConfig({ ...args, templateId })
   },
+
+  getBaseConfig: () => ({ standard: { spacing: { verticalSpacing: 'sm' } } }),
 })

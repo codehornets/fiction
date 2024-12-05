@@ -9,139 +9,142 @@ defineProps({
 
 <template>
   <div :class="card.classes.value.contentWidth">
-    <div class="prose dark:prose-invert prose-sm md:prose-lg lg:prose-xl mx-auto focus:outline-none ">
-      <h1>Didn't melt fairer keepsakes since Fellowship elsewhere.</h1>
-      <p>Woodlands payment Osgiliath tightening. Barad-dur follow belly comforts tender tough bell? Many that live deserve death. Some that die deserve life. Outwitted teatime grasp defeated before stones reflection corset seen animals Saruman's call?</p>
-      <h2>Tad survive ensnare joy mistake courtesy Bagshot Row.</h2>
-      <p>Ligulas step drops both? You shall not pass! Tender respectable success Valar impressive unfriendly bloom scraped? Branch hey-diddle-diddle pony trouble'll sleeping during jump Narsil.</p>
-      <h3>North valor overflowing sort Iáve mister kingly money?</h3>
-      <p>Curse you and all the halflings! Deserted anytime Lake-town burned caves balls. Smoked lthilien forbids Thrain?</p>
+    <div class="prose dark:prose-invert prose-sm md:prose-lg lg:prose-xl mx-auto focus:outline-none">
+      <h1>Why Your Personal Brand Shouldn't Be As Boring As This Header</h1>
+      <p>Welcome to the wild world of personal branding, where your LinkedIn profile picture is probably trying too hard and your X bio has gone through more revisions than your actual resume. But fear not! This guide will help you navigate the treacherous waters of professional self-promotion without losing your soul (or your sense of humor).</p>
+      <h2>The Three Pillars of Not Being Boring Online</h2>
+      <p>Remember when everyone was a "Growth Hacker" in 2019? Yeah, we're not doing that anymore. Let's talk about authenticity, but like, actual authenticity—not the kind where you post inspiration quotes over sunset pictures you found on Unsplash.</p>
+      <h3>Content Creation: Or How I Learned to Stop Worrying and Love the Algorithm</h3>
+      <p>The secret to creating engaging content isn't actually a secret: it's just being interesting. Revolutionary, right? Here's what actually works:</p>
       <ul>
-        <li>Adamant.</li>
-        <li>Southfarthing!</li>
-        <li>Witch-king.</li>
-        <li>Precious.</li>
-        <li>Gaffer's!</li>
+        <li>Share your real failures. Not the humble-brag "I worked too hard" kind.</li>
+        <li>Tell stories that would interest you at a party.</li>
+        <li>Write like a human, not like a LinkedIn influencer.</li>
+        <li>Stop using the word "passionate" (unless you're talking about pasta).</li>
+        <li>Remember: No one has ever gone viral by being boring.</li>
       </ul>
       <ul>
-        <li>Excuse tightening yet survives two cover Undómiel city ablaze.</li>
-        <li>Keepsakes deeper clouds Buckland position 21 lied bicker fountains ashamed.</li>
-        <li>Women rippling cold steps rules Thengel finer.</li>
-        <li>Portents close Havens endured irons hundreds handle refused sister?</li>
-        <li>Harbor Grubbs fellas riddles afar!</li>
+        <li>Your personal brand should be like your favorite pair of jeans: authentic, comfortable, and hopefully not trying to fit in with what was cool five years ago.</li>
+        <li>If your entire personality is "hustling," please develop at least two hobbies that don't involve a screen.</li>
+        <li>Hot take: Maybe you don't need to be on every single platform that exists.</li>
+        <li>The best time to post is when you actually have something worth saying.</li>
+        <li>Your dog's Instagram probably shouldn't be part of your professional brand strategy.</li>
       </ul>
-      <h3>Narsil enjoying shattered bigger leaderless retrieve dreamed dwarf.</h3>
-      <p>Ravens wonder wanted runs me crawl gaining lots faster! Khazad-dum surprise baby season ranks. I bid you all a very fond farewell.</p>
+      <h3>The Art of Standing Out (Without Being That Person)</h3>
+      <p>There's a fine line between memorable and infamous. Here's how to walk it without falling into the "hustle culture parody" abyss:</p>
       <ol>
-        <li>Narsil.</li>
-        <li>Elros.</li>
-        <li>Arwen Evenstar.</li>
-        <li>Maggot's?</li>
-        <li>Bagginses?</li>
+        <li>Be the signal in the noise.</li>
+        <li>Add value (actually, though).</li>
+        <li>Stay authentic (buzzword alert!).</li>
+        <li>Build connections.</li>
+        <li>Keep it real.</li>
       </ol>
       <ol>
-        <li>Concerning Hobbits l golf air fifth bell prolonging camp.</li>
-        <li>Grond humble rods nearest mangler.</li>
-        <li>Enormity Lórien merry gravy stayed move.</li>
-        <li>Diversion almost notion furs between fierce laboring Nazgûl ceaselessly parent.</li>
-        <li>Agree ruling um wasteland Bagshot Row expect sleep.</li>
+        <li>Share insights that aren't just repackaged quotes from famous CEOs.</li>
+        <li>Create content that would make your past self click "save."</li>
+        <li>Network like you're not networking (the best kind of networking).</li>
+        <li>Remember that your personal brand isn't just digital—it's how you make people feel.</li>
+        <li>Don't be afraid to have opinions (but maybe keep some to yourself).</li>
       </ol>
-      <h3>Ere answering track forests shards roof!</h3>
-      <p>Delay freezes Gollum. Let the Ring-bearer decide. Bagshot Row chokes pole pauses immediately orders taught éored musing three-day? Disease rune repel source fire Goblinses already?</p>
+      <h3>The Social Media Strategy That Actually Works</h3>
+      <p>Contrary to popular belief, you don't need to wake up at 4 AM to build a strong personal brand. You just need to be consistently not-boring.</p>
       <table>
         <thead>
           <tr>
             <th />
-            <th>Dangers</th>
-            <th>Playing</th>
-            <th>Window</th>
-            <th>Meaning</th>
-            <th>Pace</th>
+            <th>Platform</th>
+            <th>Content</th>
+            <th>Tone</th>
+            <th>Frequency</th>
+            <th>Goal</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Current</td>
-            <td>living</td>
-            <td>odds</td>
-            <td>charged</td>
-            <td>heads</td>
-            <td>felt</td>
+            <td>LinkedIn</td>
+            <td>professional</td>
+            <td>insights</td>
+            <td>authentic</td>
+            <td>weekly</td>
+            <td>influence</td>
           </tr>
           <tr>
-            <td>Inn</td>
-            <td>climbing</td>
-            <td>destroying</td>
-            <td>overhead</td>
-            <td>roll</td>
-            <td>mud</td>
+            <td>Twitter</td>
+            <td>casual</td>
+            <td>thoughts</td>
+            <td>witty</td>
+            <td>daily</td>
+            <td>engagement</td>
           </tr>
           <tr>
-            <td>Breath</td>
-            <td>relevant</td>
-            <td>éored</td>
-            <td>hinges</td>
-            <td>year</td>
-            <td>signed</td>
+            <td>Blog</td>
+            <td>detailed</td>
+            <td>stories</td>
+            <td>personal</td>
+            <td>monthly</td>
+            <td>depth</td>
           </tr>
           <tr>
-            <td>Accept</td>
-            <td>threads</td>
-            <td>name</td>
-            <td>fitted</td>
-            <td>precious</td>
-            <td>attacked</td>
+            <td>Newsletter</td>
+            <td>curated</td>
+            <td>value</td>
+            <td>friendly</td>
+            <td>biweekly</td>
+            <td>connection</td>
           </tr>
           <tr>
-            <td>Chief</td>
-            <td>sails</td>
-            <td>first-born</td>
-            <td>pottery</td>
-            <td>lever</td>
-            <td>antagonize</td>
+            <td>YouTube</td>
+            <td>visual</td>
+            <td>tutorials</td>
+            <td>helpful</td>
+            <td>monthly</td>
+            <td>authority</td>
           </tr>
           <tr>
-            <td>Unoccupied</td>
-            <td>victorious</td>
-            <td>means</td>
-            <td>lovely</td>
-            <td>humble</td>
-            <td>force</td>
+            <td>Instagram</td>
+            <td>visual</td>
+            <td>lifestyle</td>
+            <td>aspirational</td>
+            <td>weekly</td>
+            <td>personality</td>
           </tr>
         </tbody>
         <tfoot>
           <tr>
-            <td>kinsmen</td>
-            <td>give</td>
-            <td>walking</td>
-            <td>thousand</td>
-            <td>manners</td>
-            <td>burning</td>
+            <td>Results</td>
+            <td>mixed</td>
+            <td>organic</td>
+            <td>genuine</td>
+            <td>consistent</td>
+            <td>growth</td>
           </tr>
         </tfoot>
       </table>
-      <h4>Afraid smithy Fellowship debt carven hooks.</h4>
-      <p>What about second breakfast? Nags runt near Lindir lock discover level? Andûril breathe waited flatten union.</p>
+      <h4>The Fine Art of Not Being Cringe</h4>
+      <p>Remember: The goal isn't to become an influencer—it's to influence. Big difference. Huge.</p>
       <blockquote>
-        <p>You shall be the Fellowship of the Ring.</p>
-        <footer>—Númenor, <cite>sweeter burned verse</cite></footer>
+        <p>The best personal brand is one that makes you more interesting at dinner parties, not less.</p>
+        <footer>—Every Successful Person Ever, <cite>The Book of Common Sense</cite></footer>
       </blockquote>
-      <h5>Should Shirelings extraordinary spends poison's willing enchantment.</h5>
-      <p>I think we should get off the road. Penalty sight splintered Misty Mountain mithril? Unrest lasts rode league bears absence Bracegirdle athletic contract nice parent slowed?</p>
-      <pre>Pardon Concerning Hobbits rune goblins? Twitching figure including rightful Thorin's level! Worth tubers threats Hornburg deadliest? Unfold thumping shh wants Homely!</pre>
-      <h6>Improve drops absolutely tight deceit potent Treebeard startled!</h6>
-      <p>J.R.R. Tolkien 3000 uttered veins <q>roaring winds moaning flaming</q>. Meddle <ins>measure pure</ins> Samwise Gamgee business! <sub>Lied</sub> mistake Proudfoots pon. Instance 80 <dfn>morbid ceremonial plunge</dfn> Anor mad. Questions shells hangs noble Proudfoots <var>throws</var>. <mark>Rampart damage</mark> questions Chubbs 3000 conjurer? Single tempt peasants <strong>Bolg Athelas Mordor Wraiths Azog Undómiel</strong> mangler? <samp>Nori Giants Undómiel Rivendell</samp> spike posts took. Fool's Underhill boarded <cite>vanishing twilight unheard-of</cite>. <abbr>Presence</abbr> Dunland lamb lair. Barricade <sup>didn't</sup> feelings purring vine Morgoth. Distract Giants nearing champion <kbd>T</kbd>. Clothing titles quick bother <em>Arod Gloin Beren</em> troop? Balls crashing bastards <small>arrives precisely rascal</small> stubbornness Snowbourn. Hobbitses rose barren <a>strengths tested mirrors moonlight password</a> center? Remade breaking respect amuse Arod? Vengeance <del>Elessar Wolves</del> posts remain doorway said! <time>Suspects</time> fight Merry hungers locked yelp.</p>
+      <h5>Advanced Strategies for When You're Ready to Level Up</h5>
+      <p>Once you've mastered the basics of not being boring online, it's time to develop your own voice. Just make sure it's actually yours.</p>
+      <pre>Note to self: Being genuine > Being perfect
+Authenticity > Automation
+Real connections > Random connections
+Quality content > Quantity of content</pre>
+      <h6>Final Thoughts: The TL;DR Version</h6>
+      <p>Building a personal brand in <time>2024</time> isn't about being perfect—it's about being <em>perfectly you</em>. Just maybe a slightly more professional version who doesn't share <del>those</del> photos from college. Remember: Your personal brand should be like a good <mark>filter</mark>—enhancing what's already there, not creating something completely different.</p>
       <hr>
       <dl>
-        <dt>Abandon</dt>
-        <dd>Tact flies disturber thinking hospitality Elros act vest handy ranks.</dd>
-        <dt>Devil</dt>
-        <dd>Boneses spilled Caradhras hungry pace lanterns glory haunted shone forging.</dd>
-        <dd>Unprotected Beorn's fireworks dream journey beacon dwells gnaws key.</dd>
-        <dt>Happened</dt>
-        <dd>Known wanna fifth Bill hell knew she scale.</dd>
-        <dd>Missing vanish taken colleague sway voice tricks 13 Grimbold.</dd>
-        <dd>Thereof skills kingsfoil innocent riding light Thorin Oakenshield won.</dd>
+        <dt>Authenticity</dt>
+        <dd>The art of being yourself on purpose, professionally.</dd>
+        <dt>Content Strategy</dt>
+        <dd>A fancy way of saying "post stuff people actually want to read."</dd>
+        <dd>The opposite of sharing motivational quotes every morning.</dd>
+        <dt>Engagement</dt>
+        <dd>What happens when you're actually interesting.</dd>
+        <dd>Not the same as buying followers (we see you).</dd>
+        <dd>The result of providing actual value instead of just noise.</dd>
       </dl>
     </div>
   </div>

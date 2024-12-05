@@ -1,35 +1,33 @@
 <script lang="ts" setup>
 import type { Card, Site } from '@fiction/site'
 import type { UserConfig } from './config'
-import { localRef, useService, vue } from '@fiction/core'
+import { localRef, onResetUi, useService, vue } from '@fiction/core'
 import { type QueryVarHook, setupRouteWatcher } from '@fiction/site/utils/site'
 import XButton from '@fiction/ui/buttons/XButton.vue'
 import ElClose from '@fiction/ui/common/ElClose.vue'
-import ConfettiEffect from '@fiction/ui/effect/EffectConfetti.vue'
 import ElModal from '@fiction/ui/ElModal.vue'
 import CardText from '../CardText.vue'
 import EffectScrollModal from './EffectScrollModal.vue'
 import EmailForm from './EmailForm.vue'
 
-const props = defineProps({
-  card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
-})
+const { card } = defineProps<{
+  card: Card<UserConfig>
+}>()
 
-const service = useService()
-
-const uc = vue.computed(() => props.card.userConfig.value || {})
+const uc = vue.computed(() => card.userConfig.value || {})
 const loading = vue.ref(true)
-const showConfetti = vue.ref(false)
 
 const subscribed = localRef({ key: `capture-subscribed`, def: '', lifecycle: 'local' })
 const dismissedLoad = localRef({ key: `capture-dismissed-load`, def: false, lifecycle: 'session' })
 const dismissedScroll = localRef({ key: `capture-dismissed-scroll`, def: false, lifecycle: 'session' })
 
 // Single modal state to ensure only one can be shown
-const modalState = vue.ref<'subscribeModal' | 'confirmModal' | ''>('')
+const modalState = vue.ref<'subscribeModal' | 'loadModal' | 'scrollModal' | ''>('')
 
 vue.onMounted(async () => {
-  vue.watch(() => props.card.site, (v) => {
+  loading.value = false
+
+  vue.watch(() => card.site, (v) => {
     if (v) {
       const queryVarHooks: QueryVarHook[] = [{
         key: '_subscribe',
@@ -41,7 +39,20 @@ vue.onMounted(async () => {
       setupRouteWatcher({ site: v, queryVarHooks })
     }
   }, { immediate: true })
-  loading.value = false
+
+  vue.watch(() => uc.value._editorPreview, (v) => {
+    if (v === 'modal') {
+      modalState.value = 'subscribeModal'
+    }
+    else if (v === 'load') {
+      modalState.value = 'loadModal'
+    }
+  }, { immediate: true })
+})
+
+onResetUi(() => {
+  card.userConfig.value = { ...card.userConfig.value, _editorPreview: undefined }
+  card?.syncCard({ caller: 'convertCapturePreview' })
 })
 
 const attrs = vue.useAttrs()
@@ -65,14 +76,16 @@ vue.watchEffect(() => {
   if (typeof document === 'undefined')
     return
 
-  if (uc.value.presentationMode === 'onLoad') {
-    const h = showCard.value && !dismissedLoad.value
-    if (h)
-      document.body.style.overflow = 'hidden'
-    else
-      document.body.style.overflow = ''
+  if (modalState.value === 'loadModal') {
+    document.body.style.overflow = 'hidden'
   }
 })
+
+function resetForm() {
+  subscribed.value = ''
+  dismissedLoad.value = false
+  dismissedScroll.value = false
+}
 </script>
 
 <template>
@@ -96,9 +109,9 @@ vue.watchEffect(() => {
     </ElModal>
 
     <!-- Existing template content -->
-    <template v-if="uc.presentationMode !== 'inline'">
-      <teleport v-if="uc.presentationMode === 'onLoad'" to=".x-site">
-        <div v-if="showCard && !dismissedLoad" :data-mode="uc.presentationMode" class="pointer-events-none z-[45] text-theme-800 dark:text-theme-0 fixed left-0 top-0 flex h-[100dvh] w-[100dvw] items-center justify-center bg-theme-0 dark:bg-theme-900">
+    <template v-if="modalState === 'loadModal'">
+      <teleport to=".x-site">
+        <div :data-mode="uc.presentationMode" class="pointer-events-none z-[45] text-theme-800 dark:text-theme-0 fixed left-0 top-0 flex h-[100dvh] w-[100dvw] items-center justify-center bg-theme-0 dark:bg-theme-900">
           <div class="fixed inset-0 z-10 overflow-y-auto">
             <div class="flex min-h-full flex-col items-center justify-center">
               <EmailForm
@@ -113,65 +126,73 @@ vue.watchEffect(() => {
               <XButton
                 data-test-id="dismiss"
                 size="xs"
-                design="link"
-                theme="theme"
+                design="ghost"
+                theme="default"
                 class=" pointer-events-auto cursor-pointer"
                 icon="i-tabler-x"
                 @click.prevent="dismissedLoad = true"
               >
-                Continue To Site
+                Continue Without Subscribing
               </XButton>
             </div>
           </div>
         </div>
       </teleport>
-
-      <EffectScrollModal v-if="uc.presentationMode === 'onScroll' && showCard && !dismissedScroll">
-        <div :data-mode="uc.presentationMode">
-          <div class="absolute right-3 top-3 pointer-events-auto z-10">
-            <ElClose
-              data-test-id="dismiss"
-              color-mode="auto"
-              @click.prevent="dismissedScroll = true"
-            />
-          </div>
-          <EmailForm
-            class="p-8 py-12 md:p-16"
-            :card="card"
-            v-bind="attrs"
-            :show-dismiss="true"
-            :subscribed="subscribed"
-            @update:subscribed="handleSubscribe"
-            @update:dismissed="dismissedScroll = $event"
-          />
-        </div>
-      </EffectScrollModal>
     </template>
 
-    <div v-else-if="!subscribed" v-bind="attrs" :class="card.classes.value.contentWidth" :data-mode="uc.presentationMode">
-      <EmailForm
-        :animate="true"
-        :card="card"
-        :subscribed="subscribed"
-        @update:subscribed="handleSubscribe"
-      />
-    </div>
+    <EffectScrollModal v-if="modalState === 'scrollModal'">
+      <div :data-mode="uc.presentationMode">
+        <div class="absolute right-3 top-3 pointer-events-auto z-10">
+          <ElClose
+            data-test-id="dismiss"
+            color-mode="auto"
+            @click.prevent="dismissedScroll = true"
+          />
+        </div>
+        <EmailForm
+          class="p-8 py-12 md:p-16"
+          :card="card"
+          v-bind="attrs"
+          :show-dismiss="true"
+          :subscribed="subscribed"
+          @update:subscribed="handleSubscribe"
+          @update:dismissed="dismissedScroll = $event"
+        />
+      </div>
+    </EffectScrollModal>
 
-    <div v-else class="p-4 text-center bg-theme-50 dark:bg-theme-700/60 max-w-sm mx-auto rounded-xl">
-      <CardText
-        tag="h2"
-        class="font-normal x-font-title text-lg"
-        :card="card"
-        path="action.subscribe.success.title"
-        fallback="Success!"
-      />
-      <CardText
-        tag="p"
-        class=" dark:text-theme-500"
-        :card="card"
-        path="action.subscribe.success.content"
-        fallback="Please confirm via email."
-      />
-    </div>
+    <template v-if="uc.presentationMode === 'inline'">
+      <div v-if="!subscribed" v-bind="attrs" :class="card.classes.value.contentWidth" :data-mode="uc.presentationMode">
+        <EmailForm
+          :animate="true"
+          :card="card"
+          :subscribed="subscribed"
+          @update:subscribed="handleSubscribe"
+        />
+      </div>
+
+      <div v-else class="p-6 text-center text-primary-800 dark:text-primary-0 bg-primary-50 dark:bg-primary-900/30 max-w-md mx-auto rounded-xl space-y-4">
+        <div class="space-y-2">
+          <CardText
+            tag="h2"
+            class="font-normal x-font-title text-xl"
+            :card="card"
+            path="action.subscribe.success.title"
+            fallback="Success!"
+          />
+          <CardText
+            tag="p"
+            class=" dark:text-primary-300 text-primary-500"
+            :card="card"
+            path="action.subscribe.success.content"
+            fallback="Please confirm via email."
+          />
+        </div>
+
+        <XButton class="opacity-90 hover:opacity-100" size="xxs" theme="primary" design="outline" @click="resetForm()">
+          Reset Form
+        </XButton>
+      </div>
+    </template>
   </div>
 </template>

@@ -9,8 +9,9 @@ const schema = z.object({
   title: z.string().describe('Newsletter hook header 5 words or so').optional(),
   subTitle: z.string().describe('Specific benefits of subscribing').optional(),
   media: MediaBasicSchema.optional().describe('Image or video for the form'),
-  presentationMode: z.enum(['inline', 'onScroll', 'onLoad']).optional(),
   action: ActionAreaSchema.optional(),
+  presentationMode: z.enum(['inline', 'onScroll', 'onLoad']).optional(),
+  _editorPreview: z.enum(['modal', 'load']).optional(),
 })
 
 export type UserConfig = z.infer<typeof schema>
@@ -30,6 +31,14 @@ const options = [
         input: 'InputRadioButton',
         list: ['inline', 'onScroll', 'onLoad'],
         description: 'Choose how to show your form: within content, as a scroll popup, or immediately on page load',
+      }),
+      createOption({
+        schema,
+        key: '_editorPreview',
+        label: 'Preview Modal View',
+        subLabel: 'Preview the modals for this card',
+        input: 'InputRadioButton',
+        list: [{ label: 'Capture Modal', value: 'modal' }, { label: 'Loading Screen', value: 'load' }],
       }),
     ],
   }),
