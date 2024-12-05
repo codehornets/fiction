@@ -32,7 +32,7 @@ const subscribeOptions = [
     schema,
     options: [
       createOption({
-        key: 'subscribe.placeholder',
+        key: 'subscribe.input.placeholder',
         label: 'Input Placeholder',
         placeholder: 'e.g. Enter your email',
         input: 'InputText',
@@ -42,6 +42,12 @@ const subscribeOptions = [
         key: 'subscribe.button.label',
         label: 'Button Text',
         input: 'InputText',
+        schema,
+      }),
+      createOption({
+        key: 'subscribe.button.icon',
+        label: 'Button Icon',
+        input: 'InputIcon',
         schema,
       }),
       createOption({

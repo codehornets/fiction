@@ -258,9 +258,12 @@ export const ActionButtonSchema = z.object({
 export type ActionButton = z.infer<typeof ActionButtonSchema>
 
 export const ActionSubscribeSchema = z.object({
-  placeholder: z.string().optional(),
+  input: z.object({
+    placeholder: z.string().optional(),
+  }).optional(),
   button: z.object({
     label: z.string().optional(),
+    icon: MediaIconSchema.optional(),
   }).optional(),
   success: z.object({
     title: z.string().optional(),

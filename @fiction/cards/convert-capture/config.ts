@@ -5,13 +5,13 @@ import { createOption } from '@fiction/ui/index.js'
 import { z } from 'zod'
 
 const schema = z.object({
-  superTitle: superTitleSchema.describe('Social proof Metric or KPI for the newsletter, e.g. "22,300+ subscribers"').optional(),
-  title: z.string().describe('Newsletter hook header 5 words or so').optional(),
-  subTitle: z.string().describe('Specific benefits of subscribing').optional(),
-  media: MediaBasicSchema.optional().describe('Image or video for the form'),
-  action: ActionAreaSchema.optional(),
-  presentationMode: z.enum(['inline', 'onScroll', 'onLoad']).optional(),
-  _editorPreview: z.enum(['modal', 'load']).optional(),
+  superTitle: superTitleSchema.optional().describe('Social proof that builds trust (e.g. "Join 22,300+ readers") [ai]'),
+  title: z.string().optional().describe('5-7 word hook emphasizing key benefit (e.g. "Get Weekly Growth Strategies") [ai]'),
+  subTitle: z.string().optional().describe('Specific outcome subscribers will achieve (e.g. "Double conversions in 30 days") [ai]'),
+  media: MediaBasicSchema.optional().describe('Visual element reinforcing offer - lead magnet preview or trust indicators'),
+  action: ActionAreaSchema.optional().describe('Form buttons, success messages and proof elements'),
+  presentationMode: z.enum(['inline', 'onScroll', 'onLoad']).optional().describe('When to show: inline (always), onScroll (after scrolling), onLoad (immediate)'),
+  _editorPreview: z.enum(['modal', 'load']).optional().describe('Preview modal states in editor'),
 })
 
 export type UserConfig = z.infer<typeof schema>

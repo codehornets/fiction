@@ -7,7 +7,7 @@ import CaptureAction from '../convert-capture/CaptureAction.vue'
 import CommunityJoin from '../convert-cta/CommunityJoin.vue'
 import CardButtons from '../el/CardButtons.vue'
 
-const { card, basePath, action, size = 'md', theme, design } = defineProps<{
+const { card, basePath, action, size = 'md', theme, design, enableConfirmModal = true } = defineProps<{
   card: Card
   basePath: string
   action?: ActionArea
@@ -15,6 +15,7 @@ const { card, basePath, action, size = 'md', theme, design } = defineProps<{
   theme?: ColorThemeUser
   design?: ButtonDesign
   classes: { buttons?: string, proof?: string, subscribe?: string }
+  enableConfirmModal?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -41,6 +42,7 @@ const joinText = vue.computed(() => {
         :card
         :subscribe="uc?.subscribe || {}"
         :theme="uc?.theme || theme"
+        :enable-confirm-modal="enableConfirmModal"
         @update:subscribed="emit('update:subscribed', $event)"
       />
       <CardButtons

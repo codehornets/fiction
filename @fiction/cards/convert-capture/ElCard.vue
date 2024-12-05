@@ -1,12 +1,13 @@
 <script lang="ts" setup>
 import type { Card, Site } from '@fiction/site'
 import type { UserConfig } from './config'
-import { localRef, onResetUi, useService, vue } from '@fiction/core'
+import { localRef, onResetUi, resetUi, useService, vue } from '@fiction/core'
 import { type QueryVarHook, setupRouteWatcher } from '@fiction/site/utils/site'
 import XButton from '@fiction/ui/buttons/XButton.vue'
 import ElClose from '@fiction/ui/common/ElClose.vue'
 import ElModal from '@fiction/ui/ElModal.vue'
 import CardText from '../CardText.vue'
+import ConfirmModal from './ConfirmModal.vue'
 import EffectScrollModal from './EffectScrollModal.vue'
 import EmailForm from './EmailForm.vue'
 
@@ -22,7 +23,7 @@ const dismissedLoad = localRef({ key: `capture-dismissed-load`, def: false, life
 const dismissedScroll = localRef({ key: `capture-dismissed-scroll`, def: false, lifecycle: 'session' })
 
 // Single modal state to ensure only one can be shown
-const modalState = vue.ref<'subscribeModal' | 'loadModal' | 'scrollModal' | ''>('')
+const modalState = vue.ref<'subscribeModal' | 'loadModal' | 'scrollModal' | 'confirm' | ''>('')
 
 vue.onMounted(async () => {
   loading.value = false
@@ -41,6 +42,9 @@ vue.onMounted(async () => {
   }, { immediate: true })
 
   vue.watch(() => uc.value._editorPreview, (v) => {
+    if (!card.site?.isEditable.value) {
+      return
+    }
     if (v === 'modal') {
       modalState.value = 'subscribeModal'
     }
@@ -48,6 +52,32 @@ vue.onMounted(async () => {
       modalState.value = 'loadModal'
     }
   }, { immediate: true })
+
+  // show on load
+  vue.watch(() => uc.value.presentationMode, (v) => {
+    if (subscribed.value || card.site?.isEditable.value) {
+      return
+    }
+
+    if (v === 'onScroll' && !dismissedScroll.value) {
+      modalState.value = 'scrollModal'
+    }
+    else if (v === 'onLoad' && !dismissedLoad.value) {
+      modalState.value = 'loadModal'
+    }
+  }, { immediate: true })
+
+  vue.watch(() => modalState.value, (newState, oldState) => {
+    if (typeof document === 'undefined')
+      return
+
+    if (newState === 'loadModal') {
+      document.body.style.overflow = 'hidden'
+    }
+    else if (oldState === 'loadModal') {
+      document.body.style.overflow = ''
+    }
+  })
 })
 
 onResetUi(() => {
@@ -57,45 +87,58 @@ onResetUi(() => {
 
 const attrs = vue.useAttrs()
 
-const showCard = vue.computed(() => {
-  return !loading.value && !subscribed.value
-})
-
 function handleSubscribe(value: string) {
   subscribed.value = value
-  // modalState.value = 'confirmModal'
-  // showConfetti.value = true
-
-  // // Reset confetti after animation
-  // setTimeout(() => {
-  //   showConfetti.value = false
-  // }, 3000)
+  modalState.value = 'confirm'
 }
-
-vue.watchEffect(() => {
-  if (typeof document === 'undefined')
-    return
-
-  if (modalState.value === 'loadModal') {
-    document.body.style.overflow = 'hidden'
-  }
-})
 
 function resetForm() {
   subscribed.value = ''
   dismissedLoad.value = false
   dismissedScroll.value = false
 }
+
+type DismissMode = 'scroll' | 'load' | 'modal' | 'confirm'
+
+const modalMap: Record<DismissMode, string> = {
+  scroll: 'scrollModal',
+  load: 'loadModal',
+  modal: 'subscribeModal',
+  confirm: 'confirm',
+}
+
+function handleDismiss(mode: DismissMode) {
+  // Handle dismissal state if needed
+  if (mode === 'scroll')
+    dismissedScroll.value = true
+  if (mode === 'load')
+    dismissedLoad.value = true
+
+  // Clear modal state if it matches the mapped value
+  if (modalState.value === modalMap[mode]) {
+    modalState.value = ''
+    resetUi({ cause: 'convertCapture', scope: 'all', trigger: 'manualReset' })
+  }
+}
 </script>
 
 <template>
   <div :data-value="JSON.stringify({ subscribed })" :data-wrap-mode="uc.presentationMode">
+    <ConfirmModal
+      :card="card"
+      :vis="modalState === 'confirm'"
+      :confirm-text="{
+        title: uc.action?.subscribe?.success?.title || 'Congratulations!',
+        content: uc.action?.subscribe?.success?.content || 'Check your email to confirm.',
+      }"
+      @update:vis="handleDismiss('confirm')"
+    />
     <ElModal
       :vis="modalState === 'subscribeModal'"
       modal-class="max-w-xl p-8"
       :has-close="true"
-      @close="modalState = ''"
-      @update:vis="modalState = ''"
+      @close="handleDismiss('modal')"
+      @update:vis="handleDismiss('modal')"
     >
       <EmailForm
         class="p-8 py-12"
@@ -111,7 +154,7 @@ function resetForm() {
     <!-- Existing template content -->
     <template v-if="modalState === 'loadModal'">
       <teleport to=".x-site">
-        <div :data-mode="uc.presentationMode" class="pointer-events-none z-[45] text-theme-800 dark:text-theme-0 fixed left-0 top-0 flex h-[100dvh] w-[100dvw] items-center justify-center bg-theme-0 dark:bg-theme-900">
+        <div :data-mode="uc.presentationMode" class="pointer-events-none z-[45] text-theme-800 dark:text-theme-0 fixed left-0 top-0 flex h-[100dvh] w-[100dvw] items-center justify-center bg-theme-0 dark:bg-theme-900" @click.stop>
           <div class="fixed inset-0 z-10 overflow-y-auto">
             <div class="flex min-h-full flex-col items-center justify-center">
               <EmailForm
@@ -121,7 +164,7 @@ function resetForm() {
                 v-bind="attrs"
                 :show-dismiss="true"
                 @update:subscribed="handleSubscribe"
-                @update:dismissed="dismissedLoad = $event"
+                @update:dismissed="handleDismiss('load')"
               />
               <XButton
                 data-test-id="dismiss"
@@ -130,9 +173,9 @@ function resetForm() {
                 theme="default"
                 class=" pointer-events-auto cursor-pointer"
                 icon="i-tabler-x"
-                @click.prevent="dismissedLoad = true"
+                @click.prevent="handleDismiss('load')"
               >
-                Continue Without Subscribing
+                Maybe Later
               </XButton>
             </div>
           </div>
@@ -146,7 +189,7 @@ function resetForm() {
           <ElClose
             data-test-id="dismiss"
             color-mode="auto"
-            @click.prevent="dismissedScroll = true"
+            @click.prevent="handleDismiss('scroll')"
           />
         </div>
         <EmailForm
@@ -156,7 +199,7 @@ function resetForm() {
           :show-dismiss="true"
           :subscribed="subscribed"
           @update:subscribed="handleSubscribe"
-          @update:dismissed="dismissedScroll = $event"
+          @update:dismissed="handleDismiss('scroll')"
         />
       </div>
     </EffectScrollModal>

@@ -25,7 +25,6 @@ export function setupRouteWatcher(args: {
   // Filter out hooks with duplicate keys and register new ones
   const uniqueHooks = queryVarHooks.filter((hook) => {
     if (site.registeredHookKeys.has(hook.key)) {
-      console.warn(`[Site ${site.siteId}] Hook with key "${hook.key}" is already registered`)
       return false
     }
     site.registeredHookKeys.add(hook.key)

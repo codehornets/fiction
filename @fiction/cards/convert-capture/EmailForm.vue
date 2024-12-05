@@ -40,6 +40,7 @@ const uc = vue.computed(() => {
         :card
         :classes="{ buttons: 'flex gap-4' }"
         base-path="action"
+        :enable-confirm-modal="false"
         @update:subscribed="emit('update:subscribed', $event)"
       />
     </div>

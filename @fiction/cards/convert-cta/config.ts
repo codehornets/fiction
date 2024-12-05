@@ -197,7 +197,7 @@ export function getDefaultConfig(): UserConfig {
     action: {
       variant: 'subscribe',
       subscribe: {
-        placeholder: 'Your email address',
+        input: { placeholder: 'Your email address' },
         button: { label: 'Get Started' },
         success: {
           title: 'Perfect!',
@@ -255,7 +255,7 @@ export function getDemoConfigs(templateId: string): Record<string, { templateId:
         action: {
           variant: 'subscribe',
           subscribe: {
-            placeholder: 'Enter your email address',
+            input: { placeholder: 'Enter your email address' },
             button: { label: 'Claim Your Spot' },
             success: {
               title: 'Success!',

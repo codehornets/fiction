@@ -8,12 +8,13 @@ import ElForm from '@fiction/ui/inputs/ElForm.vue'
 import ElEmail from '@fiction/ui/inputs/InputEmail.vue'
 import ConfirmModal from './ConfirmModal.vue'
 
-const { card, subscribe = {}, size = 'lg' } = defineProps<{
+const { card, subscribe = {}, size = 'lg', enableConfirmModal = true } = defineProps<{
   card: Card
   animate?: boolean
   subscribe: ActionSubscribe
   size?: StandardSize
   theme?: ColorThemeUser
+  enableConfirmModal?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -89,6 +90,7 @@ async function createSubscription() {
           'grow',
           'sm:flex-1',
         ].join(' ')"
+        :placeholder="subscribe.input?.placeholder || 'Enter your email...'"
       />
       <XButton
         data-test-id="submit"
@@ -104,6 +106,7 @@ async function createSubscription() {
       </XButton>
 
       <ConfirmModal
+        v-if="enableConfirmModal"
         :card="card"
         :vis="showConfirmModal"
         :confirm-text="{
