@@ -6,7 +6,11 @@ import { createOption } from './index.js'
 
 defineOptions({ name: 'InputActionArea' })
 
-const { modelValue } = defineProps<{ modelValue?: ActionArea }>()
+const { modelValue, variants, defaultVariant = 'buttons' } = defineProps<{
+  modelValue?: ActionArea
+  variants?: ActionArea['variant'][]
+  defaultVariant?: ActionArea['variant']
+}>()
 
 const emit = defineEmits<{
   (event: 'update:modelValue', payload: ActionArea): void
@@ -14,7 +18,7 @@ const emit = defineEmits<{
 
 const val = vue.computed(() => {
   return {
-    variant: 'button',
+    variant: variants ? variants[0] : defaultVariant,
     ...modelValue,
   }
 })
@@ -23,17 +27,19 @@ const subscribeOptions = [
   createOption({
     key: 'subscribe',
     label: 'Subscribe Form',
+    icon: { class: 'i-tabler-mail-check' },
     input: 'group',
     schema,
     options: [
       createOption({
         key: 'subscribe.placeholder',
         label: 'Input Placeholder',
+        placeholder: 'e.g. Enter your email',
         input: 'InputText',
         schema,
       }),
       createOption({
-        key: 'subscribe.button.text',
+        key: 'subscribe.button.label',
         label: 'Button Text',
         input: 'InputText',
         schema,
@@ -45,7 +51,7 @@ const subscribeOptions = [
         schema,
       }),
       createOption({
-        key: 'subscribe.success.message',
+        key: 'subscribe.success.content',
         label: 'Success Message',
         input: 'InputText',
         schema,
@@ -64,18 +70,22 @@ const actionButtonOptions = [
 ]
 
 const options = vue.computed(() => {
+  const variantsList = [
+    { label: 'Buttons', value: 'button' },
+    { label: 'Subscribe Form', value: 'subscribe' },
+  ].filter(v => !variants || variants?.includes(v.value as ActionArea['variant']))
+
+  const variantOption = createOption({
+    key: 'variant',
+    input: 'InputRadioButton',
+    props: {
+      list: variantsList,
+    },
+    schema,
+  })
+
   const o = [
-    createOption({
-      key: 'variant',
-      input: 'InputRadioButton',
-      props: {
-        list: [
-          { label: 'Buttons', value: 'button' },
-          { label: 'Subscribe Form', value: 'subscribe' },
-        ],
-      },
-      schema,
-    }),
+    ...(!variants || variants.length > 1 ? [variantOption] : []),
     ...(modelValue?.variant === 'subscribe' ? subscribeOptions : actionButtonOptions),
   ]
 

@@ -35,6 +35,7 @@ const joinText = vue.computed(() => {
         v-if="uc?.variant === 'subscribe'"
         :size="uc?.size || size"
         :card
+        :subscribe="uc?.subscribe || {}"
         :theme="uc?.theme || theme"
       />
       <CardButtons

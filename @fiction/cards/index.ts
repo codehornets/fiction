@@ -203,9 +203,7 @@ export async function getDemoPages(args: {
   const allTemplates = [...demoTemplatesList, ...args.templates]
 
   const demoPagePromises = allTemplates.map(async (template) => {
-    const config = await template.getConfig(args)
-    const demoCard = config.demoPage || {}
-    return createDemoPage({ site: args.site, template, card: demoCard })
+    return createDemoPage({ site: args.site, template })
   })
 
   return await Promise.all(demoPagePromises)

@@ -1,19 +1,17 @@
 <script lang="ts" setup>
-import type { ColorTheme, ColorThemeUser, StandardSize } from '@fiction/core'
+import type { ActionSubscribe, ColorThemeUser, StandardSize } from '@fiction/core'
 import type { FictionSubscribe } from '@fiction/plugin-subscribe'
 import type { Card } from '@fiction/site'
 import { useService, vue } from '@fiction/core'
 import XButton from '@fiction/ui/buttons/XButton.vue'
 import ElForm from '@fiction/ui/inputs/ElForm.vue'
 import ElEmail from '@fiction/ui/inputs/InputEmail.vue'
-import { getColorThemeStyles } from '@fiction/ui/utils'
 import ConfirmModal from './ConfirmModal.vue'
 
-const { card, confirmText, actionText, size = 'lg', theme = 'primary' } = defineProps<{
+const { card, subscribe = {}, size = 'lg' } = defineProps<{
   card: Card
   animate?: boolean
-  confirmText?: { title: string, content: string }
-  actionText?: string
+  subscribe: ActionSubscribe
   size?: StandardSize
   theme?: ColorThemeUser
 }>()
@@ -27,10 +25,6 @@ const orgId = vue.computed(() => card.site?.settings.orgId)
 const loading = vue.ref(false)
 const showConfirmModal = vue.ref(false)
 const email = vue.ref('')
-
-const colorThemeStyle = vue.computed(() => {
-  return theme ? getColorThemeStyles(theme) : undefined
-})
 
 async function createSubscription() {
   loading.value = true
@@ -89,11 +83,11 @@ async function createSubscription() {
           'dark:ring-primary-500/70',
           'ring-1',
           'w-full',
-          'sm:basis-80', /* 320px base width */
-          'min-w-72', /* 288px minimum */
-          'max-w-2xl', /* 672px maximum */
-          'grow', /* allow growth */
-          'sm:flex-1', /* fill available space on larger screens */
+          'sm:basis-80',
+          'min-w-72',
+          'max-w-2xl',
+          'grow',
+          'sm:flex-1',
         ].join(' ')"
       />
       <XButton
@@ -106,13 +100,16 @@ async function createSubscription() {
         hover="pop"
         class="shrink-0 w-full sm:w-auto"
       >
-        {{ actionText || 'Subscribe' }}
+        {{ subscribe.button?.label || 'Subscribe' }}
       </XButton>
 
       <ConfirmModal
         :card="card"
         :vis="showConfirmModal"
-        :confirm-text="confirmText"
+        :confirm-text="{
+          title: subscribe.success?.title || 'Congratulations!',
+          content: subscribe.success?.content || 'Check your email to confirm.',
+        }"
         @update:vis="showConfirmModal = false"
       />
     </ElForm>

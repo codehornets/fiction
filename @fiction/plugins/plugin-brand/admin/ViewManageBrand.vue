@@ -72,7 +72,7 @@ function updateBrand(brandNew: TableBrand) {
       title: 'Manage Brand',
       subTitle: 'Manage your brand strategy and style. It will be used to keep your brand consistent and goal-focused.',
       media: { class: `i-tabler-briefcase` },
-      actions: [],
+      action: {},
     }"
     :nav-actions="[
       {

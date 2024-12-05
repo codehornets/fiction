@@ -117,6 +117,13 @@ export async function loadSiteFromCard(args: { cardId: string, siteRouter: Ficti
 
   const templateConfig = await tpl.getConfig?.({ site })
 
+  /**
+   * IMPORTANT
+   * YOu can't use the demo page creator used for main site because of the current way
+   * the cards are transferred to iframe and back, serialization issue
+   * TODO - fix with a template register system that allows non-inline templates to be used in demo pages
+   */
+
   const card = templateConfig.demoPage
 
   // local stored config, useful for development

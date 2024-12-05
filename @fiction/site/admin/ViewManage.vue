@@ -14,7 +14,7 @@ const { card } = defineProps<{ card: Card }>()
       title: 'Website & Page Builder',
       subTitle: 'Design and manage your digital presence with customizable websites, and landing pages.',
       media: { class: 'i-tabler-browser' },
-      actions: [],
+      action: {},
     }"
   />
 </template>

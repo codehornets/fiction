@@ -511,7 +511,7 @@ const options = vue.computed(() => {
       title: brand?.title || 'Untitled',
       subTitle: 'As you build your influence, a consistent and intentional brand will be the foundation of your success.',
       media: { class: `i-tabler-briefcase` },
-      actions: [],
+      action: {},
     }"
     :actions="[{
       testId: 'brand-save-button',

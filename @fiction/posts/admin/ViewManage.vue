@@ -16,7 +16,7 @@ const loading = vue.ref(false)
       title: 'Content Management',
       subTitle: 'Create and manage your content library. Write, schedule, and publish.',
       media: { class: `i-tabler-stack` },
-      actions: [],
+      action: {},
     }"
   />
 </template>

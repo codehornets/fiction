@@ -350,7 +350,7 @@ const header = vue.computed(() => {
     ? `Edits Needed`
     : `Ready to Publish`
 
-  const actions = [
+  const buttons = [
     {
       size: 'md',
       label: 'Email Composer',
@@ -363,7 +363,7 @@ const header = vue.computed(() => {
   ] as ActionButton[]
 
   if (!isReady) {
-    actions.push({
+    buttons.push({
       size: 'md',
       design: 'link',
       label: isReady ? 'Ready' : `${allControlOptions.length - incompleteItems.length} / ${allControlOptions.length} Complete`,
@@ -371,7 +371,7 @@ const header = vue.computed(() => {
     })
   }
   else {
-    actions.unshift({
+    buttons.unshift({
       size: 'md',
       label: isScheduled ? 'Schedule Send' : 'Send Now',
       icon: 'i-tabler-send',
@@ -386,7 +386,7 @@ const header = vue.computed(() => {
     title: em.title || 'Untitled',
     subTitle: `${statusText} - Status is "${em?.status}"`,
     media: { class: 'i-tabler-mail' },
-    actions,
+    action: { buttons },
   }
 
   return out

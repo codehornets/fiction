@@ -1,237 +1,194 @@
-import { MediaBasicSchema, MediaIconSchema } from '@fiction/core'
-import { InputOption } from '@fiction/ui'
+import type { CardFactory } from '@fiction/site/cardFactory'
+import type { StockMedia } from '@fiction/ui/stock'
+import { ActionAreaSchema, PostSchema } from '@fiction/core'
+import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
+const MilestoneSchema = PostSchema.pick({
+  title: true,
+  subTitle: true,
+  content: true,
+  media: true,
+  icon: true,
+  action: true,
+}).extend({
+  date: z.string().optional(),
+  endDate: z.string().optional(),
+  badges: ActionAreaSchema.optional(),
+})
+
 export const schema = z.object({
-
-  style: z.object({
-    layout: z.enum(['vertical', 'alternating', 'horizontal']).optional(),
-    theme: z.enum(['minimal', 'cards', 'connected']).optional(),
-    animation: z.enum(['fade', 'slide', 'none']).optional(),
-  }).optional(),
-
-  milestones: z.array(z.object({
-    date: z.string().optional(),
-    endDate: z.string().optional(),
-    isCurrent: z.boolean().optional(),
-    title: z.string().optional(),
-    organization: z.string().optional(),
-    location: z.string().optional(),
-    description: z.string().optional(),
-    achievements: z.array(z.string()).optional(),
-    media: MediaBasicSchema.optional(),
-    icon: MediaIconSchema.optional(),
-    link: z.string().optional(),
-  })).optional(),
+  milestones: z.array(MilestoneSchema).optional(),
 })
 
 export type UserConfig = z.infer<typeof schema>
+type MilestoneConfig = z.infer<typeof MilestoneSchema>
 
-export function getOptions(): InputOption[] {
+export function getOptions() {
   return [
-    new InputOption({
-      key: 'header',
-      label: 'Header',
-      input: 'group',
-      options: [
-        new InputOption({
-          key: 'title',
-          label: 'Title',
-          input: 'InputText',
-          props: {
-            placeholder: 'e.g., Professional Journey',
-          },
-        }),
-        new InputOption({
-          key: 'subTitle',
-          label: 'Subtitle',
-          input: 'InputText',
-          props: {
-            placeholder: 'Brief description of your journey',
-          },
-        }),
-        new InputOption({
-          key: 'media',
-          label: 'Header Image',
-          input: 'InputMedia',
-        }),
-      ],
-    }),
 
-    new InputOption({
-      key: 'style',
-      label: 'Display Style',
-      input: 'group',
-      options: [
-        new InputOption({
-          key: 'layout',
-          label: 'Layout',
-          input: 'InputRadio',
-          props: {
-            options: [
-              { label: 'Vertical', value: 'vertical' },
-              { label: 'Alternating', value: 'alternating' },
-              { label: 'Horizontal', value: 'horizontal' },
-            ],
-          },
-        }),
-        new InputOption({
-          key: 'theme',
-          label: 'Visual Theme',
-          input: 'InputRadio',
-          props: {
-            options: [
-              { label: 'Minimal', value: 'minimal' },
-              { label: 'Cards', value: 'cards' },
-              { label: 'Connected', value: 'connected' },
-            ],
-          },
-        }),
-        new InputOption({
-          key: 'animation',
-          label: 'Animation Style',
-          input: 'InputRadio',
-          props: {
-            options: [
-              { label: 'Fade In', value: 'fade' },
-              { label: 'Slide In', value: 'slide' },
-              { label: 'None', value: 'none' },
-            ],
-          },
-        }),
-      ],
-    }),
-
-    new InputOption({
+    createOption({
+      schema,
       key: 'milestones',
-      label: 'Career Milestones',
+      label: 'Milestones',
       input: 'InputList',
       props: {
-        itemLabel: 'Milestone',
+        itemName: 'Milestone',
+        itemLabel: args => (args?.item as MilestoneConfig)?.title ?? 'Untitled',
       },
       options: [
-        new InputOption({
-          key: 'date',
-          label: 'Start Date',
-          input: 'InputText',
-          props: { placeholder: 'e.g., Jan 2020' },
+
+        createOption({
+          input: 'group',
+          key: 'dateRange',
+          label: 'Date Range',
+          options: [
+
+            createOption({
+              schema,
+              key: 'date',
+              label: 'Start Date',
+              input: 'InputText',
+            }),
+            createOption({
+              schema,
+              key: 'endDate',
+              label: 'End Date',
+              input: 'InputText',
+            }),
+          ],
         }),
-        new InputOption({
-          key: 'endDate',
-          label: 'End Date',
-          input: 'InputText',
-          props: { placeholder: 'e.g., Present' },
+        createOption({
+          input: 'group',
+          key: 'milestoneContentGroup',
+          label: 'Content',
+          options: [
+            createOption({
+              schema,
+              key: 'icon',
+              label: 'Icon',
+              input: 'InputIcon',
+            }),
+            createOption({
+              schema,
+              key: 'title',
+              label: 'Milestone Title',
+              input: 'InputText',
+              isRequired: true,
+            }),
+            createOption({
+              schema,
+              key: 'subTitle',
+              label: 'Milestone Subtitle',
+              input: 'InputText',
+            }),
+            createOption({
+              schema,
+              key: 'content',
+              label: 'Description',
+              input: 'InputTextarea',
+            }),
+            createOption({
+              schema,
+              key: 'media',
+              label: 'Image',
+              input: 'InputMedia',
+            }),
+            createOption({
+              schema,
+              key: 'badges',
+              label: 'Badges',
+              input: 'InputActionArea',
+              props: { variants: ['buttons'] },
+            }),
+          ],
         }),
-        new InputOption({
-          key: 'isCurrent',
-          label: 'Current Position',
-          input: 'InputToggle',
-        }),
-        new InputOption({
-          key: 'title',
-          label: 'Position Title',
-          input: 'InputText',
-          isRequired: true,
-        }),
-        new InputOption({
-          key: 'organization',
-          label: 'Organization',
-          input: 'InputText',
-        }),
-        new InputOption({
-          key: 'location',
-          label: 'Location',
-          input: 'InputText',
-        }),
-        new InputOption({
-          key: 'description',
-          label: 'Description',
-          input: 'InputTextarea',
-        }),
-        new InputOption({
-          key: 'achievements',
-          label: 'Key Achievements',
-          input: 'InputList',
-          props: {
-            itemLabel: 'Achievement',
-          },
-        }),
-        new InputOption({
-          key: 'media',
-          label: 'Image',
-          input: 'InputMedia',
-        }),
-        new InputOption({
-          key: 'icon',
-          label: 'Icon',
-          input: 'InputIcon',
-        }),
-        new InputOption({
-          key: 'link',
-          label: 'Learn More URL',
-          input: 'InputUrl',
+
+        createOption({
+          schema,
+          key: 'action',
+          input: 'InputActionArea',
         }),
       ],
     }),
   ]
 }
 
-export function getDefaultConfig(): UserConfig {
+export function getDemoConfig(args: { stock: StockMedia }): UserConfig {
+  const { stock } = args
   return {
-
-    style: {
-      layout: 'vertical',
-      theme: 'connected',
-      animation: 'fade',
-    },
     milestones: [
       {
-        date: 'Jan 2023',
+        date: '2024',
         endDate: 'Present',
-        isCurrent: true,
-        title: 'Senior Product Designer',
-        organization: 'Innovation Labs',
-        location: 'San Francisco, CA',
-        description: 'Leading design initiatives for flagship products while mentoring junior designers.',
-        achievements: [
-          'Launched redesigned platform increasing user engagement by 45%',
-          'Built and led a team of 5 designers',
-          'Established new design system reducing development time by 30%',
-        ],
-        icon: { class: 'i-tabler-device-laptop' },
+        title: 'Major Product Launch',
+        subTitle: 'Led Development of Core Platform',
+        content: 'Orchestrated successful launch of company\'s flagship analytics platform. Increased monthly recurring revenue by 127% and reduced customer onboarding time from 14 days to 48 hours.',
+        icon: { iconId: 'rocket' },
+        badges: {
+          variant: 'buttons',
+          buttons: [
+            { label: 'Tech Lead', theme: 'emerald' },
+            { label: 'Launch', theme: 'blue' },
+          ],
+        },
+        media: stock.getRandomByTags(['aspect:landscape']),
+        action: {
+          buttons: [
+            { label: 'View Case Study', href: '#', theme: 'primary' },
+          ],
+        },
       },
       {
-        date: 'Mar 2020',
-        endDate: 'Dec 2022',
-        title: 'UX Designer',
-        organization: 'Tech Solutions Inc.',
-        location: 'Austin, TX',
-        description: 'Drove user experience improvements across mobile and web platforms.',
-        achievements: [
-          'Redesigned core user flows increasing conversion by 25%',
-          'Led user research initiatives with over 500 participants',
-        ],
-        icon: { class: 'i-tabler-artboard' },
+        date: '2023',
+        endDate: '2024',
+        title: 'Team Expansion & Process Optimization',
+        subTitle: 'Engineering Excellence Initiative',
+        content: 'Scaled engineering team from 4 to 15 while maintaining code quality. Implemented CI/CD pipeline reducing deployment time by 65% and cutting production incidents by half.',
+        icon: { iconId: 'users-plus' },
+        badges: {
+          variant: 'buttons',
+          buttons: [
+            { label: 'Leadership', theme: 'violet' },
+            { label: 'DevOps', theme: 'amber' },
+          ],
+        },
       },
       {
-        date: 'Jun 2018',
-        endDate: 'Feb 2020',
-        title: 'Junior Designer',
-        organization: 'Creative Agency',
-        location: 'Portland, OR',
-        description: 'Started career working on diverse client projects while developing core design skills.',
-        achievements: [
-          'Contributed to award-winning campaigns for major brands',
-          'Mastered industry-standard design tools and workflows',
-        ],
-        icon: { class: 'i-tabler-brush' },
+        date: '2022',
+        endDate: '2023',
+        title: 'Infrastructure Modernization',
+        subTitle: 'Cloud Migration Project',
+        content: 'Successfully migrated legacy systems to cloud infrastructure, resulting in 40% cost reduction and 99.99% uptime. Introduced microservices architecture improving system scalability.',
+        icon: { iconId: 'cloud' },
+        badges: {
+          buttons: [
+            { label: 'Architecture', theme: 'cyan' },
+            { label: 'Cloud', theme: 'slate' },
+          ],
+        },
       },
     ],
   }
 }
 
-export async function getConfig(args: { templateId: string }) {
-  const { templateId } = args
+export function getDefaultConfig(): UserConfig {
+  return {
+    milestones: [
+      {
+        date: new Date().toISOString(),
+        title: 'Achievement Title',
+        subTitle: 'Role or Project Focus',
+        content: 'Describe the impact: Include metrics, scale, and business outcomes.',
+        icon: { class: 'i-tabler-flag' },
+      },
+    ],
+  }
+}
+
+export async function getConfig(args: { templateId: string, factory: CardFactory }) {
+  const { templateId, factory } = args
+  const stock = await factory.getStockMedia()
   return {
     schema,
     options: getOptions(),
@@ -240,7 +197,7 @@ export async function getConfig(args: { templateId: string }) {
       cards: [
         {
           templateId,
-          userConfig: getDefaultConfig(),
+          userConfig: getDemoConfig({ ...args, stock }),
         },
       ],
     },

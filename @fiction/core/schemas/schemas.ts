@@ -257,6 +257,19 @@ export const ActionButtonSchema = z.object({
 
 export type ActionButton = z.infer<typeof ActionButtonSchema>
 
+export const ActionSubscribeSchema = z.object({
+  placeholder: z.string().optional(),
+  button: z.object({
+    label: z.string().optional(),
+  }).optional(),
+  success: z.object({
+    title: z.string().optional(),
+    content: z.string().optional(),
+  }).optional(),
+})
+
+export type ActionSubscribe = z.infer<typeof ActionSubscribeSchema>
+
 export const ActionAreaSchema = z.object({
   title: z.string().optional(),
   variant: z.enum(['buttons', 'subscribe']).optional(),
@@ -264,16 +277,7 @@ export const ActionAreaSchema = z.object({
   size: SizeSchema.optional(),
   theme: ButtonColorThemeSchema.optional(),
   design: ButtonDesignSchema.optional(),
-  subscribe: z.object({
-    placeholder: z.string().optional(),
-    button: z.object({
-      text: z.string().optional(),
-    }),
-    success: z.object({
-      title: z.string().optional(),
-      message: z.string().optional(),
-    }).optional(),
-  }).optional(),
+  subscribe: ActionSubscribeSchema.optional(),
   proof: z.object({
     community: z.object({
       isEnabled: z.boolean().optional(),
@@ -382,16 +386,3 @@ export const PostHandlingSchema = z.object({
 
 export type PostObject = z.infer<typeof PostSchema>
 export type PostHandlingObject = z.infer<typeof PostHandlingSchema>
-
-// export const XButtonSchema = z.object({
-//   name: z.string().optional().describe('Text in the button'),
-//   href: z.string().optional().describe('Link to navigate to use path for local route, or full URL for external'),
-//   design: ButtonDesignSchema.optional().describe('Design style of the button'),
-//   theme: z.enum(colorThemeUser).optional().describe('Color theme of the button'),
-//   size: SizeSchema.optional().describe('Size of the button'),
-//   icon: z.string().optional(),
-//   iconAfter: z.string().optional(),
-//   target: z.enum(['_blank', '_self']).optional(),
-// })
-
-// export type XButtonProps = z.infer<typeof XButtonSchema>

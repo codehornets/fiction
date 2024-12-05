@@ -281,7 +281,7 @@ export class Site<T extends SiteSettings = SiteSettings> extends FictionObject<T
 
   activeCard = vue.computed(() => this.availableCards.value.find(c => c.cardId === this.editor.value.selectedCardId))
   activeCardConfig = vue.computed({
-    get: () => this.activeCard.value?.toConfig() as Partial<TableCardConfig>,
+    get: () => this.activeCard.value?.toConfig() as Partial<TableCardConfig> || {},
     set: v => this.activeCard.value && v && this.activeCard.value.update(v, { caller: 'activeCardConfig' }),
   })
 

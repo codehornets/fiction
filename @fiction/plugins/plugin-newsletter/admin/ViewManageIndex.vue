@@ -36,7 +36,7 @@ vue.onMounted(() => load())
       subTitle: 'Create compelling email campaigns to engage your audience. Schedule broadcasts, and track performance metrics.',
 
       media: { class: `i-tabler-mail` },
-      actions: [],
+      action: {},
     }"
   />
 </template>

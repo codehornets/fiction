@@ -5,19 +5,20 @@ import { vue } from '@fiction/core'
 import { Card } from '@fiction/site'
 import ElHero from '../content-hero/ElHero.vue'
 
-const props = defineProps({
-  card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
-})
+const { card } = defineProps<{
+  card: Card<UserConfig>
+}>()
 
-const uc = vue.computed(() => props.card.userConfig.value || {})
+const uc = vue.computed(() => card.userConfig.value || {})
 
 function createHeroCard(item: HeroUserConfig, index: number) {
   return new Card({
+    cardId: card.cardId,
     templateId: 'contentHero',
     userConfig: item,
-    site: props.card.site,
+    site: card.site,
     onSync: (subCard) => {
-      props.card.updateUserConfig({ path: `items.${index}`, value: subCard.userConfig.value })
+      card.updateUserConfig({ path: `items.${index}`, value: subCard.userConfig.value })
     },
   })
 }

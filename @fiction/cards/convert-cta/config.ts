@@ -198,10 +198,10 @@ export function getDefaultConfig(): UserConfig {
       variant: 'subscribe',
       subscribe: {
         placeholder: 'Your email address',
-        button: { text: 'Get Started' },
+        button: { label: 'Get Started' },
         success: {
           title: 'Perfect!',
-          message: 'Watch your inbox for our welcome message',
+          content: 'Watch your inbox for our welcome message',
         },
       },
       proof: {
@@ -256,10 +256,10 @@ export function getDemoConfigs(templateId: string): Record<string, { templateId:
           variant: 'subscribe',
           subscribe: {
             placeholder: 'Enter your email address',
-            button: { text: 'Claim Your Spot' },
+            button: { label: 'Claim Your Spot' },
             success: {
               title: 'Success!',
-              message: 'Check your inbox for a confirmation email',
+              content: 'Check your inbox for a confirmation email',
             },
           },
           proof: {

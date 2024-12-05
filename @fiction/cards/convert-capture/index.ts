@@ -6,7 +6,7 @@ const templateId = 'convertCapture'
 export const template = cardTemplate({
   root: safeDirname(import.meta.url),
   templateId,
-  title: 'Email Capture',
+  title: 'Conversion Capture',
   category: ['marketing', 'conversion'],
   description: 'Convert visitors into subscribers with a versatile email capture form. Features multiple display modes (inline, scroll trigger, exit intent), customizable messaging, and social proof elements. Perfect for building email lists, delivering lead magnets, or growing newsletter subscriptions. Optimized for high conversion rates with A/B tested layouts.',
   subTitle: 'High-converting email capture form with multiple display modes and customizable messaging.',

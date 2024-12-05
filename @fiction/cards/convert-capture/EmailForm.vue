@@ -9,12 +9,10 @@ import ElEmail from '@fiction/ui/inputs/InputEmail.vue'
 import XLogo from '@fiction/ui/media/XLogo.vue'
 import CardText from '../CardText.vue'
 
-const props = defineProps({
-  card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
-  animate: { type: Boolean, default: false },
-  showDismiss: { type: Boolean, default: false },
-  subscribed: { type: String, default: undefined },
-})
+const { card, animate = false } = defineProps<{
+  card: Card<UserConfig>
+  animate?: boolean
+}>()
 
 const emit = defineEmits<{
   (event: 'update:dismissed', payload: boolean): void
@@ -24,10 +22,10 @@ const emit = defineEmits<{
 const service = useService<{ fictionSubscribe: FictionSubscribe }>()
 
 const uc = vue.computed(() => {
-  return props.card.userConfig.value || {}
+  return card.userConfig.value || {}
 })
 
-const orgId = vue.computed(() => props.card.site?.settings.orgId)
+const orgId = vue.computed(() => card.site?.settings.orgId)
 
 const loading = vue.ref(false)
 const email = vue.ref('')
@@ -97,7 +95,7 @@ async function createSubscription() {
           format="block"
           size="lg"
         >
-          {{ uc.buttonText || 'Subscribe' }}
+          {{ uc.action?.subscribe?.button?.label || 'Subscribe' }}
         </XButton>
       </ElForm>
     </div>

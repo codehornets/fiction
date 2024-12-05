@@ -112,7 +112,7 @@ function loadAnimation() {
   const animId = `[data-anim-id="${randomId}"]`
   splitLetters({ selector: animId })
 
-  const themeId = typeof animate == 'string' ? animate : 'rise'
+  const themeId = typeof animate == 'string' ? animate : 'fade'
 
   useElementVisible({
     caller: 'xText',

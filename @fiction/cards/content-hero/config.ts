@@ -71,13 +71,8 @@ export function getOptions(): InputOption[] {
         createOption({
           key: 'layout',
           label: 'Layout Style',
-          input: 'InputSelect',
-          list: [
-            { label: 'Centered Focus', value: 'center' },
-            { label: 'Left Aligned', value: 'left' },
-            { label: 'Right Aligned', value: 'right' },
-            { label: 'Full Width', value: 'justify' },
-          ],
+          input: 'InputRadioButton',
+          list: [{ value: 'center' }, { value: 'left' }, { value: 'right' }, { value: 'justify' }],
           schema,
         }),
       ],

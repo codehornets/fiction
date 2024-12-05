@@ -79,6 +79,8 @@ export const recommendedIcons = [
   { class: 'i-tabler-settings-cog', category: 'interface' },
   { class: 'i-tabler-adjustments', category: 'interface' },
   { class: 'i-tabler-ai', category: 'interface' },
+  { class: 'i-tabler-atom', category: 'interface' },
+  { class: 'i-tabler-cloud', category: 'interface' },
 
   // Content - Text editing and content management
   { class: 'i-tabler-file', category: 'content' },
@@ -170,6 +172,7 @@ export const recommendedIcons = [
   { class: 'i-tabler-bell', category: 'social' },
   { class: 'i-tabler-user', category: 'social' },
   { class: 'i-tabler-users', category: 'social' },
+  { class: 'i-tabler-users-plus', category: 'social' },
   { class: 'i-tabler-user-plus', category: 'social' },
   { class: 'i-tabler-user-minus', category: 'social' },
   { class: 'i-tabler-user-check', category: 'social' },

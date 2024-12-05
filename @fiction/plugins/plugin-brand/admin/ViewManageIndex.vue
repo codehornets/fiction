@@ -48,7 +48,7 @@ vue.onMounted(() => load())
       title: 'Brand Intelligence Hub',
       subTitle: 'Create smart brand guidelines that power AI-assisted content creation',
       media: { class: 'i-tabler-briefcase' },
-      actions: [],
+      action: {},
     }"
   />
 </template>

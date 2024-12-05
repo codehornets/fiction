@@ -1,6 +1,6 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { StockMedia } from '@fiction/ui/stock'
-import { InputOption } from '@fiction/ui'
+import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 import { getOptions as getHeroOptions, schema as heroSchema } from '../content-hero/config'
 
@@ -12,8 +12,24 @@ export const schema = z.object({
 export type HeroConfig = z.infer<typeof heroSchema>
 export type UserConfig = z.infer<typeof schema>
 
-const options: InputOption[] = [
-  new InputOption({ key: 'items', label: 'Tour Items', input: 'InputList', options: getHeroOptions() }),
+const options = [
+  createOption({
+    input: 'group',
+    key: 'tourItemGroup',
+    label: 'Tour Items',
+    options: [
+      createOption({
+        key: 'items',
+        input: 'InputList',
+        props: {
+          itemName: 'Tour Item',
+          itemLabel: args => (args?.item as HeroConfig)?.title ?? 'Untitled',
+        },
+        options: getHeroOptions(),
+      }),
+    ],
+  }),
+
 ]
 
 // Create engaging demo content

@@ -4,7 +4,11 @@ import { vue } from '@fiction/core'
 import ConfettiEffect from '@fiction/ui/effect/EffectConfetti.vue'
 import ElModal from '@fiction/ui/ElModal.vue'
 
-const { withConfetti = true, vis, confirmText = { title: 'Congratulations!', content: 'Check your email to confirm.' } } = defineProps<{
+const {
+  withConfetti = true,
+  vis,
+  confirmText = { title: 'Congratulations!', content: 'Check your email to confirm.' },
+} = defineProps<{
   card: Card
   vis: boolean
   withConfetti?: boolean

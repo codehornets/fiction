@@ -122,9 +122,9 @@ export async function getAboutPage(args: { site: Site, factory: CardFactory }) {
       subTitle: `Building the future of personal branding together`,
       title: `The Team`,
       profiles: [{
-        name: 'Andrew Powers',
-        title: 'Founder',
-        desc: 'With two decades in software development, Andrew started Fiction with a simple belief: everyone deserves access to professional branding tools, regardless of their background or resources. Today, that vision grows stronger with each new member of the Fiction community.',
+        title: 'Andrew Powers',
+        subTitle: 'Founder',
+        content: 'With two decades in software development, Andrew started Fiction with a simple belief: everyone deserves access to professional branding tools, regardless of their background or resources. Today, that vision grows stronger with each new member of the Fiction community.',
         media: {
           format: 'url',
           url: new URL('img/about/ap.webp', import.meta.url).href,

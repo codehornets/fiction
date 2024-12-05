@@ -5,9 +5,14 @@ import { toKebab } from '@fiction/core/index.js'
 import { CardFactory } from '@fiction/site/cardFactory.js'
 import { getCardTemplates } from '../index.js'
 
-export async function createDemoPage(args: { site: Site, template: CardTemplate<any>, card: CardConfigPortable }) {
-  const { template, card = {}, site } = args
+export async function createDemoPage(args: { site: Site, template: CardTemplate<any> }) {
+  const { template, site } = args
   const { templateId, title, category, colorTheme, subTitle, description, icon } = template.settings
+
+  const config = await template.getConfig(args)
+  const card = config.demoPage || { cards: [] }
+  const demoComponents = config.demoComponents || {}
+
   const slug = card.slug || `demo-${toKebab(templateId)}`
   const cards = card.cards || []
 
@@ -17,7 +22,12 @@ export async function createDemoPage(args: { site: Site, template: CardTemplate<
 
   // replace the template with the inline template to allow for templates not in main list
   const crds = cards.map((c) => {
-    return (c.templateId === templateId) ? { inlineTemplate: template, ...c } : c
+    if (c.templateId && demoComponents[c.templateId]) {
+      return { inlineTemplate: demoComponents[c.templateId], ...c }
+    }
+    else {
+      return c
+    }
   })
 
   const pg = await factory.fromTemplate<typeof pageWrapTemplate>({

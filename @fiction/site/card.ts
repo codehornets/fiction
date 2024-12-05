@@ -60,7 +60,8 @@ export type ConfigResponse<S extends CardTemplateSurfaceDefault = CardTemplateSu
   options?: InputOption[]
   userConfig?: CardTemplateUserConfigAll<S>
   effects?: TableCardConfig[]
-  demoPage?: { cards: (CardConfigPortable & { el?: vue.Component })[] }
+  demoPage?: CardConfigPortable
+  demoComponents?: { [key: string]: vue.Component }
 }
 
 interface CardTemplateSettings<

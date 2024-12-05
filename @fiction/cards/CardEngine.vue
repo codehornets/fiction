@@ -44,35 +44,39 @@ const renderCards = vue.computed(() => {
 <template>
   <component :is="tag" class="card-engine" :data-total-cards="card?.cards.value.length">
     <EffectTransitionCardList>
-      <CardWrap
+      <template
         v-for="(subCard) in renderCards"
         :key="subCard.cardId"
-        :card="subCard"
-        :data-card-id="subCard.cardId"
-        class="relative w-full group/engine"
-        :class="[
-          subCard.isActive.value && isEditable ? 'outline-2 outline-dashed outline-theme-300 dark:outline-theme-600' : '',
-          isEditable ? 'hover:outline-2 hover:outline-dashed hover:outline-blue-300 dark:hover:outline-blue-600 cursor-pointer  transition-all' : '',
-        ]"
-        @click="handleCardClick({ cardId: subCard.cardId, event: $event })"
       >
-        <div v-if="subCard.isNotInline.value && isEditable">
-          <div class="p-4">
-            <div class="p-3 cursor-pointer hover:opacity-80 dark:text-theme-600 text-theme-400 max-w-md mx-auto rounded-lg font-sans text-sm bg-theme-50 dark:bg-theme-800/50 text-balance text-center" @click="handleCardClick({ cardId: subCard.cardId, event: $event })">
-              <div class="font-normal text-theme-700 dark:text-theme-300">
-                Placeholder for the non-inline "{{ toLabel(subCard.templateId.value) }}" Card.  (Won't appear on the live site.)
-              </div>
-            </div>
-          </div>
-        </div>
-        <component
-          :is="subCard.tpl.value?.settings?.el"
-          :id="subCard.cardId"
-          data-test-id="card-engine-component"
-          :data-card-type="subCard.templateId.value"
+        <template v-if="subCard.isNotInline.value">
+          <component
+            :is="subCard.tpl.value?.settings?.el"
+            :id="subCard.cardId"
+            data-test-id="card-non-inline-component"
+            :data-card-type="subCard.templateId.value"
+            :card="subCard"
+          />
+        </template>
+        <CardWrap
+          v-else
           :card="subCard"
-        />
-      </CardWrap>
+          :data-card-id="subCard.cardId"
+          class="relative w-full group/engine"
+          :class="[
+            subCard.isActive.value && isEditable ? 'outline-2 outline-dashed outline-theme-300 dark:outline-theme-600' : '',
+            isEditable ? 'hover:outline-2 hover:outline-dashed hover:outline-blue-300 dark:hover:outline-blue-600 cursor-pointer  transition-all' : '',
+          ]"
+          @click="handleCardClick({ cardId: subCard.cardId, event: $event })"
+        >
+          <component
+            :is="subCard.tpl.value?.settings?.el"
+            :id="subCard.cardId"
+            data-test-id="card-engine-component"
+            :data-card-type="subCard.templateId.value"
+            :card="subCard"
+          />
+        </CardWrap>
+      </template>
     </EffectTransitionCardList>
   </component>
 </template>
