@@ -16,11 +16,11 @@ const draggableMode = vue.ref<number>(-1)
     :data-handle-id="handle.handleId"
     :data-handle-depth="handle.depth"
     class="handle border rounded-md"
-    :class="[handle.isActive ? 'border-theme-300/90 dark:border-theme-500' : 'border-theme-300/70 dark:border-theme-600']"
+    :class="[handle.isActive ? 'border-primary-300/90 dark:border-primary-500' : 'border-theme-300/90 dark:border-theme-500']"
   >
     <div
       class="handlebar flex group rounded-md select-none min-w-0 hover:opacity-80 justify-between cursor-pointer"
-      :class="[handle.isActive ? 'bg-theme-100/50 dark:bg-theme-800 text-theme-700 dark:text-theme-0' : 'text-theme-500']"
+      :class="[handle.isActive ? 'bg-primary-100/50 dark:bg-primary-900 text-primary-700 dark:text-primary-0' : 'bg-theme-50/50 dark:bg-theme-800 text-theme-700 dark:text-theme-0']"
       @mouseover="draggableMode = handle.depth"
       @mouseleave="draggableMode = -1"
       @click="handle.onClick?.({ event: $event })"
@@ -40,6 +40,10 @@ const draggableMode = vue.ref<number>(-1)
           <div :class="handle.icon ?? 'i-carbon-blockchain'" class="text-base" />
 
           <div>{{ handle.title || "Untitled" }}</div>
+
+          <div v-if="handle.subTitle" class="ml-1 text-[.9em]" :class="handle.isActive ? 'text-primary-400 dark:text-primary-300' : 'text-theme-500 dark:text-theme-400'">
+            {{ handle.subTitle }}
+          </div>
         </div>
       </div>
       <div

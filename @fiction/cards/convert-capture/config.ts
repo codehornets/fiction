@@ -41,12 +41,7 @@ const options = [
     icon: { class: 'i-tabler-highlight' },
     input: 'group',
     options: [
-      createOption({
-        schema,
-        key: 'superTitle.text',
-        label: 'Super Title',
-        input: 'InputSuperTitle',
-      }),
+
       createOption({
         schema,
         key: 'title',
@@ -60,6 +55,12 @@ const options = [
         label: 'Sub Header',
         input: 'InputText',
         description: 'Specific benefits of subscribing',
+      }),
+      createOption({
+        schema,
+        key: 'superTitle',
+        label: 'Super Title',
+        input: 'InputSuperTitle',
       }),
       createOption({
         schema,
@@ -169,8 +170,5 @@ export async function getConfig(args: { factory: CardFactory, templateId: string
     options,
     userConfig,
     demoPage,
-    demoComponents: {
-      demoProse: vue.defineAsyncComponent(() => import('./DemoProse.vue')),
-    },
   }
 }

@@ -48,7 +48,7 @@ const renderCards = vue.computed(() => {
         v-for="(subCard) in renderCards"
         :key="subCard.cardId"
       >
-        <template v-if="subCard.isNotInline.value">
+        <template v-if="subCard.isDetached.value">
           <component
             :is="subCard.tpl.value?.settings?.el"
             :id="subCard.cardId"

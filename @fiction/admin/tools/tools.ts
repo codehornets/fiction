@@ -5,6 +5,7 @@ export type Handle = {
   testId: string
   handleId: string
   title: string
+  subTitle?: string
   sub?: string
   depth: number
   icon?: string

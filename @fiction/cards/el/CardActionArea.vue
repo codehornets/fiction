@@ -17,6 +17,10 @@ const { card, basePath, action, size = 'md', theme, design } = defineProps<{
   classes: { buttons?: string, proof?: string, subscribe?: string }
 }>()
 
+const emit = defineEmits<{
+  (event: 'update:subscribed', payload: string): void
+}>()
+
 const uc = vue.computed(() => {
   return action || getNested({ data: card.fullConfig.value, path: basePath }) as ActionArea | undefined
 })
@@ -37,6 +41,7 @@ const joinText = vue.computed(() => {
         :card
         :subscribe="uc?.subscribe || {}"
         :theme="uc?.theme || theme"
+        @update:subscribed="emit('update:subscribed', $event)"
       />
       <CardButtons
         v-else-if="uc?.buttons?.length"

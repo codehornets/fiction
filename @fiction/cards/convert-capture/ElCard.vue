@@ -52,21 +52,14 @@ const showCard = vue.computed(() => {
 
 function handleSubscribe(value: string) {
   subscribed.value = value
-  modalState.value = 'confirmModal'
-  showConfetti.value = true
+  // modalState.value = 'confirmModal'
+  // showConfetti.value = true
 
-  // Reset confetti after animation
-  setTimeout(() => {
-    showConfetti.value = false
-  }, 3000)
+  // // Reset confetti after animation
+  // setTimeout(() => {
+  //   showConfetti.value = false
+  // }, 3000)
 }
-
-vue.watchEffect(() => {
-  const mode = uc.value.presentationMode
-
-  if (mode === 'onLoad' || mode === 'onScroll')
-    props.card.isNotInline.value = true
-})
 
 vue.watchEffect(() => {
   if (typeof document === 'undefined')
@@ -84,8 +77,6 @@ vue.watchEffect(() => {
 
 <template>
   <div :data-value="JSON.stringify({ subscribed })" :data-wrap-mode="uc.presentationMode">
-    <ConfettiEffect :active="showConfetti" />
-    <!-- Subscribe Modal -->
     <ElModal
       :vis="modalState === 'subscribeModal'"
       modal-class="max-w-xl p-8"
@@ -102,24 +93,6 @@ vue.watchEffect(() => {
 
         @update:subscribed="handleSubscribe"
       />
-    </ElModal>
-
-    <!-- Confirmation Modal -->
-    <ElModal
-      :vis="modalState === 'confirmModal'"
-      modal-class="max-w-md p-8"
-      :has-close="true"
-      @update:vis="modalState = ''"
-    >
-      <div class="text-center p-6">
-        <CardText
-          tag="h2"
-          class="font-normal x-font-title text-balance text-xl"
-          :card="card"
-          path="thanksText"
-          fallback="Congratulations, you've subscribed! Please confirm via email."
-        />
-      </div>
     </ElModal>
 
     <!-- Existing template content -->
@@ -146,7 +119,7 @@ vue.watchEffect(() => {
                 icon="i-tabler-x"
                 @click.prevent="dismissedLoad = true"
               >
-                Continue to site
+                Continue To Site
               </XButton>
             </div>
           </div>
@@ -184,13 +157,20 @@ vue.watchEffect(() => {
       />
     </div>
 
-    <div v-else class="p-4 text-center bg-theme-50 dark:bg-theme-700/60 dark:text-theme-500 max-w-sm mx-auto rounded-full">
+    <div v-else class="p-4 text-center bg-theme-50 dark:bg-theme-700/60 max-w-sm mx-auto rounded-xl">
       <CardText
         tag="h2"
-        class="font-normal x-font-title text-balance"
+        class="font-normal x-font-title text-lg"
         :card="card"
-        path="thanksText"
-        fallback="Congratulations, you've subscribed! Please confirm via email."
+        path="action.subscribe.success.title"
+        fallback="Success!"
+      />
+      <CardText
+        tag="p"
+        class=" dark:text-theme-500"
+        :card="card"
+        path="action.subscribe.success.content"
+        fallback="Please confirm via email."
       />
     </div>
   </div>

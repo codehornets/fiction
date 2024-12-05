@@ -5,7 +5,6 @@ import type { FictionSites, TableSiteConfig } from './index.js'
 import { log, toCamel } from '@fiction/core'
 import { CardFactory } from './cardFactory.js'
 import { Site } from './index.js'
-import { localSiteConfig } from './utils/site.js'
 
 const logger = log.contextLogger('siteLoader')
 
@@ -103,56 +102,23 @@ export async function loadSiteFromTheme(args: {
 export async function loadSiteFromCard(args: { cardId: string, siteRouter: FictionRouter, fictionSites: FictionSites, siteMode: SiteMode, caller?: string }): Promise<Site> {
   const { cardId } = args
   const normCardId = toCamel(cardId)
-  const siteId = `card-${normCardId}`
-  const site = await loadSiteFromTheme({ ...args, themeId: 'minimal', fictionSiteId: `card-${cardId}` })
+  const site = await loadSiteFromTheme({ ...args, themeId: 'minimal', fictionSiteId: `card-${normCardId}` })
+
+  const { createDemoPage } = await import('./utils/demo.js')
 
   const templates = site.theme.value?.templates || []
 
-  const tpl = templates.find(t => t.settings.templateId === normCardId)
+  const template = templates.find(t => t.settings.templateId === normCardId)
 
-  if (!tpl)
+  if (!template)
     throw new Error(`no template found for card ${normCardId}`)
 
+  const demo = await createDemoPage({ site, template })
   const factory = new CardFactory({ templates, site, caller: 'siteFromCard' })
 
-  const templateConfig = await tpl.getConfig?.({ site })
+  const page = await factory.fromTemplate({ ...demo, slug: '_home' })
 
-  /**
-   * IMPORTANT
-   * YOu can't use the demo page creator used for main site because of the current way
-   * the cards are transferred to iframe and back, serialization issue
-   * TODO - fix with a template register system that allows non-inline templates to be used in demo pages
-   */
-
-  const card = templateConfig.demoPage
-
-  // local stored config, useful for development
-  const staticConfig = await localSiteConfig({ siteId })
-
-  const cards = card?.cards || []
-
-  await site.update({ pages: [
-    await factory.fromTemplate({
-      slug: '_home',
-      cards: [
-        await factory.fromTemplate<typeof heroTemplate>({
-          templateId: 'contentHero',
-          userConfig: {
-            superTitle: {
-              text: tpl.settings.category?.join(', '),
-              theme: tpl.settings.colorTheme,
-              icon: typeof tpl.settings.icon === 'string' ? { class: tpl.settings.icon } : tpl.settings.icon,
-            },
-            title: tpl.settings.title,
-            subTitle: tpl.settings.subTitle,
-            action: { buttons: [] },
-          },
-        }),
-        ...cards,
-      ],
-
-    }),
-  ], ...staticConfig }, { caller: 'loadSiteFromCard', noSave: true })
+  await site.update({ pages: [page] }, { caller: 'loadSiteFromCard', noSave: true })
 
   return site
 }

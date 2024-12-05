@@ -61,7 +61,6 @@ export type ConfigResponse<S extends CardTemplateSurfaceDefault = CardTemplateSu
   userConfig?: CardTemplateUserConfigAll<S>
   effects?: TableCardConfig[]
   demoPage?: CardConfigPortable
-  demoComponents?: { [key: string]: vue.Component }
 }
 
 interface CardTemplateSettings<
@@ -83,13 +82,14 @@ interface CardTemplateSettings<
   isContainer?: boolean // ui drawer
   isRegion?: boolean
   sections?: Record<string, CardConfigPortable>
+  templates?: CardTemplate<any>[]
   onSiteLoad?: (args: { site: Site }) => void
   getConfig?: (args: ConfigArgs) => Promise<ConfigResponse<S>>
   getBaseConfig?: (args: CardSettings<CardTemplateUserConfigAll<S>>) => CardTemplateUserConfigAll<S>
 
   getQueries?: (args: CardQuerySettings) => CardTemplateSurface<S>[ 'queries' ]
   getSitemapPaths?: (args: { site: Site, card: Card<CardTemplateUserConfigAll<S>>, pagePath: string }) => Promise<string[]>
-
+  isDetached?: (args: { card: Card<CardTemplateUserConfigAll<S>> }) => boolean
 }
 
 export class CardTemplate<
@@ -186,6 +186,7 @@ export type CardSettings<T extends Record<string, unknown> = Record<string, unkn
   el?: ComponentConstructor
   templates?: CardTemplate[] | readonly CardTemplate[]
   onSync?: (card: Card) => void
+  editorConfig?: T & SiteUserConfig
 }
 export type CardBaseConfig = CardOptionsWithStandard & SiteUserConfig & Record<string, unknown>
 
@@ -222,12 +223,14 @@ export class Card<
   description = vue.ref(this.settings.description)
   slug = vue.ref(this.settings.slug)
   displayTitle = vue.computed(() => this.title.value || toLabel(this.slug.value))
+  editorConfig = vue.shallowRef(this.settings.editorConfig || {} as T) as vue.Ref<vue.UnwrapRef<T>> // editor only temporary config, not saved (signals/triggers)
   userConfig = vue.shallowRef(this.settings.userConfig || {} as T) as vue.Ref<vue.UnwrapRef<T>> // allow passing of components and other complex objects
   fullConfig = vue.computed(() => {
     const rawConfig = deepMerge([
       this.site?.fullConfig.value,
       this.tpl.value?.getBaseConfig(this.settings) || {},
       this.userConfig.value as SiteUserConfig & T,
+      this.editorConfig.value,
     ]) as SiteUserConfig & T
 
     return this.site ? this.site?.shortcodes.parseObjectSync(rawConfig) as T : rawConfig
@@ -242,7 +245,10 @@ export class Card<
   effects = vue.shallowRef((this.settings.effects || []).map(c => this.initSubCard({ cardConfig: c })))
 
   tpl = vue.computed(() => {
-    const templates = [...(this.settings.templates || []), ...(this.site?.theme.value?.templates || [])]
+    const templates = [
+      ...(this.settings.templates || []),
+      ...(this.site?.theme.value?.templates || []).flatMap(t => [t, ...(t.settings.templates || [])]),
+    ]
     const foundTemplate = templates.find(t => t.settings.templateId === this.templateId.value)
     if (this.settings.inlineTemplate) {
       return this.settings.inlineTemplate
@@ -256,7 +262,7 @@ export class Card<
   })
 
   isActive = vue.computed<boolean>(() => this.site?.editor.value.selectedCardId === this.settings.cardId)
-  isNotInline = vue.ref(false) // allows cards to break out of inline mode
+  isDetached = vue.computed(() => this.tpl.value?.settings.isDetached?.({ card: this }) || false)
 
   constructor(settings: CardSettings<T>) {
     super('Card', settings)
@@ -303,7 +309,7 @@ export class Card<
     this.log.info(`update:${caller}`, { data: cardConfig })
     if (!cardConfig)
       return
-    const availableKeys = ['title', 'slug', 'userConfig', 'templateId', 'isHome', 'is404']
+    const availableKeys = ['title', 'slug', 'userConfig', 'editorConfig', 'templateId', 'isHome', 'is404']
     const entries = Object.entries(cardConfig).filter(([key]) => availableKeys.includes(key))
     entries.forEach(([key, value]) => {
       if (value !== undefined && vue.isRef(this[key as keyof this]))

@@ -19,6 +19,7 @@ function getCardHandle(card: Card): Handle {
   return {
     testId: `layout-card-${card.templateId.value}`,
     title: card.tpl.value?.settings.title ?? 'Card',
+    subTitle: card.isDetached.value ? '(detached)' : '',
     sub: card.title.value,
     handleId: card.cardId,
     icon: card.tpl.value?.settings.icon,

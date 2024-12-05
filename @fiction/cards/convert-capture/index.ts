@@ -14,7 +14,14 @@ export const template = cardTemplate({
   colorTheme: 'blue',
   isPublic: true,
   el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
+  templates: [
+    cardTemplate({ templateId: 'demoProse', el: vue.defineAsyncComponent(async () => import('./DemoProse.vue')) }),
+  ],
+  isDetached: (args) => {
+    const mode = args.card.userConfig.value.presentationMode
 
+    return !!((mode === 'onLoad' || mode === 'onScroll'))
+  },
   getConfig: async (args) => {
     const { getConfig } = await import('./config.js')
     return getConfig({ ...args, templateId })

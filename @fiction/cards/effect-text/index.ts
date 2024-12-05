@@ -13,6 +13,7 @@ export const template = cardTemplate({
   colorTheme: 'indigo',
   isPublic: true,
   el: vue.defineAsyncComponent(async () => import('./ElCard.vue')),
+  isDetached: () => true,
   getConfig: async (args) => {
     const { getConfig } = await import('./config')
     return getConfig(args)

@@ -198,7 +198,7 @@ export async function getDemoPages(args: {
   fictionEnv?: FictionEnv
   factory: CardFactory
 }) {
-  const { createDemoPage } = await import('./utils/demo')
+  const { createDemoPage } = await import('@fiction/site/utils/demo')
   const demoTemplatesList = getUiDemoCardTemplates()
   const allTemplates = [...demoTemplatesList, ...args.templates]
 
