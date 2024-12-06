@@ -4,8 +4,8 @@ import type { Card } from '@fiction/site/card'
 import { getNested, simpleHandlebarsParser, vue } from '@fiction/core'
 
 import CaptureAction from '../convert-capture/CaptureAction.vue'
-import CommunityJoin from '../convert-cta/CommunityJoin.vue'
 import CardButtons from '../el/CardButtons.vue'
+import ProofCommunity from '../el/ProofCommunity.vue'
 
 const { card, basePath, action, size = 'md', theme, design, enableConfirmModal = true } = defineProps<{
   card: Card
@@ -57,10 +57,11 @@ const joinText = vue.computed(() => {
     </div>
 
     <div v-if="uc?.proof">
-      <CommunityJoin
+      <ProofCommunity
         v-if="uc?.proof.community?.isEnabled"
         :count="uc?.proof.community?.count"
         :text="joinText"
+        :thumb-count="uc?.proof.community?.thumbCount"
       />
     </div>
   </div>

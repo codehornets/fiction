@@ -6,9 +6,10 @@ import { createOption } from './index.js'
 
 defineOptions({ name: 'InputActionArea' })
 
-const { modelValue, variants, defaultVariant = 'buttons' } = defineProps<{
+const { modelValue, variants, defaultVariant = 'buttons', proof = [] } = defineProps<{
   modelValue?: ActionArea
   variants?: ActionArea['variant'][]
+  proof?: (keyof NonNullable<ActionArea['proof']>)[]
   defaultVariant?: ActionArea['variant']
 }>()
 
@@ -21,6 +22,57 @@ const val = vue.computed(() => {
     variant: variants ? variants[0] : defaultVariant,
     ...modelValue,
   }
+})
+
+const proofOptions = vue.computed(() => {
+  const proofFeatureGroups = []
+
+  if (proof.includes('community')) {
+    proofFeatureGroups.push(createOption({
+      key: 'proof',
+      label: 'Community Signal',
+      icon: { class: 'i-tabler-users' },
+      input: 'group',
+      options: [
+        createOption({
+          key: 'proof.community.isEnabled',
+          label: 'Enable Community Signal',
+          input: 'InputToggle',
+          schema,
+        }),
+        createOption({
+          key: 'proof.community.text',
+          label: 'Text',
+          input: 'InputText',
+          schema,
+        }),
+        createOption({
+          key: 'proof.community.count',
+          label: 'Member Count',
+          input: 'InputNumber',
+          schema,
+        }),
+        createOption({
+          key: 'proof.community.thumbCount',
+          label: 'Thumb Count',
+          input: 'InputRange',
+          schema,
+          props: { min: 1, max: 10 },
+        }),
+
+      ],
+    }))
+  }
+
+  const proofGroup = createOption({
+    key: 'proof',
+    label: 'Proof & Credibility',
+    icon: { class: 'i-tabler-mail-star' },
+    input: 'group',
+    schema,
+    options: proofFeatureGroups,
+  })
+  return proof.length > 0 ? [proofGroup] : []
 })
 
 const subscribeOptions = [
@@ -93,6 +145,7 @@ const options = vue.computed(() => {
   const o = [
     ...(!variants || variants.length > 1 ? [variantOption] : []),
     ...(modelValue?.variant === 'subscribe' ? subscribeOptions : actionButtonOptions),
+    ...proofOptions.value,
   ]
 
   return [

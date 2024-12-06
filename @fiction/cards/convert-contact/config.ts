@@ -1,12 +1,12 @@
 import type { NavList, NavListItem } from '@fiction/core'
 import type { SiteUserConfig } from '@fiction/site/schema'
-import { ActionAreaSchema, createListSchema, navItemSchema, NavListItemSchema } from '@fiction/core'
+import { ActionAreaSchema, createListSchema, NavListItemSchema } from '@fiction/core'
 import { FormUserConfigSchema } from '@fiction/forms'
 import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
 // Create contact item schema by picking fields from base nav item schema
-export const ContactItemSchema = navItemSchema.pick({
+export const ContactItemSchema = NavListItemSchema.pick({
   label: true,
   value: true,
   href: true,

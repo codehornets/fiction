@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { vue } from '@fiction/core'
+import { type StandardSize, vue } from '@fiction/core'
 import XNumber from '@fiction/ui/common/XNumber.vue'
 import { createStockMediaHandler } from '@fiction/ui/stock'
 
@@ -12,12 +12,26 @@ const {
   count?: number
   thumbCount?: number
   text?: string
-  size?: 'sm' | 'md' | 'lg'
+  size?: StandardSize
 }>()
 
 const stock = vue.shallowRef<Awaited<ReturnType<typeof createStockMediaHandler>>>()
 vue.onMounted(async () => {
   stock.value = await createStockMediaHandler()
+})
+
+const sizeClass = vue.computed(() => {
+  const sizes = {
+    'xxs': 'h-2',
+    'xs': 'h-3',
+    'sm': 'h-4',
+    'md': 'h-6',
+    'lg': 'h-8',
+    'xl': 'h-10',
+    '2xl': 'h-12',
+  }
+
+  return sizes[size] || sizes.md
 })
 </script>
 
@@ -28,7 +42,7 @@ vue.onMounted(async () => {
         v-for="i in thumbCount"
         :key="i"
         class="rounded-full ring-4 ring-white dark:ring-theme-800 aspect-square -ml-2 first:ml-0 bg-theme-100 overflow-hidden"
-        :class="size === 'sm' ? 'h-4' : size === 'lg' ? 'h-8' : 'h-8'"
+        :class="sizeClass"
       >
         <img
           :src="stock.getRandomByTags(['aspect:square', 'headshot']).url"

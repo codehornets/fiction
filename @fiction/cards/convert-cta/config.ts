@@ -1,5 +1,5 @@
-import { ActionAreaSchema, MediaBasicSchema, NavListSchema, superTitleSchema } from '@fiction/core'
-import { InputOption } from '@fiction/ui'
+import { ActionAreaSchema, MediaBasicSchema, type NavListItem, NavListSchema, superTitleSchema } from '@fiction/core'
+import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
 // Updated schema with new structure
@@ -14,69 +14,73 @@ export const schema = z.object({
 
 export type UserConfig = z.infer<typeof schema>
 
-export function getOptions(): InputOption[] {
+export function getOptions() {
   return [
-    new InputOption({
+    createOption({
+      schema,
       key: 'content',
       label: 'Content',
       input: 'group',
       options: [
-        new InputOption({
-          key: 'superTitle.text',
-          label: 'Super Title',
-          input: 'InputText',
-          props: {
-            placeholder: 'e.g., Weekly insights',
-          },
-        }),
-        new InputOption({
+        createOption({
+          schema,
           key: 'title',
           label: 'Main Title',
           input: 'InputText',
-          isRequired: true,
         }),
-        new InputOption({
+        createOption({
+          schema,
           key: 'subTitle',
           label: 'Sub Title',
           input: 'InputTextarea',
-          props: {
-            rows: 2,
-          },
+        }),
+        createOption({
+          schema,
+          key: 'superTitle',
+          label: 'Super Title',
+          input: 'InputSuperTitle',
         }),
       ],
     }),
 
-    new InputOption({
+    createOption({
+      schema,
       key: 'benefits',
       label: 'Benefits',
       input: 'group',
       options: [
-        new InputOption({
-          key: 'benefitsTitle',
+        createOption({
+          schema,
+          key: 'title',
           label: 'Benefits Section Title',
           input: 'InputText',
         }),
-        new InputOption({
-          key: 'benefits',
+        createOption({
+          schema,
+          key: 'benefits.items',
           label: 'Benefit Items',
           input: 'InputList',
           props: {
-            itemLabel: 'Benefit',
+            itemName: 'Benefit',
+            itemLabel: args => (args?.item as NavListItem)?.label ?? 'Untitled',
           },
           options: [
-            new InputOption({
-              key: 'title',
+            createOption({
+              schema,
+              key: 'benefits.items.0.label',
               label: 'Title',
               input: 'InputText',
               isRequired: true,
             }),
-            new InputOption({
-              key: 'content',
+            createOption({
+              schema,
+              key: 'benefits.items.0.description',
               label: 'Description',
               input: 'InputText',
             }),
-            new InputOption({
-              key: 'media',
+            createOption({
+              schema,
+              key: 'benefits.items.0.media',
               label: 'Icon',
               input: 'InputIcon',
             }),
@@ -85,83 +89,14 @@ export function getOptions(): InputOption[] {
       ],
     }),
 
-    new InputOption({
+    createOption({
+      schema,
       key: 'action',
       label: 'Call to Action',
-      input: 'group',
-      options: [
-        new InputOption({
-          key: 'actionType',
-          label: 'Action Type',
-          input: 'InputRadio',
-          props: {
-            options: [
-              { label: 'Subscribe Form', value: 'subscribe' },
-              { label: 'Button', value: 'button' },
-            ],
-          },
-        }),
-        new InputOption({
-          key: 'subscribe',
-          label: 'Subscribe Settings',
-          input: 'InputControl',
-          options: [
-            new InputOption({
-              key: 'placeholder',
-              label: 'Input Placeholder',
-              input: 'InputText',
-            }),
-            new InputOption({
-              key: 'buttonText',
-              label: 'Button Text',
-              input: 'InputText',
-            }),
-            new InputOption({
-              key: 'successTitle',
-              label: 'Success Title',
-              input: 'InputText',
-            }),
-            new InputOption({
-              key: 'successMessage',
-              label: 'Success Message',
-              input: 'InputText',
-            }),
-          ],
-        }),
-      ],
+      input: 'InputActionArea',
+      props: { proof: ['community'] },
     }),
 
-    new InputOption({
-      key: 'communityJoin',
-      label: 'Community Bar',
-      input: 'group',
-      options: [
-        new InputOption({
-          key: 'isEnabled',
-          label: 'Show Community Bar',
-          input: 'InputToggle',
-        }),
-        new InputOption({
-          key: 'text',
-          label: 'Text',
-          input: 'InputText',
-        }),
-        new InputOption({
-          key: 'count',
-          label: 'Member Count',
-          input: 'InputNumber',
-        }),
-        new InputOption({
-          key: 'thumbCount',
-          label: 'Thumbnail Count',
-          input: 'InputNumber',
-          props: {
-            min: 1,
-            max: 5,
-          },
-        }),
-      ],
-    }),
   ]
 }
 

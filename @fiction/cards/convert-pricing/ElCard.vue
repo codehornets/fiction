@@ -25,10 +25,44 @@ function getVariantClasses(plan: PricingPlan) {
     pricing: '',
   }
 
+  if (uc.value.layout === 'minimal') {
+    switch (plan.variant) {
+      case 'highlighted':
+        return {
+          card: `${base.card} border-2 border-primary-500 bg-theme-50 dark:bg-theme-900/50`,
+          highlight: 'text-primary-600 dark:text-primary-400',
+          pricing: 'text-primary-700 dark:text-primary-300',
+        }
+      default:
+        return {
+          card: `${base.card} border-2 border-theme-200 dark:border-theme-700`,
+          highlight: 'text-theme-700 dark:text-theme-300',
+          pricing: 'text-theme-700 dark:text-theme-300',
+        }
+    }
+  }
+  else if (uc.value.layout === 'cards') {
+    switch (plan.variant) {
+      case 'highlighted':
+        return {
+          card: `${base.card} bg-primary-500 dark:bg-primary-900 text-white`,
+          highlight: 'text-white',
+          pricing: 'text-white',
+        }
+      default:
+        return {
+          card: `${base.card} bg-theme-100 dark:bg-theme-800`,
+          highlight: 'text-theme-900 dark:text-theme-100',
+          pricing: 'text-theme-900 dark:text-theme-100',
+        }
+    }
+  }
+
+  // Default style (original)
   switch (plan.variant) {
     case 'highlighted':
       return {
-        card: `${base.card} ring-2 ring-primary-500  translate-y-0 hover:-translate-y-2 shadow-xl`,
+        card: `${base.card} ring-2 ring-primary-500 translate-y-0 hover:-translate-y-2 shadow-xl`,
         highlight: 'text-primary-500 dark:text-primary-50',
       }
     case 'muted':
@@ -58,8 +92,29 @@ function getPrice(plan: PricingPlan) {
 }
 
 function getPricingLink(plan: PricingPlan): string {
-  return priceDuration.value === 'year' && plan.hrefAnnual ? plan.hrefAnnual : plan.href || '#'
+  return priceDuration.value === 'year' && plan.button?.hrefAnnual ? plan.button?.hrefAnnual : plan.button?.href || '#'
 }
+
+function getContainerPadding() {
+  switch (uc.value.layout) {
+    case 'minimal':
+      return 'px-4 py-6'
+    case 'cards':
+      return 'p-8'
+    default:
+      return 'p-8'
+  }
+}
+
+function getFeatureClasses(plan: PricingPlan) {
+  if (uc.value.layout === 'cards') {
+    return plan.variant === 'highlighted'
+      ? 'text-white/90'
+      : 'text-theme-700 dark:text-theme-300'
+  }
+  return ''
+}
+
 const isVisible = vue.ref(false)
 
 // Animation handling
@@ -80,14 +135,15 @@ vue.onMounted(() => {
 
 // Style variants
 const containerClass = vue.computed(() => {
-  switch (uc.value.pricingStyle) {
-    case 'minimal':
-      return 'grid gap-8 lg:grid-cols-3 max-w-7xl mx-auto'
-    case 'feature-focus':
-      return 'grid gap-8 lg:grid-cols-2 max-w-5xl mx-auto'
-    default:
-      return 'grid gap-8 lg:grid-cols-3 max-w-7xl mx-auto'
+  const layouts = {
+    minimal: 'grid gap-6 mx-auto',
+    cards: 'grid gap-8 mx-auto',
+    standard: 'grid gap-8 mx-auto',
   }
+
+  const columnClass = uc.value.prices && uc.value.prices?.length <= 2 ? 'lg:grid-cols-2' : 'lg:grid-cols-3'
+
+  return `${layouts[uc.value.layout || 'standard']} ${columnClass}`
 })
 </script>
 
@@ -95,7 +151,7 @@ const containerClass = vue.computed(() => {
   <div :class="card.classes.value.contentWidth" :show="isVisible">
     <!-- Annual Toggle -->
     <div v-if="uc.hasAnnual" class="flex flex-col items-center gap-4 mb-12 animate-item" :class="isVisible ? 'opacity-100' : 'opacity-0'">
-      <div v-if="uc.hasAnnual" class="flex justify-center ">
+      <div v-if="uc.hasAnnual" class="flex justify-center">
         <div class="relative grid grid-cols-2 gap-x-1 rounded-full p-1 text-center text-xs font-sans font-semibold leading-5 ring-1 ring-inset ring-theme-300 dark:ring-theme-600">
           <label :class="priceDuration === 'month' ? 'text-theme-0' : 'text-theme-500 dark:text-theme-200'" class="z-10 relative cursor-pointer rounded-full px-4 py-0.5 transition-all" @click="priceDuration = 'month'">
             <span>Monthly</span>
@@ -121,9 +177,9 @@ const containerClass = vue.computed(() => {
         class="animate-item transition-all duration-500"
         :class="[getVariantClasses(plan).card, isVisible ? 'opacity-100' : 'opacity-0']"
       >
-        <div class="p-8 flex flex-col h-full space-y-8">
+        <div :class="getContainerPadding()" class="flex flex-col h-full">
           <!-- Plan Header -->
-          <div class="flex justify-between items-start">
+          <div class="flex justify-between items-start mb-8">
             <div class="flex gap-3 items-center">
               <CardText
                 :card
@@ -138,8 +194,8 @@ const containerClass = vue.computed(() => {
                 tag="span"
                 :path="`prices.${i}.badge`"
                 size="xs"
-                theme="primary"
-                design="outline"
+                :theme="uc.layout === 'cards' && plan.variant === 'highlighted' ? 'white' : 'primary'"
+                :design="uc.layout === 'cards' ? 'solid' : 'outline'"
               >
                 {{ plan.badge }}
               </CardButton>
@@ -153,51 +209,64 @@ const containerClass = vue.computed(() => {
           </div>
 
           <!-- Pricing -->
-          <div class="">
+          <div class="mb-8">
             <div class="flex items-baseline gap-x-1">
               <span
                 class="text-5xl font-bold x-font-title tracking-tight"
+                :class="getVariantClasses(plan).pricing"
               >
                 <span v-if="plan.price" class="text-2xl align-top font-medium -mr-0.5">$</span>
                 {{ getPrice(plan) }}
               </span>
               <span
                 v-if="plan.price"
-                class="text-base font-sans text-theme-600/70 dark:text-theme-400/70"
-              >/ {{ priceDuration }}</span>
+                :class="uc.layout === 'cards' && plan.variant === 'highlighted' ? 'text-white/70' : 'text-theme-600/70 dark:text-theme-400/70'"
+                class="text-base font-sans"
+              >/ mo</span>
             </div>
             <CardText
               :card
               tag="p"
               :path="`prices.${i}.description`"
-              class="mt-3 text-lg  text-theme-500 dark:text-theme-400"
+              class="mt-3 text-lg"
+              :class="[
+                uc.layout === 'cards' && plan.variant === 'highlighted'
+                  ? 'text-white/80'
+                  : 'text-theme-500 dark:text-theme-400',
+              ]"
             />
           </div>
 
           <!-- Features List -->
           <div class="space-y-4 grow">
-            <div v-for="(feature, fi) in plan.features" :key="fi" class="flex gap-3 text-xl">
+            <div
+              v-for="(feature, fi) in plan.features"
+              :key="fi"
+              class="flex gap-3 text-lg"
+              :class="getFeatureClasses(plan)"
+            >
               <div
-                class="i-tabler-check  shrink-0 mt-0.5"
+                class="i-tabler-check shrink-0 mt-0.5"
+                :class="uc.layout === 'cards' && plan.variant === 'highlighted' ? 'text-white' : ''"
               />
               <CardText
                 :card
                 tag="span"
                 :path="`prices.${i}.features.${fi}.label`"
-                class=""
               />
             </div>
           </div>
 
           <!-- CTA Button -->
-          <div class="mt-8 space-y-4">
+          <div class="mt-8">
             <CardButtons
               :card
               :actions="[{
+                icon: plan.button?.icon,
                 href: getPricingLink(plan),
-                label: plan.buttonText || 'Get Started',
+                label: plan.button?.label || 'Start',
                 format: 'block',
-                theme: 'primary',
+                theme: uc.layout === 'cards' && plan.variant === 'highlighted' ? 'white' : 'primary',
                 design: plan.variant === 'highlighted' ? 'solid' : 'outline',
               }]"
               ui-size="xl"

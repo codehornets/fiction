@@ -1,111 +1,194 @@
-import type { ConfigResponse } from '@fiction/site/card.js'
-import { ActionButtonSchema, MediaIconSchema, NavListItemSchema } from '@fiction/core'
-import { InputOption } from '@fiction/ui'
+import { MediaIconSchema, NavListItemSchema } from '@fiction/core'
+import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
 const pricingFeatureSchema = NavListItemSchema.pick({ label: true })
 
-const priceSchema = z.object({
+const PriceSchema = z.object({
   title: z.string().optional().describe('name of pricing plan'),
   price: z.number().optional().describe('monthly price of plan'),
   description: z.string().optional().describe('compelling description highlighting plan value'),
-  href: z.string().optional().describe('link for monthly plan purchase'),
-  hrefAnnual: z.string().optional().describe('link for annual plan purchase'),
+
   features: z.array(pricingFeatureSchema).optional().describe('list of included features'),
   variant: z.enum(['default', 'highlighted', 'muted']).optional().describe('visual style - highlighted draws attention, muted reduces emphasis'),
   icon: MediaIconSchema.optional().describe('plan icon - helps visually differentiate tiers'),
   badge: z.string().optional().describe('optional badge text like "Most Popular" or "Best Value"'),
-  buttonText: z.string().optional().describe('call-to-action text'),
+
+  button: z.object({
+    label: z.string().optional().describe('call-to-action text'),
+    icon: MediaIconSchema.optional().describe('icon to display next to button text'),
+    href: z.string().optional().describe('link for monthly plan purchase'),
+    hrefAnnual: z.string().optional().describe('link for annual plan purchase'),
+  }).optional(),
+
 })
 
 const schema = z.object({
   hasAnnual: z.boolean().optional().describe('enable annual pricing option'),
   annualDiscountPercent: z.number().optional().describe('discount percentage for annual plans'),
-  pricingStyle: z.enum(['cards', 'minimal', 'feature-focus']).optional().describe('visual presentation style'),
-  prices: z.array(priceSchema).optional(),
+  layout: z.enum(['cards', 'minimal', 'standard']).optional().describe('visual presentation style'),
+  prices: z.array(PriceSchema).optional(),
 })
 
-export type PricingPlan = z.infer<typeof priceSchema>
+export type PricingPlan = z.infer<typeof PriceSchema>
+type PricingPlanFeature = NonNullable<PricingPlan['features']>[number]
 export type UserConfig = z.infer<typeof schema>
 
-const options: InputOption[] = [
-  new InputOption({
-    key: 'style',
-    label: 'Style & Layout',
+const options = [
+
+  createOption({
+    schema,
+    key: 'pricesGroup',
+    label: 'Pricing Plans',
     input: 'group',
+    icon: { class: 'i-tabler-report-money' },
     options: [
-      new InputOption({
-        key: 'pricingStyle',
-        label: 'Visual Style',
-        input: 'InputSelect',
+      createOption({
+        schema,
+        key: 'prices',
+        label: 'Pricing Plans',
+        input: 'InputList',
+        icon: { class: 'i-tabler-money' },
         props: {
-          list: [
-            { label: 'Feature Cards', value: 'cards' },
-            { label: 'Minimal', value: 'minimal' },
-            { label: 'Feature Focus', value: 'feature-focus' },
-          ],
+          itemName: 'Plan',
+          itemLabel: args => (args?.item as PricingPlan)?.title ?? 'Untitled',
         },
+        options: [
+          createOption({
+            schema,
+            key: 'prices.0.title',
+            label: 'Plan Name',
+            input: 'InputText',
+            isRequired: true,
+          }),
+          createOption({
+            schema,
+            key: 'prices.0.price',
+            label: 'Monthly Price',
+            input: 'InputNumber',
+          }),
+          createOption({
+            schema,
+            key: 'prices.0.description',
+            label: 'Description',
+            input: 'InputTextarea',
+            description: 'Highlight the key value proposition',
+          }),
+          createOption({
+            schema,
+            key: 'prices.0.variant',
+            label: 'Visual Style',
+            input: 'InputSelect',
+            props: {
+              list: [
+                { label: 'Default', value: 'default' },
+                { label: 'Highlighted', value: 'highlighted' },
+                { label: 'Muted', value: 'muted' },
+              ],
+            },
+          }),
+          createOption({
+            schema,
+            key: 'prices.0.icon',
+            label: 'Plan Icon',
+            input: 'InputIcon',
+          }),
+          createOption({
+            schema,
+            key: 'prices.0.badge',
+            label: 'Badge Text',
+            input: 'InputText',
+          }),
+          createOption({
+            schema,
+            key: 'prices.0.features',
+            label: 'Features',
+            input: 'InputList',
+            props: {
+              itemName: 'Feature',
+              itemLabel: args => (args?.item as PricingPlanFeature)?.label ?? 'Untitled',
+            },
+            options: [
+              createOption({
+                schema,
+                key: 'prices.0.features.0.label',
+                label: 'Feature',
+                input: 'InputText',
+                isRequired: true,
+              }),
+            ],
+          }),
+          createOption({
+            schema,
+            key: 'prices.0.button',
+            label: 'Call to Action',
+            input: 'group',
+            options: [
+              createOption({
+                schema,
+                key: 'prices.0.button.label',
+                label: 'Button Text',
+                input: 'InputText',
+              }),
+              createOption({
+                schema,
+                key: 'prices.0.button.icon',
+                label: 'Button Icon',
+                input: 'InputIcon',
+              }),
+              createOption({
+                schema,
+                key: 'prices.0.button.href',
+                label: 'Monthly Plan Link',
+                input: 'InputUrl',
+              }),
+              createOption({
+                schema,
+                key: 'prices.0.button.hrefAnnual',
+                label: 'Annual Plan Link',
+                input: 'InputUrl',
+              }),
+            ],
+          }),
+
+        ],
       }),
-      new InputOption({
+    ],
+  }),
+
+  createOption({
+    schema,
+    key: 'settingsGroup',
+    label: 'Settings',
+    input: 'group',
+    icon: { class: 'i-tabler-settings' },
+    options: [
+      createOption({
+        schema,
+        key: 'layout',
+        label: 'Visual Style',
+        input: 'InputRadioButton',
+        list: [
+          { label: 'Standard', value: 'standard' },
+          { label: 'Minimal', value: 'minimal' },
+          { label: 'Cards', value: 'cards' },
+        ],
+      }),
+      createOption({
+        schema,
         key: 'hasAnnual',
         label: 'Annual Pricing',
         input: 'InputToggle',
         description: 'Enable annual pricing with discount',
       }),
-      new InputOption({
+      createOption({
+        schema,
         key: 'annualDiscountPercent',
         label: 'Annual Discount',
+        description: 'Percentage discount for annual plans',
         input: 'InputRange',
         props: { min: 0, max: 100, step: 5 },
-        description: 'Percentage discount for annual plans',
       }),
-    ],
-  }),
-  new InputOption({
-    key: 'prices',
-    label: 'Pricing Plans',
-    input: 'InputList',
-    description: 'Configure your pricing tiers',
-    options: [
-      new InputOption({ key: 'title', label: 'Plan Name', input: 'InputText', isRequired: true }),
-      new InputOption({ key: 'price', label: 'Monthly Price', input: 'InputNumber' }),
-      new InputOption({
-        key: 'description',
-        label: 'Description',
-        input: 'InputTextarea',
-        description: 'Highlight the key value proposition',
-      }),
-      new InputOption({
-        key: 'variant',
-        label: 'Visual Style',
-        input: 'InputSelect',
-        props: {
-          list: [
-            { label: 'Default', value: 'default' },
-            { label: 'Highlighted', value: 'highlighted' },
-            { label: 'Muted', value: 'muted' },
-          ],
-        },
-      }),
-      new InputOption({ key: 'icon', label: 'Plan Icon', input: 'InputIcon' }),
-      new InputOption({ key: 'badge', label: 'Badge Text', input: 'InputText' }),
-      new InputOption({
-        key: 'features',
-        label: 'Features',
-        input: 'InputList',
-        props: { itemLabel: 'Feature' },
-        options: [
-          new InputOption({
-            key: 'label',
-            label: 'Feature Description',
-            input: 'InputText',
-            isRequired: true,
-          }),
-        ],
-      }),
-      new InputOption({ key: 'buttonText', label: 'Button Text', input: 'InputText' }),
-      new InputOption({ key: 'href', label: 'Monthly Plan Link', input: 'InputUrl' }),
-      new InputOption({ key: 'hrefAnnual', label: 'Annual Plan Link', input: 'InputUrl' }),
     ],
   }),
 ]
@@ -114,7 +197,7 @@ function getDefaultConfig(): UserConfig {
   return {
     hasAnnual: true,
     annualDiscountPercent: 20,
-    pricingStyle: 'cards',
+    layout: 'standard',
     prices: [
       {
         title: 'Starter',
@@ -127,9 +210,12 @@ function getDefaultConfig(): UserConfig {
           { label: 'Standard support response time' },
           { label: 'Community access' },
         ],
-        buttonText: 'Start Free',
-        href: '#starter-monthly',
-        hrefAnnual: '#starter-annual',
+        button: {
+          label: 'Start Free',
+          icon: { class: 'i-tabler-rocket' },
+          href: '#starter-monthly',
+          hrefAnnual: '#starter-annual',
+        },
       },
       {
         title: 'Professional',
@@ -146,9 +232,13 @@ function getDefaultConfig(): UserConfig {
           { label: 'Remove branding' },
           { label: 'API access' },
         ],
-        buttonText: 'Start Pro Trial',
-        href: '#pro-monthly',
-        hrefAnnual: '#pro-annual',
+        button: {
+          label: 'Start Pro Trial',
+          icon: { class: 'i-tabler-stars' },
+          href: '#pro-monthly',
+          hrefAnnual: '#pro-annual',
+        },
+
       },
       {
         title: 'Enterprise',
@@ -163,9 +253,12 @@ function getDefaultConfig(): UserConfig {
           { label: 'SLA guarantee' },
           { label: 'Custom contract terms' },
         ],
-        buttonText: 'Contact Sales',
-        href: '#enterprise-monthly',
-        hrefAnnual: '#enterprise-annual',
+        button: {
+          label: 'Contact Sales',
+          icon: { class: 'i-tabler-building-skyscraper' },
+          href: '#enterprise-monthly',
+          hrefAnnual: '#enterprise-annual',
+        },
       },
     ],
   }
@@ -175,7 +268,7 @@ function getStartupConfig(): UserConfig {
   return {
     hasAnnual: true,
     annualDiscountPercent: 25,
-    pricingStyle: 'feature-focus',
+    layout: 'minimal',
     prices: [
       {
         title: 'Bootstrap',
@@ -188,7 +281,12 @@ function getStartupConfig(): UserConfig {
           { label: 'Basic analytics' },
           { label: 'Community support' },
         ],
-        buttonText: 'Start Building',
+        button: {
+          label: 'Start Free',
+          icon: { class: 'i-tabler-plant-2' },
+          href: '#bootstrap-monthly',
+          hrefAnnual: '#bootstrap-annual',
+        },
       },
       {
         title: 'Scale Up',
@@ -204,7 +302,12 @@ function getStartupConfig(): UserConfig {
           { label: 'Priority support' },
           { label: 'Enhanced security' },
         ],
-        buttonText: 'Scale Your Business',
+        button: {
+          label: 'Start Pro Trial',
+          icon: { class: 'i-tabler-chart-arrows-vertical' },
+          href: '#scale-up-monthly',
+          hrefAnnual: '#scale-up-annual',
+        },
       },
     ],
   }
