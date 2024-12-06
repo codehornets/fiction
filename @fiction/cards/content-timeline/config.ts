@@ -46,13 +46,13 @@ export function getOptions() {
 
             createOption({
               schema,
-              key: 'date',
+              key: 'milestones.0.date',
               label: 'Start Date',
               input: 'InputText',
             }),
             createOption({
               schema,
-              key: 'endDate',
+              key: 'milestones.0.endDate',
               label: 'End Date',
               input: 'InputText',
             }),
@@ -65,38 +65,38 @@ export function getOptions() {
           options: [
             createOption({
               schema,
-              key: 'icon',
+              key: 'milestones.0.icon',
               label: 'Icon',
               input: 'InputIcon',
             }),
             createOption({
               schema,
-              key: 'title',
+              key: 'milestones.0.title',
               label: 'Milestone Title',
               input: 'InputText',
               isRequired: true,
             }),
             createOption({
               schema,
-              key: 'subTitle',
+              key: 'milestones.0.subTitle',
               label: 'Milestone Subtitle',
               input: 'InputText',
             }),
             createOption({
               schema,
-              key: 'content',
+              key: 'milestones.0.content',
               label: 'Description',
               input: 'InputTextarea',
             }),
             createOption({
               schema,
-              key: 'media',
+              key: 'milestones.0.media',
               label: 'Image',
               input: 'InputMedia',
             }),
             createOption({
               schema,
-              key: 'badges',
+              key: 'milestones.0.badges',
               label: 'Badges',
               input: 'InputActionArea',
               props: { variants: ['buttons'] },
@@ -106,7 +106,7 @@ export function getOptions() {
 
         createOption({
           schema,
-          key: 'action',
+          key: 'milestones.0.action',
           input: 'InputActionArea',
         }),
       ],

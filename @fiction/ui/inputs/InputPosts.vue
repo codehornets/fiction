@@ -1,9 +1,10 @@
 <script lang="ts" setup>
-import type { PostHandlingObject } from '@fiction/core'
-import { shortId, vue } from '@fiction/core'
+import type { PostHandlingObject, PostObject } from '@fiction/core'
+import type { InputOption } from './index.js'
+import { PostHandlingSchema as schema, shortId, vue } from '@fiction/core'
 import { createStockMediaHandler } from '../stock'
 import FormEngine from './FormEngine.vue'
-import { InputOption } from './index.js'
+import { createOption } from './index.js'
 
 const { modelValue } = defineProps<{ modelValue?: PostHandlingObject }>()
 
@@ -11,59 +12,29 @@ const emit = defineEmits<{
   (event: 'update:modelValue', payload: PostHandlingObject): void
 }>()
 
-const baseOptions: InputOption[] = [
-  new InputOption({
+const baseOptions = [
+  createOption({
+    schema,
     key: 'format',
-    label: 'Post Format',
-    input: 'InputSelectCustom',
+    label: 'Post Source',
+    input: 'InputRadioButton',
     list: [
-      { name: 'Global Post Query', value: 'global' },
-      { name: 'Local (Added Here)', value: 'local' },
+      { name: 'Standard Query', value: 'standard' },
+      { name: 'Local', value: 'local' },
     ],
   }),
-  new InputOption({
+  createOption({
+    schema,
     key: 'limit',
     label: 'Per Page Limit',
     input: 'InputNumber',
-    props: { min: 1 },
+    props: { min: 1, max: 100 },
   }),
 ]
 
-const filterOptions: InputOption[] = [
-  new InputOption({
-    key: 'field',
-    label: 'Field',
-    input: 'InputSelectCustom',
-    list: [
-      { name: 'Title', value: 'title' },
-      { name: 'Content', value: 'content' },
-      { name: 'Author', value: 'author' },
-      { name: 'Category', value: 'category' },
-      { name: 'Tag', value: 'tag' },
-    ],
-  }),
-  new InputOption({
-    key: 'operator',
-    label: 'Operator',
-    input: 'InputSelectCustom',
-    list: [
-      { name: 'Equals', value: '=' },
-      { name: 'Not Equals', value: '!=' },
-      { name: 'Contains', value: 'like' },
-      { name: 'Not Contains', value: 'not like' },
-      { name: 'In', value: 'in' },
-      { name: 'Not In', value: 'not in' },
-    ],
-  }),
-  new InputOption({
-    key: 'value',
-    label: 'Value',
-    input: 'InputText',
-  }),
-]
-
-const globalQueryOptions: InputOption[] = [
-  new InputOption({
+const globalQueryOptions = [
+  createOption({
+    schema,
     key: 'query.filters',
     label: 'Select by Filters',
     subLabel: 'Must match any of these filters (OR logic)',
@@ -71,58 +42,60 @@ const globalQueryOptions: InputOption[] = [
     input: 'InputList',
     props: { itemLabel: 'Filter' },
     options: [
-      new InputOption({
-        key: 'filters',
+      createOption({
+        schema,
+        key: 'query.filters.0',
         label: 'Filters',
         subLabel: 'Must match all of these filters (AND logic)',
         description: 'These are applied with OR logic. If using AND logic, add a new top level filter.',
         props: { itemLabel: 'Filter' },
         input: 'InputList',
-        options: filterOptions,
+        options: [
+          createOption({
+            schema,
+            key: 'query.filters.0.0.field',
+            label: 'Field',
+            input: 'InputSelectCustom',
+            list: [
+              { name: 'Title', value: 'title' },
+              { name: 'Content', value: 'content' },
+              { name: 'Author', value: 'author' },
+              { name: 'Category', value: 'category' },
+              { name: 'Tag', value: 'tag' },
+            ],
+          }),
+          createOption({
+            key: 'query.filters.0.0.operator',
+            label: 'Operator',
+            input: 'InputSelectCustom',
+            list: [
+              { name: 'Equals', value: '=' },
+              { name: 'Not Equals', value: '!=' },
+              { name: 'Contains', value: 'like' },
+              { name: 'Not Contains', value: 'not like' },
+              { name: 'In', value: 'in' },
+              { name: 'Not In', value: 'not in' },
+            ],
+          }),
+          createOption({
+            key: 'query.filters.0.filters.0.value',
+            label: 'Value',
+            input: 'InputText',
+          }),
+        ],
       }),
     ],
   }),
-  // new InputOption({
-  //   key: 'advanced',
-  //   label: 'Advanced Options',
-  //   input: 'group',
-  //   options: [
-  //     new InputOption({
-  //       key: 'query.search',
-  //       label: 'Search',
-  //       input: 'InputText',
-  //       props: { placeholder: 'Enter search term' },
-  //     }),
-  //     new InputOption({
-  //       key: 'query.sortBy',
-  //       label: 'Sort By',
-  //       input: 'InputSelectCustom',
-  //       list: [
-  //         { name: 'Date', value: 'date' },
-  //         { name: 'Title', value: 'title' },
-  //         { name: 'Author', value: 'author' },
-  //       ],
-  //     }),
-  //     new InputOption({
-  //       key: 'query.sortOrder',
-  //       label: 'Sort Order',
-  //       input: 'InputSelectCustom',
-  //       list: [
-  //         { name: 'Ascending', value: 'asc' },
-  //         { name: 'Descending', value: 'desc' },
-  //       ],
-  //     }),
-  //   ],
-  // }),
+
 ]
 
-const localPostOptions: InputOption[] = [
-  new InputOption({ key: 'slug', label: 'Slug', input: 'InputText', getDefaultValue: () => shortId() }),
-  new InputOption({ key: 'title', label: 'Title', input: 'InputText', getDefaultValue: () => 'New Post' }),
-  new InputOption({ key: 'media', label: 'Media', input: 'InputMedia', getDefaultValue: async () => (await createStockMediaHandler()).getRandomMedia() }),
-  new InputOption({ key: 'content', label: 'Content', input: 'InputProse' }),
-  new InputOption({ key: 'tags', label: 'Tags', input: 'InputItems' }),
-  new InputOption({ key: 'categories', label: 'Categories', input: 'InputItems' }),
+const localPostOptions = [
+  createOption({ schema, key: 'entries.0.slug', label: 'Slug', input: 'InputText', getDefaultValue: () => shortId() }),
+  createOption({ schema, key: 'entries.0.title', label: 'Title', input: 'InputText', getDefaultValue: () => 'New Post' }),
+  createOption({ schema, key: 'entries.0.media', label: 'Media', input: 'InputMedia', getDefaultValue: async () => (await createStockMediaHandler()).getRandomMedia() }),
+  createOption({ schema, key: 'entries.0.content', label: 'Content', input: 'InputProse' }),
+  createOption({ schema, key: 'entries.0.tags', label: 'Tags', input: 'InputItems' }),
+  createOption({ schema, key: 'entries.0.categories', label: 'Categories', input: 'InputItems' }),
 ]
 
 const options = vue.computed(() => {
@@ -139,12 +112,15 @@ const options = vue.computed(() => {
   else {
     return [
       formatOption,
-      new InputOption({
+      createOption({
         key: 'entries',
         label: 'Local Posts',
         input: 'InputList',
         options: localPostOptions,
-        props: { itemLabel: 'Post' },
+        props: {
+          itemName: 'Post',
+          itemLabel: args => (args?.item as PostObject)?.title ?? 'Untitled',
+        },
       }),
       limitOption,
     ] as InputOption[]

@@ -1,7 +1,7 @@
 import type { template as heroTemplate } from '@fiction/cards/content-hero'
 import type { CardFactory } from '@fiction/site/cardFactory'
 import { BlendModesSchema, colorThemeUser, UiOriginSchema } from '@fiction/core'
-import { InputOption } from '@fiction/ui'
+import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
 // Individual shape properties
@@ -176,9 +176,10 @@ const PRESETS: Record<string, UserConfig> = {
   },
 }
 
-function getOptions(): InputOption[] {
+function getOptions() {
   return [
-    new InputOption({
+    createOption({
+      schema,
       key: 'shapes',
       label: 'Shape Elements',
       input: 'InputList',
@@ -187,8 +188,9 @@ function getOptions(): InputOption[] {
         sortable: true,
       },
       options: [
-        new InputOption({
-          key: 'shape',
+        createOption({
+          schema,
+          key: 'shapes.0.shape',
           label: 'Shape Type',
           input: 'InputSelect',
           props: {
@@ -203,18 +205,21 @@ function getOptions(): InputOption[] {
           },
         }),
 
-        new InputOption({
-          key: 'style',
+        createOption({
+          schema,
+          key: 'shapes.0.style',
           label: 'Appearance',
           input: 'group',
           options: [
-            new InputOption({
-              key: 'color',
+            createOption({
+              schema,
+              key: 'shapes.0.style.color',
               label: 'Color',
               input: 'InputColor',
             }),
-            new InputOption({
-              key: 'theme',
+            createOption({
+              schema,
+              key: 'shapes.0.style.theme',
               label: 'Use Theme Color',
               input: 'InputSelect',
               props: {
@@ -224,8 +229,9 @@ function getOptions(): InputOption[] {
                 ],
               },
             }),
-            new InputOption({
-              key: 'opacity',
+            createOption({
+              schema,
+              key: 'shapes.0.style.opacity',
               label: 'Opacity',
               input: 'InputRange',
               props: {
@@ -234,8 +240,9 @@ function getOptions(): InputOption[] {
                 step: 5,
               },
             }),
-            new InputOption({
-              key: 'blendMode',
+            createOption({
+              schema,
+              key: 'shapes.0.style.blendMode',
               label: 'Blend Mode',
               input: 'InputSelect',
               props: {
@@ -247,8 +254,9 @@ function getOptions(): InputOption[] {
                 ],
               },
             }),
-            new InputOption({
-              key: 'scale',
+            createOption({
+              schema,
+              key: 'shapes.0.style.scale',
               label: 'Size Scale',
               input: 'InputRange',
               props: {
@@ -260,13 +268,15 @@ function getOptions(): InputOption[] {
           ],
         }),
 
-        new InputOption({
+        createOption({
+          schema,
           key: 'position',
           label: 'Position',
           input: 'group',
           options: [
-            new InputOption({
-              key: 'origin',
+            createOption({
+              schema,
+              key: 'shapes.0.position.origin',
               label: 'Anchor Point',
               input: 'InputSelect',
               props: {
@@ -283,8 +293,9 @@ function getOptions(): InputOption[] {
                 ],
               },
             }),
-            new InputOption({
-              key: 'offsetX',
+            createOption({
+              schema,
+              key: 'shapes.0.position.offsetX',
               label: 'X Offset (%)',
               input: 'InputRange',
               props: {
@@ -293,8 +304,9 @@ function getOptions(): InputOption[] {
                 step: 5,
               },
             }),
-            new InputOption({
-              key: 'offsetY',
+            createOption({
+              schema,
+              key: 'shapes.0.position.offsetY',
               label: 'Y Offset (%)',
               input: 'InputRange',
               props: {
@@ -303,8 +315,9 @@ function getOptions(): InputOption[] {
                 step: 5,
               },
             }),
-            new InputOption({
-              key: 'zIndex',
+            createOption({
+              schema,
+              key: 'shapes.0.position.zIndex',
               label: 'Layer Order',
               input: 'InputRange',
               props: {
@@ -316,13 +329,15 @@ function getOptions(): InputOption[] {
           ],
         }),
 
-        new InputOption({
+        createOption({
+          schema,
           key: 'animation',
           label: 'Animation',
           input: 'group',
           options: [
-            new InputOption({
-              key: 'rotate',
+            createOption({
+              schema,
+              key: 'shapes.0.animation.rotate',
               label: 'Rotation (deg)',
               input: 'InputRange',
               props: {
@@ -331,8 +346,9 @@ function getOptions(): InputOption[] {
                 step: 45,
               },
             }),
-            new InputOption({
-              key: 'duration',
+            createOption({
+              schema,
+              key: 'shapes.0.animation.duration',
               label: 'Duration (s)',
               input: 'InputRange',
               props: {
@@ -341,8 +357,9 @@ function getOptions(): InputOption[] {
                 step: 5,
               },
             }),
-            new InputOption({
-              key: 'delay',
+            createOption({
+              schema,
+              key: 'shapes.0.animation.delay',
               label: 'Delay (s)',
               input: 'InputRange',
               props: {
@@ -356,51 +373,6 @@ function getOptions(): InputOption[] {
       ],
     }),
 
-    new InputOption({
-      key: 'responsive',
-      label: 'Responsive Settings',
-      input: 'group',
-      options: [
-        new InputOption({
-          key: 'mobileScale',
-          label: 'Mobile Scale',
-          input: 'InputRange',
-          props: { min: 0.1, max: 2, step: 0.1 },
-        }),
-        new InputOption({
-          key: 'tabletScale',
-          label: 'Tablet Scale',
-          input: 'InputRange',
-          props: { min: 0.1, max: 2, step: 0.1 },
-        }),
-      ],
-    }),
-
-    new InputOption({
-      key: 'interaction',
-      label: 'Interactive Features',
-      input: 'group',
-      options: [
-        new InputOption({
-          key: 'mouseFollow',
-          label: 'Follow Mouse',
-          input: 'InputToggle',
-        }),
-        new InputOption({
-          key: 'hoverEffect',
-          label: 'Hover Effect',
-          input: 'InputSelect',
-          props: {
-            options: [
-              { label: 'None', value: 'none' },
-              { label: 'Scale', value: 'scale' },
-              { label: 'Rotate', value: 'rotate' },
-              { label: 'Fade', value: 'fade' },
-            ],
-          },
-        }),
-      ],
-    }),
   ]
 }
 

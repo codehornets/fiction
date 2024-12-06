@@ -53,13 +53,13 @@ export function getOptions() {
       options: [
         createOption({
           schema,
-          key: 'title',
+          key: 'groups.0.title',
           label: 'Group Title',
           input: 'InputText',
         }),
         createOption({
           schema,
-          key: 'items',
+          key: 'groups.0.items',
           label: 'Contact Methods',
           input: 'InputList',
           props: {
@@ -69,25 +69,25 @@ export function getOptions() {
           options: [
             createOption({
               schema,
-              key: 'label',
+              key: 'groups.0.items.0.label',
               label: 'Label',
               input: 'InputText',
             }),
             createOption({
               schema,
-              key: 'value',
+              key: 'groups.0.items.0.value',
               label: 'Details',
               input: 'InputText',
             }),
             createOption({
               schema,
-              key: 'href',
+              key: 'groups.0.items.0.href',
               label: 'Action Link',
               input: 'InputText',
             }),
             createOption({
               schema,
-              key: 'icon',
+              key: 'groups.0.items.0.icon',
               label: 'Icon',
               input: 'InputIcon',
             }),

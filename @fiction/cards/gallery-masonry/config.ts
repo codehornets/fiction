@@ -1,9 +1,7 @@
-import type { ConfigResponse } from '@fiction/site'
-
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { StockMedia } from '@fiction/ui/stock'
 import { colorThemeUser, MediaBasicSchema } from '@fiction/core'
-import { InputOption } from '@fiction/ui'
+import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
 // Schema definitions
@@ -38,19 +36,22 @@ export type MediaItem = z.infer<typeof MediaItemSchema>
 export type UserConfig = z.infer<typeof schema>
 
 // Input options for the admin interface
-const options: InputOption[] = [
-  new InputOption({
+const options = [
+  createOption({
+    schema,
     key: 'layout',
     label: 'Layout Settings',
     input: 'group',
     options: [
-      new InputOption({
-        key: 'showAllText',
+      createOption({
+        schema,
+        key: 'layout.showAllText',
         label: 'Show All Text Overlays',
         input: 'InputToggle',
       }),
-      new InputOption({
-        key: 'baseRowHeight',
+      createOption({
+        schema,
+        key: 'layout.baseRowHeight',
         label: 'Base Row Height',
         input: 'InputNumber',
         props: {
@@ -60,87 +61,104 @@ const options: InputOption[] = [
           placeholder: '250',
         },
       }),
-      new InputOption({
-        key: 'gapSize',
+      createOption({
+        schema,
+        key: 'layout.gapSize',
         label: 'Spacing Between Items',
         input: 'InputSelect',
         props: { list: ['none', 'sm', 'md', 'lg'] },
       }),
-      new InputOption({
-        key: 'aspectRatio',
+      createOption({
+        schema,
+        key: 'layout.aspectRatio',
         label: 'Item Shape',
         input: 'InputSelect',
         props: { list: ['dynamic', 'square', 'video', 'portrait'] },
       }),
-      new InputOption({
-        key: 'animation',
+      createOption({
+        schema,
+        key: 'layout.animation',
         label: 'Entrance Animation',
         input: 'InputSelect',
         props: { list: ['fade', 'slide', 'none'] },
       }),
     ],
   }),
-  new InputOption({
+  createOption({
+    schema,
     key: 'lightbox',
     label: 'Lightbox Settings',
     input: 'group',
     options: [
-      new InputOption({
-        key: 'enabled',
+      createOption({
+        schema,
+        key: 'lightbox.enabled',
         label: 'Enable Lightbox View',
         input: 'InputToggle',
       }),
-      new InputOption({
-        key: 'showCaption',
+      createOption({
+        schema,
+        key: 'lightbox.showCaption',
         label: 'Show Image Details',
         input: 'InputToggle',
       }),
     ],
   }),
-  new InputOption({
+  createOption({
+    schema,
     input: 'InputList',
     key: 'items',
     label: 'Gallery Items',
-    props: { itemLabel: 'Visual Item' },
+    props: {
+      itemName: 'Image',
+      itemLabel: args => (args?.item as MediaItem)?.title ?? 'Untitled',
+    },
     options: [
-      new InputOption({
-        key: 'title',
+      createOption({
+        schema,
+        key: 'items.0.title',
         label: 'Title',
         input: 'InputText',
         props: { placeholder: 'Give your image a meaningful title' },
       }),
-      new InputOption({
-        key: 'content',
+      createOption({
+        schema,
+        key: 'items.0.content',
         label: 'Description',
         input: 'InputTextarea',
         props: { placeholder: 'Tell the story behind this image' },
       }),
-      new InputOption({
-        key: 'media',
+      createOption({
+        schema,
+        key: 'items.0.media',
         label: 'Media',
         input: 'InputMedia',
         props: { aspectRatio: 'dynamic' },
       }),
-      new InputOption({
-        key: 'columns',
+      createOption({
+        schema,
+        key: 'items.0.columns',
         label: 'Width',
         input: 'InputSelect',
         props: { list: ['1', '2', '3', '4'] },
       }),
-      new InputOption({
-        key: 'rows',
+      createOption({
+        schema,
+        key: 'items.0.rows',
         label: 'Height',
         input: 'InputSelect',
         props: { list: ['1', '2', '3', '4'] },
       }),
-      new InputOption({
-        key: 'theme',
+      createOption({
+        schema,
+        key: 'items.0.theme',
         label: 'Color Theme',
         input: 'InputSelect',
-        props: { list: colorThemeUser },
+        list: colorThemeUser,
       }),
-      new InputOption({
-        key: 'showText',
+      createOption({
+        schema,
+        key: 'items.0.showText',
         label: 'Show Text Overlay',
         input: 'InputToggle',
       }),
@@ -320,7 +338,7 @@ async function getDefaultConfig(args: { stock: StockMedia }): Promise<UserConfig
   }
 }
 
-export async function getConfig(args: { templateId: string, factory: CardFactory }){
+export async function getConfig(args: { templateId: string, factory: CardFactory }) {
   const { templateId } = args
   const stock = await args.factory.getStockMedia()
 

@@ -1,6 +1,5 @@
-import type { ConfigResponse } from '@fiction/site'
 import { type ActionButton, PostHandlingSchema, vue } from '@fiction/core'
-import { InputOption } from '@fiction/ui'
+import { createOption, InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
 const aspectOptions = [
@@ -27,50 +26,57 @@ const schema = z.object({
 
 export type UserConfig = z.infer<typeof schema>
 
-const options: InputOption[] = [
-  new InputOption({
-    key: 'posts',
-    label: 'Showcase Content',
-    description: 'Add and manage your showcase items',
-    input: 'InputPosts',
-    props: {
-      placeholder: 'Start adding your showcase items...',
-    },
+const options = [
+  createOption({
+    schema,
+    key: 'postsGroup',
+    input: 'group',
+    icon: { class: 'i-tabler-photo' },
+    label: 'Showcase Posts',
+    options: [
+      createOption({
+        key: 'posts',
+        input: 'InputPosts',
+      }),
+    ],
   }),
-  new InputOption({
-    key: 'aspect',
-    label: 'Image Proportions',
-    description: 'Choose how your images are displayed',
-    input: 'InputSelect',
-    props: {
-      list: aspectOptions,
-      description: 'Notice how different proportions create distinct visual rhythms',
-    },
+  createOption({
+    schema,
+    key: 'settingsGroup',
+    input: 'group',
+    icon: { class: 'i-tabler-settings' },
+    label: 'Settings',
+    options: [
+      createOption({
+        key: 'aspect',
+        label: 'Image Proportions',
+        description: 'Choose how your images are displayed',
+        input: 'InputSelect',
+        list: aspectOptions,
+      }),
+      createOption({
+        key: 'gridColsMax',
+        label: 'Desktop Grid Columns',
+        description: 'Optimize the layout for larger screens',
+        input: 'InputRadioButton',
+        list: ['2', '3', '4', '5'].map(v => ({
+          value: v,
+          label: `${v} Col`,
+        })),
+      }),
+      createOption({
+        key: 'gridColsMin',
+        label: 'Mobile Grid Columns',
+        description: 'Ensure great mobile experience',
+        input: 'InputRadioButton',
+        list: [
+          { value: '1', label: 'Single Column' },
+          { value: '2', label: 'Two Columns' },
+        ],
+      }),
+    ],
   }),
-  new InputOption({
-    key: 'gridColsMax',
-    label: 'Desktop Grid Columns',
-    description: 'Optimize the layout for larger screens',
-    input: 'InputSelect',
-    props: {
-      list: ['2', '3', '4', '5'].map(v => ({
-        value: v,
-        label: `${v} Columns`,
-      })),
-    },
-  }),
-  new InputOption({
-    key: 'gridColsMin',
-    label: 'Mobile Grid Columns',
-    description: 'Ensure great mobile experience',
-    input: 'InputSelect',
-    props: {
-      list: [
-        { value: '1', label: 'Single Column' },
-        { value: '2', label: 'Two Columns' },
-      ],
-    },
-  }),
+
 ]
 
 // Shared showcase items across all demos
@@ -185,7 +191,7 @@ async function getDefaultConfig(args: { stock: any }): Promise<UserConfig> {
   }
 }
 
-export async function getConfig(args: { templateId: string, factory: any }){
+export async function getConfig(args: { templateId: string, factory: any }) {
   const stock = await args.factory.getStockMedia()
 
   return {

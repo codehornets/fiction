@@ -1,4 +1,4 @@
-import { InputOption } from '@fiction/ui'
+import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
 // Define schema for map styling
@@ -26,7 +26,7 @@ const aspectRatios = [
 ] as const
 
 // Schema for a single marker
-const markerSchema = z.object({
+const MarkerSchema = z.object({
   lat: z.number(),
   lng: z.number(),
   label: z.string().optional(),
@@ -39,7 +39,7 @@ const mapSchema = z.object({
   zoom: z.number().optional(),
   pitch: z.number().optional(),
   mapStyle: z.enum(mapStyles).optional(),
-  markers: z.array(markerSchema).optional(),
+  markers: z.array(MarkerSchema).optional(),
   aspectRatio: z.enum(aspectRatios).optional(),
   customRatio: z.string().optional(),
 })
@@ -50,6 +50,7 @@ export const schema = z.object({
 })
 
 export type MapUserConfig = z.infer<typeof mapSchema>
+type MarkerConfig = z.infer<typeof MarkerSchema>
 export type UserConfig = z.infer<typeof schema>
 
 export const defaultMap = {
@@ -62,81 +63,27 @@ export const defaultMap = {
   aspectRatio: 'landscape' as const,
 }
 
-export function getOptions(): InputOption[] {
+export function getOptions() {
   return [
-    new InputOption({
+    createOption({
+      schema,
       input: 'InputList',
       label: 'Maps',
       key: 'maps',
-      props: { itemLabel: 'Map' },
+      props: {
+        itemName: 'Map',
+        itemLabel: args => (args?.item as MapUserConfig)?.mapStyle ?? 'Map',
+      },
       options: [
-        new InputOption({
-          key: 'lat',
-          label: 'Latitude',
-          input: 'InputNumber',
-          props: {
-            step: 0.000001,
-            precision: 6,
-          },
-        }),
-        new InputOption({
-          key: 'lng',
-          label: 'Longitude',
-          input: 'InputNumber',
-          props: {
-            step: 0.000001,
-            precision: 6,
-          },
-        }),
-        new InputOption({
-          key: 'zoom',
-          label: 'Zoom Level',
-          input: 'InputRange',
-          props: { min: 1, max: 20 },
-        }),
-        new InputOption({
-          key: 'pitch',
-          label: 'Tilt Angle',
-          input: 'InputRange',
-          props: { min: 0, max: 85 },
-        }),
-        new InputOption({
-          key: 'mapStyle',
-          label: 'Map Style',
-          input: 'InputSelect',
-          props: {
-            options: mapStyles.map(style => ({
-              label: style.charAt(0).toUpperCase() + style.slice(1).replace(/-/g, ' '),
-              value: style,
-            })),
-          },
-        }),
-        new InputOption({
-          key: 'aspectRatio',
-          label: 'Aspect Ratio',
-          input: 'InputSelect',
-          props: {
-            options: aspectRatios.map(ratio => ({
-              label: ratio.charAt(0).toUpperCase() + ratio.slice(1),
-              value: ratio,
-            })),
-          },
-        }),
-        new InputOption({
-          key: 'customRatio',
-          label: 'Custom Ratio (w/h)',
-          input: 'InputText',
-          props: {
-            placeholder: '16/9',
-          },
-        }),
-        new InputOption({
-          label: 'Markers',
-          key: 'markers',
-          props: { itemLabel: 'Location Pin' },
+        createOption({
+          input: 'group',
+          key: 'locationGroup',
+          label: 'Location',
+          icon: { class: 'i-tabler-map-pin' },
           options: [
-            new InputOption({
-              key: 'lat',
+            createOption({
+              schema,
+              key: 'maps.0.lat',
               label: 'Latitude',
               input: 'InputNumber',
               props: {
@@ -144,8 +91,9 @@ export function getOptions(): InputOption[] {
                 precision: 6,
               },
             }),
-            new InputOption({
-              key: 'lng',
+            createOption({
+              schema,
+              key: 'maps.0.lng',
               label: 'Longitude',
               input: 'InputNumber',
               props: {
@@ -153,16 +101,102 @@ export function getOptions(): InputOption[] {
                 precision: 6,
               },
             }),
-            new InputOption({
-              key: 'label',
-              label: 'Tooltip Label',
-              input: 'InputText',
-              props: {
-                placeholder: 'Location description',
-              },
+          ],
+        }),
+
+        createOption({
+          input: 'group',
+          key: 'settingsGroup',
+          label: 'Settings',
+          icon: { class: 'i-tabler-settings' },
+          options: [
+            createOption({
+              schema,
+              key: 'maps.0.zoom',
+              label: 'Zoom Level',
+              input: 'InputRange',
+              props: { min: 1, max: 20 },
+            }),
+            createOption({
+              schema,
+              key: 'maps.0.pitch',
+              label: 'Tilt Angle',
+              input: 'InputRange',
+              props: { min: 0, max: 85 },
+            }),
+            createOption({
+              schema,
+              key: 'maps.0.mapStyle',
+              label: 'Map Style',
+              input: 'InputSelect',
+              list: mapStyles.map(style => ({
+                label: style.charAt(0).toUpperCase() + style.slice(1).replace(/-/g, ' '),
+                value: style,
+              })),
+            }),
+            createOption({
+              schema,
+              key: 'maps.0.aspectRatio',
+              label: 'Aspect Ratio',
+              input: 'InputSelect',
+              list: aspectRatios.map(ratio => ({
+                label: ratio.charAt(0).toUpperCase() + ratio.slice(1),
+                value: ratio,
+              })),
             }),
           ],
         }),
+
+        createOption({
+          input: 'group',
+          key: 'markersGroup',
+          label: 'Markers',
+          icon: { class: 'i-tabler-map-pin' },
+          options: [
+            createOption({
+              schema,
+              input: 'InputList',
+              label: 'Markers',
+              key: 'maps.0.markers',
+              props: {
+                itemName: 'Location Pin',
+                itemLabel: args => (args?.item as MarkerConfig)?.label ?? 'Location Pin',
+              },
+              options: [
+                createOption({
+                  schema,
+                  key: 'maps.0.markers.0.lat',
+                  label: 'Latitude',
+                  input: 'InputNumber',
+                  props: {
+                    step: 0.000001,
+                    precision: 6,
+                  },
+                }),
+                createOption({
+                  schema,
+                  key: 'maps.0.markers.0.lng',
+                  label: 'Longitude',
+                  input: 'InputNumber',
+                  props: {
+                    step: 0.000001,
+                    precision: 6,
+                  },
+                }),
+                createOption({
+                  schema,
+                  key: 'maps.0.markers.0.label',
+                  label: 'Tooltip Label',
+                  input: 'InputText',
+                  props: {
+                    placeholder: 'Location description',
+                  },
+                }),
+              ],
+            }),
+          ],
+        }),
+
       ],
     }),
   ]

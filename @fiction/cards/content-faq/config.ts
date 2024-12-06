@@ -46,26 +46,26 @@ const options: InputOption[] = [
     schema,
     options: [
       createOption({
-        key: 'title',
+        key: 'items.0.title',
         label: 'Question/Title',
         input: 'InputText',
         props: { placeholder: '' },
         schema,
       }),
       createOption({
-        key: 'content',
+        key: 'items.0.content',
         label: 'Answer/Content',
         input: 'InputTextarea',
         props: { rows: 3 },
         schema,
       }),
       createOption({
-        key: 'icon',
+        key: 'items.0.icon',
         label: 'Icon',
         input: 'InputIcon',
       }),
       createOption({
-        key: 'media',
+        key: 'items.0.media',
         label: 'Media',
         input: 'InputMedia',
       }),

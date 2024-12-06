@@ -103,13 +103,13 @@ export function getOptions(): InputOption[] {
           isClosed: true,
           options: [
             createOption({
-              key: 'media',
+              key: 'overlays.0.media',
               label: 'Overlay Image',
               input: 'InputMedia',
               schema,
             }),
             createOption({
-              key: 'position',
+              key: 'overlays.0.position',
               label: 'Position',
               input: 'InputSelect',
               list: [
@@ -124,7 +124,7 @@ export function getOptions(): InputOption[] {
               schema,
             }),
             createOption({
-              key: 'widthPercent',
+              key: 'overlays.0.widthPercent',
               label: 'Width %',
               input: 'InputRange',
               props: { min: 0, max: 100, step: 5, startValue: 30 },

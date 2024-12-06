@@ -44,28 +44,28 @@ function getOptions() {
           options: [
             createOption({
               schema,
-              key: 'title',
+              key: 'profiles.0.title',
               input: 'InputText',
               label: 'Full Name',
               placeholder: 'Enter their name',
             }),
             createOption({
               schema,
-              key: 'subTitle',
+              key: 'profiles.0.subTitle',
               input: 'InputText',
               label: 'Role or Sub Title',
               placeholder: 'e.g., Chief Innovation Officer',
             }),
             createOption({
               schema,
-              key: 'content',
+              key: 'profiles.0.content',
               input: 'InputTextarea',
               label: 'Details',
               placeholder: 'Share their story, expertise and impact',
             }),
             createOption({
               schema,
-              key: 'media',
+              key: 'profiles.0.media',
               input: 'InputMedia',
               label: 'Profile Photo',
               props: {
@@ -76,7 +76,7 @@ function getOptions() {
             }),
             createOption({
               schema,
-              key: 'action',
+              key: 'profiles.0.action',
               input: 'InputActionArea',
               label: 'Links / Actions',
             }),

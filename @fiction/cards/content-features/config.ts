@@ -49,26 +49,26 @@ const options: InputOption[] = [
         },
         options: [
           createOption({
-            key: 'title',
+            key: 'features.0.title',
             label: 'Title',
             input: 'InputText',
             isRequired: true,
             schema,
           }),
           createOption({
-            key: 'description',
+            key: 'features.0.description',
             label: 'Description',
             input: 'InputTextarea',
             schema,
           }),
           createOption({
-            key: 'icon',
+            key: 'features.0.icon',
             label: 'Icon',
             input: 'InputIcon',
             schema,
           }),
           createOption({
-            key: 'color',
+            key: 'features.0.color',
             label: 'Accent Color',
             input: 'InputColorTheme',
             schema,
@@ -79,13 +79,13 @@ const options: InputOption[] = [
             key: 'linkGroup',
             options: [
               createOption({
-                key: 'href',
+                key: 'features.0.href',
                 label: 'Link URL',
                 input: 'InputUrl',
                 schema,
               }),
               createOption({
-                key: 'action',
+                key: 'features.0.action',
                 label: 'Actions',
                 input: 'InputActions',
                 schema,
@@ -99,7 +99,7 @@ const options: InputOption[] = [
             isClosed: true,
             options: [
               createOption({
-                key: 'columns',
+                key: 'features.0.columns',
                 label: 'Width (Masonry)',
                 input: 'InputSelect',
                 props: { list: ['1', '2', '3', '4'] },

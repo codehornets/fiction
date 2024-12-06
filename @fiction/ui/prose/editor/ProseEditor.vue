@@ -84,6 +84,7 @@ defineExpose({ editor })
 
 <style lang="less">
 .tiptap-wrap{
+position: relative;
   [contentEditable="true"]:focus{
     outline: none;
   }

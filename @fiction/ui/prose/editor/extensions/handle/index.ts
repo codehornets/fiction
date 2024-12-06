@@ -92,7 +92,16 @@ function DragHandle(options: GlobalDragHandleOptions) {
   return new Plugin({
     view: (view) => {
       handleContainerElement = document.createElement('div')
-      handleContainerElement.classList.add('handle-container', 'flex', 'items-center', 'fixed', 'transition-opacity', 'size-[1.5em]', 'text-theme-500', 'dark:text-theme-500')
+      handleContainerElement.classList.add(
+        'handle-container',
+        'flex',
+        'items-center',
+        'absolute',
+        'transition-opacity',
+        'size-[1.5em]',
+        'text-theme-500',
+        'dark:text-theme-500',
+      )
 
       const btnClass = ['add-button', 'cursor-grab', 'hover:text-primary-500', 'dark:hover:text-theme-0', 'hover:bg-theme-100', 'dark:hover:bg-theme-700', 'rounded-lg', 'transition-colors', 'duration-200']
       addItemElement = document.createElement('div')
@@ -140,6 +149,11 @@ function DragHandle(options: GlobalDragHandleOptions) {
             return
 
           const editorRect = view.dom.getBoundingClientRect()
+          const containerRect = view.dom.closest('.tiptap-wrap')?.getBoundingClientRect()
+
+          if (!containerRect)
+            return
+
           const centerX = editorRect.left + editorRect.width / 2
           const node = nodeDOMAtCoords({ x: centerX, y: event.clientY })
 
@@ -154,8 +168,9 @@ function DragHandle(options: GlobalDragHandleOptions) {
           const nodeRect = absoluteRect(node)
           const handleHeight = handleContainerElement.offsetHeight
 
-          const adjustedTop = nodeRect.top + paddingTop + (lineHeight / 2) - (handleHeight / 2)
-          let adjustedLeft = nodeRect.left - handleContainerElement.offsetWidth - 5
+          // Calculate positions relative to container
+          const adjustedTop = nodeRect.top - containerRect.top + paddingTop + (lineHeight / 2) - (handleHeight / 2)
+          let adjustedLeft = nodeRect.left - containerRect.left - handleContainerElement.offsetWidth
 
           if (node.matches('ul:not([data-type=taskList]) li, ol li'))
             adjustedLeft -= 30

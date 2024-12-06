@@ -201,49 +201,56 @@ export class InputOption extends FictionObject<InputOptionSettings> {
   }
 }
 
-type OptionPrimitive = string | number | boolean | undefined | null
+// Limit recursion depth and handle arrays simply
+type Primitive = string | number | boolean | null | undefined
 
-type PathsToStringProps<T> = T extends OptionPrimitive
+// Get object paths with limited depth
+type PathsWithDepth<T, Depth extends number = 4> = T extends Primitive
   ? never
-  : T extends object
-    ? {
-        [K in keyof T & string]: T[K] extends OptionPrimitive
-          ? K
-          : T[K] extends (infer U)[] | undefined
-            ? K | `${K}.0.${PathsToStringProps<U>}` | PathsToStringProps<U>
-            : K | `${K}.${PathsToStringProps<T[K]>}`
-      }[keyof T & string]
-    : never
+  : Depth extends 0
+    ? never
+    : T extends Array<infer U>
+      ? `0` | `0.${PathsWithDepth<U, Depth>}`
+      : T extends object
+        ? {
+            [K in keyof T & string]:
+              | K
+              | `${K}.${PathsWithDepth<T[K], [-1, 0, 1, 2][Depth]>}`
+          }[keyof T & string]
+        : never
 
-// Remove undefined from optional properties
-type NonNullableFields<T> = {
-  [P in keyof T]: NonNullable<T[P]>
-}
+// Convert schema to bounded paths
+type SchemaFields<T extends z.ZodObject<any>> = PathsWithDepth<z.infer<T>>
 
-export type UtilitySchemaDotPaths<T extends object> = PathsToStringProps<NonNullableFields<T>>
-
-type ValidKey<
+// Key validation based on input type and schema
+type ValidOptionKey<
+  TInput extends InputComponent,
   TSchema extends z.ZodObject<any> | undefined,
-  TInput extends InputComponent | undefined,
 > = TInput extends 'group' | 'title'
   ? string
   : TSchema extends z.ZodObject<any>
-    ? UtilitySchemaDotPaths<z.infer<TSchema>>
+    ? SchemaFields<TSchema>
     : string
 
+// Settings interface for createOption
+type CreateOptionSettings<
+  TInput extends InputComponent,
+  TSchema extends z.ZodObject<any> | undefined = undefined,
+> = {
+  input: TInput
+  key: ValidOptionKey<TInput, TSchema>
+  schema?: TSchema
+  props?: TInput extends keyof typeof inputs
+    ? InputProps<TInput>
+    : Record<string, unknown>
+} & Omit<InputOptionSettings, 'key' | 'input' | 'props' | 'schema'>
+
+// Main function with improved type handling
 export function createOption<
   TInput extends InputComponent,
   TSchema extends z.ZodObject<any> | undefined = undefined,
->(settings: {
-  input: TInput
-  key: ValidKey<TSchema, TInput>
-  schema?: TSchema
-  props?: TInput extends keyof typeof inputs ? InputProps<TInput> : Record<string, unknown>
-} & Omit<InputOptionSettings, 'key' | 'input' | 'props' | 'schema'>) {
+>(settings: CreateOptionSettings<TInput, TSchema>): InputOption {
   const { schema, ...inputSettings } = settings
-
-  // if key has a 0. in it, remove that and everything before it
   const adjustedKey = inputSettings.key.split('.0.').pop() || inputSettings.key
-
   return new InputOption({ ...inputSettings, key: adjustedKey })
 }

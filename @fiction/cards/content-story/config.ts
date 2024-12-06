@@ -54,27 +54,27 @@ const options = [
         options: [
           createOption({
             schema,
-            key: 'title',
+            key: 'items.0.title',
             label: 'Title',
             input: 'InputText',
             placeholder: 'Enter a headline...',
           }),
           createOption({
             schema,
-            key: 'content',
+            key: 'items.0.content',
             label: 'Content',
             input: 'InputProse',
             placeholder: 'Write your story...',
           }),
           createOption({
             schema,
-            key: 'media',
+            key: 'items.0.media',
             label: 'Media',
             input: 'InputMedia',
           }),
           createOption({
             schema,
-            key: 'action',
+            key: 'items.0.action',
             label: 'Call to Action',
             input: 'InputActionArea',
           }),

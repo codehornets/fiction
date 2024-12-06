@@ -1,9 +1,8 @@
-import type { ConfigResponse } from '@fiction/site/card.js'
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { SiteUserConfig } from '@fiction/site/schema'
 import type { StockMedia } from '@fiction/ui/stock'
-import { ActionAreaSchema, ActionButtonSchema, colorThemeUser, MediaBasicSchema, SizeSchema } from '@fiction/core'
-import { InputOption } from '@fiction/ui'
+import { ActionAreaSchema, colorThemeUser, MediaBasicSchema, SizeSchema } from '@fiction/core'
+import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
 const TrekItemSchema = z.object({
@@ -17,78 +16,68 @@ const TrekItemSchema = z.object({
 
 const schema = z.object({
   items: z.array(TrekItemSchema).optional().describe('Chapters in your visual story'),
-  scrollSpeed: SizeSchema.optional().describe('Scrolling rhythm and flow'),
-  transitionEffect: z.enum(['fade', 'slide', 'zoom']).optional().describe('Visual entrance style'),
 })
+
+type Chapter = z.infer<typeof TrekItemSchema>
 
 export type UserConfig = z.infer<typeof schema> & SiteUserConfig
 
-const options: InputOption[] = [
-  new InputOption({
+const options = [
+  createOption({
+    schema,
     key: 'items',
     label: 'Story Chapters',
     input: 'InputList',
-    props: { itemLabel: 'Chapter' },
+    props: {
+      itemName: 'Chapter',
+      itemLabel: args => (args?.item as Chapter)?.title ?? 'Untitled',
+    },
     options: [
-      new InputOption({
-        key: 'title',
+      createOption({
+        schema,
+        key: 'items.0.title',
         label: 'Headline',
         input: 'InputText',
         description: 'Visualize a headline that instantly grabs attention',
         placeholder: 'e.g., "Feel the Adventure" or "Discover Wonder"',
       }),
-      new InputOption({
-        key: 'content',
+      createOption({
+        schema,
+        key: 'items.0.content',
         label: 'Narrative',
         input: 'InputTextarea',
         description: 'Paint a vivid picture that resonates with your audience',
         placeholder: 'Transport your readers into the moment...',
       }),
-      new InputOption({
-        key: 'media',
+      createOption({
+        schema,
+        key: 'items.0.media',
         label: 'Visual Impact',
         input: 'InputMedia',
         description: 'Select imagery that stirs emotions and creates atmosphere',
       }),
-      new InputOption({
-        key: 'actions',
+      createOption({
+        schema,
+        key: 'items.0.action',
         label: 'Engagement Triggers',
-        input: 'InputActions',
+        input: 'InputActionArea',
         description: 'Create momentum with perfectly-timed calls to action',
       }),
-      new InputOption({
-        key: 'parallaxStrength',
+      createOption({
+        schema,
+        key: 'items.0.parallaxStrength',
         label: 'Depth Effect',
         input: 'InputRange',
         props: { min: 0, max: 1, step: 0.1, description: 'Feel how the depth changes as you adjust' },
       }),
     ],
   }),
-  new InputOption({
-    key: 'transitionEffect',
-    label: 'Movement Style',
-    input: 'InputSelect',
-    props: {
-      list: ['fade', 'slide', 'zoom'],
-      description: 'Watch how each section enters the viewport',
-    },
-  }),
-  new InputOption({
-    key: 'scrollSpeed',
-    label: 'Flow Control',
-    input: 'InputSelect',
-    props: {
-      list: ['sm', 'md', 'lg'],
-      description: 'Experience different scrolling rhythms',
-    },
-  }),
+
 ]
 
 async function getDefaultConfig(args: { stock: StockMedia }): Promise<UserConfig> {
   const { stock } = args
   return {
-    transitionEffect: 'fade',
-    scrollSpeed: 'md',
     items: [
       {
         title: 'Watch Your Story Come Alive',
@@ -124,8 +113,6 @@ async function getDefaultConfig(args: { stock: StockMedia }): Promise<UserConfig
 async function getDemoConfig(args: { stock: StockMedia }): Promise<UserConfig> {
   const { stock } = args
   return {
-    transitionEffect: 'fade',
-    scrollSpeed: 'md',
     items: [
       {
         title: 'Step Into Paradise',

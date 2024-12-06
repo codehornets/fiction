@@ -221,8 +221,13 @@ const BaseNavListItemSchema = z.object({
 export const NavListSchema = z.object({
   title: z.string().optional().describe('Optional section/group title'),
   description: z.string().optional().describe('Optional section/group description'),
-  items: z.array(BaseNavListItemSchema).optional().describe('Navigation items in this section'),
+  items: z.array(z.record(z.string(), z.any())).optional().describe('Navigation items in this section'),
   variant: z.enum(['default', 'expanded']).optional().describe('Variant of the list'),
+})
+
+// Full navigation item with recursive list support
+export const NavListItemSchema = BaseNavListItemSchema.extend({
+  list: z.lazy(() => NavListSchema).optional().describe('Nested navigation list (e.g., dropdown menu)'),
 })
 
 export function createListSchema<T extends z.ZodType<any>>(itemSchema: T) {
@@ -230,11 +235,6 @@ export function createListSchema<T extends z.ZodType<any>>(itemSchema: T) {
     items: z.array(itemSchema),
   })
 }
-
-// Full navigation item with recursive list support
-export const NavListItemSchema = BaseNavListItemSchema.extend({
-  list: z.lazy(() => NavListSchema).optional().describe('Nested navigation list (e.g., dropdown menu)'),
-})
 
 export type NavList = Omit<z.infer<typeof NavListSchema>, 'items'> & { items?: NavListItem[] }
 
@@ -371,6 +371,14 @@ export const PostSchema = z.object({
   action: ActionAreaSchema.optional().describe('Call-to-action buttons and interaction elements'),
   seo: PostSEOSchema.optional().describe('Search engine and social media optimization settings'),
 })
+
+// export const AndDataFilterSchema = z.object({
+//   field: z.string(),
+//   value: z.union([z.string(), z.number(), z.array(z.union([z.string(), z.number()]))]),
+//   operator: z.enum(['=', '!=', '>', '<', '>=', '<=', 'like', 'not like', 'in', 'not in']),
+// })
+
+// export const OrFilterGroupSchema = z.array(AndDataFilterSchema)
 
 export const GlobalQuerySchema = z.object({
 

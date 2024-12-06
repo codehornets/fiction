@@ -262,7 +262,10 @@ export async function getPricingPage(args: { factory: CardFactory, site: Site })
           title: 'Pro',
           price: 99,
           description: `Everything in Basic, plus...`,
-          href: await purchaseUrl({ fictionStripe, priceId: 'price_222' }),
+          button: {
+            href: await purchaseUrl({ fictionStripe, priceId: 'price_222' }),
+          },
+
           badge: 'Most Popular',
           features: [
             { label: 'Up to 10,000 subscribers' },
@@ -275,7 +278,9 @@ export async function getPricingPage(args: { factory: CardFactory, site: Site })
           title: 'Pro+',
           price: 199,
           description: `Everything in Basic, plus...`,
-          href: await purchaseUrl({ fictionStripe, priceId: 'price_333' }),
+          button: {
+            href: await purchaseUrl({ fictionStripe, priceId: 'price_333' }),
+          },
           features: [
             { label: 'Up to 25,000 subscribers' },
             { label: 'Advanced UI cards' },

@@ -1,9 +1,8 @@
-import type { ConfigResponse } from '@fiction/site/card.js'
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { SiteUserConfig } from '@fiction/site/schema'
 import type { StockMedia } from '@fiction/ui/stock'
 import { MediaDisplaySchema } from '@fiction/core'
-import { InputOption } from '@fiction/ui'
+import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
 const MarqueeItemSchema = z.object({
@@ -24,64 +23,90 @@ const schema = z.object({
 export type MarqueeItem = z.infer<typeof MarqueeItemSchema>
 export type UserConfig = z.infer<typeof schema> & SiteUserConfig
 
-const options: InputOption[] = [
-  new InputOption({
-    key: 'items',
+const options = [
+  createOption({
+    input: 'group',
+    key: 'itemsGroup',
     label: 'Marquee Items',
-    input: 'InputList',
+    icon: { class: 'i-tabler-map-photo' },
     options: [
-      new InputOption({
-        key: 'title',
-        label: 'Title',
-        input: 'InputText',
-        description: 'Main text displayed on hover',
-      }),
-      new InputOption({
-        key: 'subTitle',
-        label: 'Subtitle',
-        input: 'InputText',
-        description: 'Supporting text shown below title',
-      }),
-      new InputOption({
-        key: 'media',
-        label: 'Media',
-        input: 'InputMedia',
-        description: 'Background image or video',
-      }),
-      new InputOption({
-        key: 'href',
-        label: 'Link URL',
-        input: 'InputUrl',
-        description: 'Where the item links to when clicked',
+      createOption({
+        schema,
+        key: 'items',
+        input: 'InputList',
+        options: [
+          createOption({
+            schema,
+            key: 'items.0.title',
+            label: 'Title',
+            input: 'InputText',
+            description: 'Main text displayed on hover',
+          }),
+          createOption({
+            schema,
+            key: 'items.0.subTitle',
+            label: 'Subtitle',
+            input: 'InputText',
+            description: 'Supporting text shown below title',
+          }),
+          createOption({
+            schema,
+            key: 'items.0.media',
+            label: 'Media',
+            input: 'InputMedia',
+            description: 'Background image or video',
+          }),
+          createOption({
+            schema,
+            key: 'items.0.href',
+            label: 'Link URL',
+            input: 'InputUrl',
+            description: 'Where the item links to when clicked',
+          }),
+        ],
       }),
     ],
   }),
-  new InputOption({
-    key: 'direction',
-    label: 'Scroll Direction',
-    input: 'InputSelect',
-    props: { list: ['left', 'right'] },
-    description: 'Direction of marquee animation',
+
+  createOption({
+    input: 'group',
+    key: 'itemsGroup',
+    label: 'Settings',
+    icon: { class: 'i-tabler-settings' },
+    options: [
+      createOption({
+        schema,
+        key: 'direction',
+        label: 'Scroll Direction',
+        input: 'InputSelect',
+        props: { list: ['left', 'right'] },
+        description: 'Direction of marquee animation',
+      }),
+      createOption({
+        schema,
+        key: 'stagger',
+        label: 'Stagger Items',
+        input: 'InputToggle',
+        description: 'Create visual depth with subtle height variations',
+      }),
+      createOption({
+        schema,
+        key: 'speed',
+        label: 'Animation Speed',
+        input: 'InputNumber',
+        props: { min: 1, max: 20 },
+        description: 'Duration of the scroll animation in seconds',
+      }),
+      createOption({
+        schema,
+        key: 'showAllText',
+        label: 'Show Text Overlay',
+        input: 'InputToggle',
+        description: 'Display title and subtitle over images',
+      }),
+    ],
   }),
-  new InputOption({
-    key: 'stagger',
-    label: 'Stagger Items',
-    input: 'InputToggle',
-    description: 'Create visual depth with subtle height variations',
-  }),
-  new InputOption({
-    key: 'speed',
-    label: 'Animation Speed',
-    input: 'InputNumber',
-    props: { min: 1, max: 20 },
-    description: 'Duration of the scroll animation in seconds',
-  }),
-  new InputOption({
-    key: 'showAllText',
-    label: 'Show Text Overlay',
-    input: 'InputToggle',
-    description: 'Display title and subtitle over images',
-  }),
+
 ]
 
 async function getUserConfig(args: { stock: StockMedia }): Promise<UserConfig> {
@@ -188,7 +213,7 @@ async function getDemoUserConfig(args: { stock: StockMedia }): Promise<UserConfi
   ]
 }
 
-export async function getConfig(args: { templateId: string, factory: CardFactory }){
+export async function getConfig(args: { templateId: string, factory: CardFactory }) {
   const stock = await args.factory.getStockMedia()
 
   return {

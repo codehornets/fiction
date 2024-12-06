@@ -48,10 +48,10 @@ const options: InputOption[] = [
         label: 'Layout',
         input: 'group',
         options: [
-          createOption({ schema, key: 'cols', label: 'Columns', input: 'InputNumber', props: { min: 1, max: 12 } }),
-          createOption({ schema, key: 'rows', label: 'Rows', input: 'InputNumber', props: { min: 1, max: 12 } }),
-          createOption({ schema, key: 'verticalPosition', label: 'Vertical Position', input: 'InputSelect', list: ['top', 'center', 'bottom'] }),
-          createOption({ schema, key: 'horizontalPosition', label: 'Horizontal Position', input: 'InputSelect', list: ['left', 'center', 'right'] }),
+          createOption({ schema, key: 'items.0.cols', label: 'Columns', input: 'InputNumber', props: { min: 1, max: 12 } }),
+          createOption({ schema, key: 'items.0.rows', label: 'Rows', input: 'InputNumber', props: { min: 1, max: 12 } }),
+          createOption({ schema, key: 'items.0.verticalPosition', label: 'Vertical Position', input: 'InputSelect', list: ['top', 'center', 'bottom'] }),
+          createOption({ schema, key: 'items.0.horizontalPosition', label: 'Horizontal Position', input: 'InputSelect', list: ['left', 'center', 'right'] }),
         ],
       }),
       createOption({
@@ -59,12 +59,12 @@ const options: InputOption[] = [
         label: 'Content',
         input: 'group',
         options: [
-          createOption({ schema, key: 'title', label: 'Title', input: 'InputText' }),
-          createOption({ schema, key: 'content', label: 'Content', input: 'InputTextarea' }),
-          createOption({ schema, key: 'superTitle', label: 'Super Title', input: 'InputSuperTitle' }),
-          createOption({ schema, key: 'action.buttons', label: 'Buttons', input: 'InputActions' }),
-          createOption({ schema, key: 'media', label: 'Inline Media', input: 'InputMedia' }),
-          createOption({ schema, key: 'href', label: 'Item URL', input: 'InputUrl' }),
+          createOption({ schema, key: 'items.0.title', label: 'Title', input: 'InputText' }),
+          createOption({ schema, key: 'items.0.content', label: 'Content', input: 'InputTextarea' }),
+          createOption({ schema, key: 'items.0.superTitle', label: 'Super Title', input: 'InputSuperTitle' }),
+          createOption({ schema, key: 'items.0.action.buttons', label: 'Buttons', input: 'InputActions' }),
+          createOption({ schema, key: 'items.0.media', label: 'Inline Media', input: 'InputMedia' }),
+          createOption({ schema, key: 'items.0.href', label: 'Item URL', input: 'InputUrl' }),
         ],
       }),
       createOption({
