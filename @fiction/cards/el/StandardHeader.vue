@@ -90,7 +90,7 @@ const currentSizeClasses = vue.computed(() => sizeClasses[headerSize.value])
         <CardText
           tag="h2"
           :card
-          class="x-font-title md:text-balance x-font-title font-semibold"
+          class="x-font-title md:text-balance x-font-title font-semibold "
           :class="[
             currentSizeClasses.title,
             layout === 'justify' || layout === 'left' ? 'mt-3' : 'my-5',
@@ -104,10 +104,11 @@ const currentSizeClasses = vue.computed(() => sizeClasses[headerSize.value])
         <CardText
           tag="div"
           :card
-          class="mt-5 lg:leading-snug md:text-balance"
+          class="mt-5 lg:leading-snug md:text-balance max-w-[65ch]"
           :class="[
             currentSizeClasses.subTitle,
             layout === 'justify' ? 'lg:text-right' : '',
+            layout === 'center' ? 'mx-auto' : '',
           ]"
           path="standard.headers.subTitle"
           placeholder="Sub Title"

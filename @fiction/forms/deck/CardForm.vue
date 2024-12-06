@@ -2,7 +2,7 @@
 import type { Site } from '@fiction/site'
 import type { FictionForms, FormConfigPortable } from '..'
 import type { Form } from '../form'
-import { useService, vue, waitFor } from '@fiction/core'
+import { debounce, useService, vue, waitFor } from '@fiction/core'
 import XButton from '@fiction/ui/buttons/XButton.vue'
 import ElForm from '@fiction/ui/inputs/ElForm.vue'
 import El404 from '@fiction/ui/page/El404.vue'
@@ -10,21 +10,33 @@ import { loadForm } from '../utils/load.js'
 import FormLoading from './FormLoading.vue'
 import FormProgressBar from './FormProgressBar.vue'
 
-const { site, config } = defineProps<{ site: Site, config: FormConfigPortable }>()
+const { site, formConfig } = defineProps<{ site: Site, formConfig: FormConfigPortable }>()
 
 const { fictionForms } = useService<{ fictionForms: FictionForms }>()
 
 const loading = vue.ref(true)
 const form = vue.shallowRef<Form>()
 vue.onMounted(async () => {
-  await waitFor(500)
+  await waitFor(300)
 
   try {
     if (!site) {
       throw new Error('site not found')
     }
 
-    form.value = await loadForm({ site, fictionForms, config })
+    form.value = await loadForm({ site, fictionForms, formConfig })
+
+    if (site.isEditable.value) {
+      const debouncedLoadForm = debounce(async () => {
+        loading.value = true
+        form.value = await loadForm({ site, fictionForms, formConfig })
+        loading.value = false
+      }, 5000)
+
+      vue.watch(() => formConfig, async () => {
+        debouncedLoadForm()
+      }, { immediate: true })
+    }
   }
   catch (e) {
     console.error(e)

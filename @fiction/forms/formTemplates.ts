@@ -1,5 +1,5 @@
 import type { CardConfigPortable, Site } from '@fiction/site'
-import type { FormConfigPortable } from './schema'
+import type { FormConfig, FormConfigPortable } from './schema'
 import { FictionObject } from '@fiction/core'
 import { CardFactory } from '@fiction/site/cardFactory'
 import { getCardTemplates } from './templates'
@@ -24,8 +24,15 @@ export class FormTemplate extends FictionObject<FormTemplateConfig> {
   }
 }
 
-export async function getFormTemplates(args: { site?: Site }) {
-  const { site } = args
+export async function getFormTemplates(args: { site?: Site, formConfig: FormConfigPortable }) {
+  const { site, formConfig } = args
+
+  const { userConfig } = formConfig
+
+  const confirmation = userConfig?.success || {
+    title: 'Thank you!',
+    subTitle: 'We\'ve received your message and will get back to you soon.',
+  }
 
   const factory = new CardFactory({
     site,
@@ -79,10 +86,7 @@ export async function getFormTemplates(args: { site?: Site }) {
             }),
             await factory.create({
               templateId: 'formEnd',
-              userConfig: {
-                title: 'Thank you!',
-                subTitle: 'We\'ve received your message and will get back to you soon.',
-              },
+              userConfig: confirmation,
             }),
           ],
         }

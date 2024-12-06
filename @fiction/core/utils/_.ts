@@ -29,7 +29,7 @@ export function throttle(func: (...args: any[]) => void, wait: number): (...args
 /**
  * multiple sequential calls to a function into a single call
  */
-export function debounce(func: (...args: any[]) => void, delay: number | (() => number)) {
+export function debounce(func: (...args: any[]) => void, delay: number | (() => number)): (...args: any[]) => void {
   let timeoutId: NodeJS.Timeout | null = null
   return (...args: any[]) => {
     if (timeoutId !== null)

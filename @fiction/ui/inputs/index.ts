@@ -1,8 +1,6 @@
 import type { ActionButton, ListItem, MediaObject } from '@fiction/core'
 import type { z } from 'zod'
 import { FictionObject, removeUndefined, vue } from '@fiction/core'
-import InputColorTheme from './InputColorTheme.vue'
-import InputStandardSize from './InputStandardSize.vue'
 
 const def = vue.defineAsyncComponent
 
@@ -211,8 +209,8 @@ type PathsToStringProps<T> = T extends OptionPrimitive
     ? {
         [K in keyof T & string]: T[K] extends OptionPrimitive
           ? K
-          : T[K] extends (infer U)[] | undefined // Changed to use infer
-            ? K | PathsToStringProps<U>
+          : T[K] extends (infer U)[] | undefined
+            ? K | `${K}.0.${PathsToStringProps<U>}` | PathsToStringProps<U>
             : K | `${K}.${PathsToStringProps<T[K]>}`
       }[keyof T & string]
     : never
@@ -243,5 +241,9 @@ export function createOption<
   props?: TInput extends keyof typeof inputs ? InputProps<TInput> : Record<string, unknown>
 } & Omit<InputOptionSettings, 'key' | 'input' | 'props' | 'schema'>) {
   const { schema, ...inputSettings } = settings
-  return new InputOption(inputSettings)
+
+  // if key has a 0. in it, remove that and everything before it
+  const adjustedKey = inputSettings.key.split('.0.').pop() || inputSettings.key
+
+  return new InputOption({ ...inputSettings, key: adjustedKey })
 }

@@ -6,10 +6,10 @@ import { Form } from '../form'
 import { getFormTemplates } from '../formTemplates'
 import { getCardTemplates } from '../templates'
 
-export async function loadForm(args: { config: FormConfigPortable, site: Site, fictionForms: FictionForms }): Promise<Form> {
-  const { config, site, fictionForms } = args
+export async function loadForm(args: { formConfig: FormConfigPortable, site: Site, fictionForms: FictionForms }): Promise<Form> {
+  const { formConfig, site, fictionForms } = args
 
-  const { formId, formTemplateId } = config
+  const { formId, formTemplateId } = formConfig
 
   const orgId = site.settings.orgId
 
@@ -18,7 +18,7 @@ export async function loadForm(args: { config: FormConfigPortable, site: Site, f
 
   let f: FormConfigPortable | undefined = undefined
   if (formTemplateId) {
-    const formTemplates = await getFormTemplates({ site })
+    const formTemplates = await getFormTemplates({ site, formConfig })
     const formTemplate = formTemplates.find(t => t.settings.formTemplateId === formTemplateId)
 
     if (!formTemplate)
@@ -31,8 +31,8 @@ export async function loadForm(args: { config: FormConfigPortable, site: Site, f
     throw new Error(`Form config not found: ${formId || formTemplateId}`)
   }
 
-  const formConfig = deepMerge<FormConfigPortable>([{ formId: formId || `static-${formTemplateId}`, ...f }, config])
+  const fullFormConfig = deepMerge<FormConfigPortable>([{ formId: formId || `static-${formTemplateId}`, ...f }, formConfig])
 
   const templates = await getCardTemplates()
-  return new Form({ fictionForms, orgId, templates, site, ...formConfig })
+  return new Form({ fictionForms, orgId, templates, site, ...fullFormConfig })
 }

@@ -155,14 +155,14 @@ export type MediaObject = z.infer<typeof MediaDisplaySchema & typeof MediaIconSc
 
 const emphasisSchema = z.enum(['default', 'highlighted', 'muted'])
 
-// First define base schema without recursive parts
-const BaseNavListItemSchema = z.object({
+// Common navigation item fields with strict typing
+const navItemFields = {
   // Core content
   id: z.string().optional().describe('Globally unique identifier for the item'),
-  label: z.string().optional().describe('Primary text displayed for the item (e.g., "Products")'),
+  label: z.string().optional().describe('Primary text displayed for the item'),
   value: z.union([z.string(), z.number()]).optional().describe('Value associated with the item'),
-  description: z.string().optional().describe('Secondary text shown below label for additional context'),
-  info: z.string().optional().describe('Tertiary text, often used for metadata like "5 min read" or counts'),
+  description: z.string().optional().describe('Secondary text shown below label'),
+  info: z.string().optional().describe('Tertiary text, often used for metadata'),
 
   // Visual
   media: MediaDisplaySchema.optional().describe('Media content shown with the item'),
@@ -171,71 +171,58 @@ const BaseNavListItemSchema = z.object({
   badge: z.object({
     content: z.union([z.string(), z.number()]).optional(),
     color: z.enum(colorThemeUser).optional(),
-  }).optional().describe('Badge shown near label (e.g., "New" or count)'),
+  }).optional().describe('Badge shown near label'),
 
   // Navigation behavior
-  href: z.string().optional().describe('Navigation URL - internal path or external link'),
-  target: z.enum(['_self', '_blank']).optional().describe('Link target - "_blank" opens in new tab'),
-  onClick: ClickHandlerSchema.optional().describe('Click handler - use for custom navigation or actions'),
+  href: z.string().optional().describe('Navigation URL'),
+  target: z.enum(['_self', '_blank']).optional().describe('Link target'),
+  onClick: ClickHandlerSchema.optional().describe('Click handler'),
 
   // Visual & behavioral variants
-  variant: z.enum([
-    'default', // Standard link
-    'button', // Button-like appearance
-    'avatar', // User avatar display
-  ]).optional(),
-
+  variant: z.enum(['default', 'button', 'avatar']).optional(),
   emphasis: emphasisSchema.optional(),
-
-  theme: z.enum(colorThemeUser).optional().describe('Color theme for the item'),
-  design: ButtonDesignSchema.optional().describe('Design style for the item'),
+  theme: z.enum(colorThemeUser).optional().describe('Color theme'),
+  design: ButtonDesignSchema.optional().describe('Design style'),
 
   // State management
-  onAuthState: z.enum([
-    'loggedIn', // Only shown when user is logged in
-    'loggedOut', // Only shown when user is logged out
-    'all', // Always shown
-  ]).optional(),
-
-  isActive: z.boolean().optional().describe('Marks the item as active or selected'),
-  isDisabled: z.boolean().optional().describe('Disables the item from interaction'),
+  onAuthState: z.enum(['loggedIn', 'loggedOut', 'all']).optional(),
+  isActive: z.boolean().optional().describe('Marks item as active/selected'),
+  isDisabled: z.boolean().optional().describe('Disables the item'),
   isHidden: z.boolean().optional().describe('Hides the item from view'),
 
-  // Editing
+  // Editing & Organization
   basePath: z.string().optional(),
-
-  // Organization
-  priority: z.number().optional().describe('Priority for sorting items default is 100. Less is higher priority'),
-
-  // Development
+  priority: z.number().optional().describe('Sort priority (default: 100)'),
   testId: z.string().optional(),
   figure: z.object({
-    el: z.custom<vue.AsyncComponentLoader | vue.Component>((val) => {
-      return typeof val === 'function' || val instanceof Promise
-    }),
+    el: z.custom<vue.AsyncComponentLoader | vue.Component>(
+      (val): val is vue.AsyncComponentLoader | vue.Component =>
+        typeof val === 'function' || val instanceof Promise,
+    ),
     props: z.record(z.string(), z.any()).optional(),
   }).optional(),
-})
+} as const satisfies Record<string, z.ZodType>
 
-// Navigation list container
-export const NavListSchema = z.object({
-  title: z.string().optional().describe('Optional section/group title'),
-  description: z.string().optional().describe('Optional section/group description'),
-  items: z.array(z.record(z.string(), z.any())).optional().describe('Navigation items in this section'),
-  variant: z.enum(['default', 'expanded']).optional().describe('Variant of the list'),
-})
-
-// Full navigation item with recursive list support
-export const NavListItemSchema = BaseNavListItemSchema.extend({
-  list: z.lazy(() => NavListSchema).optional().describe('Nested navigation list (e.g., dropdown menu)'),
-})
-
-export type NavList = Omit<z.infer<typeof NavListSchema>, 'items'> & { items?: NavListItem[] }
-
-// Define the complete type including recursive items property
-export type NavListItem = z.infer<typeof BaseNavListItemSchema> & {
-  list?: NavList
+// Create the base schemas with explicit typing
+export function createListSchema<T extends z.ZodType>(itemSchema: T) {
+  return z.object({
+    title: z.string().optional().describe('Section/group title'),
+    description: z.string().optional().describe('Section/group description'),
+    items: z.array(itemSchema).optional().describe('Navigation items'),
+    variant: z.enum(['default', 'expanded']).optional(),
+  })
 }
+
+// Build the nested schemas, limited to 3 levels
+export const navItemSchema = z.object(navItemFields)
+const list3Schema = createListSchema(navItemSchema)
+const item2Schema = navItemSchema.extend({ list: list3Schema.optional() })
+const list2Schema = createListSchema(item2Schema)
+export const NavListItemSchema = navItemSchema.extend({ list: list2Schema.optional() })
+export const NavListSchema = createListSchema(NavListItemSchema)
+
+export type NavListItem = z.infer<typeof NavListItemSchema>
+export type NavList = z.infer<typeof NavListSchema>
 
 export const ActionButtonSchema = z.object({
   label: z.string().optional(),

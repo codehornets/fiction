@@ -6,6 +6,7 @@ import CardForm from '@fiction/forms/deck/CardForm.vue'
 import { animateItemEnter, useElementVisible } from '@fiction/ui/anim'
 import XIcon from '@fiction/ui/media/XIcon.vue'
 import CardText from '../CardText.vue'
+import CardActionArea from '../el/CardActionArea.vue'
 
 const { card } = defineProps<{
   card: Card<UserConfig>
@@ -34,14 +35,6 @@ vue.onMounted(async () => {
   })
 })
 
-const wrapperClass = vue.computed(() => {
-  const layout = uc.value.layout || 'right'
-  if (layout === 'stacked') {
-    return 'flex-col max-w-3xl mx-auto'
-  }
-  return layout === 'left' ? 'md:flex-row-reverse' : 'md:flex-row'
-})
-
 const layoutClasses = vue.computed(() => {
   const layout = uc.value.layout || 'right'
 
@@ -67,29 +60,17 @@ const layoutClasses = vue.computed(() => {
 })
 
 const hoverClasses = 'group-hover/item:text-primary-600 dark:group-hover/item:text-primary-400 transition-colors'
+
+const formUserConfig = vue.computed(() => {
+  const userConfig = { ...uc.value.form }
+  return { formTemplateId: 'contact', userConfig,
+  }
+})
 </script>
 
 <template>
   <div ref="contactSection" :class="card.classes.value.contentWidth" class="contact-form">
     <div class="text-center">
-      <!-- Header Section -->
-      <div class="max-w-2xl mx-auto mb-10 md:mb-16">
-        <CardText
-          :card
-          tag="h2"
-          path="title"
-          animate="rise"
-          class="text-4xl md:text-5xl x-font-title font-medium mb-4"
-        />
-        <CardText
-          v-if="uc.subTitle"
-          :card
-          tag="p"
-          path="subTitle"
-          class="text-lg md:text-xl text-theme-600 dark:text-theme-300"
-        />
-      </div>
-
       <!-- Main Content -->
       <div
         class="md:flex gap-8 lg:gap-16 xl:gap-28 justify-between gap"
@@ -103,12 +84,7 @@ const hoverClasses = 'group-hover/item:text-primary-600 dark:group-hover/item:te
           >
             <CardForm
               :site="card.site"
-              :config="{
-                formTemplateId: 'contact',
-                userConfig: {
-                  notifyEmails: uc.form?.notifyEmails || [],
-                },
-              }"
+              :form-config="formUserConfig"
               class="w-full h-full"
             />
           </div>
@@ -191,29 +167,7 @@ const hoverClasses = 'group-hover/item:text-primary-600 dark:group-hover/item:te
               </div>
             </div>
 
-            <!-- Social Links -->
-            <div v-if="uc.socials?.length" class="mt-4 pt-6 border-t border-theme-200 dark:border-theme-700">
-              <h4 class="text-sm text-theme-600 dark:text-theme-400 mb-4 x-font-title">
-                Connect With Us
-              </h4>
-              <div class="flex flex-wrap gap-3">
-                <a
-                  v-for="(social, i) in uc.socials"
-                  :key="i"
-                  :href="social.href"
-                  class="contact-item inline-flex items-center gap-2 px-5 py-3 rounded-full border-2 border-theme-200 dark:border-theme-600 hover:border-primary-500 dark:hover:border-primary-400 transition-colors duration-300 group/social"
-                >
-                  <XIcon
-                    v-if="social.icon"
-                    class="size-6 text-primary-500 dark:text-theme-0 group-hover/social:text-primary-500 dark:group-hover/social:text-primary-400 transition-colors"
-                    :media="social.icon"
-                  />
-                  <span class="text-sm font-sans text-theme-400 dark:text-theme-400 group-hover/social:text-primary-600 dark:group-hover/social:text-primary-400 transition-colors">
-                    {{ social.label }}
-                  </span>
-                </a>
-              </div>
-            </div>
+            <CardActionArea :card class="" :classes="{ buttons: 'flex gap-4' }" base-path="action" size="lg" />
           </div>
         </div>
       </div>

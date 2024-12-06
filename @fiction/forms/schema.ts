@@ -32,9 +32,12 @@ export type FormConfigPortable = Partial<ColType<typeof formConfigCols>>
 export type FormConfig = Omit<FormConfigPortable, 'card'> & { card: Card, formMode?: FormMode }
 
 export const FormUserConfigSchema = z.object({
-  notifyEmails: z.array(z.object({
-    email: z.string().email(),
-  })).optional(),
+  notifyEmails: z.array(z.object({ email: z.string().optional() })).optional().describe('List of emails to notify when form is submitted'),
+  redirectUrl: z.string().optional().describe('URL to redirect to after successful form submission'),
+  success: z.object({
+    title: z.string().optional().describe('Title to show after successful submission'),
+    subTitle: z.string().optional().describe('Content to show after successful submission'),
+  }).optional().describe('Success message to show after successful submission'),
 })
 
 export type FormUserConfig = z.infer<typeof FormUserConfigSchema>
