@@ -1,9 +1,7 @@
-import type { ConfigResponse } from '@fiction/site/card.js'
 import type { CardFactory } from '@fiction/site/cardFactory.js'
 import type { StockMedia } from '@fiction/ui/stock'
 import { MediaBasicSchema } from '@fiction/core'
-import { InputOption } from '@fiction/ui'
-import { createStockMediaHandler } from '@fiction/ui/stock'
+import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
 export const schema = z.object({
@@ -20,55 +18,80 @@ export const schema = z.object({
 
 export type UserConfig = z.infer<typeof schema>
 
-export const options: InputOption[] = [
-  new InputOption({
-    key: 'autoSlide',
-    label: 'Auto-Advance Slides',
-    input: 'InputToggle',
-    description: 'Experience smooth automatic transitions every 15 seconds',
-  }),
-  new InputOption({
-    key: 'slides',
+export const options = [
+  createOption({
+    schema,
+    input: 'group',
+    key: 'group.slides',
     label: 'Slides',
-    input: 'InputList',
-    props: { itemLabel: 'Slide' },
+    icon: { class: 'i-tabler-slideshow' },
     options: [
-      new InputOption({
-        key: 'media',
-        label: 'Background Media',
-        input: 'InputMedia',
-        description: 'Notice how high-quality visuals create immediate impact',
-      }),
-      new InputOption({
-        key: 'title',
-        label: 'Main Heading',
-        input: 'InputText',
-        props: {
-          placeholder: 'Feel the impact of a powerful headline (2-6 words)',
-        },
-      }),
-      new InputOption({
-        key: 'subTitle',
-        label: 'Supporting Text',
-        input: 'InputText',
-        props: {
-          placeholder: 'Imagine your message resonating with every viewer (3-8 words)',
-        },
-      }),
-      new InputOption({
-        key: 'textBlend',
-        label: 'Text Visibility',
-        input: 'InputRadio',
-        props: {
-          options: [
-            { label: 'Standard', value: 'normal' },
-            { label: 'Enhanced Contrast', value: 'difference' },
-          ],
-        },
-        description: 'Watch how different modes enhance readability across any background',
+      createOption({
+        schema,
+        key: 'slides',
+        label: 'Slides',
+        input: 'InputList',
+        props: { itemLabel: 'Slide' },
+        options: [
+          createOption({
+            schema,
+            key: 'slides.0.media',
+            label: 'Background Media',
+            input: 'InputMedia',
+            description: 'Notice how high-quality visuals create immediate impact',
+          }),
+          createOption({
+            schema,
+            key: 'slides.0.title',
+            label: 'Main Heading',
+            input: 'InputText',
+            props: {
+              placeholder: 'Feel the impact of a powerful headline (2-6 words)',
+            },
+          }),
+          createOption({
+            schema,
+            key: 'slides.0.subTitle',
+            label: 'Supporting Text',
+            input: 'InputText',
+            props: {
+              placeholder: 'Imagine your message resonating with every viewer (3-8 words)',
+            },
+          }),
+          createOption({
+            schema,
+            key: 'slides.0.textBlend',
+            label: 'Text Visibility',
+            input: 'InputRadio',
+            props: {
+              options: [
+                { label: 'Standard', value: 'normal' },
+                { label: 'Enhanced Contrast', value: 'difference' },
+              ],
+            },
+            description: 'Watch how different modes enhance readability across any background',
+          }),
+        ],
       }),
     ],
   }),
+  createOption({
+    schema,
+    input: 'group',
+    key: 'group.settings',
+    label: 'Settings',
+    icon: { class: 'i-tabler-settings' },
+    options: [
+      createOption({
+        schema,
+        key: 'autoSlide',
+        label: 'Auto-Advance Slides',
+        input: 'InputToggle',
+        description: 'Experience smooth automatic transitions every 15 seconds',
+      }),
+    ],
+  }),
+
 ]
 
 export async function getDefaultConfig(args: { stock: StockMedia }): Promise<UserConfig> {
@@ -141,7 +164,7 @@ export async function getDemoConfig(args: { stock: StockMedia }): Promise<UserCo
   }
 }
 
-export async function getConfig({ templateId, factory }: { templateId: string, factory: CardFactory }){
+export async function getConfig({ templateId, factory }: { templateId: string, factory: CardFactory }) {
   const stock = await factory.getStockMedia()
   const defaultConfig = await getDefaultConfig({ stock })
   const demoConfig = await getDemoConfig({ stock })

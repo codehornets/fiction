@@ -1,7 +1,6 @@
-import type { ConfigResponse } from '@fiction/site/card'
 import type { SiteUserConfig } from '@fiction/site/schema'
 import { fontFamilySchema } from '@fiction/core'
-import { InputOption } from '@fiction/ui'
+import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
 const schema = z.object({
@@ -16,71 +15,85 @@ const schema = z.object({
 
 export type UserConfig = z.infer<typeof schema> & SiteUserConfig
 
-const options: InputOption[] = [
-  new InputOption({
-    key: 'text',
-    label: 'Message',
-    description: 'Watch your text dynamically resize to perfectly fill the space',
-    input: 'InputTextarea',
-    props: {
-      placeholder: 'Enter your message - it will automatically fit the space perfectly',
-      rows: 2,
-    },
-  }),
-  new InputOption({
-    key: 'lines',
-    label: 'Line Count',
-    description: 'Choose how many lines your message spans:\n• 1 line: Punchy headlines\n• 2 lines: Balanced statements\n• 3+ lines: Detailed messages',
-    input: 'InputNumber',
-    props: {
-      min: 1,
-      max: 5,
-    },
-  }),
-  new InputOption({
-    key: 'font',
-    label: 'Typography',
-    description: 'Select a font that matches your message tone:\n• Serif: Elegant & traditional\n• Sans-serif: Modern & clean\n• Display: Bold & distinctive',
-    input: 'InputFont',
-  }),
-  new InputOption({
-    key: 'style',
-    label: 'Text Style',
+const options = [
+  createOption({
+    schema,
     input: 'group',
+    key: 'group.content',
+    label: 'Content',
+    icon: { iconId: 'text-size' },
     options: [
-      new InputOption({
-        key: 'align',
-        label: 'Alignment',
-        input: 'InputRadioButton',
+      createOption({
+        schema,
+        key: 'text',
+        label: 'Message',
+        description: 'Watch your text dynamically resize to perfectly fill the space',
+        input: 'InputTextarea',
         props: {
-          options: [
-            { label: 'Left', value: 'left' },
-            { label: 'Center', value: 'center' },
-            { label: 'Right', value: 'right' },
-          ],
+          placeholder: 'Enter your message - it will automatically fit the space perfectly',
+          rows: 2,
         },
       }),
-      new InputOption({
-        key: 'weight',
-        label: 'Weight',
-        input: 'InputRadioButton',
+      createOption({
+        schema,
+        key: 'lines',
+        label: 'Line Count',
+        description: 'Choose how many lines your message spans:\n• 1 line: Punchy headlines\n• 2 lines: Balanced statements\n• 3+ lines: Detailed messages',
+        input: 'InputNumber',
         props: {
-          options: [
-            { label: 'Normal', value: 'normal' },
-            { label: 'Medium', value: 'medium' },
-            { label: 'Semibold', value: 'semibold' },
-            { label: 'Bold', value: 'bold' },
-          ],
+          min: 1,
+          max: 5,
         },
+      }),
+      createOption({
+        schema,
+        key: 'font',
+        label: 'Typography',
+        description: 'Select a font that matches your message tone:\n• Serif: Elegant & traditional\n• Sans-serif: Modern & clean\n• Display: Bold & distinctive',
+        input: 'InputFont',
+      }),
+      createOption({
+        schema,
+        key: 'style',
+        label: 'Text Style',
+        input: 'group',
+        options: [
+          createOption({
+            schema,
+            key: 'align',
+            label: 'Alignment',
+            input: 'InputRadioButton',
+            list: [
+              { label: 'Left', value: 'left' },
+              { label: 'Center', value: 'center' },
+              { label: 'Right', value: 'right' },
+            ],
+          }),
+          createOption({
+            schema,
+            key: 'weight',
+            label: 'Weight',
+            input: 'InputRadioButton',
+            list: [
+              { label: 'Normal', value: 'normal' },
+              { label: 'Medium', value: 'medium' },
+              { label: 'Semibold', value: 'semibold' },
+              { label: 'Bold', value: 'bold' },
+            ],
+          }),
+        ],
       }),
     ],
   }),
-  new InputOption({
+
+  createOption({
+    schema,
     key: 'sizing',
     label: 'Size Controls',
     input: 'group',
     options: [
-      new InputOption({
+      createOption({
+        schema,
         key: 'minFontSize',
         label: 'Minimum Size',
         description: 'Smallest allowed size to maintain readability',
@@ -90,7 +103,8 @@ const options: InputOption[] = [
           max: 48,
         },
       }),
-      new InputOption({
+      createOption({
+        schema,
         key: 'maxFontSize',
         label: 'Maximum Size',
         description: 'Largest allowed size for visual impact',
@@ -223,7 +237,7 @@ export async function getDemo(args: { templateId: string }) {
   }
 }
 
-export async function getConfig(args: { templateId: string }){
+export async function getConfig(args: { templateId: string }) {
   return {
     schema,
     options,

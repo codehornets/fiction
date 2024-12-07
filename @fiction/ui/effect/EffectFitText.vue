@@ -19,14 +19,15 @@ const containerRef = vue.ref<HTMLElement | null>(null)
 const fitty = vue.ref<Fitty | null>(null)
 const isTextVisible = vue.ref(false)
 
+function getFittyOptions() {
+  return { minSize, maxSize, multiLine, lines }
+}
+
 function initFitty() {
   if (fittyRef.value) {
     fitty.value = new Fitty({ debug: false })
     fitty.value.fit(fittyRef.value, {
-      minSize,
-      maxSize,
-      multiLine,
-      lines,
+      ...getFittyOptions(),
       observeMutations: observeMutations === true
         ? { subtree: true, childList: true, characterData: true }
         : observeMutations,
@@ -37,7 +38,7 @@ function initFitty() {
 function refitText() {
   vue.nextTick(async () => {
     await vue.nextTick() // Wait for DOM update
-    fitty.value?.fitAll()
+    fitty.value?.fitAll(getFittyOptions())
     isTextVisible.value = true // Show text after fitting
   })
 }

@@ -1,5 +1,5 @@
 import { colorThemeUser, fontFamilySchema } from '@fiction/core'
-import { InputOption } from '@fiction/ui'
+import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
 export const SchemaTicker = z.object({
@@ -12,9 +12,8 @@ export const SchemaTicker = z.object({
 
   // Styling
   font: fontFamilySchema.optional().describe('Custom font family'),
-  backgroundColor: z.string().optional().describe('Background color in light mode'),
-  backgroundColorDark: z.string().optional().describe('Background color in dark mode'),
-  textColor: z.enum(colorThemeUser).optional().describe('Text color theme'),
+  backgroundColor: z.string().optional().describe('Background color'),
+  backgroundColorLight: z.string().optional().describe('Background color in light mode'),
   outline: z.boolean().default(false).optional().describe('Apply text outline effect'),
 
   // 3D Transform
@@ -27,11 +26,9 @@ export const SchemaTicker = z.object({
 
 // Schema with improved organization and descriptions
 export const schema = z.object({
-  settings: z.object({
-    fontSize: z.number().min(5).max(15).optional().describe('Base font size in viewport width units'),
-    scrollEffect: z.boolean().default(true).optional().describe('Enable scroll-based animation speed effect'),
-    scrollIntensity: z.number().min(0).max(100).default(25).optional().describe('How much scroll position affects animation speed (%)'),
-  }).optional().describe('Global ticker settings'),
+  fontSize: z.number().min(5).max(15).optional().describe('Base font size in viewport width units'),
+  scrollEffect: z.boolean().default(true).optional().describe('Enable scroll-based animation speed effect'),
+  scrollIntensity: z.number().min(0).max(100).default(25).optional().describe('How much scroll position affects animation speed (%)'),
 
   items: z.array(SchemaTicker).default([]).describe('Array of ticker items [ai label=Ticker Items]'),
 })
@@ -40,26 +37,156 @@ export type UserConfig = z.infer<typeof schema>
 
 export type TickerConfig = z.infer<typeof SchemaTicker>
 
-export function getOptions(): InputOption[] {
+export function getOptions() {
   return [
-    new InputOption({
-      key: 'settings',
-      label: 'Global Settings',
+    createOption({
+      schema,
+      key: 'group.ticker',
+      label: 'Ticker Items',
       input: 'group',
+      icon: { class: 'i-tabler-arrow-autofit-width' },
       options: [
-        new InputOption({
+        createOption({
+          schema,
+          key: 'items',
+          label: 'Ticker Items',
+          input: 'InputList',
+          description: 'Add scrolling text elements',
+          props: {
+            itemName: 'Ticker',
+            itemLabel: args => (args?.item as TickerConfig)?.text ?? 'Untitled',
+          },
+          options: [
+            createOption({
+              schema,
+              key: 'items.0.text',
+              label: 'Text',
+              input: 'InputText',
+              isRequired: true,
+            }),
+            createOption({
+              schema,
+              key: 'items.0.href',
+              label: 'Link URL',
+              input: 'InputUrl',
+            }),
+            createOption({
+              schema,
+              key: 'items.0.animation',
+              label: 'Animation',
+              input: 'group',
+              options: [
+                createOption({
+                  schema,
+                  key: 'items.0.speed',
+                  label: 'Speed',
+                  input: 'InputRange',
+                  props: { min: 0, max: 100, step: 5 },
+                }),
+                createOption({
+                  schema,
+                  key: 'items.0.direction',
+                  label: 'Direction',
+                  input: 'InputRadio',
+                  props: {
+                    options: [
+                      { label: 'Left', value: 'left' },
+                      { label: 'Right', value: 'right' },
+                    ],
+                  },
+                }),
+              ],
+            }),
+            createOption({
+              schema,
+              key: 'appearance',
+              label: 'Appearance',
+              input: 'group',
+              options: [
+                createOption({
+                  schema,
+                  key: 'items.0.font',
+                  label: 'Font',
+                  input: 'InputFont',
+                }),
+                createOption({
+                  schema,
+                  key: 'items.0.backgroundColor',
+                  label: 'Background Color',
+                  input: 'InputColor',
+                }),
+                createOption({
+                  schema,
+                  key: 'items.0.backgroundColorLight',
+                  label: 'Background Color (Light Mode)',
+                  input: 'InputColor',
+                }),
+
+                createOption({
+                  schema,
+                  key: 'items.0.outline',
+                  label: 'Text Outline',
+                  input: 'InputToggle',
+                }),
+              ],
+            }),
+            createOption({
+              schema,
+              key: 'transform',
+              label: '3D Transform',
+              input: 'group',
+              options: [
+                createOption({
+                  schema,
+                  key: 'items.0.transform.rotateX',
+                  label: 'Tilt Forward/Back',
+                  input: 'InputRange',
+                  props: { min: -30, max: 30, step: 1 },
+                }),
+                createOption({
+                  schema,
+                  key: 'items.0.transform.rotateY',
+                  label: 'Tilt Left/Right',
+                  input: 'InputRange',
+                  props: { min: -30, max: 30, step: 1 },
+                }),
+                createOption({
+                  schema,
+                  key: 'items.0.transform.rotateZ',
+                  label: 'Rotate',
+                  input: 'InputRange',
+                  props: { min: -30, max: 30, step: 1 },
+                }),
+              ],
+            }),
+          ],
+        }),
+      ],
+    }),
+
+    createOption({
+      schema,
+      key: 'group.settings',
+      label: 'Settings',
+      input: 'group',
+      icon: { class: 'i-tabler-settings' },
+      options: [
+        createOption({
+          schema,
           key: 'fontSize',
           label: 'Font Size',
           input: 'InputRange',
           props: { min: 5, max: 15, step: 0.5 },
         }),
-        new InputOption({
+        createOption({
+          schema,
           key: 'scrollEffect',
           label: 'Scroll Animation',
           input: 'InputToggle',
           description: 'Speed up animation while scrolling',
         }),
-        new InputOption({
+        createOption({
+          schema,
           key: 'scrollIntensity',
           label: 'Scroll Effect Intensity',
           input: 'InputRange',
@@ -68,119 +195,15 @@ export function getOptions(): InputOption[] {
         }),
       ],
     }),
-    new InputOption({
-      key: 'items',
-      label: 'Ticker Items',
-      input: 'InputList',
-      description: 'Add scrolling text elements',
-      props: {
-        itemLabel: 'Ticker',
-      },
-      options: [
-        new InputOption({
-          key: 'text',
-          label: 'Text',
-          input: 'InputText',
-          isRequired: true,
-        }),
-        new InputOption({
-          key: 'href',
-          label: 'Link URL',
-          input: 'InputUrl',
-        }),
-        new InputOption({
-          key: 'animation',
-          label: 'Animation',
-          input: 'group',
-          options: [
-            new InputOption({
-              key: 'speed',
-              label: 'Speed',
-              input: 'InputRange',
-              props: { min: 0, max: 100, step: 5 },
-            }),
-            new InputOption({
-              key: 'direction',
-              label: 'Direction',
-              input: 'InputRadio',
-              props: {
-                options: [
-                  { label: 'Left', value: 'left' },
-                  { label: 'Right', value: 'right' },
-                ],
-              },
-            }),
-          ],
-        }),
-        new InputOption({
-          key: 'appearance',
-          label: 'Appearance',
-          input: 'group',
-          options: [
-            new InputOption({
-              key: 'font',
-              label: 'Font',
-              input: 'InputFont',
-            }),
-            new InputOption({
-              key: 'backgroundColor',
-              label: 'Background Color',
-              input: 'InputColor',
-            }),
-            new InputOption({
-              key: 'backgroundColorDark',
-              label: 'Dark Mode Background',
-              input: 'InputColor',
-            }),
-            new InputOption({
-              key: 'textColor',
-              label: 'Text Color',
-              input: 'InputColorScheme',
-            }),
-            new InputOption({
-              key: 'outline',
-              label: 'Text Outline',
-              input: 'InputToggle',
-            }),
-          ],
-        }),
-        new InputOption({
-          key: 'transform',
-          label: '3D Transform',
-          input: 'group',
-          options: [
-            new InputOption({
-              key: 'rotateX',
-              label: 'Tilt Forward/Back',
-              input: 'InputRange',
-              props: { min: -30, max: 30, step: 1 },
-            }),
-            new InputOption({
-              key: 'rotateY',
-              label: 'Tilt Left/Right',
-              input: 'InputRange',
-              props: { min: -30, max: 30, step: 1 },
-            }),
-            new InputOption({
-              key: 'rotateZ',
-              label: 'Rotate',
-              input: 'InputRange',
-              props: { min: -30, max: 30, step: 1 },
-            }),
-          ],
-        }),
-      ],
-    }),
+
   ]
 }
 
 function getDefaultConfig(): UserConfig {
   return {
-    settings: {
-      fontSize: 8,
-      scrollEffect: true,
-      scrollIntensity: 25,
-    },
+    fontSize: 8,
+    scrollEffect: true,
+    scrollIntensity: 25,
     items: [{
       text: 'Add your first ticker message here — perfect for announcements, news, or promotions.',
       speed: 30,
@@ -203,26 +226,24 @@ export function getDemoConfigs(templateId: string): Record<string, { templateId:
     business: {
       templateId,
       userConfig: {
-        settings: {
-          fontSize: 6,
-          scrollEffect: true,
-          scrollIntensity: 25,
-        },
+        fontSize: 6,
+        scrollEffect: true,
+        scrollIntensity: 25,
         items: [
           {
             text: '🎉 Special offer: Get 20% off all products with code SUMMER2024',
             speed: 40,
             direction: 'left',
-            backgroundColor: '#2563eb',
-            backgroundColorDark: '#1e40af',
+            backgroundColorLight: '#2563eb',
+            backgroundColor: '#1e40af',
             href: '#special-offer',
           },
           {
             text: '📦 Free shipping on orders over $50 • Limited time only',
             speed: 45,
             direction: 'right',
-            backgroundColor: '#059669',
-            backgroundColorDark: '#065f46',
+            backgroundColorLight: '#059669',
+            backgroundColor: '#065f46',
           },
         ],
       },
@@ -230,11 +251,9 @@ export function getDemoConfigs(templateId: string): Record<string, { templateId:
     creative: {
       templateId,
       userConfig: {
-        settings: {
-          fontSize: 7,
-          scrollEffect: true,
-          scrollIntensity: 35,
-        },
+        fontSize: 7,
+        scrollEffect: true,
+        scrollIntensity: 35,
         items: [
           {
             text: 'Create • Innovate • Inspire',

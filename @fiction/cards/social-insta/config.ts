@@ -1,7 +1,7 @@
 // config.ts
 import type { CardFactory } from '@fiction/site/cardFactory'
 import { MediaDisplaySchema } from '@fiction/core'
-import { InputOption } from '@fiction/ui'
+import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
 // Schema defines all configurable options
@@ -40,22 +40,25 @@ export const schema = z.object({
 
 export type UserConfig = z.infer<typeof schema>
 
-function getOptions(): InputOption[] {
+function getOptions() {
   return [
-    new InputOption({
+    createOption({
+      schema,
       key: 'account',
       label: 'Instagram Account',
       input: 'group',
       options: [
-        new InputOption({
-          key: 'handle',
+        createOption({
+          schema,
+          key: 'account.handle',
           label: 'Username',
           input: 'InputText',
           placeholder: '@username',
           isRequired: true,
         }),
-        new InputOption({
-          key: 'postCount',
+        createOption({
+          schema,
+          key: 'account.postCount',
           label: 'Number of Posts',
           input: 'InputNumber',
           props: {
@@ -66,13 +69,15 @@ function getOptions(): InputOption[] {
       ],
     }),
 
-    new InputOption({
+    createOption({
+      schema,
       key: 'display',
       label: 'Display Settings',
       input: 'group',
       options: [
-        new InputOption({
-          key: 'layout',
+        createOption({
+          schema,
+          key: 'display.layout',
           label: 'Layout Style',
           input: 'InputRadio',
           props: {
@@ -83,23 +88,27 @@ function getOptions(): InputOption[] {
             ],
           },
         }),
-        new InputOption({
-          key: 'showCaption',
+        createOption({
+          schema,
+          key: 'display.showCaption',
           label: 'Show Captions',
           input: 'InputToggle',
         }),
-        new InputOption({
-          key: 'showLikes',
+        createOption({
+          schema,
+          key: 'display.showLikes',
           label: 'Show Like Count',
           input: 'InputToggle',
         }),
-        new InputOption({
-          key: 'showComments',
+        createOption({
+          schema,
+          key: 'display.showComments',
           label: 'Show Comment Count',
           input: 'InputToggle',
         }),
-        new InputOption({
-          key: 'imageSize',
+        createOption({
+          schema,
+          key: 'display.imageSize',
           label: 'Image Size',
           input: 'InputRadio',
           props: {
@@ -110,8 +119,9 @@ function getOptions(): InputOption[] {
             ],
           },
         }),
-        new InputOption({
-          key: 'gap',
+        createOption({
+          schema,
+          key: 'display.gap',
           label: 'Grid Spacing',
           input: 'InputRadio',
           props: {
@@ -126,18 +136,21 @@ function getOptions(): InputOption[] {
       ],
     }),
 
-    new InputOption({
+    createOption({
+      schema,
       key: 'header',
       label: 'Profile Header',
       input: 'group',
       options: [
-        new InputOption({
-          key: 'show',
+        createOption({
+          schema,
+          key: 'header.show',
           label: 'Show Header',
           input: 'InputToggle',
         }),
-        new InputOption({
-          key: 'style',
+        createOption({
+          schema,
+          key: 'header.style',
           label: 'Header Style',
           input: 'InputRadio',
           props: {
@@ -147,32 +160,37 @@ function getOptions(): InputOption[] {
             ],
           },
         }),
-        new InputOption({
-          key: 'media',
+        createOption({
+          schema,
+          key: 'header.media',
           label: 'Custom Logo',
           input: 'InputMedia',
         }),
       ],
     }),
 
-    new InputOption({
+    createOption({
+      schema,
       key: 'action',
       label: 'Call to Action',
       input: 'group',
       options: [
-        new InputOption({
-          key: 'show',
+        createOption({
+          schema,
+          key: 'action.show',
           label: 'Show Follow Button',
           input: 'InputToggle',
         }),
-        new InputOption({
-          key: 'text',
+        createOption({
+          schema,
+          key: 'action.text',
           label: 'Button Text',
           input: 'InputText',
           placeholder: 'Follow on Instagram',
         }),
-        new InputOption({
-          key: 'link',
+        createOption({
+          schema,
+          key: 'action.link',
           label: 'Custom Link',
           input: 'InputUrl',
           placeholder: 'https://instagram.com/username',

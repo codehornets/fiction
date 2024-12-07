@@ -42,7 +42,7 @@ vue.watch(() => uc.value.font, (newFont) => {
 </script>
 
 <template>
-  <div :class="card.classes.value.contentWidth">
+  <div :class="card.classes.value.contentWidth" :data-value="JSON.stringify(fitOpts)">
     <EffectFitText v-bind="fitOpts" :content="uc.text || ''">
       <CardText
         :card="card"

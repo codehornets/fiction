@@ -3,8 +3,9 @@ import type { Card } from '@fiction/site'
 import type { TickerConfig, UserConfig } from './config'
 import CardText from '@fiction/cards/CardText.vue'
 import CardLink from '@fiction/cards/el/CardLink.vue'
-import { type FontFamily, getTextColorBasedOnBackground, isDarkOrLightMode, vue } from '@fiction/core'
+import { type FontFamily, getTextColorBasedOnBackground, isDarkOrLightMode, pathCheck, vue } from '@fiction/core'
 import { fontFamilyByKey } from '@fiction/site/utils/fonts'
+import { schema } from './config'
 
 const props = defineProps({
   card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
@@ -39,7 +40,7 @@ const items = vue.computed(() => {
   const initItems = conf.items || []
   return initItems.map(item => ({
     font: { family: 'inherit' },
-    fontSize: `${conf.settings?.fontSize || '8'}vw`,
+    fontSize: `${conf?.fontSize || '8'}vw`,
     direction: 'left' as const,
     speed: 50,
     rotateX: 0,
@@ -54,41 +55,43 @@ vue.onMounted(() => {
   if (!tickerWrap.value)
     return
 
-  const updateTransform = () => {
-    if (!tickerWrap.value)
-      return
-    const rect = tickerWrap.value.getBoundingClientRect()
-    const viewportHeight = window.innerHeight
+  if (uc.value.scrollEffect) {
+    const updateTransform = () => {
+      if (!tickerWrap.value)
+        return
+      const rect = tickerWrap.value.getBoundingClientRect()
+      const viewportHeight = window.innerHeight
 
-    // Calculate progress through viewport
-    const progress = (viewportHeight - rect.top) / (viewportHeight + rect.height)
-    const clampedProgress = Math.max(0, Math.min(1, progress))
+      // Calculate progress through viewport
+      const progress = (viewportHeight - rect.top) / (viewportHeight + rect.height)
+      const clampedProgress = Math.max(0, Math.min(1, progress))
 
-    // Create a smooth translation effect
-    scrollTranslate.value = clampedProgress * 25
+      // Create a smooth translation effect
+      scrollTranslate.value = clampedProgress * 25
+    }
+
+    const onScroll = () => {
+      window.requestAnimationFrame(updateTransform)
+    }
+
+    updateTransform() // Initial position
+    window.addEventListener('scroll', onScroll, { passive: true })
+
+    vue.onUnmounted(() => {
+      window.removeEventListener('scroll', onScroll)
+    })
   }
-
-  const onScroll = () => {
-    window.requestAnimationFrame(updateTransform)
-  }
-
-  updateTransform() // Initial position
-  window.addEventListener('scroll', onScroll, { passive: true })
-
-  vue.onUnmounted(() => {
-    window.removeEventListener('scroll', onScroll)
-  })
 })
 
 function getColorStyle(ticker: TickerConfig) {
   const bgColor = ticker.backgroundColor
-  const bgColorDark = ticker.backgroundColorDark || bgColor
+  const bgColorLight = ticker.backgroundColorLight || bgColor
 
   if (!tickerWrap.value)
     return {}
 
-  const isDark = isDarkOrLightMode(tickerWrap.value) === 'dark'
-  const backgroundColor = isDark ? bgColorDark : bgColor
+  const isLight = isDarkOrLightMode(tickerWrap.value) === 'light'
+  const backgroundColor = isLight ? bgColorLight : bgColor
 
   if (!backgroundColor)
     return {}
@@ -159,7 +162,7 @@ function getTransformStyle(item: TickerConfig) {
         >
           <div :style="{ ...getColorStyle(item) }">
             <span v-for="ii in 30" :key="ii" class="font-bold">
-              <CardText tag="span" :card :path="`items.${i}.text`" />&nbsp;
+              <CardText tag="span" :card :path="pathCheck(`items.${i}.text`, schema)" />&nbsp;
             </span>
           </div>
         </div>

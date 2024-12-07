@@ -34,6 +34,7 @@ type FittyInstance = {
   observer?: MutationObserver
   maxCharsPerLine?: number
   isVisible: boolean
+  options: FittyOptions
 }
 
 export class Fitty {
@@ -109,13 +110,47 @@ export class Fitty {
     const fittyOptions = { ...Fitty.defaultOptions, ...options }
 
     elements.forEach((element) => {
-      const fitty = this.createFitty(element, fittyOptions)
-      this.fitties.push(fitty)
-      if (this.visibilityObserver) {
-        this.visibilityObserver.observe(element)
+      // Check if element already has a fitty instance
+      const existingFitty = this.fitties.find(f => f.element === element)
+      if (existingFitty) {
+        // Update options for existing fitty
+        this.updateFittyOptions(existingFitty, fittyOptions)
+      }
+      else {
+        // Create new fitty instance
+        const fitty = this.createFitty(element, fittyOptions)
+        this.fitties.push(fitty)
+        if (this.visibilityObserver) {
+          this.visibilityObserver.observe(element)
+        }
       }
     })
     this.requestRedraw()
+  }
+
+  private updateFittyOptions(fitty: FittyInstance, newOptions: FittyOptions): void {
+    // Store previous options for comparison
+    const oldOptions = { ...fitty.options }
+
+    // Update options
+    fitty.options = { ...newOptions }
+    fitty.minSize = newOptions.minSize
+    fitty.maxSize = newOptions.maxSize
+    fitty.multiLine = newOptions.multiLine
+    fitty.lines = newOptions.lines
+    fitty.maxCharsPerLine = newOptions.maxCharsPerLine
+
+    // If mutation observer settings changed, reinitialize it
+    if (JSON.stringify(oldOptions.observeMutations) !== JSON.stringify(newOptions.observeMutations)) {
+      if (fitty.observer) {
+        fitty.observer.disconnect()
+      }
+      fitty.observeMutations = newOptions.observeMutations
+      this.observeMutations(fitty)
+    }
+
+    // Mark as dirty to trigger redraw
+    fitty.dirty = Fitty.DrawState.DIRTY
   }
 
   private createFitty(element: HTMLElement, options: FittyOptions): FittyInstance {
@@ -145,6 +180,7 @@ export class Fitty {
       preStyleTestCompleted: false,
       maxCharsPerLine: options.maxCharsPerLine,
       isVisible: true,
+      options,
     }
 
     this.initFitty(f)
@@ -299,8 +335,13 @@ export class Fitty {
     }))
   }
 
-  public fitAll(): void {
-    this.fitties.forEach(f => f.dirty = Fitty.DrawState.DIRTY)
+  public fitAll(options?: Partial<FittyOptions>): void {
+    this.fitties.forEach((f) => {
+      if (options) {
+        this.updateFittyOptions(f, { ...f.options, ...options })
+      }
+      f.dirty = Fitty.DrawState.DIRTY
+    })
     this.requestRedraw()
   }
 

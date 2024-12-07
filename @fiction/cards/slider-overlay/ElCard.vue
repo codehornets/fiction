@@ -1,11 +1,13 @@
 <script lang="ts" setup>
 import type { Card } from '@fiction/site'
 import type { UserConfig } from '.'
-import { vue } from '@fiction/core'
+import { pathCheck, vue } from '@fiction/core'
+
 import EffectFitText from '@fiction/ui/effect/EffectFitText.vue'
 import XMedia from '@fiction/ui/media/XMedia.vue'
 import CardText from '../CardText.vue'
 import NavDots from '../el/NavDots.vue'
+import { schema } from './config'
 
 type Slide = { title?: string, subTitle?: string, media?: any, textBlend?: string }
 
@@ -185,7 +187,7 @@ vue.onBeforeUnmount(() => {
                 class="x-font-title z-20 font-bold md:w-[170%]"
                 :min-size="40"
               >
-                <CardText :card tag="span" :path="`slides.${currentItemIndex}.title`" />
+                <CardText :card tag="span" :path="pathCheck(`slides.${currentItemIndex}.title`, schema)" />
               </EffectFitText>
               <EffectFitText
                 v-if="currentItem?.subTitle"
@@ -194,7 +196,7 @@ vue.onBeforeUnmount(() => {
                 :content="currentItem?.subTitle || ''"
                 class="x-font-title z-20 font-medium md:w-[160%] mt-4 !leading-[1.4]"
               >
-                <CardText animate="fade" :card tag="span" :path="`slides.${currentItemIndex}.subTitle`" />
+                <CardText animate="fade" :card tag="span" :path="pathCheck(`slides.${currentItemIndex}.subTitle`, schema)" />
               </EffectFitText>
             </div>
           </transition>

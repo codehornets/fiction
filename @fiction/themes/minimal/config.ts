@@ -137,11 +137,9 @@ export async function getFooter(args: SectionArgs) {
       await factory.fromTemplate<typeof TickerTemplate>({
         templateId: 'typographyTicker',
         userConfig: {
-          settings: {
-            fontSize: 6,
-            scrollEffect: true,
-            scrollIntensity: 15,
-          },
+          fontSize: 6,
+          scrollEffect: true,
+          scrollIntensity: 15,
           items: [{
             text: 'Subscribe to the Newsletter',
             href: '?_subscribe',
