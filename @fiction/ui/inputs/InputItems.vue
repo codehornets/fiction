@@ -8,7 +8,7 @@ import XButton from '../buttons/XButton.vue'
 defineOptions({ name: 'InputItems' })
 
 const { modelValue = [], uiSize = 'md', placeholder, table, column } = defineProps<{
-  modelValue: string[]
+  modelValue?: string[]
   uiSize?: StandardSize
   placeholder?: string
   table?: string

@@ -7,7 +7,13 @@ type QuerySettings = { fictionDb: FictionDb }
 
 type UsernameResult = { available: ResponseStatus, reason: ValidationReason }
 
-export type CheckColumnValue = { name: string, value: string, minLength?: number, allowReserved?: boolean, allowAnyValue?: boolean }
+export type CheckColumnValue = {
+  name: string
+  value?: string
+  minLength?: number
+  allowReserved?: boolean
+  allowAnyValue?: boolean
+}
 
 type CheckUsernameParams = { table: string, columns: CheckColumnValue[] }
 
@@ -33,9 +39,9 @@ export class CheckUsername extends Query<QuerySettings> {
     try {
       for (const col of columns) {
         const { value, minLength = 3, allowReserved = false, allowAnyValue = false } = col
-        const prepped = allowAnyValue ? value.trim() : toSlug(value.trim())
+        const prepped = allowAnyValue ? value?.trim() : toSlug(value?.trim())
 
-        if (prepped.length < minLength) {
+        if (!prepped || prepped.length < minLength) {
           result = { available: 'fail', reason: 'short' }
           break
         }
@@ -50,6 +56,9 @@ export class CheckUsername extends Query<QuerySettings> {
 
         const r = await fictionDb.db?.table(table).where((builder) => {
           columns.forEach(({ name, value }) => {
+            if (!value)
+              return
+
             const v = allowAnyValue ? value.trim() : toSlug(value.trim())
             void builder.andWhere(name, v)
           })

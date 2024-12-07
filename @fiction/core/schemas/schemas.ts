@@ -338,6 +338,11 @@ export const PostSEOSchema = z.object({
   description: z.string().optional().describe('Meta description for search engines and social sharing'),
 }).describe('SEO metadata for the post')
 
+const PostUserConfigSchema = z.object({
+  seo: PostSEOSchema.optional().describe('Search engine and social media optimization settings'),
+  isContentCompletionDisabled: z.boolean().optional(),
+})
+
 export const PostSchema = z.object({
   // Core Content
   title: z.string().optional().describe('Main title/headline of the post'),
@@ -350,6 +355,7 @@ export const PostSchema = z.object({
   status: PostStatusSchema.optional().describe('Publication status (draft, published, etc)'),
   emphasis: emphasisSchema.optional().describe('Visual prominence level in listings (featured, standard, minimal)'),
   dateAt: z.string().optional().describe('ISO 8601 publication date'),
+  publishAt: z.string().optional().describe('ISO 8601 scheduled publication date'),
 
   // Visual Elements
   media: MediaDisplaySchema.optional().describe('Featured image or video with display settings'),
@@ -364,7 +370,9 @@ export const PostSchema = z.object({
   // Associated Data
   authors: z.array(UserSchema).optional().describe('List of post authors with profiles'),
   action: ActionAreaSchema.optional().describe('Call-to-action buttons and interaction elements'),
-  seo: PostSEOSchema.optional().describe('Search engine and social media optimization settings'),
+
+  userConfig: PostUserConfigSchema.optional().describe('User-specific configuration settings'),
+
 })
 
 // export const AndDataFilterSchema = z.object({
