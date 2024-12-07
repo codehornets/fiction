@@ -17,7 +17,7 @@ const featureSchema = z.object({
 })
 
 // Main schema remains similar but updates column options
-const schema = z.object({
+export const schema = z.object({
   layout: z.object({
     style: z.enum(['grid', 'masonry', 'cards', 'carousel']).optional(),
     columns: z.enum(['2', '3', '4', '5', '6']).optional(),
@@ -87,7 +87,7 @@ const options: InputOption[] = [
               createOption({
                 key: 'features.0.action',
                 label: 'Actions',
-                input: 'InputActions',
+                input: 'InputActionArea',
                 schema,
               }),
             ],

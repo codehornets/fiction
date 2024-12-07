@@ -2,11 +2,13 @@ import type { template as featuresTemplate } from '@fiction/cards/content-featur
 import type { template as heroTemplate } from '@fiction/cards/content-hero'
 import type { template as callToActionTemplate } from '@fiction/cards/convert-cta'
 import type { CardFactory } from '@fiction/site/cardFactory'
+import { z } from 'zod'
 
 export async function getConfig(_args: { factory: CardFactory, templateId: string }) {
   const { factory } = _args
 
   return {
+    schema: z.object({}),
     demoPage: {
       cards: [
         await factory.fromTemplate<typeof heroTemplate>({

@@ -1,12 +1,16 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { SiteUserConfig } from '@fiction/site/schema'
 import type { StockMedia } from '@fiction/ui/stock'
-import { brandSchema, logoSchema, NavListItemSchema } from '@fiction/core'
+import { brandSchema, NavListItemSchema } from '@fiction/core'
 import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
+const NavBrandSchema = brandSchema.pick({
+  logo: true,
+})
+
 export const schema = z.object({
-  brand: brandSchema.optional(),
+  brand: NavBrandSchema.optional(),
   layout: z.enum(['navCenter', 'logoCenter', 'justified']).optional(),
   nav: z.object({
     primary: z.array(NavListItemSchema).optional(),
@@ -128,7 +132,6 @@ async function getDemoCards(args: { templateId: string, stock: StockMedia }): Pr
         standard: { headers: { title: 'Centered Logo' }, spacing: { verticalSpacing: 'md' } },
         brand: {
           logo: { media: stock.getLocalMedia({ key: 'lorem2' }) },
-          tagline: 'Creative Digital Agency',
         },
         layout: 'logoCenter',
         nav: {
@@ -316,7 +319,6 @@ async function getDemoCards(args: { templateId: string, stock: StockMedia }): Pr
         standard: { headers: { title: 'Modern Platform Navigation' }, spacing: { verticalSpacing: 'md' } },
         brand: {
           logo: { typography: { label: 'Modern', weight: '700' }, scale: 1.4 },
-          tagline: 'Elevate Your Digital Experience',
         },
         layout: 'navCenter',
         nav: {

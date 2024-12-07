@@ -1,14 +1,13 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { SiteUserConfig } from '@fiction/site/schema'
 import type { StockMedia } from '@fiction/ui/stock'
-import { ActionAreaSchema, colorThemeUser, type MediaObject, NavListItemSchema, superTitleSchema } from '@fiction/core'
+import { ActionAreaSchema, colorThemeUser, type MediaObject, NavListItemSchema, SuperTitleSchema } from '@fiction/core'
 import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
 // Schema definitions
 const detailSchema = NavListItemSchema.pick({
   label: true,
-  description: true,
   value: true,
   icon: true,
   href: true,
@@ -21,7 +20,7 @@ const mediaSchema = NavListItemSchema.pick({
 export const schema = z.object({
   title: z.string().optional().describe('Primary headline for profile 3 to 8 words [ai]'),
   content: z.string().optional().describe('Formatted markdown of profile with paragraphs, 30 to 60 words, 2 paragraphs [ai]'),
-  superTitle: superTitleSchema.optional(),
+  superTitle: SuperTitleSchema.optional(),
   layout: z.enum(['left', 'right']).optional().describe('Media on left or right'),
   mediaItems: z.array(mediaSchema).optional().describe('Splash pictures in portrait format [ai seconds=40]'),
   detailsTitle: z.string().optional().describe('Title for list of details [ai]'),
@@ -62,7 +61,7 @@ const options = [
             },
             options: [
               createOption({ schema, key: 'details.0.label', input: 'InputText', label: 'Label' }),
-              createOption({ schema, key: 'details.0.description', input: 'InputText', label: 'Value' }),
+              createOption({ schema, key: 'details.0.value', input: 'InputText', label: 'Value' }),
               createOption({ schema, key: 'details.0.icon', input: 'InputIcon', label: 'Icon' }),
               createOption({ schema, key: 'details.0.href', input: 'InputUrl', label: 'Link URL' }),
             ],
@@ -227,8 +226,8 @@ async function getDemoUserConfig(args: { factory: CardFactory, stock: StockMedia
       ],
       detailsTitle: 'Tech Connect',
       details: [
-        { label: 'Specialties', description: 'AI & Machine Learning', icon: { iconId: 'code' } },
-        { label: 'GitHub', description: '@techleader', href: '#', icon: { iconId: 'brand-github' } },
+        { label: 'Specialties', value: 'AI & Machine Learning', icon: { iconId: 'code' } },
+        { label: 'GitHub', value: '@techleader', href: '#', icon: { iconId: 'brand-github' } },
       ],
       action: {
         buttons: [

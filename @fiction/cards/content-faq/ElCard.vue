@@ -1,12 +1,13 @@
 <script lang="ts" setup>
 import type { Card } from '@fiction/site'
 import type { UserConfig } from './config.js'
-import { vue } from '@fiction/core'
+import { pathCheck, vue } from '@fiction/core'
 import TransitionSlide from '@fiction/ui/anim/TransitionSlide.vue'
 import XIcon from '@fiction/ui/media/XIcon.vue'
 import XMedia from '@fiction/ui/media/XMedia.vue'
 import CardText from '../CardText.vue'
 import CardActionArea from '../el/CardActionArea.vue'
+import { schema } from './config.js'
 
 const props = defineProps({
   card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
@@ -65,7 +66,7 @@ function isItemOpen(index: number) {
             <div class="flex justify-between">
               <CardText
                 :card
-                :path="`items.${i}.title`"
+                :path="pathCheck(`items.${i}.title`, schema)"
                 class="x-font-title text-xl lg:text-2xl font-semibold text-theme-900 dark:text-theme-100 transition-colors"
                 :class="[
                   isItemOpen(i) && 'text-primary-600 dark:text-primary-400',
@@ -102,7 +103,7 @@ function isItemOpen(index: number) {
                   <!-- Content -->
                   <CardText
                     :card
-                    :path="`items.${i}.content`"
+                    :path="pathCheck(`items.${i}.content`, schema)"
                     class="prose prose-theme dark:prose-invert prose prose-lg md:prose-2xl "
                   />
                 </div>
@@ -121,14 +122,14 @@ function isItemOpen(index: number) {
       <CardText
         v-if="uc.support.text"
         :card
-        path="support.text"
+        :path="pathCheck(`support.text`, schema)"
         class="text-lg text-theme-600 dark:text-theme-400 x-font-title"
       />
 
       <CardActionArea
         v-if="uc.support.action"
         :card
-        base-path="support.action"
+        :base-path="pathCheck(`support.action`, schema)"
         :actions="uc.support.action"
         :classes="{ buttons: 'flex gap-4 justify-center' }"
       />

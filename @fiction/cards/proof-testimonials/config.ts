@@ -51,7 +51,7 @@ const options = [
           createOption({
             schema,
             input: 'group',
-            key: 'group.testimonial.user',
+            key: 'group.testimonial',
             label: 'Testimonial Content',
             icon: { class: 'i-tabler-highlight' },
             options: [
@@ -106,6 +106,12 @@ const options = [
                 key: 'items.0.user.media',
                 label: 'Avatar',
                 input: 'InputMedia',
+              }),
+              createOption({
+                schema,
+                key: 'items.0.user.href',
+                label: 'URL',
+                input: 'InputUrl',
               }),
             ],
           }),

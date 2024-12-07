@@ -1,6 +1,6 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { InputOption } from '@fiction/ui'
-import { ActionAreaSchema, MediaBasicSchema, superTitleSchema } from '@fiction/core'
+import { ActionAreaSchema, MediaBasicSchema, SuperTitleSchema } from '@fiction/core'
 import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
@@ -15,7 +15,7 @@ export const schema = z.object({
   layout: z.enum(['justify', 'center', 'left', 'right']).optional().describe('Visual arrangement of content - affects text and image positioning'),
   title: z.string().optional().describe('Primary headline that captures attention (3-13 words) [ai]'),
   subTitle: z.string().optional().describe('Supporting message that explains your value proposition (10-30 words) [ai]'),
-  superTitle: superTitleSchema.optional().describe('Eyebrow text with icon and color [ai]'),
+  superTitle: SuperTitleSchema.optional().describe('Eyebrow text with icon and color [ai]'),
   splash: MediaBasicSchema.optional().describe('Hero\'s focal image or illustration [ai]'),
   caption: z.string().optional().describe('Optional text description for the splash image'),
   action: ActionAreaSchema.optional().describe('Primary call-to-action area'),
@@ -95,7 +95,7 @@ export function getOptions(): InputOption[] {
           schema,
         }),
         createOption({
-          key: 'overlays',
+          key: 'group.overlays',
           label: 'Image Overlays',
           icon: { class: 'i-tabler-layers-subtract' },
           input: 'group',
@@ -103,33 +103,41 @@ export function getOptions(): InputOption[] {
           isClosed: true,
           options: [
             createOption({
-              key: 'overlays.0.media',
-              label: 'Overlay Image',
-              input: 'InputMedia',
+              input: 'InputList',
               schema,
-            }),
-            createOption({
-              key: 'overlays.0.position',
-              label: 'Position',
-              input: 'InputSelect',
-              list: [
-                { label: 'Top Left', value: 'topLeft' },
-                { label: 'Top Center', value: 'top' },
-                { label: 'Top Right', value: 'topRight' },
-                { label: 'Bottom Left', value: 'bottomLeft' },
-                { label: 'Bottom Center', value: 'bottom' },
-                { label: 'Bottom Right', value: 'bottomRight' },
-                { label: 'Center', value: 'center' },
+              key: 'overlays',
+              options: [
+                createOption({
+                  key: 'overlays.0.media',
+                  label: 'Overlay Image',
+                  input: 'InputMedia',
+                  schema,
+                }),
+                createOption({
+                  key: 'overlays.0.position',
+                  label: 'Position',
+                  input: 'InputSelect',
+                  list: [
+                    { label: 'Top Left', value: 'topLeft' },
+                    { label: 'Top Center', value: 'top' },
+                    { label: 'Top Right', value: 'topRight' },
+                    { label: 'Bottom Left', value: 'bottomLeft' },
+                    { label: 'Bottom Center', value: 'bottom' },
+                    { label: 'Bottom Right', value: 'bottomRight' },
+                    { label: 'Center', value: 'center' },
+                  ],
+                  schema,
+                }),
+                createOption({
+                  key: 'overlays.0.widthPercent',
+                  label: 'Width %',
+                  input: 'InputRange',
+                  props: { min: 0, max: 100, step: 5, startValue: 30 },
+                  schema,
+                }),
               ],
-              schema,
             }),
-            createOption({
-              key: 'overlays.0.widthPercent',
-              label: 'Width %',
-              input: 'InputRange',
-              props: { min: 0, max: 100, step: 5, startValue: 30 },
-              schema,
-            }),
+
           ],
         }),
       ],

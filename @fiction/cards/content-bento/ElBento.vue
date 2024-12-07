@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import type { Card } from '@fiction/site'
 import type { UserConfig } from './config'
-import { vue } from '@fiction/core'
+import { pathCheck, vue } from '@fiction/core'
 import ClipPathAnim from '@fiction/ui/anim/AnimClipPath.vue'
 import XLogo from '@fiction/ui/media/XLogo.vue'
 import XMedia from '@fiction/ui/media/XMedia.vue'
+import CardText from '../CardText.vue'
 import CardActionArea from '../el/CardActionArea.vue'
 import SuperTitle from '../el/SuperTitle.vue'
+import { schema } from './config'
 import {
   getContentMaxWidth,
   getContentStyles,
@@ -69,31 +71,33 @@ const gapClass = vue.computed(() => {
             />
             <SuperTitle
               :card
-              :base-path="`items.${i}.superTitle`"
+              :base-path="pathCheck(`items.${i}.superTitle`, schema)"
               :classes="{ text: 'text-sm @lg:text-base @2xl:text-lg font-medium opacity-90 font-sans' }"
               :theme="item.bg?.url ? 'overlay' : (item.theme || 'default')"
             />
 
-            <h3
+            <CardText
               v-if="item.title"
+              :card
+              :path="pathCheck(`items.${i}.title`, schema)"
+              tag="h3"
               class="text-2xl @xs:text-3xl @xl:text-4xl @5xl:text-6xl @xl:mb-2 @5xl:mb-4 text-balance font-medium @2xl:font-semibold  x-font-title"
               :style="getContentStyles(item, 'text', bentoWrapEl)"
-            >
-              {{ item.title }}
-            </h3>
+            />
 
-            <p
+            <CardText
               v-if="item.content"
+              :card
+              :path="pathCheck(`items.${i}.content`, schema)"
+              tag="p"
               class="line-clamp-3 opacity-90 @xs:text-lg @xl:text-xl @5xl:text-2xl"
               :style="getContentStyles(item, 'sub', bentoWrapEl)"
-            >
-              {{ item.content }}
-            </p>
+            />
 
             <CardActionArea
               :card
               class="mt-4"
-              :base-path="`items.${i}.action`"
+              :base-path="pathCheck(`items.${i}.action`, schema)"
               :classes="{ buttons: 'flex gap-3' }"
               design="outline"
               :theme="(item.bg?.url ? 'overlay' : (item.theme || 'default'))"

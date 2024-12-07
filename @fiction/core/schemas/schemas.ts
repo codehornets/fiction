@@ -231,12 +231,6 @@ export const NavListItemSchema = BaseNavListItemSchema.extend({
   list: z.lazy(() => NavListSchema).optional().describe('Nested navigation list (e.g., dropdown menu)'),
 })
 
-export function createListSchema<T extends z.ZodType<any>>(itemSchema: T) {
-  return NavListSchema.omit({ items: true }).extend({
-    items: z.array(itemSchema),
-  })
-}
-
 export type NavList = Omit<z.infer<typeof NavListSchema>, 'items'> & { items?: NavListItem[] }
 
 // Define the complete type including recursive items property
@@ -317,13 +311,13 @@ export type BrandObject = z.infer<typeof brandSchema>
 
 export type LogoObject = z.infer<typeof logoSchema>
 
-export const superTitleSchema = z.object({
+export const SuperTitleSchema = z.object({
   text: z.string().optional(),
   icon: MediaIconSchema.optional(),
   theme: z.enum(colorThemeUser).optional(),
 })
 
-export type SuperTitle = z.infer<typeof superTitleSchema>
+export type SuperTitle = z.infer<typeof SuperTitleSchema>
 
 export const TaxonomySchema = z.object({
   title: z.string().optional(),
@@ -348,7 +342,7 @@ export const PostSchema = z.object({
   // Core Content
   title: z.string().optional().describe('Main title/headline of the post'),
   subTitle: z.string().optional().describe('Secondary title providing additional context'),
-  superTitle: superTitleSchema.optional().describe('Small text above title for categorization or context'),
+  superTitle: SuperTitleSchema.optional().describe('Small text above title for categorization or context'),
   content: z.string().optional().describe('Main body content of the post in HTML/Markdown format'),
   excerpt: z.string().optional().describe('Short summary of the post for previews and listings'),
 

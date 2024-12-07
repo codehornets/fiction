@@ -1,11 +1,12 @@
 <script lang="ts" setup>
 import type { Card } from '@fiction/site'
-import type { Statement, UserConfig } from '.'
-import { vue } from '@fiction/core'
+import type { UserConfig } from './config'
+import { pathCheck, vue } from '@fiction/core'
 import EffectCarousel from '@fiction/ui/effect/EffectCarousel.vue'
 import CardText from '../CardText.vue'
 import CardActionArea from '../el/CardActionArea.vue'
 import NavDots from '../el/NavDots.vue'
+import { schema } from './config'
 
 const props = defineProps({
   card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
@@ -41,7 +42,7 @@ function onSlideChange(index: number) {
                 tag="div"
                 class="text-4xl sm:!leading-[1.2] sm:text-5xl   xl:text-6xl x-font-title font-medium"
                 :card
-                :path="`items.${index}.title`"
+                :path="pathCheck(`items.${index}.title`, schema)"
                 animate="fade"
               />
 
@@ -49,14 +50,14 @@ function onSlideChange(index: number) {
                 tag="div"
                 class="text-lg leading-relaxed sm:!leading-[1.6] sm:text-3xl opacity-90"
                 :card
-                :path="`items.${index}.content`"
+                :path="pathCheck(`items.${index}.content`, schema)"
                 animate="fade"
               />
             </div>
 
             <CardActionArea
               :card
-              :base-path="`items.${index}.action`"
+              :base-path="pathCheck(`items.${index}.action`, schema)"
               :classes="{ buttons: 'flex gap-4' }"
               class="mt-8"
               size="2xl"

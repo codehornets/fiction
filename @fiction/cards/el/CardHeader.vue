@@ -1,20 +1,11 @@
 <script lang="ts" setup>
-import type { ActionButton, colorTheme, MediaObject, SuperTitle } from '@fiction/core'
+import type { ActionButton } from '@fiction/core'
 import type { Card } from '@fiction/site'
-import { vue } from '@fiction/core'
-import XIcon from '@fiction/ui/media/XIcon.vue'
-import { getColorThemeStyles } from '@fiction/ui/utils'
+import { ActionAreaSchema, pathCheck, SuperTitleSchema, vue } from '@fiction/core'
+import z from 'zod'
 import CardText from '../CardText.vue'
 import CardActionArea from './CardActionArea.vue'
 import XSuperTitle from './SuperTitle.vue'
-
-export type UserConfig = {
-  title?: string
-  subTitle?: string
-  superTitle?: SuperTitle
-  actions?: ActionButton[]
-  layout?: 'center' | 'justify' | 'right' | 'left'
-}
 
 const props = defineProps({
   card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
@@ -22,25 +13,17 @@ const props = defineProps({
   withActions: { type: Boolean, default: true },
 })
 
-const uc = vue.computed(() => {
-  return props.card.userConfig.value || {}
+const schema = z.object({
+  title: z.string().optional(),
+  subTitle: z.string().optional(),
+  superTitle: SuperTitleSchema.optional(),
+  action: ActionAreaSchema.optional(),
+  layout: z.enum(['center', 'justify', 'right', 'left']).optional(),
 })
 
-const colorStyle = vue.computed(() => {
-  const theme = uc.value.superTitle?.theme
-  if (!theme) {
-    return {
-      icon: 'text-primary-500 dark:text-theme-100 bg-primary-100/80 dark:bg-theme-700/80',
-      text: 'text-theme-500 dark:text-theme-500',
-    }
-  }
+type UserConfig = z.infer<typeof schema>
 
-  const r = getColorThemeStyles(theme || 'theme')
-  return {
-    icon: [r?.bg, r?.text, r?.border].join(' '),
-    text: r?.text,
-  }
-})
+const uc = vue.computed(() => props.card.userConfig.value || {})
 
 const textWrapClass = vue.computed(() => {
   const out = []
@@ -76,7 +59,7 @@ const layout = vue.computed(() => {
       <div class="max-w-screen-lg space-y-4" :class="layout === 'justify' ? 'lg:min-w-[50%]' : 'mx-auto'">
         <XSuperTitle
           :card
-          base-path="superTitle"
+          :base-path="pathCheck('superTitle', schema)"
           :class="[layout === 'center' ? 'md:justify-center' : '']"
           :super-title="uc.superTitle"
         />
@@ -84,7 +67,7 @@ const layout = vue.computed(() => {
           tag="h1"
           :card
           class="x-font-title font-semibold md:text-balance text-4xl sm:text-5xl !leading-[1.1]"
-          path="title"
+          :path="pathCheck('title', schema)"
           placeholder="Title"
           animate="fade"
         />
@@ -95,33 +78,25 @@ const layout = vue.computed(() => {
           :card
           class="mt-8 text-xl lg:text-2xl !leading-[1.5] md:text-balance text-theme-800 dark:text-theme-200"
           :class="layout === 'justify' ? 'lg:text-right' : ''"
-          path="subTitle"
+          :path="pathCheck('subTitle', schema)"
           placeholder="Sub Title"
           animate="fade"
         />
         <CardActionArea
           v-if="withActions && layout === 'justify'"
-          base-path="action"
+          :base-path="pathCheck('action', schema)"
           :card
-          :classes="{
-            buttons: [
-              'flex gap-4 lg:gap-6 justify-end',
-            ].join(' '),
-          }"
+          :classes="{ buttons: ['flex gap-4 lg:gap-6 justify-end'].join(' ') }"
           size="md"
         />
       </div>
     </div>
     <CardActionArea
       v-if="withActions && layout !== 'justify'"
-      base-path="action"
+      :base-path="pathCheck('action', schema)"
       :card
       :classes="{
-        buttons: [
-          ['justify', 'left', 'right'].includes(layout)
-            ? 'justify-start' : 'justify-start md:justify-center',
-          'flex gap-4 lg:gap-6',
-        ].join(' '),
+        buttons: [['justify', 'left', 'right'].includes(layout) ? 'justify-start' : 'justify-start md:justify-center', 'flex gap-4 lg:gap-6'].join(' '),
       }"
       size="xl"
     />

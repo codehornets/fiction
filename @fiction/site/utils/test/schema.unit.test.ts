@@ -1,4 +1,4 @@
-import { colorList, colorTheme, superTitleSchema } from '@fiction/core'
+import { colorList, colorTheme, SuperTitleSchema } from '@fiction/core'
 import { InputOption } from '@fiction/ui'
 import { describe, expect, it } from 'vitest'
 import { z } from 'zod'
@@ -173,7 +173,7 @@ describe('schema tools', () => {
     const schema = z.object({
       title: z.string().optional().describe('Primary headline for profile 3 to 8 words'),
       subTitle: z.string().optional().describe('Formatted markdown of profile with paragraphs, 30 to 60 words, 2 paragraphs'),
-      superTitle: superTitleSchema.optional().describe('Shorter badge above headline, 2 to 5 words'),
+      superTitle: SuperTitleSchema.optional().describe('Shorter badge above headline, 2 to 5 words'),
       details: z.array(z.object({
         name: z.string().optional(),
         desc: z.string().optional(),

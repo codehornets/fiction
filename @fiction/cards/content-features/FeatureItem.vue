@@ -2,10 +2,11 @@
 import type { Card } from '@fiction/site'
 import type { UserConfig } from './config'
 import CardText from '@fiction/cards/CardText.vue'
-import { vue } from '@fiction/core'
+import { pathCheck, vue } from '@fiction/core'
 import XIcon from '@fiction/ui/media/XIcon.vue'
 import { getColorThemeStyles } from '@fiction/ui/utils'
 import CardActionArea from '../el/CardActionArea.vue'
+import { schema } from './config'
 
 const props = defineProps({
   card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
@@ -80,7 +81,7 @@ const iconSize = vue.computed(() => ({
       <CardText
         tag="h3"
         :card="card"
-        :path="`features.${index}.title`"
+        :path="pathCheck(`features.${index}.title`, schema)"
         class="text-xl lg:text-2xl font-semibold x-font-title"
         animate="fade"
       />
@@ -88,7 +89,7 @@ const iconSize = vue.computed(() => ({
       <CardText
         tag="p"
         :card="card"
-        :path="`features.${index}.description`"
+        :path="pathCheck(`features.${index}.description`, schema)"
         class="mt-3 text-lg lg:text-xl text-theme-600 dark:text-theme-300 lg:leading-relaxed"
         animate="fade"
       />
@@ -96,7 +97,7 @@ const iconSize = vue.computed(() => ({
       <CardActionArea
         class="mt-6"
         :card
-        :base-path="`features.${index}.action`"
+        :base-path="pathCheck(`features.${index}.action`, schema)"
         :classes="{ buttons: 'flex gap-4' }"
         theme="primary"
       />

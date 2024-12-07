@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { SuperTitle } from '@fiction/core'
-import { superTitleSchema as schema, vue } from '@fiction/core'
+import { SuperTitleSchema as schema, vue } from '@fiction/core'
 import FormEngine from './FormEngine.vue'
 import { createOption } from './index.js'
 

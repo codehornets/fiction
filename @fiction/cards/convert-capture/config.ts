@@ -1,11 +1,11 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { StockMedia } from '@fiction/ui/stock'
-import { ActionAreaSchema, MediaBasicSchema, superTitleSchema, vue } from '@fiction/core'
+import { ActionAreaSchema, MediaBasicSchema, SuperTitleSchema, vue } from '@fiction/core'
 import { createOption } from '@fiction/ui/index.js'
 import { z } from 'zod'
 
 const schema = z.object({
-  superTitle: superTitleSchema.optional().describe('Social proof that builds trust (e.g. "Join 22,300+ readers") [ai]'),
+  superTitle: SuperTitleSchema.optional().describe('Social proof that builds trust (e.g. "Join 22,300+ readers") [ai]'),
   title: z.string().optional().describe('5-7 word hook emphasizing key benefit (e.g. "Get Weekly Growth Strategies") [ai]'),
   subTitle: z.string().optional().describe('Specific outcome subscribers will achieve (e.g. "Double conversions in 30 days") [ai]'),
   media: MediaBasicSchema.optional().describe('Visual element reinforcing offer - lead magnet preview or trust indicators'),

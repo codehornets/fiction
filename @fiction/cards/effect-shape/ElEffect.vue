@@ -39,7 +39,7 @@ const responsiveScale = vue.computed(() => {
   if (typeof window === 'undefined')
     return 1
 
-  const { mobileScale = 1, tabletScale = 1 } = config.value.responsive || {}
+  const { mobileScale = 1, tabletScale = 1 } = {}
   if (window.innerWidth < 768)
     return mobileScale
   if (window.innerWidth < 1024)

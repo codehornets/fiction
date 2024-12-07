@@ -9,5 +9,5 @@ defineProps<{
 </script>
 
 <template>
-  <El404 v-bind="card.userConfig" />
+  <El404 v-bind="{ ...card.userConfig, actions: card.userConfig.value.action?.buttons }" />
 </template>

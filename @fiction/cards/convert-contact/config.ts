@@ -1,6 +1,6 @@
 import type { NavList, NavListItem } from '@fiction/core'
 import type { SiteUserConfig } from '@fiction/site/schema'
-import { ActionAreaSchema, createListSchema, NavListItemSchema } from '@fiction/core'
+import { ActionAreaSchema, NavListItemSchema, NavListSchema } from '@fiction/core'
 import { FormUserConfigSchema } from '@fiction/forms'
 import { createOption } from '@fiction/ui'
 import { z } from 'zod'
@@ -13,13 +13,17 @@ export const ContactItemSchema = NavListItemSchema.pick({
   icon: true,
 })
 
-// Create contact list schema using the type-safe builder
-export const ContactListSchema = createListSchema(ContactItemSchema)
+const ContactGroupSchema = NavListSchema.pick({
+  title: true,
+  description: true,
+}).extend({
+  items: z.array(ContactItemSchema).optional(),
+})
 
 // Main configuration schema
 export const schema = z.object({
   layout: z.enum(['left', 'right', 'stacked']).optional().describe('Layout style - form position relative to contact details'),
-  groups: z.array(ContactListSchema).optional().describe('Organized groups of contact information'),
+  groups: z.array(ContactGroupSchema).optional().describe('Organized groups of contact information'),
   action: ActionAreaSchema.optional(),
 
   form: FormUserConfigSchema.optional().describe('Form submission settings'),
@@ -55,6 +59,12 @@ export function getOptions() {
           schema,
           key: 'groups.0.title',
           label: 'Group Title',
+          input: 'InputText',
+        }),
+        createOption({
+          schema,
+          key: 'groups.0.description',
+          label: 'Group Description',
           input: 'InputText',
         }),
         createOption({

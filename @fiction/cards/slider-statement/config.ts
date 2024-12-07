@@ -1,9 +1,8 @@
-import type { ConfigResponse } from '@fiction/site/card'
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { SiteUserConfig } from '@fiction/site/schema'
 import type { StockMedia } from '@fiction/ui/stock'
-import { ActionAreaSchema, ActionButtonSchema, colorThemeUser } from '@fiction/core'
-import { InputOption } from '@fiction/ui'
+import { ActionAreaSchema, colorThemeUser } from '@fiction/core'
+import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
 // Core schema for individual statement content
@@ -25,55 +24,71 @@ export const schema = z.object({
 export type UserConfig = z.infer<typeof schema> & SiteUserConfig
 
 // Input configuration with intuitive labels and guidance
-const options: InputOption[] = [
-  new InputOption({
-    input: 'InputList',
-    key: 'items',
-    label: 'Statement Slides',
-    description: 'Create a sequence of impactful messages that tell your story',
-    props: { itemLabel: 'Statement' },
+const options = [
+  createOption({
+    key: 'group.content',
+    input: 'group',
+    label: 'Statement Content',
+    icon: { class: 'i-tabler-highlight' },
     options: [
-      new InputOption({
-        key: 'title',
-        label: 'Headline',
-        input: 'InputText',
-        description: 'Capture attention with a bold, clear message',
-        placeholder: 'Transform Your Ideas Into Reality',
-      }),
-      new InputOption({
-        key: 'content',
-        label: 'Message',
-        input: 'InputTextarea',
-        description: 'Expand on your headline with compelling details',
-        placeholder: 'Share the value you provide in 2-3 impactful sentences',
-      }),
-      new InputOption({
-        key: 'actions',
-        label: 'Call to Action',
-        description: 'Guide visitors to take the next step',
+      createOption({
+        schema,
         input: 'InputList',
+        key: 'items',
+        label: 'Statement Slides',
+        description: 'Create a sequence of impactful messages that tell your story',
+        props: { itemLabel: 'Statement' },
         options: [
-          new InputOption({ key: 'name', label: 'Button Text', input: 'InputText', placeholder: 'Get Started' }),
-          new InputOption({ key: 'href', label: 'Link URL', input: 'InputUrl', placeholder: '/contact' }),
-          new InputOption({ key: 'theme', label: 'Color Theme', input: 'InputSelect', list: colorThemeUser }),
-          new InputOption({ key: 'design', label: 'Style', input: 'InputSelect', list: ['solid', 'outline', 'ghost'] }),
+          createOption({
+            schema,
+            key: 'items.0.title',
+            label: 'Headline',
+            input: 'InputText',
+            description: 'Capture attention with a bold, clear message',
+            placeholder: 'Transform Your Ideas Into Reality',
+          }),
+          createOption({
+            schema,
+            key: 'items.0.content',
+            label: 'Message',
+            input: 'InputTextarea',
+            description: 'Expand on your headline with compelling details',
+            placeholder: 'Share the value you provide in 2-3 impactful sentences',
+          }),
+          createOption({
+            schema,
+            key: 'items.0.action',
+            label: 'Action Area',
+            input: 'InputActionArea',
+          }),
         ],
       }),
     ],
   }),
-  new InputOption({
-    key: 'autoplay',
-    label: 'Auto-Advance',
-    input: 'InputToggle',
-    description: 'Automatically transition between statements',
+  createOption({
+    key: 'group.settings',
+    input: 'group',
+    label: 'Settings',
+    icon: { class: 'i-tabler-settings' },
+    options: [
+      createOption({
+        schema,
+        key: 'autoplay',
+        label: 'Auto-Advance',
+        input: 'InputToggle',
+        description: 'Automatically transition between statements',
+      }),
+      createOption({
+        schema,
+        key: 'transition',
+        label: 'Transition Effect',
+        input: 'InputSelect',
+        props: { list: ['fade', 'slide'] },
+        description: 'Choose how statements transition',
+      }),
+    ],
   }),
-  new InputOption({
-    key: 'transition',
-    label: 'Transition Effect',
-    input: 'InputSelect',
-    props: { list: ['fade', 'slide'] },
-    description: 'Choose how statements transition',
-  }),
+
 ]
 
 // Default configuration shows best practices
@@ -136,7 +151,7 @@ export async function getDemoConfig(args: { stock: StockMedia }): Promise<UserCo
   }
 }
 
-export async function getConfig(args: { templateId: string, factory: CardFactory }){
+export async function getConfig(args: { templateId: string, factory: CardFactory }) {
   const { factory } = args
   const stock = await factory.getStockMedia()
   return {

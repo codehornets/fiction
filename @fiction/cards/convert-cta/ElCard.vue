@@ -1,12 +1,13 @@
 <script lang="ts" setup>
 import type { Card } from '@fiction/site/card'
 import type { UserConfig } from './config'
-import { vue } from '@fiction/core'
+import { pathCheck, vue } from '@fiction/core'
 import { animateItemEnter, useElementVisible } from '@fiction/ui/anim'
 import XIcon from '@fiction/ui/media/XIcon.vue'
 import CardText from '../CardText.vue'
 import CardActionArea from '../el/CardActionArea.vue'
 import SuperTitle from '../el/SuperTitle.vue'
+import { schema } from './config'
 
 defineOptions({ name: 'ConvertCta' })
 
@@ -41,14 +42,14 @@ vue.onMounted(() => {
               <SuperTitle
                 v-if="uc.superTitle"
                 :card
-                base-path="superTitle"
+                :base-path="pathCheck('superTitle', schema)"
                 :super-title="uc.superTitle"
               />
 
               <CardText
                 tag="h2"
                 :card
-                path="title"
+                :path="pathCheck('title', schema)"
                 class="font-semibold x-font-title text-2xl lg:text-3xl animate-item text-balance"
                 animate="fade"
               />
@@ -57,7 +58,7 @@ vue.onMounted(() => {
                 v-if="uc.subTitle"
                 tag="p"
                 :card
-                path="subTitle"
+                :path="pathCheck('subTitle', schema)"
                 class="text-xl text-theme-600 dark:text-theme-300 max-w-2xl animate-item leading-relaxed"
                 animate="fade"
               />
@@ -66,14 +67,14 @@ vue.onMounted(() => {
             <CardActionArea
               :card
               :classes="{ buttons: 'flex gap-4' }"
-              base-path="action"
+              :base-path="pathCheck('action', schema)"
               size="xl"
             />
           </div>
 
           <!-- Benefits Grid -->
           <div v-if="uc.benefits?.items?.length" class="flex flex-col gap-4 lg:gap-6 justify-center lg:col-span-5">
-            <CardText :card path="benefits.title" class="text-theme-400 dark:text-theme-500 text-lg md:text-2xl x-font-title" />
+            <CardText :card :path="pathCheck('benefits.title', schema)" class="text-theme-400 dark:text-theme-500 text-lg md:text-2xl x-font-title" />
             <div
               v-for="(benefit, i) in uc.benefits.items"
               :key="i"
@@ -84,7 +85,7 @@ vue.onMounted(() => {
                 <CardText
                   tag="h3"
                   :card
-                  :path="`benefits.items.${i}.label`"
+                  :path="pathCheck(`benefits.items.${i}.label`)"
                   class="font-semibold mb-1 text-lg lg:text-xl x-font-title"
                 />
               </div>

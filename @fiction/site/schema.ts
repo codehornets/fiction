@@ -9,7 +9,7 @@ import {
   logoSchema,
   MediaDisplaySchema,
   SizeSchemaComplete,
-  superTitleSchema,
+  SuperTitleSchema,
   UiOriginSchema,
 } from '@fiction/core'
 import { z } from 'zod'
@@ -66,7 +66,7 @@ export const CardStandardSchema = z.object({
   headers: z.object({
     layout: HeaderLayoutSchema.optional(),
     size: SizeSchemaComplete.optional(),
-    superTitle: superTitleSchema.optional(),
+    superTitle: SuperTitleSchema.optional(),
     title: z.string().optional(),
     subTitle: z.string().optional(),
   }).optional(),

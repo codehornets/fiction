@@ -1,13 +1,13 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { SiteUserConfig } from '@fiction/site/schema'
 import type { StockMedia } from '@fiction/ui/stock'
-import { ActionAreaSchema, MediaBasicSchema, superTitleSchema, type User } from '@fiction/core'
+import { ActionAreaSchema, MediaBasicSchema, SuperTitleSchema, type User } from '@fiction/core'
 import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
 // Core schemas
 export const CinemaItemSchema = z.object({
-  superTitle: superTitleSchema.optional().describe('Short text (2-5 words) appearing above main header for context or categorization'),
+  superTitle: SuperTitleSchema.optional().describe('Short text (2-5 words) appearing above main header for context or categorization'),
   title: z.string().optional().describe('Primary title text - should be compelling and descriptive'),
   subTitle: z.string().optional().describe('Supporting text that provides additional context or call to action'),
   media: MediaBasicSchema.optional().describe('Background media - supports images or videos for visual impact'),

@@ -62,22 +62,22 @@ describe('ai completions', async () => {
     }, { server: true })
 
     const completion = r4.data?.completion as CompletionType
-    expect(Object.keys(completion || {}).sort()).toStrictEqual(['title', 'images', 'subTitle'])
+    expect(Object.keys(completion || {}).sort()).toStrictEqual(['images', 'subTitle', 'title'])
 
     expect(Object.keys(completion?.images?.[0] || {}).sort()).toStrictEqual(['url'])
 
     expect(r4.data?.completion).toMatchInlineSnapshot(`
       {
-        "title": "Elevate Your Style with Jane Smith's Vision",
         "images": [
           {
-            "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556210/arpowers_minimal_midshot_photo_of_object_futuristic_ancient_gre_f7c28b0f-3148-44fe-927f-b0fe57460f6c_cwyamv.png",
+            "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556068/arpowers_minimal_mid_shot_photo_of_item_ancient_greek_ideal_bea_2fc9cea8-00b4-47b4-957f-aa995071aaad_xekbep.png",
           },
           {
-            "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556206/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_c954fed0-a698-4b95-8470-e8a0541b0b55_qkrjxn.png",
+            "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556163/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_b98d7681-0d3c-4f0d-8b28-b06b7c9d269c_kpokem.png",
           },
         ],
-        "subTitle": "Discover innovative fashion designs that blend cutting-edge trends with timeless elegance. Transform your wardrobe and express your unique personality through Jane's signature creations.",
+        "subTitle": "Discover cutting-edge fashion designs that blend innovation and style, empowering you to express your unique identity through clothing",
+        "title": "Revolutionize Your Wardrobe with Jane Smith",
       }
     `)
   }, 90000)
@@ -101,7 +101,7 @@ describe('ai completions', async () => {
 
     expect(r4.data?.completion).toMatchInlineSnapshot(`
       {
-        "suggestion1": "everything was calm, then chaos erupted",
+        "suggestion1": "everything went dark. The wind howled like a freight train, and debris pelted the windows. I huddled in the bathtub, praying the roof would hold as the eye of the hurricane passed overhead.",
       }
     `)
   }, 90000)

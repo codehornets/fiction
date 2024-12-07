@@ -1,9 +1,9 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { InputOption } from '@fiction/ui'
 import type { StockMedia } from '@fiction/ui/stock'
-import { ActionAreaSchema, MediaBasicSchema, MediaIconSchema, PostSchema } from '@fiction/core'
+import { ActionAreaSchema, PostSchema } from '@fiction/core'
 import { createOption } from '@fiction/ui'
-import { string, z } from 'zod'
+import { z } from 'zod'
 
 const faqItemSchema = PostSchema.pick({
   title: true,
@@ -12,7 +12,7 @@ const faqItemSchema = PostSchema.pick({
   media: true,
 })
 
-const schema = z.object({
+export const schema = z.object({
   layout: z.enum(['accordion', 'toggle', 'visible']).optional().describe('Display style: accordion (one at a time), toggle (multiple), or visible (all shown)'),
   items: z.array(faqItemSchema).optional().describe('FAQ items with questions and detailed answers'),
   support: z.object({
@@ -26,71 +26,89 @@ export type FaqItem = z.infer<typeof faqItemSchema>
 
 const options: InputOption[] = [
   createOption({
-    key: 'layout',
-    label: 'Layout Style',
-    input: 'InputRadioButton',
-    list: [
-      { label: 'Accordion (Single)', value: 'accordion' },
-      { label: 'Toggle (Multiple)', value: 'toggle' },
-      { label: 'Visible (All)', value: 'visible' },
-    ],
-  }),
-  createOption({
-    key: 'items',
-    label: 'FAQ Items',
-    input: 'InputList',
-    props: {
-      itemLabel: args => (args?.item as FaqItem)?.title ?? 'Untitled',
-      itemName: 'FAQ Item',
-    },
-    schema,
-    options: [
-      createOption({
-        key: 'items.0.title',
-        label: 'Question/Title',
-        input: 'InputText',
-        props: { placeholder: '' },
-        schema,
-      }),
-      createOption({
-        key: 'items.0.content',
-        label: 'Answer/Content',
-        input: 'InputTextarea',
-        props: { rows: 3 },
-        schema,
-      }),
-      createOption({
-        key: 'items.0.icon',
-        label: 'Icon',
-        input: 'InputIcon',
-      }),
-      createOption({
-        key: 'items.0.media',
-        label: 'Media',
-        input: 'InputMedia',
-      }),
-    ],
-  }),
-  createOption({
-    key: 'support',
-    label: 'Support Section',
+    key: 'group.content',
+    label: 'FAQ Content',
     input: 'group',
+    icon: { class: 'i-tabler-question' },
     options: [
       createOption({
-        key: 'support.text',
-        label: 'Support Text',
-        input: 'InputText',
-        props: { placeholder: 'Need additional help?' },
+        key: 'items',
+        label: 'FAQ Items',
+        input: 'InputList',
+        props: {
+          itemLabel: args => (args?.item as FaqItem)?.title ?? 'Untitled',
+          itemName: 'FAQ Item',
+        },
         schema,
+        options: [
+          createOption({
+            key: 'items.0.title',
+            label: 'Question/Title',
+            input: 'InputText',
+            props: { placeholder: '' },
+            schema,
+          }),
+          createOption({
+            key: 'items.0.content',
+            label: 'Answer/Content',
+            input: 'InputTextarea',
+            props: { rows: 3 },
+            schema,
+          }),
+          createOption({
+            key: 'items.0.icon',
+            label: 'Icon',
+            input: 'InputIcon',
+          }),
+          createOption({
+            key: 'items.0.media',
+            label: 'Media',
+            input: 'InputMedia',
+          }),
+        ],
       }),
       createOption({
-        key: 'support.action.buttons',
-        label: 'Action Buttons',
-        input: 'InputActions',
-        schema,
+        key: 'support',
+        label: 'Support Section',
+        input: 'group',
+        options: [
+          createOption({
+            key: 'support.text',
+            label: 'Support Text',
+            input: 'InputText',
+            props: { placeholder: 'Need additional help?' },
+            schema,
+          }),
+          createOption({
+            key: 'support.action',
+            label: 'Action Area',
+            input: 'InputActionArea',
+            schema,
+          }),
+        ],
       }),
     ],
   }),
+  createOption({
+    key: 'group.settings',
+    label: 'Settings',
+    input: 'group',
+    icon: { class: 'i-tabler-settings' },
+    options: [
+      createOption({
+        key: 'layout',
+        label: 'Layout Style',
+        input: 'InputRadioButton',
+        list: [
+          { label: 'Accordion (Single)', value: 'accordion' },
+          { label: 'Toggle (Multiple)', value: 'toggle' },
+          { label: 'Visible (All)', value: 'visible' },
+        ],
+      }),
+    ],
+
+  }),
+
 ]
 
 function getDefaultConfig(args: { stock: StockMedia }): UserConfig {

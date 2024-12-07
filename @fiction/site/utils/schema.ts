@@ -138,12 +138,12 @@ function simplifySchema(schema: JsonSchema7ObjectType): SimpleSchema {
     return Object.entries(properties).reduce((acc, [key, value]) => {
       if (value.properties) {
         // Handle nested object properties
-        acc[`_${key}`] = val(value)
+        acc[`$${key}`] = val(value)
         acc[key] = processProperties(value.properties)
       }
       else if (value.items && value.items.properties) {
         // Handle nested properties in array items
-        acc[`_${key}`] = val(value)
+        acc[`$${key}`] = val(value)
         acc[key] = [processProperties(value.items.properties)]
       }
       else {
@@ -163,10 +163,19 @@ function flattenSchema(schema: SimpleSchema | SimpleSchema[], prefix: string = '
 
   Object.entries(schema).forEach(([key, value]) => {
     const fullPath = prefix ? `${prefix}.${key}` : key
-    if (typeof value === 'object' && value !== null)
+    if (typeof value === 'object' && value !== null) {
       Object.assign(result, flattenSchema(value, fullPath))
-    else
-      result[fullPath.replace(/^_|(?<=\.)_/g, '')] = value || 'unknown'
+    }
+    else {
+      const finalPath = fullPath.replace(/^\$|(?<=\.)\$/g, '')
+
+      // // Skip hidden keys / internal
+      // if (fullPath.startsWith('_')) {
+      //   console.log('STARTS WITH _', fullPath, finalPath || 'none', 'x')
+      // }
+
+      result[finalPath] = value || 'unknown'
+    }
   })
 
   return result

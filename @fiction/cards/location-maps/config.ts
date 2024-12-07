@@ -144,6 +144,13 @@ export function getOptions() {
                 value: ratio,
               })),
             }),
+            createOption({
+              schema,
+              key: 'maps.0.customRatio',
+              label: 'Custom Aspect Ratio',
+              input: 'InputText',
+              props: { placeholder: '16:9' },
+            }),
           ],
         }),
 

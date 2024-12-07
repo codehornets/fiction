@@ -2,6 +2,7 @@ import type { SiteUserConfig } from '@fiction/site/schema'
 import { brandSchema, NavListItemSchema, NavListSchema } from '@fiction/core/schemas/schemas'
 import { createOption, InputOption } from '@fiction/ui'
 import { z } from 'zod'
+import {templateId} from '../content-hero'
 
 export const schema = z.object({
   brand: brandSchema.optional(),
@@ -13,6 +14,64 @@ export const schema = z.object({
 })
 
 export type UserConfig = z.infer<typeof schema> & SiteUserConfig
+
+export function getOptions() {
+  return [
+    createOption({
+      key: 'brandGroup',
+      label: 'Brand',
+      input: 'group',
+      schema,
+      icon: { class: 'i-tabler-icons' },
+      options: [
+        createOption({
+          key: 'brand',
+          input: 'InputBrand',
+          schema,
+        }),
+      ],
+    }),
+
+    createOption({
+      key: 'menuGroup',
+      label: 'Menus',
+      input: 'group',
+      schema,
+      icon: { class: 'i-tabler-list-check' },
+      options: [
+        createOption({
+          key: 'menus',
+          input: 'InputNavMenu',
+          schema,
+        }),
+      ],
+    }),
+
+    createOption({
+      key: 'additional',
+      label: 'Additional Links',
+      input: 'group',
+      schema,
+      icon: { class: 'i-tabler-link' },
+      options: [
+        createOption({
+          key: 'additional.list1',
+          label: 'Primary Links',
+          input: 'InputNav',
+          props: { hasChildNav: false },
+          schema,
+        }),
+        createOption({
+          key: 'additional.list2',
+          label: 'Secondary Links',
+          input: 'InputNav',
+          props: { hasChildNav: false },
+          schema,
+        }),
+      ],
+    }),
+  ]
+}
 
 export function getDefaultConfig(): UserConfig {
   return {
@@ -152,64 +211,6 @@ export function getDemoConfigs(templateId: string): Record<string, { templateId:
       userConfig: getDefaultConfig(),
     },
   }
-}
-
-export function getOptions() {
-  return [
-    createOption({
-      key: 'brandGroup',
-      label: 'Brand',
-      input: 'group',
-      schema,
-      icon: { class: 'i-tabler-icons' },
-      options: [
-        createOption({
-          key: 'brand',
-          input: 'InputBrand',
-          schema,
-        }),
-      ],
-    }),
-
-    createOption({
-      key: 'menuGroup',
-      label: 'Menus',
-      input: 'group',
-      schema,
-      icon: { class: 'i-tabler-list-check' },
-      options: [
-        createOption({
-          key: 'menus',
-          input: 'InputNavMenu',
-          schema,
-        }),
-      ],
-    }),
-
-    createOption({
-      key: 'additional',
-      label: 'Additional Links',
-      input: 'group',
-      schema,
-      icon: { class: 'i-tabler-link' },
-      options: [
-        createOption({
-          key: 'additional.list1',
-          label: 'Primary Links',
-          input: 'InputNav',
-          props: { hasChildNav: false },
-          schema,
-        }),
-        createOption({
-          key: 'additional.list2',
-          label: 'Secondary Links',
-          input: 'InputNav',
-          props: { hasChildNav: false },
-          schema,
-        }),
-      ],
-    }),
-  ]
 }
 
 export async function getFooterConfig(args: { templateId: string }) {

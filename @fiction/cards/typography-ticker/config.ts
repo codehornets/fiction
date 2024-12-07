@@ -1,4 +1,4 @@
-import { colorThemeUser, fontFamilySchema } from '@fiction/core'
+import { fontFamilySchema } from '@fiction/core'
 import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
@@ -87,13 +87,11 @@ export function getOptions() {
                   schema,
                   key: 'items.0.direction',
                   label: 'Direction',
-                  input: 'InputRadio',
-                  props: {
-                    options: [
-                      { label: 'Left', value: 'left' },
-                      { label: 'Right', value: 'right' },
-                    ],
-                  },
+                  input: 'InputRadioButton',
+                  list: [
+                    { label: 'Left', value: 'left' },
+                    { label: 'Right', value: 'right' },
+                  ],
                 }),
               ],
             }),

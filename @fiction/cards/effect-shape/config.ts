@@ -40,10 +40,7 @@ const ShapeSchema = z.object({
 // Main schema for shape effect
 export const schema = z.object({
   shapes: z.array(ShapeSchema).optional().describe('Array of shapes to display'),
-  responsive: z.object({
-    mobileScale: z.number().min(0.1).max(2).optional().describe('Scale factor for mobile devices'),
-    tabletScale: z.number().min(0.1).max(2).optional().describe('Scale factor for tablet devices'),
-  }).optional(),
+
 }).describe('Shape effect configuration')
 
 export type Shape = z.infer<typeof ShapeSchema>

@@ -75,7 +75,7 @@ const options = [
           createOption({
             schema,
             key: 'items.0.action',
-            label: 'Call to Action',
+            label: 'Action Area',
             input: 'InputActionArea',
           }),
         ],

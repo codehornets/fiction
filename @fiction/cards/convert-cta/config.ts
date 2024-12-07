@@ -1,15 +1,27 @@
-import { ActionAreaSchema, MediaBasicSchema, type NavListItem, NavListSchema, superTitleSchema } from '@fiction/core'
+import type { NavListItem } from '@fiction/core'
+import { ActionAreaSchema, MediaBasicSchema, NavListItemSchema, NavListSchema, SuperTitleSchema } from '@fiction/core'
 import { createOption } from '@fiction/ui'
 import { z } from 'zod'
+
+const BenefitItemSchema = NavListItemSchema.pick({
+  label: true,
+  description: true,
+  icon: true,
+})
+
+const BenefitSchema = NavListSchema.pick({
+  title: true,
+}).extend({
+  items: z.array(BenefitItemSchema),
+})
 
 // Updated schema with new structure
 export const schema = z.object({
   title: z.string().optional(),
   subTitle: z.string().optional(),
-  superTitle: superTitleSchema.optional(),
-  benefits: NavListSchema.optional(),
+  superTitle: SuperTitleSchema.optional(),
+  benefits: BenefitSchema.optional(),
   action: ActionAreaSchema.optional(),
-  media: MediaBasicSchema.optional(),
 })
 
 export type UserConfig = z.infer<typeof schema>
@@ -18,9 +30,10 @@ export function getOptions() {
   return [
     createOption({
       schema,
-      key: 'content',
+      key: 'group.content',
       label: 'Content',
       input: 'group',
+      icon: { class: 'i-tabler-highlight' },
       options: [
         createOption({
           schema,
@@ -48,10 +61,11 @@ export function getOptions() {
       key: 'benefits',
       label: 'Benefits',
       input: 'group',
+      icon: { class: 'i-tabler-list-check' },
       options: [
         createOption({
           schema,
-          key: 'title',
+          key: 'benefits.title',
           label: 'Benefits Section Title',
           input: 'InputText',
         }),
@@ -80,7 +94,7 @@ export function getOptions() {
             }),
             createOption({
               schema,
-              key: 'benefits.items.0.media',
+              key: 'benefits.items.0.icon',
               label: 'Icon',
               input: 'InputIcon',
             }),

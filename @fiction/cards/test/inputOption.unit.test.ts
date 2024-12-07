@@ -1,4 +1,4 @@
-import { superTitleSchema } from '@fiction/core'
+import { SuperTitleSchema } from '@fiction/core'
 import { refineOptions } from '@fiction/site/utils/schema'
 import { InputOption } from '@fiction/ui'
 import { describe, expect, it } from 'vitest'
@@ -9,7 +9,7 @@ describe('refine options with schema', () => {
     const schema = z.object({
       title: z.string().optional().describe('Primary headline for profile 3 to 8 words'),
       subTitle: z.string().optional().describe('Formatted markdown of profile with paragraphs, 30 to 60 words, 2 paragraphs'),
-      superTitle: superTitleSchema.optional().describe('Shorter badge above headline, 2 to 5 words'),
+      superTitle: SuperTitleSchema.optional().describe('Shorter badge above headline, 2 to 5 words'),
       details: z.array(z.object({
         label: z.string().optional(),
         description: z.string().optional(),

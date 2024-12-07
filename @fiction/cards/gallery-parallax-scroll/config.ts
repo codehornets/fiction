@@ -10,7 +10,6 @@ const TrekItemSchema = z.object({
   content: z.string().optional().describe('Evocative story that creates an emotional connection'),
   media: MediaBasicSchema.optional().describe('Stunning visuals that transport viewers into your world'),
   action: ActionAreaSchema.optional().describe('conversion actions like buttons or forms'),
-  theme: z.enum(colorThemeUser).optional().describe('Visual mood and emotional tone for this section'),
   parallaxStrength: z.number().min(0).max(1).optional().describe('Visual depth intensity (0-1)'),
 })
 

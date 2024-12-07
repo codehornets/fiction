@@ -1,14 +1,14 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { InputOption } from '@fiction/ui'
 import type { StockMedia } from '@fiction/ui/stock/index.js'
-import { type ActionArea, ActionAreaSchema, colorTheme, colorThemeUser, MediaDisplaySchema, MediaIconSchema, SizeSchema, superTitleSchema } from '@fiction/core'
+import { type ActionArea, ActionAreaSchema, colorTheme, colorThemeUser, MediaDisplaySchema, MediaIconSchema, SizeSchema, SuperTitleSchema } from '@fiction/core'
 import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
 const BentoItemSchema = z.object({
 
   // content
-  superTitle: superTitleSchema.optional(),
+  superTitle: SuperTitleSchema.optional(),
   title: z.string().optional(),
   content: z.string().optional(),
   media: MediaDisplaySchema.optional(),
@@ -25,7 +25,7 @@ const BentoItemSchema = z.object({
   horizontalPosition: z.enum(['left', 'center', 'right']).optional(),
 })
 
-const schema = z.object({
+export const schema = z.object({
   items: z.array(BentoItemSchema),
   gapSize: SizeSchema.optional(),
   animate: z.enum(['expand', 'swipe', '']).optional(),
@@ -36,65 +36,79 @@ export type UserConfig = z.infer<typeof schema>
 
 const options: InputOption[] = [
   createOption({
-    key: 'items',
+    key: 'group.items',
     label: 'Bento Items',
-    input: 'InputList',
-    props: {
-      itemLabel: args => (args?.item as BentoItem)?.title ?? 'Untitled',
-    },
+    input: 'group',
+    icon: { class: 'i-tabler-layout-grid' },
     options: [
       createOption({
-        key: 'layoutGroup',
-        label: 'Layout',
-        input: 'group',
-        options: [
-          createOption({ schema, key: 'items.0.cols', label: 'Columns', input: 'InputNumber', props: { min: 1, max: 12 } }),
-          createOption({ schema, key: 'items.0.rows', label: 'Rows', input: 'InputNumber', props: { min: 1, max: 12 } }),
-          createOption({ schema, key: 'items.0.verticalPosition', label: 'Vertical Position', input: 'InputSelect', list: ['top', 'center', 'bottom'] }),
-          createOption({ schema, key: 'items.0.horizontalPosition', label: 'Horizontal Position', input: 'InputSelect', list: ['left', 'center', 'right'] }),
-        ],
-      }),
-      createOption({
-        key: 'contentGroup',
-        label: 'Content',
-        input: 'group',
-        options: [
-          createOption({ schema, key: 'items.0.title', label: 'Title', input: 'InputText' }),
-          createOption({ schema, key: 'items.0.content', label: 'Content', input: 'InputTextarea' }),
-          createOption({ schema, key: 'items.0.superTitle', label: 'Super Title', input: 'InputSuperTitle' }),
-          createOption({ schema, key: 'items.0.action.buttons', label: 'Buttons', input: 'InputActions' }),
-          createOption({ schema, key: 'items.0.media', label: 'Inline Media', input: 'InputMedia' }),
-          createOption({ schema, key: 'items.0.href', label: 'Item URL', input: 'InputUrl' }),
-        ],
-      }),
-      createOption({
-        key: 'styleGroup',
-        label: 'Color and Style',
-        input: 'group',
+        key: 'items',
+        label: 'Bento Items',
+        input: 'InputList',
+        props: {
+          itemName: 'Bento Box',
+          itemLabel: args => (args?.item as BentoItem)?.title ?? 'Untitled',
+        },
         options: [
           createOption({
-            key: 'bg',
-            label: 'Background Media',
-            input: 'InputMedia',
-            props: { isBackground: true },
+            key: 'group.layout',
+            label: 'Layout',
+            input: 'group',
+            icon: { class: 'i-tabler-layout' },
+            options: [
+              createOption({ schema, key: 'items.0.cols', label: 'Columns', input: 'InputNumber', props: { min: 1, max: 12 } }),
+              createOption({ schema, key: 'items.0.rows', label: 'Rows', input: 'InputNumber', props: { min: 1, max: 12 } }),
+              createOption({ schema, key: 'items.0.verticalPosition', label: 'Vertical Position', input: 'InputSelect', list: ['top', 'center', 'bottom'] }),
+              createOption({ schema, key: 'items.0.horizontalPosition', label: 'Horizontal Position', input: 'InputSelect', list: ['left', 'center', 'right'] }),
+            ],
           }),
-          createOption({ key: 'theme', label: 'Color Theme', input: 'InputColorTheme' }),
           createOption({
-            key: 'themeMode',
-            label: 'Theme Mode',
-            subLabel: 'Select lighter or darker tones',
-            input: 'InputSelect',
-            list: ['light', 'dark', 'auto'],
+            key: 'group.content',
+            label: 'Content',
+            input: 'group',
+            icon: { class: 'i-tabler-highlight' },
+            options: [
+              createOption({ schema, key: 'items.0.title', label: 'Title', input: 'InputText' }),
+              createOption({ schema, key: 'items.0.content', label: 'Content', input: 'InputTextarea' }),
+              createOption({ schema, key: 'items.0.superTitle', label: 'Super Title', input: 'InputSuperTitle' }),
+              createOption({ schema, key: 'items.0.media', label: 'Inline Media', input: 'InputMedia' }),
+              createOption({ schema, key: 'items.0.href', label: 'Item URL', input: 'InputUrl' }),
+              createOption({ schema, key: 'items.0.action', label: 'Action Area', input: 'InputActionArea' }),
+            ],
           }),
-        ],
-      }),
+          createOption({
+            key: 'group.style',
+            label: 'Color and Style',
+            input: 'group',
+            icon: { class: 'i-tabler-palette' },
+            options: [
+              createOption({
+                key: 'bg',
+                label: 'Background Media',
+                input: 'InputMedia',
+                props: { isBackground: true },
+              }),
+              createOption({ key: 'theme', label: 'Color Theme', input: 'InputColorTheme' }),
+              createOption({
+                key: 'themeMode',
+                label: 'Theme Mode',
+                subLabel: 'Select lighter or darker tones',
+                input: 'InputRadioButton',
+                list: ['light', 'dark', 'auto'],
+              }),
+            ],
+          }),
 
+        ],
+      }),
     ],
   }),
+
   createOption({
-    key: 'globalBentoGroup',
-    label: 'General Settings',
+    key: 'group.settings',
+    label: 'Settings',
     input: 'group',
+    icon: { class: 'i-tabler-settings' },
     options: [
       createOption({
         key: 'gapSize',
@@ -105,8 +119,8 @@ const options: InputOption[] = [
         key: 'animate',
         label: 'Animation',
         subLabel: 'Select an animation style for the tiles',
-        input: 'InputSelect',
-        props: { list: ['expand', 'swipe'] },
+        input: 'InputRadioButton',
+        list: ['expand', 'swipe'],
       }),
     ],
   }),
