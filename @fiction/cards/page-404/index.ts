@@ -1,6 +1,6 @@
 import { ActionButtonSchema, superTitleSchema, vue } from '@fiction/core/index.js'
-import { cardTemplate, type ConfigResponse } from '@fiction/site/index.js'
-import { InputOption } from '@fiction/ui/index.js'
+import { cardTemplate } from '@fiction/site/index.js'
+import { createOption } from '@fiction/ui/index.js'
 import { z } from 'zod'
 
 export const schema = z.object({
@@ -14,10 +14,10 @@ export type UserConfig = z.infer<typeof schema>
 
 async function getConfig() {
   const options = [
-    new InputOption({ key: 'superTitle.text', label: 'Super Title', input: 'InputTextarea' }),
-    new InputOption({ key: 'title', label: 'Title', input: 'InputTextarea' }),
-    new InputOption({ key: 'subTitle', label: 'Sub Title', input: 'InputTextarea' }),
-    new InputOption({ key: 'actions', label: 'Actions', input: 'InputActions' }),
+    createOption({ key: 'superTitle', label: 'Super Title', input: 'InputSuperTitle' }),
+    createOption({ key: 'title', label: 'Title', input: 'InputTextarea' }),
+    createOption({ key: 'subTitle', label: 'Sub Title', input: 'InputTextarea' }),
+    createOption({ key: 'actions', label: 'Actions', input: 'InputActions' }),
   ]
 
   return {

@@ -1,7 +1,6 @@
 import type { SiteUserConfig } from '@fiction/site/schema'
-import type { InputOption, InputProps } from '@fiction/ui'
 import { brandSchema, NavListItemSchema, NavListSchema } from '@fiction/core/schemas/schemas'
-import { createOption } from '@fiction/ui'
+import { createOption, InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
 export const schema = z.object({
@@ -155,29 +154,44 @@ export function getDemoConfigs(templateId: string): Record<string, { templateId:
   }
 }
 
-export function getOptions(): InputOption[] {
+export function getOptions() {
   return [
     createOption({
       key: 'brandGroup',
       label: 'Brand',
       input: 'group',
       schema,
+      icon: { class: 'i-tabler-icons' },
       options: [
-        createOption({ key: 'brand', input: 'InputBrand', schema }),
+        createOption({
+          key: 'brand',
+          input: 'InputBrand',
+          schema,
+        }),
       ],
     }),
 
     createOption({
-      key: 'menus',
+      key: 'menuGroup',
       label: 'Menus',
-      input: 'InputNavMenu',
+      input: 'group',
       schema,
+      icon: { class: 'i-tabler-list-check' },
+      options: [
+        createOption({
+          key: 'menus',
+          input: 'InputNavMenu',
+          schema,
+        }),
+      ],
     }),
 
     createOption({
       key: 'additional',
       label: 'Additional Links',
       input: 'group',
+      schema,
+      icon: { class: 'i-tabler-link' },
       options: [
         createOption({
           key: 'additional.list1',

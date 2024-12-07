@@ -51,7 +51,7 @@ const hoverClasses = 'group-hover/item:text-primary-600 dark:group-hover/item:te
             <NavDots
               v-model:active-item="activeItem"
               :items="mediaItems || []"
-              :container-id="card.cardId"
+              :wrap-selector="`[data-card-id='${card.cardId}']`"
               class="absolute bottom-4 z-20 justify-center w-full"
               :overlay="true"
             />

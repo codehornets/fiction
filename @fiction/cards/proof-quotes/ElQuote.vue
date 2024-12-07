@@ -14,8 +14,8 @@ const props = defineProps({
 const uc = vue.computed(() => props.card.userConfig.value || {})
 const quotes = vue.computed(() => uc.value.quotes?.length ? uc.value.quotes : [])
 
-const hasAuthorImage = (quote: Quote) => quote?.author?.image?.url || quote?.author?.image?.html
-const hasOrgImage = (quote: Quote) => quote?.org?.image?.url || quote?.org?.image?.html
+const hasAuthorImage = (quote: Quote) => quote?.author?.media?.url || quote?.author?.media?.html
+const hasOrgImage = (quote: Quote) => quote?.org?.media?.url || quote?.org?.media?.html
 
 const activeItem = vue.ref(0)
 </script>
@@ -28,8 +28,8 @@ const activeItem = vue.ref(0)
           <div data-test-id="org-image" class="relative inline-block dark:text-theme-0">
             <XMedia
               class="h-10 md:h-20 aspect-[2/1] object-contain"
-              :media="quote.org.image"
-              :alt="quote.org.name"
+              :media="quote.org.media"
+              :alt="quote.org.subLabel"
             />
           </div>
         </div>
@@ -45,23 +45,28 @@ const activeItem = vue.ref(0)
             />
           </div>
         </div>
-        <div v-if="quote?.author?.name" class="mt-4 md:mt-8 flex items-center justify-start sm:justify-center gap-4 ">
+        <div v-if="quote?.author?.label" class="mt-4 md:mt-8 flex items-center justify-start sm:justify-center gap-4 ">
           <div
             v-if="hasAuthorImage(quote)"
             class="relative aspect-square h-10 md:h-14 overflow-hidden rounded-full dark:ring-2 dark:ring-theme-0 m-1"
           >
             <XMedia
               class="absolute h-full w-full object-cover"
-              :media="quote.author.image"
+              :media="quote.author.media"
             />
           </div>
           <div class="text-left  space-y-0.5" :class="hasAuthorImage(quote) ? 'text-left' : 'md:text-center'">
-            <CardText :card :path="`quotes.${i}.author.name`" class="text-lg md:text-2xl font-medium" animate="fade" />
-            <CardText class="font-sans text-sm md:text-xl text-theme-500 dark:text-theme-400" :card :path="`quotes.${i}.author.title`" animate="fade" />
+            <CardText :card :path="`quotes.${i}.author.label`" class="text-lg md:text-2xl font-medium" animate="fade" />
+            <CardText class="font-sans text-sm md:text-xl text-theme-500 dark:text-theme-400" :card :path="`quotes.${i}.author.subLabel`" animate="fade" />
           </div>
         </div>
       </div>
     </div>
-    <NavDots v-model:active-item="activeItem" :container-id="card.cardId" :items="quotes" class="mt-12 z-20 mb-6" />
+    <NavDots
+      v-model:active-item="activeItem"
+      :wrap-selector="`[data-card-id='${card.cardId}']`"
+      :items="quotes"
+      class="mt-12 z-20 mb-6"
+    />
   </div>
 </template>

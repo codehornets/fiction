@@ -1,15 +1,9 @@
-import type { ConfigResponse } from '@fiction/site'
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { SiteUserConfig } from '@fiction/site/schema'
-import { ActionAreaSchema, ActionButtonSchema, MediaBasicSchema, superTitleSchema } from '@fiction/core'
-import { InputOption } from '@fiction/ui'
+import type { StockMedia } from '@fiction/ui/stock'
+import { ActionAreaSchema, MediaBasicSchema, superTitleSchema, type User } from '@fiction/core'
+import { createOption } from '@fiction/ui'
 import { z } from 'zod'
-// Import media assets
-import cityPhoto from './img/city-photo.jpg'
-import desertPhoto from './img/desert-photo.mp4'
-import mountainPhoto from './img/mountain-photo.mp4'
-import nightPhoto from './img/night-photo.mp4'
-import wildlifePhoto from './img/wildlife-photo.mp4'
 
 // Core schemas
 export const CinemaItemSchema = z.object({
@@ -29,177 +23,232 @@ export type UserConfig = z.infer<typeof schema> & SiteUserConfig
 export type CinemaItem = z.infer<typeof CinemaItemSchema>
 
 // Input options configuration
-export function getOptions(): InputOption[] {
+export function getOptions() {
   return [
-    new InputOption({
-      key: 'items',
+    createOption({
+      schema,
+      key: 'group.slides',
       label: 'Slides',
-      input: 'InputList',
-      description: 'Add and configure slides with background media and content',
+      input: 'group',
+      icon: { class: 'i-tabler-slideshow' },
       options: [
-        new InputOption({
-          key: 'superTitle.text',
-          label: 'Context Label',
-          input: 'InputText',
-          description: 'Short text appearing above main title (e.g., "Portfolio", "Services")',
-          placeholder: 'e.g., Portfolio',
-        }),
-        new InputOption({
-          key: 'title',
-          label: 'Main Title',
-          input: 'InputText',
-          description: 'Primary headline for the slide',
-          placeholder: 'e.g., Mountain Expeditions',
-        }),
-        new InputOption({
-          key: 'subTitle',
-          label: 'Sub Title',
-          input: 'InputText',
-          description: 'Additional context or call-to-action text',
-          placeholder: 'e.g., Discover our latest adventures',
-        }),
-        new InputOption({
-          key: 'media',
-          label: 'Background Media',
-          input: 'InputMedia',
-          description: 'Full-screen background image or video',
+        createOption({
+          schema,
+          key: 'items',
+          input: 'InputList',
           props: {
-            formats: { url: true, image: true, video: true },
-            aspectRatio: '16:9',
+            itemName: 'Cinema Slide',
+            itemLabel: args => (args?.item as CinemaItem)?.title ?? 'Untitled',
           },
-        }),
-        new InputOption({
-          key: 'actions',
-          label: 'Call-to-Action Buttons',
-          input: 'InputActions',
-          description: 'Add buttons to drive user engagement',
+          options: [
+
+            createOption({
+              schema,
+              key: 'items.0.title',
+              label: 'Main Title',
+              input: 'InputText',
+              description: 'Primary headline for the slide',
+              placeholder: 'e.g., Mountain Expeditions',
+            }),
+            createOption({
+              schema,
+              key: 'items.0.subTitle',
+              label: 'Sub Title',
+              input: 'InputText',
+              description: 'Additional context or call-to-action text',
+              placeholder: 'e.g., Discover our latest adventures',
+            }),
+            createOption({
+              schema,
+              key: 'items.0.superTitle',
+              input: 'InputSuperTitle',
+            }),
+
+            createOption({
+              schema,
+              key: 'items.0.media',
+              label: 'Background Media',
+              input: 'InputMedia',
+              description: 'Full-screen background image or video',
+              props: {
+                formats: { url: true, image: true, video: true },
+                aspectRatio: '16:9',
+              },
+            }),
+
+            createOption({
+              schema,
+              key: 'items.0.action',
+              label: 'Call-to-Action Buttons',
+              input: 'InputActionArea',
+              description: 'Add buttons to drive user engagement',
+            }),
+          ],
         }),
       ],
     }),
-    new InputOption({
-      key: 'autoSlide',
-      label: 'Auto-Advance Slides',
-      input: 'InputToggle',
-      description: 'Automatically transition between slides every 12 seconds',
+
+    createOption({
+      schema,
+      key: 'group.settings',
+      label: 'Settings',
+      input: 'group',
+      icon: { class: 'i-tabler-settings' },
+      options: [
+        createOption({
+          schema,
+          key: 'autoSlide',
+          label: 'Auto-Advance Slides',
+          input: 'InputToggle',
+          description: 'Automatically transition between slides every 12 seconds',
+        }),
+      ],
     }),
+
   ]
 }
 
-// Demo configurations showcasing different use cases
-const photographyDemo: CinemaItem[] = [
-  {
-    superTitle: { text: 'Portfolio' },
-    title: 'Mountain Expeditions',
-    subTitle: 'Capturing Nature\'s Grandeur in the World\'s Highest Peaks',
-    media: {
-      format: 'video',
-      url: mountainPhoto,
+async function getDemos(args: { stock: StockMedia, templateId: string }) {
+  const { stock, templateId } = args
+
+  // Showcase best practices for storytelling through visual hierarchy
+  const storyTellingDemo: CinemaItem[] = [
+    {
+      superTitle: { text: 'Visual Impact', icon: { iconId: 'eye' } },
+      title: 'Capture Attention Instantly',
+      subTitle: 'Notice how full-screen video creates an immersive first impression that stops the scroll',
+      media: stock.getRandomByTags(['background', 'video']),
+      action: {
+        buttons: [
+          {
+            label: 'See How It Works',
+            href: '#',
+            design: 'outline',
+            icon: 'i-tabler-player-play',
+            theme: 'overlay',
+          },
+        ],
+      },
     },
-    action: {
-      buttons: [
-        {
-          label: 'View Gallery',
-          href: '#',
-          design: 'outline',
-          icon: 'i-tabler-camera',
-          theme: 'overlay',
+    {
+      superTitle: { text: 'Clear Hierarchy', icon: { iconId: 'layout-list' } },
+      title: 'Guide Their Journey',
+      subTitle: 'Feel how the super title, main heading, and call-to-action create natural eye flow',
+      media: stock.getRandomByTags(['background', 'video']),
+      action: {
+        buttons: [
+          { label: 'Start Creating', href: '#', design: 'solid', theme: 'primary' },
+          { label: 'Watch Tutorial', href: '#', design: 'outline', theme: 'overlay' },
+        ],
+      },
+    },
+    {
+      superTitle: { text: 'Engagement', icon: { iconId: 'target' } },
+      title: 'Drive Action Through Emotion',
+      subTitle: 'Experience how compelling visuals paired with direct calls-to-action boost conversion',
+      media: stock.getRandomByTags(['background', 'video']),
+      action: {
+        buttons: [
+          { label: 'Try It Now', href: '#', design: 'outline', theme: 'overlay' },
+        ],
+      },
+    },
+  ]
+
+  // Demonstrate different content strategy approaches
+  const contentStrategyDemo: CinemaItem[] = [
+    {
+      superTitle: { text: 'Product Launch', icon: { iconId: 'rocket' } },
+      title: 'Transform Features Into Benefits',
+      subTitle: 'Watch engagement increase when you focus on what your audience gains',
+      media: stock.getRandomByTags(['background']),
+      action: {
+        buttons: [
+          { label: 'Start Your Trial', href: '#', design: 'solid', theme: 'primary' },
+          { label: 'See Examples', href: '#', design: 'outline', theme: 'overlay' },
+        ],
+      },
+    },
+    {
+      superTitle: { text: 'Social Proof', icon: { iconId: 'users' } },
+      title: 'Build Trust Through Stories',
+      subTitle: 'Discover how customer testimonials and case studies create credibility',
+      media: stock.getRandomByTags(['background']),
+      action: {
+        buttons: [
+          { label: 'View Success Stories', href: '#', design: 'outline', theme: 'overlay' },
+        ],
+      },
+    },
+  ]
+
+  return [
+    {
+      templateId,
+      title: 'Visual Storytelling Guide',
+      description: 'Learn how to create high-impact, conversion-focused sliders',
+      userConfig: {
+        items: storyTellingDemo,
+        autoSlide: true,
+      },
+    },
+    {
+      templateId,
+      title: 'Content Strategy Examples',
+      description: 'See how to structure content for maximum engagement',
+      userConfig: {
+        items: contentStrategyDemo,
+        autoSlide: false,
+      },
+    },
+  ]
+}
+
+function getDefaultConfig(args: { stock: StockMedia }): UserConfig {
+  const { stock } = args
+  return {
+    items: [
+      {
+        superTitle: { text: 'Getting Started', icon: { iconId: 'sparkles' } },
+        title: 'Create Your Slider',
+        subTitle: 'Select this slide to edit and see how easy it is to customize your content',
+        media: stock.getRandomByTags(['background', 'video']),
+        action: {
+          buttons: [
+            {
+              label: 'Edit This Slide',
+              href: '#',
+              design: 'solid',
+              theme: 'primary',
+              icon: 'i-tabler-edit',
+            },
+            {
+              label: 'View Tutorial',
+              href: '#',
+              design: 'outline',
+              theme: 'overlay',
+              icon: 'i-tabler-player-play',
+            },
+          ],
         },
-      ],
-    },
-  },
-  {
-    superTitle: { text: 'Services' },
-    title: 'Desert Photography',
-    subTitle: 'Professional Photography in Earth\'s Most Stunning Landscapes',
-    media: {
-      format: 'video',
-      url: desertPhoto,
-    },
-    action: {
-      buttons: [
-        { label: 'Book a Session', href: '#', design: 'outline', theme: 'overlay' },
-        { label: 'View Pricing', href: '#', design: 'link', iconAfter: 'i-tabler-chevron-right' },
-      ],
-    },
-  },
-  {
-    superTitle: { text: 'Projects' },
-    title: 'Wildlife Photography',
-    subTitle: 'Documenting Earth\'s Most Remarkable Creatures',
-    media: {
-      format: 'video',
-      url: wildlifePhoto,
-    },
-    action: {
-      buttons: [
-        { label: 'Explore Projects', href: '#', design: 'outline', theme: 'overlay' },
-      ],
-    },
-  },
-]
+      },
+    ],
+    autoSlide: true,
+  }
+}
 
-const eventDemo: CinemaItem[] = [
-  {
-    superTitle: { text: 'Featured Event' },
-    title: 'TEDx 2024',
-    subTitle: 'Join us for a day of inspiring talks and connections',
-    media: {
-      format: 'url',
-      url: cityPhoto,
-    },
-    action: {
-      buttons: [
-        { label: 'Get Tickets', href: '#', design: 'solid', theme: 'primary' },
-        { label: 'Learn More', href: '#', design: 'outline', theme: 'overlay' },
-      ],
-    },
-  },
-  {
-    superTitle: { text: 'After Dark' },
-    title: 'Night of Innovation',
-    subTitle: 'Evening networking and demonstrations',
-    media: {
-      format: 'video',
-      url: nightPhoto,
-    },
-    action: {
-      buttons: [
-        { label: 'Register Now', href: '#', design: 'outline', theme: 'overlay' },
-      ],
-    },
-  },
-]
-
+// Update the default configuration to be immediately useful
 export async function getConfig(args: { templateId: string, factory: CardFactory }) {
-  const { templateId } = args
+  const { factory } = args
+  const stock = await factory.getStockMedia()
+  const demos = await getDemos({ ...args, stock })
+
   return {
     schema,
     options: getOptions(),
-    userConfig: {
-      items: photographyDemo,
-      autoSlide: true,
-    },
+    userConfig: getDefaultConfig({ stock }),
     demoPage: {
-      cards: [
-        {
-          templateId,
-          title: 'Photography Portfolio',
-          description: 'Showcase photography work with full-screen media',
-          userConfig: {
-            items: photographyDemo,
-            autoSlide: true,
-          },
-        },
-        {
-          templateId,
-          title: 'Event Promotion',
-          description: 'Promote upcoming events with dramatic visuals',
-          userConfig: {
-            items: eventDemo,
-            autoSlide: true,
-          },
-        },
-      ],
+      cards: demos,
     },
   }
 }

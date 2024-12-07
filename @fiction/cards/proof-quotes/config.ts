@@ -1,149 +1,177 @@
-import type { ConfigResponse } from '@fiction/site/card.js'
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { StockMedia } from '@fiction/ui/stock/index.js'
-import { ActionButtonSchema, colorThemeUser, MediaDisplaySchema, NavListItemSchema } from '@fiction/core'
-import { InputOption } from '@fiction/ui'
+import { ActionAreaSchema, colorThemeUser, MediaDisplaySchema, NavListItemSchema } from '@fiction/core'
+import { createOption } from '@fiction/ui'
 import { z } from 'zod'
+
+const AuthorSchema = NavListItemSchema.pick({
+  label: true,
+  subLabel: true,
+  href: true,
+  media: true,
+})
+
+const OrganizationSchema = NavListItemSchema.pick({
+  label: true,
+  subLabel: true,
+  href: true,
+  media: true,
+})
 
 // Schema Definitions
 const QuoteSchema = z.object({
   text: z.string().optional(),
-  author: z.object({
-    name: z.string().optional(),
-    title: z.string().optional(),
-    image: MediaDisplaySchema.optional(),
-    href: z.string().optional(),
-  }).optional(),
-  org: z.object({
-    name: z.string().optional(),
-    image: MediaDisplaySchema.optional(),
-    href: z.string().optional(),
-  }).optional(),
+  author: AuthorSchema.optional(),
+  org: OrganizationSchema.optional(),
   theme: z.enum(colorThemeUser).optional(),
-  actions: z.array(ActionButtonSchema).optional(),
+  action: ActionAreaSchema.optional(),
   layout: z.enum(['standard', 'compact', 'featured']).optional(),
 })
 
 const schema = z.object({
   quotes: z.array(QuoteSchema).optional(),
-  display: z.object({
-    style: z.enum(['grid', 'carousel', 'stack']).optional(),
-    columns: z.number().min(1).max(4).optional(),
-    showDividers: z.boolean().optional(),
-    highlightActive: z.boolean().optional(),
-  }).optional(),
 })
 
-// Type exports
 export type Quote = z.infer<typeof QuoteSchema>
 export type UserConfig = z.infer<typeof schema>
 
 // Input Configuration
-const options: InputOption[] = [
-  new InputOption({
-    key: 'display',
-    label: 'Display Settings',
-    input: 'InputControl',
+const options = [
+  createOption({
+    schema,
+    input: 'group',
+    key: 'group.quotes',
+    label: 'Quotes',
+    icon: { class: 'i-tabler-quotes' },
     options: [
-      new InputOption({
-        key: 'style',
-        label: 'Display Style',
-        input: 'InputSelect',
-        props: { list: ['grid', 'carousel', 'stack'] },
-      }),
-      new InputOption({
-        key: 'columns',
-        label: 'Grid Columns',
-        input: 'InputSelect',
-        props: { list: [1, 2, 3, 4] },
-      }),
-      new InputOption({
-        key: 'showDividers',
-        label: 'Show Dividers',
-        input: 'InputToggle',
-      }),
-      new InputOption({
-        key: 'highlightActive',
-        label: 'Highlight Active',
-        input: 'InputToggle',
+      createOption({
+        schema,
+        key: 'quotes',
+        input: 'InputList',
+        props: {
+          itemName: 'Quote',
+          itemLabel: args => (args?.item as Quote)?.text ?? 'Untitled',
+        },
+        options: [
+          createOption({
+            schema,
+            key: 'quotes.0.text',
+            label: 'Quote Text',
+            input: 'InputTextarea',
+            props: { rows: 3, placeholder: 'Share your customer\'s transformative experience...' },
+          }),
+          createOption({
+            schema,
+            key: 'quotes.0.layout',
+            label: 'Quote Layout',
+            input: 'InputSelect',
+            props: { list: ['standard', 'compact', 'featured'] },
+          }),
+          createOption({
+            schema,
+            key: 'quotes.0.theme',
+            label: 'Color Theme',
+            input: 'InputColorTheme',
+          }),
+          createOption({
+            schema,
+            key: 'quotes.0.author',
+            label: 'Author Details',
+            input: 'group',
+            options: [
+              createOption({
+                schema,
+                key: 'quotes.0.author.label',
+                label: 'Name',
+                input: 'InputText',
+              }),
+              createOption({
+                schema,
+                key: 'quotes.0.author.subLabel',
+                label: 'Title/Role',
+                input: 'InputText',
+              }),
+              createOption({
+                schema,
+                key: 'quotes.0.author.media',
+                label: 'Photo',
+                input: 'InputMedia',
+              }),
+              createOption({
+                schema,
+                key: 'quotes.0.author.href',
+                label: 'Profile Link',
+                input: 'InputUrl',
+              }),
+            ],
+          }),
+          createOption({
+            schema,
+            key: 'quotes.0.org',
+            label: 'Organization',
+            input: 'group',
+            options: [
+              createOption({
+                schema,
+                key: 'quotes.0.org.label',
+                label: 'Company Name',
+                input: 'InputText',
+              }),
+              createOption({
+                schema,
+                key: 'quotes.0.org.subLabel',
+                label: 'Company Description',
+                input: 'InputText',
+              }),
+              createOption({
+                schema,
+                key: 'quotes.0.org.media',
+                label: 'Logo',
+                input: 'InputMedia',
+              }),
+              createOption({
+                schema,
+                key: 'quotes.0.org.href',
+                label: 'Website',
+                input: 'InputUrl',
+              }),
+            ],
+          }),
+          createOption({
+            schema,
+            key: 'quotes.0.action',
+            label: 'Actions',
+            input: 'InputActionArea',
+          }),
+        ],
       }),
     ],
   }),
-  new InputOption({
-    key: 'quotes',
-    label: 'Testimonials',
-    input: 'InputList',
-    options: [
-      new InputOption({
-        key: 'text',
-        label: 'Quote Text',
-        input: 'InputTextarea',
-        props: { rows: 3, placeholder: 'Share your customer\'s transformative experience...' },
-      }),
-      new InputOption({
-        key: 'layout',
-        label: 'Quote Layout',
-        input: 'InputSelect',
-        props: { list: ['standard', 'compact', 'featured'] },
-      }),
-      new InputOption({
-        key: 'theme',
-        label: 'Color Theme',
-        input: 'InputSelect',
-        props: { list: colorThemeUser },
-      }),
-      new InputOption({
-        key: 'author',
-        label: 'Author Details',
-        input: 'InputControl',
-        options: [
-          new InputOption({ key: 'name', label: 'Name', input: 'InputText' }),
-          new InputOption({ key: 'title', label: 'Title/Role', input: 'InputText' }),
-          new InputOption({ key: 'image', label: 'Photo', input: 'InputMedia' }),
-          new InputOption({ key: 'href', label: 'Profile Link', input: 'InputUrl' }),
-        ],
-      }),
-      new InputOption({
-        key: 'organization',
-        label: 'Organization',
-        input: 'InputControl',
-        options: [
-          new InputOption({ key: 'name', label: 'Company Name', input: 'InputText' }),
-          new InputOption({ key: 'image', label: 'Logo', input: 'InputMedia' }),
-          new InputOption({ key: 'href', label: 'Website', input: 'InputUrl' }),
-        ],
-      }),
-      new InputOption({ key: 'actions', label: 'Actions', input: 'InputActions' }),
-    ],
-  }),
+
 ]
 
 // Default Configuration
 export async function getUserConfig(args: { factory: CardFactory, stock: StockMedia }): Promise<UserConfig> {
   const { stock } = args
   return {
-    display: {
-      style: 'grid',
-      columns: 2,
-      showDividers: true,
-      highlightActive: true,
-    },
     quotes: [{
       text: 'Notice how a well-crafted testimonial can instantly build trust?',
       layout: 'featured',
       theme: 'emerald',
       author: {
-        name: 'Sarah Chen',
-        title: 'Marketing Director',
-        image: stock.getRandomByTags(['woman']),
+        label: 'Sarah Chen',
+        subLabel: 'Marketing Director',
+        media: stock.getRandomByTags(['woman']),
       },
       org: {
-        name: 'GrowthMetrics',
-        image: stock.getLocalMedia({ key: 'lorem1' }),
+        label: 'GrowthMetrics',
+        media: stock.getLocalMedia({ key: 'lorem1' }),
       },
-      actions: [
-        { label: 'View Case Study', href: '#' },
-      ],
+      action: {
+        buttons: [
+          { label: 'View Case Study', href: '#' },
+        ],
+      },
     }],
   }
 }
@@ -153,42 +181,38 @@ export async function getDemoUserConfig(args: { factory: CardFactory, stock: Sto
   const { stock } = args
 
   return {
-    display: {
-      style: 'grid',
-      columns: 3,
-      showDividers: true,
-      highlightActive: true,
-    },
     quotes: [
       {
         text: 'Feel the impact of strategic positioning. This featured testimonial commands attention through its prominent placement and bold design.',
         layout: 'featured',
         theme: 'blue',
         author: {
-          name: 'Michael Foster',
-          title: 'CEO',
-          image: stock.getRandomByTags(['man']),
+          label: 'Michael Foster',
+          subLabel: 'CEO',
+          media: stock.getRandomByTags(['man']),
         },
         org: {
-          name: 'TechForward',
-          image: stock.getLocalMedia({ key: 'logoBBC' }),
+          label: 'TechForward',
+          media: stock.getLocalMedia({ key: 'logoBBC' }),
         },
-        actions: [
-          { label: 'Watch Video', href: '#' },
-        ],
+        action: {
+          buttons: [
+            { label: 'Watch Video', href: '#' },
+          ],
+        },
       },
       {
         text: 'Visualize how multiple testimonials create a pattern of trust. Each voice adds to your story\'s credibility.',
         layout: 'standard',
         theme: 'violet',
         author: {
-          name: 'Elena Rodriguez',
-          title: 'Lead Designer',
-          image: stock.getRandomByTags(['woman']),
+          label: 'Elena Rodriguez',
+          subLabel: 'Lead Designer',
+          media: stock.getRandomByTags(['woman']),
         },
         org: {
-          name: 'DesignCraft',
-          image: stock.getLocalMedia({ key: 'logoTesla' }),
+          label: 'DesignCraft',
+          media: stock.getLocalMedia({ key: 'logoTesla' }),
         },
       },
       {
@@ -196,13 +220,13 @@ export async function getDemoUserConfig(args: { factory: CardFactory, stock: Sto
         layout: 'compact',
         theme: 'amber',
         author: {
-          name: 'James Wilson',
-          title: 'Product Manager',
-          image: stock.getRandomByTags(['man']),
+          label: 'James Wilson',
+          subLabel: 'Product Manager',
+          media: stock.getRandomByTags(['man']),
         },
         org: {
-          name: 'ProductLabs',
-          image: stock.getLocalMedia({ key: 'logoNewspaper' }),
+          label: 'ProductLabs',
+          media: stock.getLocalMedia({ key: 'logoNewspaper' }),
         },
       },
       {
@@ -210,13 +234,13 @@ export async function getDemoUserConfig(args: { factory: CardFactory, stock: Sto
         layout: 'standard',
         theme: 'emerald',
         author: {
-          name: 'Sophia Lee',
-          title: 'Customer Success',
-          image: stock.getRandomByTags(['woman']),
+          label: 'Sophia Lee',
+          subLabel: 'Customer Success',
+          media: stock.getRandomByTags(['woman']),
         },
         org: {
-          name: 'CustomerFirst',
-          image: stock.getLocalMedia({ key: 'logoOmega' }),
+          label: 'CustomerFirst',
+          media: stock.getLocalMedia({ key: 'logoOmega' }),
         },
       },
     ],
@@ -231,7 +255,7 @@ export async function getDemo(args: { factory: CardFactory, templateId: string, 
   ] }
 }
 
-export async function getConfig(args: { templateId: string, factory: CardFactory }){
+export async function getConfig(args: { templateId: string, factory: CardFactory }) {
   const stock = await args.factory.getStockMedia()
   return {
     schema,

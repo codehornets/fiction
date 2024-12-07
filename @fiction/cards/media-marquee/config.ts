@@ -34,6 +34,10 @@ const options = [
         schema,
         key: 'items',
         input: 'InputList',
+        props: {
+          itemName: 'Marquee Item',
+          itemLabel: args => (args?.item as MarqueeItem)?.title ?? 'Untitled',
+        },
         options: [
           createOption({
             schema,

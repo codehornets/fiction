@@ -2,11 +2,13 @@
 import type { Card } from '@fiction/site'
 import type { Testimonial, UserConfig } from './index.js'
 import { vue } from '@fiction/core'
+import { pathCheck } from '@fiction/core/utils/schemas.js'
 import EffectCarousel from '@fiction/ui/effect/EffectCarousel.vue'
 import XMedia from '@fiction/ui/media/XMedia.vue'
 import CardText from '../CardText.vue'
-
 import NavDots from '../el/NavDots.vue'
+
+import { schema } from './config'
 
 const props = defineProps({
   card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
@@ -56,8 +58,9 @@ function getBgClass(args: { slide: Testimonial, index: number }) {
                         tag="div"
                         class="text-xl md:text-3xl leading-snug w-fit"
                         :card
-                        :path="`items.${index}.content`"
+                        :path="pathCheck(`items.${index}.content`, schema)"
                         animate="fade"
+                        :schema
                       />
                     </div>
                   </div>
@@ -71,20 +74,20 @@ function getBgClass(args: { slide: Testimonial, index: number }) {
               </div>
             </div>
             <div class="flex justify-center pt-9 flex-col items-center gap-2">
-              <div><XMedia :media="slide.user?.avatar" class="size-16 rounded-full overflow-clip ring-2 ring-white" /></div>
+              <div><XMedia :media="slide.user?.media" class="size-16 rounded-full overflow-clip ring-2 ring-white" /></div>
               <div class="text-center">
                 <CardText
                   tag="div"
                   class="text-sm md:text-lg x-font-title dark:text-theme-200 font-medium  truncate whitespace-nowrap"
                   :card
-                  :path="`items.${index}.user.fullName`"
+                  :path="pathCheck(`items.${index}.user.label`, schema)"
                   animate="fade"
                 />
                 <CardText
                   tag="div"
                   class="text-xs md:text-sm font-sans dark:text-theme-400 text-theme-500 "
                   :card
-                  :path="`items.${index}.user.title`"
+                  :path="pathCheck(`items.${index}.user.subLabel`, schema)"
                   animate="fade"
                 />
               </div>
@@ -95,7 +98,7 @@ function getBgClass(args: { slide: Testimonial, index: number }) {
     </EffectCarousel>
     <NavDots
       v-model:active-item="activeIndex"
-      :container-id="card.cardId"
+      :wrap-selector="`[data-card-id='${card.cardId}']`"
       :items="items"
       class="mt-16 z-20"
     />

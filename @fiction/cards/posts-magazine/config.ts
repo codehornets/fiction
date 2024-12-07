@@ -2,21 +2,98 @@ import type { CardFactory } from '@fiction/site/cardFactory'
 import type { SiteUserConfig } from '@fiction/site/schema'
 import type { StockMedia } from '@fiction/ui/stock'
 import { PostHandlingSchema } from '@fiction/core'
+import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 import { getDemoPosts } from '../utils/post'
 
 // Schema definition
 export const schema = z.object({
   posts: PostHandlingSchema.optional().describe('Blog post configuration and handling'),
-  layout: z.object({
+  index: z.object({
     featuredCount: z.number().optional().describe('Number of featured posts to display prominently'),
     showAuthors: z.boolean().optional().describe('Display author information'),
     showExcerpts: z.boolean().optional().describe('Show post excerpts in grid'),
     showReadTime: z.boolean().optional().describe('Display estimated reading time'),
+    showDates: z.boolean().optional().describe('Show publication dates'),
   }).optional(),
+  routeBasePath: z.string().optional().describe('Base path for post URLs'),
 })
 
 export type UserConfig = z.infer<typeof schema> & SiteUserConfig
+
+const options = [
+  createOption({
+    schema,
+    key: 'postsGroup',
+    label: 'Post Configuration',
+    input: 'group',
+    icon: { class: 'i-tabler-file-text' },
+    options: [
+      createOption({
+        schema,
+        key: 'posts',
+        label: 'Posts',
+        subLabel: 'Configure post selection and filtering',
+        input: 'InputPosts',
+        description: 'Choose between global posts or specify local entries',
+      }),
+      createOption({
+        schema,
+        key: 'routeBasePath',
+        label: 'Route Base Path',
+        subLabel: 'Base URL path for blog posts (e.g., /blog)',
+        input: 'InputText',
+        props: {
+          placeholder: '/blog',
+        },
+      }),
+    ],
+  }),
+  createOption({
+    schema,
+    key: 'displayGroup',
+    label: 'Layout & Display',
+    input: 'group',
+    icon: { class: 'i-tabler-layout' },
+    options: [
+      createOption({
+        schema,
+        key: 'index.featuredCount',
+        label: 'Featured Count',
+        input: 'InputRadioButton',
+        list: [{ value: 1, label: '1' }, { value: 2, label: '2' }, { value: 3, label: '3' }],
+      }),
+      createOption({
+        schema,
+        key: 'index.showAuthors',
+        label: 'Show Author',
+        subLabel: 'Display author information on post cards',
+        input: 'InputToggle',
+      }),
+      createOption({
+        schema,
+        key: 'index.showDates',
+        label: 'Show Date',
+        subLabel: 'Display publication date on post cards',
+        input: 'InputToggle',
+      }),
+      createOption({
+        schema,
+        key: 'index.showExcerpts',
+        label: 'Show Excerpt',
+        subLabel: 'Display post excerpt on cards',
+        input: 'InputToggle',
+      }),
+      createOption({
+        schema,
+        key: 'index.showReadTime',
+        label: 'Show Read Time',
+        input: 'InputToggle',
+      }),
+    ],
+  }),
+
+]
 
 export function getDefaultUserConfig(args: { stock: StockMedia }): UserConfig {
   const { stock } = args
@@ -42,7 +119,7 @@ export async function getDemoUserConfig(args: { factory: CardFactory, stock: Sto
   const demoPosts = await getDemoPosts({ stock })
 
   return {
-    layout: {
+    index: {
       featuredCount: 3,
       showAuthors: true,
       showExcerpts: true,
@@ -89,8 +166,8 @@ export function getDemoCards(args: { templateId: string, demoUserConfig: UserCon
             base: { theme: 'slate' },
           },
         },
-        layout: {
-          ...demoUserConfig.layout,
+        index: {
+          ...demoUserConfig.index,
           featuredCount: 1,
         },
         posts: demoUserConfig.posts,
@@ -109,8 +186,8 @@ export function getDemoCards(args: { templateId: string, demoUserConfig: UserCon
             base: { theme: 'emerald' },
           },
         },
-        layout: {
-          ...demoUserConfig.layout,
+        index: {
+          ...demoUserConfig.index,
           featuredCount: 2,
         },
         posts: demoUserConfig.posts,
@@ -137,6 +214,7 @@ export async function getConfig(args: { templateId: string, factory: CardFactory
   const demoUserConfig = await getDemoUserConfig({ factory, stock })
 
   return {
+    options,
     schema,
     userConfig: getDefaultUserConfig({ ...args, stock }),
     demoPage: {

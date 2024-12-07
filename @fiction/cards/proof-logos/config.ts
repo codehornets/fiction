@@ -1,8 +1,7 @@
-import type { MediaObject } from '@fiction/core'
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { StockMedia } from '@fiction/ui/stock'
-import { colorThemeUser, NavListItemSchema } from '@fiction/core'
-import { InputOption } from '@fiction/ui'
+import { NavListItemSchema } from '@fiction/core'
+import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
 const logoSchema = NavListItemSchema.pick({
@@ -22,56 +21,75 @@ export const schema = z.object({
 export type LogoConfig = z.infer<typeof logoSchema>
 export type UserConfig = z.infer<typeof schema>
 
-export const options: InputOption[] = [
-  new InputOption({
-    key: 'label',
-    label: 'Label Text',
-    input: 'InputText',
-    props: {
-      placeholder: 'e.g. Trusted By Industry Leaders',
-    },
-  }),
-  new InputOption({
-    key: 'layout',
-    label: 'Layout Style',
-    input: 'InputRadioButton',
-    props: {
-      options: [
-        { label: 'Inline', value: 'inline' },
-        { label: 'Stacked', value: 'stacked' },
-      ],
-    },
-  }),
-  new InputOption({
-    key: 'items',
-    label: 'Logos',
-    input: 'InputList',
+export const options = [
+  createOption({
+    key: 'contentGroup',
+    label: 'Content',
+    input: 'group',
+    icon: { class: 'i-tabler-highlight' },
     options: [
-      new InputOption({
-        key: 'name',
-        label: 'Company Name',
+      createOption({
+        schema,
+        key: 'label',
+        label: 'Label Text',
         input: 'InputText',
-      }),
-      new InputOption({
-        key: 'href',
-        label: 'Link URL',
-        input: 'InputUrl',
-      }),
-      new InputOption({
-        key: 'media',
-        label: 'Logo',
-        input: 'InputMedia',
-      }),
-      new InputOption({
-        key: 'theme',
-        label: 'Theme',
-        input: 'InputSelect',
         props: {
-          list: colorThemeUser,
+          placeholder: 'e.g. Trusted By Industry Leaders',
         },
+      }),
+      createOption({
+        schema,
+        key: 'items',
+        label: 'Logos',
+        input: 'InputList',
+        options: [
+          createOption({
+            schema,
+            key: 'items.0.label',
+            label: 'Company Name',
+            input: 'InputText',
+          }),
+          createOption({
+            schema,
+            key: 'items.0.href',
+            label: 'Link URL',
+            input: 'InputUrl',
+          }),
+          createOption({
+            schema,
+            key: 'items.0.media',
+            label: 'Logo',
+            input: 'InputMedia',
+          }),
+          createOption({
+            schema,
+            key: 'items.0.theme',
+            label: 'Theme',
+            input: 'InputColorTheme',
+          }),
+        ],
       }),
     ],
   }),
+  createOption({
+    key: 'settingsGroup',
+    label: 'Settings',
+    input: 'group',
+    icon: { class: 'i-tabler-settings' },
+    options: [
+      createOption({
+        schema,
+        key: 'layout',
+        label: 'Layout Style',
+        input: 'InputRadioButton',
+        list: [
+          { label: 'Inline', value: 'inline' },
+          { label: 'Stacked', value: 'stacked' },
+        ],
+      }),
+    ],
+  }),
+
 ]
 
 // Default configuration

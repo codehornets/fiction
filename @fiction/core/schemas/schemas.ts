@@ -160,8 +160,9 @@ const BaseNavListItemSchema = z.object({
   // Core content
   id: z.string().optional().describe('Globally unique identifier for the item'),
   label: z.string().optional().describe('Primary text displayed for the item (e.g., "Products")'),
+  subLabel: z.string().optional().describe('Secondary text shown below label for additional context'),
   value: z.union([z.string(), z.number()]).optional().describe('Value associated with the item'),
-  description: z.string().optional().describe('Secondary text shown below label for additional context'),
+  description: z.string().optional().describe('Longer description or explanation of the item'),
   info: z.string().optional().describe('Tertiary text, often used for metadata like "5 min read" or counts'),
 
   // Visual

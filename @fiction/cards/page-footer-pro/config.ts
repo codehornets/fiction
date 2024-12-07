@@ -1,7 +1,7 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { InputOption } from '@fiction/ui'
 import type { StockMedia } from '@fiction/ui/stock'
-import { ActionAreaSchema, brandSchema, NavListItemSchema, NavListSchema } from '@fiction/core'
+import { ActionAreaSchema, brandSchema, NavListItemSchema, NavListSchema, type User } from '@fiction/core'
 import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
@@ -60,21 +60,27 @@ function getDefaultConfig(): UserConfig {
   }
 }
 
-function getOptions(): InputOption[] {
+function getOptions() {
   return [
     createOption({
       key: 'brandGroup',
       label: 'Brand',
       input: 'group',
       schema,
+      icon: { class: 'i-tabler-icons' },
       options: [
-        createOption({ key: 'brand', input: 'InputBrand', schema }),
+        createOption({
+          key: 'brand',
+          input: 'InputBrand',
+          schema,
+        }),
       ],
     }),
     createOption({
       key: 'menusGroup',
       label: 'Menus',
       input: 'group',
+      icon: { class: 'i-tabler-list-check' },
       schema,
       options: [
         createOption({ key: 'menus', input: 'InputNavMenu', schema }),
@@ -85,6 +91,7 @@ function getOptions(): InputOption[] {
       key: 'badgesGroup',
       label: 'Badges',
       input: 'group',
+      icon: { class: 'i-tabler-list-medal' },
       schema,
       options: [
         createOption({ key: 'badges', input: 'InputActionArea', schema }),
@@ -96,6 +103,7 @@ function getOptions(): InputOption[] {
       label: 'Additional Links',
       input: 'group',
       schema,
+      icon: { class: 'i-tabler-link' },
       options: [
         createOption({
           key: 'additional.links',

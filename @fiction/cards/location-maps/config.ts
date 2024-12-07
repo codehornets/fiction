@@ -72,7 +72,7 @@ export function getOptions() {
       key: 'maps',
       props: {
         itemName: 'Map',
-        itemLabel: args => (args?.item as MapUserConfig)?.mapStyle ?? 'Map',
+        itemLabel: args => `Map ${(args?.item as MapUserConfig)?.mapStyle || (args.index ? args.index + 1 : '')}`,
       },
       options: [
         createOption({

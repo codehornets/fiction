@@ -204,7 +204,7 @@ vue.onServerPrefetch(() => fetchPosts())
 
       <NavDots
         v-model:active-item="activeItem"
-        :container-id="card.cardId"
+        :wrap-selector="`[data-card-id='${card.cardId}']`"
         :items="posts"
         class="mt-16 z-20"
       />

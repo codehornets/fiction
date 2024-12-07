@@ -1,5 +1,6 @@
-import { colorThemeUser, MediaIconSchema, NavListItemSchema, numberFormats } from '@fiction/core'
-import { InputOption } from '@fiction/ui'
+import type { SiteUserConfig } from '@fiction/site/schema'
+import { NavListItemSchema, numberFormats } from '@fiction/core'
+import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
 const metricSchema = NavListItemSchema.pick({
@@ -16,114 +17,118 @@ const metricSchema = NavListItemSchema.pick({
 export type MetricItem = z.infer<typeof metricSchema>
 
 export const schema = z.object({
-  title: z.string().optional(),
-  subtitle: z.string().optional(),
   layout: z.enum(['grid', 'inline', 'featured']).optional(),
   metrics: z.array(metricSchema).optional(),
 })
 
-export type UserConfig = z.infer<typeof schema>
+export type UserConfig = z.infer<typeof schema> & SiteUserConfig
 
-const options: InputOption[] = [
-  new InputOption({
-    key: 'content',
+const options = [
+  createOption({
+    schema,
+    key: 'group.content',
     label: 'Content',
     input: 'group',
+    icon: { class: 'i-tabler-numbers' },
     options: [
-      new InputOption({
-        key: 'title',
-        label: 'Title',
-        input: 'InputText',
+      createOption({
+        schema,
+        key: 'metrics',
+        label: 'Metrics',
+        input: 'InputList',
         props: {
-          placeholder: 'e.g., "Our Growth Story in Numbers"',
+          itemLabel: 'Metric',
         },
-      }),
-      new InputOption({
-        key: 'subtitle',
-        label: 'Subtitle',
-        input: 'InputText',
-        props: {
-          placeholder: 'Add context to your metrics',
-        },
+        options: [
+          createOption({
+            schema,
+            key: 'metrics.0.label',
+            label: 'Metric Name',
+            input: 'InputText',
+            props: {
+              placeholder: 'e.g., "Customer Growth"',
+            },
+          }),
+          createOption({
+            schema,
+            key: 'metrics.0.description',
+            label: 'Description',
+            input: 'InputText',
+            props: {
+              placeholder: 'Add context or timeframe',
+            },
+          }),
+          createOption({
+            schema,
+            key: 'metrics.0.value',
+            label: 'Value',
+            input: 'InputNumber',
+          }),
+          createOption({
+            schema,
+            key: 'metrics.0.format',
+            label: 'Number Format',
+            input: 'InputSelect',
+            list: numberFormats,
+          }),
+          createOption({
+            schema,
+            key: 'metrics.0.icon',
+            label: 'Icon',
+            input: 'InputIcon',
+          }),
+          createOption({
+            schema,
+            key: 'metrics.0.theme',
+            label: 'Color Theme',
+            input: 'InputColorTheme',
+          }),
+          createOption({
+            schema,
+            key: 'metrics.0.emphasis',
+            label: 'Emphasis',
+            input: 'InputRadioButton',
+            description: 'Makes this metric more prominent in featured layout',
+            list: [
+              { label: 'Normal', value: undefined },
+              { label: 'Highlighted', value: 'highlighted' },
+              { label: 'Muted', value: 'muted' },
+            ],
+          }),
+        ],
       }),
     ],
   }),
-  new InputOption({
-    key: 'layout',
-    label: 'Layout Style',
-    input: 'InputRadioButton',
-    props: {
-      options: [
-        { label: 'Grid (3 columns)', value: 'grid' },
-        { label: 'Inline Row', value: 'inline' },
-        { label: 'Featured (Highlight Key Metric)', value: 'featured' },
-      ],
-    },
-  }),
-  new InputOption({
-    key: 'metrics',
-    label: 'Metrics',
-    input: 'InputList',
-    props: {
-      itemLabel: 'Metric',
-    },
+  createOption({
+    schema,
+    key: 'group.settings',
+    label: 'Settings',
+    input: 'group',
+    icon: { class: 'i-tabler-settings' },
     options: [
-      new InputOption({
-        key: 'name',
-        label: 'Metric Name',
-        input: 'InputText',
-        props: {
-          placeholder: 'e.g., "Customer Growth"',
-        },
-      }),
-      new InputOption({
-        key: 'desc',
-        label: 'Description',
-        input: 'InputText',
-        props: {
-          placeholder: 'Add context or timeframe',
-        },
-      }),
-      new InputOption({
-        key: 'value',
-        label: 'Value',
-        input: 'InputNumber',
-      }),
-      new InputOption({
-        key: 'format',
-        label: 'Number Format',
-        input: 'InputSelect',
-        props: {
-          list: numberFormats,
-        },
-      }),
-      new InputOption({
-        key: 'icon',
-        label: 'Icon',
-        input: 'InputIcon',
-      }),
-      new InputOption({
-        key: 'theme',
-        label: 'Color Theme',
-        input: 'InputSelect',
-        props: {
-          list: colorThemeUser,
-        },
-      }),
-      new InputOption({
-        key: 'isHighlight',
-        label: 'Highlight This Metric',
-        input: 'InputToggle',
-        description: 'Makes this metric more prominent in featured layout',
+      createOption({
+        schema,
+        key: 'layout',
+        label: 'Layout Style',
+        input: 'InputRadioButton',
+        list: [
+          { label: 'Grid', value: 'grid' },
+          { label: 'Inline Row', value: 'inline' },
+          { label: 'Key Metric', value: 'featured' },
+        ],
       }),
     ],
   }),
+
 ]
 
 function getBrandGrowthDemo(): UserConfig {
   return {
-    title: 'Watch Our Brand Impact Grow',
-    subtitle: 'See how we\'ve helped businesses transform their digital presence',
+    standard: { headers: {
+      title: 'Watch Our Brand Impact Grow',
+      subTitle: 'See how we\'ve helped businesses transform their digital presence',
+    } },
+
     layout: 'grid',
     metrics: [
       {
@@ -156,8 +161,11 @@ function getBrandGrowthDemo(): UserConfig {
 
 function getEngagementDemo(): UserConfig {
   return {
-    title: 'Engagement That Drives Results',
-    subtitle: 'Metrics from our most successful campaigns',
+    standard: { headers: {
+      title: 'Engagement That Drives Results',
+      subTitle: 'Metrics from our most successful campaigns',
+    } },
+
     layout: 'featured',
     metrics: [
       {
@@ -190,8 +198,11 @@ function getEngagementDemo(): UserConfig {
 
 function getEcommerceDemo(): UserConfig {
   return {
-    title: 'Our eCommerce Success Story',
-    subtitle: 'Key performance indicators that drive our growth',
+    standard: { headers: {
+      title: 'Our eCommerce Success Story',
+      subTitle: 'Key performance indicators that drive our growth',
+    } },
+
     layout: 'inline',
     metrics: [
       {

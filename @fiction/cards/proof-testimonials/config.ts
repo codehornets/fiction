@@ -1,30 +1,29 @@
-import type { ConfigResponse } from '@fiction/site/card'
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { SiteUserConfig } from '@fiction/site/schema'
 import type { StockMedia } from '@fiction/ui/stock'
-import type { text } from 'express'
-import { MediaBasicSchema } from '@fiction/core'
-import { InputOption } from '@fiction/ui'
-import { createStockMediaHandler } from '@fiction/ui/stock'
+import { MediaBasicSchema, NavListItemSchema, PostSchema } from '@fiction/core'
+import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
-// Schema Definitions
-const TestimonialSchema = z.object({
-  title: z.string().optional().describe('Achievement or key result that grabs attention'),
-  content: z.string().describe('The authentic testimonial story'),
-  href: z.string().optional().describe('Link to full case study or more information'),
-  media: MediaBasicSchema.optional().describe('Visual elements that enhance the story'),
-  user: z.object({
-    fullName: z.string().optional(),
-    title: z.string().optional(),
-    avatar: MediaBasicSchema.optional(),
-    href: z.string().optional(),
-  }).optional().describe('Details about who shared this testimonial'),
+const UserSchema = NavListItemSchema.pick({
+  label: true,
+  subLabel: true,
+  href: true,
+  media: true,
+})
+
+const TestimonialSchema = PostSchema.pick({
+  title: true,
+  content: true,
+  href: true,
+  media: true,
+}).extend({
+  user: UserSchema.optional(),
 })
 
 export type Testimonial = z.infer<typeof TestimonialSchema>
 
-const schema = z.object({
+export const schema = z.object({
   layout: z.enum(['slider', 'mega', 'masonry']).optional().describe('Choose how to showcase your testimonials:\n- Slider: Engaging horizontal storytelling\n- Mega: High-impact featured testimonial\n- Masonry: Rich visual collection'),
   items: z.array(TestimonialSchema).optional(),
 })
@@ -32,73 +31,112 @@ const schema = z.object({
 export type UserConfig = z.infer<typeof schema>
 
 // Input Configuration
-const options: InputOption[] = [
-  new InputOption({
-    key: 'layout',
-    label: 'Showcase Style',
-    subLabel: 'See how each layout creates a different emotional impact',
-    input: 'InputSelect',
-    list: [
-      { value: 'slider', label: 'Interactive Slider' },
-      { value: 'mega', label: 'Feature Spotlight' },
-      { value: 'masonry', label: 'Visual Collection' },
-    ],
-  }),
-  new InputOption({
-    input: 'InputList',
-    key: 'items',
-    label: 'Success Stories',
-    subLabel: 'Share authentic experiences that build trust',
-    props: { itemLabel: 'Story' },
+const options = [
+  createOption({
+    schema,
+    input: 'group',
+    key: 'group.settings',
+    label: 'Testimonials',
+    icon: { class: 'i-tabler-blockquote' },
     options: [
-      new InputOption({
-        key: 'title',
-        label: 'Achievement Highlight',
-        subLabel: 'What specific result or milestone was achieved?',
-        input: 'InputText',
-        placeholder: 'e.g., "10x Growth in 6 Months" or "Award Winner 2024"',
-      }),
-      new InputOption({
-        key: 'content',
-        label: 'Their Story',
-        subLabel: 'Share the authentic experience in their words',
-        input: 'InputTextarea',
-        placeholder: 'Capture their genuine voice and specific results...',
-      }),
-      new InputOption({
-        key: 'user.fullName',
-        label: 'Name',
-        subLabel: 'Who shared this story?',
-        input: 'InputText',
-      }),
-      new InputOption({
-        key: 'user.title',
-        label: 'Role & Company',
-        subLabel: 'Their professional context',
-        input: 'InputText',
-        placeholder: 'e.g., "CEO at TechCorp" or "Marketing Director"',
-      }),
-      new InputOption({
-        key: 'user.avatar',
-        label: 'Portrait',
-        subLabel: 'A professional photo builds credibility',
-        input: 'InputMedia',
-      }),
-      new InputOption({
-        key: 'media',
-        label: 'Visual Context',
-        subLabel: 'Add impact with relevant imagery',
-        input: 'InputMedia',
-      }),
-      new InputOption({
-        key: 'href',
-        label: 'Case Study Link',
-        subLabel: 'Where can visitors learn more?',
-        input: 'InputText',
-        placeholder: 'URL to full success story',
+      createOption({
+        schema,
+        input: 'InputList',
+        key: 'items',
+        props: {
+          itemName: 'Testimonial',
+          itemLabel: args => (args?.item as Testimonial)?.title ?? 'Untitled',
+        },
+        options: [
+          createOption({
+            schema,
+            input: 'group',
+            key: 'group.testimonial.user',
+            label: 'Testimonial Content',
+            icon: { class: 'i-tabler-highlight' },
+            options: [
+              createOption({
+                schema,
+                key: 'items.0.title',
+                label: 'Title',
+                input: 'InputText',
+              }),
+              createOption({
+                schema,
+                key: 'items.0.content',
+                label: 'Content',
+                input: 'InputTextarea',
+              }),
+              createOption({
+                schema,
+                key: 'items.0.href',
+                label: 'Link / URL',
+                input: 'InputUrl',
+              }),
+              createOption({
+                schema,
+                key: 'items.0.media',
+                label: 'Media',
+                input: 'InputMedia',
+              }),
+            ],
+          }),
+
+          createOption({
+            schema,
+            input: 'group',
+            key: 'group.testimonial.user',
+            label: 'Author',
+            icon: { class: 'i-tabler-user' },
+            options: [
+              createOption({
+                schema,
+                key: 'items.0.user.label',
+                label: 'Name',
+                input: 'InputText',
+              }),
+              createOption({
+                schema,
+                key: 'items.0.user.subLabel',
+                label: 'Role & Subtitle',
+                input: 'InputText',
+              }),
+              createOption({
+                schema,
+                key: 'items.0.user.media',
+                label: 'Avatar',
+                input: 'InputMedia',
+              }),
+            ],
+          }),
+
+        ],
       }),
     ],
   }),
+
+  createOption({
+    schema,
+    input: 'group',
+    key: 'group.settings',
+    label: 'Settings',
+    icon: { class: 'i-tabler-settings' },
+    options: [
+      createOption({
+        schema,
+        key: 'layout',
+        label: 'Showcase Style',
+        subLabel: 'See how each layout creates a different emotional impact',
+        input: 'InputRadioButton',
+        list: [
+          { value: 'slider', label: 'Slider' },
+          { value: 'mega', label: 'Spotlight' },
+          { value: 'masonry', label: 'Collection' },
+        ],
+      }),
+    ],
+  }),
+
 ]
 
 async function getUserConfig(args: { stock: StockMedia }): Promise<UserConfig & SiteUserConfig> {
@@ -111,9 +149,9 @@ async function getUserConfig(args: { stock: StockMedia }): Promise<UserConfig & 
         content: 'Imagine going from scattered marketing efforts to a streamlined system that practically runs itself.',
         media: stock.getRandomByTags(['person', 'aspect:square']),
         user: {
-          fullName: 'Dr. Maya Patel',
-          avatar: stock.getRandomByTags(['person', 'aspect:square']),
-          title: 'Wellness Enterprise Founder',
+          label: 'Dr. Maya Patel',
+          media: stock.getRandomByTags(['person', 'aspect:square']),
+          subLabel: 'Wellness Enterprise Founder',
           href: '#case-study-maya',
         },
       },
@@ -123,9 +161,9 @@ async function getUserConfig(args: { stock: StockMedia }): Promise<UserConfig & 
         media: stock.getRandomByTags(['person', 'aspect:square']),
         href: '#case-study-james',
         user: {
-          fullName: 'James Chen',
-          avatar: stock.getRandomByTags(['person', 'aspect:square']),
-          title: 'Client Success Director',
+          label: 'James Chen',
+          media: stock.getRandomByTags(['person', 'aspect:square']),
+          subLabel: 'Client Success Director',
 
         },
       },
@@ -135,9 +173,9 @@ async function getUserConfig(args: { stock: StockMedia }): Promise<UserConfig & 
         media: stock.getRandomByTags(['person', 'aspect:landscape']),
         href: '#case-study-sofia',
         user: {
-          fullName: 'Sofia Rodriguez',
-          avatar: stock.getRandomByTags(['person', 'aspect:square']),
-          title: 'Marketing Strategist',
+          label: 'Sofia Rodriguez',
+          media: stock.getRandomByTags(['person', 'aspect:square']),
+          subLabel: 'Marketing Strategist',
         },
       },
       {
@@ -145,9 +183,9 @@ async function getUserConfig(args: { stock: StockMedia }): Promise<UserConfig & 
         content: 'Experience the power of strategic storytelling. Within months of implementing Fiction, we expanded from local markets to global opportunities.',
         media: stock.getRandomByTags(['person', 'aspect:landscape']),
         user: {
-          fullName: 'Alex Foster',
-          avatar: stock.getRandomByTags(['person', 'aspect:square']),
-          title: 'Growth Director',
+          label: 'Alex Foster',
+          media: stock.getRandomByTags(['person', 'aspect:square']),
+          subLabel: 'Growth Director',
           href: '#case-study-alex',
         },
       },
@@ -156,7 +194,7 @@ async function getUserConfig(args: { stock: StockMedia }): Promise<UserConfig & 
 }
 
 // Demo Configuration showing layout variations
-export async function getConfig(args: { factory: CardFactory, templateId: string }){
+export async function getConfig(args: { factory: CardFactory, templateId: string }) {
   const { factory, templateId } = args
   const stock = await factory.getStockMedia()
   const userConfig = await getUserConfig({ stock })

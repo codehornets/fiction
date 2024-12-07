@@ -1,32 +1,62 @@
 <script lang="ts" setup>
 import { vue, waitFor } from '@fiction/core'
 
-const props = defineProps({
-  items: { type: Array, required: true },
-  containerId: { type: String, required: true },
-  activeItem: { type: Number, default: 0 },
-  itemClass: { type: String, default: 'slide' },
-  mode: { type: String as vue.PropType<'dots' | 'lines'>, default: 'dots' },
-  overlay: { type: Boolean, default: false },
-})
+const {
+  items = [],
+  wrapSelector,
+  activeItem = 0,
+  itemClass = 'slide',
+  mode = 'dots',
+  overlay = false,
+} = defineProps<{
+  items?: any[]
+  wrapSelector: string
+  activeItem?: number
+  itemClass?: string
+  mode?: 'dots' | 'lines'
+  overlay?: boolean
+}>()
 
 const emit = defineEmits<{
   (event: 'update:activeItem', payload: number): void
 }>()
 
-async function setActiveItem(index: number, withScroll: boolean) {
-  emit('update:activeItem', index)
+const intersectingItem = vue.ref(activeItem)
+const isManualNavigation = vue.ref(false)
 
+async function setActiveItem(index: number, withScroll: boolean) {
   if (withScroll) {
-    await waitFor(50) // wait for class and dom to update
+    isManualNavigation.value = true
+    emit('update:activeItem', index)
+    await waitFor(50)
     scrollToActive()
+    // Reset after animation completes
+    setTimeout(() => {
+      isManualNavigation.value = false
+    }, 1000)
+  }
+  else if (!isManualNavigation.value) {
+    // Only update intersectingItem when not in manual navigation
+    intersectingItem.value = index
+    // Only emit if different from current activeItem
+    if (intersectingItem.value !== activeItem) {
+      emit('update:activeItem', index)
+    }
   }
 }
 
 async function scrollToActive() {
-  const element = document.querySelector(`#${props.containerId} .scroll-placer-active`)
-  if (element)
+  const element = document.querySelector(`${wrapSelector} .scroll-placer-active`)
+  if (element) {
+    const currentScrollY = window.scrollY
+
     element.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
+
+    window.scrollTo({
+      top: currentScrollY,
+      behavior: 'instant', // Use instant to prevent visible jump
+    })
+  }
 }
 
 const observer = vue.ref<IntersectionObserver>()
@@ -37,8 +67,8 @@ function createObserver() {
     entries.forEach((entry) => {
       const e = entry.target as HTMLElement
       if (entry.isIntersecting) {
-        const activeItem = Number.parseInt(e.dataset.index || '0')
-        setActiveItem(activeItem, false)
+        const index = Number.parseInt(e.dataset.index || '0')
+        setActiveItem(index, false)
       }
     })
   }, options)
@@ -47,8 +77,8 @@ function createObserver() {
 vue.onMounted(() => {
   createObserver()
 
-  vue.watch(() => props.items, () => {
-    const slides = document.querySelectorAll(`#${props.containerId} .${props.itemClass}`)
+  vue.watch(() => items, () => {
+    const slides = document.querySelectorAll(`${wrapSelector} .${itemClass}`)
 
     slides.forEach((slide) => {
       const computedStyle = window.getComputedStyle(slide)
@@ -56,43 +86,45 @@ vue.onMounted(() => {
         (slide as HTMLElement).style.position = 'relative'
       }
 
-      const sizer = slide.querySelector(`.scroll-placer`)
-
-      if (!sizer) {
-        const newSizer = document.createElement('div')
-        newSizer.className = `absolute w-1 h-1 left-1/2 top-1/2 scroll-placer pointer-events-none opacity-0`
-        slide.appendChild(newSizer)
+      if (!slide.querySelector('.scroll-placer')) {
+        const sizer = document.createElement('div')
+        sizer.className = 'absolute w-1 h-1 left-1/2 top-1/2 scroll-placer pointer-events-none opacity-0'
+        slide.appendChild(sizer)
       }
     })
 
-    const elements = document.querySelectorAll(`#${props.containerId} .scroll-placer`)
-
+    const elements = document.querySelectorAll(`${wrapSelector} .scroll-placer`)
     elements.forEach((el, i) => {
       if (observer.value) {
         (el as HTMLElement).dataset.index = i.toString()
-        observer.value?.observe(el)
+        observer.value.observe(el)
       }
     })
   }, { immediate: true })
 
-  vue.watch(() => props.activeItem, async () => {
-    const elements = document.querySelectorAll(`#${props.containerId} .scroll-placer`)
+  vue.watch(() => activeItem, () => {
+    if (isManualNavigation.value || activeItem !== intersectingItem.value) {
+      const elements = document.querySelectorAll(`${wrapSelector} .scroll-placer`)
+      elements.forEach((el, i) => {
+        if (i === activeItem) {
+          el.classList.add('scroll-placer-active')
+        }
+        else {
+          el.classList.remove('scroll-placer-active')
+        }
+      })
 
-    elements.forEach((el, i) => {
-      if (i === props.activeItem)
-        el.classList.add(`scroll-placer-active`)
-      else
-        el.classList.remove(`scroll-placer-active`)
-    })
+      if (!isManualNavigation.value) {
+        scrollToActive()
+      }
+    }
   })
 })
 
-const colorClass = vue.computed(() => {
-  return {
-    dot: props.overlay ? 'bg-theme-0' : 'bg-theme-600/50 dark:bg-theme-0',
-    circle: props.overlay ? 'text-theme-0' : 'text-theme-600/50 dark:text-theme-0',
-  }
-})
+const colorClass = vue.computed(() => ({
+  dot: overlay ? 'bg-theme-0' : 'bg-theme-600/50 dark:bg-theme-0',
+  circle: overlay ? 'text-theme-0' : 'text-theme-600/50 dark:text-theme-0',
+}))
 </script>
 
 <template>

@@ -1,6 +1,5 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { SiteUserConfig } from '@fiction/site/schema'
-import type { InputOption } from '@fiction/ui'
 import type { StockMedia } from '@fiction/ui/stock'
 import { brandSchema, logoSchema, NavListItemSchema } from '@fiction/core'
 import { createOption } from '@fiction/ui'
@@ -17,13 +16,14 @@ export const schema = z.object({
 
 export type UserConfig = z.infer<typeof schema> & SiteUserConfig
 
-function getOptions(): InputOption[] {
+function getOptions() {
   return [
     createOption({
       key: 'brand',
       label: 'Logo',
       input: 'group',
       schema,
+      icon: { class: 'i-tabler-icons' },
       options: [
         createOption({
           key: 'brand.logo',
@@ -37,6 +37,7 @@ function getOptions(): InputOption[] {
       label: 'Layout',
       input: 'group',
       schema,
+      icon: { class: 'i-tabler-layout' },
       options: [
         createOption({
           key: 'layout',
@@ -54,6 +55,7 @@ function getOptions(): InputOption[] {
       key: 'navGroup',
       label: 'Navigation',
       input: 'group',
+      icon: { class: 'i-tabler-compass' },
       schema,
       options: [
         createOption({

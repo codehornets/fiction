@@ -47,7 +47,7 @@ const carouselWidth = vue.computed(() => ({
 
     <NavDots
       v-model:active-item="activeIndex"
-      :container-id="card.cardId"
+      :wrap-selector="`[data-card-id='${card.cardId}']`"
       :items="features"
       class="mt-16 z-20"
     />

@@ -625,57 +625,57 @@ export async function getTourPage(args: { factory: CardFactory, stock: StockMedi
                 {
                   text: `While you're reading this, someone is Googling your name. The story they find will shape their decision to work with you, hire you, or invest in you. Can you afford to let others control your narrative?`,
                   author: {
-                    name: 'Tim Ferris',
-                    image: {
+                    label: 'Tim Ferris',
+                    media: {
                       format: 'image',
                       url: 'https://imagedelivery.net/mxykd8B2Zc6Xxmx1NDi9mA/12556c45-5956-4c71-aebf-c86a0ed45400/public',
                     },
-                    title: 'Author of The 4-Hour Workweek',
+                    subLabel: 'Author of The 4-Hour Workweek',
                   },
                   org: {
-                    name: 'Tim Ferris',
+                    label: 'Tim Ferris',
                   },
                 },
                 {
                   text: `Your personal brand isn't just your first impression anymore—it's your only impression. Every day you wait to build yours is an opportunity passing you by.`,
                   author: {
-                    name: 'Gary Vaynerchuk',
-                    image: {
+                    label: 'Gary Vaynerchuk',
+                    media: {
                       format: 'image',
                       url: 'https://imagedelivery.net/mxykd8B2Zc6Xxmx1NDi9mA/1a443428-3409-4ed1-7cc8-acb57f566700/public',
                     },
-                    title: 'Entrepreneur & Author',
+                    subLabel: 'Entrepreneur & Author',
                   },
                   org: {
-                    name: 'VaynerMedia',
+                    label: 'VaynerMedia',
                   },
                 },
                 {
                   text: `The best time to build your personal brand was five years ago. The second best time is today. In the digital age, invisibility is a bigger risk than failure.`,
                   author: {
-                    name: 'Brené Brown',
-                    image: {
+                    label: 'Brené Brown',
+                    media: {
                       format: 'image',
                       url: new URL('img/tour/person-brene.webp', import.meta.url).href,
                     },
-                    title: 'Research Professor & Author',
+                    subLabel: 'Research Professor & Author',
                   },
                   org: {
-                    name: 'University of Houston',
+                    label: 'University of Houston',
                   },
                 },
                 {
                   text: `Every second you're not building your brand online, someone else is building theirs. And they're connecting with the audience that could have been yours.`,
                   author: {
-                    name: 'Simon Sinek',
-                    image: {
+                    label: 'Simon Sinek',
+                    media: {
                       format: 'image',
                       url: new URL('img/tour/person-simon.jpg', import.meta.url).href,
                     },
-                    title: 'Leadership Expert & Best-Selling Author',
+                    subLabel: 'Leadership Expert & Best-Selling Author',
                   },
                   org: {
-                    name: 'Start With Why',
+                    label: 'Start With Why',
                   },
                 },
               ],

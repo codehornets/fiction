@@ -1,11 +1,12 @@
 <script lang="ts" setup>
 import type { Card } from '@fiction/site'
 import type { UserConfig } from './index.js'
-import { vue } from '@fiction/core'
+import { pathCheck, vue } from '@fiction/core'
 import MasonryEffect from '@fiction/ui/effect/EffectMasonry.vue'
 import XMedia from '@fiction/ui/media/XMedia.vue'
-
 import CardText from '../CardText.vue'
+
+import { schema } from './config'
 
 const props = defineProps({
   card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
@@ -25,7 +26,7 @@ const masonryOptions = {
     <MasonryEffect :items="items" :options="masonryOptions" gap="2vw">
       <div v-for="(item, index) in items" :key="index" class="masonry-grid-item float-left w-full md:w-[48%]">
         <div class="relative rounded-2xl overflow-hidden shadow-lg bg-theme-600 dark:bg-theme-700 transition-all duration-300 hover:shadow-xl">
-          <XMedia class="absolute inset-0 object-cover" :media="item?.media || item?.user?.avatar" />
+          <XMedia class="absolute inset-0 object-cover" :media="item?.media || item?.user?.media" />
           <div class="flex flex-col justify-between">
             <div class="grow h-72" />
             <div class="md:flex justify-between relative p-6 ">
@@ -39,25 +40,25 @@ const masonryOptions = {
                   tag="div"
                   class="text-lg sm:text-2xl text-theme-50 !leading-[1.4]"
                   :card
-                  :path="`items.${index}.content`"
+                  :path="pathCheck(`items.${index}.content`, schema)"
                   animate="fade"
                 />
               </div>
               <div class="flex flex-wrap gap-2 md:flex-col items-center justify-center  p-6 relative z-10">
-                <XMedia :media="item.user?.avatar" class="size-16 rounded-full ring-2 ring-white overflow-hidden" />
+                <XMedia :media="item.user?.media" class="size-16 rounded-full ring-2 ring-white overflow-hidden" />
                 <div class="md:text-center">
                   <CardText
                     tag="div"
                     class="text-base font-medium text-theme-50 leading-tight"
                     :card
-                    :path="`items.${index}.user.fullName`"
+                    :path="pathCheck(`items.${index}.user.label`, schema)"
                     animate="fade"
                   />
                   <CardText
                     tag="div"
                     class="text-xs opacity-50 font-sans mt-1"
                     :card
-                    :path="`items.${index}.user.title`"
+                    :path="pathCheck(`items.${index}.user.subLabel`, schema)"
                     animate="fade"
                   />
                 </div>

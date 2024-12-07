@@ -64,12 +64,16 @@ function getGroupClosedStatus(options: InputOption[]): Record<string, boolean> {
 
 const menuVisibility = vue.ref<Record<string, boolean>>(getGroupClosedStatus(options))
 
-function hide(key: string, val?: boolean) {
-  if (disableGroupHide)
+function hide(opt: InputOption, change?: 'toggle' | 'show' | 'hide') {
+  const key = opt.key.value || opt.label.value
+
+  if (disableGroupHide || !key)
     return
 
-  if (val !== undefined)
+  if (change) {
+    const val = change === 'toggle' ? !menuVisibility.value[key] : change === 'show'
     menuVisibility.value = { ...menuVisibility.value, [key]: val }
+  }
 
   return menuVisibility.value[key]
 }
@@ -96,7 +100,7 @@ const cls = vue.computed(() => {
 })
 
 function getGroupHeaderClasses(opt: InputOption) {
-  const isHidden = hide(opt.key.value)
+  const isHidden = hide(opt)
 
   const out = [cls.value.groupHeader]
 
@@ -140,23 +144,23 @@ function getGroupClasses(opt: InputOption) {
           v-if="opt.input.value === 'group'"
           :class="[
             depth > 0 ? 'border rounded-md ' : '',
-            hide(opt.key.value) ? 'overflow-hidden border-theme-300 dark:border-theme-600' : 'border-theme-200 dark:border-theme-600/80',
+            hide(opt) ? 'overflow-hidden border-theme-300 dark:border-theme-600' : 'border-theme-200 dark:border-theme-600/80',
           ]"
         >
           <div
             v-if="opt.label.value"
             class=" select-none flex justify-between cursor-pointer items-center hover:opacity-90 rounded-t-md overflow-hidden"
             :class="getGroupHeaderClasses(opt)"
-            @click="hide(opt.key.value, !hide(opt.key.value))"
+            @click="hide(opt, 'toggle')"
           >
             <div class="flex items-center gap-2">
               <XIcon v-if="opt.settings.icon" class="size-[1.2em]" :media="opt.settings.icon" />
               <div class="font-semibold" v-html="opt.label.value" />
             </div>
-            <div v-if="opt.key.value && !disableGroupHide" class="text-lg i-tabler-chevron-up transition-all" :class="hide(opt.key.value) ? 'rotate-180' : ''" />
+            <div v-if="opt.key.value && !disableGroupHide" class="text-lg i-tabler-chevron-up transition-all" :class="hide(opt) ? 'rotate-180' : ''" />
           </div>
           <TransitionSlide>
-            <div v-show="!hide(opt.key.value)">
+            <div v-show="!hide(opt)">
               <div :class="getGroupClasses(opt)">
                 <FormEngine
                   :state-key="stateKey"
