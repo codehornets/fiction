@@ -98,7 +98,13 @@ vue.onMounted(async () => {
     </div>
     <template v-else-if="emailConfig">
       <div>
-        <ElInput v-model="previewMode" label="Color Scheme" input="InputSelect" :list="['dark', 'light', { name: 'User Default', value: '' }]" />
+        <ElInput
+          v-model="previewMode"
+          label="Color Scheme"
+          sub-label="Preview the email in dark or light mode"
+          input="InputSelect"
+          :list="['dark', 'light', { name: 'User Default', value: '' }]"
+        />
       </div>
       <div class="border-b border-theme-200 dark:border-theme-700/70 mb-8 pb-8">
         <div class=" mb-6">
@@ -110,7 +116,9 @@ vue.onMounted(async () => {
           </div>
         </div>
         <div class="flex gap-4">
-          <div><ElAvatar class="size-12 rounded-full" :url="emailConfig.avatarUrl" /></div>
+          <div>
+            <ElAvatar class="size-12 rounded-full" :url="emailConfig.avatarUrl" />
+          </div>
           <div>
             <div class="font-medium">
               {{ emailConfig.fromName }}

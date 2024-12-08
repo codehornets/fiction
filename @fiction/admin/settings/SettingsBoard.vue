@@ -6,6 +6,7 @@ import CardButtons from '@fiction/cards/el/CardButtons.vue'
 import CardLink from '@fiction/cards/el/CardLink.vue'
 import { toLabel, toSlug, vue } from '@fiction/core'
 import ElSpinner from '@fiction/ui/loaders/ElSpinner.vue'
+import XIcon from '@fiction/ui/media/XIcon.vue'
 import ElHeader from './ElHeader.vue'
 
 const {
@@ -57,7 +58,9 @@ const nav = vue.computed<NavListItem[]>(() => {
         description: p.description.value,
         href,
         isActive,
-        icon: { class: isActive && cfg.navIconAlt ? cfg.navIconAlt : cfg.navIcon || 'i-heroicons-arrow-small-right-20-solid' },
+        icon: {
+          class: isActive && cfg.navIconAlt ? cfg.navIconAlt : cfg.navIcon || 'i-heroicons-arrow-small-right-20-solid',
+        },
       }
     })
 })
@@ -80,14 +83,18 @@ const nav = vue.computed<NavListItem[]>(() => {
           v-for="(v, i) in nav"
           :key="i"
           :card
-          class="flex items-center gap-5 px-3 py-2.5 xl:px-5 xl:py-3 text-xs sm:text-base rounded-lg transition-all duration-100"
+          class="flex items-center gap-3 xl:gap-5 px-3 py-2.5 xl:px-5 xl:py-3 text-xs sm:text-base rounded-lg transition-all duration-100"
           :href="v.href"
           :class="
             v.isActive
               ? 'active bg-primary-100/50 text-theme-700 dark:bg-theme-700/70 dark:text-theme-0'
               : 'inactive text-theme-600 dark:text-theme-0 hover:bg-theme-100/30 dark:hover:bg-theme-700/60' "
         >
-          <div v-if="v.icon" class="text-[1.5em] xl:text-[1.75em] shrink-0 text-theme-500 dark:text-theme-50" :class="v.icon" />
+          <XIcon
+            v-if="v.icon"
+            class="text-[1.3em] xl:text-[1.75em] shrink-0 text-theme-500 dark:text-theme-50"
+            :media="v.icon"
+          />
           <div class="min-w-0 truncate overflow-ellipsis text-left">
             <div class="font-semibold truncate">
               {{ v.label }}

@@ -141,14 +141,14 @@ const markdownStyles = {
   },
   hr: {
     'border': 'none',
-    'border-bottom': `1px solid ${colorList.gray[200]}`,
+    'border-top': `1px solid ${props.previewMode === 'dark' ? colorList.gray[600] : colorList.gray[200]}`,
     'opacity': '.5',
     'margin': '2rem 0',
   },
   blockQuote: {
     'padding': '0 0 0 1.5rem',
     'margin': '1.5rem 0',
-    'border-left': `2px solid ${colorList.gray[500]}`,
+    'border-left': `2px solid ${props.previewMode === 'dark' ? colorList.gray[600] : colorList.gray[200]}`,
     'background': 'transparent',
     'font-size': '1.45em',
     'font-style': 'italic',
@@ -168,11 +168,24 @@ const markdownStyles = {
     margin: '1.5rem 0',
   },
 }
+
+const backgroundColor = props.previewMode === 'dark'
+  ? colorList.gray[900]
+  : props.previewMode === 'light'
+    ? colorList.gray[0]
+    : undefined
+
+const hrStyle = {
+  border: 'none',
+  borderTop: `1px solid ${props.previewMode === 'dark' ? colorList.gray[600] : colorList.gray[200]}`,
+  opacity: '.5',
+  margin: '2rem 0',
+}
 </script>
 
 <template>
   <Tailwind :config="tailwindConfig">
-    <Html lang="en" dir="ltr" :class="previewMode">
+    <Html lang="en" dir="ltr" :class="previewMode" :style="{ backgroundColor }">
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -208,7 +221,7 @@ const markdownStyles = {
             'color': previewMode === 'dark' ? colorList.gray[0] : colorList.gray[900],
           }"
         >
-          <Section v-if="mediaSuper" :style="{ marginBottom: '24px' }">
+          <Section v-if="mediaSuper" :style="{ marginBottom: '16px' }">
             <Column v-if="mediaSuper.media?.url" class="w-[22px]">
               <a :href="mediaSuper.href || '#'">
                 <Img class="rounded-md !border-2 !border-white/10 !border-solid" width="22" :src="mediaSuper.media?.url" />
@@ -222,16 +235,37 @@ const markdownStyles = {
           </Section>
 
           <Section>
-            <Heading data-test-id="email-title" as="h1" :data-title="title" :style="{ 'margin': '0 0 0 0', 'fontWeight': 'bold', 'font-size': '28px', 'lineHeight': 1.3 }">
+            <Heading
+              data-test-id="email-title"
+              as="h1"
+              :data-title="title"
+              :style="{
+                'margin': '0 0 0 0',
+                'fontWeight': 'bold',
+                'font-size': '28px',
+                'lineHeight': 1.3,
+              }"
+            >
               {{ title }}
             </Heading>
 
-            <Heading v-if="subTitle" data-test-id="email-sub-title" as="h3" class="my-0 opacity-60" :style="{ margin: '0 0 0 0', fontWeight: 'normal', fontSize: '24px', lineHeight: 1.33 }">
-              <span v-html="subTitle" /> <span class="opacity-40">&#x2198;</span>
+            <Heading
+              v-if="subTitle"
+              data-test-id="email-sub-title"
+              as="h3"
+              class="my-0 opacity-60"
+              :style="{
+                margin: '0 0 0 0',
+                fontWeight: 'normal',
+                fontSize: '24px',
+                lineHeight: 1.33,
+              }"
+            >
+              <span v-html="subTitle" /> <span class="opacity-30">&#x2198;</span>
             </Heading>
           </Section>
 
-          <Hr :style="{ margin: '32px 0' }" />
+          <Hr :style="hrStyle" />
 
           <Markdown v-if="bodyMarkdown" data-test-id="email-content" class="body-content" :markdown-custom-styles="markdownStyles" :source="bodyMarkdown" />
 
@@ -250,7 +284,7 @@ const markdownStyles = {
             </Section>
           </Section>
 
-          <Hr class="my-12 " />
+          <Hr :style="hrStyle" />
 
           <Section class="mt-8 text-left subtle-text text-normal text-xs">
             <Column class="w-[65%] align-top">

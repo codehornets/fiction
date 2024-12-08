@@ -1,13 +1,11 @@
 <script lang="ts" setup>
 import type { InputOption } from './index.js'
 import type { BasicItem } from './InputList.vue'
-import { colorThemeUser, ActionButtonSchema as schema } from '@fiction/core'
+import { ActionButtonSchema as schema } from '@fiction/core'
 import { createOption } from './index.js'
 import InputList from './InputList.vue'
 
-type OptionKey = 'name' | 'href' | 'design' | 'theme' | 'size' | 'icon' | 'iconAfter' | 'target'
-
-const { modelValue = [], disableKeys = [], addOptions = [] } = defineProps<{ modelValue?: BasicItem[], disableKeys?: OptionKey[], addOptions?: InputOption[] }>()
+const { modelValue = [] } = defineProps<{ modelValue?: BasicItem[] }>()
 
 const emit = defineEmits<{
   (event: 'update:modelValue', payload: BasicItem[]): void
@@ -86,8 +84,6 @@ const buttonOptions: InputOption[] = [
 
 ]
 
-const finalOptions = [...buttonOptions.filter(_ => !disableKeys.includes(_.key.value as OptionKey)), ...addOptions]
-
 function updateModelValue(val: Record<string, unknown>[]) {
   emit('update:modelValue', val)
 }
@@ -103,7 +99,7 @@ function getItemLabel(args: { item?: BasicItem, index?: number } = {}) {
   <div>
     <InputList
       :data-options-num="buttonOptions.length"
-      :options="finalOptions"
+      :options="buttonOptions"
       :model-value="modelValue"
       :item-label="(args) => getItemLabel(args)"
       @update:model-value="updateModelValue($event)"

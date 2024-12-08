@@ -63,7 +63,6 @@ export class FictionNewsletter extends FictionPlugin<FictionNewsletterSettings> 
                 slug: '_home',
                 title: 'Campaign Library',
                 description: 'View, track, and manage all your email campaigns in one place',
-
                 el: vue.defineAsyncComponent(async () => import('./admin/ViewIndex.vue')),
                 userConfig: { isNavItem: true, navIcon: 'i-tabler-mail', navIconAlt: 'i-tabler-mail-share' },
               }),
