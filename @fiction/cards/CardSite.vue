@@ -64,11 +64,11 @@ vue.onServerPrefetch(async () => {
 const page = vue.computed(() => site.value?.currentPage.value)
 
 function getTitleTag() {
-  const seoConfig = page.value?.userConfig.value.site?.seo
+  const seoConfig = page.value?.userConfig.value.site?.meta
   if (seoConfig?.title)
     return seoConfig.title
 
-  const titleTemplate = site.value?.fullConfig.value?.site?.seo?.titleTemplate || '{{pageTitle}}'
+  const titleTemplate = site.value?.fullConfig.value?.site?.meta?.titleTemplate || '{{pageTitle}}'
   const pageTitle = page.value?.title?.value || toLabel(page.value?.slug?.value) || 'Home'
   const siteTitle = site.value?.title?.value || 'Untitled Site'
 
@@ -99,8 +99,8 @@ unhead.useHead({
     { charset: 'UTF-8' },
     { name: 'generator', content: 'Fiction.com Website Builder' },
     { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
-    { name: 'description', content: () => pageConfig.value.site?.seo?.description || page.value?.description.value || '' },
-    { name: 'robots', content: () => pageConfig.value.site?.seo?.robotsTxt || 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' },
+    { name: 'description', content: () => pageConfig.value.site?.meta?.description || page.value?.description.value || '' },
+    { name: 'robots', content: () => pageConfig.value.site?.meta?.robotsTxt || 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' },
     { name: 'theme-color', content: () => colors.value.themeHex[900] },
     // Social media tags
     { name: 'twitter:card', content: 'summary_large_image' },
@@ -109,7 +109,7 @@ unhead.useHead({
     { property: 'og:title', content: getTitleTag },
     { property: 'og:url', content: () => site.value?.frame.displayUrl.value },
     { property: 'og:site_name', content: () => site.value?.title.value || '' },
-    { property: 'og:locale', content: () => pageConfig.value.site?.seo?.locale || 'en_US' },
+    { property: 'og:locale', content: () => pageConfig.value.site?.meta?.locale || 'en_US' },
     { property: 'og:image', content: () => pageConfig.value.site?.brand?.shareImage?.url || iconUrls.value.ogImageUrl },
     { property: 'og:image:width', content: '1200' },
     { property: 'og:image:height', content: '630' },

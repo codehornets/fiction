@@ -342,7 +342,7 @@ export async function getHomePage(args: { factory: CardFactory, stock: StockMedi
     title: 'Home',
     userConfig: {
       site: {
-        seo: {
+        meta: {
           title: 'Fiction - Personal Branding Platform',
           description: 'Transform your expertise into influence using Fiction\'s AI-powered personal branding platform. Create authentic content, grow your audience, and build authority - all guided by intelligent automation.',
         },
@@ -771,7 +771,7 @@ export async function getConfig(args: {
         favicon: { url: favicon, format: 'image' },
         icon: { url: icon, format: 'image' },
       },
-      seo: {
+      meta: {
         titleTemplate: `{{pageTitle}} - Fiction`,
       },
       customCode: { gtmContainerId: `GTM-5LQBZDJ` },

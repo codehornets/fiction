@@ -33,7 +33,7 @@ export function getStructuredData(args: { site?: Site }) {
         'name': org?.orgName || site.title.value,
         'url': url,
         'image': siteConfig.brand?.shareImage?.url || org?.avatar?.url,
-        'description': siteConfig.seo?.description,
+        'description': siteConfig.meta?.description,
       },
 
       // Current WebPage
@@ -42,9 +42,9 @@ export function getStructuredData(args: { site?: Site }) {
         '@id': `${url}${slug}#webpage`,
         'url': `${url}${slug || ''}`,
         'name': page?.title.value,
-        'description': page?.description.value || siteConfig.seo?.description,
+        'description': page?.description.value || siteConfig.meta?.description,
         'mainEntity': { '@id': `${url}/#person` },
-        'inLanguage': siteConfig.seo?.locale || 'en-US',
+        'inLanguage': siteConfig.meta?.locale || 'en-US',
       },
     ],
   }

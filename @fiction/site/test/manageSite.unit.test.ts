@@ -300,7 +300,7 @@ describe('manageSite query', () => {
 
         expect(response.status).toBe('success')
         expect(response.data?.title).toBe('Draft Site Title')
-        expect(response.data?.userConfig.site?.seo?.description).toBe('Draft description')
+        expect(response.data?.userConfig.site?.meta?.description).toBe('Draft description')
         expect(response.data?.draft).toBeUndefined() // Draft content should be merged but draft field removed
       })
     })
