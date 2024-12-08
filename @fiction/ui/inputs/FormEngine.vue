@@ -192,6 +192,7 @@ function getGroupClasses(opt: InputOption) {
             v-if="opt.isHidden.value !== true"
             :ui-size="uiSize"
             :data-option-path="opt.key.value"
+            :data-test-id="opt.settings.testId || opt.key.value"
             class="setting-input"
             :control-option="opt"
             :input-class="opt.settings.inputClass"

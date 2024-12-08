@@ -5,7 +5,7 @@ export const templateId = 'contentHero'
 
 export const template = cardTemplate({
   templateId,
-  title: 'Hero Section',
+  title: 'Hero',
   subTitle: 'Create impactful first impressions with a visually striking hero section.',
   category: ['basic', 'marketing'],
   isPublic: true,

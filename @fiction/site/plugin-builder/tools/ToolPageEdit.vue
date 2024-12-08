@@ -1,13 +1,14 @@
 <script lang="ts" setup>
 import type { AdminEditorController, EditorTool } from '@fiction/admin'
+import type { InputOption } from '@fiction/ui'
 import type { Site } from '../../site'
 import type { ToolKeys } from './tools.js'
 import ElTool from '@fiction/admin/tools/ElTool.vue'
 import { vue } from '@fiction/core'
-import { InputOption } from '@fiction/ui'
+import { createOption } from '@fiction/ui'
 import ElForm from '@fiction/ui/inputs/ElForm.vue'
 import FormEngine from '@fiction/ui/inputs/FormEngine.vue'
-import InputSlug from '../InputSlug.vue'
+import { getPageOptions } from './utils'
 
 const props = defineProps<{
   site: Site
@@ -18,26 +19,20 @@ const props = defineProps<{
 const { site, tool } = props
 
 const options = vue.computed<InputOption[]>(() => {
+  const optionGroups = getPageOptions({ site })
   return [
-    new InputOption({
+    createOption({
       key: 'pageSetup',
-      label: 'Name / Slug',
+      label: 'Edit Page',
       input: 'group',
+      icon: { class: 'i-tabler-file-text' },
       options: [
-        new InputOption({ key: 'title', label: 'Name', input: 'InputText', placeholder: 'Page Name', isRequired: true }),
-        new InputOption({ key: 'slug', label: 'Slug', input: InputSlug, placeholder: 'my-page', isRequired: true, props: { site } }),
+        optionGroups.essentials,
+        optionGroups.special,
+        optionGroups.seo,
       ],
     }),
 
-    new InputOption({
-      key: 'pageSeo',
-      label: 'SEO / Meta Tags',
-      input: 'group',
-      options: [
-        new InputOption({ key: 'userConfig.seo.title', label: 'Title', input: 'InputText' }),
-        new InputOption({ key: 'userConfig.seo.description', label: 'Description', input: 'InputTextarea', props: { rows: 5 } }),
-      ],
-    }),
   ]
 })
 </script>

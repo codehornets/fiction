@@ -1,36 +1,40 @@
 <script lang="ts" setup>
 import type { AdminEditorController, EditorTool } from '@fiction/admin'
+import type { InputOption } from '@fiction/ui'
 import type { Site } from '../../site'
-import type { CardConfigPortable } from '../../tables'
 import type { ToolKeys } from './tools.js'
 import ElTool from '@fiction/admin/tools/ElTool.vue'
 import { toSlug, vue } from '@fiction/core'
-import { InputOption } from '@fiction/ui'
+import { createOption } from '@fiction/ui'
 import ElForm from '@fiction/ui/inputs/ElForm.vue'
 import ElInput from '@fiction/ui/inputs/ElInput.vue'
 import FormEngine from '@fiction/ui/inputs/FormEngine.vue'
+import { type CardConfigPortable, t } from '../../tables'
 import { requestManagePage } from '../../utils/region'
-import InputSlug from '../InputSlug.vue'
+import { getPageOptions } from './utils'
 
-const props = defineProps({
-  site: { type: Object as vue.PropType<Site>, required: true },
-  tool: { type: Object as vue.PropType<EditorTool>, required: true },
-  controller: { type: Object as vue.PropType<AdminEditorController<{ toolIds: ToolKeys }>>, required: true },
-})
+const { site, controller } = defineProps<{
+  site: Site
+  tool: EditorTool
+  controller: AdminEditorController<{ toolIds: ToolKeys }>
+}>()
+
 const loading = vue.ref(false)
+const options = vue.computed<InputOption[]>(() => {
+  const optionGroups = getPageOptions({ site })
+  return [
+    createOption({
+      key: 'pageSetup',
+      label: 'Add New Page',
+      input: 'group',
+      icon: { class: 'i-tabler-file-text' },
+      options: [
+        optionGroups.essentials,
+      ],
+    }),
 
-const options: InputOption[] = [
-  new InputOption({
-    key: 'pageSetup',
-    label: 'Page Setup',
-    input: 'group',
-    options: [
-      new InputOption({ key: 'title', label: 'Name', input: 'InputText', placeholder: 'Page Name', isRequired: true }),
-      new InputOption({ key: 'slug', label: 'Slug', input: InputSlug, placeholder: 'my-page', isRequired: true }),
-    ],
-  }),
-
-]
+  ]
+})
 
 const page = vue.ref<CardConfigPortable>({ title: '', slug: '', cards: [{ templateId: 'contentHero' }] })
 
@@ -53,7 +57,7 @@ vue.onMounted(() => {
 async function save() {
   loading.value = true
   await requestManagePage({
-    site: props.site,
+    site,
     _action: 'upsert',
     regionCard: page.value,
     delay: 400,
@@ -61,15 +65,14 @@ async function save() {
   })
   loading.value = false
 
-  props.controller.useTool({ toolId: 'managePages' })
+  controller.useTool({ toolId: 'managePages' })
 }
 </script>
 
 <template>
   <ElTool
     :actions="[]"
-    v-bind="props"
-    :back="{ label: 'Manage Pages', onClick: () => controller.useTool({ toolId: 'managePages' }) }"
+    v-bind="{ site, tool, controller }"
     title="Add Page"
   >
     <ElForm @submit="save()">

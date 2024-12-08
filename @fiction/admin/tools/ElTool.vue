@@ -16,33 +16,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="tool pb-24">
-    <div class="flex justify-between p-4 items-center select-none z-10">
-      <div>
-        <div v-if="back" class="mb-6">
-          <XButton icon="i-tabler-arrow-left" rounding="full" theme="default" size="xs" @click.stop.prevent="back?.onClick?.({ event: $event })">
-            {{ back?.label || "Back" }}
-          </XButton>
-        </div>
-        <h3 class="font-semibold flex gap-1.5 items-center">
-          <div class="text-xl" :class="icon || tool.icon" />
-          <div v-html="title || tool.title || toLabel(tool.toolId)" />
-        </h3>
-      </div>
-      <div class="flex space-x-2 text-xs items-center font-semibold text-theme-200">
-        <XButton
-          v-for="(item, i) in actions"
-          :key="i"
-          :icon="item.icon"
-          :rounding="item.rounding || 'full'"
-          :theme="item.theme || 'default'"
-          :size="item.size || 'xs'"
-          @click.prevent="item.onClick?.({ event: $event, item })"
-        >
-          {{ item?.label }}
-        </XButton>
-      </div>
-    </div>
+  <div class="tool pb-24 pt-1">
     <div>
       <slot />
     </div>

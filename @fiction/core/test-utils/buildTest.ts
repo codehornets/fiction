@@ -366,7 +366,7 @@ export async function performActions(args: {
           break
         }
         case 'click': {
-          await element.click()
+          await element.first().click()
           break
         }
         case 'fill': {

@@ -11,7 +11,7 @@ export type CheckColumnValue = {
   name: string
   value?: string
   minLength?: number
-  allowReserved?: boolean
+  allowReserved?: boolean // Allow fiction reserved words
   allowAnyValue?: boolean
 }
 
