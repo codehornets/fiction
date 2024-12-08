@@ -1,12 +1,9 @@
 <script lang="ts" setup>
-import type { LogoObject, MediaObject, TypographyObject } from '@fiction/core'
-import { vue } from '@fiction/core'
-import { InputOption } from '.'
-import XButton from '../buttons/XButton.vue'
-import XLogoType from '../media/XLogoType.vue'
+import type { LogoObject } from '@fiction/core'
+import { logoSchema as schema, vue } from '@fiction/core'
+import { createOption } from '.'
 import ElInput from './ElInput.vue'
 import FormEngine from './FormEngine.vue'
-import LibraryModal from './LibraryModal.vue'
 
 defineOptions({ name: 'InputLogo' })
 
@@ -18,37 +15,27 @@ const emit = defineEmits<{
   (event: 'update:modelValue', payload: LogoObject): void
 }>()
 
-const vis = vue.ref(false)
 const v = vue.computed(() => props.modelValue || {})
 const variant = vue.computed(() => v.value.variant || 'typography')
-const media = vue.computed(() => v.value.media || {})
-const typography = vue.computed(() => v.value.typography || {})
-
 function handleLogoUpdate(newValue: LogoObject) {
   emit('update:modelValue', newValue)
 }
 
-function handleMediaUpdate(mediaValue: MediaObject) {
-  handleLogoUpdate({ ...v.value, media: mediaValue })
-  vis.value = false
-}
-
-function handleTypeographyUpdate(newValue: TypographyObject) {
-  handleLogoUpdate({ ...v.value, typography: newValue })
-}
-
 const mediaOptions = [
-  new InputOption({
+  createOption({
+    schema,
     key: 'group',
     label: 'Logo Media',
     input: 'group',
     options: [
-      new InputOption({
+      createOption({
+        schema,
         key: 'media',
         label: 'Logo Media',
         input: 'InputMedia',
       }),
-      new InputOption({
+      createOption({
+        schema,
         key: 'scale',
         label: 'Size Scale',
         input: 'InputRange',
@@ -59,23 +46,27 @@ const mediaOptions = [
 ]
 
 const typographyOptions = [
-  new InputOption({
+  createOption({
+    schema,
     key: 'group',
     label: 'Logo Typography',
     input: 'group',
     options: [
-      new InputOption({
+      createOption({
+        schema,
         key: 'typography.label',
         label: 'Logo Text',
         input: 'InputText',
       }),
-      new InputOption({
+      createOption({
+        schema,
         key: 'typography.font',
         label: 'Font',
         input: 'InputFont',
         props: { noPreview: true },
       }),
-      new InputOption({
+      createOption({
+        schema,
         key: 'typography.weight',
         label: 'Weight',
         input: 'InputSelect',
@@ -90,7 +81,8 @@ const typographyOptions = [
           { value: '300', name: 'Light' },
         ],
       }),
-      new InputOption({
+      createOption({
+        schema,
         key: 'scale',
         label: 'Size Scale',
         input: 'InputRange',

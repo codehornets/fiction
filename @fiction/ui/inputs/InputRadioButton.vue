@@ -66,6 +66,7 @@ function getButtonClasses(item: ListItem, index: number): string {
     <button
       v-for="(item, index) in parsedList"
       :key="item.value"
+      :data-test-id="`radio-button-${item.value}`"
       type="button"
       :class="getButtonClasses(item, index)"
       :aria-checked="modelValue === item.value"

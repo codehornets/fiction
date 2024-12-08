@@ -1,5 +1,7 @@
+import { toKebab } from '@fiction/core'
 import { createSiteUiTestingKit } from '@fiction/site/test/testUtils.js'
 import { afterAll, describe, expect, it } from 'vitest'
+import { templateId } from './index.js'
 
 describe('hero: card', async () => {
   const kit = await createSiteUiTestingKit({ headless: false, slowMo: 3000 })
@@ -9,7 +11,7 @@ describe('hero: card', async () => {
   it('capture: ui testing', { retry: 3 }, async () => {
     await kit.performActions({
       caller: 'capture1',
-      path: '/demo-capture',
+      path: `/demo-${toKebab(templateId)}`,
       actions: [
         { type: 'exists', selector: '[data-mode="onLoad"] form' },
         { type: 'fill', selector: '[data-mode="onLoad"] form [data-test-id="email"]', text: 'arpowers+test@gmail.com' },
@@ -22,7 +24,7 @@ describe('hero: card', async () => {
 
     await kit.performActions({
       caller: 'capture2',
-      path: '/demo-capture',
+      path: `/demo-${toKebab(templateId)}`,
       actions: [
         { type: 'exists', selector: '[data-mode="onLoad"] form' },
         { type: 'click', selector: '[data-mode="onLoad"] [data-test-id="dismiss"]' },

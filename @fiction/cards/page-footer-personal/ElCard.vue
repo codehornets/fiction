@@ -52,7 +52,7 @@ vue.onMounted(() => {
                 }"
                 :media-handling="{ height: 3 }"
                 class="transition-all group-hover:opacity-80 duration-200"
-                data-test-id="nav-logo"
+                data-test-id="footer-personal-nav-logo"
               />
             </CardLink>
             <CardText
