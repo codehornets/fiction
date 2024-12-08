@@ -185,6 +185,18 @@ function getUiDemoCardTemplates() {
       category: ['advanced'],
       el: vue.defineAsyncComponent(t.component),
       isPublic: true,
+      getConfig: async (args) => {
+        const demoCard = await args.factory.fromTemplate({
+          templateId: args.templateId,
+          el: vue.defineAsyncComponent(t.component),
+        })
+        return {
+          demoPage: {
+            cards: [demoCard],
+          },
+        }
+      },
+
     })
   })
 

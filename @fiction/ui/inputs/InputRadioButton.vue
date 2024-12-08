@@ -2,9 +2,9 @@
 import type { ListItem } from '@fiction/core'
 import { normalizeList, vue } from '@fiction/core'
 
-const props = defineProps<{
+const { modelValue, list = [], size = 'md' } = defineProps<{
   modelValue?: string | number
-  list: ListItem[]
+  list?: ListItem[]
   size?: 'sm' | 'md' | 'lg'
 }>()
 
@@ -12,11 +12,11 @@ const emit = defineEmits<{
   'update:modelValue': [value: string | number | undefined]
 }>()
 
-const parsedList = vue.computed(() => normalizeList(props.list))
+const parsedList = vue.computed(() => normalizeList(list))
 
 // Compute dynamic size classes
 const sizeClasses = vue.computed(() => {
-  switch (props.size) {
+  switch (size) {
     case 'sm':
       return 'px-2 py-1 text-[11px]'
     case 'lg':
@@ -27,7 +27,7 @@ const sizeClasses = vue.computed(() => {
 })
 
 function getButtonClasses(item: ListItem, index: number): string {
-  const isSelected = props.modelValue === item.value
+  const isSelected = modelValue === item.value
   const isFirst = index === 0
   const isLast = index === parsedList.value.length - 1
 

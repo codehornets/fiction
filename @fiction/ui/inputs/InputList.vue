@@ -13,7 +13,6 @@ const {
   options = [],
   itemLabel = 'Item',
   itemName = 'Item',
-  depth = 0,
 } = defineProps<{
   modelValue?: BasicItem[]
   options?: InputOption[]
@@ -134,6 +133,7 @@ let sortable: Sortable | undefined
 async function createDraggable() {
   if (!wrapperEl.value)
     return
+
   const { Plugins, Sortable } = await import('@shopify/draggable')
 
   if (sortable)

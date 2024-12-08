@@ -6,7 +6,7 @@ import { InputOption } from './index.js'
 
 const { modelValue, hasChildNav = true } = defineProps<{
   modelValue?: NavListItem
-  hasChildNav: boolean
+  hasChildNav?: boolean
 }>()
 
 const emit = defineEmits<{

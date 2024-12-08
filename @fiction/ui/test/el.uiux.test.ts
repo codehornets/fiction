@@ -4,6 +4,7 @@
 
 import type { ServiceList } from '@fiction/core'
 import type { Interaction } from '@fiction/core/test-utils'
+import { log } from '@fiction/core'
 import { createTestUtilServices, testComponentStability } from '@fiction/core/test-utils'
 import { beforeAll, describe } from 'vitest'
 
@@ -12,6 +13,7 @@ import { InputOption, inputs } from '../inputs/index.js'
 let service: ServiceList
 
 describe('inputs', async () => {
+  const logger = log.contextLogger('inputsTest')
   beforeAll(async () => {
     service = createTestUtilServices()
   })
@@ -43,6 +45,7 @@ describe('inputs', async () => {
         ]
       : []
 
+    logger.info(`testing ${name}`, { data: { props } })
     await testComponentStability({ name, Component: conf.el, service, interactions, props })
   })
   await Promise.all(p)

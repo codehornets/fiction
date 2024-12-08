@@ -1,7 +1,8 @@
+import { toKebab } from '@fiction/core/index.js'
 import { createSiteUiTestingKit } from '@fiction/site/test/testUtils.js'
 import { collectKeysFromOptions } from '@fiction/site/utils/schema.js'
 import { afterAll, describe, expect, it } from 'vitest'
-import { template } from './index.js'
+import { template, templateId } from './index.js'
 
 const headless = true
 
@@ -13,7 +14,7 @@ describe('hero: card', async () => {
   it('hero: displays correctly', async () => {
     await kit.performActions({
       caller: 'hero',
-      path: '/demo-hero',
+      path: `/demo-${toKebab(templateId)}`,
       actions: [
         { type: 'count', selector: '[data-card-type="hero"]' },
       ],

@@ -7,16 +7,16 @@ import LibraryModal from './LibraryModal.vue'
 
 defineOptions({ name: 'InputIcon' })
 
-const props = defineProps({
-  modelValue: { type: Object as vue.PropType<MediaObject>, default: () => ({}) },
-})
+const { modelValue = {} } = defineProps<{
+  modelValue?: MediaObject
+}>()
 
 const emit = defineEmits<{
   (event: 'update:modelValue', payload: MediaObject): void
 }>()
 
 const vis = vue.ref(false)
-const v = vue.computed(() => props.modelValue || {})
+const v = vue.computed(() => modelValue || {})
 const hasIcon = vue.computed(() => v.value.iconId || v.value.html || v.value.url)
 
 function openIconSelector() {

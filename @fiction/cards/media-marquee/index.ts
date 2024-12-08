@@ -1,7 +1,7 @@
 import { vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site'
 
-const templateId = 'mediaMarquee'
+export const templateId = 'mediaMarquee'
 
 export const template = cardTemplate({
   templateId,
