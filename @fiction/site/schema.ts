@@ -1,3 +1,5 @@
+import type { EditorState } from './site'
+import type { CardConfigPortable } from './tables'
 import {
   ButtonDesignSchema,
   ButtonHoverSchema,
@@ -109,13 +111,20 @@ export const SiteUserConfigSchema = z.object({
       logo: logoSchema.optional(),
       primaryColor: ColorThemeSchema.optional(),
     }).optional(),
-    seo: z.object({
+    meta: z.object({
       title: z.string().optional(),
       description: z.string().optional(),
       keywords: z.string().optional(),
       robotsTxt: z.string().optional(),
       locale: z.string().optional(),
       titleTemplate: z.string().optional(),
+      timezone: z.string().optional(),
+    }).optional(),
+    styling: z.object({
+      isLightMode: z.boolean().optional(),
+      fonts: fontsSchema.optional(),
+      buttons: ButtonTypeSchema.optional(),
+      prefersColorScheme: z.enum(prefersColorScheme).optional(),
     }).optional(),
     customCode: z.object({
       gtmContainerId: z.string().optional(),
@@ -127,14 +136,25 @@ export const SiteUserConfigSchema = z.object({
         imageStyle: z.string().optional(),
       }).optional(),
     }).optional(),
-    styling: z.object({
-      isLightMode: z.boolean().optional(),
-      fonts: fontsSchema.optional(),
-      buttons: ButtonTypeSchema.optional(),
-      prefersColorScheme: z.enum(prefersColorScheme).optional(),
-    }).optional(),
+
   }).optional(),
   standard: CardStandardSchema.optional(),
 })
 
 export type SiteUserConfig = z.infer<typeof SiteUserConfigSchema>
+
+export const SiteSchema = z.object({
+  siteId: z.string(),
+  userId: z.string().optional(),
+  orgId: z.string(),
+  title: z.string().optional(),
+  themeId: z.string().optional(),
+  subDomain: z.string().optional(),
+  customDomains: z.array(z.any()).optional(),
+  status: z.enum(['pending', 'active', 'inactive']).optional().default('pending'),
+  userConfig: SiteUserConfigSchema.optional(),
+  userPrivate: z.record(z.unknown()).optional(),
+  editor: z.record(z.unknown()).optional(),
+  sections: z.record(z.unknown()).optional(),
+  draft: z.record(z.unknown()).optional(),
+}).strict()

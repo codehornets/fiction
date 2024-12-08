@@ -91,12 +91,13 @@ async function handleSorted(sorted: string[]) {
           <XButton
             data-test-id="addPage"
             theme="primary"
-            size="xs"
+            design="outline"
+            size="sm"
             icon="i-tabler-circle-plus"
             rounding="full"
             @click="useEditPage()"
           >
-            Add Page
+            Add New Page
           </XButton>
         </div>
       </div>

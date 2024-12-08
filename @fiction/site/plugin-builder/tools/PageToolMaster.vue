@@ -26,9 +26,17 @@ const options: InputOption[] = [
     icon: { class: 'i-tabler-file-plus' },
     options: [
       createOption({
-        key: 'managePagesInput',
-        input: InputManagePages,
-        props: { site, tool },
+        key: 'group.managePages',
+        label: 'Pages',
+        input: 'group',
+        icon: { class: 'i-tabler-file-plus' },
+        options: [
+          createOption({
+            key: 'managePagesInput',
+            input: InputManagePages,
+            props: { site, tool },
+          }),
+        ],
       }),
     ],
   }),

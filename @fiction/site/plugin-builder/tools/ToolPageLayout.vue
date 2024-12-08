@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import type { AdminEditorController, EditorTool } from '@fiction/admin'
+import type { InputOption } from '@fiction/ui'
 import type { Site } from '../../site'
 import type { ToolKeys } from './tools.js'
 import ElTool from '@fiction/admin/tools/ElTool.vue'
 import { vue } from '@fiction/core'
-import { InputOption } from '@fiction/ui'
+import { createOption } from '@fiction/ui'
 import ElForm from '@fiction/ui/inputs/ElForm.vue'
 import FormEngine from '@fiction/ui/inputs/FormEngine.vue'
 
@@ -18,17 +19,17 @@ const { site, tool } = props
 
 const options = vue.computed<InputOption[]>(() => {
   return [
-    new InputOption({
+    createOption({
       key: 'manageLayout',
       label: 'Page Layout',
       input: 'group',
       options: [
-        new InputOption({
+        createOption({
           key: 'manageLayoutInput',
           input: vue.defineAsyncComponent(() => import('./InputManageLayout.vue')),
           props: { site, tool },
         }),
-        new InputOption({
+        createOption({
           key: 'addElementsInputs',
           input: vue.defineAsyncComponent(() => import('./InputAddElements.vue')),
           props: { site, tool },

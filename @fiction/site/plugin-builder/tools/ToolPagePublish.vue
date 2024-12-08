@@ -1,12 +1,13 @@
 <script lang="ts" setup>
 import type { AdminEditorController, EditorTool } from '@fiction/admin'
 import type { FictionApp } from '@fiction/core'
+import type { InputOption } from '@fiction/ui'
 import type { Site } from '../../site'
 import type { TableSiteConfig } from '../../tables'
 import type { ToolKeys } from './tools'
 import ElTool from '@fiction/admin/tools/ElTool.vue'
 import { useService, vue } from '@fiction/core'
-import { InputOption } from '@fiction/ui'
+import { createOption } from '@fiction/ui'
 import XButton from '@fiction/ui/buttons/XButton.vue'
 import ElModalConfirm from '@fiction/ui/ElModalConfirm.vue'
 import ElForm from '@fiction/ui/inputs/ElForm.vue'
@@ -28,41 +29,58 @@ function getSuffixUrl() {
   return new URL(fictionAppSites.liveUrl.value).hostname.split('.').slice(-2).join('.')
 }
 const options: InputOption[] = [
-  new InputOption({
+  createOption({
     key: 'editor.hidePublishing',
-    label: 'Site Address',
-    description: 'Configure where visitors can find your site',
+    label: 'Site Domain',
     input: 'group',
+    icon: { class: 'i-tabler-world' },
     options: [
-      new InputOption({
-        key: 'subDomain',
-        label: 'Free Fiction Domain',
-        subLabel: 'Your site\'s included web address',
-        description: 'Choose a unique name for your free Fiction-hosted domain. This will be your site\'s default address.',
-        input: 'InputUsername',
-        isRequired: true,
+      createOption({
+        key: 'group.subDomain',
+        label: 'Fiction Subdomain',
+        input: 'group',
+        icon: { class: 'i-tabler-world-latitude' },
+        options: [
+          createOption({
+            key: 'subDomain',
+            label: 'Free Fiction Domain',
+            subLabel: 'Your site\'s included web address',
+            description: 'Choose a unique name for your free Fiction-hosted domain. This will be your site\'s default address.',
+            input: 'InputUsername',
+            isRequired: true,
 
-        props: {
-          beforeInput: 'https://',
-          afterInput: getSuffixUrl(),
-          table: t.sites,
-          columns: [{ name: 'subDomain' }],
-          uiSize: 'lg',
-        },
+            props: {
+              beforeInput: 'https://',
+              afterInput: getSuffixUrl(),
+              table: t.sites,
+              columns: [{ name: 'subDomain' }],
+              uiSize: 'md',
+            },
+          }),
+        ],
       }),
-      new InputOption({
-        key: 'customDomains',
+      createOption({
+        key: 'group.subDomain',
         label: 'Custom Domain',
-        subLabel: 'Use your own domain name',
-        description: 'Connect your own domain name to your site. You\'ll need to update your DNS settings with your domain provider.',
-        input: vue.defineAsyncComponent(() => import('../InputCustomDomains.vue')),
-        isRequired: true,
+        input: 'group',
+        icon: { class: 'i-tabler-world-longitude' },
+        options: [
+          createOption({
+            key: 'customDomains',
+            label: 'Custom Domain',
+            subLabel: 'Use your own domain name',
+            description: 'Connect your own domain name to your site. You\'ll need to update your DNS settings with your domain provider.',
+            input: vue.defineAsyncComponent(() => import('../InputCustomDomains.vue')),
+            isRequired: true,
 
-        props: {
-          destination: activeSiteHostname(props.site, { isProd: true }).value,
-          uiSize: 'lg',
-        },
+            props: {
+              destination: activeSiteHostname(props.site, { isProd: true }).value,
+              uiSize: 'md',
+            },
+          }),
+        ],
       }),
+
     ],
   }),
 
