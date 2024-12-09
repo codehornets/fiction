@@ -39,6 +39,8 @@ describe('validate option keys', async () => {
         "items.0.href",
         "direction",
         "stagger",
+        "speed",
+        "showAllText",
       ]
     `)
 
@@ -51,6 +53,8 @@ describe('validate option keys', async () => {
       'items.0.href',
       'direction',
       'stagger',
+      'speed',
+      'showAllText',
     ]
 
     expect(new Set(keys)).toEqual(new Set(expectedKeys))

@@ -307,7 +307,7 @@ const hrStyle = {
                 </div>
               </div>
               <a v-if="unsubscribeUrl" :href="unsubscribeUrl" class="opacity-50 text-inherit no-underline">
-                unsubscribe
+                Unsubscribe
               </a>
             </Column>
           </Section>
