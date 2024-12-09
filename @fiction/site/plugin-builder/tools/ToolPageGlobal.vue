@@ -52,7 +52,7 @@ const options: InputOption[] = [
         options: [
           createOption({
             schema,
-            key: 'userConfig.site.brand.favicon',
+            key: 'userConfig.site.favicon',
             label: 'Browser Icon',
             subLabel: 'Small icon shown in browser tabs',
             description: 'Upload a square image (at least 32x32px) that represents your site in browser tabs and bookmarks',
@@ -60,7 +60,7 @@ const options: InputOption[] = [
           }),
           createOption({
             schema,
-            key: 'userConfig.site.brand.shareImage',
+            key: 'userConfig.site.shareImage',
             label: 'Social Preview Image',
             subLabel: 'Appears when your site is shared on social media',
             description: 'Upload an image (1200x630px recommended) to appear when your site is shared on social platforms like Facebook, Twitter, or LinkedIn',
@@ -78,7 +78,7 @@ const options: InputOption[] = [
         options: [
           createOption({
             schema,
-            key: 'userConfig.site.meta.timezone',
+            key: 'userConfig.site.timezone',
             label: 'Time Zone',
             subLabel: 'Used for scheduling and date displays',
             description: 'Sets how dates and times are displayed across your site based on your location',
@@ -86,7 +86,7 @@ const options: InputOption[] = [
           }),
           createOption({
             schema,
-            key: 'userConfig.site.meta.locale',
+            key: 'userConfig.site.locale',
             label: 'Language Code',
             subLabel: 'e.g., "en" for English',
             description: 'Two-letter code that tells browsers and search engines what language your site uses (e.g., "en" for English, "es" for Spanish)',
@@ -95,7 +95,7 @@ const options: InputOption[] = [
           }),
           createOption({
             schema,
-            key: 'userConfig.site.meta.titleTemplate',
+            key: 'userConfig.site.titleTemplate',
             label: 'Page Title Format',
             subLabel: 'Template for browser tab titles',
             description: 'Customize how page titles appear in browser tabs and search results. Use {{pageTitle}} for the current page name and {{siteTitle}} for your site name.',
@@ -115,7 +115,7 @@ const options: InputOption[] = [
 
           createOption({
             schema,
-            key: 'userConfig.site.customCode.gtmContainerId',
+            key: 'userConfig.site.gtmContainerId',
             label: 'Google Tag Manager ID',
             subLabel: 'For analytics and tracking (optional)',
             description: 'Enter your GTM container ID to enable analytics, tracking, and other marketing tools. Format: GTM-XXXXXXX',

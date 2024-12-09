@@ -33,11 +33,11 @@ const emit = defineEmits<{
 }>()
 
 const availableTools = [
-  { label: 'Upload New', value: 'upload', icon: 'i-tabler-upload' },
+  { label: 'Upload Media', value: 'upload', icon: 'i-tabler-upload' },
   { label: 'Media Library', value: 'library', icon: 'i-tabler-photo' },
-  { label: 'HTML (SVG/Embed)', value: 'html', icon: 'i-tabler-code' },
+  { label: 'Custom HTML Embed', value: 'html', icon: 'i-tabler-code' },
   { label: 'Icon Library', value: 'icons', icon: 'i-tabler-category' },
-  { label: 'Background', value: 'background', icon: 'i-tabler-palette' },
+  { label: 'Background Color', value: 'background', icon: 'i-tabler-palette' },
 ] as const
 
 type LibraryTool = typeof availableTools[number]['value']

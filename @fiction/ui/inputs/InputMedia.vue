@@ -64,13 +64,13 @@ function handleMediaUpdate(newValue: MediaObject) {
       size="sm"
       @click.stop.prevent="openMediaSelector"
     >
-      Select Media
+      {{ isBackground ? 'Edit Background' : 'Select Media' }}
     </XButton>
 
     <LibraryModal
       v-model:vis="vis"
       :model-value="val"
-      :tools="['upload', 'library', 'html', ...(isBackground ? ['background'] as const : [])]"
+      :tools="[...(isBackground ? ['background'] as const : []), 'upload', 'library', 'html']"
       default-tool="library"
       title="Media Manager"
       @update:model-value="handleMediaUpdate"

@@ -23,6 +23,10 @@ community social proof to boost conversion rates.`,
     const { getConfig } = await import('./config')
     return getConfig({ templateId })
   },
+
+  getBaseConfig: () => {
+    return { standard: { spacing: { verticalSpacing: 'xs' } } }
+  },
 })
 
 // Optional: Export type for use in other components

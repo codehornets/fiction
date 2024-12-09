@@ -108,6 +108,7 @@ const autoSetDark = vue.computed(() => {
     :data-card-depth="card.depth.value"
     :data-primary-scheme="colorScheme?.primary"
     :data-theme-scheme="colorScheme?.theme"
+    :data-vertical-spacing="card.fullConfig.value?.standard?.spacing?.verticalSpacing"
   >
     <div class="w-full relative text-theme-950 dark:text-theme-50 x-font-body ">
       <div>

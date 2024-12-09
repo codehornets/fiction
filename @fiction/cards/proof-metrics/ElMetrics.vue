@@ -14,7 +14,10 @@ const uc = vue.computed(() => props.card.userConfig.value)
 
 <template>
   <div>
-    <div class="mx-auto grid max-w-6xl  md:grid-cols-3 px-6 lg:px-8 gap-8 gap-y-12 md:gap-24">
+    <div
+      class="mx-auto grid max-w-6xl  px-6 lg:px-8 gap-8 gap-y-12 md:gap-24"
+      :class="uc.metrics?.length === 1 ? 'md:grid-cols-1' : uc.metrics?.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3'"
+    >
       <div
         v-for="(feat, i) in uc.metrics"
         :key="i"

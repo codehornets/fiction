@@ -100,16 +100,7 @@ export async function getUserConfig(): Promise<UserConfig> {
         content: 'Notice how this statement immediately engages your audience with a powerful promise. Each word is chosen to create emotional impact and paint a picture of possibilities.',
         action: { buttons: [{ label: 'Start Your Journey', href: '#', theme: 'primary', design: 'solid' }] },
       },
-      {
-        title: 'See Your Impact Multiply',
-        content: 'Feel the momentum build as each statement connects with your audience. This example shows how to maintain engagement through a story arc that builds excitement and trust.',
-        action: { buttons: [{ label: 'Learn Our Method', href: '#', theme: 'primary', design: 'outline' }] },
-      },
-      {
-        title: 'Become an Industry Leader',
-        content: 'Imagine your message resonating with perfect clarity. This final statement demonstrates how to close with a compelling vision that motivates action.',
-        action: { buttons: [{ label: 'Join Leading Brands', href: '#', theme: 'primary', design: 'ghost' }] },
-      },
+
     ],
     transition: 'fade',
     autoplay: true,

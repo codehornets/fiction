@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generatedAt": "2024-12-04T00:11:59.026Z",
+  "generatedAt": "2024-12-09T07:44:59.764Z",
   "theme": [
     {
       "themeId": "minimal",
@@ -52,13 +52,13 @@
         },
         "pages": [
           {
-            "cardId": "crd674f9e4fedcdcc1ff0b8b853",
+            "cardId": "crd67569ffbc75beec61fa7613a",
             "templateId": "pageWrap",
             "slug": "_home",
             "cards": [
               {
-                "parentId": "crd674f9e4fedcdcc1ff0b8b853",
-                "cardId": "crd674f9e4f1373c610171303d5",
+                "parentId": "crd67569ffbc75beec61fa7613a",
+                "cardId": "crd67569ffba23f3fb17ca88139",
                 "templateId": "contentProfile",
                 "userConfig": {
                   "superTitle": {
@@ -66,37 +66,35 @@
                   },
                   "title": "Crafting Your Perfect Professional Story",
                   "content": "<p>Notice how a well-structured bio can capture attention instantly? Start with your most compelling achievements or unique value proposition. Keep it concise yet impactful.</p>\n<p>Imagine connecting with your audience through carefully chosen words that reflect your authentic voice while maintaining professional credibility. Remember to highlight your expertise and what makes you uniquely qualified.</p>",
-                  "theme": "blue",
                   "mediaItems": [
                     {
                       "media": {
                         "format": "image",
-                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724440976/arpowers_minimal_stock_background_for_profile_photo_professiona_63facb31-584d-410e-9b14-62ab9d55f79b_zepla8.png",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556355/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_189de993-3771-4a77-8b5a-6e080ca07673_qwcrkh.png",
                         "tags": [
                           "annotated",
                           "aspect:portrait",
+                          "aspect:square",
                           "color:warm",
-                          "headshot",
-                          "person",
-                          "silhouette",
-                          "woman",
+                          "object",
                           "image"
                         ],
-                        "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_63facb31-584d-410e-9b14-62ab9d55f79b_zepla8"
+                        "slug": "arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_189de993-3771-4a77-8b5a-6e080ca07673_qwcrkh"
                       }
                     },
                     {
                       "media": {
                         "format": "image",
-                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556274/arpowers_minimal_midshot_photo_of_object_futuristic_ancient_gre_685c05c4-b02c-407a-8ffb-c150dbafbe08_jz6nfc.png",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556310/arpowers_minimal_midshot_photo_of_object_1990s_style_futuristic_59c5e3d3-695e-4a03-88ac-ca87bff23762_pyzzqu.png",
                         "tags": [
                           "annotated",
                           "aspect:portrait",
+                          "aspect:square",
                           "color:warm",
                           "object",
                           "image"
                         ],
-                        "slug": "arpowers_minimal_midshot_photo_of_object_futuristic_ancient_gre_685c05c4-b02c-407a-8ffb-c150dbafbe08_jz6nfc"
+                        "slug": "arpowers_minimal_midshot_photo_of_object_1990s_style_futuristic_59c5e3d3-695e-4a03-88ac-ca87bff23762_pyzzqu"
                       }
                     }
                   ],
@@ -133,7 +131,7 @@
                       }
                     }
                   ],
-                  "links": {
+                  "action": {
                     "buttons": [
                       {
                         "label": "Connect on LinkedIn",
@@ -167,8 +165,8 @@
                 "depth": 1
               },
               {
-                "parentId": "crd674f9e4fedcdcc1ff0b8b853",
-                "cardId": "crd674f9e4f661d0c26e992d706",
+                "parentId": "crd67569ffbc75beec61fa7613a",
+                "cardId": "crd67569ffbfd18b5ff70227cd2",
                 "templateId": "contentBento",
                 "userConfig": {
                   "items": [
@@ -224,13 +222,13 @@
                       "content": "Add media or background images to create visual interest.",
                       "bg": {
                         "format": "video",
-                        "url": "https://res.cloudinary.com/fiction-com-inc/video/upload/f_auto,q_auto/v1724635925/replicate-prediction-knsgvczvanrj60chhh19y04ca0_lnzqcg.mp4",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/video/upload/f_auto,q_auto/v1724634798/replicate-prediction-fxwj2q8gedrj60chhgwbdst1qm_dulqpf.mp4",
                         "tags": [
                           "aspect:landscape",
                           "background",
                           "video"
                         ],
-                        "slug": "replicate-prediction-knsgvczvanrj60chhh19y04ca0_lnzqcg",
+                        "slug": "replicate-prediction-fxwj2q8gedrj60chhgwbdst1qm_dulqpf",
                         "overlay": {
                           "opacity": 0.4
                         }
@@ -256,42 +254,38 @@
                 "depth": 1
               },
               {
-                "parentId": "crd674f9e4fedcdcc1ff0b8b853",
-                "cardId": "crd674f9e4f3e80158335d7ec85",
+                "parentId": "crd67569ffbc75beec61fa7613a",
+                "cardId": "crd67569ffbc6ee4914e4c0266f",
                 "templateId": "proofQuotes",
                 "userConfig": {
-                  "display": {
-                    "style": "grid",
-                    "columns": 2,
-                    "showDividers": true,
-                    "highlightActive": true
-                  },
                   "quotes": [
                     {
                       "text": "Notice how a well-crafted testimonial can instantly build trust?",
                       "layout": "featured",
                       "theme": "emerald",
                       "author": {
-                        "name": "Sarah Chen",
-                        "title": "Marketing Director",
-                        "image": {
+                        "label": "Sarah Chen",
+                        "subLabel": "Marketing Director",
+                        "media": {
                           "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1725686138/profile-woman-6_gnqhni.png",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441072/arpowers_incredibly_beautiful_headshot_of_woman_business_attire_2c622864-6457-4f8f-90c1-f592457cbfd1_vcipik.png",
                           "tags": [
                             "annotated",
+                            "aspect:landscape",
                             "aspect:square",
                             "color:warm",
                             "headshot",
+                            "person",
                             "realistic",
                             "woman",
                             "image"
                           ],
-                          "slug": "profile-woman-6_gnqhni"
+                          "slug": "arpowers_incredibly_beautiful_headshot_of_woman_business_attire_2c622864-6457-4f8f-90c1-f592457cbfd1_vcipik"
                         }
                       },
                       "org": {
-                        "name": "GrowthMetrics",
-                        "image": {
+                        "label": "GrowthMetrics",
+                        "media": {
                           "format": "html",
                           "html": "lorem1.svg",
                           "tags": [
@@ -300,12 +294,14 @@
                           ]
                         }
                       },
-                      "actions": [
-                        {
-                          "label": "View Case Study",
-                          "href": "#"
-                        }
-                      ]
+                      "action": {
+                        "buttons": [
+                          {
+                            "label": "View Case Study",
+                            "href": "#"
+                          }
+                        ]
+                      }
                     }
                   ]
                 },
@@ -333,13 +329,13 @@
             "effects": []
           },
           {
-            "cardId": "crd674f9e4f38370415c57b55f4",
+            "cardId": "crd67569ffb2862ade9b1d255ab",
             "templateId": "pageWrap",
             "slug": "blog",
             "cards": [
               {
-                "parentId": "crd674f9e4f38370415c57b55f4",
-                "cardId": "crd674f9e4f739b3d7beec3acec",
+                "parentId": "crd67569ffb2862ade9b1d255ab",
+                "cardId": "crd67569ffb84a7896d6fc0290d",
                 "templateId": "postsMagazine",
                 "userConfig": {
                   "standard": {
@@ -365,18 +361,15 @@
                             "title": "Data Journalist",
                             "email": "marcus@example.com",
                             "avatar": {
-                              "format": "image",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441013/arpowers_minimal_stock_background_for_profile_photo_professiona_3dfbcab8-fc4a-4079-b5a8-2b81a26e24df_qoijpt.png",
+                              "format": "video",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/video/upload/f_auto,q_auto/v1724637812/replicate-prediction-e42s7rjkp1rj00chhhks5benkc_npfs6e.mp4",
                               "tags": [
-                                "annotated",
-                                "aspect:portrait",
-                                "color:cool",
+                                "aspect:landscape",
                                 "person",
-                                "silhouette",
-                                "woman",
-                                "image"
+                                "video",
+                                "woman"
                               ],
-                              "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_3dfbcab8-fc4a-4079-b5a8-2b81a26e24df_qoijpt"
+                              "slug": "replicate-prediction-e42s7rjkp1rj00chhhks5benkc_npfs6e"
                             }
                           }
                         ],
@@ -392,7 +385,7 @@
                         ],
                         "media": {
                           "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1726725062/arpowers_Minimalist_futuristic_interpretation_of_an_zeus_elegan_77383c52-c3c6-4124-9239-5ad6f2ab6d0b_h2qazu.png",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1726725066/arpowers_Minimalist_futuristic_interpretation_of_a_athena_elega_12401039-7649-4181-b070-c01767c3a9e9_v3x3s3.png",
                           "tags": [
                             "aspect:landscape",
                             "color:warm",
@@ -400,7 +393,7 @@
                             "object",
                             "annotated"
                           ],
-                          "slug": "arpowers_Minimalist_futuristic_interpretation_of_an_zeus_elegan_77383c52-c3c6-4124-9239-5ad6f2ab6d0b_h2qazu"
+                          "slug": "arpowers_Minimalist_futuristic_interpretation_of_a_athena_elega_12401039-7649-4181-b070-c01767c3a9e9_v3x3s3"
                         },
                         "dateAt": "2024-03-18T00:00:00.000Z"
                       },
@@ -414,19 +407,15 @@
                             "title": "SEO Strategist",
                             "email": "priya@example.com",
                             "avatar": {
-                              "format": "image",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441625/arpowers_minimal_stock_background_for_profile_photo_professiona_3a694c25-ee52-4e0e-932f-4efc62c2f4f0_ol7wns.png",
+                              "format": "video",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/video/upload/f_auto,q_auto/v1724637814/replicate-prediction-722gmphkzhrj00chhhkvjd46hg_pmxb3i.mp4",
                               "tags": [
-                                "annotated",
                                 "aspect:landscape",
-                                "color:neutral",
-                                "headshot",
                                 "man",
                                 "person",
-                                "silhouette",
-                                "image"
+                                "video"
                               ],
-                              "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_3a694c25-ee52-4e0e-932f-4efc62c2f4f0_ol7wns"
+                              "slug": "replicate-prediction-722gmphkzhrj00chhhkvjd46hg_pmxb3i"
                             }
                           }
                         ],
@@ -442,15 +431,16 @@
                         ],
                         "media": {
                           "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556405/arpowers_close-up_photo_of_art_deco_statue_ancient_greek_ideal__95cb200f-30a0-478a-9737-f4846d630dde_kjx4qm.png",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556293/arpowers_minimal_midshot_photo_of_object_2030s_futuristic_ancie_a797e9d2-5c50-4e55-a1f6-815dd167d8fc_cvorkh.png",
                           "tags": [
                             "annotated",
+                            "aspect:portrait",
                             "aspect:square",
                             "color:warm",
                             "object",
                             "image"
                           ],
-                          "slug": "arpowers_close-up_photo_of_art_deco_statue_ancient_greek_ideal__95cb200f-30a0-478a-9737-f4846d630dde_kjx4qm"
+                          "slug": "arpowers_minimal_midshot_photo_of_object_2030s_futuristic_ancie_a797e9d2-5c50-4e55-a1f6-815dd167d8fc_cvorkh"
                         },
                         "dateAt": "2024-03-17T00:00:00.000Z"
                       },
@@ -465,19 +455,18 @@
                             "email": "sarah@example.com",
                             "avatar": {
                               "format": "image",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441072/arpowers_incredibly_beautiful_headshot_of_woman_business_attire_2c622864-6457-4f8f-90c1-f592457cbfd1_vcipik.png",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441018/arpowers_minimal_stock_background_for_profile_photo_professiona_8f8842a3-efb2-4ece-8b37-a52d99f2fb2b_rl7atx.png",
                               "tags": [
                                 "annotated",
                                 "aspect:landscape",
-                                "aspect:square",
-                                "color:warm",
-                                "headshot",
+                                "color:cool",
                                 "person",
-                                "realistic",
+                                "silhouette",
+                                "wideshot",
                                 "woman",
                                 "image"
                               ],
-                              "slug": "arpowers_incredibly_beautiful_headshot_of_woman_business_attire_2c622864-6457-4f8f-90c1-f592457cbfd1_vcipik"
+                              "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_8f8842a3-efb2-4ece-8b37-a52d99f2fb2b_rl7atx"
                             }
                           }
                         ],
@@ -493,16 +482,15 @@
                         ],
                         "media": {
                           "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556206/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_c954fed0-a698-4b95-8470-e8a0541b0b55_qkrjxn.png",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556050/arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_2b2d7ef8-4024-48f9-b947-ec71a360ebbf_xu34zn.png",
                           "tags": [
                             "annotated",
-                            "aspect:landscape",
-                            "aspect:square",
+                            "aspect:wide",
                             "color:cool",
                             "object",
                             "image"
                           ],
-                          "slug": "arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_c954fed0-a698-4b95-8470-e8a0541b0b55_qkrjxn"
+                          "slug": "arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_2b2d7ef8-4024-48f9-b947-ec71a360ebbf_xu34zn"
                         },
                         "dateAt": "2024-03-20T00:00:00.000Z"
                       },
@@ -517,17 +505,17 @@
                             "email": "alex@example.com",
                             "avatar": {
                               "format": "image",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441009/arpowers_minimal_stock_background_for_profile_photo_professiona_fb515b3d-f003-401c-a0df-e4c974492bf7_2_tm7eay.png",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441065/arpowers_incredibly_beautiful_profile_photo_of_man_business_att_09fec68b-d18e-44a1-9d43-aee9cb66a073_udgefd.png",
                               "tags": [
                                 "annotated",
                                 "aspect:landscape",
-                                "color:warm",
+                                "aspect:square",
+                                "color:cool",
+                                "man",
                                 "person",
-                                "silhouette",
-                                "woman",
                                 "image"
                               ],
-                              "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_fb515b3d-f003-401c-a0df-e4c974492bf7_2_tm7eay"
+                              "slug": "arpowers_incredibly_beautiful_profile_photo_of_man_business_att_09fec68b-d18e-44a1-9d43-aee9cb66a073_udgefd"
                             }
                           }
                         ],
@@ -543,15 +531,15 @@
                         ],
                         "media": {
                           "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1726725068/arpowers_Minimalist_futuristic_interpretation_of_an_zeus_elegan_ce9febc4-733e-49e2-976f-8e1f321407c4_fhmivm.png",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1726725066/arpowers_Minimalist_futuristic_interpretation_of_an_ancient_Gre_e3f548f9-8daa-4a3f-9e8f-16e6ef735eb2_c3cuko.png",
                           "tags": [
-                            "aspect:landscape",
+                            "aspect:square",
                             "color:warm",
                             "image",
                             "object",
                             "annotated"
                           ],
-                          "slug": "arpowers_Minimalist_futuristic_interpretation_of_an_zeus_elegan_ce9febc4-733e-49e2-976f-8e1f321407c4_fhmivm"
+                          "slug": "arpowers_Minimalist_futuristic_interpretation_of_an_ancient_Gre_e3f548f9-8daa-4a3f-9e8f-16e6ef735eb2_c3cuko"
                         },
                         "dateAt": "2024-03-19T00:00:00.000Z"
                       },
@@ -566,15 +554,18 @@
                             "email": "maya@example.com",
                             "avatar": {
                               "format": "image",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441014/arpowers_minimal_stock_background_for_profile_photo_professiona_f93ca937-ccce-4be7-8e01-6476f6e8c9c9_y56mbj.png",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724443235/arpowers_minimal_midshot_photo_stylistic_attire_1990s_style_fut_151aeb1d-43c1-4253-9024-589479de3d89_cvvv2k.png",
                               "tags": [
                                 "annotated",
-                                "aspect:portrait",
-                                "color:warm",
+                                "aspect:landscape",
+                                "aspect:square",
+                                "color:cool",
+                                "midshot",
                                 "person",
+                                "woman",
                                 "image"
                               ],
-                              "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_f93ca937-ccce-4be7-8e01-6476f6e8c9c9_y56mbj"
+                              "slug": "arpowers_minimal_midshot_photo_stylistic_attire_1990s_style_fut_151aeb1d-43c1-4253-9024-589479de3d89_cvvv2k"
                             }
                           }
                         ],
@@ -590,17 +581,15 @@
                         ],
                         "media": {
                           "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724555823/arpowers_minimal_close_photo_of_object_ancient_greek_ideal_beau_71a0138f-a4e3-4893-9be0-6ceba235df26_bqholx.png",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556405/arpowers_close-up_photo_of_art_deco_statue_ancient_greek_ideal__95cb200f-30a0-478a-9737-f4846d630dde_kjx4qm.png",
                           "tags": [
                             "annotated",
                             "aspect:square",
-                            "color:cool",
-                            "nature",
+                            "color:warm",
                             "object",
-                            "people",
                             "image"
                           ],
-                          "slug": "arpowers_minimal_close_photo_of_object_ancient_greek_ideal_beau_71a0138f-a4e3-4893-9be0-6ceba235df26_bqholx"
+                          "slug": "arpowers_close-up_photo_of_art_deco_statue_ancient_greek_ideal__95cb200f-30a0-478a-9737-f4846d630dde_kjx4qm"
                         },
                         "dateAt": "2024-03-14T00:00:00.000Z"
                       },
@@ -613,109 +602,6 @@
                             "fullName": "David Zhang",
                             "title": "Cognitive Science Researcher",
                             "email": "david@example.com",
-                            "avatar": {
-                              "format": "image",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724443247/arpowers_minimal_midshot_photo_stylistic_attire_1990s_style_fut_99e1189b-dc7a-4d84-8ef3-dfe9a657f53b_vhkhic.png",
-                              "tags": [
-                                "annotated",
-                                "aspect:landscape",
-                                "color:warm",
-                                "midshot",
-                                "nature",
-                                "people",
-                                "person",
-                                "woman",
-                                "image"
-                              ],
-                              "slug": "arpowers_minimal_midshot_photo_stylistic_attire_1990s_style_fut_99e1189b-dc7a-4d84-8ef3-dfe9a657f53b_vhkhic"
-                            }
-                          }
-                        ],
-                        "content": "\n        <article>\n          <p><em>Consider</em> the last idea that stayed with you for days. What made it stick? The science of memorable ideas isn't about being clever—it's about understanding how the human mind processes and retains information.</p>\n\n          <h2>The Architecture of Memorable Ideas</h2>\n          <p>Watch how your mind naturally gravitates toward certain concepts while others slip away. Let's decode this fascinating process.</p>\n\n          <h3>Core Elements of Sticky Ideas</h3>\n          <ul>\n            <li>\n              <h4>The Concrete Principle</h4>\n              <p>Notice how abstract concepts become clearer when anchored to tangible examples? That's your brain's preference for the concrete over the abstract.</p>\n            </li>\n            <li>\n              <h4>The Pattern Effect</h4>\n              <p>What happens when you recognize a familiar pattern in a new context? Your brain suddenly lights up with understanding.</p>\n            </li>\n            <li>\n              <h4>The Emotion Gateway</h4>\n              <p>Remember how ideas connected to strong emotions seem to write themselves directly into your memory?</p>\n            </li>\n          </ul>\n\n          <h3>Making Your Ideas Unforgettable</h3>\n          <ol>\n            <li>\n              <h4>The Velcro Method</h4>\n              <p>Imagine your idea as a hook looking for loops in your reader's mind. What existing knowledge can you connect to?</p>\n            </li>\n            <li>\n              <h4>The Curiosity Bridge</h4>\n              <p>Feel that slight tension when a story is left unfinished? That's your brain's natural desire for completion—use it.</p>\n            </li>\n            <li>\n              <h4>The Echo Chamber</h4>\n              <p>What if your idea could replay itself in your reader's mind, getting stronger with each iteration?</p>\n            </li>\n          </ol>\n\n          <blockquote>\n            <p>\"The most memorable ideas aren't just understood—they're felt, seen, and experienced.\"</p>\n            <footer>\n              <cite>— Dr. Eleanor Hughes, Memory Researcher</cite>\n            </footer>\n          </blockquote>\n\n          <h3>Transform Your Next Idea</h3>\n          <p>Before you share your next big concept, ask yourself:</p>\n          <ul>\n            <li>Could a child understand this?</li>\n            <li>Does it connect to something people already know?</li>\n            <li>Will it make them feel something?</li>\n            <li>Can they see it in action?</li>\n          </ul>\n\n          <p>Ready to make your ideas impossible to forget? Let's build something memorable together.</p>\n        </article>\n      ",
-                        "excerpt": "Discover why some ideas stick while others slip away. Learn the cognitive science behind creating concepts that lodge themselves in memory.",
-                        "categories": [
-                          "Psychology"
-                        ],
-                        "tags": [
-                          "cognition",
-                          "memory",
-                          "communication"
-                        ],
-                        "media": {
-                          "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556192/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_430c5e7f-3b67-4286-9677-df287aa199f1_vce8s7.png",
-                          "tags": [
-                            "annotated",
-                            "aspect:landscape",
-                            "color:cool",
-                            "object",
-                            "image"
-                          ],
-                          "slug": "arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_430c5e7f-3b67-4286-9677-df287aa199f1_vce8s7"
-                        },
-                        "dateAt": "2024-03-13T00:00:00.000Z"
-                      },
-                      {
-                        "title": "Email Marketing Psychology",
-                        "subTitle": "The neuroscience of inbox engagement",
-                        "slug": "email-psychology",
-                        "authors": [
-                          {
-                            "fullName": "Emma Rodriguez",
-                            "title": "Email Marketing Strategist",
-                            "email": "emma@example.com",
-                            "avatar": {
-                              "format": "image",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441012/arpowers_minimal_stock_background_for_profile_photo_professiona_2e276870-5fbd-4138-be32-a7c961799b11_uykxly.png",
-                              "tags": [
-                                "annotated",
-                                "aspect:portrait",
-                                "aspect:square",
-                                "color:cool",
-                                "nature",
-                                "people",
-                                "person",
-                                "silhouette",
-                                "woman",
-                                "image"
-                              ],
-                              "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_2e276870-5fbd-4138-be32-a7c961799b11_uykxly"
-                            }
-                          }
-                        ],
-                        "content": "[Previous post content structure but focused on email marketing psychology]",
-                        "excerpt": "Unlock the psychological triggers that make emails irresistible to open and act upon. Transform your campaigns from inbox noise to anticipated value.",
-                        "categories": [
-                          "Marketing"
-                        ],
-                        "tags": [
-                          "email",
-                          "psychology",
-                          "conversion"
-                        ],
-                        "media": {
-                          "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556499/arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_1361d2ff-ef40-4af2-a3d2-a8ef4880a55d_pgbcea.png",
-                          "tags": [
-                            "annotated",
-                            "aspect:tall",
-                            "color:warm",
-                            "object",
-                            "image"
-                          ],
-                          "slug": "arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_1361d2ff-ef40-4af2-a3d2-a8ef4880a55d_pgbcea"
-                        },
-                        "dateAt": "2024-03-12T00:00:00.000Z"
-                      },
-                      {
-                        "title": "Color Theory for Conversions",
-                        "subTitle": "Using color psychology to drive action",
-                        "slug": "color-psychology",
-                        "authors": [
-                          {
-                            "fullName": "James Wilson",
-                            "title": "Conversion Design Expert",
-                            "email": "james@example.com",
                             "avatar": {
                               "format": "image",
                               "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724443251/arpowers_minimal_midshot_photo_stylistic_attire_1990s_style_fut_dcf90573-20b3-4e04-81f0-148536257f1a_baqmvj.png",
@@ -733,6 +619,109 @@
                             }
                           }
                         ],
+                        "content": "\n        <article>\n          <p><em>Consider</em> the last idea that stayed with you for days. What made it stick? The science of memorable ideas isn't about being clever—it's about understanding how the human mind processes and retains information.</p>\n\n          <h2>The Architecture of Memorable Ideas</h2>\n          <p>Watch how your mind naturally gravitates toward certain concepts while others slip away. Let's decode this fascinating process.</p>\n\n          <h3>Core Elements of Sticky Ideas</h3>\n          <ul>\n            <li>\n              <h4>The Concrete Principle</h4>\n              <p>Notice how abstract concepts become clearer when anchored to tangible examples? That's your brain's preference for the concrete over the abstract.</p>\n            </li>\n            <li>\n              <h4>The Pattern Effect</h4>\n              <p>What happens when you recognize a familiar pattern in a new context? Your brain suddenly lights up with understanding.</p>\n            </li>\n            <li>\n              <h4>The Emotion Gateway</h4>\n              <p>Remember how ideas connected to strong emotions seem to write themselves directly into your memory?</p>\n            </li>\n          </ul>\n\n          <h3>Making Your Ideas Unforgettable</h3>\n          <ol>\n            <li>\n              <h4>The Velcro Method</h4>\n              <p>Imagine your idea as a hook looking for loops in your reader's mind. What existing knowledge can you connect to?</p>\n            </li>\n            <li>\n              <h4>The Curiosity Bridge</h4>\n              <p>Feel that slight tension when a story is left unfinished? That's your brain's natural desire for completion—use it.</p>\n            </li>\n            <li>\n              <h4>The Echo Chamber</h4>\n              <p>What if your idea could replay itself in your reader's mind, getting stronger with each iteration?</p>\n            </li>\n          </ol>\n\n          <blockquote>\n            <p>\"The most memorable ideas aren't just understood—they're felt, seen, and experienced.\"</p>\n            <footer>\n              <cite>— Dr. Eleanor Hughes, Memory Researcher</cite>\n            </footer>\n          </blockquote>\n\n          <h3>Transform Your Next Idea</h3>\n          <p>Before you share your next big concept, ask yourself:</p>\n          <ul>\n            <li>Could a child understand this?</li>\n            <li>Does it connect to something people already know?</li>\n            <li>Will it make them feel something?</li>\n            <li>Can they see it in action?</li>\n          </ul>\n\n          <p>Ready to make your ideas impossible to forget? Let's build something memorable together.</p>\n        </article>\n      ",
+                        "excerpt": "Discover why some ideas stick while others slip away. Learn the cognitive science behind creating concepts that lodge themselves in memory.",
+                        "categories": [
+                          "Psychology"
+                        ],
+                        "tags": [
+                          "cognition",
+                          "memory",
+                          "communication"
+                        ],
+                        "media": {
+                          "format": "image",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556153/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_e8b14321-4f8b-49a5-834f-ea5f44bc081c_xxcsqr.png",
+                          "tags": [
+                            "annotated",
+                            "aspect:landscape",
+                            "aspect:square",
+                            "color:warm",
+                            "object",
+                            "image"
+                          ],
+                          "slug": "arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_e8b14321-4f8b-49a5-834f-ea5f44bc081c_xxcsqr"
+                        },
+                        "dateAt": "2024-03-13T00:00:00.000Z"
+                      },
+                      {
+                        "title": "Email Marketing Psychology",
+                        "subTitle": "The neuroscience of inbox engagement",
+                        "slug": "email-psychology",
+                        "authors": [
+                          {
+                            "fullName": "Emma Rodriguez",
+                            "title": "Email Marketing Strategist",
+                            "email": "emma@example.com",
+                            "avatar": {
+                              "format": "image",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724440973/arpowers_incredibly_beautiful_profile_photo_business_attire_Sil_d0620df0-00c5-47b5-b034-796e89ef935a_yr4uvl.png",
+                              "tags": [
+                                "annotated",
+                                "aspect:landscape",
+                                "aspect:square",
+                                "color:warm",
+                                "nature",
+                                "people",
+                                "person",
+                                "silhouette",
+                                "woman",
+                                "image"
+                              ],
+                              "slug": "arpowers_incredibly_beautiful_profile_photo_business_attire_Sil_d0620df0-00c5-47b5-b034-796e89ef935a_yr4uvl"
+                            }
+                          }
+                        ],
+                        "content": "[Previous post content structure but focused on email marketing psychology]",
+                        "excerpt": "Unlock the psychological triggers that make emails irresistible to open and act upon. Transform your campaigns from inbox noise to anticipated value.",
+                        "categories": [
+                          "Marketing"
+                        ],
+                        "tags": [
+                          "email",
+                          "psychology",
+                          "conversion"
+                        ],
+                        "media": {
+                          "format": "image",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1726725067/arpowers_Minimalist_futuristic_interpretation_of_an_zeus_elegan_21d60602-492a-42f2-826a-9d1d78b53531_yzlgtn.png",
+                          "tags": [
+                            "aspect:landscape",
+                            "color:multi",
+                            "image",
+                            "object",
+                            "annotated"
+                          ],
+                          "slug": "arpowers_Minimalist_futuristic_interpretation_of_an_zeus_elegan_21d60602-492a-42f2-826a-9d1d78b53531_yzlgtn"
+                        },
+                        "dateAt": "2024-03-12T00:00:00.000Z"
+                      },
+                      {
+                        "title": "Color Theory for Conversions",
+                        "subTitle": "Using color psychology to drive action",
+                        "slug": "color-psychology",
+                        "authors": [
+                          {
+                            "fullName": "James Wilson",
+                            "title": "Conversion Design Expert",
+                            "email": "james@example.com",
+                            "avatar": {
+                              "format": "image",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724440988/arpowers_incredibly_beautiful_headshot_of_man_business_attire_231244fb-f6fe-4691-81d8-b9589fdfe711_2_ssm7dr.png",
+                              "tags": [
+                                "annotated",
+                                "aspect:landscape",
+                                "aspect:square",
+                                "color:neutral",
+                                "man",
+                                "midshot",
+                                "person",
+                                "image"
+                              ],
+                              "slug": "arpowers_incredibly_beautiful_headshot_of_man_business_attire_231244fb-f6fe-4691-81d8-b9589fdfe711_2_ssm7dr"
+                            }
+                          }
+                        ],
                         "content": "[Previous post content structure but focused on color psychology]",
                         "excerpt": "Master the subtle art of color psychology to create designs that don't just look good—they convert. Learn the science behind color-driven decision making.",
                         "categories": [
@@ -744,15 +733,16 @@
                           "conversion"
                         ],
                         "media": {
-                          "format": "video",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/video/upload/f_auto,q_auto/v1724637812/replicate-prediction-6e219ad5n5rj40chhhkr82vfkc_eqyc4l.mp4",
+                          "format": "image",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556054/arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_513c012c-bb86-41e0-8cc3-e035954b4ec9_juosks.png",
                           "tags": [
-                            "aspect:landscape",
+                            "annotated",
+                            "aspect:wide",
+                            "color:cool",
                             "object",
-                            "video",
-                            "aspect:square"
+                            "image"
                           ],
-                          "slug": "replicate-prediction-6e219ad5n5rj40chhhkr82vfkc_eqyc4l"
+                          "slug": "arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_513c012c-bb86-41e0-8cc3-e035954b4ec9_juosks"
                         },
                         "dateAt": "2024-03-11T00:00:00.000Z"
                       },
@@ -767,19 +757,17 @@
                             "email": "sophia@example.com",
                             "avatar": {
                               "format": "image",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724440979/arpowers_incredibly_beautiful_headshot_of_woman_business_attire_186551ef-845d-4c9b-9078-be5dc7ea6eb6_qutt1i.png",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441068/arpowers_incredibly_beautiful_headshot_of_man_business_attire_S_135cba10-4db3-4a9c-8443-71478135233b_vs9ee7.png",
                               "tags": [
                                 "annotated",
-                                "aspect:landscape",
                                 "aspect:square",
                                 "color:warm",
                                 "headshot",
+                                "man",
                                 "person",
-                                "realistic",
-                                "woman",
-                                "image"
+                                "silhouette"
                               ],
-                              "slug": "arpowers_incredibly_beautiful_headshot_of_woman_business_attire_186551ef-845d-4c9b-9078-be5dc7ea6eb6_qutt1i"
+                              "slug": "arpowers_incredibly_beautiful_headshot_of_man_business_attire_S_135cba10-4db3-4a9c-8443-71478135233b_vs9ee7"
                             }
                           }
                         ],
@@ -795,22 +783,21 @@
                         ],
                         "media": {
                           "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556298/arpowers_minimal_midshot_photo_of_object_1990s_style_futuristic_b50e9db3-34e6-4089-be9a-5fd1584c9ebd_z61gqa.png",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1726725067/arpowers_Minimalist_futuristic_interpretation_of_a_aphrodite_el_f46ef008-6dab-4623-945e-fce9017b0f84_td7h3n.png",
                           "tags": [
-                            "annotated",
-                            "aspect:portrait",
-                            "aspect:square",
+                            "aspect:landscape",
                             "color:warm",
+                            "image",
                             "object",
-                            "image"
+                            "annotated"
                           ],
-                          "slug": "arpowers_minimal_midshot_photo_of_object_1990s_style_futuristic_b50e9db3-34e6-4089-be9a-5fd1584c9ebd_z61gqa"
+                          "slug": "arpowers_Minimalist_futuristic_interpretation_of_a_aphrodite_el_f46ef008-6dab-4623-945e-fce9017b0f84_td7h3n"
                         },
                         "dateAt": "2024-03-10T00:00:00.000Z"
                       }
                     ]
                   },
-                  "layout": {
+                  "index": {
                     "featuredCount": 3,
                     "showAuthors": true,
                     "showExcerpts": true,
@@ -841,13 +828,13 @@
             "effects": []
           },
           {
-            "cardId": "crd674f9e4fd8f23e2bdf792315",
+            "cardId": "crd67569ffb49ee09eb851d6808",
             "templateId": "pageWrap",
             "slug": "contact",
             "cards": [
               {
-                "parentId": "crd674f9e4fd8f23e2bdf792315",
-                "cardId": "crd674f9e4f0691c194ed0ce58b",
+                "parentId": "crd67569ffb49ee09eb851d6808",
+                "cardId": "crd67569ffb735a82dac033766f",
                 "templateId": "contentHero",
                 "userConfig": {
                   "title": "Contact Us",
@@ -871,13 +858,11 @@
                 "depth": 1
               },
               {
-                "parentId": "crd674f9e4fd8f23e2bdf792315",
-                "cardId": "crd674f9e4f3901710c23699c49",
+                "parentId": "crd67569ffb49ee09eb851d6808",
+                "cardId": "crd67569ffb9b28cd2e1732c8da",
                 "templateId": "convertContact",
                 "userConfig": {
                   "layout": "right",
-                  "title": "Get in Touch",
-                  "subTitle": "Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.",
                   "groups": [
                     {
                       "title": "Contact Methods",
@@ -921,29 +906,36 @@
                       ]
                     }
                   ],
-                  "socials": [
-                    {
-                      "label": "@company at LinkedIn",
-                      "href": "https://linkedin.com/company",
-                      "icon": {
-                        "iconId": "brand-linkedin"
+                  "action": {
+                    "buttons": [
+                      {
+                        "label": "@company at LinkedIn",
+                        "href": "https://linkedin.com/company",
+                        "icon": {
+                          "iconId": "brand-linkedin"
+                        },
+                        "theme": "cyan"
+                      },
+                      {
+                        "label": "@company at X",
+                        "href": "https://x.com/company",
+                        "icon": {
+                          "iconId": "brand-x"
+                        },
+                        "theme": "blue"
                       }
-                    },
-                    {
-                      "label": "@company at X",
-                      "href": "https://x.com/company",
-                      "icon": {
-                        "iconId": "brand-x"
-                      }
-                    }
-                  ],
+                    ]
+                  },
                   "form": {
                     "notifyEmails": [
                       {
                         "email": "notifications@example.com"
                       }
                     ],
-                    "successMessage": "Thank you! We'll be in touch soon."
+                    "success": {
+                      "title": "Message Sent",
+                      "subTitle": "Thanks for reaching out! We'll get back to you shortly."
+                    }
                   }
                 },
                 "regionId": "main",
@@ -954,8 +946,8 @@
                 "depth": 1
               },
               {
-                "parentId": "crd674f9e4fd8f23e2bdf792315",
-                "cardId": "crd674f9e4f4162a20fb0ba417c",
+                "parentId": "crd67569ffb49ee09eb851d6808",
+                "cardId": "crd67569ffbb5bf2b6e4f7e4dba",
                 "templateId": "locationMaps",
                 "userConfig": {
                   "maps": [
@@ -1008,13 +1000,13 @@
         ],
         "sections": {
           "header": {
-            "cardId": "crd674f9e4f3565853054f0a323",
+            "cardId": "crd67569ffbdcc8c858a44a5b21",
             "templateId": "pageArea",
             "regionId": "header",
             "cards": [
               {
-                "parentId": "crd674f9e4f3565853054f0a323",
-                "cardId": "crd674f9e4f3afeae0a152f2911",
+                "parentId": "crd67569ffbdcc8c858a44a5b21",
+                "cardId": "crd67569ffb796f58109ecd4a96",
                 "templateId": "pageNav",
                 "userConfig": {
                   "standard": {
@@ -1093,20 +1085,18 @@
             "effects": []
           },
           "footer": {
-            "cardId": "crd674f9e4f3b79d6daf36bda1f",
+            "cardId": "crd67569ffb5d0a738ab57c75bb",
             "templateId": "pageArea",
             "regionId": "footer",
             "cards": [
               {
-                "parentId": "crd674f9e4f3b79d6daf36bda1f",
-                "cardId": "crd674f9e4f03a2b1aa8acd57d8",
+                "parentId": "crd67569ffb5d0a738ab57c75bb",
+                "cardId": "crd67569ffb6b9f4f4bc4cabc32",
                 "templateId": "typographyTicker",
                 "userConfig": {
-                  "settings": {
-                    "fontSize": 6,
-                    "scrollEffect": true,
-                    "scrollIntensity": 15
-                  },
+                  "fontSize": 6,
+                  "scrollEffect": true,
+                  "scrollIntensity": 15,
                   "items": [
                     {
                       "text": "Subscribe to the Newsletter",
@@ -1124,8 +1114,8 @@
                 "depth": 1
               },
               {
-                "parentId": "crd674f9e4f3b79d6daf36bda1f",
-                "cardId": "crd674f9e4f7f10d3e674965604",
+                "parentId": "crd67569ffb5d0a738ab57c75bb",
+                "cardId": "crd67569ffbb213775fb845552f",
                 "templateId": "convertCta",
                 "userConfig": {
                   "superTitle": {
@@ -1165,13 +1155,15 @@
                   "action": {
                     "variant": "subscribe",
                     "subscribe": {
-                      "placeholder": "Your email address",
+                      "input": {
+                        "placeholder": "Your email address"
+                      },
                       "button": {
-                        "text": "Get Started"
+                        "label": "Get Started"
                       },
                       "success": {
                         "title": "Perfect!",
-                        "message": "Watch your inbox for our welcome message"
+                        "content": "Watch your inbox for our welcome message"
                       }
                     },
                     "proof": {
@@ -1197,8 +1189,8 @@
                 "depth": 1
               },
               {
-                "parentId": "crd674f9e4f3b79d6daf36bda1f",
-                "cardId": "crd674f9e4f85fd78b6351bc6fe",
+                "parentId": "crd67569ffb5d0a738ab57c75bb",
+                "cardId": "crd67569ffb3418325a7c44dd39",
                 "templateId": "pageFooterPersonal",
                 "userConfig": {
                   "brand": {
@@ -1300,12 +1292,12 @@
             "effects": []
           },
           "hidden": {
-            "cardId": "crd674f9e4faabd9c1c5fee7368",
+            "cardId": "crd67569ffbe262198fa4f659c7",
             "templateId": "pageArea",
             "cards": [
               {
-                "parentId": "crd674f9e4faabd9c1c5fee7368",
-                "cardId": "crd674f9e4f292a37996ae1d5b8",
+                "parentId": "crd67569ffbe262198fa4f659c7",
+                "cardId": "crd67569ffbf2de5545f0497eb4",
                 "templateId": "modalMedia",
                 "userConfig": {},
                 "regionId": "main",
@@ -1316,8 +1308,8 @@
                 "depth": 1
               },
               {
-                "parentId": "crd674f9e4faabd9c1c5fee7368",
-                "cardId": "crd674f9e4fe99c35be0192c79f",
+                "parentId": "crd67569ffbe262198fa4f659c7",
+                "cardId": "crd67569ffb4dcaa8073c333aa8",
                 "templateId": "effectText",
                 "userConfig": {},
                 "regionId": "main",
@@ -1328,10 +1320,15 @@
                 "depth": 1
               },
               {
-                "parentId": "crd674f9e4faabd9c1c5fee7368",
-                "cardId": "crd674f9e4f91efc101c76888cf",
+                "parentId": "crd67569ffbe262198fa4f659c7",
+                "cardId": "crd67569ffb9006b7a95c4292ab",
                 "templateId": "convertCapture",
                 "userConfig": {
+                  "standard": {
+                    "spacing": {
+                      "verticalSpacing": "sm"
+                    }
+                  },
                   "superTitle": {
                     "text": "Join 10k+ Subscribers"
                   },
@@ -1345,8 +1342,18 @@
                       "image"
                     ]
                   },
-                  "buttonText": "Join The List",
-                  "thanksText": "Welcome aboard! Check your inbox for your guide."
+                  "action": {
+                    "variant": "subscribe",
+                    "subscribe": {
+                      "button": {
+                        "label": "Join The List"
+                      },
+                      "success": {
+                        "title": "Welcome aboard!",
+                        "content": "Check your inbox for your guide."
+                      }
+                    }
+                  }
                 },
                 "regionId": "main",
                 "isHome": false,
@@ -1373,7 +1380,7 @@
       "templates": [
         "contentHero",
         "contentProfile",
-        "story",
+        "contentStory",
         "contentFeatures",
         "sliderStatement",
         "contentBento",
@@ -1388,7 +1395,7 @@
         "socialInsta",
         "contentNumberedList",
         "contentFaq",
-        "timeline",
+        "contentTimeline",
         "sliderCinema",
         "galleryMasonry",
         "modalMedia",

@@ -40,7 +40,7 @@ function onSlideChange(index: number) {
             <div class="space-y-[2vw]">
               <CardText
                 tag="div"
-                class="text-4xl sm:!leading-[1.2] sm:text-5xl   xl:text-6xl x-font-title font-medium"
+                class="text-4xl sm:!leading-[1.1] sm:text-5xl   xl:text-6xl x-font-title font-medium"
                 :card
                 :path="pathCheck(`items.${index}.title`, schema)"
                 animate="fade"
@@ -48,7 +48,7 @@ function onSlideChange(index: number) {
 
               <CardText
                 tag="div"
-                class="text-lg leading-relaxed sm:!leading-[1.6] sm:text-3xl opacity-90"
+                class="text-lg leading-relaxed sm:!leading-[1.4] sm:text-3xl opacity-90"
                 :card
                 :path="pathCheck(`items.${index}.content`, schema)"
                 animate="fade"
@@ -68,6 +68,7 @@ function onSlideChange(index: number) {
       </template>
     </EffectCarousel>
     <NavDots
+      v-if="items.length > 1"
       v-model:active-item="activeIndex"
       :wrap-selector="`[data-card-id='${card.cardId}']`"
       :items="items"

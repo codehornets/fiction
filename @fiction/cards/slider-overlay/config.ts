@@ -1,22 +1,24 @@
 import type { CardFactory } from '@fiction/site/cardFactory.js'
 import type { StockMedia } from '@fiction/ui/stock'
-import { MediaBasicSchema } from '@fiction/core'
+import { PostSchema } from '@fiction/core'
 import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
+const SlideSchema = PostSchema.pick({
+  title: true,
+  subTitle: true,
+  media: true,
+}).extend({
+  textBlend: z.enum(['normal', 'difference']),
+})
+
 export const schema = z.object({
   autoSlide: z.boolean().optional().describe('Animate slide transition automatically'),
-  slides: z.array(
-    z.object({
-      media: MediaBasicSchema.optional(),
-      title: z.string().optional().describe('Title for slide, fitted 2 to 6 words'),
-      subTitle: z.string().optional().describe('Subtitle for slide, fitted 3 to 8 words'),
-      textBlend: z.enum(['normal', 'difference']).optional().describe('Text blend mode over slide'),
-    }),
-  ).optional().describe('Slides for slider with media, title, and subtitle'),
+  slides: z.array(SlideSchema).optional().describe('Slides for slider with media, title, and subtitle'),
 })
 
 export type UserConfig = z.infer<typeof schema>
+type SlideUserConfig = z.infer<typeof SlideSchema>
 
 export const options = [
   createOption({
@@ -31,45 +33,40 @@ export const options = [
         key: 'slides',
         label: 'Slides',
         input: 'InputList',
-        props: { itemLabel: 'Slide' },
+        props: {
+          itemName: 'Slide',
+          itemLabel: args => (args?.item as SlideUserConfig)?.title ?? 'Untitled',
+        },
         options: [
           createOption({
             schema,
             key: 'slides.0.media',
             label: 'Background Media',
             input: 'InputMedia',
-            description: 'Notice how high-quality visuals create immediate impact',
           }),
           createOption({
             schema,
             key: 'slides.0.title',
             label: 'Main Heading',
+            placeholder: 'Enter a title',
             input: 'InputText',
-            props: {
-              placeholder: 'Feel the impact of a powerful headline (2-6 words)',
-            },
           }),
           createOption({
             schema,
             key: 'slides.0.subTitle',
             label: 'Supporting Text',
+            placeholder: 'Enter a subtitle',
             input: 'InputText',
-            props: {
-              placeholder: 'Imagine your message resonating with every viewer (3-8 words)',
-            },
           }),
           createOption({
             schema,
             key: 'slides.0.textBlend',
             label: 'Text Visibility',
-            input: 'InputRadio',
-            props: {
-              options: [
-                { label: 'Standard', value: 'normal' },
-                { label: 'Enhanced Contrast', value: 'difference' },
-              ],
-            },
-            description: 'Watch how different modes enhance readability across any background',
+            input: 'InputRadioButton',
+            list: [
+              { label: 'Standard', value: 'normal' },
+              { label: 'Difference', value: 'difference' },
+            ],
           }),
         ],
       }),
@@ -87,7 +84,6 @@ export const options = [
         key: 'autoSlide',
         label: 'Auto-Advance Slides',
         input: 'InputToggle',
-        description: 'Experience smooth automatic transitions every 15 seconds',
       }),
     ],
   }),

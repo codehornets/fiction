@@ -18,7 +18,7 @@ function updateBackground(updates: Partial<MediaObject>) {
 </script>
 
 <template>
-  <div class="p-8 max-h-[300px] overflow-scroll">
+  <div class="p-8">
     <div class="max-w-md mx-auto space-y-8">
       <ElInput
         label="Background Colors"

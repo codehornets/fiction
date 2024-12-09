@@ -260,7 +260,6 @@
         "index.ts": null
       },
       "convert-cta": {
-        "CommunityJoin.vue": null,
         "ElCard.vue": null,
         "config.ts": null,
         "index.ts": null
@@ -289,6 +288,7 @@
         "CardSocials.vue": null,
         "ElBrand.vue": null,
         "NavDots.vue": null,
+        "ProofCommunity.vue": null,
         "StandardHeader.vue": null,
         "SuperTitle.vue": null,
         "util.ts": null
@@ -480,7 +480,6 @@
         "index.ts": null
       },
       "utils": {
-        "demo.ts": null,
         "generateStructure.ts": null,
         "head.ts": null,
         "icon.ts": null,
@@ -792,6 +791,7 @@
         "priv.ts": null,
         "processors.ts": null,
         "save.ts": null,
+        "schemas.ts": null,
         "serverHealth.ts": null,
         "snapshot.ts": null,
         "socket.ts": null,
@@ -1145,7 +1145,6 @@
       "package.json": null,
       "plugin-builder": {
         "InputCustomDomains.vue": null,
-        "InputSlug.vue": null,
         "SiteEditor.vue": null,
         "SiteEditorFrame.vue": null,
         "ViewPreview.vue": null,
@@ -1161,6 +1160,7 @@
           "InputAddElements.vue": null,
           "InputManageLayout.vue": null,
           "InputManagePages.vue": null,
+          "InputSpecialSlugs.vue": null,
           "LayoutDraggable.vue": null,
           "LayoutToolRegion.vue": null,
           "PageToolMaster.vue": null,
@@ -1172,7 +1172,8 @@
           "ToolPageLayout.vue": null,
           "ToolPagePublish.vue": null,
           "ToolPageSettings.vue": null,
-          "tools.ts": null
+          "tools.ts": null,
+          "utils.ts": null
         },
         "widgets": {
           "WidgetSites.vue": null,
@@ -1226,6 +1227,7 @@
         "ai.ts": null,
         "cardHelpers.ts": null,
         "cert.ts": null,
+        "demo.ts": null,
         "editor.ts": null,
         "fonts.ts": null,
         "frame.ts": null,
@@ -1485,14 +1487,17 @@
         "ElInput.vue": null,
         "ElToolSep.vue": null,
         "FormEngine.vue": null,
+        "InputActionArea.vue": null,
         "InputActionList.vue": null,
         "InputActions.vue": null,
         "InputBlockIp.vue": null,
+        "InputBrand.vue": null,
         "InputCheckbox.vue": null,
         "InputCheckboxMulti.vue": null,
         "InputChoice.vue": null,
         "InputColor.vue": null,
         "InputColorScheme.vue": null,
+        "InputColorTheme.vue": null,
         "InputControl.vue": null,
         "InputDate.vue": null,
         "InputDropDown.vue": null,
@@ -1511,6 +1516,7 @@
         "InputMediaUpload.vue": null,
         "InputMultipleChoice.vue": null,
         "InputNav.vue": null,
+        "InputNavMenu.vue": null,
         "InputNumber.vue": null,
         "InputOneTimeCode.vue": null,
         "InputOrigins.vue": null,
@@ -1527,7 +1533,9 @@
         "InputRating.vue": null,
         "InputSelect.vue": null,
         "InputSelectCustom.vue": null,
+        "InputStandardSize.vue": null,
         "InputSubmit.vue": null,
+        "InputSuperTitle.vue": null,
         "InputText.vue": null,
         "InputTextarea.vue": null,
         "InputTimezone.vue": null,
@@ -1708,6 +1716,7 @@
       "support.md": null,
       "terms.md": null
     },
+    "style-guide.md": null,
     "team.md": null
   },
   "eslint.config.js": null,

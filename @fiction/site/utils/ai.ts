@@ -3,7 +3,7 @@ import type { Site } from '../site'
 export async function getCardCompletion<T extends Record<string, unknown> = Record<string, unknown>>(args: { site: Site, runPrompt: string, outputFormat?: Record<string, unknown> }) {
   const { site, runPrompt, outputFormat } = args
 
-  const { objectives } = site.fullConfig.value.site?.ai || {}
+  const objectives = {}
   const fictionEnv = site.fictionSites.settings.fictionEnv
   try {
     if (!objectives || !outputFormat)

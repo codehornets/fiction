@@ -54,15 +54,16 @@ const stepConfig: StepConfig = {
     const out: StepItem[] = [
 
       {
-        title: 'Create A New Site',
-        subTitle: 'Give it a name...',
+        title: 'Create a New Site',
+        subTitle: 'Exciting! What should we call it?',
+        placeholder: 'Enter a site name',
         key: 'name',
         class: 'max-w-lg',
         isNeeded: true,
       },
       {
         title: `Select Your Theme`,
-        subTitle: 'Your theme is the starting point for your site.',
+        subTitle: 'This is the starting point - you can customize everything later.',
         key: 'theme',
         class: 'max-w-screen-xl ',
         isNeeded: true,
@@ -89,7 +90,7 @@ const stepConfig: StepConfig = {
         <ElInput
           v-model="form.title"
           input="InputText"
-          placeholder="My Awesome Site"
+          :placeholder="step.placeholder"
           ui-size="lg"
           data-test-id="siteName"
         />

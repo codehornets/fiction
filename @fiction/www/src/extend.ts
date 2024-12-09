@@ -6,8 +6,8 @@ import type { Theme } from '@fiction/site/theme.js'
 import type { SpecificService } from './index.js'
 import * as themeAdmin from '@fiction/admin/theme/index.js'
 import * as themeFiction from '@fiction/theme-fiction/index.js'
-
 import * as themeMinimal from '@fiction/theme-minimal/index.js'
+import * as themePrestige from '@fiction/theme-prestige/index.js'
 
 export async function getThemes(args: {
   fictionEnv: FictionEnv
@@ -18,6 +18,7 @@ export async function getThemes(args: {
     themeFiction.theme,
     themeMinimal.theme,
     themeAdmin.theme,
+    themePrestige.theme,
   ])
 
   return themes

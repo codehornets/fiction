@@ -5,7 +5,7 @@ import type { Site } from '../../site'
 import { toLabel, vue } from '@fiction/core'
 import TransitionSlide from '@fiction/ui/anim/TransitionSlide.vue'
 import XButton from '@fiction/ui/buttons/XButton.vue'
-import { CardCategorySchema } from '../../card'
+import { OldCardCategorySchema } from '../../card'
 
 const props = defineProps({
   site: { type: Object as vue.PropType<Site>, required: true },
@@ -25,7 +25,7 @@ const groupTemplates = vue.computed(() => {
     })
   })
 
-  const categoryOrder = CardCategorySchema.options
+  const categoryOrder = OldCardCategorySchema.options
 
   // Order grouped categories based on categoryOrder and include any additional categories at the end
   return categoryOrder.reduce((acc, cat) => {

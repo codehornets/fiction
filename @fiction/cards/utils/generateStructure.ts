@@ -36,6 +36,7 @@ export class CardStructureGenerator {
       description: settings.description || 'NO_DESCRIPTION',
       subTitle: settings.subTitle || 'NO_SUBTITLE',
       category: settings.category,
+      classification: settings.classification || {},
       icon: settings.icon,
       colorTheme: settings.colorTheme,
       isPublic: settings.isPublic,

@@ -144,7 +144,7 @@ export class Site<T extends SiteSettings = SiteSettings> extends FictionObject<T
 
   userFonts = vue.ref<Record<string, FontFamily>>({})
   siteFonts = activeSiteFont(this)
-  configPrefersColorScheme = vue.computed(() => this.fullConfig.value.site?.styling?.prefersColorScheme || 'auto')
+  configPrefersColorScheme = vue.computed(() => this.fullConfig.value.site?.prefersColorScheme || 'auto')
   userPrefersColorScheme = localRef<typeof prefersColorScheme[number]>({ key: `fictionPrefersColorScheme`, def: '', lifecycle: 'session' })
   prefersColorScheme = vue.computed<typeof prefersColorScheme[number]>({
     get: () => {

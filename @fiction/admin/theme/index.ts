@@ -119,18 +119,14 @@ export const theme = new Theme({
       sections: {},
       userConfig: {
         site: {
-          brand: {
-            shareImage: { url: shareImage, format: 'image' },
-            favicon: { url: favicon, format: 'image' },
-            icon: { url: icon, format: 'image' },
+          shareImage: { url: shareImage, format: 'image' },
+          favicon: { url: favicon, format: 'image' },
+          icon: { url: icon, format: 'image' },
+          fonts: {
+            body: { family: 'Inter', stack: 'sans' },
+            sans: { family: 'Inter', stack: 'sans' },
           },
-          styling: {
-            fonts: {
-              body: { family: 'Inter', stack: 'sans' },
-              sans: { family: 'Inter', stack: 'sans' },
-            },
-            buttons: { design: 'solid', rounding: 'full', hover: 'fade' },
-          },
+          buttons: { design: 'solid', rounding: 'full', hover: 'fade' },
         },
         standard: {
           spacing: { contentWidth: 'sm', verticalSpacing: `none` },

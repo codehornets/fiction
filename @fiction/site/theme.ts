@@ -91,18 +91,16 @@ export class Theme<T extends Record<string, unknown> = Record<string, unknown>> 
   defaultConfig(): SiteUserConfig {
     return {
       site: {
-        styling: {
-          fonts: {
-            mono: { family: 'DM Mono', stack: 'monospace' },
-            input: { family: 'DM Mono', stack: 'sans' },
-            title: { family: 'Poppins', stack: 'sans' },
-            sans: { family: 'Plus+Jakarta+Sans', stack: 'sans' },
-            body: { stack: 'serif' },
-            serif: { stack: 'serif' },
-            highlight: { family: 'Caveat', stack: 'sans' },
-          },
-          prefersColorScheme: 'dark',
+        fonts: {
+          mono: { family: 'DM Mono', stack: 'monospace' },
+          input: { family: 'DM Mono', stack: 'sans' },
+          title: { family: 'Poppins', stack: 'sans' },
+          sans: { family: 'Plus+Jakarta+Sans', stack: 'sans' },
+          body: { stack: 'serif' },
+          serif: { stack: 'serif' },
+          highlight: { family: 'Caveat', stack: 'sans' },
         },
+        prefersColorScheme: 'dark',
       },
 
     }

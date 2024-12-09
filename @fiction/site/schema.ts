@@ -104,38 +104,21 @@ const ButtonTypeSchema = z.object({
 
 export const SiteUserConfigSchema = z.object({
   site: z.object({
-    brand: z.object({
-      favicon: MediaDisplaySchema.optional(),
-      icon: MediaDisplaySchema.optional(),
-      shareImage: MediaDisplaySchema.optional(),
-      logo: logoSchema.optional(),
-      primaryColor: ColorThemeSchema.optional(),
-    }).optional(),
-    meta: z.object({
-      title: z.string().optional(),
-      description: z.string().optional(),
-      keywords: z.string().optional(),
-      robotsTxt: z.string().optional(),
-      locale: z.string().optional(),
-      titleTemplate: z.string().optional(),
-      timezone: z.string().optional(),
-    }).optional(),
-    styling: z.object({
-      isLightMode: z.boolean().optional(),
-      fonts: fontsSchema.optional(),
-      buttons: ButtonTypeSchema.optional(),
-      prefersColorScheme: z.enum(prefersColorScheme).optional(),
-    }).optional(),
-    customCode: z.object({
-      gtmContainerId: z.string().optional(),
-    }).optional(),
-    ai: z.object({
-      objectives: z.object({
-        about: z.string().optional(),
-        targetCustomer: z.string().optional(),
-        imageStyle: z.string().optional(),
-      }).optional(),
-    }).optional(),
+    title: z.string().optional(),
+    description: z.string().optional(),
+    robotsTxt: z.string().optional(),
+    locale: z.string().optional(),
+    titleTemplate: z.string().optional(),
+    timezone: z.string().optional(),
+    favicon: MediaDisplaySchema.optional(),
+    icon: MediaDisplaySchema.optional(),
+    shareImage: MediaDisplaySchema.optional(),
+    logo: logoSchema.optional(),
+    gtmContainerId: z.string().optional(),
+    fonts: fontsSchema.optional(),
+    buttons: ButtonTypeSchema.optional(),
+    prefersColorScheme: z.enum(prefersColorScheme).optional(),
+    primaryColor: ColorThemeSchema.optional(),
 
   }).optional(),
   standard: CardStandardSchema.optional(),

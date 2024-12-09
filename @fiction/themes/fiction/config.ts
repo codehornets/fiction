@@ -342,10 +342,8 @@ export async function getHomePage(args: { factory: CardFactory, stock: StockMedi
     title: 'Home',
     userConfig: {
       site: {
-        meta: {
-          title: 'Fiction - Personal Branding Platform',
-          description: 'Transform your expertise into influence using Fiction\'s AI-powered personal branding platform. Create authentic content, grow your audience, and build authority - all guided by intelligent automation.',
-        },
+        title: 'Fiction - Personal Branding Platform',
+        description: 'Transform your expertise into influence using Fiction\'s AI-powered personal branding platform. Create authentic content, grow your audience, and build authority - all guided by intelligent automation.',
       },
     },
     cards: [
@@ -766,18 +764,12 @@ export async function getConfig(args: {
 
   const userConfig: SiteUserConfig = {
     site: {
-      brand: {
-        shareImage: { url: shareImage, format: 'image' },
-        favicon: { url: favicon, format: 'image' },
-        icon: { url: icon, format: 'image' },
-      },
-      meta: {
-        titleTemplate: `{{pageTitle}} - Fiction`,
-      },
-      customCode: { gtmContainerId: `GTM-5LQBZDJ` },
-      styling: {
-        buttons: { design: 'ghost', rounding: 'full', hover: 'pop' },
-      },
+      shareImage: { url: shareImage, format: 'image' },
+      favicon: { url: favicon, format: 'image' },
+      icon: { url: icon, format: 'image' },
+      titleTemplate: `{{pageTitle}} - Fiction`,
+      gtmContainerId: `GTM-5LQBZDJ`,
+      buttons: { design: 'ghost', rounding: 'full', hover: 'pop' },
     },
   }
 

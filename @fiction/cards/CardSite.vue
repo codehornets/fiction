@@ -64,11 +64,11 @@ vue.onServerPrefetch(async () => {
 const page = vue.computed(() => site.value?.currentPage.value)
 
 function getTitleTag() {
-  const seoConfig = page.value?.userConfig.value.site?.meta
+  const seoConfig = page.value?.userConfig.value.site
   if (seoConfig?.title)
     return seoConfig.title
 
-  const titleTemplate = site.value?.fullConfig.value?.site?.meta?.titleTemplate || '{{pageTitle}}'
+  const titleTemplate = site.value?.fullConfig.value?.site?.titleTemplate || '{{pageTitle}}'
   const pageTitle = page.value?.title?.value || toLabel(page.value?.slug?.value) || 'Home'
   const siteTitle = site.value?.title?.value || 'Untitled Site'
 
@@ -99,8 +99,8 @@ unhead.useHead({
     { charset: 'UTF-8' },
     { name: 'generator', content: 'Fiction.com Website Builder' },
     { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
-    { name: 'description', content: () => pageConfig.value.site?.meta?.description || page.value?.description.value || '' },
-    { name: 'robots', content: () => pageConfig.value.site?.meta?.robotsTxt || 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' },
+    { name: 'description', content: () => pageConfig.value.site?.description || page.value?.description.value || '' },
+    { name: 'robots', content: () => pageConfig.value.site?.robotsTxt || 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' },
     { name: 'theme-color', content: () => colors.value.themeHex[900] },
     // Social media tags
     { name: 'twitter:card', content: 'summary_large_image' },
@@ -109,8 +109,8 @@ unhead.useHead({
     { property: 'og:title', content: getTitleTag },
     { property: 'og:url', content: () => site.value?.frame.displayUrl.value },
     { property: 'og:site_name', content: () => site.value?.title.value || '' },
-    { property: 'og:locale', content: () => pageConfig.value.site?.meta?.locale || 'en_US' },
-    { property: 'og:image', content: () => pageConfig.value.site?.brand?.shareImage?.url || iconUrls.value.ogImageUrl },
+    { property: 'og:locale', content: () => pageConfig.value.site?.locale || 'en_US' },
+    { property: 'og:image', content: () => pageConfig.value.site?.shareImage?.url || iconUrls.value.ogImageUrl },
     { property: 'og:image:width', content: '1200' },
     { property: 'og:image:height', content: '630' },
   ],
@@ -206,7 +206,8 @@ vue.onMounted(() => {
     const stacks = fn?.stacks || {}
     const fontsUrl = fn?.fontsUrl || ''
     for (const stack in stacks) {
-      document.documentElement.style.setProperty(`--font-family-${stack}`, stacks[stack])
+      const stackFonts = (stacks[stack] || '').replaceAll('+', ' ')
+      document.documentElement.style.setProperty(`--font-family-${stack}`, stackFonts)
     }
 
     // Update Google Fonts link
@@ -231,7 +232,7 @@ vue.onMounted(() => {
     :data-user-email="fictionUser.activeUser.value?.email ?? '-'"
     :data-fiction-router-id="site?.siteRouter.routerId ?? '-'"
     :data-editing-style="site?.editor.value.savedEditingStyle ?? '-'"
-    class="x-site bg-theme-50 dark:bg-theme-900 text-theme-800 dark:text-theme-0"
+    class="x-site bg-theme-50 dark:bg-theme-900 text-theme-800 dark:text-theme-0 antialiased"
   >
     <div class="x-font-body x-site-content relative z-10 bg-theme-0 dark:bg-theme-950">
       <div

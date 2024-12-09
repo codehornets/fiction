@@ -1,10 +1,10 @@
 {
   "version": "1.0",
-  "generatedAt": "2024-12-04T00:11:59.171Z",
+  "generatedAt": "2024-12-09T07:44:59.907Z",
   "templates": [
     {
       "templateId": "contentHero",
-      "title": "Hero Section",
+      "title": "Hero",
       "description": "Create compelling hero sections that combine headlines, imagery, and calls-to-action to engage visitors. Perfect for homepages, product launches, and landing pages. The hero should communicate your core value proposition within seconds, using persuasive headlines (5-7 words), supporting text (10-30 words), and strategic imagery that reinforces your message. Include clear calls-to-action that guide visitors toward your primary conversion goals.",
       "subTitle": "Create impactful first impressions with a visually striking hero section.",
       "category": [
@@ -29,7 +29,7 @@
       "isPublic": true
     },
     {
-      "templateId": "story",
+      "templateId": "contentStory",
       "title": "Scrolling Story",
       "description": "Create engaging narratives that unfold as users scroll, combining captivating media with elegantly revealed text. Perfect for case studies, company histories, or feature presentations.",
       "subTitle": "Transform your narrative into an immersive scrolling experience",
@@ -205,6 +205,19 @@
       "isPublic": true
     },
     {
+      "templateId": "contentTimeline",
+      "title": "Milestone Timeline",
+      "description": "Transform your professional journey into an engaging visual story. Perfect for about pages, portfolios, and career highlights.",
+      "subTitle": "Visualize a journey or series of events",
+      "category": [
+        "content",
+        "marketing"
+      ],
+      "icon": "i-tabler-timeline",
+      "colorTheme": "green",
+      "isPublic": true
+    },
+    {
       "templateId": "sliderCinema",
       "title": "Cinema Slider",
       "description": "Perfect for photography portfolios, event promotion, product launches, or any content that benefits from dramatic full-screen visuals with overlaid text and calls-to-action.",
@@ -270,7 +283,7 @@
     },
     {
       "templateId": "convertCapture",
-      "title": "Email Capture",
+      "title": "Conversion Capture",
       "description": "Convert visitors into subscribers with a versatile email capture form. Features multiple display modes (inline, scroll trigger, exit intent), customizable messaging, and social proof elements. Perfect for building email lists, delivering lead magnets, or growing newsletter subscriptions. Optimized for high conversion rates with A/B tested layouts.",
       "subTitle": "High-converting email capture form with multiple display modes and customizable messaging.",
       "category": [
@@ -358,7 +371,7 @@
     },
     {
       "templateId": "pageFooterPersonal",
-      "title": "Footer X",
+      "title": "Personal Footer",
       "description": "Transform your site's footer into a powerful navigation hub and brand anchor.\n    This versatile footer adapts to various brand personalities - from corporate polish to creative flair.\n    Features animated reveal effects, smart content sections, and seamless dark mode support.\n    Perfect for multi-section navigation, contact information, and legal requirements.",
       "subTitle": "Create a lasting impression with a thoughtfully designed footer",
       "category": [

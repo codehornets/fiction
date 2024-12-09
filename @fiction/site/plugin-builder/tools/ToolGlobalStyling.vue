@@ -34,7 +34,7 @@ const options: InputOption[] = [
         options: [
           createOption({
             schema,
-            key: 'userConfig.site.styling.prefersColorScheme',
+            key: 'userConfig.site.prefersColorScheme',
             label: 'Theme Mode',
             subLabel: 'Control how your site appears to visitors',
             input: 'InputRadioButton',
@@ -82,7 +82,7 @@ const options: InputOption[] = [
             options: [
               createOption({
                 schema,
-                key: 'userConfig.site.styling.fonts.title',
+                key: 'userConfig.site.fonts.title',
                 label: 'Headings',
                 subLabel: 'Used for page titles and major headings',
                 input: 'InputFont',
@@ -90,7 +90,7 @@ const options: InputOption[] = [
               }),
               createOption({
                 schema,
-                key: 'userConfig.site.styling.fonts.body',
+                key: 'userConfig.site.fonts.body',
                 label: 'Main Text',
                 subLabel: 'Used for paragraphs and general content',
                 input: 'InputFont',
@@ -108,7 +108,7 @@ const options: InputOption[] = [
             options: [
               createOption({
                 schema,
-                key: 'userConfig.site.styling.fonts.highlight',
+                key: 'userConfig.site.fonts.highlight',
                 label: 'Accent Text',
                 subLabel: 'Used for emphasis and special text',
                 input: 'InputFont',
@@ -116,7 +116,7 @@ const options: InputOption[] = [
               }),
               createOption({
                 schema,
-                key: 'userConfig.site.styling.fonts.sans',
+                key: 'userConfig.site.fonts.sans',
                 label: 'Sans-Serif',
                 subLabel: 'Modern, clean style for UI elements',
                 input: 'InputFont',
@@ -124,7 +124,7 @@ const options: InputOption[] = [
               }),
               createOption({
                 schema,
-                key: 'userConfig.site.styling.fonts.serif',
+                key: 'userConfig.site.fonts.serif',
                 label: 'Serif',
                 subLabel: 'Traditional style for formal content',
                 input: 'InputFont',
@@ -132,7 +132,7 @@ const options: InputOption[] = [
               }),
               createOption({
                 schema,
-                key: 'userConfig.site.styling.fonts.mono',
+                key: 'userConfig.site.fonts.mono',
                 label: 'Monospace',
                 subLabel: 'Fixed-width font for code and technical content',
                 input: 'InputFont',

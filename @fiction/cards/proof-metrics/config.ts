@@ -122,10 +122,26 @@ const options = [
 
 ]
 
+function defaultConfig(): UserConfig {
+  return {
+    layout: 'grid',
+    metrics: [
+      {
+        label: 'Numbers Talk',
+        description: 'Show impact with metrics',
+        value: 999999,
+        format: 'abbreviated',
+        icon: { class: 'i-tabler-chart-arrows-vertical' },
+        theme: 'emerald',
+      },
+    ],
+  }
+}
+
 function getBrandGrowthDemo(): UserConfig {
   return {
     standard: { headers: {
-      title: 'Watch Our Brand Impact Grow',
+      title: 'Impact',
       subTitle: 'See how we\'ve helped businesses transform their digital presence',
     } },
 
@@ -237,7 +253,7 @@ export async function getConfig(args: { templateId: string }) {
   return {
     schema,
     options,
-    userConfig: getBrandGrowthDemo(),
+    userConfig: defaultConfig(),
     demoPage: {
       cards: [
         { templateId: args.templateId, userConfig: getBrandGrowthDemo() },

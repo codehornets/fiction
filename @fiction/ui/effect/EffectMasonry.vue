@@ -58,7 +58,12 @@ async function initPackery() {
 
 vue.onMounted(async () => {
   await waitFor(200) // Allow time for initial rendering
-  await initPackery()
+
+  vue.watch(() => props.items.length, () => {
+    vue.nextTick(async () => {
+      await initPackery()
+    })
+  }, { immediate: true })
 })
 
 vue.onBeforeUnmount(() => {
@@ -66,12 +71,6 @@ vue.onBeforeUnmount(() => {
     pckry.destroy()
   }
 })
-
-vue.watch(() => props.items, () => {
-  vue.nextTick(async () => {
-    await initPackery()
-  })
-}, { deep: true })
 
 // Expose Packery instance to parent component if needed
 defineExpose({ packery: pckry })

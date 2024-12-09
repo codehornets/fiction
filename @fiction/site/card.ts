@@ -1,6 +1,7 @@
 import type { colorTheme, Query, vueRouter } from '@fiction/core'
 import type { InputOption } from '@fiction/ui'
 import type { CardQuerySettings } from './cardQuery.js'
+import type { CardClassification } from './classification.js'
 import type { CardOptionsWithStandard, SiteUserConfig } from './schema.js'
 import type { Site } from './site.js'
 import type { CardConfigPortable, TableCardConfig } from './tables.js'
@@ -11,7 +12,7 @@ import { CardFactory } from './cardFactory.js'
 import { getContentWidthClass, getSpacingClass } from './styling.js'
 import { siteGoto, siteLink } from './utils/manage.js'
 
-export const CardCategorySchema = z.enum([
+export const OldCardCategorySchema = z.enum([
   'basic',
   'posts',
   'theme',
@@ -36,7 +37,7 @@ export const CardCategorySchema = z.enum([
   'typography',
 ])
 
-type CardCategory = z.infer<typeof CardCategorySchema>
+type CardCategory = z.infer<typeof OldCardCategorySchema>
 
 // Utility type to merge two types
 type MergeTypes<T, U> = T & Omit<U, keyof T>
@@ -73,6 +74,7 @@ interface CardTemplateSettings<
   subTitle?: string
   description?: string
   category?: CardCategory[]
+  classification?: CardClassification
   icon?: string
   colorTheme?: typeof colorTheme[number]
   el: CardTemplateSurface<S>[ 'component' ]

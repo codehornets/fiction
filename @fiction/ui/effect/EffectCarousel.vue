@@ -66,24 +66,23 @@ async function initFlickity() {
 
 vue.onMounted(async () => {
   await waitFor(300) // attempt better height calculation
-  await initFlickity()
+
+  vue.watch(() => props.slides.length, () => {
+    vue.nextTick(async () => {
+      await initFlickity()
+    })
+  }, { immediate: true })
+
+  vue.watch(() => props.activeIndex, (newIndex) => {
+    if (flkty && flkty.selectedIndex !== newIndex) {
+      flkty.select(newIndex)
+    }
+  })
 })
 
 vue.onBeforeUnmount(() => {
   if (flkty) {
     flkty.destroy()
-  }
-})
-
-vue.watch(() => props.slides, () => {
-  vue.nextTick(async () => {
-    await initFlickity()
-  })
-}, { deep: true })
-
-vue.watch(() => props.activeIndex, (newIndex) => {
-  if (flkty && flkty.selectedIndex !== newIndex) {
-    flkty.select(newIndex)
   }
 })
 </script>
