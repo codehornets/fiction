@@ -48,8 +48,8 @@ function getOptions() {
           input: 'InputRadioButton',
           schema,
           list: [
-            { label: 'Centered Nav', value: 'navCenter', description: 'Navigation centered with logo on side' },
-            { label: 'Centered Logo', value: 'logoCenter', description: 'Logo centered with split navigation' },
+            { label: 'Center Nav', value: 'navCenter', description: 'Navigation centered with logo on side' },
+            { label: 'Center Logo', value: 'logoCenter', description: 'Logo centered with split navigation' },
             { label: 'Justified', value: 'justified', description: 'Fully justified spacing' },
           ],
         }),
@@ -120,7 +120,7 @@ async function getDemoCards(args: { templateId: string, stock: StockMedia }): Pr
     {
       templateId,
       userConfig: {
-        standard: { headers: { title: 'Centered Nav' }, spacing: { verticalSpacing: 'md' } },
+        standard: { headers: { title: 'Center Nav' }, spacing: { verticalSpacing: 'md' } },
         ...getDefaultConfig(),
       },
     },
@@ -129,7 +129,7 @@ async function getDemoCards(args: { templateId: string, stock: StockMedia }): Pr
     {
       templateId,
       userConfig: {
-        standard: { headers: { title: 'Centered Logo' }, spacing: { verticalSpacing: 'md' } },
+        standard: { headers: { title: 'Center Logo' }, spacing: { verticalSpacing: 'md' } },
         brand: {
           logo: { media: stock.getLocalMedia({ key: 'lorem2' }) },
         },

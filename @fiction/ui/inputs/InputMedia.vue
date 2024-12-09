@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import type { MediaObject } from '@fiction/core'
-import type { LibraryTool } from './LibraryModal.vue'
 import { determineMediaFormat, removeUndefined, vue } from '@fiction/core'
 import XButton from '../buttons/XButton.vue'
 import XMedia from '../media/XMedia.vue'
@@ -32,16 +31,6 @@ function handleMediaUpdate(newValue: MediaObject) {
   const newMedia = removeUndefined(newValue, { removeNull: true })
   emit('update:modelValue', newMedia)
 }
-
-const tools = vue.computed(() => {
-  const t: LibraryTool[] = ['upload', 'library', 'html']
-
-  if (isBackground) {
-    t.push('background')
-  }
-
-  return t
-})
 </script>
 
 <template>
@@ -81,7 +70,7 @@ const tools = vue.computed(() => {
     <LibraryModal
       v-model:vis="vis"
       :model-value="val"
-      :tools="tools"
+      :tools="['upload', 'library', 'html', ...(isBackground ? ['background'] as const : [])]"
       default-tool="library"
       title="Media Manager"
       @update:model-value="handleMediaUpdate"

@@ -40,7 +40,7 @@ const availableTools = [
   { label: 'Background', value: 'background', icon: 'i-tabler-palette' },
 ] as const
 
-export type LibraryTool = typeof availableTools[number]['value']
+type LibraryTool = typeof availableTools[number]['value']
 
 const currentSelection = vue.ref<MediaObject>({ backgroundColor: 'rgba(50 50 50 / .1)', format: 'url' })
 

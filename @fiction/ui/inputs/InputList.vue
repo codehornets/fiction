@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { Sortable } from '@shopify/draggable'
 import type { InputOption } from '.'
-import { shortId, vue, waitFor } from '@fiction/core'
+import { isTest, shortId, vue, waitFor } from '@fiction/core'
 import TransitionSlide from '../anim/TransitionSlide.vue'
 import XButton from '../buttons/XButton.vue'
 import FormEngine from './FormEngine.vue'
@@ -131,26 +131,31 @@ function toggleItem(index: number) {
 let sortable: Sortable | undefined
 
 async function createDraggable() {
-  if (!wrapperEl.value)
+  if (typeof window === 'undefined' || !wrapperEl.value || isTest())
     return
 
-  const { Plugins, Sortable } = await import('@shopify/draggable')
+  try {
+    const { Plugins, Sortable } = await import('@shopify/draggable')
 
-  if (sortable)
-    sortable.destroy()
+    if (sortable)
+      sortable.destroy()
 
-  sortable = new Sortable(wrapperEl.value, {
-    draggable: itemSelector,
-    distance: 3,
-    handle: dragSelector,
-    mirror: { constrainDimensions: true },
-    swapAnimation: { duration: 200, easingFunction: 'ease-in-out', horizontal: false },
-    plugins: [Plugins.SwapAnimation], // Or [SwapAnimation]
-  })
+    sortable = new Sortable(wrapperEl.value, {
+      draggable: itemSelector,
+      distance: 3,
+      handle: dragSelector,
+      mirror: { constrainDimensions: true },
+      swapAnimation: { duration: 200, easingFunction: 'ease-in-out', horizontal: false },
+      plugins: [Plugins.SwapAnimation],
+    })
 
-  sortable.on('sortable:stop', (_evt) => {
-    setTimeout(() => updateOrder(), 50)
-  })
+    sortable.on('sortable:stop', (_evt) => {
+      setTimeout(() => updateOrder(), 50)
+    })
+  }
+  catch (error) {
+    console.warn('Failed to initialize draggable:', error)
+  }
 }
 
 vue.onMounted(async () => {

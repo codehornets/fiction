@@ -1,16 +1,17 @@
 <script lang="ts" setup>
 import type { NavListItem } from '@fiction/core'
-import type { InputProps } from './index.js'
+import type { InputOption, InputProps } from './index.js'
+import { NavListItemSchema as schema } from '@fiction/core'
 import FormEngine from './FormEngine.vue'
-import { InputOption } from './index.js'
+import { createOption } from './index.js'
 
 const { modelValue, hasChildNav = true } = defineProps<{
-  modelValue?: NavListItem
+  modelValue?: NavListItem[]
   hasChildNav?: boolean
 }>()
 
 const emit = defineEmits<{
-  (event: 'update:modelValue', payload: NavListItem): void
+  (event: 'update:modelValue', payload: NavListItem[]): void
 }>()
 
 function getInputListProps(name: string) {
@@ -21,48 +22,56 @@ function getInputListProps(name: string) {
 
 const baseOptions: InputOption[] = [
 
-  new InputOption({
+  createOption({
+    schema,
     key: 'label',
     label: 'Label',
     input: 'InputText',
     isRequired: true,
   }),
-  new InputOption({
+  createOption({
+    schema,
     key: 'href',
     label: 'Link',
     input: 'InputUrl',
   }),
-  new InputOption({
+  createOption({
+    schema,
     key: 'icon',
     label: 'Icon',
     input: 'InputIcon',
   }),
-  new InputOption({
+  createOption({
+    schema,
     key: 'advancedNavItems',
     label: 'Advanced Settings',
     input: 'group',
     isClosed: true,
     options: [
-      new InputOption({
+      createOption({
+        schema,
         key: 'description',
         label: 'Description',
         input: 'InputText',
         description: 'Shown in expanded menus',
       }),
 
-      new InputOption({
+      createOption({
+        schema,
         key: 'variant',
         label: 'Style Variant',
         input: 'InputSelect',
         list: ['default', 'button', 'avatar'],
       }),
-      new InputOption({
+      createOption({
+        schema,
         key: 'emphasis',
         label: 'Emphasis',
         input: 'InputSelect',
         list: ['default', 'highlighted', 'muted'],
       }),
-      new InputOption({
+      createOption({
+        schema,
         key: 'theme',
         label: 'Color Theme',
         description: 'Used in buttons and emphasis',
@@ -74,45 +83,53 @@ const baseOptions: InputOption[] = [
 ]
 
 const childMenuOptions = [
-  new InputOption({
+  createOption({
     key: 'list',
     label: 'Child Menu',
     input: 'group',
     options: [
 
-      new InputOption({
+      createOption({
+        schema,
         key: 'list.items',
         label: 'Nav Items',
         input: 'InputList',
         props: getInputListProps('Child Nav Item'),
         options: [
-          new InputOption({
-            key: 'label',
+          createOption({
+            schema,
+            key: 'list.items.0.label',
             label: 'Label',
             input: 'InputText',
           }),
-          new InputOption({
+          createOption({
+            schema,
             key: 'description',
             label: 'Description',
             input: 'InputText',
           }),
-          new InputOption({
+          createOption({
+            schema,
             key: 'href',
             label: 'Link',
             input: 'InputUrl',
           }),
-          new InputOption({
+          createOption({
+            schema,
             key: 'icon',
             label: 'Icon',
             input: 'InputIcon',
           }),
         ],
       }),
-      new InputOption({
+      createOption({
+        schema,
+        key: 'list.title',
         input: 'title',
         label: 'Menu Settings',
       }),
-      new InputOption({
+      createOption({
+        schema,
         key: 'list.variant',
         label: 'Sub Menu Style',
         subLabel: 'How the child menu is displayed',
@@ -122,7 +139,8 @@ const childMenuOptions = [
           { value: 'expanded', label: 'Large / Mega' },
         ],
       }),
-      new InputOption({
+      createOption({
+        schema,
         key: 'list.title',
         label: 'Menu Title',
         subLabel: 'Optional title for the child menu',
@@ -134,9 +152,15 @@ const childMenuOptions = [
   }),
 ]
 
+/**
+ * FormEngine uses an object structure, so create one and work with that
+ */
+const arrayKey = 'navListItems'
+type PassObject = { [arrayKey]: NavListItem[] }
+
 const options = [
-  new InputOption({
-    key: '*',
+  createOption({
+    key: arrayKey,
     input: 'InputList',
     props: getInputListProps('Nav Item'),
     options: [
@@ -145,6 +169,10 @@ const options = [
     ],
   }),
 ]
+
+function handleUpdate(newValue: PassObject) {
+  emit('update:modelValue', newValue[arrayKey])
+}
 </script>
 
 <template>
@@ -152,10 +180,10 @@ const options = [
     <FormEngine
       state-key="navOption"
       :depth="1"
-      :model-value="modelValue"
+      :model-value="{ [arrayKey]: modelValue }"
       ui-size="md"
       :options="options"
-      @update:model-value="emit('update:modelValue', $event)"
+      @update:model-value="handleUpdate($event as PassObject)"
     />
   </div>
 </template>

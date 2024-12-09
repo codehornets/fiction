@@ -1,13 +1,14 @@
 <script lang="ts" setup>
 import type { NavList } from '@fiction/core'
-import type { InputProps } from './index.js'
+import type { InputOption, InputProps } from './index.js'
+import { NavListSchema as schema } from '@fiction/core'
 import FormEngine from './FormEngine.vue'
-import { InputOption } from './index.js'
+import { createOption } from './index.js'
 
-const { modelValue } = defineProps<{ modelValue?: NavList }>()
+const { modelValue = [] } = defineProps<{ modelValue?: NavList[] }>()
 
 const emit = defineEmits<{
-  (event: 'update:modelValue', payload: NavList): void
+  (event: 'update:modelValue', payload: NavList[]): void
 }>()
 
 function getInputListProps(name: string) {
@@ -17,7 +18,8 @@ function getInputListProps(name: string) {
 }
 
 const baseOptions: InputOption[] = [
-  new InputOption({
+  createOption({
+    schema,
     key: 'title',
     label: 'Menu Title',
     input: 'InputText',
@@ -25,21 +27,32 @@ const baseOptions: InputOption[] = [
       placeholder: 'e.g., "Explore", "Connect", "Resources"',
     },
   }),
-  new InputOption({
+  createOption({
+    schema,
     key: 'items',
     label: 'Navigation Items',
     input: 'InputNav',
   }),
 ]
 
+/**
+ * FormEngine uses an object structure, so create one and work with that
+ */
+const arrayKey = 'navList'
+type PassObject = { [arrayKey]: NavList[] }
+
 const options = [
-  new InputOption({
-    key: '*',
+  createOption({
+    key: arrayKey,
     input: 'InputList',
     props: getInputListProps('Menu'),
     options: baseOptions,
   }),
 ]
+
+function handleUpdate(newValue: PassObject) {
+  emit('update:modelValue', newValue[arrayKey])
+}
 </script>
 
 <template>
@@ -47,10 +60,10 @@ const options = [
     <FormEngine
       state-key="navMenuOption"
       :depth="1"
-      :model-value="modelValue"
+      :model-value="{ [arrayKey]: modelValue }"
       ui-size="md"
       :options="options"
-      @update:model-value="emit('update:modelValue', $event)"
+      @update:model-value="handleUpdate($event as PassObject)"
     />
   </div>
 </template>

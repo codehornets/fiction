@@ -64,99 +64,65 @@ export async function testComponentStability(args: {
     modelValue,
   } = args
 
-  describe(`[${name}] Stability and Interaction Tests`, () => {
-    let app: App<Element>, mountPoint: HTMLDivElement, vm: any
-    let errorHandlerSpy: ReturnType<typeof vi.fn>
-    const importError: Error | undefined = undefined
-    const modelRef = vue.ref(modelValue)
-    let start: number
-    beforeAll(async () => {
-      start = performance.now()
-      // Create and mount the component
-      errorHandlerSpy = vi.fn()
+  const start = performance.now()
 
-      // Define a wrapper component for testing
-      const WrapperComponent = {
-        components: { Component },
-        setup() {
-        // Provide service and props to the component
-          vue.provide('service', vue.ref(service))
-          return { model: modelRef, props }
-        },
-        // x-site is necessary for teleports to work
-        template: `<div class="x-site"><Component v-model="model" v-bind="props" /></div>`,
-      }
+  // Create fresh refs for each test
+  const modelRef = vue.ref(modelValue)
 
-      app = createApp(WrapperComponent)
+  // Setup
+  const errorHandlerSpy = vi.fn()
 
-      app.config.errorHandler = (err, _, info) => {
-        errorHandlerSpy(err, info)
-      }
-      app.provide('service', vue.ref(service))
-      mountPoint = document.createElement('div')
-      document.body.appendChild(mountPoint)
-      vm = app.mount(mountPoint)
-      await waitFor(200)
-    })
+  // Create unique mount point
+  const mountPoint = document.createElement('div')
+  mountPoint.id = `test-mount-${name}-${Date.now()}`
+  document.body.appendChild(mountPoint)
 
-    afterAll(() => {
-      // Clean up
-      app.unmount()
-      document.body.removeChild(mountPoint)
-    })
+  const WrapperComponent = {
+    components: { Component },
+    setup() {
+      vue.provide('service', vue.ref(service))
+      return { model: modelRef, props }
+    },
+    template: `<div class="x-site"><Component v-model="model" v-bind="props" /></div>`,
+  }
 
-    it('does not throw an error upon import', () => {
-      expect(importError).toBeFalsy()
-    })
+  const app = createApp(WrapperComponent)
+  app.config.errorHandler = (err, _, info) => {
+    errorHandlerSpy(err, info)
+  }
 
-    it('mounts without errors', async () => {
-      await nextTick()
-      expect(vm).toBeTruthy()
-      expect(errorHandlerSpy).not.toHaveBeenCalled()
-    })
+  // Mount
+  const vm = app.mount(mountPoint)
+  await waitFor(200)
 
-    it('renders correctly', async () => {
-      await nextTick()
+  try {
+    // Run tests
+    expect(vm).toBeTruthy()
+    expect(errorHandlerSpy).not.toHaveBeenCalled()
+    expect(mountPoint.innerHTML).toBeTruthy()
+
+    const end = performance.now()
+    expect(end - start).toBeLessThan(1000)
+
+    // Run interactions
+    for (const interaction of interactions) {
+      await simulateAction(mountPoint, interaction)
       expect(mountPoint.innerHTML).toBeTruthy()
-    })
-
-    it('renders efficiently', async () => {
-      const end = performance.now()
-      expect(end - start, 'Rendering should be completed within a reasonable time').toBeLessThan(1000) // 1 second threshold
-    })
-
-    if (find.length) {
-      it('has expected text', async () => {
-        find.forEach((textToFind) => {
-          it(`finds text "${textToFind}" in the component`, async () => {
-            const content = mountPoint.textContent?.toLowerCase() || ''
-            const findLower = textToFind.toLowerCase()
-            expect(content).toContain(findLower) // Vitest assertion
-          })
-        })
-      })
+      expect(errorHandlerSpy).not.toHaveBeenCalled()
+      expect(modelRef.value).toBe(interaction.expectedValue)
     }
 
-    if (interactions.length) {
-      it('handles interactions without errors', async () => {
-        try {
-          // Interaction tests
-          for (const interaction of interactions) {
-            await simulateAction(mountPoint, interaction)
-
-            expect(mountPoint.innerHTML).toBeTruthy()
-            expect(errorHandlerSpy).not.toHaveBeenCalled()
-            // Assuming 'expected' is defined somewhere in your scope
-            expect(modelRef.value).toBe(interaction.expectedValue)
-          }
-        }
-        catch (error) {
-          // Fail the test and provide error information
-          expect.fail(`Error during interaction: ${(error as Error).message}`)
-        }
-      })
+    // Run text find tests
+    for (const textToFind of find) {
+      const content = mountPoint.textContent?.toLowerCase() || ''
+      expect(content).toContain(textToFind.toLowerCase())
     }
-  })
+  }
+  finally {
+    // Cleanup
+    app.unmount()
+    mountPoint.remove()
+  }
 }
 
 export { diff } from 'deep-object-diff'
