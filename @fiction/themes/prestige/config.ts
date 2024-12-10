@@ -1,6 +1,7 @@
 import type { template as featuresTemplate } from '@fiction/cards/content-features/index'
 import type { template as heroTemplate } from '@fiction/cards/content-hero/index'
 import type { template as GalleryShowcaseTemplate } from '@fiction/cards/gallery-showcase/index'
+import type { template as pageNavTemplate } from '@fiction/cards/page-nav/index'
 import type { template as ProofMetricsTemplate } from '@fiction/cards/proof-metrics/index'
 import type { template as SliderOverlayTemplate } from '@fiction/cards/slider-overlay/index'
 import type { template as StatementTemplate } from '@fiction/cards/slider-statement/index'
@@ -50,22 +51,7 @@ export async function getPages(args: SectionArgs) {
 
         await factory.fromTemplate({ templateId: 'proofMetrics' }), // Key achievements
         await factory.fromTemplate({ templateId: 'galleryShowcase' }), // Selected works grid
-        await factory.fromTemplate<typeof StatementTemplate>({
-          templateId: 'sliderStatement',
-          userConfig: {
-            standard: {
-              background: {
-                gradient: {
-                  angle: 45,
-                  stops: [
-                    { theme: 'blue', scale: 950, opacity: 0, percent: 50 },
-                    { theme: 'blue', scale: 950, opacity: 0.8, percent: 100 },
-                  ],
-                },
-              },
-            },
-          },
-        }), // Bio/Intro
+
       ],
     }),
 
@@ -117,9 +103,19 @@ export async function getHeader(args: SectionArgs) {
     regionId: 'header',
     templateId: 'pageArea',
     cards: [
-      await factory.fromTemplate({
+      await factory.fromTemplate<typeof pageNavTemplate>({
         templateId: 'pageNav',
         userConfig: {
+          brand: {
+            logo: {
+              variant: 'typography',
+              typography: {
+                label: 'Prestige',
+              },
+
+            },
+          },
+
           nav: {
             primary: [
               { label: 'Work', href: '/work' },
