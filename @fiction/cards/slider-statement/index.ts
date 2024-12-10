@@ -22,6 +22,6 @@ export const template = cardTemplate({
   },
 
   getBaseConfig: () => {
-    return { standard: { spaceSize: 'full' } }
+    return { standard: { spaceSize: 'xl' } }
   },
 })

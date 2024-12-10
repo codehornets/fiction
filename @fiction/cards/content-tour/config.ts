@@ -47,7 +47,7 @@ async function getDemoContent(args: { factory: CardFactory, stock: StockMedia })
           icon: { class: 'i-tabler-rocket' },
           theme: 'blue',
         },
-        splash: stock.getRandomByTags(['aspect:landscape']),
+        media: stock.getRandomByTags(['aspect:landscape']),
         overlays: [
           { media: stock.getRandomByTags(['object']), position: 'bottomLeft', widthPercent: 25 },
           { media: stock.getRandomByTags(['abstract']), position: 'topRight', widthPercent: 25 },
@@ -68,7 +68,7 @@ async function getDemoContent(args: { factory: CardFactory, stock: StockMedia })
           icon: { class: 'i-tabler-brush' },
           theme: 'purple',
         },
-        splash: stock.getRandomByTags(['object', 'aspect:landscape']),
+        media: stock.getRandomByTags(['object', 'aspect:landscape']),
         overlays: [
           { media: stock.getRandomByTags(['object']), position: 'bottomRight', widthPercent: 30 },
         ],
@@ -88,7 +88,7 @@ async function getDemoContent(args: { factory: CardFactory, stock: StockMedia })
           icon: { class: 'i-tabler-sparkles' },
           theme: 'indigo',
         },
-        splash: stock.getRandomByTags(['abstract', 'aspect:landscape']),
+        media: stock.getRandomByTags(['abstract', 'aspect:landscape']),
         overlays: [
           { media: stock.getRandomByTags(['object']), position: 'bottomLeft', widthPercent: 25 },
           { media: stock.getRandomByTags(['object']), position: 'topRight', widthPercent: 25 },

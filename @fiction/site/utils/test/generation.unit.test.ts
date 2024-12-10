@@ -34,7 +34,7 @@ describe('generation utils', async () => {
         "title",
         "subTitle",
         "superTitle",
-        "splash",
+        "media",
         "overlays",
       ]
     `)
@@ -127,7 +127,7 @@ describe('generation utils', async () => {
     const jsonPropConfig = {
       title: { isUserEnabled: true, estimatedMs: 5000 },
       subTitle: { isUserEnabled: true, estimatedMs: 3000 },
-      splash: { isUserEnabled: false, estimatedMs: 10000 },
+      media: { isUserEnabled: false, estimatedMs: 10000 },
     }
 
     const result = calculateTotalEstimatedTimeSeconds({ jsonPropConfig })

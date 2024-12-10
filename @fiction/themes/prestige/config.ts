@@ -1,5 +1,10 @@
+import type { template as featuresTemplate } from '@fiction/cards/content-features/index'
+import type { template as heroTemplate } from '@fiction/cards/content-hero/index'
+import type { template as GalleryShowcaseTemplate } from '@fiction/cards/gallery-showcase/index'
+import type { template as ProofMetricsTemplate } from '@fiction/cards/proof-metrics/index'
+import type { template as SliderOverlayTemplate } from '@fiction/cards/slider-overlay/index'
 import type { template as StatementTemplate } from '@fiction/cards/slider-statement/index'
-// config.ts
+
 import type { Site } from '@fiction/site'
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { SiteUserConfig } from '@fiction/site/schema'
@@ -13,14 +18,38 @@ type SectionArgs = {
 }
 
 export async function getPages(args: SectionArgs) {
-  const { factory } = args
+  const { factory, stock } = args
 
   return [
     // Home page
     await factory.fromTemplate({
       slug: '_home',
       cards: [
-        await factory.fromTemplate({ templateId: 'sliderOverlay' }), // Featured work showcase
+        await factory.fromTemplate<typeof SliderOverlayTemplate>({
+          templateId: 'sliderOverlay',
+          userConfig: { },
+        }),
+        await factory.fromTemplate<typeof featuresTemplate>({
+          templateId: 'contentFeatures',
+          userConfig: { },
+        }),
+        await factory.fromTemplate<typeof heroTemplate>({
+          templateId: 'contentHero',
+          userConfig: {
+            title: 'Hello',
+            layout: 'center',
+            media: stock.getRandomByTags(['person', 'aspect:landscape']),
+            action: {
+              buttons: [
+                { label: 'View Work', href: '/work', theme: 'primary' },
+                { label: 'Contact', href: '/contact' },
+              ],
+            },
+          },
+        }),
+
+        await factory.fromTemplate({ templateId: 'proofMetrics' }), // Key achievements
+        await factory.fromTemplate({ templateId: 'galleryShowcase' }), // Selected works grid
         await factory.fromTemplate<typeof StatementTemplate>({
           templateId: 'sliderStatement',
           userConfig: {
@@ -37,8 +66,6 @@ export async function getPages(args: SectionArgs) {
             },
           },
         }), // Bio/Intro
-        await factory.fromTemplate({ templateId: 'proofMetrics' }), // Key achievements
-        await factory.fromTemplate({ templateId: 'galleryShowcase' }), // Selected works grid
       ],
     }),
 

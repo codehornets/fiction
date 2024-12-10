@@ -62,7 +62,7 @@ export async function getAboutPage(args: { site: Site, factory: CardFactory }) {
       },
       subTitle: `Born in California, Fiction exists to help people tell their story.`,
       title: `A Place For Every Story`,
-      splash: {
+      media: {
         format: 'url',
         url: new URL('img/about/fiction-office.webp', import.meta.url).href,
       },
@@ -88,7 +88,7 @@ export async function getAboutPage(args: { site: Site, factory: CardFactory }) {
       },
       subTitle: `In a world of noise, authentic stories stand out. Fiction helps amplify genuine voices, build meaningful connections, and transform expertise into lasting impact.`,
       title: `Where Stories Matter`,
-      splash: {
+      media: {
         format: 'url' as const,
         url: new URL('img/about/pro.webp', import.meta.url).href,
       },
@@ -107,7 +107,7 @@ export async function getAboutPage(args: { site: Site, factory: CardFactory }) {
       },
       subTitle: `Great software should be accessible to everyone. Fiction grows stronger with every voice that joins. When the community thrives, possibilities expand for everyone.`,
       title: `Built Together`,
-      splash: {
+      media: {
         format: 'url',
         url: new URL('img/about/girl-computer.webp', import.meta.url).href,
       },
@@ -529,7 +529,7 @@ export async function getTourPage(args: { factory: CardFactory, stock: StockMedi
                   },
                   title: 'See Your Personal Brand Come to Life',
                   subTitle: 'Effortlessly create your online presence. Show off a high-quality website, create brilliant content to capture and grow your influence.',
-                  splash: { url: new URL('img/tour/fig-website-screen.svg', import.meta.url).href },
+                  media: { url: new URL('img/tour/fig-website-screen.svg', import.meta.url).href },
                   overlays: [{ media: { url: new URL('img/tour/fig-website-alt-1.svg', import.meta.url).href } }],
                   action: {},
                 },
@@ -542,7 +542,7 @@ export async function getTourPage(args: { factory: CardFactory, stock: StockMedi
                   },
                   title: 'Watch Your Audience Growing Daily',
                   subTitle: 'Wake up to new engaged subscribers every morning. See how your persona resonates as you build an audience that\'s truly yours to nurture and grow.',
-                  splash: { url: new URL('img/tour/fig-subscribe-screen.svg', import.meta.url).href },
+                  media: { url: new URL('img/tour/fig-subscribe-screen.svg', import.meta.url).href },
                   overlays: [{ media: { url: new URL('img/tour/fig-subscribe-alt-1.svg', import.meta.url).href } }],
                   action: {},
                 },
@@ -555,7 +555,7 @@ export async function getTourPage(args: { factory: CardFactory, stock: StockMedi
                   },
                   title: 'Connect Deeply Through Personal Updates',
                   subTitle: 'Experience the difference when your newsletters feel like personal letters. Notice how your audience engagement grows as you share your journey in your authentic voice.',
-                  splash: { url: new URL('img/tour/fig-email-screen.svg', import.meta.url).href },
+                  media: { url: new URL('img/tour/fig-email-screen.svg', import.meta.url).href },
                   overlays: [{ media: { url: new URL('img/tour/fig-email-alt-1.svg', import.meta.url).href } }],
                   action: {},
                 },
@@ -568,7 +568,7 @@ export async function getTourPage(args: { factory: CardFactory, stock: StockMedi
                   },
                   title: 'Transform Your Influence Into Income',
                   subTitle: 'Visualize your expertise turning into memberships and opportunities. Feel the freedom as your personal brand opens doors to passive income streams.',
-                  splash: { url: new URL('img/tour/fig-money-screen.svg', import.meta.url).href },
+                  media: { url: new URL('img/tour/fig-money-screen.svg', import.meta.url).href },
                   overlays: [{ media: { url: new URL('img/tour/fig-money-alt-1.svg', import.meta.url).href } }],
                   action: {},
                 },
@@ -581,7 +581,7 @@ export async function getTourPage(args: { factory: CardFactory, stock: StockMedi
                   },
                   title: 'Your Brand Works While You Sleep',
                   subTitle: 'Picture your personal brand working 24/7, automatically showcasing your best self. See how our AI-powered tools craft your perfect professional narrative.',
-                  splash: { url: new URL('img/tour/fig-contact-screen.svg', import.meta.url).href },
+                  media: { url: new URL('img/tour/fig-contact-screen.svg', import.meta.url).href },
                   action: {},
                 },
               ],

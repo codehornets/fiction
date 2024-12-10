@@ -16,7 +16,7 @@ export const schema = z.object({
   title: z.string().optional().describe('Primary headline that captures attention (3-13 words) [ai]'),
   subTitle: z.string().optional().describe('Supporting message that explains your value proposition (10-30 words) [ai]'),
   superTitle: SuperTitleSchema.optional().describe('Eyebrow text with icon and color [ai]'),
-  splash: MediaBasicSchema.optional().describe('Hero\'s focal image or illustration [ai]'),
+  media: MediaBasicSchema.optional().describe('Hero\'s focal image or illustration [ai]'),
   caption: z.string().optional().describe('Optional text description for the splash image'),
   action: ActionAreaSchema.optional().describe('Primary call-to-action area'),
   overlays: z.array(LayerMediaScheme).optional().describe('Decorative image layers for visual depth [ai]'),
@@ -83,7 +83,7 @@ export function getOptions(): InputOption[] {
       input: 'group',
       options: [
         createOption({
-          key: 'splash',
+          key: 'media',
           label: 'Hero Image',
           input: 'InputMedia',
           schema,
@@ -176,7 +176,7 @@ async function getDemoPage(args: { templateId: string, factory: CardFactory }) {
         subTitle: 'Experience the future of productivity with our AI-powered platform. Automate tasks, collaborate seamlessly, and achieve more in less time.',
         superTitle: { text: 'New Release', icon: { class: 'i-tabler-sparkles' }, theme: 'blue' },
 
-        splash: splash('aspect:portrait'),
+        media: splash('aspect:portrait'),
         action: {
           buttons: [
             { label: 'Start Free Trial', theme: 'primary', design: 'solid', size: 'xl' },
@@ -193,7 +193,7 @@ async function getDemoPage(args: { templateId: string, factory: CardFactory }) {
         title: 'Craft Your Perfect Digital Presence',
         subTitle: 'From stunning websites to powerful marketing tools, we provide everything you need to grow your online business and connect with your audience.',
         superTitle: { text: 'Professional Services', icon: { class: 'i-tabler-brush' }, theme: 'purple' },
-        splash: splash('aspect:portrait'),
+        media: splash('aspect:portrait'),
         action: {
           buttons: [
             { label: 'Explore Services', theme: 'primary', design: 'solid', size: 'xl' },
@@ -210,7 +210,7 @@ async function getDemoPage(args: { templateId: string, factory: CardFactory }) {
         title: 'Join the Future of Tech',
         subTitle: 'Be part of the largest virtual tech conference of 2024. Connect with industry leaders, discover emerging trends, and shape the future of technology.',
         superTitle: { text: 'Virtual Summit 2024', icon: { class: 'i-tabler-calendar-event' }, theme: 'indigo' },
-        splash: splash(),
+        media: splash(),
         action: {
           buttons: [
             { label: 'Register Now', theme: 'primary', design: 'solid', size: 'xl' },

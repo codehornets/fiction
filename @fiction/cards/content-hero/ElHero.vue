@@ -71,15 +71,15 @@ const overlays = vue.computed(() => uc.value.overlays || [])
 
       <!-- Media Section -->
       <div
-        v-if="uc.splash"
+        v-if="uc.media"
         class="flow-root relative [perspective:1000px]"
         :class="layoutClasses.media.wrap"
       >
         <!-- Main Image -->
         <XMedia
-          data-option-path="splash"
+          data-option-path="media"
           :class="layoutClasses.media.aspect"
-          :media="uc.splash"
+          :media="uc.media"
           image-mode="inline"
           :animate="true"
         />

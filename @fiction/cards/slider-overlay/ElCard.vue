@@ -162,7 +162,7 @@ vue.onBeforeUnmount(() => {
 <template>
   <div :class="card.classes.value.contentWidth">
     <div class="py-24 md:py-4">
-      <div v-if="!currentItem" class="p-12 text-center font-sans opacity-30">
+      <div v-if="!currentItem && card.site?.isEditable.value" class="p-12 text-center font-sans text-theme-400/80 dark:text-theme-600/80">
         No Slides Added
       </div>
       <div v-else class="md:flex items-center justify-between md:h-[680px]">
