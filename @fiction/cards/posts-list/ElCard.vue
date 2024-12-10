@@ -104,7 +104,7 @@ async function fetchPosts() {
       postConfig: uc.value.posts || {},
       routeSlug: routeSlug.value,
       indexMeta: { ...indexMeta.value, limit: uc.value.posts?.limit },
-      routeBasePath: uc.value.routeBasePath,
+      viewSlug: uc.value.posts?.viewSlug,
     })
 
     posts.value = result.posts

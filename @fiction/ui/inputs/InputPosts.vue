@@ -35,20 +35,38 @@ const baseOptions = [
 const globalQueryOptions = [
   createOption({
     schema,
+    key: 'viewSlug',
+    label: 'Destination Page',
+    subLabel: 'Where should this content appear when clicked?',
+    description: 'Leave empty to show content on the current page, or enter a page name like "blog" to show it there instead.',
+    input: 'InputText',
+    props: {
+      placeholder: 'e.g. blog, products, about',
+    },
+
+  }),
+  createOption({
+    schema,
     key: 'query.filters',
-    label: 'Select by Filters',
-    subLabel: 'Must match any of these filters (OR logic)',
-    description: 'Filters are applied to the global query. If you don\'t want to filter, leave this empty.',
+    label: 'Content Filters',
+    subLabel: 'Show only content that matches these rules',
+    description: 'Create filter groups to control which content appears. Content will match if it meets ANY of these groups.',
     input: 'InputList',
-    props: { itemLabel: 'Filter' },
+    props: {
+      itemName: 'Filter Group',
+      itemLabel: 'Filter Group',
+    },
     options: [
       createOption({
         schema,
         key: 'query.filters.0',
-        label: 'Filters',
-        subLabel: 'Must match all of these filters (AND logic)',
-        description: 'These are applied with OR logic. If using AND logic, add a new top level filter.',
-        props: { itemLabel: 'Filter' },
+        label: 'Filter Rules',
+        subLabel: 'Content must match ALL of these rules',
+        description: 'Add multiple rules to narrow down your content. For different combinations, create another filter group above.',
+        props: {
+          itemName: 'Rule',
+          itemLabel: 'Rule',
+        },
         input: 'InputList',
         options: [
           createOption({
@@ -90,10 +108,10 @@ const globalQueryOptions = [
 ]
 
 const localPostOptions = [
-  createOption({ schema, key: 'entries.0.slug', label: 'Slug', input: 'InputText', getDefaultValue: () => shortId() }),
   createOption({ schema, key: 'entries.0.title', label: 'Title', input: 'InputText', getDefaultValue: () => 'New Post' }),
   createOption({ schema, key: 'entries.0.media', label: 'Media', input: 'InputMedia', getDefaultValue: async () => (await createStockMediaHandler()).getRandomMedia() }),
   createOption({ schema, key: 'entries.0.content', label: 'Content', input: 'InputProse' }),
+  createOption({ schema, key: 'entries.0.slug', label: 'Slug', input: 'InputText', getDefaultValue: () => shortId() }),
   createOption({ schema, key: 'entries.0.tags', label: 'Tags', input: 'InputItems' }),
   createOption({ schema, key: 'entries.0.categories', label: 'Categories', input: 'InputItems' }),
 ]

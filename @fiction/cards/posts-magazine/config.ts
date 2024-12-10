@@ -37,16 +37,7 @@ const options = [
         input: 'InputPosts',
         description: 'Choose between global posts or specify local entries',
       }),
-      createOption({
-        schema,
-        key: 'routeBasePath',
-        label: 'Route Base Path',
-        subLabel: 'Base URL path for blog posts (e.g., /blog)',
-        input: 'InputText',
-        props: {
-          placeholder: '/blog',
-        },
-      }),
+
     ],
   }),
   createOption({

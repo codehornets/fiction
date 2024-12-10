@@ -3,7 +3,7 @@ import { NavListItemSchema, numberFormats } from '@fiction/core'
 import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
-const metricSchema = NavListItemSchema.pick({
+export const MetricSchema = NavListItemSchema.pick({
   label: true,
   description: true,
   value: true,
@@ -14,11 +14,11 @@ const metricSchema = NavListItemSchema.pick({
   format: z.enum(numberFormats).optional(),
 })
 
-export type MetricItem = z.infer<typeof metricSchema>
+export type MetricItem = z.infer<typeof MetricSchema>
 
 export const schema = z.object({
   layout: z.enum(['grid', 'inline', 'featured']).optional(),
-  metrics: z.array(metricSchema).optional(),
+  metrics: z.array(MetricSchema).optional(),
 })
 
 export type UserConfig = z.infer<typeof schema> & SiteUserConfig

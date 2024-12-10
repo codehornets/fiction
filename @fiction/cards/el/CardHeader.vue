@@ -50,23 +50,23 @@ const layout = vue.computed(() => {
 </script>
 
 <template>
-  <div class="space-y-8">
+  <div class="space-y-6">
     <div
       :class="textWrapClass"
+      class="space-y-3"
       data-option-path="layout"
       :data-layout="layout"
     >
-      <div class="max-w-screen-lg space-y-4" :class="layout === 'justify' ? 'lg:min-w-[50%]' : 'mx-auto'">
+      <div class="max-w-screen-md space-y-4" :class="layout === 'justify' ? 'lg:min-w-[50%]' : 'mx-auto'">
         <XSuperTitle
           :card
           :base-path="pathCheck('superTitle', schema)"
           :class="[layout === 'center' ? 'md:justify-center' : '']"
-          :super-title="uc.superTitle"
         />
         <CardText
           tag="h1"
           :card
-          class="x-font-title font-semibold md:text-balance text-4xl sm:text-5xl !leading-[1.1]"
+          class="x-font-title font-semibold md:text-balance text-4xl sm:text-5xl"
           :path="pathCheck('title', schema)"
           placeholder="Title"
           animate="fade"
@@ -76,7 +76,7 @@ const layout = vue.computed(() => {
         <CardText
           tag="h3"
           :card
-          class="mt-8 text-xl lg:text-2xl !leading-[1.5] md:text-balance text-theme-800 dark:text-theme-200"
+          class="text-xl lg:text-2xl md:text-balance text-theme-800 dark:text-theme-200"
           :class="layout === 'justify' ? 'lg:text-right' : ''"
           :path="pathCheck('subTitle', schema)"
           placeholder="Sub Title"
@@ -96,9 +96,9 @@ const layout = vue.computed(() => {
       :base-path="pathCheck('action', schema)"
       :card
       :classes="{
-        buttons: [['justify', 'left', 'right'].includes(layout) ? 'justify-start' : 'justify-start md:justify-center', 'flex gap-4 lg:gap-6'].join(' '),
+        buttons: [['justify', 'left', 'right'].includes(layout) ? 'justify-start' : 'justify-start md:justify-center', 'flex gap-4'].join(' '),
       }"
-      size="xl"
+      size="lg"
     />
   </div>
 </template>

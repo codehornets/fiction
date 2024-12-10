@@ -31,6 +31,7 @@ export const ButtonHoverSchema = z.enum(['none', 'basic', 'rise', 'fade', 'slide
 export const ButtonShadowSchema = z.enum(['none', 'sm', 'md', 'lg'])
 export const ButtonFontWeightSchema = z.enum(['normal', 'medium', 'semibold', 'bold'])
 export const ButtonBorderSchema = z.enum(['none', 'normal', 'thick'])
+export const AspectRatioSchema = z.enum(['square', 'portrait', 'landscape', 'golden', 'wide', 'tall', 'cinema', 'panorama'])
 
 // Inferred types
 export type ButtonFormat = z.infer<typeof ButtonFormatSchema>
@@ -107,6 +108,7 @@ export const MediaBasicSchema = z.object({
     return typeof val === 'function' || val instanceof Promise
   }, { message: 'Must be an async component or Promise' }).optional(),
   props: z.record(z.string(), z.any()).optional(),
+  aspect: AspectRatioSchema.optional(),
 })
 
 export const MediaIconSchema = MediaBasicSchema.extend({
@@ -402,6 +404,7 @@ export const PostHandlingSchema = z.object({
   offset: z.number().optional().describe('Offset the number of posts to show'),
   entries: z.array(PostSchema).optional().describe('Inline post entries for local format'),
   query: GlobalQuerySchema.optional().describe('Query for global posts'),
+  viewSlug: z.string().optional().describe('Base path for post links'),
 })
 
 export type PostObject = z.infer<typeof PostSchema>

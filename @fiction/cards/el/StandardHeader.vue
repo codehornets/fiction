@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import type { Card } from '@fiction/site'
-import { vue } from '@fiction/core'
-import XIcon from '@fiction/ui/media/XIcon.vue'
-import { getColorThemeStyles } from '@fiction/ui/utils'
+import { pathCheck, vue } from '@fiction/core'
+import { SiteUserConfigSchema as schema } from '@fiction/site/schema'
 import CardText from '../CardText.vue'
+
 import SuperTitle from './SuperTitle.vue'
 
 const props = defineProps({
@@ -81,7 +81,7 @@ const currentSizeClasses = vue.computed(() => sizeClasses[headerSize.value])
       <div :class="layout === 'justify' ? 'lg:min-w-[50%]' : 'mx-auto'">
         <SuperTitle
           :card
-          base-path="standard.superTitle"
+          :base-path="pathCheck('standard.headers.superTitle', schema)"
           :class="[
             layout === 'center' ? 'md:justify-center' : layout === 'right' ? 'md:justify-end' : '',
             currentSizeClasses.spacing,
@@ -93,9 +93,9 @@ const currentSizeClasses = vue.computed(() => sizeClasses[headerSize.value])
           class="x-font-title md:text-balance x-font-title font-semibold "
           :class="[
             currentSizeClasses.title,
-            layout === 'justify' || layout === 'left' ? 'mt-3' : 'my-5',
+            layout === 'justify' || layout === 'left' ? 'mt-2' : 'my-4',
           ]"
-          path="standard.headers.title"
+          :path="pathCheck('standard.headers.title', schema)"
           placeholder="Title"
           animate="fade"
         />
@@ -110,7 +110,7 @@ const currentSizeClasses = vue.computed(() => sizeClasses[headerSize.value])
             layout === 'justify' ? 'lg:text-right' : '',
             layout === 'center' ? 'mx-auto' : '',
           ]"
-          path="standard.headers.subTitle"
+          :path="pathCheck('standard.headers.subTitle', schema)"
           placeholder="Sub Title"
           animate="fade"
         />

@@ -19,7 +19,7 @@ export type LoadPostsConfig = {
   postConfig: PostHandlingObject
   routeSlug?: string
   indexMeta?: IndexMeta
-  routeBasePath?: string
+  viewSlug?: string
   filters?: ComplexDataFilter[]
 }
 
@@ -33,7 +33,7 @@ export async function loadPosts(config: LoadPostsConfig): Promise<LoadPostsResul
     postConfig,
     routeSlug,
     indexMeta = { offset: 0, limit: 12, count: 0 },
-    routeBasePath,
+    viewSlug,
     filters = [],
   } = config
 
@@ -59,7 +59,7 @@ export async function loadPosts(config: LoadPostsConfig): Promise<LoadPostsResul
         card,
         routeSlug,
         indexMeta,
-        routeBasePath,
+        viewSlug,
         filters,
       })
     }
@@ -125,10 +125,10 @@ async function loadGlobalPosts(args: {
   card: Card
   routeSlug?: string
   indexMeta: IndexMeta
-  routeBasePath?: string
+  viewSlug?: string
   filters: ComplexDataFilter[]
 }): Promise<LoadPostsResult> {
-  const { fictionPosts, card, routeSlug, indexMeta, routeBasePath, filters } = args
+  const { fictionPosts, card, routeSlug, indexMeta, viewSlug, filters } = args
   const orgId = card.site?.settings.orgId
 
   if (!orgId) {
@@ -152,7 +152,7 @@ async function loadGlobalPosts(args: {
       offset: 0,
       orgId,
       caller: 'PostListCard',
-      routeBasePath,
+      viewSlug,
       filters,
     })
 
@@ -170,7 +170,7 @@ async function loadGlobalPosts(args: {
     offset: indexMeta.offset,
     orgId,
     caller: 'PostListCard',
-    routeBasePath,
+    viewSlug,
     filters,
   }
 
@@ -336,7 +336,7 @@ export function getDemoPosts(args: { stock: StockMedia, limit?: number }): PostO
           </aside>
 
           <div>
-            <h3 style="color: #166534;">The Secret Most SEO Experts Won't Tell You</h3>
+            <h3>The Secret Most SEO Experts Won't Tell You</h3>
             <p>The best SEO strategy is creating content so good, so useful, that people can't help but share it. Imagine your content becoming the go-to resource in your field.</p>
           </div>
 
@@ -441,7 +441,7 @@ export function getDemoPosts(args: { stock: StockMedia, limit?: number }): PostO
           </div>
 
           <aside>
-            <h3 style="color: #1e40af; margin-top: 0;">Designer's Secret Weapon</h3>
+            <h3 style="margin-top: 0;">Designer's Secret Weapon</h3>
             <p>Picture your perfect reader skimming your content. Where do their eyes go first? Second? By understanding this journey, you can craft a visual experience that feels both natural and engaging.</p>
           </aside>
 

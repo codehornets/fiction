@@ -10,7 +10,7 @@ export type PostConfig = {
   sourceMode: 'local' | 'standard'
   noAutoSave?: boolean
   localSourcePath?: string
-  routeBasePath?: string
+  viewSlug?: string
 } & TablePostConfig
 
 export class Post extends FictionObject<PostConfig> {
@@ -22,7 +22,7 @@ export class Post extends FictionObject<PostConfig> {
   excerpt = vue.ref(this.settings.excerpt || '')
   content = vue.ref(this.settings.content || '')
   slug = vue.ref(this.settings.slug || '')
-  href = vue.computed(() => postLink({ card: this.settings.card, slug: this.slug.value, routeBasePath: this.settings.routeBasePath }))
+  href = vue.computed(() => postLink({ card: this.settings.card, slug: this.slug.value, viewSlug: this.settings.viewSlug }))
   media = vue.ref(this.settings.media || {})
   tags = vue.ref(this.settings.tags || [])
   categories = vue.ref(this.settings.categories || [])

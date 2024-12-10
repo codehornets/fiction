@@ -81,6 +81,8 @@ export const recommendedIcons = [
   { class: 'i-tabler-ai', category: 'interface' },
   { class: 'i-tabler-atom', category: 'interface' },
   { class: 'i-tabler-cloud', category: 'interface' },
+  { class: 'i-tabler-compass', category: 'interface' },
+  { class: 'i-tabler-award', category: 'interface' },
 
   // Content - Text editing and content management
   { class: 'i-tabler-file', category: 'content' },
@@ -112,6 +114,8 @@ export const recommendedIcons = [
   { class: 'i-tabler-grid', category: 'content' },
   { class: 'i-tabler-layout-grid', category: 'content' },
   { class: 'i-tabler-layout', category: 'content' },
+  { class: 'i-tabler-crown', category: 'content' },
+  { class: 'i-tabler-telescope', category: 'content' },
 
   // Commerce - Shopping and business
   { class: 'i-tabler-shopping-cart', category: 'commerce' },
@@ -219,7 +223,7 @@ export const recommendedIcons = [
   { class: 'i-tabler-chart-dots', category: 'marketing' },
   { class: 'i-tabler-trending-up', category: 'marketing' },
   { class: 'i-tabler-presentation', category: 'marketing' },
-  { class: 'i-tabler-award', category: 'marketing' },
+  { class: 'i-tabler-telescope', category: 'marketing' },
   { class: 'i-tabler-trophy', category: 'marketing' },
   { class: 'i-tabler-certificate', category: 'marketing' },
   { class: 'i-tabler-ballpen', category: 'marketing' },

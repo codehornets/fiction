@@ -14,31 +14,31 @@ const uc = vue.computed(() => props.card.userConfig.value || {})
 const layout = vue.computed(() => uc.value.layout || 'center')
 
 // Layout classes based on user config
-const layoutClasses = vue.computed(() => ({
-  wrapper: [
-    'gap-8  items-center',
-    {
-      'flex flex-col lg:flex-row-reverse lg:gap-28': layout.value === 'right',
-      'flex flex-col lg:flex-row lg:gap-20': layout.value === 'left',
+const layoutClasses = vue.computed(() => {
+  const isWideMedia = !!['landscape', 'wide', 'golden'].includes(uc.value.media?.aspect || '')
+  return {
+    wrapper: [
+      'gap-8  items-center',
+      {
+        'flex flex-col lg:flex-row-reverse lg:gap-28': layout.value === 'right',
+        'flex flex-col lg:flex-row lg:gap-20': layout.value === 'left',
+      },
+    ],
+    text: [
+      { 'max-w-xl flex-auto': ['right', 'left'].includes(layout.value) },
+    ],
+    media: {
+      wrap: [
+        ['right', 'left'].includes(layout.value)
+          ? isWideMedia ? 'w-full' : 'w-full basis-[60%]'
+          : 'mt-16 sm:mt-20 w-full',
+      ],
+      aspect: [
+        'w-full',
+      ],
     },
-  ],
-  text: [
-    { 'max-w-xl flex-auto': ['right', 'left'].includes(layout.value) },
-  ],
-  media: {
-    wrap: [
-      ['right', 'left'].includes(layout.value)
-        ? 'w-full lg:w-[50%]'
-        : 'mt-16 sm:mt-20 w-full',
-    ],
-    aspect: [
-      'w-full',
-      // ['right', 'left'].includes(layout.value)
-      //   ? 'aspect-[1/1]'
-      //   : 'aspect-[2/1]',
-    ],
-  },
-}))
+  }
+})
 
 // Overlay positioning system
 const overlayStyles = {
@@ -72,7 +72,7 @@ const overlays = vue.computed(() => uc.value.overlays || [])
       <!-- Media Section -->
       <div
         v-if="uc.media"
-        class="flow-root relative [perspective:1000px]"
+        class="flow-root relative [perspective:1000px] w-full"
         :class="layoutClasses.media.wrap"
       >
         <!-- Main Image -->

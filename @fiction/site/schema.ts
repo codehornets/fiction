@@ -101,7 +101,7 @@ export const SiteUserConfigSchema = z.object({
     buttons: ButtonTypeSchema.optional(),
     prefersColorScheme: z.enum(prefersColorScheme).optional(),
     primaryColor: ColorThemeSchema.optional(),
-
+    themeColor: ColorThemeSchema.optional(),
   }).optional(),
   standard: CardStandardSchema.optional(),
 })

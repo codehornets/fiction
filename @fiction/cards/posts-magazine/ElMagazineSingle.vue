@@ -25,7 +25,7 @@ const service = useService<{ fictionPosts: FictionPosts }>()
 const userIsAuthor = vue.computed(() => {
   return post?.settings.authors?.some(a => a.userId === service.fictionUser.activeUser.value?.userId)
 })
-const proseClass = `prose dark:prose-invert prose-sm md:prose-lg lg:prose-xl mx-auto focus:outline-none `
+const proseClass = `prose dark:prose-invert prose-sm md:prose-lg lg:prose-xl mx-auto focus:outline-none max-w-[55ch]`
 
 const imageAspect = vue.computed(() => {
   const img = post?.media.value
@@ -43,7 +43,7 @@ const imageAspect = vue.computed(() => {
   <div :class="card.classes.value.contentWidth">
     <div
       v-if="loading"
-      class="flex py-24 justify-center h-[90dvh] text-theme-300 dark:text-theme-700"
+      class="flex py-24 justify-center h-[90dvh] text-theme-300 dark:text-theme-700 "
     >
       <ElSpinner class="h-12 w-12" />
     </div>

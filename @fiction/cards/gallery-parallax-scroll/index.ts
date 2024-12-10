@@ -24,7 +24,7 @@ export const template = cardTemplate({
     return {
       standard: {
         widthSize: 'none',
-        spaceSize: 'none',
+        spaceSize: 'sm',
       },
     }
   },

@@ -9,7 +9,7 @@ import type { template as MapsTemplate } from '@fiction/cards/location-maps'
 import type { template as contentModalTemplate } from '@fiction/cards/modal-media'
 import type { template as areaTemplate } from '@fiction/cards/page-area'
 
-import type { template as footerXTemplate } from '@fiction/cards/page-footer-personal'
+import type { template as templateFooterPersonal } from '@fiction/cards/page-footer-personal'
 import type { template as navTemplate } from '@fiction/cards/page-nav'
 
 import type { template as MagazineTemplate } from '@fiction/cards/posts-magazine'
@@ -155,12 +155,32 @@ export async function getFooter(args: SectionArgs) {
           standard: { spaceSize: 'sm' },
         },
       }),
-      await factory.fromTemplate<typeof footerXTemplate>({
+      await factory.fromTemplate<typeof templateFooterPersonal>({
         templateId: 'pageFooterPersonal',
         userConfig: {
           brand: {
             logo: { variant: 'typography', typography: { label: 'Minimal' } },
-            tagline: 'Minimal Theme by Fiction',
+            tagline: 'Be an essentialist',
+          },
+          menus: [
+            {
+              title: 'Join the Movement',
+              items: [
+                { label: 'Creator Academy', href: '/academy', icon: { iconId: 'school' } },
+                { label: 'Community Hub', href: '/community', icon: { iconId: 'users' } },
+                { label: 'Support My Work', href: '/support', icon: { iconId: 'heart' } },
+              ],
+            },
+          ],
+          additional: {
+            list1: [
+              { label: 'Creator Terms', href: '/terms' },
+              { label: 'Content Policy', href: '/content-policy' },
+            ],
+            list2: [
+              { label: '© 2024 Name | Creator Economy Advocate' },
+              { label: 'Part of the Fiction Creator Network' },
+            ],
           },
         },
       }),

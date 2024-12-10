@@ -84,9 +84,14 @@ export function getOptions(): InputOption[] {
       options: [
         createOption({
           key: 'media',
-          label: 'Hero Image',
+          label: 'Media',
           input: 'InputMedia',
           schema,
+        }),
+        createOption({
+          key: 'media.aspect',
+          label: 'Media Aspect',
+          input: 'InputMedia',
         }),
         createOption({
           key: 'caption',

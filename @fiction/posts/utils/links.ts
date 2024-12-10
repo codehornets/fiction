@@ -6,8 +6,10 @@ export function postEditLink(args: { post: Post }): string {
   return `/app/edit-post?postId=${post.postId}&_reload=1`
 }
 
-export function postLink(args: { card?: Card, slug?: string, routeBasePath?: string }): string {
-  const { card, slug, routeBasePath = '/:viewId' } = args
+export function postLink(args: { card?: Card, slug?: string, viewSlug?: string }): string {
+  const { card, slug, viewSlug } = args
+
+  const routeBasePath = viewSlug ? `/${viewSlug}` : '/:viewId'
 
   if (!card) {
     return '/no-card-for-link'

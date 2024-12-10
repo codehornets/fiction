@@ -29,6 +29,7 @@ export const theme = new Theme({
           body: { family: 'Inter', stack: 'sans' },
         },
         prefersColorScheme: 'dark',
+        primaryColor: 'rose',
       },
     } satisfies SiteUserConfig
   },

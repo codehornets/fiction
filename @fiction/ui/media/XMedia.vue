@@ -161,12 +161,29 @@ const filterStyle = vue.computed(() => ({
 
 const inlineImage = vue.computed(() => imageMode === 'inline')
 const imageModeClass = vue.computed(() => imageMode === 'contain' ? 'object-contain' : 'object-cover')
+
+const aspectClass = vue.computed(() => {
+  const aspectMappings: { [key: string]: string } = {
+    square: 'aspect-square',
+    tall: 'aspect-[9/16]',
+    wide: 'aspect-[16/9]',
+    golden: 'aspect-[1.618/1]',
+    portrait: 'aspect-[3/4]',
+    landscape: 'aspect-[4/3]',
+    cinema: 'aspect-[21/9]',
+    default: 'aspect-[4/3]',
+  }
+
+  const aspect = media?.aspect || ''
+
+  return aspectMappings[aspect] || ''
+})
 </script>
 
 <template>
   <ClipPathAnim
     caller="media"
-    :class="cls"
+    :class="[cls, aspectClass]"
     :animate="animate"
     :data-format="mediaFormat || 'none'"
     :data-media-width="media?.width"
@@ -209,8 +226,8 @@ const imageModeClass = vue.computed(() => imageMode === 'contain' ? 'object-cont
         />
         <video
           v-else-if="mediaFormat === 'video'"
-          class=" z-0 dark:bg-theme-800/30 bg-theme-50/50"
-          :class="[imageClass, imageModeClass, inlineImage ? 'block' : 'absolute h-full w-full']"
+          class="inset-0 z-0"
+          :class="[imageClass, imageModeClass, inlineImage ? 'block w-full' : 'absolute h-full w-full']"
           :src="media.url"
           :style="filterStyle"
           autoplay

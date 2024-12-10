@@ -119,14 +119,14 @@ export class FictionPosts extends FictionPlugin<FictionPostsSettings> {
     offset?: number
     filters?: ComplexDataFilter[]
     card: Card
-    routeBasePath?: string
+    viewSlug?: string
     caller: string
   }) {
-    const { orgId, limit = 20, offset, card, caller = 'unknown', routeBasePath, filters = [] } = args
+    const { orgId, limit = 20, offset, card, caller = 'unknown', viewSlug, filters = [] } = args
 
     const r = await this.requests.ManagePost.request({ _action: 'list', where: { orgId }, limit, offset, filters }, { caller: `getPostIndex-${caller}` })
 
-    const posts = r.data?.length ? r.data.map(p => new Post({ card, fictionPosts: this, sourceMode: 'standard', routeBasePath, ...p })) : []
+    const posts = r.data?.length ? r.data.map(p => new Post({ card, fictionPosts: this, sourceMode: 'standard', viewSlug, ...p })) : []
 
     return { posts, indexMeta: r.indexMeta }
   }

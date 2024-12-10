@@ -42,16 +42,7 @@ const options = [
         input: 'InputPosts',
         description: 'Choose between global posts or specify local entries',
       }),
-      createOption({
-        schema,
-        key: 'routeBasePath',
-        label: 'Route Base Path',
-        subLabel: 'Base URL path for blog posts (e.g., /blog)',
-        input: 'InputText',
-        props: {
-          placeholder: '/blog',
-        },
-      }),
+
     ],
   }),
   createOption({
@@ -191,14 +182,12 @@ export async function getConfig(args: { templateId: string, factory: CardFactory
   const { templateId, factory } = args
   const stock = await factory.getStockMedia()
 
+  const demoPosts = await getDemoPosts({ stock })
+
   // Default configuration focused on instruction
   const userConfig: UserConfig = {
     standard: {
       showOnSingle: true,
-      headers: {
-        title: 'Blog Posts',
-        subTitle: 'Showcase your content in an engaging format',
-      },
     },
     display: {
       layout: 'grid',
@@ -210,16 +199,15 @@ export async function getConfig(args: { templateId: string, factory: CardFactory
       gap: 'lg',
     },
     posts: {
-      format: 'standard',
-      limit: 12,
+      format: 'local',
+      limit: 3,
       query: {
         sortBy: 'dateAt',
         sortOrder: 'desc',
       },
+      entries: demoPosts.slice(0, 3),
     },
   }
-
-  const demoPosts = await getDemoPosts({ stock })
 
   return {
     schema,

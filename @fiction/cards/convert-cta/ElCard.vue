@@ -37,8 +37,8 @@ const colPad = 'p-12 xl:p-16'
 <template>
   <div :id="card.cardId" class="relative">
     <div :class="card.classes.value.contentWidth">
-      <div class="overflow-hidden bg-theme-50/50 dark:bg-theme-800/80 rounded-xl border border-theme-200 dark:border-theme-700/60">
-        <div class="flex  flex-col lg:flex-row divide-x divide-theme-200 dark:divide-theme-700/60" :class="uc.benefits?.items?.length ? '' : ''">
+      <div class="overflow-hidden bg-theme-50/50 dark:bg-theme-800/20 rounded-xl border border-theme-200 dark:border-theme-800/70">
+        <div class="flex  flex-col lg:flex-row divide-x divide-theme-200 dark:divide-theme-800/70" :class="uc.benefits?.items?.length ? '' : ''">
           <div class="gap-8 xl:gap-8 flex flex-col justify-center grow" :class="colPad">
             <div class="space-y-4 xl:space-y-6">
               <SuperTitle

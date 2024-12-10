@@ -79,8 +79,11 @@ const iconUrls = vue.computed(() => getHeadIconConfig({ site: site.value }))
 
 const colors = vue.computed(() => {
   const config = site.value?.fullConfig.value || {}
+  const siteUserConfig = config.site || {}
+  const cardUserConfig = config.standard || {}
 
-  const { primaryColor = 'blue', themeColor = 'gray' } = config.standard || {}
+  const primaryColor = cardUserConfig.primaryColor || siteUserConfig.primaryColor || 'blue'
+  const themeColor = cardUserConfig.themeColor || siteUserConfig.themeColor || 'gray'
 
   return {
     primary: getColorScheme(primaryColor),
