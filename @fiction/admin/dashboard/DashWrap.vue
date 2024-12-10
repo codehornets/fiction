@@ -77,12 +77,12 @@ const bottomNav = vue.computed<NavItem[]>(() => {
 
   return [
     {
-      name: 'Settings',
+      label: 'Settings',
       href: `/settings`,
       icon: 'i-tabler-adjustments',
       isActive: currentViewId === 'settings',
     },
-  ]
+  ] satisfies NavItem[]
 })
 
 const accountMenu: vue.ComputedRef<IndexItem[]> = vue.computed(() => {
@@ -106,7 +106,7 @@ const accountMenu: vue.ComputedRef<IndexItem[]> = vue.computed(() => {
         loading.value = false
       },
     },
-  ]
+  ] satisfies IndexItem[]
 })
 
 vue.onMounted(async () => {

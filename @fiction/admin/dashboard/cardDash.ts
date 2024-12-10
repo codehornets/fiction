@@ -1,3 +1,4 @@
+import { MediaBasicSchema } from '@fiction/core'
 import { cardTemplate } from '@fiction/site'
 import FictionLogo from '@fiction/ui/brand/FictionLogo.vue'
 import { z } from 'zod'
@@ -21,6 +22,16 @@ export const panelTemplate = cardTemplate({
   templateId: 'panel',
   el: DashWrap,
   getConfig: async () => ({ schema }),
+})
+
+export const AuthPageSchema = z.object({
+  logo: MediaBasicSchema.optional(),
+})
+
+export const authTemplate = cardTemplate({
+  templateId: 'auth',
+  el: DashWrap,
+  getConfig: async () => ({ schema: AuthPageSchema }),
 })
 
 export const template = cardTemplate({

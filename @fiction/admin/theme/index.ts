@@ -1,7 +1,7 @@
 import type { template as TransactionTemplate } from '@fiction/cards/page-transaction/index.js'
 import type { CardFactory } from '@fiction/site/cardFactory.js'
 import type { SiteUserConfig } from '@fiction/site/schema.js'
-import type { template as dashTemplate, panelTemplate } from '../dashboard/cardDash.js'
+import type { authTemplate, template as dashTemplate, panelTemplate } from '../dashboard/cardDash.js'
 import type { FictionAdmin } from '../index.js'
 import { getCardTemplates } from '@fiction/cards'
 import { safeDirname, vue } from '@fiction/core/index.js'
@@ -92,9 +92,12 @@ export async function getPages(args: { factory: CardFactory }) {
       slug: 'auth',
       title: 'Settings',
       cards: [
-        await factory.create({
+        await factory.fromTemplate<typeof authTemplate>({
           el: def(async () => import('../auth/AuthCard.vue')),
-          userConfig: { logo: { format: 'html' as const, html: fictionLogo }, standard: { spacing: { verticalSpacing: 'none' }, handling: { showOnSingle: true } } },
+          userConfig: {
+            logo: { format: 'html' as const, html: fictionLogo },
+            standard: { spaceSize: 'none', showOnSingle: true },
+          },
         }),
       ],
     }),
