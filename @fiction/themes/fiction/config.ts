@@ -685,19 +685,15 @@ export async function getTourPage(args: { factory: CardFactory, stock: StockMedi
         templateId: 'pageArea',
         userConfig: {
           standard: {
-            scheme: {
-              base: {
-                primary: 'blue',
-                theme: 'blue',
-                bg: {
-                  gradient: {
-                    angle: 45,
-                    stops: [
-                      { theme: 'blue', scale: 950, opacity: 0, percent: 50 },
-                      { theme: 'blue', scale: 950, opacity: 0.8, percent: 100 },
-                    ],
-                  },
-                },
+            primaryColor: 'blue',
+            themeColor: 'blue',
+            background: {
+              gradient: {
+                angle: 45,
+                stops: [
+                  { theme: 'blue', scale: 950, opacity: 0, percent: 50 },
+                  { theme: 'blue', scale: 950, opacity: 0.8, percent: 100 },
+                ],
               },
             },
           },

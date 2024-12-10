@@ -138,7 +138,7 @@ export async function getDemoConfig(args: { stock: StockMedia }): Promise<UserCo
 }
 
 export async function getConfig(args: { templateId: string, factory: CardFactory }) {
-  const { factory } = args
+  const { factory, templateId } = args
   const stock = await factory.getStockMedia()
   return {
     schema,
@@ -146,8 +146,8 @@ export async function getConfig(args: { templateId: string, factory: CardFactory
     userConfig: await getUserConfig(),
     demoPage: {
       cards: [
-        { templateId: 'statement', userConfig: await getUserConfig() },
-        { templateId: 'statement', userConfig: await getDemoConfig({ stock }) },
+        { templateId, userConfig: await getUserConfig() },
+        { templateId, userConfig: await getDemoConfig({ stock }) },
       ],
     },
   }

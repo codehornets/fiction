@@ -44,7 +44,7 @@ export class CardStructureGenerator {
 
     if (this.mode === 'complete') {
       const config = settings.getConfig
-        ? await settings.getConfig({ site, factory, templateId: settings.templateId })
+        ? await settings.getConfig({ site, factory, templateId: settings.templateId || 'NO_TEMPLATE_ID' })
         : {}
 
       // Process schema if available

@@ -7,6 +7,7 @@ export const schema = z.object({
   isNavItem: z.boolean().optional(),
   navIcon: z.string().optional(),
   navIconAlt: z.string().optional(),
+  parentItemId: z.string().optional(),
   priority: z.number().optional(),
   layoutFormat: z.union([z.literal('container'), z.literal('full')]).optional(),
   navTitle: z.string().optional(),
@@ -15,6 +16,12 @@ export const schema = z.object({
 })
 
 export type UserConfig = z.infer<typeof schema>
+
+export const panelTemplate = cardTemplate({
+  templateId: 'panel',
+  el: DashWrap,
+  getConfig: async () => ({ schema }),
+})
 
 export const template = cardTemplate({
   templateId: 'dash',

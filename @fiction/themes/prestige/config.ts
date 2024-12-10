@@ -1,5 +1,6 @@
 import type { template as featuresTemplate } from '@fiction/cards/content-features/index'
 import type { template as heroTemplate, template } from '@fiction/cards/content-hero/index'
+import type { template as CtaTemplate } from '@fiction/cards/convert-cta/index'
 import type { template as parallaxScollTemplate } from '@fiction/cards/gallery-parallax-scroll'
 import type { template as GalleryShowcaseTemplate } from '@fiction/cards/gallery-showcase/index'
 import type { template as templateFooterPro } from '@fiction/cards/page-footer-pro/index'
@@ -295,7 +296,7 @@ export async function getFooter(args: SectionArgs) {
     regionId: 'footer',
     templateId: 'pageArea',
     cards: [
-      await factory.fromTemplate({
+      await factory.fromTemplate<typeof CtaTemplate>({
         templateId: 'convertCta',
         userConfig: {
           title: 'Looking for something unique?',

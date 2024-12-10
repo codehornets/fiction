@@ -7,7 +7,7 @@ import { createStockMediaHandler } from '@fiction/ui/stock'
 import { CardTemplate } from './card.js'
 
 type CreateTuple<T extends readonly CardTemplate[]> = {
-  [P in keyof T]: T[P] extends CardTemplate<infer S> ? [S['templateId'], S['userConfig'] ] : never
+  [P in keyof T]: T[P] extends CardTemplate<infer S> ? [NonNullable<S['templateId']>, S['userConfig'] ] : never
 }[number]
 
 type TupleToObject<T extends [string, any]> = {
@@ -66,14 +66,18 @@ type CardFactorySettings<U extends readonly CardTemplate[]> = {
   caller: string
 }
 
-type TemplateSurface<T extends CardTemplate> = T extends CardTemplate<infer S> ? S : never
+type TemplateSurface<T extends CardTemplate | never> = T extends CardTemplate<infer S> ? S : never
 
 type CardMakeArgs<T extends CardTemplate> = {
   templateId?: TemplateSurface<T>['templateId']
   tpl?: T
   el?: ComponentConstructor
-  userConfig?: TemplateSurface<T>['userConfig'] & SiteUserConfig
-  baseConfig?: TemplateSurface<T>['userConfig'] & SiteUserConfig
+  userConfig?: T extends never
+    ? SiteUserConfig
+    : TemplateSurface<T>['userConfig'] & SiteUserConfig
+  baseConfig?: T extends never
+    ? SiteUserConfig
+    : TemplateSurface<T>['userConfig'] & SiteUserConfig
   effects?: CardConfigPortable[]
 } & BaseCardConfig
 
@@ -92,7 +96,7 @@ export class CardFactory<U extends readonly CardTemplate<any>[] = readonly CardT
     return createStockMediaHandler()
   }
 
-  async fromTemplate<T extends CardTemplate<any> = CardTemplate<any>>(args: CardMakeArgs<T>): Promise<TableCardConfig> {
+  async fromTemplate<T extends CardTemplate<any> = CardTemplate<{ userConfig: SiteUserConfig }>>(args: CardMakeArgs<T>): Promise<TableCardConfig> {
     const { tpl, el, userConfig, baseConfig } = args
 
     const templateId = args.templateId || (args.slug ? 'pageWrap' : 'pageArea')

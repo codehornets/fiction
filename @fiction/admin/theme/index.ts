@@ -1,6 +1,7 @@
 import type { template as TransactionTemplate } from '@fiction/cards/page-transaction/index.js'
 import type { CardFactory } from '@fiction/site/cardFactory.js'
 import type { SiteUserConfig } from '@fiction/site/schema.js'
+import type { template as dashTemplate, panelTemplate } from '../dashboard/cardDash.js'
 import type { FictionAdmin } from '../index.js'
 import { getCardTemplates } from '@fiction/cards'
 import { safeDirname, vue } from '@fiction/core/index.js'
@@ -22,7 +23,7 @@ export async function getTemplates() {
 export async function getPages(args: { factory: CardFactory }) {
   const { factory } = args
   return [
-    await factory.create({
+    await factory.fromTemplate<typeof dashTemplate>({
       regionId: 'main',
       templateId: 'dash',
       slug: '_404',
@@ -31,7 +32,7 @@ export async function getPages(args: { factory: CardFactory }) {
         await factory.fromTemplate({ templateId: 'page404' }),
       ],
     }),
-    await factory.create({
+    await factory.fromTemplate<typeof dashTemplate>({
       templateId: 'dash',
       slug: 'settings',
       title: 'Settings',
@@ -40,42 +41,42 @@ export async function getPages(args: { factory: CardFactory }) {
         await factory.fromTemplate({
           el: def(async () => import('../settings/SettingsMain.vue')),
           cards: [
-            await factory.fromTemplate({
+            await factory.fromTemplate<typeof panelTemplate>({
               slug: '_home',
               title: 'Organization Settings',
               description: 'Manage your organization profile, branding, and general preferences',
               el: def(async () => import('../settings/PanelOrganization.vue')),
               userConfig: { isNavItem: true, navIcon: 'i-tabler-building', navIconAlt: 'i-tabler-building-cog' },
             }),
-            await factory.fromTemplate({
+            await factory.fromTemplate<typeof panelTemplate>({
               slug: 'account',
               title: 'Personal Account',
               description: 'Manage your profile, security settings, and preferences',
               el: def(async () => import('../settings/PanelAccount.vue')),
               userConfig: { isNavItem: true, navIcon: 'i-tabler-user-circle', navIconAlt: 'i-tabler-user-cog' },
             }),
-            await factory.fromTemplate({
+            await factory.fromTemplate<typeof panelTemplate>({
               slug: 'team',
               title: 'Team Management',
               description: 'Manage team members, roles, and permissions',
               el: def(async () => import('../settings/PanelTeam.vue')),
               userConfig: { isNavItem: true, navIcon: 'i-tabler-users-group' },
             }),
-            await factory.fromTemplate({
+            await factory.fromTemplate<typeof panelTemplate>({
               slug: 'team-member',
               title: 'Team Member Details',
               description: 'View and edit individual team member settings and roles',
               el: def(async () => import('../settings/PanelTeamMember.vue')),
               userConfig: { isNavItem: false, navIcon: 'i-tabler-users-group', parentItemId: 'team' },
             }),
-            await factory.fromTemplate({
+            await factory.fromTemplate<typeof panelTemplate>({
               slug: 'billing',
               title: 'Billing & Subscription',
               description: 'Manage subscriptions, payment methods, and billing history',
               el: def(async () => import('../settings/PanelBilling.vue')),
               userConfig: { isNavItem: true, navIcon: 'i-tabler-credit-card', navIconAlt: 'i-tabler-credit-card-filled' },
             }),
-            await factory.fromTemplate({
+            await factory.fromTemplate<typeof panelTemplate>({
               slug: 'developer',
               title: 'Developer Tools',
               description: 'Access API keys, documentation, and technical resources',

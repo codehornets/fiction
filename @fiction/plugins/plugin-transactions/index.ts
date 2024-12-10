@@ -56,10 +56,10 @@ export class FictionTransactions extends FictionPlugin<FictionTransactionsSettin
             slug: this.transactionSlug,
             templateId: transactionTemplateId,
             cards: [
-              await factory.create({
+              await factory.fromTemplate({
                 templateId: 'emailAction',
                 el: vue.defineAsyncComponent(async () => import('./ElEmailAction.vue')),
-                userConfig: { standard: { handling: { showOnSingle: true } } },
+                userConfig: { standard: { showOnSingle: true } },
               }),
             ],
           }),

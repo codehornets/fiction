@@ -1,9 +1,10 @@
 <script lang="ts" setup>
 import type { MapUserConfig } from './config'
-import { isDarkOrLightMode, vue } from '@fiction/core'
-import AnimClipPath from '@fiction/ui/anim/AnimClipPath.vue'
+import { isDarkOrLightMode, log, vue } from '@fiction/core'
 
+import AnimClipPath from '@fiction/ui/anim/AnimClipPath.vue'
 import ElSpinner from '@fiction/ui/loaders/ElSpinner.vue'
+
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 const props = defineProps({
@@ -12,6 +13,8 @@ const props = defineProps({
   mapboxAccessToken: { type: String, default: '' },
   animate: { type: Boolean, default: true },
 })
+
+const logger = log.contextLogger('ElMap')
 
 const fullMapConfig = vue.computed(() => {
   return {
@@ -61,91 +64,102 @@ const styleUrl = vue.computed(() => {
 const cleanups: (() => void)[] = []
 
 async function renderMap() {
-  const { default: mapboxgl } = await import('mapbox-gl')
+  try {
+    const { default: mapboxgl } = await import('mapbox-gl')
 
-  mapboxgl.accessToken = props.mapboxAccessToken || 'pk.eyJ1IjoiYXJwb3dlcnMiLCJhIjoiY20zZmo0ZGZ5MG9xODJpcHM1NDVjc2tidCJ9.8l3PsNnml2bsfa8oqAaXMg'
+    logger.info('Mapbox script loaded')
 
-  const c = fullMapConfig.value
+    loading.value = false
 
-  const latlng = { lat: c.lat, lng: c.lng }
+    mapboxgl.accessToken = props.mapboxAccessToken || 'pk.eyJ1IjoiYXJwb3dlcnMiLCJhIjoiY20zZmo0ZGZ5MG9xODJpcHM1NDVjc2tidCJ9.8l3PsNnml2bsfa8oqAaXMg'
 
-  const style = styleUrl.value
-  map.value = new mapboxgl.Map({
-    container: props.container,
-    zoom: c.zoom,
-    center: latlng,
-    style,
-  })
+    const c = fullMapConfig.value
 
-  loading.value = false
+    const latlng = { lat: c.lat, lng: c.lng }
 
-  // Dynamically create and style SVG element
-  const createCustomMarker = (clr: { bg: string, stroke: string }) => {
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24">
-    <path fill="${clr.bg}" stroke="${clr.stroke}" stroke-width="0.7" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z" filter="url(#dropshadow)"/>
-  </svg>`
+    const style = styleUrl.value
+    map.value = new mapboxgl.Map({
+      container: props.container,
+      zoom: c.zoom,
+      center: latlng,
+      style,
+    })
 
-    const encodedSVG = encodeURIComponent(svg).replace(/'/g, '%27').replace(/"/g, '%22')
-    const img = document.createElement('img')
-    img.src = `data:image/svg+xml;charset=utf-8,${encodedSVG}`
-    img.style.width = '50px' // Set to the size you want
-    img.style.height = '50px'
-    return img
-  }
+    logger.info('Mapbox map created')
 
-  map.value.on('load', () => {
-    const m = map.value
+    // Dynamically create and style SVG element
+    const createCustomMarker = (clr: { bg: string, stroke: string }) => {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24">
+  <path fill="${clr.bg}" stroke="${clr.stroke}" stroke-width="0.7" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z" filter="url(#dropshadow)"/>
+</svg>`
 
-    if (!m)
-      throw new Error('Map not initialized')
+      const encodedSVG = encodeURIComponent(svg).replace(/'/g, '%27').replace(/"/g, '%22')
+      const img = document.createElement('img')
+      img.src = `data:image/svg+xml;charset=utf-8,${encodedSVG}`
+      img.style.width = '50px' // Set to the size you want
+      img.style.height = '50px'
+      return img
+    }
 
-    // Disable zoom on scroll
-    m.scrollZoom.disable()
+    map.value.on('load', () => {
+      logger.info('Mapbox load event called')
 
-    // Disable drag
-    m.dragPan.disable()
+      const m = map.value
 
-    // Disable zoom on double-click
-    m.doubleClickZoom.disable()
+      if (!m)
+        throw new Error('Map not initialized')
 
-    const markerColor = ['dark', 'night'].some(_ => styleUrl.value.includes(_)) ? { bg: '#fff', stroke: '#000' } : { bg: '#3452ff', stroke: '#FFF' }
+      // Disable zoom on scroll
+      m.scrollZoom.disable()
 
-    const sw1 = vue.watch(() => c.markers, (newMarkers) => {
-      markers.value.forEach(marker => marker.remove())
-      markers.value = []
-      newMarkers.forEach((marker) => {
-        const customMarkerEl = createCustomMarker(markerColor)
-        const m = new mapboxgl.Marker({ element: customMarkerEl, anchor: 'bottom' })
-          .setLngLat([marker.lng, marker.lat])
-          .addTo(map.value!)
+      // Disable drag
+      m.dragPan.disable()
 
-        if (marker.label) {
-          const tooltip = new mapboxgl.Popup({ offset: 50 })
-            .setHTML(marker.label) // Assuming marker has a tooltip property
+      // Disable zoom on double-click
+      m.doubleClickZoom.disable()
+
+      const markerColor = ['dark', 'night'].some(_ => styleUrl.value.includes(_)) ? { bg: '#fff', stroke: '#000' } : { bg: '#3452ff', stroke: '#FFF' }
+
+      const sw1 = vue.watch(() => c.markers, (newMarkers) => {
+        markers.value.forEach(marker => marker.remove())
+        markers.value = []
+        newMarkers.forEach((marker) => {
+          const customMarkerEl = createCustomMarker(markerColor)
+          const m = new mapboxgl.Marker({ element: customMarkerEl, anchor: 'bottom' })
+            .setLngLat([marker.lng, marker.lat])
             .addTo(map.value!)
 
-          m.setPopup(tooltip)
+          if (marker.label) {
+            const tooltip = new mapboxgl.Popup({ offset: 50 })
+              .setHTML(marker.label) // Assuming marker has a tooltip property
+              .addTo(map.value!)
+
+            m.setPopup(tooltip)
+          }
+
+          markers.value.push(m)
+        })
+      }, { deep: true, immediate: true })
+
+      const sw2 = vue.watch(() => props.mapConfig, () => {
+        const v = fullMapConfig.value
+        if (map.value && v) {
+          map.value.setPitch(v.pitch || 0) // tilt view
+          map.value.setCenter({ lat: v.lat, lng: v.lng })
+          map.value.setZoom(v.zoom)
+          map.value.setStyle(styleUrl.value)
         }
+      }, { deep: true, immediate: true })
 
-        markers.value.push(m)
+      cleanups.push(() => {
+        sw1()
+        sw2()
       })
-    }, { deep: true, immediate: true })
-
-    const sw2 = vue.watch(() => props.mapConfig, () => {
-      const v = fullMapConfig.value
-      if (map.value && v) {
-        map.value.setPitch(v.pitch || 0) // tilt view
-        map.value.setCenter({ lat: v.lat, lng: v.lng })
-        map.value.setZoom(v.zoom)
-        map.value.setStyle(styleUrl.value)
-      }
-    }, { deep: true, immediate: true })
-
-    cleanups.push(() => {
-      sw1()
-      sw2()
     })
-  })
+  }
+  catch (e) {
+    console.error('Mapbox not loaded', e)
+  }
 }
 
 vue.onMounted(() => {

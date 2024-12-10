@@ -42,13 +42,13 @@ type CardCategory = z.infer<typeof OldCardCategorySchema>
 // Utility type to merge two types
 type MergeTypes<T, U> = T & Omit<U, keyof T>
 
-export type CardTemplateSurfaceDefault<T extends string = string> = {
+export type CardTemplateSurfaceDefault<T extends string = string> = Partial<{
   templateId: T
   userConfig: Record<string, unknown>
   schema: z.AnyZodObject
   queries: Record<string, Query>
   component: ComponentConstructor
-}
+}>
 
 // Use defaults
 type CardTemplateSurface<T> = MergeTypes<T, CardTemplateSurfaceDefault>
@@ -110,7 +110,7 @@ export class CardTemplate<
       templates: site?.theme.value?.templates || [],
       caller: 'cardTemplateGetConfig',
     })
-    const a = { site, factory, templateId: this.settings.templateId }
+    const a = { site, factory, templateId: this.settings.templateId || 'no-id' }
     if (this.settings.getConfig) {
       return this.settings.getConfig(a)
     }
@@ -139,7 +139,7 @@ export class CardTemplate<
       caller: `toCard-${site?.theme.value.themeId}`,
     })
 
-    const config = getConfig ? await getConfig({ ...args, factory, templateId: this.settings.templateId }) : {}
+    const config = getConfig ? await getConfig({ ...args, factory, templateId: this.settings.templateId || 'no-id' }) : {}
 
     const specificUserConfig = deepMerge([
       baseConfig,

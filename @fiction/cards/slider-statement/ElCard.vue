@@ -27,7 +27,7 @@ function onSlideChange(index: number) {
 </script>
 
 <template>
-  <div class="">
+  <div class="statement-container" :data-statement-slides="uc.items?.length">
     <EffectCarousel v-model:active-index="activeIndex" :slides="items" :options="carouselOptions" @slide-change="onSlideChange">
       <template #default="{ index }">
         <div
