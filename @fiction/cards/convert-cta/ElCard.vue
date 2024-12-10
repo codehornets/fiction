@@ -30,14 +30,16 @@ vue.onMounted(() => {
     },
   })
 })
+
+const colPad = 'p-12 xl:p-16'
 </script>
 
 <template>
   <div :id="card.cardId" class="relative">
     <div :class="card.classes.value.contentWidth">
-      <div class="overflow-hidden bg-theme-50/50 dark:bg-theme-800 p-12 xl:p-28 rounded-xl ">
-        <div class="flex gap-12 md:gap-32 flex-col lg:flex-row  " :class="uc.benefits?.items?.length ? '' : ''">
-          <div class="gap-8 xl:gap-8 flex flex-col justify-center grow">
+      <div class="overflow-hidden bg-theme-50/50 dark:bg-theme-800/80 rounded-xl border border-theme-200 dark:border-theme-700/60">
+        <div class="flex  flex-col lg:flex-row divide-x divide-theme-200 dark:divide-theme-700/60" :class="uc.benefits?.items?.length ? '' : ''">
+          <div class="gap-8 xl:gap-8 flex flex-col justify-center grow" :class="colPad">
             <div class="space-y-4 xl:space-y-6">
               <SuperTitle
                 v-if="uc.superTitle"
@@ -59,7 +61,7 @@ vue.onMounted(() => {
                 tag="p"
                 :card
                 :path="pathCheck('subTitle', schema)"
-                class="text-xl text-theme-600 dark:text-theme-300 max-w-2xl animate-item leading-relaxed"
+                class="text-xl text-theme-600 dark:text-theme-400 max-w-2xl animate-item leading-relaxed"
                 animate="fade"
               />
             </div>
@@ -73,9 +75,9 @@ vue.onMounted(() => {
           </div>
 
           <!-- Benefits Grid -->
-          <div v-if="uc.benefits?.items?.length" class="flex flex-col gap-6 lg:gap-8 justify-center lg:col-span-5">
+          <div v-if="uc.benefits?.items?.length" class="flex flex-col gap-6 lg:gap-8 justify-center lg:col-span-5 bg-theme-50/50 dark:bg-theme-900" :class="colPad">
             <div class="relative space-y-6">
-              <div v-if="uc.benefits.title" class="x-font-highlight  flex items-center gap-3 -ml-6">
+              <div v-if="uc.benefits.title" class="x-font-highlight  flex items-center gap-3 -ml-4">
                 <div>
                   <CardText :card :path="pathCheck('benefits.title', schema)" class="text-theme-400 dark:text-theme-500 text-lg md:text-2xl x-font-highlight" />
                 </div>

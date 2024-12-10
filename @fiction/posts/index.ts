@@ -81,7 +81,7 @@ export class FictionPosts extends FictionPlugin<FictionPostsSettings> {
         description: 'Create and edit your content with our full-featured editor',
         cards: [await factory.create({
           el: vue.defineAsyncComponent(async () => import('./admin/PagePostEdit.vue')),
-          userConfig: { standard: { spacing: { verticalSpacing: 'none' } }, isNavItem: false },
+          userConfig: { standard: { spaceSize: 'none' }, isNavItem: false },
         })],
         userConfig: { layoutFormat: 'full' },
 

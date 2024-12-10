@@ -1,3 +1,4 @@
+import type { template as StatementTemplate } from '@fiction/cards/slider-statement/index'
 // config.ts
 import type { Site } from '@fiction/site'
 import type { CardFactory } from '@fiction/site/cardFactory'
@@ -20,7 +21,22 @@ export async function getPages(args: SectionArgs) {
       slug: '_home',
       cards: [
         await factory.fromTemplate({ templateId: 'sliderOverlay' }), // Featured work showcase
-        await factory.fromTemplate({ templateId: 'sliderStatement' }), // Bio/Intro
+        await factory.fromTemplate<typeof StatementTemplate>({
+          templateId: 'sliderStatement',
+          userConfig: {
+            standard: {
+              background: {
+                gradient: {
+                  angle: 45,
+                  stops: [
+                    { theme: 'blue', scale: 950, opacity: 0, percent: 50 },
+                    { theme: 'blue', scale: 950, opacity: 0.8, percent: 100 },
+                  ],
+                },
+              },
+            },
+          },
+        }), // Bio/Intro
         await factory.fromTemplate({ templateId: 'proofMetrics' }), // Key achievements
         await factory.fromTemplate({ templateId: 'galleryShowcase' }), // Selected works grid
       ],
@@ -118,9 +134,7 @@ export async function getFooter(args: SectionArgs) {
     cards: [
       await factory.fromTemplate({
         templateId: 'convertCta',
-        userConfig: {
-          standard: { spacing: { verticalSpacing: 'lg' } },
-        },
+        userConfig: { },
       }),
       await factory.fromTemplate({ templateId: 'pageFooterPro' }),
     ],

@@ -28,11 +28,11 @@ export async function getConfig(args: { templateId: string, factory: CardFactory
     // Clean modern look
     modern: {
       standard: {
-        scheme: {
-          base: { bg: { backgroundColor: '#1a1a1a' }, theme: 'slate', primary: 'purple' },
-          light: { bg: { backgroundColor: '#ffffff' }, theme: 'gray', primary: 'violet' },
-        },
-        fontStyle: {
+        background: { backgroundColor: '#1a1a1a' },
+        themeColor: 'gray',
+        primaryColor: 'purple',
+        backgroundAlt: { backgroundColor: '#ffffff' },
+        fonts: {
           title: { family: 'Plus+Jakarta+Sans', weight: '600' },
           body: { family: 'Inter' },
         },
@@ -42,32 +42,28 @@ export async function getConfig(args: { templateId: string, factory: CardFactory
     // Gradient background
     gradient: {
       standard: {
-        scheme: {
-          base: {
-            bg: {
-              gradient: {
-                angle: 135,
-                stops: [
-                  { color: '#1e3a8a', percent: 0 },
-                  { color: '#3b82f6', percent: 50 },
-                  { color: '#60a5fa', percent: 100 },
-                ],
-              },
-            },
-            theme: 'blue',
-            primary: 'orange',
+        background: {
+          gradient: {
+            angle: 135,
+            stops: [
+              { color: '#1e3a8a', percent: 0 },
+              { color: '#3b82f6', percent: 50 },
+              { color: '#60a5fa', percent: 100 },
+            ],
           },
         },
+        themeColor: 'blue',
+        primaryColor: 'orange',
       },
     },
 
     // Elegant serif style
     elegant: {
       standard: {
-        scheme: {
-          base: { bg: { backgroundColor: '#d02020' }, theme: 'amber', primary: 'rose' },
-        },
-        fontStyle: {
+        background: { backgroundColor: '#d02020' },
+        themeColor: 'amber',
+        primaryColor: 'rose',
+        fonts: {
           title: { family: 'Playfair+Display', weight: '400' },
           body: { family: 'Lora' },
         },
@@ -77,17 +73,13 @@ export async function getConfig(args: { templateId: string, factory: CardFactory
     // Video background
     videoHero: {
       standard: {
-        scheme: {
-          base: {
-            bg: {
-              ...stock.getRandomByTags(['video']),
-              overlay: { color: 'rgba(0,0,0,0.6)' },
-            },
-            theme: 'overlay',
-            primary: 'cyan',
-          },
+        background: {
+          ...stock.getRandomByTags(['video']),
+          overlay: { color: 'rgba(0,0,0,0.6)' },
         },
-        fontStyle: {
+        themeColor: 'overlay',
+        primaryColor: 'cyan',
+        fonts: {
           title: { family: 'Space+Grotesk', weight: '500' },
         },
       },
@@ -96,30 +88,26 @@ export async function getConfig(args: { templateId: string, factory: CardFactory
     // Image with overlay
     imageOverlay: {
       standard: {
-        scheme: {
-          base: {
-            bg: {
-              ...stock.getRandomByTags(['aspect:landscape']),
-              overlay: {
-                color: 'rgba(15,23,42,0.8)',
-                blendMode: 'multiply',
-              },
-            },
-            theme: 'overlay',
-            primary: 'emerald',
+        background: {
+          ...stock.getRandomByTags(['aspect:landscape']),
+          overlay: {
+            color: 'rgba(15,23,42,0.8)',
+            blendMode: 'multiply',
           },
         },
+        themeColor: 'overlay',
+        primaryColor: 'emerald',
       },
     },
 
     // Monochrome style
     monochrome: {
       standard: {
-        scheme: {
-          base: { bg: { backgroundColor: '#0a0a0a' }, theme: 'gray' },
-          light: { bg: { backgroundColor: '#fafafa' }, theme: 'gray' },
-        },
-        fontStyle: {
+        background: { backgroundColor: '#0a0a0a' },
+        themeColor: 'gray',
+        backgroundAlt: { backgroundColor: '#fafafa' },
+        themeColorAlt: 'gray',
+        fonts: {
           title: { family: 'DM+Sans', weight: '500' },
           body: { family: 'DM+Sans' },
         },
@@ -129,22 +117,18 @@ export async function getConfig(args: { templateId: string, factory: CardFactory
     // Vibrant color
     vibrant: {
       standard: {
-        scheme: {
-          base: {
-            bg: {
-              gradient: {
-                angle: 45,
-                stops: [
-                  { color: '#7c3aed', percent: 0 },
-                  { color: '#db2777', percent: 100 },
-                ],
-              },
-            },
-            theme: 'slate',
-            primary: 'pink',
+        background: {
+          gradient: {
+            angle: 45,
+            stops: [
+              { color: '#7c3aed', percent: 0 },
+              { color: '#db2777', percent: 100 },
+            ],
           },
         },
-        fontStyle: {
+        themeColor: 'slate',
+        primaryColor: 'pink',
+        fonts: {
           title: { family: 'DM+Sans', weight: '500' },
         },
       },
@@ -153,11 +137,11 @@ export async function getConfig(args: { templateId: string, factory: CardFactory
     // Minimal light
     minimal: {
       standard: {
-        scheme: {
-          reverse: true,
-          base: { bg: { backgroundColor: '#ffffff' }, theme: 'gray', primary: 'slate' },
-        },
-        fontStyle: {
+        background: { backgroundColor: '#ffffff' },
+        themeColor: 'gray',
+        primaryColor: 'slate',
+        invertColorScheme: true,
+        fonts: {
           title: { family: 'Satoshi', weight: '500' },
           body: { family: 'Satoshi' },
         },

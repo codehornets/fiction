@@ -23,7 +23,7 @@ export const template = cardTemplate({
   getBaseConfig: () => ({
     homeIcon: { format: 'component' as const, el: FictionLogo },
     authRedirect: '/auth/login',
-    standard: { spacing: { verticalSpacing: 'none' } },
+    standard: { spaceSize: 'none' },
   }),
   getConfig: async () => ({ schema }),
 })

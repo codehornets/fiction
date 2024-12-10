@@ -80,13 +80,13 @@ const iconUrls = vue.computed(() => getHeadIconConfig({ site: site.value }))
 const colors = vue.computed(() => {
   const config = site.value?.fullConfig.value || {}
 
-  const { primary = 'blue', theme = 'gray' } = config.standard?.scheme?.base || {}
+  const { primaryColor = 'blue', themeColor = 'gray' } = config.standard || {}
 
   return {
-    primary: getColorScheme(primary),
-    primaryHex: getColorScheme(primary, { outputFormat: 'hex' }),
-    theme: getColorScheme(theme),
-    themeHex: getColorScheme(theme, { outputFormat: 'hex' }),
+    primary: getColorScheme(primaryColor),
+    primaryHex: getColorScheme(primaryColor, { outputFormat: 'hex' }),
+    theme: getColorScheme(themeColor),
+    themeHex: getColorScheme(themeColor, { outputFormat: 'hex' }),
   }
 })
 

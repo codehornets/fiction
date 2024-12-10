@@ -152,7 +152,7 @@ export async function getFooter(args: SectionArgs) {
       await factory.fromTemplate<typeof callToActionTemplate>({
         templateId: 'convertCta',
         userConfig: {
-          standard: { spacing: { verticalSpacing: 'sm' } },
+          standard: { spaceSize: 'sm' },
         },
       }),
       await factory.fromTemplate<typeof footerXTemplate>({

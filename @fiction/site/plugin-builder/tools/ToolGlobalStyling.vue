@@ -49,17 +49,17 @@ const options: InputOption[] = [
       }),
       createOption({
         schema,
-        key: 'globalColor',
+        key: 'group.globalColors',
         label: 'Global Colors',
         input: 'group',
         icon: { class: 'i-tabler-palette' },
         options: [
           createOption({
             schema,
-            key: 'userConfig.standard.scheme.base.primary',
+            key: 'userConfig.standard.primaryColor',
             label: 'Primary Color',
             subLabel: 'Used for buttons, links, and important elements',
-            input: 'InputSelect',
+            input: 'InputColorTheme',
             list: colorThemeUser,
             placeholder: 'Default',
           }),

@@ -20,4 +20,8 @@ export const template = cardTemplate({
     const { getConfig } = await import('./config')
     return getConfig({ ...args, templateId })
   },
+
+  getBaseConfig: () => {
+    return { standard: { spaceSize: 'full' } }
+  },
 })

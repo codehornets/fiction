@@ -8,7 +8,7 @@ export async function page(args: { site: Site, factory: CardFactory }) {
   const homeCard = await factory.fromTemplate({
     el: vue.defineAsyncComponent(async () => import('./el/ElCard.vue')),
     userConfig: {
-      standard: { spacing: { verticalSpacing: 'none' } },
+      standard: { spaceSize: 'none' },
     },
   })
 

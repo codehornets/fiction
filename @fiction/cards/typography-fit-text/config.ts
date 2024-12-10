@@ -136,7 +136,7 @@ function getDemoConfigs(templateId: string): Record<string, { templateId: string
       templateId,
       userConfig: {
         standard: {
-          spacing: { contentWidth: 'full' },
+          widthSize: 'full',
           headers: {
             title: 'Bold Impact Headlines',
             subTitle: 'Perfect for hero sections and primary messages',

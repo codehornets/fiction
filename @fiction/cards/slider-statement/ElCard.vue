@@ -3,6 +3,7 @@ import type { Card } from '@fiction/site'
 import type { UserConfig } from './config'
 import { pathCheck, vue } from '@fiction/core'
 import EffectCarousel from '@fiction/ui/effect/EffectCarousel.vue'
+import XShape from '@fiction/ui/effect/XShape.vue'
 import CardText from '../CardText.vue'
 import CardActionArea from '../el/CardActionArea.vue'
 import NavDots from '../el/NavDots.vue'
@@ -37,22 +38,25 @@ function onSlideChange(index: number) {
             :class="index === activeIndex ? 'opacity-100' : 'opacity-50 hover:opacity-100 cursor-pointer'"
             @click="activeIndex = index"
           >
-            <div class="space-y-[2vw]">
-              <CardText
-                tag="div"
-                class="text-4xl sm:!leading-[1.1] sm:text-5xl   xl:text-6xl x-font-title font-medium"
-                :card
-                :path="pathCheck(`items.${index}.title`, schema)"
-                animate="fade"
-              />
+            <div class="space-y-[2vw] relative">
+              <div class="z-10 relative">
+                <CardText
+                  tag="h2"
+                  class="text-4xl sm:!leading-[1.1] sm:text-5xl   xl:text-6xl x-font-title font-medium"
+                  :card
+                  :path="pathCheck(`items.${index}.title`, schema)"
+                  animate="fade"
+                />
 
-              <CardText
-                tag="div"
-                class="text-lg leading-relaxed sm:!leading-[1.4] sm:text-3xl opacity-90"
-                :card
-                :path="pathCheck(`items.${index}.content`, schema)"
-                animate="fade"
-              />
+                <CardText
+                  tag="p"
+                  class="text-lg leading-relaxed sm:!leading-[1.4] sm:text-3xl opacity-90"
+                  :card
+                  :path="pathCheck(`items.${index}.content`, schema)"
+                  animate="fade"
+                />
+              </div>
+              <XShape class="top-0 left-0 absolute size-[15vw] translate-x-[-45%] translate-y-[-50%]" shape="circle" :rotate="6" />
             </div>
 
             <CardActionArea

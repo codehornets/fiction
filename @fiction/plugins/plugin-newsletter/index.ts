@@ -107,7 +107,7 @@ export class FictionNewsletter extends FictionPlugin<FictionNewsletterSettings> 
         cards: [
           await factory.create({
             el: vue.defineAsyncComponent(async () => import('./admin/EmailEditor.vue')),
-            userConfig: { standard: { spacing: { verticalSpacing: 'none' } } },
+            userConfig: { standard: { spaceSize: 'none' } },
           }),
         ],
         userConfig: { navIcon: 'i-tabler-send', parentNavItemSlug: 'send', layoutFormat: 'full' },

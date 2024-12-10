@@ -194,7 +194,7 @@ export async function getConfig(args: { templateId: string, factory: CardFactory
   // Default configuration focused on instruction
   const userConfig: UserConfig = {
     standard: {
-      handling: { showOnSingle: true },
+      showOnSingle: true,
       headers: {
         title: 'Blog Posts',
         subTitle: 'Showcase your content in an engaging format',

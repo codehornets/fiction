@@ -129,7 +129,8 @@ export const theme = new Theme({
           buttons: { design: 'solid', rounding: 'full', hover: 'fade' },
         },
         standard: {
-          spacing: { contentWidth: 'sm', verticalSpacing: `none` },
+          widthSize: 'sm',
+          spaceSize: 'none',
         },
       } satisfies SiteUserConfig,
     }

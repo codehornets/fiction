@@ -23,10 +23,8 @@ export const template = cardTemplate({
   getBaseConfig: () => {
     return {
       standard: {
-        spacing: {
-          contentWidth: 'none',
-          verticalSpacing: 'none',
-        },
+        widthSize: 'none',
+        spaceSize: 'none',
       },
     }
   },

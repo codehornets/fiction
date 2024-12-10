@@ -4,17 +4,6 @@ import { cardTemplate } from '@fiction/site'
 
 const templateId = 'sliderCinema'
 
-function getBaseConfig(): UserConfig {
-  return {
-    standard: {
-      spacing: {
-        contentWidth: 'none',
-        verticalSpacing: 'none',
-      },
-    },
-  }
-}
-
 export const template = cardTemplate({
   templateId,
   title: 'Cinema Slider',
@@ -29,7 +18,7 @@ export const template = cardTemplate({
     const { getConfig } = await import('./config')
     return getConfig({ ...args, templateId })
   },
-  getBaseConfig,
+  getBaseConfig: () => ({ standard: { widthSize: 'none', spaceSize: 'none' } }),
 })
 
 export type { CinemaItem, UserConfig } from './config'

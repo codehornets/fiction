@@ -1,5 +1,3 @@
-import type { EditorState } from './site'
-import type { CardConfigPortable } from './tables'
 import {
   ButtonDesignSchema,
   ButtonHoverSchema,
@@ -12,7 +10,6 @@ import {
   MediaDisplaySchema,
   SizeSchemaComplete,
   SuperTitleSchema,
-  UiOriginSchema,
 } from '@fiction/core'
 import { z } from 'zod'
 
@@ -33,36 +30,27 @@ const baseFontsSchema = z.object({
 // .catchall(). This method allows the schema to accept any additional properties of the specified type.
 const fontsSchema = baseFontsSchema.catchall(fontFamilySchema)
 
-const Scheme = z.object({
-  bg: MediaDisplaySchema.optional(),
-  theme: ColorThemeSchema.optional(),
-  primary: ColorThemeSchema.optional(),
-})
-
 // Main schema
 export const CardStandardSchema = z.object({
 
-  handling: z.object({
-    hideOnPage: z.boolean().optional(),
-    showOnSingle: z.boolean().optional(),
-  }).optional(),
+  background: MediaDisplaySchema.optional(),
+  backgroundAlt: MediaDisplaySchema.optional(),
+  themeColor: ColorThemeSchema.optional(),
+  themeColorAlt: ColorThemeSchema.optional(),
+  primaryColor: ColorThemeSchema.optional(),
+  primaryColorAlt: ColorThemeSchema.optional(),
+  invertColorScheme: z.boolean().optional(),
 
-  scheme: z.object({
-    light: Scheme.optional(),
-    base: Scheme.optional(),
-    reverse: z.boolean().optional(),
-  }).optional(),
+  widthSize: SizeSchemaComplete.optional(),
+  spaceSize: SizeSchemaComplete.optional(),
 
-  fontStyle: z.object({
+  hideOnPage: z.boolean().optional(),
+  showOnSingle: z.boolean().optional(),
+
+  fonts: z.object({
     title: fontStyleSchema.optional(),
     body: fontStyleSchema.optional(),
     highlight: fontStyleSchema.optional(),
-  }).optional(),
-
-  spacing: z.object({
-    contentWidth: SizeSchemaComplete.optional(),
-    contentPad: SizeSchemaComplete.optional(),
-    verticalSpacing: SizeSchemaComplete.optional(),
   }).optional(),
 
   headers: z.object({
@@ -71,12 +59,6 @@ export const CardStandardSchema = z.object({
     superTitle: SuperTitleSchema.optional(),
     title: z.string().optional(),
     subTitle: z.string().optional(),
-  }).optional(),
-
-  effect: z.object({
-    origin: UiOriginSchema.optional(),
-    size: SizeSchemaComplete.optional(),
-    rotation: z.number().min(0).max(360).optional(),
   }).optional(),
 
   ai: z.object({

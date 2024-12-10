@@ -7,7 +7,7 @@ export const template = cardTemplate({
   templateId,
   el: vue.defineAsyncComponent(async () => import('./CardWrapTransaction.vue')),
   getBaseConfig: () => {
-    return { standard: { handling: { showOnSingle: true } } }
+    return { standard: { showOnSingle: true } }
   },
   isPublic: false,
   isPageCard: true,

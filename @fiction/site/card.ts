@@ -271,10 +271,10 @@ export class Card<
   }
 
   classes = vue.computed(() => {
-    const spacing = this.fullConfig.value?.standard?.spacing
+    const spacing = this.fullConfig.value?.standard
 
-    const contentWidthSize = spacing?.contentWidth || 'md'
-    const verticalSpacing = spacing?.verticalSpacing || this.site?.userConfig.value.standard?.spacing?.verticalSpacing || 'md'
+    const contentWidthSize = spacing?.widthSize || 'md'
+    const verticalSpacing = spacing?.spaceSize || this.site?.userConfig.value.standard?.spaceSize || 'md'
 
     const contentWidthClass = getContentWidthClass({ size: contentWidthSize, padSize: true })
     const verticalSpacingClass = [getSpacingClass({ size: verticalSpacing, direction: 'both' })].join(' ')

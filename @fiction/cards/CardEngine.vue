@@ -31,8 +31,8 @@ const renderCards = vue.computed(() => {
       }
 
       const uc = c.fullConfig.value
-      const showOnSingle = uc.standard?.handling?.showOnSingle
-      const hideOnPage = uc.standard?.handling?.hideOnPage
+      const showOnSingle = uc.standard?.showOnSingle
+      const hideOnPage = uc.standard?.hideOnPage
       return (currentItemId && showOnSingle) || (!currentItemId && !hideOnPage)
     })
     : c

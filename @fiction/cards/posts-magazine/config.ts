@@ -162,9 +162,7 @@ export function getDemoCards(args: { templateId: string, demoUserConfig: UserCon
             title: 'Digital Frontier',
             subTitle: 'Where technology meets human experience',
           },
-          scheme: {
-            base: { theme: 'slate' },
-          },
+          themeColor: 'slate',
         },
         index: {
           ...demoUserConfig.index,
@@ -182,9 +180,7 @@ export function getDemoCards(args: { templateId: string, demoUserConfig: UserCon
             title: 'Tomorrow\'s Stories',
             subTitle: 'Ideas and innovations shaping our world',
           },
-          scheme: {
-            base: { theme: 'emerald' },
-          },
+          themeColor: 'emerald',
         },
         index: {
           ...demoUserConfig.index,

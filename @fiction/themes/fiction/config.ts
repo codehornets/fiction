@@ -707,7 +707,7 @@ export async function getTourPage(args: { factory: CardFactory, stock: StockMedi
             templateId: 'contentHero',
             userConfig: {
               standard: {
-                spacing: { verticalSpacing: 'lg' },
+                spaceSize: 'lg',
               },
               superTitle: {
                 icon: { iconId: 'rocket' },

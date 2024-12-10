@@ -125,17 +125,12 @@ export async function getDemoConfig(args: { stock: StockMedia }): Promise<UserCo
       },
     ],
     standard: {
-      scheme: {
-        base: {
-          bg: {
-            ...stock.getRandomByTags(['background']),
-            overlay: {
-              opacity: 80,
-              color: 'black',
-            },
-          },
+      background: {
+        ...stock.getRandomByTags(['background']),
+        overlay: {
+          opacity: 80,
+          color: 'black',
         },
-
       },
 
     },

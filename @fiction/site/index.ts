@@ -147,9 +147,7 @@ export class FictionSites extends FictionPlugin<SitesPluginSettings> {
             userConfig: {
               isNavItem: false,
               standard: {
-                spacing: {
-                  verticalSpacing: 'none' as const,
-                },
+                spaceSize: 'none' as const,
               },
             },
           }),

@@ -25,7 +25,7 @@ community social proof to boost conversion rates.`,
   },
 
   getBaseConfig: () => {
-    return { standard: { spacing: { verticalSpacing: 'xs' } } }
+    return { standard: { spaceSize: 'xs' } }
   },
 })
 

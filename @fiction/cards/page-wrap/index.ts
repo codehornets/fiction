@@ -27,7 +27,7 @@ export const template = cardTemplate({
   icon: 'i-tabler-layout-board-split',
   getBaseConfig: () => {
     return {
-      standard: { spacing: { verticalSpacing: 'none' }, handling: { showOnSingle: true } },
+      standard: { spaceSize: 'none', showOnSingle: true },
     }
   },
   getConfig: async () => {

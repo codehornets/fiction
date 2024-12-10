@@ -18,7 +18,7 @@ export const template = cardTemplate({
 
   // Base configuration
   getBaseConfig: () => ({
-    standard: { spacing: { verticalSpacing: 'none' } },
+    standard: { spaceSize: 'none' },
   }),
 
   // Config implementation

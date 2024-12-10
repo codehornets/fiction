@@ -120,7 +120,7 @@ async function getDemoCards(args: { templateId: string, stock: StockMedia }): Pr
     {
       templateId,
       userConfig: {
-        standard: { headers: { title: 'Center Nav' }, spacing: { verticalSpacing: 'md' } },
+        standard: { headers: { title: 'Center Nav' }, spaceSize: 'md' },
         ...getDefaultConfig(),
       },
     },
@@ -129,7 +129,7 @@ async function getDemoCards(args: { templateId: string, stock: StockMedia }): Pr
     {
       templateId,
       userConfig: {
-        standard: { headers: { title: 'Center Logo' }, spacing: { verticalSpacing: 'md' } },
+        standard: { headers: { title: 'Center Logo' }, spaceSize: 'md' },
         brand: {
           logo: { media: stock.getLocalMedia({ key: 'lorem2' }) },
         },
@@ -198,7 +198,7 @@ async function getDemoCards(args: { templateId: string, stock: StockMedia }): Pr
     {
       templateId,
       userConfig: {
-        standard: { headers: { title: 'Left Aligned Nav' }, spacing: { verticalSpacing: 'md' } },
+        standard: { headers: { title: 'Left Aligned Nav' }, spaceSize: 'md' },
         brand: {
           logo: {
             variant: 'media',
@@ -316,7 +316,7 @@ async function getDemoCards(args: { templateId: string, stock: StockMedia }): Pr
     {
       templateId,
       userConfig: {
-        standard: { headers: { title: 'Modern Platform Navigation' }, spacing: { verticalSpacing: 'md' } },
+        standard: { headers: { title: 'Modern Platform Navigation' }, spaceSize: 'md' },
         brand: {
           logo: { typography: { label: 'Modern', weight: '700' }, scale: 1.4 },
         },

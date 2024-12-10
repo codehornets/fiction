@@ -15,23 +15,33 @@ const loaded = vue.ref(false)
 const config = vue.computed(() => props.card.config.value || {})
 const siteUc = vue.computed(() => props.card.site?.fullConfig.value || {})
 const standardUc = vue.computed(() => config.value.standard)
-const isReversed = vue.computed(() => standardUc.value?.scheme?.reverse)
+const isReversed = vue.computed(() => standardUc.value?.invertColorScheme)
 const isLightMode = vue.computed(() => {
   const siteLightMode = props.card.site?.isLightMode.value
   return (siteLightMode && !isReversed.value) || (!siteLightMode && isReversed.value)
 })
 
 const colorScheme = vue.computed(() => {
-  const parts = [siteUc.value?.standard?.scheme?.base, standardUc.value?.scheme?.base]
+  const siteStandard = siteUc.value?.standard || {}
+  const cardStandard = standardUc.value || {}
 
-  if (isLightMode.value)
-    parts.push(...[siteUc.value?.standard?.scheme?.light, standardUc.value?.scheme?.light])
+  const siteBackground = siteStandard?.[isLightMode.value ? 'backgroundAlt' : 'background'] ?? siteStandard?.background
+  const sitePrimaryColor = siteStandard?.[isLightMode.value ? 'primaryColorAlt' : 'primaryColor'] ?? siteStandard?.primaryColor
+  const siteThemeColor = siteStandard?.[isLightMode.value ? 'themeColorAlt' : 'themeColor'] ?? siteStandard?.themeColor
 
-  return deepMerge([...parts])
+  const cardBackground = cardStandard?.[isLightMode.value ? 'backgroundAlt' : 'background'] ?? cardStandard?.background
+  const cardPrimaryColor = cardStandard?.[isLightMode.value ? 'primaryColorAlt' : 'primaryColor'] ?? cardStandard?.primaryColor
+  const cardThemeColor = cardStandard?.[isLightMode.value ? 'themeColorAlt' : 'themeColor'] ?? cardStandard?.themeColor
+
+  return {
+    background: cardBackground || siteBackground,
+    primary: cardPrimaryColor || sitePrimaryColor,
+    theme: cardThemeColor || siteThemeColor,
+  }
 })
 
 const containerStyle = vue.computed(() => {
-  const fonts = standardUc.value?.fontStyle || {}
+  const fonts = standardUc.value?.fonts || {}
 
   const style: Record<string, string> = {}
 
@@ -63,7 +73,7 @@ const containerStyle = vue.computed(() => {
   return style
 })
 
-vue.watch(() => standardUc.value?.fontStyle, (fontStyle) => {
+vue.watch(() => standardUc.value?.fonts, (fontStyle) => {
   let addFonts = {}
 
   const site = props.card.site
@@ -82,8 +92,8 @@ vue.watch(() => standardUc.value?.fontStyle, (fontStyle) => {
 }, { immediate: true })
 
 const autoSetDark = vue.computed(() => {
-  const baseBg = standardUc.value?.scheme?.base?.bg
-  const lightBg = standardUc.value?.scheme?.light?.bg
+  const baseBg = standardUc.value?.background
+  const lightBg = standardUc.value?.backgroundAlt
   return baseBg && !lightBg
 })
 </script>
@@ -101,14 +111,13 @@ const autoSetDark = vue.computed(() => {
       loaded ? 'loaded' : '',
       card.depth.value <= 1 ? `overflow-x-clip` : '',
     ]"
-    :data-card-content-pad="standardUc?.spacing?.contentPad"
     :data-card-template-id="card.templateId.value"
-    :data-font-title="standardUc?.fontStyle?.title?.family"
-    :data-font-body="standardUc?.fontStyle?.body?.family"
+    :data-font-title="standardUc?.fonts?.title?.family"
+    :data-font-body="standardUc?.fonts?.body?.family"
     :data-card-depth="card.depth.value"
     :data-primary-scheme="colorScheme?.primary"
     :data-theme-scheme="colorScheme?.theme"
-    :data-vertical-spacing="card.fullConfig.value?.standard?.spacing?.verticalSpacing"
+    :data-space-size="card.fullConfig.value?.standard?.spaceSize"
   >
     <div class="w-full relative text-theme-950 dark:text-theme-50 x-font-body ">
       <div>
@@ -142,6 +151,6 @@ const autoSetDark = vue.computed(() => {
       <div :class="card.tpl.value?.settings.icon" />
       <div>{{ card.tpl.value?.settings.title }}</div>
     </div>
-    <XMedia v-if="colorScheme?.bg" class="object-cover w-full h-full absolute inset-0 pointer-events-none -z-10" :media="colorScheme?.bg" />
+    <XMedia v-if="colorScheme?.background" class="object-cover w-full h-full absolute inset-0 pointer-events-none -z-10" :media="colorScheme?.background" />
   </div>
 </template>
