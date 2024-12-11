@@ -1,6 +1,7 @@
 import type { FictionAdmin } from '@fiction/admin'
-import type { FictionDb, FictionEmail, FictionEnv, FictionMedia, FictionPluginSettings, FictionRouter, FictionServer, FictionUser } from '@fiction/core'
+import type { template as dashTemplate, panelTemplate } from '@fiction/admin/dashboard/cardDash'
 
+import type { FictionDb, FictionEmail, FictionEnv, FictionMedia, FictionPluginSettings, FictionRouter, FictionServer, FictionUser } from '@fiction/core'
 import { FictionPlugin, safeDirname, vue } from '@fiction/core'
 import { ManageBrandGuideQuery } from './endpoint'
 import { brandTable } from './schema'
@@ -35,15 +36,15 @@ export class FictionBrand extends FictionPlugin<FictionBrandSettings> {
     const { fictionAdmin } = this.settings
 
     fictionAdmin.addAdminPages({ key: 'send', loader: async ({ factory }) => [
-      await factory.create({
+      await factory.fromTemplate<typeof dashTemplate>({
         templateId: 'dash',
         slug: 'brand',
         title: 'Brand',
         cards: [
-          await factory.create({
+          await factory.fromTemplate<typeof panelTemplate>({
             el: vue.defineAsyncComponent(async () => import('./admin/ViewManageIndex.vue')),
             cards: [
-              await factory.create({
+              await factory.fromTemplate<typeof panelTemplate>({
                 slug: '_home',
                 title: 'Brand Library',
                 description: 'Manage your brand guides and AI content models',
@@ -64,32 +65,40 @@ export class FictionBrand extends FictionPlugin<FictionBrandSettings> {
           priority: 200,
         },
       }),
-      await factory.create({
+      await factory.fromTemplate<typeof dashTemplate>({
         templateId: 'dash',
         slug: 'manage-brand',
         title: 'Brand Editor',
         cards: [
-          await factory.create({
+          await factory.fromTemplate<typeof panelTemplate>({
             el: vue.defineAsyncComponent(async () => import('./admin/ViewManageBrand.vue')),
             cards: [
-              await factory.create({
+              await factory.fromTemplate<typeof panelTemplate>({
                 slug: '_home',
                 title: 'Brand Guidelines', // More specific than just 'Guide'
                 description: 'Define your brand identity and style guidelines',
                 el: vue.defineAsyncComponent(() => import('./admin/ManageOverview.vue')),
-                userConfig: { isNavItem: true, navIcon: 'i-tabler-arrow-guide' },
+                userConfig: {
+                  isNavItem: true,
+                  navIcon: 'i-tabler-arrow-guide',
+                },
               }),
-              await factory.create({
+              await factory.fromTemplate<typeof panelTemplate>({
                 slug: 'model',
                 title: 'AI Knowledge Base', // More intuitive than 'Content Model'
                 description: 'Train AI with your brand voice and content guidelines',
                 el: vue.defineAsyncComponent(async () => import('./admin/ManageModel.vue')),
-                userConfig: { isNavItem: true, navIcon: 'i-tabler-search' },
+                userConfig: {
+                  isNavItem: true,
+                  navIcon: 'i-tabler-search',
+                },
               }),
             ],
           }),
         ],
-        userConfig: { parentNavItemSlug: 'brand' },
+        userConfig: {
+          parentNavItemSlug: 'brand',
+        },
       }),
 
     ] })

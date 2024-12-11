@@ -1,5 +1,6 @@
 import type { FictionAdmin } from '@fiction/admin'
 
+import type { template as dashTemplate, panelTemplate } from '@fiction/admin/dashboard/cardDash'
 import type { ComplexDataFilter, FictionDb, FictionPluginSettings, FictionServer, FictionUser } from '@fiction/core'
 import type { Card } from '@fiction/site'
 import { FictionPlugin, safeDirname, vue } from '@fiction/core'
@@ -52,16 +53,16 @@ export class FictionPosts extends FictionPlugin<FictionPostsSettings> {
 
     fictionAdmin.addAdminPages({ key: 'posts', loader: async ({ factory }) => [
 
-      await factory.create({
+      await factory.fromTemplate<typeof dashTemplate>({
         templateId: 'dash',
         slug: 'posts',
         title: 'Content',
         description: 'Create, manage, and schedule your content',
         cards: [
-          await factory.create({
+          await factory.fromTemplate({
             el: vue.defineAsyncComponent(async () => import('./admin/ViewManage.vue')),
             cards: [
-              await factory.create({
+              await factory.fromTemplate<typeof panelTemplate>({
                 slug: '_home',
                 title: 'Blog Posts',
                 description: 'Manage your articles, updates, and announcements',
@@ -73,16 +74,18 @@ export class FictionPosts extends FictionPlugin<FictionPostsSettings> {
         ],
         userConfig: { isNavItem: true, navIcon: 'i-tabler-stack-push', navIconAlt: 'i-tabler-stack' },
       }),
-      await factory.create({
+      await factory.fromTemplate<typeof dashTemplate>({
         regionId: 'main',
         templateId: 'dash',
         slug: 'edit-post',
         title: 'Content Editor',
         description: 'Create and edit your content with our full-featured editor',
-        cards: [await factory.create({
-          el: vue.defineAsyncComponent(async () => import('./admin/PagePostEdit.vue')),
-          userConfig: { standard: { spaceSize: 'none' }, isNavItem: false },
-        })],
+        cards: [
+          await factory.fromTemplate<typeof panelTemplate>({
+            el: vue.defineAsyncComponent(async () => import('./admin/PagePostEdit.vue')),
+            userConfig: { standard: { spaceSize: 'none' }, isNavItem: false },
+          }),
+        ],
         userConfig: { layoutFormat: 'full' },
 
       }),

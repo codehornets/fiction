@@ -1,21 +1,24 @@
 import type { CardFactory } from '@fiction/site/cardFactory.js'
 import type { Site } from '@fiction/site/site.js'
+import { template as dashTemplate, panelTemplate } from '@fiction/admin/dashboard/cardDash'
 import { vue } from '@fiction/core/index.js'
 
 export async function page(args: { site: Site, factory: CardFactory }) {
   const { factory } = args
 
-  const homeCard = await factory.create({
+  const homeCard = await factory.fromTemplate({
     el: vue.defineAsyncComponent(async () => import('./el/ElCard.vue')),
-    userConfig: { standard: { spaceSize: 'none' } },
+    userConfig: {
+      standard: { spaceSize: 'none' },
+    },
   })
 
-  return factory.create({
+  return factory.fromTemplate({
     regionId: 'main',
     templateId: 'pageWrap',
     slug: 'affiliate',
     cards: [
-      await factory.create({ templateId: 'pageArea', cards: [homeCard] }),
+      await factory.fromTemplate({ templateId: 'pageArea', cards: [homeCard] }),
     ],
   })
 }

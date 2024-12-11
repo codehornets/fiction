@@ -7,6 +7,7 @@ import type { FictionUser } from '@fiction/core/plugin-user'
 import type { FictionTransactions } from '@fiction/plugin-transactions'
 import type { CardFactory } from '@fiction/site/cardFactory.js'
 import type { TableCardConfig } from '@fiction/site/index.js'
+import type { template as dashTemplate, panelTemplate } from './dashboard/cardDash.js'
 import type { Widget } from './dashboard/widget.js'
 import type { WidgetLocation } from './types.js'
 import { envConfig } from '@fiction/core'
@@ -50,12 +51,16 @@ export class FictionAdmin extends FictionPlugin<FictionAdminSettings> {
   }
 
   adminPageLoaders = vue.shallowRef<PageLoader[]>([async ({ factory }) => [
-    await factory.create({
+    await factory.fromTemplate<typeof dashTemplate>({
       templateId: 'dash',
       slug: '_home',
       isHome: true,
       title: 'Home',
-      cards: [await factory.create({ el: vue.defineAsyncComponent(async () => import('./dashboard/ViewDashboard.vue')) })],
+      cards: [
+        await factory.fromTemplate<typeof panelTemplate>({
+          el: vue.defineAsyncComponent(async () => import('./dashboard/ViewDashboard.vue')),
+        }),
+      ],
       userConfig: { isNavItem: true, navIcon: 'i-heroicons-home', navIconAlt: 'i-heroicons-home-20-solid', priority: 0 },
     }),
   ]])

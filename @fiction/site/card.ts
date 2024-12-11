@@ -428,9 +428,9 @@ export class Card<
 
 // export type TemplateUserConfigMap<T extends readonly CardTemplate[]> = TupleToObject<CreateTuple<T>>
 
-export type ExtractComponentUserConfig<T extends ComponentConstructor> = InstanceType<T> extends { $props: { card: { userConfig: infer B } } } ? vue.UnwrapRef<B> & SiteUserConfig : never
+// export type ExtractComponentUserConfig<T extends ComponentConstructor> = InstanceType<T> extends { $props: { card: { userConfig: infer B } } } ? vue.UnwrapRef<B> & SiteUserConfig : never
 
-export type ExtractCardTemplateUserConfig<T extends CardTemplate<any >> =
-    T extends CardTemplate<infer S> ?
-      S extends new (...args: any[]) => { $props: { card: { userConfig: infer B } } } ? vue.UnwrapRef<B> & SiteUserConfig : never
-      : never
+// export type ExtractCardTemplateUserConfig<T extends CardTemplate<any >> =
+//     T extends CardTemplate<infer S> ?
+//       S extends new (...args: any[]) => { $props: { card: { userConfig: infer B } } } ? vue.UnwrapRef<B> & SiteUserConfig : never
+//       : never

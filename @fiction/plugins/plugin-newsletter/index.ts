@@ -1,4 +1,5 @@
 import type { FictionAdmin } from '@fiction/admin'
+import type { template as dashTemplate, panelTemplate } from '@fiction/admin/dashboard/cardDash'
 import type { FictionDb, FictionEmail, FictionEnv, FictionMedia, FictionPluginSettings, FictionRouter, FictionServer, FictionUser } from '@fiction/core'
 import type { FictionSubscribe } from '@fiction/plugin-subscribe'
 import type { FictionTransactions } from '@fiction/plugin-transactions'
@@ -50,16 +51,16 @@ export class FictionNewsletter extends FictionPlugin<FictionNewsletterSettings> 
 
     fictionAdmin.addAdminPages({ key: 'send', loader: async ({ factory }) => [
 
-      await factory.create({
+      await factory.fromTemplate<typeof dashTemplate>({
         templateId: 'dash',
         slug: 'newsletter',
         title: 'Email',
         description: 'Create and manage your email marketing campaigns',
         cards: [
-          await factory.create({
+          await factory.fromTemplate<typeof panelTemplate>({
             el: vue.defineAsyncComponent(async () => import('./admin/ViewManageIndex.vue')),
             cards: [
-              await factory.create({
+              await factory.fromTemplate<typeof panelTemplate>({
                 slug: '_home',
                 title: 'Campaign Library',
                 description: 'View, track, and manage all your email campaigns in one place',
@@ -71,22 +72,22 @@ export class FictionNewsletter extends FictionPlugin<FictionNewsletterSettings> 
         ],
         userConfig: { isNavItem: true, navIcon: 'i-tabler-mail', navIconAlt: 'i-tabler-mail-share' },
       }),
-      await factory.create({
+      await factory.fromTemplate<typeof dashTemplate>({
         templateId: 'dash',
         slug: 'manage-newsletter',
         title: 'Manage Campaign',
         cards: [
-          await factory.create({
+          await factory.fromTemplate<typeof panelTemplate>({
             el: vue.defineAsyncComponent(async () => import('./admin/ViewManageCampaign.vue')),
             cards: [
-              await factory.create({
+              await factory.fromTemplate<typeof panelTemplate>({
                 slug: '_home',
                 title: 'Campaign Summary',
                 description: 'Track delivery status, engagement metrics, and campaign performance',
                 el: vue.defineAsyncComponent(async () => import('./admin/ManageOverview.vue')),
                 userConfig: { isNavItem: true, navIcon: 'i-tabler-dashboard', navIconAlt: 'i-tabler-dashboard' },
               }),
-              await factory.create({
+              await factory.fromTemplate<typeof panelTemplate>({
                 slug: 'analytics',
                 title: 'Performance Analytics',
                 description: 'Monitor open rates, click-through rates, and subscriber engagement',
@@ -99,13 +100,13 @@ export class FictionNewsletter extends FictionPlugin<FictionNewsletterSettings> 
         userConfig: { parentNavItemSlug: 'newsletter' },
       }),
 
-      await factory.create({
+      await factory.fromTemplate<typeof dashTemplate>({
         templateId: 'dash',
         slug: 'newsletter-composer',
         title: 'Campaign Editor',
         description: 'Design and customize your email campaign',
         cards: [
-          await factory.create({
+          await factory.fromTemplate<typeof panelTemplate>({
             el: vue.defineAsyncComponent(async () => import('./admin/EmailEditor.vue')),
             userConfig: { standard: { spaceSize: 'none' } },
           }),

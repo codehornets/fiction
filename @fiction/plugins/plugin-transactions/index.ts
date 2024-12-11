@@ -50,7 +50,7 @@ export class FictionTransactions extends FictionPlugin<FictionTransactionsSettin
 
         return [
           ...pages,
-          await factory.create({
+          await factory.fromTemplate({
             isSystem: true, // prevent saving
             cardId: this.transactionSlug,
             slug: this.transactionSlug,

@@ -1,3 +1,4 @@
+import type { template as dashTemplate, panelTemplate } from '@fiction/admin/dashboard/cardDash.js'
 import type { FictionAdmin } from '@fiction/admin/index.js'
 import type { FictionAnalytics } from '@fiction/analytics/index.js'
 import type { FictionApp, FictionDb, FictionEmail, FictionEnv, FictionMedia, FictionPluginSettings, FictionRouter, FictionServer, FictionUser } from '@fiction/core'
@@ -96,15 +97,15 @@ export class FictionSites extends FictionPlugin<SitesPluginSettings> {
     this.settings.fictionAdmin.addToWidgetArea('sitesIndex', [{ key: 'sitesWelcome' }, { key: 'siteVisitors' }])
 
     this.settings.fictionAdmin.addAdminPages({ key: 'sites', loader: async ({ factory }) => [
-      await factory.create({
+      await factory.fromTemplate<typeof dashTemplate>({
         templateId: 'dash',
         slug: 'sites',
         title: 'Websites',
         cards: [
-          await factory.create({
+          await factory.fromTemplate<typeof panelTemplate>({
             el: vue.defineAsyncComponent(async () => import('./admin/ViewManage.vue')),
             cards: [
-              await factory.create({
+              await factory.fromTemplate<typeof panelTemplate>({
                 slug: '_home',
                 title: 'Website Dashboard',
                 description: 'View and manage all your websites, domains, and site configurations',
@@ -115,7 +116,7 @@ export class FictionSites extends FictionPlugin<SitesPluginSettings> {
                   navIconAlt: 'i-tabler-browser-plus',
                 },
               }),
-              await factory.create({
+              await factory.fromTemplate<typeof panelTemplate>({
                 slug: 'analytics',
                 title: 'Performance Analytics',
                 description: 'Monitor visitor engagement, traffic patterns, and user behavior across all sites',
@@ -135,14 +136,14 @@ export class FictionSites extends FictionPlugin<SitesPluginSettings> {
           navIconAlt: 'i-tabler-browser-plus',
         },
       }),
-      await factory.create({
+      await factory.fromTemplate<typeof dashTemplate>({
         regionId: 'main',
         templateId: 'dash',
         slug: 'edit-site',
         title: 'Website Editor',
         description: 'Customize and configure your website settings',
         cards: [
-          await factory.create({
+          await factory.fromTemplate<typeof panelTemplate>({
             el: vue.defineAsyncComponent(async () => import('./plugin-builder/SiteEditor.vue')),
             userConfig: {
               isNavItem: false,

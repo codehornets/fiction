@@ -1,4 +1,5 @@
 import type { FictionAdmin } from '@fiction/admin'
+import type { template as dashTemplate, panelTemplate } from '@fiction/admin/dashboard/cardDash'
 import type { FictionPluginSettings, PluginSetupArgs } from '@fiction/core/plugin'
 import type { FictionUser } from '@fiction/core/plugin-user'
 import type { ExtensionLoader, ExtensionManifest } from './utils'
@@ -21,15 +22,22 @@ export class FictionExtend<T extends PluginIndexSettings = PluginIndexSettings> 
   admin() {
     const { fictionAdmin } = this.settings
     fictionAdmin.addAdminPages({ key: 'plugins', loader: async ({ factory }) => [
-      await factory.create({
+      await factory.fromTemplate<typeof dashTemplate>({
         regionId: 'main',
         templateId: 'dash',
         slug: 'extend',
         title: 'Plugins',
         cards: [
-          await factory.create({ el: vue.defineAsyncComponent(async () => import('./ViewExtend.vue')) }),
+          await factory.fromTemplate<typeof panelTemplate>({
+            el: vue.defineAsyncComponent(async () => import('./ViewExtend.vue')),
+          }),
         ],
-        userConfig: { isNavItem: true, navIcon: 'i-tabler-plug', navIconAlt: 'i-tabler-plug-x', priority: 100 },
+        userConfig: {
+          isNavItem: true,
+          navIcon: 'i-tabler-plug',
+          navIconAlt: 'i-tabler-plug-x',
+          priority: 100,
+        },
       }),
     ] })
   }

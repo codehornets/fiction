@@ -46,7 +46,7 @@ export async function getFormTemplates(args: { site?: Site, formConfig: FormConf
       getCardConfig: async () => {
         return {
           cards: [
-            await factory.create({
+            await factory.fromTemplate({
               templateId: 'formStart',
               userConfig: {
                 title: 'Contact Form',
@@ -54,7 +54,7 @@ export async function getFormTemplates(args: { site?: Site, formConfig: FormConf
                 buttonText: 'Start',
               },
             }),
-            await factory.create({
+            await factory.fromTemplate({
               templateId: 'inputTextShort',
               userConfig: {
                 key: 'name',
@@ -64,7 +64,7 @@ export async function getFormTemplates(args: { site?: Site, formConfig: FormConf
                 required: true,
               },
             }),
-            await factory.create({
+            await factory.fromTemplate({
               templateId: 'inputEmail',
               userConfig: {
                 key: 'email',
@@ -72,9 +72,10 @@ export async function getFormTemplates(args: { site?: Site, formConfig: FormConf
                 subTitle: 'We\'ll use this to get back to you.',
                 placeholder: 'email@example.com',
                 required: true,
+
               },
             }),
-            await factory.create({
+            await factory.fromTemplate({
               templateId: 'inputTextLong',
               userConfig: {
                 key: 'message',
@@ -84,7 +85,7 @@ export async function getFormTemplates(args: { site?: Site, formConfig: FormConf
                 required: true,
               },
             }),
-            await factory.create({
+            await factory.fromTemplate({
               templateId: 'formEnd',
               userConfig: confirmation,
             }),

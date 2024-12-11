@@ -35,8 +35,8 @@ export async function getPages(args: SectionArgs) {
             autoSlide: true,
             slides: [
               {
-                title: 'The Amazing Prestige',
-                subTitle: 'A modern magician for corporate events and TV',
+                title: 'The Amazing Prestige Theme',
+                subTitle: 'A magical Fiction theme for personal branding.',
                 media: stock.getRandomByTags(['background']),
                 textBlend: 'difference',
               },
