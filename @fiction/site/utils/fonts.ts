@@ -22,7 +22,6 @@ const defaultSiteFonts: FontConfig = {
   body: { stack: 'serif' },
   serif: { stack: 'serif' },
   highlight: { family: 'Caveat', stack: 'sans' },
-  inherit: undefined,
 }
 
 export function fontFamilyByKey(key?: string) {

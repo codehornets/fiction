@@ -194,7 +194,7 @@ describe('normalizeList', () => {
 
   it('ignores undefined values in the array', () => {
     const input = [undefined, 'item1', undefined]
-    const expected = [{ value: 'item1', name: 'Item1' }]
+    const expected = [{ value: 'item1', name: 'Item1', label: 'Item1' }]
     expect(normalizeList(input)).toEqual(expected)
   })
 
@@ -202,8 +202,8 @@ describe('normalizeList', () => {
     const input = ['item1', 'item2']
     const options = { prefix: 'pre ', suffix: ' suf' }
     const expected = [
-      { value: 'item1', name: 'pre Item1 suf' },
-      { value: 'item2', name: 'pre Item2 suf' },
+      { value: 'item1', name: 'pre Item1 suf', label: 'pre Item1 suf' },
+      { value: 'item2', name: 'pre Item2 suf', label: 'pre Item2 suf' },
     ]
     expect(normalizeList(input, options)).toEqual(expected)
   })
@@ -211,8 +211,8 @@ describe('normalizeList', () => {
   it('transforms numbers correctly', () => {
     const input = [123, 456]
     const expected = [
-      { value: 123, name: '123' },
-      { value: 456, name: '456' },
+      { value: 123, name: '123', label: '123' },
+      { value: 456, name: '456', label: '456' },
     ]
     expect(normalizeList(input)).toEqual(expected)
   })
@@ -220,8 +220,8 @@ describe('normalizeList', () => {
   it('transforms partial ListItems correctly', () => {
     const input = [{ name: 'Name1' }, { value: 'Value2' }]
     const expected = [
-      { value: toSlug('Name1', { replaceNumbers: false }), name: 'Name1' },
-      { value: 'Value2', name: `${toLabel('Value2')}` },
+      { value: toSlug('Name1', { replaceNumbers: false }), name: 'Name1', label: 'Name1' },
+      { value: 'Value2', name: `${toLabel('Value2')}`, label: `${toLabel('Value2')}` },
     ]
     expect(normalizeList(input)).toEqual(expected)
   })
@@ -229,8 +229,8 @@ describe('normalizeList', () => {
   it('correctly transforms camelCase strings with toLabel', () => {
     const input = ['camelCaseValue', 'anotherCamelCase']
     const expected = [
-      { value: 'camelCaseValue', name: 'Camel Case Value' },
-      { value: 'anotherCamelCase', name: 'Another Camel Case' },
+      { value: 'camelCaseValue', name: 'Camel Case Value', label: 'Camel Case Value' },
+      { value: 'anotherCamelCase', name: 'Another Camel Case', label: 'Another Camel Case' },
     ]
     expect(normalizeList(input)).toEqual(expected)
   })
@@ -238,8 +238,8 @@ describe('normalizeList', () => {
   it('correctly kebabifies strings with toSlug', () => {
     const input = [{ name: 'Test String' }, { name: 'Another Test String' }]
     const expected = [
-      { value: 'test-string', name: 'Test String' },
-      { value: 'another-test-string', name: 'Another Test String' },
+      { value: 'test-string', name: 'Test String', label: 'Test String' },
+      { value: 'another-test-string', name: 'Another Test String', label: 'Another Test String' },
     ]
     expect(normalizeList(input)).toEqual(expected)
   })
@@ -247,9 +247,9 @@ describe('normalizeList', () => {
   it('handles mixed types in array correctly', () => {
     const input = [123, 'camelCaseValue', { name: 'Test String' }, undefined]
     const expected = [
-      { value: 123, name: '123' },
-      { value: 'camelCaseValue', name: 'Camel Case Value' },
-      { value: 'test-string', name: 'Test String' },
+      { value: 123, name: '123', label: '123' },
+      { value: 'camelCaseValue', name: 'Camel Case Value', label: 'Camel Case Value' },
+      { value: 'test-string', name: 'Test String', label: 'Test String' },
     ]
     expect(normalizeList(input)).toEqual(expected)
   })
@@ -258,9 +258,9 @@ describe('normalizeList', () => {
     const input = [{ name: 'ItemName' }, 'rawString', 123]
     const options = { prefix: 'pre-', suffix: '-suf' }
     const expected = [
-      { value: 'item-name', name: 'pre-ItemName-suf' },
-      { value: 'rawString', name: 'pre-Raw String-suf' },
-      { value: 123, name: 'pre-123-suf' },
+      { value: 'item-name', name: 'pre-ItemName-suf', label: 'pre-ItemName-suf' },
+      { value: 'rawString', name: 'pre-Raw String-suf', label: 'pre-Raw String-suf' },
+      { value: 123, name: 'pre-123-suf', label: 'pre-123-suf' },
     ]
     expect(normalizeList(input, options)).toEqual(expected)
   })
@@ -268,8 +268,8 @@ describe('normalizeList', () => {
   it('ensures name is toLabel(value) when name is missing', () => {
     const input = [{ value: 'someValue' }, { value: 'anotherValue123' }]
     const expected = [
-      { value: 'someValue', name: 'Some Value' },
-      { value: 'anotherValue123', name: 'Another Value123' },
+      { value: 'someValue', name: 'Some Value', label: 'Some Value' },
+      { value: 'anotherValue123', name: 'Another Value123', label: 'Another Value123' },
     ]
     expect(normalizeList(input)).toEqual(expected)
   })
@@ -277,8 +277,8 @@ describe('normalizeList', () => {
   it('ensures value is toSlug(name) when value is missing', () => {
     const input = [{ name: 'Some Name' }, { name: 'AnotherName123' }]
     const expected = [
-      { value: 'some-name', name: 'Some Name' },
-      { value: 'another-name123', name: 'AnotherName123' },
+      { value: 'some-name', name: 'Some Name', label: 'Some Name' },
+      { value: 'another-name123', name: 'AnotherName123', label: 'AnotherName123' },
     ]
     expect(normalizeList(input)).toEqual(expected)
   })

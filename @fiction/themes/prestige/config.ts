@@ -41,13 +41,13 @@ export async function getPages(args: SectionArgs) {
                 textBlend: 'difference',
               },
               {
-                title: 'Professional Magician',
+                title: 'Professional Magic',
                 subTitle: 'Director of Magic Studies, McBride\'s Magic & Mystery School',
                 media: stock.getRandomByTags(['background']),
                 textBlend: 'difference',
               },
               {
-                title: 'Digital-First Magic Design',
+                title: 'Magical First Design',
                 subTitle: 'Creating illusions optimized for modern media',
                 media: stock.getRandomByTags(['background']),
                 textBlend: 'difference',

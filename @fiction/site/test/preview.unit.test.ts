@@ -88,7 +88,7 @@ describe('sitePreview', async () => {
   it('mounts correctly', async (ctx) => {
     await r.push(`/admin/preview/theme/test`, { caller: ctx.task.name })
 
-    await waitFor(100)
+    await waitFor(400)
 
     const html = await snapshotHtml(mountEl.innerHTML, { hideTags: ['svg'], maskIds: false })
 

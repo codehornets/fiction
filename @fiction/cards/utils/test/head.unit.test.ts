@@ -30,20 +30,16 @@ function createMockSite(overrides = {}) {
     },
     fullConfig: {
       value: {
-        branding: {
+        site: {
           primaryColor: 'blue',
           shareImage: {
             url: 'https://example.com/share.jpg',
           },
-        },
-        seo: {
           description: 'Test description',
           locale: 'en-US',
-        },
-        customCode: {
           gtmContainerId: 'GTM-12345',
         },
-      },
+      } satisfies Site['fullConfig']['value'],
     },
     currentPage: {
       value: {
@@ -106,6 +102,33 @@ describe('getStructuredData', () => {
   it('should generate correct structured data for normal page', () => {
     const site = createMockSite()
     const result = JSON.parse(getStructuredData({ site }))
+
+    expect(result).toMatchInlineSnapshot(`
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@id": "https://example.com/#person",
+            "@type": "Person",
+            "description": "Test description",
+            "image": "https://example.com/share.jpg",
+            "name": "Test Org",
+            "url": "https://example.com",
+          },
+          {
+            "@id": "https://example.com/test-page#webpage",
+            "@type": "WebPage",
+            "description": "Page description",
+            "inLanguage": "en-US",
+            "mainEntity": {
+              "@id": "https://example.com/#person",
+            },
+            "name": "Test Page",
+            "url": "https://example.com/test-page",
+          },
+        ],
+      }
+    `)
 
     expect(result).toEqual({
       '@context': 'https://schema.org',

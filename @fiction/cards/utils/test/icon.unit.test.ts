@@ -1,3 +1,4 @@
+import type { Site } from '@fiction/site'
 import fictionIcon from '@fiction/ui/brand/icon.png'
 import { describe, expect, it } from 'vitest'
 import { getDefaultIconUrl, getHeadIconConfig, getSiteIcons } from '../icon'
@@ -7,12 +8,13 @@ describe('icon Utils', () => {
     title: { value: 'Test Site' },
     fullConfig: {
       value: {
-        branding: {
+        site: {
           favicon: { url: 'custom-favicon.png' },
           icon: { url: 'custom-icon.png' },
           shareImage: { url: 'custom-share.png' },
         },
-      },
+
+      } satisfies Site['fullConfig']['value'],
     },
   } as any // Type as any to avoid full Site implementation
 
@@ -32,9 +34,9 @@ describe('icon Utils', () => {
       const params = Object.fromEntries(url.searchParams)
       expect(params).toMatchInlineSnapshot(`
         {
-          "background": "1e40af",
+          "background": "172554",
           "bold": "true",
-          "color": "e4ebfb",
+          "color": "dbeafe",
           "font-size": "0.65",
           "format": "png",
           "length": "1",
@@ -45,7 +47,7 @@ describe('icon Utils', () => {
         }
       `)
 
-      expect(url).toMatchInlineSnapshot(`"https://ui-avatars.com/api/?name=Test+Site&size=128&background=1e40af&color=e4ebfb&length=1&rounded=false&bold=true&format=png&font-size=0.65&uppercase=true"`)
+      expect(url).toMatchInlineSnapshot(`"https://ui-avatars.com/api/?name=Test+Site&size=128&background=172554&color=dbeafe&length=1&rounded=false&bold=true&format=png&font-size=0.65&uppercase=true"`)
     })
 
     it('allows overriding default options', () => {
@@ -149,8 +151,10 @@ describe('icon Utils', () => {
       tests.forEach(({ ext, expected }) => {
         const siteMock = {
           title: { value: 'Test Site' },
-          fullConfig: { value: { brand: { favicon: { url: `icon.${ext}` } } } },
-        } as any
+          fullConfig: {
+            value: { site: { favicon: { url: `icon.${ext}` } } } satisfies Site['fullConfig']['value'],
+          },
+        } as Site
 
         const config = getHeadIconConfig({ site: siteMock })
         expect(config.faviconType).toBe(expected)

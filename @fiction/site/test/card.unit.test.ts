@@ -82,47 +82,23 @@ describe('card', async () => {
   it('should have correct generations settings', async () => {
     const inputConfig = await generation.getJsonPropConfig()
 
-    expect(inputConfig).toEqual(expect.objectContaining({
-      title: expect.any(Object),
-      overlays: expect.any(Object),
-      splash: expect.any(Object),
-      subTitle: expect.any(Object),
-      superColor: expect.any(Object),
-      superHeading: expect.any(Object),
-      superIcon: expect.any(Object),
-
-    }))
-
-    expect(inputConfig.subTitle.label).toEqual('Sub Heading')
-
-    expect(Object.values(inputConfig).filter(c => c.isUserEnabled && c.hasTag).length).toBe(2)
-
     expect(inputConfig).toMatchInlineSnapshot(`
       {
-        "title": {
-          "cumulativeTime": 4000,
-          "estimatedMs": 4000,
-          "hasTag": true,
-          "isUserEnabled": true,
-          "key": "title",
-          "label": "Heading",
-          "prompt": "Primary hero headline, 3 to 13 words",
-        },
-        "overlays": {
+        "action": {
           "cumulativeTime": 8000,
           "estimatedMs": 4000,
           "hasTag": true,
-          "key": "overlays",
-          "label": "Overlays",
-          "prompt": "Overlays to be placed on top of the splash image",
+          "key": "action",
+          "label": "Action",
+          "prompt": "Call-to-action buttons",
         },
-        "splash": {
+        "caption": {
           "cumulativeTime": 8000,
           "estimatedMs": 4000,
           "hasTag": true,
-          "key": "splash",
-          "label": "Splash",
-          "prompt": "Splash picture for hero",
+          "key": "caption",
+          "label": "Caption",
+          "prompt": "Media description",
         },
         "subTitle": {
           "cumulativeTime": 8000,
@@ -130,35 +106,40 @@ describe('card', async () => {
           "hasTag": true,
           "isUserEnabled": true,
           "key": "subTitle",
-          "label": "Sub Heading",
-          "prompt": "Secondary hero headline, 10 to 30 words",
+          "label": "Sub Title",
+          "prompt": "Supporting message (10-30 words)",
         },
-        "superColor": {
+        "superTitle": {
           "cumulativeTime": 8000,
           "estimatedMs": 4000,
           "hasTag": true,
-          "key": "superColor",
-          "label": "Super Color",
-          "prompt": "change color of super title",
+          "key": "superTitle",
+          "label": "Super Title",
+          "prompt": "Small text above title",
         },
-        "superHeading": {
-          "cumulativeTime": 8000,
+        "title": {
+          "cumulativeTime": 4000,
           "estimatedMs": 4000,
           "hasTag": true,
-          "key": "superHeading",
-          "label": "Super Heading",
-          "prompt": "Shorter badge above headline, 2 to 5 words",
-        },
-        "superIcon": {
-          "cumulativeTime": 8000,
-          "estimatedMs": 4000,
-          "hasTag": true,
-          "key": "superIcon",
-          "label": "Super Icon",
-          "prompt": "Icon for the super title",
+          "isUserEnabled": true,
+          "key": "title",
+          "label": "Title",
+          "prompt": "Main headline (3-13 words)",
         },
       }
     `)
+
+    expect(inputConfig).toEqual(expect.objectContaining({
+      title: expect.any(Object),
+      subTitle: expect.any(Object),
+      superTitle: expect.any(Object),
+      action: expect.any(Object),
+      caption: expect.any(Object),
+    }))
+
+    expect(inputConfig.subTitle.label).toEqual('Sub Title')
+
+    expect(Object.values(inputConfig).filter(c => c.isUserEnabled && c.hasTag).length).toBe(2)
   })
 })
 
@@ -169,43 +150,47 @@ describe('cardTemplate', async () => {
 
     expect(site?.theme.value?.templates.map(t => t.settings.templateId)).toMatchInlineSnapshot(`
       [
-        "wrap",
-        "transaction",
-        "404",
-        "nav",
-        "footer",
-        "quotes",
-        "profile",
-        "hero",
-        "marquee",
-        "area",
-        "maps",
-        "magazine",
-        "demoProse",
-        "capture",
-        "showcase",
-        "cinema",
-        "story",
-        "ticker",
-        "people",
-        "pricing",
-        "logos",
-        "mediaGrid",
-        "tour",
-        "features",
-        "metrics",
-        "faq",
-        "mediaPop",
-        "textEffects",
-        "trek",
-        "fitText",
-        "overSlide",
-        "statement",
-        "testimonials",
+        "contentHero",
+        "contentProfile",
+        "contentStory",
+        "contentFeatures",
+        "sliderStatement",
+        "contentBento",
+        "contentPeople",
+        "proofTestimonials",
+        "proofQuotes",
+        "proofMetrics",
+        "proofLogos",
+        "galleryShowcase",
+        "postsList",
+        "postsMagazine",
+        "socialInsta",
+        "contentNumberedList",
+        "contentFaq",
+        "contentTimeline",
+        "sliderCinema",
+        "galleryMasonry",
+        "modalMedia",
+        "contentTour",
+        "convertCta",
+        "convertCapture",
+        "convertContact",
+        "convertPricing",
+        "locationMaps",
+        "pageWrap",
+        "pageArea",
+        "pageNav",
+        "pageFooterPro",
+        "pageFooterPersonal",
+        "mediaMarquee",
+        "sliderOverlay",
+        "typographyTicker",
+        "galleryParallaxScroll",
+        "typographyFitText",
         "effectShape",
-        "gallery",
-        "contact",
-        "hitlist",
+        "effectText",
+        "page404",
+        "pageTransaction",
         "testWrap",
         "testBlog",
       ]
