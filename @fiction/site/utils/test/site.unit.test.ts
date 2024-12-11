@@ -214,7 +214,13 @@ describe('updateSite / updatePages', async () => {
   it('updates site with valid keys', async () => {
     const site = await Site.create({ ...common, themeId: 'test' })
 
-    await updateSite({ caller: 'testUpdateSite', site, newConfig: { title: 'New Title', userConfig: { seo: { locale: 'es' } }, subDomain: 'newSub', customDomains: [{ hostname: 'new.com' }] } })
+    await updateSite({
+      caller: 'testUpdateSite',
+      site,
+      newConfig: { title: 'New Title', userConfig: {
+        site: { locale: 'es' },
+      } satisfies Site['userConfig']['value'], subDomain: 'newSub', customDomains: [{ hostname: 'new.com' }] },
+    })
 
     expect(site.title.value).toBe('New Title')
     expect(site.userConfig.value.site?.locale).toBe('es')
@@ -257,7 +263,7 @@ describe('updateSite / updatePages', async () => {
         [
           "card1",
           undefined,
-          "wrap",
+          "pageWrap",
         ],
       ]
     `)

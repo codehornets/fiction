@@ -19,7 +19,6 @@ export const displaySchema = z.object({
 export const schema = z.object({
   display: displaySchema.optional(),
   posts: PostHandlingSchema.optional().describe('Posts configuration'),
-  routeBasePath: z.string().optional(),
 })
 
 export type UserConfig = z.infer<typeof schema> & SiteUserConfig

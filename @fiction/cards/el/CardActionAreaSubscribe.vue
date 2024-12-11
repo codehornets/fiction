@@ -6,7 +6,7 @@ import { useService, vue } from '@fiction/core'
 import XButton from '@fiction/ui/buttons/XButton.vue'
 import ElForm from '@fiction/ui/inputs/ElForm.vue'
 import ElEmail from '@fiction/ui/inputs/InputEmail.vue'
-import ConfirmModal from './ConfirmModal.vue'
+import ConfirmModal from './CardActionAreaConfirmModal.vue'
 
 const { card, subscribe = {}, size = 'lg', enableConfirmModal = true } = defineProps<{
   card: Card

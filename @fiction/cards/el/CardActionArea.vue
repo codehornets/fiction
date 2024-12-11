@@ -3,9 +3,9 @@ import type { ActionArea, ButtonDesign, ColorThemeUser, StandardSize } from '@fi
 import type { Card } from '@fiction/site/card'
 import { getNested, simpleHandlebarsParser, vue } from '@fiction/core'
 
-import CaptureAction from '../convert-capture/CaptureAction.vue'
 import CardButtons from '../el/CardButtons.vue'
 import ProofCommunity from '../el/ProofCommunity.vue'
+import CardActionAreaSubscribe from './CardActionAreaSubscribe.vue'
 
 const { card, basePath, action, size = 'md', theme, design, enableConfirmModal = true } = defineProps<{
   card: Card
@@ -36,7 +36,7 @@ const joinText = vue.computed(() => {
 <template>
   <div class="space-y-8">
     <div>
-      <CaptureAction
+      <CardActionAreaSubscribe
         v-if="uc?.variant === 'subscribe'"
         :size="uc?.size || size"
         :card

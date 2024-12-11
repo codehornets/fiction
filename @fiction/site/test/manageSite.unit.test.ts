@@ -1,4 +1,5 @@
 import type { InitializedTestUtils } from '@fiction/core/test-utils'
+import type { Site } from '../site'
 import type { TableSiteConfig } from '../tables'
 import type { SiteTestUtils } from './testUtils'
 import { objectId, type Organization } from '@fiction/core'
@@ -270,8 +271,8 @@ describe('manageSite query', () => {
             fields: {
               title: 'Draft Site Title',
               userConfig: {
-                seo: { description: 'Draft description' },
-              },
+                site: { description: 'Draft description' },
+              } satisfies Site['userConfig']['value'],
             },
             orgId,
             userId,

@@ -31,6 +31,11 @@ export class PopupUtility {
     this.originalBodyOverflow = document.body.style.overflow
     this.originalScrollPosition = window.pageYOffset
 
+    // Calculate transform origin based on viewport position
+    const viewportHeight = window.innerHeight
+    const scrolledPercent = this.originalScrollPosition / (document.documentElement.scrollHeight - viewportHeight)
+    const originY = Math.min(Math.max((scrolledPercent * 100), 30), 70) // Clamp between 30% and 70%
+
     // Lock scroll at current position
     document.body.style.position = 'fixed'
     document.body.style.top = `-${this.originalScrollPosition}px`
@@ -40,10 +45,10 @@ export class PopupUtility {
 
     // Scale down effect
     if (this.siteContentElement) {
-      this.siteContentElement.style.transform = 'scale(.95)'
+      this.siteContentElement.style.transformOrigin = `center ${originY}%`
+      this.siteContentElement.style.transform = 'scale(.96)'
       this.siteContentElement.style.transition = 'transform .75s cubic-bezier(0.25, 1, 0.33, 1)'
       this.siteContentElement.style.overflow = 'hidden'
-      this.siteContentElement.style.height = '100dvh'
     }
   }
 
@@ -62,8 +67,7 @@ export class PopupUtility {
 
     // Reset scale and other styles
     if (this.siteContentElement) {
-      this.siteContentElement.style.transform = ''
-      this.siteContentElement.style.height = ''
+      this.siteContentElement.style.transform = 'scale(1)'
       this.siteContentElement.style.overflow = ''
     }
 
@@ -72,8 +76,10 @@ export class PopupUtility {
 
     setTimeout(() => {
       if (this.siteContentElement) {
+        this.siteContentElement.style.transform = ''
+        this.siteContentElement.style.transformOrigin = ''
         this.siteContentElement.style.transition = ''
       }
-    }, 1000)
+    }, 2000)
   }
 }

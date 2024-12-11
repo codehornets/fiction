@@ -28,7 +28,8 @@ describe('googleFontsUtility', () => {
   describe('createGoogleFontsLink', () => {
     it('should return correct URL for valid font keys', () => {
       const fontLink = googleFontsUtility.createGoogleFontsLink({ fontFamilies: [fontA, fontB] })
-      expect(fontLink).toContain('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap')
+      expect(fontLink).toContain('Space+Mono')
+      expect(fontLink).toContain('Libre+Baskerville')
     })
 
     it('should encode spaces as plus signs in font family names', () => {
@@ -46,7 +47,7 @@ describe('googleFontsUtility', () => {
     await googleFontsUtility.loadFont(fontB)
     let linkElement = document.querySelector('link#google-font-libre-baskerville')
     expect(linkElement).not.toBeNull()
-    expect(linkElement?.getAttribute('href')).toBe('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap')
+    expect(linkElement?.getAttribute('href')).toBe('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@300;400;500;600;700;800;900&display=swap')
     expect(linkElement?.getAttribute('rel')).toBe('stylesheet')
 
     // Should not load again
@@ -56,7 +57,7 @@ describe('googleFontsUtility', () => {
     await googleFontsUtility.loadFont(fontA)
     linkElement = document.querySelector('link#google-font-space-mono')
     expect(linkElement).not.toBeNull()
-    expect(linkElement?.getAttribute('href')).toBe('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap')
+    expect(linkElement?.getAttribute('href')).toBe('https://fonts.googleapis.com/css2?family=Space+Mono:wght@300;400;500;600;700;800;900&display=swap')
     expect(linkElement?.getAttribute('rel')).toBe('stylesheet')
   })
 

@@ -16,7 +16,6 @@ export const schema = z.object({
     showReadTime: z.boolean().optional().describe('Display estimated reading time'),
     showDates: z.boolean().optional().describe('Show publication dates'),
   }).optional(),
-  routeBasePath: z.string().optional().describe('Base path for post URLs'),
 })
 
 export type UserConfig = z.infer<typeof schema> & SiteUserConfig

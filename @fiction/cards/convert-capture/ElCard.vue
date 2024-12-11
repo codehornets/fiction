@@ -7,7 +7,7 @@ import XButton from '@fiction/ui/buttons/XButton.vue'
 import ElClose from '@fiction/ui/common/ElClose.vue'
 import ElModal from '@fiction/ui/ElModal.vue'
 import CardText from '../CardText.vue'
-import ConfirmModal from './ConfirmModal.vue'
+import ConfirmModal from '../el/CardActionAreaConfirmModal.vue'
 import EffectScrollModal from './EffectScrollModal.vue'
 import EmailForm from './EmailForm.vue'
 

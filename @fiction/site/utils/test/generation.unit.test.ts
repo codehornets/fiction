@@ -34,8 +34,8 @@ describe('generation utils', async () => {
         "title",
         "subTitle",
         "superTitle",
-        "media",
-        "overlays",
+        "caption",
+        "action",
       ]
     `)
 
@@ -164,7 +164,7 @@ describe('generation utils', async () => {
     expect(result).toEqual({
       subTitle: {
         key: 'subTitle',
-        label: 'Sub Heading',
+        label: 'Sub Title',
         prompt: 'Secondary hero headline, 10 to 30 words',
         estimatedMs: 4000,
         cumulativeTime: 4000,
