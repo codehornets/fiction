@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generatedAt": "2024-12-09T07:44:59.907Z",
+  "generatedAt": "2024-12-11T05:16:28.931Z",
   "templates": [
     {
       "templateId": "contentHero",
@@ -13,7 +13,30 @@
       ],
       "icon": "i-tabler-presentation",
       "colorTheme": "violet",
-      "isPublic": true
+      "isPublic": true,
+      "aiSchema": {
+        "title": "string, Main headline (3-13 words) [ai]",
+        "subTitle": "string, Supporting message (10-30 words) [ai]",
+        "superTitle": {
+          "text": "string, Short text above main title [ai]"
+        },
+        "caption": "string, Media description [ai]",
+        "action": {
+          "title": "string, Header text above actions [ai]",
+          "variant": "string, Action type format [ai]",
+          "buttons": [
+            {
+              "label": "string, Button text [ai]",
+              "href": "string, Button link URL or /path [ai]",
+              "theme": "string, Button color scheme [ai]",
+              "design": "string, Button visual style [ai]"
+            }
+          ]
+        }
+      },
+      "demo": {
+        "templateId": "contentHero"
+      }
     },
     {
       "templateId": "contentProfile",
@@ -26,7 +49,30 @@
       ],
       "icon": "i-tabler-user-circle",
       "colorTheme": "blue",
-      "isPublic": true
+      "isPublic": true,
+      "aiSchema": {
+        "title": "string, Primary headline for profile 3 to 8 words [ai]",
+        "content": "string, Formatted markdown of profile with paragraphs, 30 to 60 words, 2 paragraphs [ai]",
+        "superTitle": {
+          "text": "string, Short text above main title [ai]"
+        },
+        "detailsTitle": "string, Title for list of details [ai]",
+        "action": {
+          "title": "string, Header text above actions [ai]",
+          "variant": "string, Action type format [ai]",
+          "buttons": [
+            {
+              "label": "string, Button text [ai]",
+              "href": "string, Button link URL or /path [ai]",
+              "theme": "string, Button color scheme [ai]",
+              "design": "string, Button visual style [ai]"
+            }
+          ]
+        }
+      },
+      "demo": {
+        "templateId": "contentProfile"
+      }
     },
     {
       "templateId": "contentStory",
@@ -38,7 +84,28 @@
       ],
       "icon": "i-tabler-book-2",
       "colorTheme": "fuchsia",
-      "isPublic": true
+      "isPublic": true,
+      "aiSchema": {
+        "items": [
+          {
+            "action": {
+              "title": "string, Header text above actions [ai]",
+              "variant": "string, Action type format [ai]",
+              "buttons": [
+                {
+                  "label": "string, Button text [ai]",
+                  "href": "string, Button link URL or /path [ai]",
+                  "theme": "string, Button color scheme [ai]",
+                  "design": "string, Button visual style [ai]"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "demo": {
+        "templateId": "contentStory"
+      }
     },
     {
       "templateId": "contentFeatures",
@@ -51,7 +118,30 @@
       ],
       "icon": "i-tabler-layout-list",
       "colorTheme": "lime",
-      "isPublic": true
+      "isPublic": true,
+      "aiSchema": {
+        "features": [
+          {
+            "title": "string, Feature name or headline [ai]",
+            "description": "string, Feature explanation text [ai]",
+            "action": {
+              "title": "string, Header text above actions [ai]",
+              "variant": "string, Action type format [ai]",
+              "buttons": [
+                {
+                  "label": "string, Button text [ai]",
+                  "href": "string, Button link URL or /path [ai]",
+                  "theme": "string, Button color scheme [ai]",
+                  "design": "string, Button visual style [ai]"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "demo": {
+        "templateId": "contentFeatures"
+      }
     },
     {
       "templateId": "sliderStatement",
@@ -64,7 +154,29 @@
       ],
       "icon": "i-tabler-message-circle-2",
       "colorTheme": "indigo",
-      "isPublic": true
+      "isPublic": true,
+      "aiSchema": {
+        "items": [
+          {
+            "title": "string, The headline that captures attention (3-8 words) [ai]",
+            "action": {
+              "title": "string, Header text above actions [ai]",
+              "variant": "string, Action type format [ai]",
+              "buttons": [
+                {
+                  "label": "string, Button text [ai]",
+                  "href": "string, Button link URL or /path [ai]",
+                  "theme": "string, Button color scheme [ai]",
+                  "design": "string, Button visual style [ai]"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "demo": {
+        "templateId": "sliderStatement"
+      }
     },
     {
       "templateId": "contentBento",
@@ -77,7 +189,33 @@
       ],
       "icon": "i-tabler-layout-grid",
       "colorTheme": "violet",
-      "isPublic": true
+      "isPublic": true,
+      "aiSchema": {
+        "items": [
+          {
+            "superTitle": {
+              "text": "string, Short text above main title [ai]"
+            },
+            "title": "string, Main headline for this content box [ai]",
+            "content": "string, Supporting text that expands on your title - aim for 1-2 sentences [ai]",
+            "action": {
+              "title": "string, Header text above actions [ai]",
+              "variant": "string, Action type format [ai]",
+              "buttons": [
+                {
+                  "label": "string, Button text [ai]",
+                  "href": "string, Button link URL or /path [ai]",
+                  "theme": "string, Button color scheme [ai]",
+                  "design": "string, Button visual style [ai]"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "demo": {
+        "templateId": "contentBento"
+      }
     },
     {
       "templateId": "contentPeople",
@@ -91,7 +229,33 @@
       ],
       "icon": "i-tabler-users-group",
       "colorTheme": "blue",
-      "isPublic": true
+      "isPublic": true,
+      "aiSchema": {
+        "title": "string, Team section title [ai]",
+        "subTitle": "string, Team description [ai]",
+        "profiles": [
+          {
+            "title": "string, Primary headline [ai]",
+            "subTitle": "string, Supporting headline [ai]",
+            "content": "string, Main content in HTML/Markdown [ai]",
+            "action": {
+              "title": "string, Header text above actions [ai]",
+              "variant": "string, Action type format [ai]",
+              "buttons": [
+                {
+                  "label": "string, Button text [ai]",
+                  "href": "string, Button link URL or /path [ai]",
+                  "theme": "string, Button color scheme [ai]",
+                  "design": "string, Button visual style [ai]"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "demo": {
+        "templateId": "contentPeople"
+      }
     },
     {
       "templateId": "proofTestimonials",
@@ -103,7 +267,18 @@
       ],
       "icon": "i-tabler-messages",
       "colorTheme": "emerald",
-      "isPublic": true
+      "isPublic": true,
+      "aiSchema": {
+        "items": [
+          {
+            "title": "string, Primary headline [ai]",
+            "content": "string, Main content in HTML/Markdown [ai]"
+          }
+        ]
+      },
+      "demo": {
+        "templateId": "proofTestimonials"
+      }
     },
     {
       "templateId": "proofQuotes",
@@ -116,7 +291,28 @@
       ],
       "icon": "i-tabler-quote",
       "colorTheme": "emerald",
-      "isPublic": true
+      "isPublic": true,
+      "aiSchema": {
+        "quotes": [
+          {
+            "action": {
+              "title": "string, Header text above actions [ai]",
+              "variant": "string, Action type format [ai]",
+              "buttons": [
+                {
+                  "label": "string, Button text [ai]",
+                  "href": "string, Button link URL or /path [ai]",
+                  "theme": "string, Button color scheme [ai]",
+                  "design": "string, Button visual style [ai]"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "demo": {
+        "templateId": "proofQuotes"
+      }
     },
     {
       "templateId": "proofMetrics",
@@ -129,7 +325,10 @@
       ],
       "icon": "i-tabler-chart-dots",
       "colorTheme": "emerald",
-      "isPublic": true
+      "isPublic": true,
+      "demo": {
+        "templateId": "proofMetrics"
+      }
     },
     {
       "templateId": "proofLogos",
@@ -141,7 +340,10 @@
       ],
       "icon": "i-tabler-building-store",
       "colorTheme": "yellow",
-      "isPublic": true
+      "isPublic": true,
+      "demo": {
+        "templateId": "proofLogos"
+      }
     },
     {
       "templateId": "galleryShowcase",
@@ -154,7 +356,43 @@
       ],
       "icon": "i-tabler-photo-up",
       "colorTheme": "amber",
-      "isPublic": true
+      "isPublic": true,
+      "aiSchema": {
+        "posts": {
+          "entries": [
+            {
+              "title": "string, Primary headline [ai]",
+              "subTitle": "string, Supporting headline [ai]",
+              "superTitle": {
+                "text": "string, Short text above main title [ai]"
+              },
+              "content": "string, Main content in HTML/Markdown [ai]",
+              "excerpt": "string, Brief summary for previews [ai]",
+              "tags": "array, Topic labels [ai]",
+              "categories": "array, Content groupings [ai]",
+              "action": {
+                "title": "string, Header text above actions [ai]",
+                "variant": "string, Action type format [ai]",
+                "buttons": [
+                  {
+                    "label": "string, Button text [ai]",
+                    "href": "string, Button link URL or /path [ai]",
+                    "theme": "string, Button color scheme [ai]",
+                    "design": "string, Button visual style [ai]"
+                  }
+                ]
+              }
+            }
+          ],
+          "query": {
+            "filters": "array, OR-based filter groups [ai]",
+            "search": "string, Search query [ai]"
+          }
+        }
+      },
+      "demo": {
+        "templateId": "galleryShowcase"
+      }
     },
     {
       "templateId": "postsList",
@@ -166,7 +404,43 @@
       ],
       "icon": "i-tabler-article",
       "colorTheme": "rose",
-      "isPublic": true
+      "isPublic": true,
+      "aiSchema": {
+        "posts": {
+          "entries": [
+            {
+              "title": "string, Primary headline [ai]",
+              "subTitle": "string, Supporting headline [ai]",
+              "superTitle": {
+                "text": "string, Short text above main title [ai]"
+              },
+              "content": "string, Main content in HTML/Markdown [ai]",
+              "excerpt": "string, Brief summary for previews [ai]",
+              "tags": "array, Topic labels [ai]",
+              "categories": "array, Content groupings [ai]",
+              "action": {
+                "title": "string, Header text above actions [ai]",
+                "variant": "string, Action type format [ai]",
+                "buttons": [
+                  {
+                    "label": "string, Button text [ai]",
+                    "href": "string, Button link URL or /path [ai]",
+                    "theme": "string, Button color scheme [ai]",
+                    "design": "string, Button visual style [ai]"
+                  }
+                ]
+              }
+            }
+          ],
+          "query": {
+            "filters": "array, OR-based filter groups [ai]",
+            "search": "string, Search query [ai]"
+          }
+        }
+      },
+      "demo": {
+        "templateId": "postsList"
+      }
     },
     {
       "templateId": "postsMagazine",
@@ -178,7 +452,43 @@
       ],
       "icon": "i-tabler-notebook",
       "colorTheme": "blue",
-      "isPublic": true
+      "isPublic": true,
+      "aiSchema": {
+        "posts": {
+          "entries": [
+            {
+              "title": "string, Primary headline [ai]",
+              "subTitle": "string, Supporting headline [ai]",
+              "superTitle": {
+                "text": "string, Short text above main title [ai]"
+              },
+              "content": "string, Main content in HTML/Markdown [ai]",
+              "excerpt": "string, Brief summary for previews [ai]",
+              "tags": "array, Topic labels [ai]",
+              "categories": "array, Content groupings [ai]",
+              "action": {
+                "title": "string, Header text above actions [ai]",
+                "variant": "string, Action type format [ai]",
+                "buttons": [
+                  {
+                    "label": "string, Button text [ai]",
+                    "href": "string, Button link URL or /path [ai]",
+                    "theme": "string, Button color scheme [ai]",
+                    "design": "string, Button visual style [ai]"
+                  }
+                ]
+              }
+            }
+          ],
+          "query": {
+            "filters": "array, OR-based filter groups [ai]",
+            "search": "string, Search query [ai]"
+          }
+        }
+      },
+      "demo": {
+        "templateId": "postsMagazine"
+      }
     },
     {
       "templateId": "contentNumberedList",
@@ -190,7 +500,18 @@
       ],
       "icon": "i-tabler-list-numbers",
       "colorTheme": "rose",
-      "isPublic": true
+      "isPublic": true,
+      "aiSchema": {
+        "title": "string, Section headline [ai]",
+        "items": [
+          {
+            "content": "string, Point text or description [ai]"
+          }
+        ]
+      },
+      "demo": {
+        "templateId": "contentNumberedList"
+      }
     },
     {
       "templateId": "contentFaq",
@@ -202,20 +523,82 @@
       ],
       "icon": "i-tabler-list-details",
       "colorTheme": "emerald",
-      "isPublic": true
+      "isPublic": true,
+      "aiSchema": {
+        "items": [
+          {
+            "title": "string, Primary headline [ai]",
+            "content": "string, Main content in HTML/Markdown [ai]"
+          }
+        ],
+        "support": {
+          "text": "string, Help text shown below FAQs [ai]",
+          "action": {
+            "title": "string, Header text above actions [ai]",
+            "variant": "string, Action type format [ai]",
+            "buttons": [
+              {
+                "label": "string, Button text [ai]",
+                "href": "string, Button link URL or /path [ai]",
+                "theme": "string, Button color scheme [ai]",
+                "design": "string, Button visual style [ai]"
+              }
+            ]
+          }
+        }
+      },
+      "demo": {
+        "templateId": "contentFaq"
+      }
     },
     {
       "templateId": "contentTimeline",
       "title": "Milestone Timeline",
       "description": "Transform your professional journey into an engaging visual story. Perfect for about pages, portfolios, and career highlights.",
-      "subTitle": "Visualize a journey or series of events",
+      "subTitle": "Visualize a resume/cv, journey, or series of events",
       "category": [
         "content",
         "marketing"
       ],
       "icon": "i-tabler-timeline",
       "colorTheme": "green",
-      "isPublic": true
+      "isPublic": true,
+      "aiSchema": {
+        "milestones": [
+          {
+            "title": "string, Primary headline [ai]",
+            "subTitle": "string, Supporting headline [ai]",
+            "content": "string, Main content in HTML/Markdown [ai]",
+            "action": {
+              "title": "string, Header text above actions [ai]",
+              "variant": "string, Action type format [ai]",
+              "buttons": [
+                {
+                  "label": "string, Button text [ai]",
+                  "href": "string, Button link URL or /path [ai]",
+                  "theme": "string, Button color scheme [ai]",
+                  "design": "string, Button visual style [ai]"
+                }
+              ]
+            },
+            "badges": {
+              "title": "string, Header text above actions [ai]",
+              "variant": "string, Action type format [ai]",
+              "buttons": [
+                {
+                  "label": "string, Button text [ai]",
+                  "href": "string, Button link URL or /path [ai]",
+                  "theme": "string, Button color scheme [ai]",
+                  "design": "string, Button visual style [ai]"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "demo": {
+        "templateId": "contentTimeline"
+      }
     },
     {
       "templateId": "sliderCinema",
@@ -229,7 +612,33 @@
       ],
       "icon": "i-tabler-movie",
       "colorTheme": "rose",
-      "isPublic": true
+      "isPublic": true,
+      "aiSchema": {
+        "items": [
+          {
+            "superTitle": {
+              "text": "string, Short text above main title [ai]"
+            },
+            "action": {
+              "title": "string, Header text above actions [ai]",
+              "variant": "string, Action type format [ai]",
+              "buttons": [
+                {
+                  "label": "string, Button text [ai]",
+                  "href": "string, Button link URL or /path [ai]",
+                  "theme": "string, Button color scheme [ai]",
+                  "design": "string, Button visual style [ai]"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "demo": {
+        "templateId": "sliderCinema",
+        "title": "Visual Storytelling Guide",
+        "description": "Learn how to create high-impact, conversion-focused sliders"
+      }
     },
     {
       "templateId": "galleryMasonry",
@@ -241,7 +650,10 @@
       ],
       "icon": "i-tabler-library-photo",
       "colorTheme": "emerald",
-      "isPublic": true
+      "isPublic": true,
+      "demo": {
+        "templateId": "galleryMasonry"
+      }
     },
     {
       "templateId": "modalMedia",
@@ -254,7 +666,10 @@
       ],
       "icon": "i-tabler-player-play",
       "colorTheme": "pink",
-      "isPublic": true
+      "isPublic": true,
+      "demo": {
+        "templateId": "features"
+      }
     },
     {
       "templateId": "contentTour",
@@ -267,7 +682,34 @@
       ],
       "icon": "i-tabler-compass",
       "colorTheme": "cyan",
-      "isPublic": true
+      "isPublic": true,
+      "aiSchema": {
+        "items": [
+          {
+            "title": "string, Main headline (3-13 words) [ai]",
+            "subTitle": "string, Supporting message (10-30 words) [ai]",
+            "superTitle": {
+              "text": "string, Short text above main title [ai]"
+            },
+            "caption": "string, Media description [ai]",
+            "action": {
+              "title": "string, Header text above actions [ai]",
+              "variant": "string, Action type format [ai]",
+              "buttons": [
+                {
+                  "label": "string, Button text [ai]",
+                  "href": "string, Button link URL or /path [ai]",
+                  "theme": "string, Button color scheme [ai]",
+                  "design": "string, Button visual style [ai]"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "demo": {
+        "templateId": "contentTour"
+      }
     },
     {
       "templateId": "convertCta",
@@ -279,7 +721,27 @@
       ],
       "icon": "i-tabler-speakerphone",
       "colorTheme": "red",
-      "isPublic": true
+      "isPublic": true,
+      "aiSchema": {
+        "superTitle": {
+          "text": "string, Short text above main title [ai]"
+        },
+        "action": {
+          "title": "string, Header text above actions [ai]",
+          "variant": "string, Action type format [ai]",
+          "buttons": [
+            {
+              "label": "string, Button text [ai]",
+              "href": "string, Button link URL or /path [ai]",
+              "theme": "string, Button color scheme [ai]",
+              "design": "string, Button visual style [ai]"
+            }
+          ]
+        }
+      },
+      "demo": {
+        "templateId": "convertCta"
+      }
     },
     {
       "templateId": "convertCapture",
@@ -292,7 +754,29 @@
       ],
       "icon": "i-tabler-mail",
       "colorTheme": "blue",
-      "isPublic": true
+      "isPublic": true,
+      "aiSchema": {
+        "superTitle": {
+          "text": "string, Short text above main title [ai]"
+        },
+        "title": "string, 5-7 word hook emphasizing key benefit (e.g. \"Get Weekly Growth Strategies\") [ai]",
+        "subTitle": "string, Specific outcome subscribers will achieve (e.g. \"Double conversions in 30 days\") [ai]",
+        "action": {
+          "title": "string, Header text above actions [ai]",
+          "variant": "string, Action type format [ai]",
+          "buttons": [
+            {
+              "label": "string, Button text [ai]",
+              "href": "string, Button link URL or /path [ai]",
+              "theme": "string, Button color scheme [ai]",
+              "design": "string, Button visual style [ai]"
+            }
+          ]
+        }
+      },
+      "demo": {
+        "templateId": "convertCapture"
+      }
     },
     {
       "templateId": "convertContact",
@@ -305,7 +789,24 @@
       ],
       "icon": "i-tabler-mail-fast",
       "colorTheme": "blue",
-      "isPublic": true
+      "isPublic": true,
+      "aiSchema": {
+        "action": {
+          "title": "string, Header text above actions [ai]",
+          "variant": "string, Action type format [ai]",
+          "buttons": [
+            {
+              "label": "string, Button text [ai]",
+              "href": "string, Button link URL or /path [ai]",
+              "theme": "string, Button color scheme [ai]",
+              "design": "string, Button visual style [ai]"
+            }
+          ]
+        }
+      },
+      "demo": {
+        "templateId": "convertContact"
+      }
     },
     {
       "templateId": "convertPricing",
@@ -318,7 +819,10 @@
       ],
       "icon": "i-tabler-report-money",
       "colorTheme": "emerald",
-      "isPublic": true
+      "isPublic": true,
+      "demo": {
+        "templateId": "convertPricing"
+      }
     },
     {
       "templateId": "locationMaps",
@@ -330,7 +834,10 @@
       ],
       "icon": "i-tabler-map-2",
       "colorTheme": "blue",
-      "isPublic": true
+      "isPublic": true,
+      "demo": {
+        "templateId": "locationMaps"
+      }
     },
     {
       "templateId": "pageArea",
@@ -343,7 +850,10 @@
       ],
       "icon": "i-tabler-layout-board",
       "colorTheme": "blue",
-      "isPublic": true
+      "isPublic": true,
+      "demo": {
+        "templateId": "pageArea"
+      }
     },
     {
       "templateId": "pageNav",
@@ -355,7 +865,10 @@
       ],
       "icon": "i-tabler-menu-2",
       "colorTheme": "green",
-      "isPublic": true
+      "isPublic": true,
+      "demo": {
+        "templateId": "pageNav"
+      }
     },
     {
       "templateId": "pageFooterPro",
@@ -367,7 +880,38 @@
       ],
       "icon": "i-tabler-box-align-bottom",
       "colorTheme": "blue",
-      "isPublic": true
+      "isPublic": true,
+      "aiSchema": {
+        "brand": {
+          "action": {
+            "title": "string, Header text above actions [ai]",
+            "variant": "string, Action type format [ai]",
+            "buttons": [
+              {
+                "label": "string, Button text [ai]",
+                "href": "string, Button link URL or /path [ai]",
+                "theme": "string, Button color scheme [ai]",
+                "design": "string, Button visual style [ai]"
+              }
+            ]
+          }
+        },
+        "badges": {
+          "title": "string, Header text above actions [ai]",
+          "variant": "string, Action type format [ai]",
+          "buttons": [
+            {
+              "label": "string, Button text [ai]",
+              "href": "string, Button link URL or /path [ai]",
+              "theme": "string, Button color scheme [ai]",
+              "design": "string, Button visual style [ai]"
+            }
+          ]
+        }
+      },
+      "demo": {
+        "templateId": "pageFooterPro"
+      }
     },
     {
       "templateId": "pageFooterPersonal",
@@ -379,7 +923,26 @@
       ],
       "icon": "i-tabler-layout-bottombar",
       "colorTheme": "violet",
-      "isPublic": true
+      "isPublic": true,
+      "aiSchema": {
+        "brand": {
+          "action": {
+            "title": "string, Header text above actions [ai]",
+            "variant": "string, Action type format [ai]",
+            "buttons": [
+              {
+                "label": "string, Button text [ai]",
+                "href": "string, Button link URL or /path [ai]",
+                "theme": "string, Button color scheme [ai]",
+                "design": "string, Button visual style [ai]"
+              }
+            ]
+          }
+        }
+      },
+      "demo": {
+        "templateId": "pageFooterPersonal"
+      }
     },
     {
       "templateId": "mediaMarquee",
@@ -392,7 +955,10 @@
       ],
       "icon": "i-tabler-carousel-horizontal",
       "colorTheme": "pink",
-      "isPublic": true
+      "isPublic": true,
+      "demo": {
+        "templateId": "mediaMarquee"
+      }
     },
     {
       "templateId": "sliderOverlay",
@@ -405,7 +971,18 @@
       ],
       "icon": "i-tabler-layers-intersect",
       "colorTheme": "teal",
-      "isPublic": true
+      "isPublic": true,
+      "aiSchema": {
+        "slides": [
+          {
+            "title": "string, Primary headline [ai]",
+            "subTitle": "string, Supporting headline [ai]"
+          }
+        ]
+      },
+      "demo": {
+        "templateId": "sliderOverlay"
+      }
     },
     {
       "templateId": "typographyTicker",
@@ -418,7 +995,10 @@
       ],
       "icon": "i-tabler-arrow-autofit-width",
       "colorTheme": "blue",
-      "isPublic": true
+      "isPublic": true,
+      "demo": {
+        "templateId": "typographyTicker"
+      }
     },
     {
       "templateId": "galleryParallaxScroll",
@@ -430,7 +1010,28 @@
       ],
       "icon": "i-tabler-route",
       "colorTheme": "cyan",
-      "isPublic": true
+      "isPublic": true,
+      "aiSchema": {
+        "items": [
+          {
+            "action": {
+              "title": "string, Header text above actions [ai]",
+              "variant": "string, Action type format [ai]",
+              "buttons": [
+                {
+                  "label": "string, Button text [ai]",
+                  "href": "string, Button link URL or /path [ai]",
+                  "theme": "string, Button color scheme [ai]",
+                  "design": "string, Button visual style [ai]"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "demo": {
+        "templateId": "galleryParallaxScroll"
+      }
     },
     {
       "templateId": "typographyFitText",
@@ -443,7 +1044,10 @@
       ],
       "icon": "i-tabler-text-size",
       "colorTheme": "indigo",
-      "isPublic": true
+      "isPublic": true,
+      "demo": {
+        "templateId": "typographyFitText"
+      }
     },
     {
       "templateId": "effectText",
@@ -455,7 +1059,10 @@
       ],
       "icon": "i-tabler-text-size",
       "colorTheme": "indigo",
-      "isPublic": true
+      "isPublic": true,
+      "demo": {
+        "templateId": "contentHero"
+      }
     }
   ]
 }

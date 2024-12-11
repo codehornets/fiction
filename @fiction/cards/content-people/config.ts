@@ -1,6 +1,6 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { StockMedia } from '@fiction/ui/stock/index.js'
-import { ActionAreaSchema, MediaBasicSchema, NavListItemSchema, PostSchema } from '@fiction/core'
+import { PostSchema } from '@fiction/core'
 import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
@@ -14,12 +14,11 @@ const MemberSchema = PostSchema.pick({
 })
 
 const schema = z.object({
-  layout: z.enum(['mediabox', 'grid']).optional(),
-  title: z.string().optional(),
-  subTitle: z.string().optional(),
-  profiles: z.array(MemberSchema).optional(),
+  layout: z.enum(['mediabox', 'grid']).optional().describe('Team display format'),
+  title: z.string().optional().describe('Team section title [ai]'),
+  subTitle: z.string().optional().describe('Team description [ai]'),
+  profiles: z.array(MemberSchema).optional().describe('Team member list [ai]'),
 })
-
 export type UserConfig = z.infer<typeof schema>
 type MemberConfig = z.infer<typeof MemberSchema>
 

@@ -5,23 +5,21 @@ import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
 const LayerMediaScheme = z.object({
-  media: z.object({ url: z.string().optional() }).optional(),
-  position: z.enum(['top', 'bottom', 'left', 'right', 'center', 'bottomRight', 'topRight', 'bottomLeft', 'topLeft']).optional(),
-  widthPercent: z.number().optional(),
+  media: MediaBasicSchema.optional().describe('Layer image [ai]'),
+  position: z.enum(['top', 'bottom', 'left', 'right', 'center', 'bottomRight', 'topRight', 'bottomLeft', 'topLeft']).optional().describe('Layer placement'),
+  widthPercent: z.number().optional().describe('Layer width %'),
 })
 
-// Core schema defining all hero section capabilities
 export const schema = z.object({
-  layout: z.enum(['justify', 'center', 'left', 'right']).optional().describe('Visual arrangement of content - affects text and image positioning'),
-  title: z.string().optional().describe('Primary headline that captures attention (3-13 words) [ai]'),
-  subTitle: z.string().optional().describe('Supporting message that explains your value proposition (10-30 words) [ai]'),
-  superTitle: SuperTitleSchema.optional().describe('Eyebrow text with icon and color [ai]'),
-  media: MediaBasicSchema.optional().describe('Hero\'s focal image or illustration [ai]'),
-  caption: z.string().optional().describe('Optional text description for the splash image'),
-  action: ActionAreaSchema.optional().describe('Primary call-to-action area'),
-  overlays: z.array(LayerMediaScheme).optional().describe('Decorative image layers for visual depth [ai]'),
+  layout: z.enum(['justify', 'center', 'left', 'right']).optional().describe('Content alignment'),
+  title: z.string().optional().describe('Main headline (3-13 words) [ai]'),
+  subTitle: z.string().optional().describe('Supporting message (10-30 words) [ai]'),
+  superTitle: SuperTitleSchema.optional().describe('Small text above title [ai]'),
+  media: MediaBasicSchema.optional().describe('Primary visual'),
+  caption: z.string().optional().describe('Media description [ai]'),
+  action: ActionAreaSchema.optional().describe('Call-to-action buttons [ai]'),
+  overlays: z.array(LayerMediaScheme).optional().describe('Decorative image layers'),
 })
-
 type UserConfig = z.infer<typeof schema>
 
 // Default configuration showcasing best practices

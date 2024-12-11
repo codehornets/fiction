@@ -1245,6 +1245,9 @@ importers:
       '@fiction/theme-fiction':
         specifier: workspace:*
         version: link:../themes/fiction
+      '@fiction/theme-prestige':
+        specifier: workspace:*
+        version: link:../themes/prestige
       playwright:
         specifier: ^1.49.0
         version: 1.49.0

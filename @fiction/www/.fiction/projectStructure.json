@@ -1136,6 +1136,7 @@
       "cardFactory.ts": null,
       "cardQuery.ts": null,
       "cardStandard.ts": null,
+      "classification.ts": null,
       "endpoint-certs.ts": null,
       "endpoint.ts": null,
       "generation.ts": null,
@@ -1389,6 +1390,11 @@
         "index.ts": null,
         "package.json": null
       },
+      "prestige": {
+        "config.ts": null,
+        "index.ts": null,
+        "package.json": null
+      },
       "spec.md": null
     },
     "ui": {
@@ -1461,8 +1467,8 @@
         "EffectParallax.vue": null,
         "EffectParallaxBackground.vue": null,
         "EffectScrollReveal.vue": null,
-        "EffectShape.vue": null,
         "EffectShootingStar.vue": null,
+        "XShape.vue": null,
         "utilFitText.ts": null
       },
       "entry.less": null,

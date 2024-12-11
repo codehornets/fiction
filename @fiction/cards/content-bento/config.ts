@@ -6,29 +6,30 @@ import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
 const BentoItemSchema = z.object({
+  // Content Elements
+  superTitle: SuperTitleSchema.optional().describe('Short attention-grabbing text above title [ai]'),
+  title: z.string().optional().describe('Main headline for this content box [ai]'),
+  content: z.string().optional().describe('Supporting text that expands on your title - aim for 1-2 sentences [ai]'),
+  media: MediaDisplaySchema.optional().describe('Visual content to display in this box [ai]'),
+  href: z.string().optional().describe('Make entire box clickable'),
+  action: ActionAreaSchema.optional().describe('Add buttons or interactive elements [ai]'),
 
-  // content
-  superTitle: SuperTitleSchema.optional(),
-  title: z.string().optional(),
-  content: z.string().optional(),
-  media: MediaDisplaySchema.optional(),
-  href: z.string().optional(),
-  action: ActionAreaSchema.optional(),
-  // style
-  bg: MediaDisplaySchema.optional(),
-  theme: z.enum(colorThemeUser).optional(),
-  themeMode: z.enum(['light', 'dark', 'auto']).optional(),
-  // layout
-  cols: z.number().min(1).max(12).optional(),
-  rows: z.number().min(1).max(12).optional(),
-  verticalPosition: z.enum(['top', 'center', 'bottom']).optional(),
-  horizontalPosition: z.enum(['left', 'center', 'right']).optional(),
+  // Visual Style
+  bg: MediaDisplaySchema.optional().describe('Background image or video [ai]'),
+  theme: z.enum(colorThemeUser).optional().describe('Color theme for this box'),
+  themeMode: z.enum(['light', 'dark', 'auto']).optional().describe('Adjust content contrast against background'),
+
+  // Layout Controls
+  cols: z.number().min(1).max(12).optional().describe('Box width in columns (1-12)'),
+  rows: z.number().min(1).max(12).optional().describe('Box height in rows (1-12)'),
+  verticalPosition: z.enum(['top', 'center', 'bottom']).optional().describe('Vertical content alignment'),
+  horizontalPosition: z.enum(['left', 'center', 'right']).optional().describe('Horizontal content alignment'),
 })
 
 export const schema = z.object({
-  items: z.array(BentoItemSchema),
-  gapSize: SizeSchema.optional(),
-  animate: z.enum(['expand', 'swipe', '']).optional(),
+  items: z.array(BentoItemSchema).describe('Collection of content boxes in grid layout [ai]'),
+  gapSize: SizeSchema.optional().describe('Spacing between boxes'),
+  animate: z.enum(['expand', 'swipe', '']).optional().describe('Animation style for box appearance'),
 })
 
 export type BentoItem = z.infer<typeof BentoItemSchema>

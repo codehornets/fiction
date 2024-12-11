@@ -6,29 +6,27 @@ import { z } from 'zod'
 
 // Individual feature schema
 const featureSchema = z.object({
-  title: z.string().optional(),
-  description: z.string().optional(),
-  href: z.string().optional(),
-  icon: MediaIconSchema.optional(),
-  color: z.enum(colorThemeUser).optional(),
-  action: ActionAreaSchema.optional(),
-  // Masonry column width
-  columns: z.enum(['1', '2', '3', '4', '5', '6']).optional(),
+  title: z.string().optional().describe('Feature name or headline [ai]'),
+  description: z.string().optional().describe('Feature explanation text [ai]'),
+  href: z.string().optional().describe('Link destination'),
+  icon: MediaIconSchema.optional().describe('Visual representation [ai]'),
+  color: z.enum(colorThemeUser).optional().describe('Feature color theme'),
+  action: ActionAreaSchema.optional().describe('Interactive buttons [ai]'),
+  columns: z.enum(['1', '2', '3', '4', '5', '6']).optional().describe('Width in masonry layout'),
 })
 
-// Main schema remains similar but updates column options
 export const schema = z.object({
   layout: z.object({
-    style: z.enum(['grid', 'masonry', 'cards', 'carousel']).optional(),
-    columns: z.enum(['2', '3', '4', '5', '6']).optional(),
-    spacing: z.enum(['tight', 'normal', 'relaxed']).optional(),
-    align: z.enum(['left', 'center']).optional(),
-  }).optional(),
-  features: z.array(featureSchema).optional(),
+    style: z.enum(['grid', 'masonry', 'cards', 'carousel']).optional().describe('Display format'),
+    columns: z.enum(['2', '3', '4', '5', '6']).optional().describe('Grid columns count'),
+    spacing: z.enum(['tight', 'normal', 'relaxed']).optional().describe('Gap between features'),
+    align: z.enum(['left', 'center']).optional().describe('Content alignment'),
+  }).optional().describe('Layout settings'),
+  features: z.array(featureSchema).optional().describe('Feature list items [ai]'),
   style: z.object({
-    iconSize: SizeSchema.optional(),
-    iconStyle: z.enum(['outline', 'solid', 'duotone']).optional(),
-  }).optional(),
+    iconSize: SizeSchema.optional().describe('Icon dimensions'),
+    iconStyle: z.enum(['outline', 'solid', 'duotone']).optional().describe('Icon visual style'),
+  }).optional().describe('Visual preferences'),
 })
 
 export type FeatureConfig = z.infer<typeof featureSchema>

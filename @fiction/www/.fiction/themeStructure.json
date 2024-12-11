@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generatedAt": "2024-12-09T07:44:59.764Z",
+  "generatedAt": "2024-12-11T05:16:28.788Z",
   "theme": [
     {
       "themeId": "minimal",
@@ -17,48 +17,46 @@
       "config": {
         "userConfig": {
           "site": {
-            "styling": {
-              "fonts": {
-                "mono": {
-                  "family": "DM Mono",
-                  "stack": "monospace"
-                },
-                "input": {
-                  "family": "DM Mono",
-                  "stack": "sans"
-                },
-                "title": {
-                  "family": "Poppins",
-                  "stack": "sans"
-                },
-                "sans": {
-                  "family": "Plus+Jakarta+Sans",
-                  "stack": "sans"
-                },
-                "body": {
-                  "stack": "serif"
-                },
-                "serif": {
-                  "stack": "serif"
-                },
-                "highlight": {
-                  "family": "Caveat",
-                  "stack": "sans"
-                }
+            "fonts": {
+              "mono": {
+                "family": "DM Mono",
+                "stack": "monospace"
               },
-              "prefersColorScheme": "dark"
-            }
+              "input": {
+                "family": "DM Mono",
+                "stack": "sans"
+              },
+              "title": {
+                "family": "Poppins",
+                "stack": "sans"
+              },
+              "sans": {
+                "family": "Plus+Jakarta+Sans",
+                "stack": "sans"
+              },
+              "body": {
+                "stack": "serif"
+              },
+              "serif": {
+                "stack": "serif"
+              },
+              "highlight": {
+                "family": "Caveat",
+                "stack": "sans"
+              }
+            },
+            "prefersColorScheme": "dark"
           }
         },
         "pages": [
           {
-            "cardId": "crd67569ffbc75beec61fa7613a",
+            "cardId": "crd6759202c82def441bc6e0056",
             "templateId": "pageWrap",
             "slug": "_home",
             "cards": [
               {
-                "parentId": "crd67569ffbc75beec61fa7613a",
-                "cardId": "crd67569ffba23f3fb17ca88139",
+                "parentId": "crd6759202c82def441bc6e0056",
+                "cardId": "crd6759202cdba32fbd36f18df1",
                 "templateId": "contentProfile",
                 "userConfig": {
                   "superTitle": {
@@ -70,22 +68,25 @@
                     {
                       "media": {
                         "format": "image",
-                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556355/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_189de993-3771-4a77-8b5a-6e080ca07673_qwcrkh.png",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441017/arpowers_minimal_stock_background_for_profile_photo_professiona_3be631fa-0377-4636-9d51-4e015030eed9_fhj8jk.png",
                         "tags": [
                           "annotated",
                           "aspect:portrait",
                           "aspect:square",
                           "color:warm",
-                          "object",
+                          "man",
+                          "person",
+                          "silhouette",
+                          "woman",
                           "image"
                         ],
-                        "slug": "arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_189de993-3771-4a77-8b5a-6e080ca07673_qwcrkh"
+                        "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_3be631fa-0377-4636-9d51-4e015030eed9_fhj8jk"
                       }
                     },
                     {
                       "media": {
                         "format": "image",
-                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556310/arpowers_minimal_midshot_photo_of_object_1990s_style_futuristic_59c5e3d3-695e-4a03-88ac-ca87bff23762_pyzzqu.png",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556306/arpowers_minimal_midshot_photo_of_object_1990s_style_futuristic_14001eab-faa2-4c3d-a043-321b080b73cd_juorma.png",
                         "tags": [
                           "annotated",
                           "aspect:portrait",
@@ -94,7 +95,7 @@
                           "object",
                           "image"
                         ],
-                        "slug": "arpowers_minimal_midshot_photo_of_object_1990s_style_futuristic_59c5e3d3-695e-4a03-88ac-ca87bff23762_pyzzqu"
+                        "slug": "arpowers_minimal_midshot_photo_of_object_1990s_style_futuristic_14001eab-faa2-4c3d-a043-321b080b73cd_juorma"
                       }
                     }
                   ],
@@ -165,8 +166,8 @@
                 "depth": 1
               },
               {
-                "parentId": "crd67569ffbc75beec61fa7613a",
-                "cardId": "crd67569ffbfd18b5ff70227cd2",
+                "parentId": "crd6759202c82def441bc6e0056",
+                "cardId": "crd6759202c3a37f34a9decffdd",
                 "templateId": "contentBento",
                 "userConfig": {
                   "items": [
@@ -222,13 +223,13 @@
                       "content": "Add media or background images to create visual interest.",
                       "bg": {
                         "format": "video",
-                        "url": "https://res.cloudinary.com/fiction-com-inc/video/upload/f_auto,q_auto/v1724634798/replicate-prediction-fxwj2q8gedrj60chhgwbdst1qm_dulqpf.mp4",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/video/upload/f_auto,q_auto/v1724634795/replicate-prediction-72wpc12x35rj00chhgqregjfn8_szl5ln.mp4",
                         "tags": [
                           "aspect:landscape",
                           "background",
                           "video"
                         ],
-                        "slug": "replicate-prediction-fxwj2q8gedrj60chhgwbdst1qm_dulqpf",
+                        "slug": "replicate-prediction-72wpc12x35rj00chhgqregjfn8_szl5ln",
                         "overlay": {
                           "opacity": 0.4
                         }
@@ -254,8 +255,8 @@
                 "depth": 1
               },
               {
-                "parentId": "crd67569ffbc75beec61fa7613a",
-                "cardId": "crd67569ffbc6ee4914e4c0266f",
+                "parentId": "crd6759202c82def441bc6e0056",
+                "cardId": "crd6759202cf55f3661549abe6c",
                 "templateId": "proofQuotes",
                 "userConfig": {
                   "quotes": [
@@ -268,10 +269,9 @@
                         "subLabel": "Marketing Director",
                         "media": {
                           "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441072/arpowers_incredibly_beautiful_headshot_of_woman_business_attire_2c622864-6457-4f8f-90c1-f592457cbfd1_vcipik.png",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441025/arpowers_interesting_profile_photo_interesting_beautiful_man_or_60087bac-d62b-4a12-b8ac-7557b9a95a78_grsgn6.png",
                           "tags": [
                             "annotated",
-                            "aspect:landscape",
                             "aspect:square",
                             "color:warm",
                             "headshot",
@@ -280,7 +280,7 @@
                             "woman",
                             "image"
                           ],
-                          "slug": "arpowers_incredibly_beautiful_headshot_of_woman_business_attire_2c622864-6457-4f8f-90c1-f592457cbfd1_vcipik"
+                          "slug": "arpowers_interesting_profile_photo_interesting_beautiful_man_or_60087bac-d62b-4a12-b8ac-7557b9a95a78_grsgn6"
                         }
                       },
                       "org": {
@@ -315,12 +315,8 @@
             ],
             "userConfig": {
               "standard": {
-                "spacing": {
-                  "verticalSpacing": "none"
-                },
-                "handling": {
-                  "showOnSingle": true
-                }
+                "spaceSize": "none",
+                "showOnSingle": true
               }
             },
             "regionId": "main",
@@ -329,19 +325,17 @@
             "effects": []
           },
           {
-            "cardId": "crd67569ffb2862ade9b1d255ab",
+            "cardId": "crd6759202c037c21a4f681feb3",
             "templateId": "pageWrap",
             "slug": "blog",
             "cards": [
               {
-                "parentId": "crd67569ffb2862ade9b1d255ab",
-                "cardId": "crd67569ffb84a7896d6fc0290d",
+                "parentId": "crd6759202c037c21a4f681feb3",
+                "cardId": "crd6759202c96f3c111ea5f6750",
                 "templateId": "postsMagazine",
                 "userConfig": {
                   "standard": {
-                    "handling": {
-                      "showOnSingle": true
-                    },
+                    "showOnSingle": true,
                     "headers": {
                       "title": "Latest Articles",
                       "subTitle": "Discover our latest insights and stories"
@@ -361,15 +355,19 @@
                             "title": "Data Journalist",
                             "email": "marcus@example.com",
                             "avatar": {
-                              "format": "video",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/video/upload/f_auto,q_auto/v1724637812/replicate-prediction-e42s7rjkp1rj00chhhks5benkc_npfs6e.mp4",
+                              "format": "image",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724440983/arpowers_minimal_stock_background_for_profile_photo_professiona_e88ac2a8-eeb3-42e0-9edb-43e7361f0aaf_t6cfzb.png",
                               "tags": [
-                                "aspect:landscape",
+                                "annotated",
+                                "aspect:portrait",
+                                "color:warm",
+                                "man",
+                                "midshot",
                                 "person",
-                                "video",
-                                "woman"
+                                "silhouette",
+                                "image"
                               ],
-                              "slug": "replicate-prediction-e42s7rjkp1rj00chhhks5benkc_npfs6e"
+                              "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_e88ac2a8-eeb3-42e0-9edb-43e7361f0aaf_t6cfzb"
                             }
                           }
                         ],
@@ -385,15 +383,16 @@
                         ],
                         "media": {
                           "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1726725066/arpowers_Minimalist_futuristic_interpretation_of_a_athena_elega_12401039-7649-4181-b070-c01767c3a9e9_v3x3s3.png",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556219/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_14486649-e275-41ce-8214-aebf8f6d0a1a_jse0bc.png",
                           "tags": [
+                            "annotated",
                             "aspect:landscape",
-                            "color:warm",
-                            "image",
+                            "aspect:square",
+                            "color:cool",
                             "object",
-                            "annotated"
+                            "image"
                           ],
-                          "slug": "arpowers_Minimalist_futuristic_interpretation_of_a_athena_elega_12401039-7649-4181-b070-c01767c3a9e9_v3x3s3"
+                          "slug": "arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_14486649-e275-41ce-8214-aebf8f6d0a1a_jse0bc"
                         },
                         "dateAt": "2024-03-18T00:00:00.000Z"
                       },
@@ -407,19 +406,22 @@
                             "title": "SEO Strategist",
                             "email": "priya@example.com",
                             "avatar": {
-                              "format": "video",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/video/upload/f_auto,q_auto/v1724637814/replicate-prediction-722gmphkzhrj00chhhkvjd46hg_pmxb3i.mp4",
+                              "format": "image",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441081/arpowers_minimal_stock_background_for_profile_photo_professiona_eb177108-8f40-42aa-bb03-af178461afe4_1_v8exxm.png",
                               "tags": [
+                                "annotated",
                                 "aspect:landscape",
+                                "color:warm",
                                 "man",
+                                "midshot",
                                 "person",
-                                "video"
+                                "image"
                               ],
-                              "slug": "replicate-prediction-722gmphkzhrj00chhhkvjd46hg_pmxb3i"
+                              "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_eb177108-8f40-42aa-bb03-af178461afe4_1_v8exxm"
                             }
                           }
                         ],
-                        "content": "\n        <article>\n          <p><em>Remember the last time</em> you searched for something important? That feeling of finding exactly what you needed? That's not luck—it's strategic SEO at work. Let's make your content the answer people are searching for.</p>\n\n          <section>\n            <h2>The Truth About Modern SEO</h2>\n            <p>Forget everything you think you know about SEO. Imagine if ranking well was less about technical tricks and more about genuinely understanding your readers. Let's explore how this shift changes everything.</p>\n\n            <div >\n              <div>\n                <h3>What Search Engines See</h3>\n                <ul style=\"margin: 16px 0;\">\n                  <li>\n                    <strong>Clear Structure</strong>\n                    <p>Notice how well-organized content ranks better? It's not coincidence.</p>\n                  </li>\n                  <li>\n                    <strong>Natural Language</strong>\n                    <p>What if your keywords flowed as naturally as a conversation?</p>\n                  </li>\n                  <li>\n                    <strong>Valuable Links</strong>\n                    <p>Think of links as virtual handshakes—they build trust.</p>\n                  </li>\n                </ul>\n              </div>\n\n              <div>\n                <h3>What Readers Experience</h3>\n                <ul style=\"margin: 16px 0;\">\n                  <li>\n                    <strong>Instant Relevance</strong>\n                    <p>Feel that moment when content perfectly matches your need?</p>\n                  </li>\n                  <li>\n                    <strong>Easy Navigation</strong>\n                    <p>Imagine finding everything you need without trying.</p>\n                  </li>\n                  <li>\n                    <strong>Complete Answers</strong>\n                    <p>What if every search led to a satisfying conclusion?</p>\n                  </li>\n                </ul>\n              </div>\n            </div>\n          </section>\n\n          <aside >\n            <h3>Your SEO Transformation Checklist</h3>\n            <p>Watch how your content changes when you focus on these elements:</p>\n            <ol style=\"margin: 16px 0;\">\n              <li>Is your content answering real questions?</li>\n              <li>Could a friend understand your headlines?</li>\n              <li>Does your page structure feel natural?</li>\n              <li>Are you using terms your audience uses?</li>\n            </ol>\n          </aside>\n\n          <div>\n            <h3 style=\"color: #166534;\">The Secret Most SEO Experts Won't Tell You</h3>\n            <p>The best SEO strategy is creating content so good, so useful, that people can't help but share it. Imagine your content becoming the go-to resource in your field.</p>\n          </div>\n\n          <p>Ready to see your content climb the rankings while genuinely helping your readers? Let's make your SEO work for both search engines and humans.</p>\n        </article>\n      ",
+                        "content": "\n        <article>\n          <p><em>Remember the last time</em> you searched for something important? That feeling of finding exactly what you needed? That's not luck—it's strategic SEO at work. Let's make your content the answer people are searching for.</p>\n\n          <section>\n            <h2>The Truth About Modern SEO</h2>\n            <p>Forget everything you think you know about SEO. Imagine if ranking well was less about technical tricks and more about genuinely understanding your readers. Let's explore how this shift changes everything.</p>\n\n            <div >\n              <div>\n                <h3>What Search Engines See</h3>\n                <ul style=\"margin: 16px 0;\">\n                  <li>\n                    <strong>Clear Structure</strong>\n                    <p>Notice how well-organized content ranks better? It's not coincidence.</p>\n                  </li>\n                  <li>\n                    <strong>Natural Language</strong>\n                    <p>What if your keywords flowed as naturally as a conversation?</p>\n                  </li>\n                  <li>\n                    <strong>Valuable Links</strong>\n                    <p>Think of links as virtual handshakes—they build trust.</p>\n                  </li>\n                </ul>\n              </div>\n\n              <div>\n                <h3>What Readers Experience</h3>\n                <ul style=\"margin: 16px 0;\">\n                  <li>\n                    <strong>Instant Relevance</strong>\n                    <p>Feel that moment when content perfectly matches your need?</p>\n                  </li>\n                  <li>\n                    <strong>Easy Navigation</strong>\n                    <p>Imagine finding everything you need without trying.</p>\n                  </li>\n                  <li>\n                    <strong>Complete Answers</strong>\n                    <p>What if every search led to a satisfying conclusion?</p>\n                  </li>\n                </ul>\n              </div>\n            </div>\n          </section>\n\n          <aside >\n            <h3>Your SEO Transformation Checklist</h3>\n            <p>Watch how your content changes when you focus on these elements:</p>\n            <ol style=\"margin: 16px 0;\">\n              <li>Is your content answering real questions?</li>\n              <li>Could a friend understand your headlines?</li>\n              <li>Does your page structure feel natural?</li>\n              <li>Are you using terms your audience uses?</li>\n            </ol>\n          </aside>\n\n          <div>\n            <h3>The Secret Most SEO Experts Won't Tell You</h3>\n            <p>The best SEO strategy is creating content so good, so useful, that people can't help but share it. Imagine your content becoming the go-to resource in your field.</p>\n          </div>\n\n          <p>Ready to see your content climb the rankings while genuinely helping your readers? Let's make your SEO work for both search engines and humans.</p>\n        </article>\n      ",
                         "excerpt": "Stop fighting algorithms and start connecting with readers. Discover how human-centered SEO transforms your search rankings.",
                         "categories": [
                           "SEO"
@@ -431,16 +433,15 @@
                         ],
                         "media": {
                           "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556293/arpowers_minimal_midshot_photo_of_object_2030s_futuristic_ancie_a797e9d2-5c50-4e55-a1f6-815dd167d8fc_cvorkh.png",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556283/arpowers_minimal_midshot_photo_of_object_futuristic_ancient_gre_5ef92f82-5327-4bbf-8446-05d855c08abc_yvhufx.png",
                           "tags": [
                             "annotated",
                             "aspect:portrait",
-                            "aspect:square",
-                            "color:warm",
+                            "color:cool",
                             "object",
                             "image"
                           ],
-                          "slug": "arpowers_minimal_midshot_photo_of_object_2030s_futuristic_ancie_a797e9d2-5c50-4e55-a1f6-815dd167d8fc_cvorkh"
+                          "slug": "arpowers_minimal_midshot_photo_of_object_futuristic_ancient_gre_5ef92f82-5327-4bbf-8446-05d855c08abc_yvhufx"
                         },
                         "dateAt": "2024-03-17T00:00:00.000Z"
                       },
@@ -455,18 +456,18 @@
                             "email": "sarah@example.com",
                             "avatar": {
                               "format": "image",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441018/arpowers_minimal_stock_background_for_profile_photo_professiona_8f8842a3-efb2-4ece-8b37-a52d99f2fb2b_rl7atx.png",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441076/arpowers_incredibly_beautiful_headshot_of_man_business_attire_S_677f1861-f2fb-42b0-b955-ca407ff7c68b_zbt072.png",
                               "tags": [
                                 "annotated",
                                 "aspect:landscape",
-                                "color:cool",
+                                "aspect:square",
+                                "color:warm",
+                                "man",
+                                "midshot",
                                 "person",
-                                "silhouette",
-                                "wideshot",
-                                "woman",
                                 "image"
                               ],
-                              "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_8f8842a3-efb2-4ece-8b37-a52d99f2fb2b_rl7atx"
+                              "slug": "arpowers_incredibly_beautiful_headshot_of_man_business_attire_S_677f1861-f2fb-42b0-b955-ca407ff7c68b_zbt072"
                             }
                           }
                         ],
@@ -482,15 +483,15 @@
                         ],
                         "media": {
                           "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556050/arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_2b2d7ef8-4024-48f9-b947-ec71a360ebbf_xu34zn.png",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1726725068/arpowers_minimal_mid_photo_of_famous_landmark_interesting_looki_f175193b-d8c8-451f-b5ac-78d4846cec27_s4t94r.png",
                           "tags": [
-                            "annotated",
-                            "aspect:wide",
-                            "color:cool",
+                            "aspect:landscape",
+                            "color:multi",
+                            "image",
                             "object",
-                            "image"
+                            "annotated"
                           ],
-                          "slug": "arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_2b2d7ef8-4024-48f9-b947-ec71a360ebbf_xu34zn"
+                          "slug": "arpowers_minimal_mid_photo_of_famous_landmark_interesting_looki_f175193b-d8c8-451f-b5ac-78d4846cec27_s4t94r"
                         },
                         "dateAt": "2024-03-20T00:00:00.000Z"
                       },
@@ -505,21 +506,20 @@
                             "email": "alex@example.com",
                             "avatar": {
                               "format": "image",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441065/arpowers_incredibly_beautiful_profile_photo_of_man_business_att_09fec68b-d18e-44a1-9d43-aee9cb66a073_udgefd.png",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724440972/arpowers_minimal_stock_background_for_profile_photo_professiona_8c9d8ca7-baed-4c38-a0c5-7280b9fd1aab_sv1wnv.png",
                               "tags": [
                                 "annotated",
-                                "aspect:landscape",
-                                "aspect:square",
-                                "color:cool",
+                                "aspect:portrait",
+                                "color:neutral",
                                 "man",
                                 "person",
                                 "image"
                               ],
-                              "slug": "arpowers_incredibly_beautiful_profile_photo_of_man_business_att_09fec68b-d18e-44a1-9d43-aee9cb66a073_udgefd"
+                              "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_8c9d8ca7-baed-4c38-a0c5-7280b9fd1aab_sv1wnv"
                             }
                           }
                         ],
-                        "content": "\n        <article>\n          <p><em>Imagine</em> your readers flowing effortlessly through your content, intuitively knowing where to look next. That's not magic—it's visual hierarchy at work. Let's explore how to create this seamless experience for your readers.</p>\n\n          <h2>The Secret Language of Visual Design</h2>\n\n          <p>Have you ever wondered why some blog posts feel professional while others seem amateur? The difference often lies in the subtle art of visual hierarchy. Let's decode this visual language together.</p>\n\n          <div>\n            <section>\n              <h3>Size & Scale</h3>\n              <p>Watch how your eye naturally moves to larger elements first. Notice how this natural behavior creates a visual journey through your content. What if you could harness this power to guide your readers exactly where you want them to go?</p>\n            </section>\n\n            <section>\n              <h3>Color & Contrast</h3>\n              <p>Feel the pull of contrasting elements, the way they catch your attention and direct your focus. Imagine using this powerful tool to highlight your most important messages.</p>\n            </section>\n          </div>\n\n          <aside>\n            <h3 style=\"color: #1e40af; margin-top: 0;\">Designer's Secret Weapon</h3>\n            <p>Picture your perfect reader skimming your content. Where do their eyes go first? Second? By understanding this journey, you can craft a visual experience that feels both natural and engaging.</p>\n          </aside>\n\n          <h2>Transform Your Blog's Visual Appeal</h2>\n\n          <ol >\n            <li>\n              <h4>Establish Clear Hierarchy</h4>\n              <p>See how different heading sizes create natural breakpoints in your content?</p>\n            </li>\n            <li>\n              <h4>Use White Space Strategically</h4>\n              <p>Notice how breathing room around elements makes them feel more important?</p>\n            </li>\n            <li>\n              <h4>Create Visual Patterns</h4>\n              <p>What if your design elements worked together to create a cohesive reading experience?</p>\n            </li>\n          </ol>\n\n          <div >\n            <h3 >Pro Tip That Changes Everything</h3>\n            <p>Always test your design with real content. Notice how beautiful typography with poor content hierarchy still fails to engage readers? That's why we always start with content strategy.</p>\n          </div>\n\n          <p>Ready to transform your blog's visual impact? Let's take your first step toward a more engaging design today.</p>\n        </article>\n      ",
+                        "content": "\n        <article>\n          <p><em>Imagine</em> your readers flowing effortlessly through your content, intuitively knowing where to look next. That's not magic—it's visual hierarchy at work. Let's explore how to create this seamless experience for your readers.</p>\n\n          <h2>The Secret Language of Visual Design</h2>\n\n          <p>Have you ever wondered why some blog posts feel professional while others seem amateur? The difference often lies in the subtle art of visual hierarchy. Let's decode this visual language together.</p>\n\n          <div>\n            <section>\n              <h3>Size & Scale</h3>\n              <p>Watch how your eye naturally moves to larger elements first. Notice how this natural behavior creates a visual journey through your content. What if you could harness this power to guide your readers exactly where you want them to go?</p>\n            </section>\n\n            <section>\n              <h3>Color & Contrast</h3>\n              <p>Feel the pull of contrasting elements, the way they catch your attention and direct your focus. Imagine using this powerful tool to highlight your most important messages.</p>\n            </section>\n          </div>\n\n          <aside>\n            <h3 style=\"margin-top: 0;\">Designer's Secret Weapon</h3>\n            <p>Picture your perfect reader skimming your content. Where do their eyes go first? Second? By understanding this journey, you can craft a visual experience that feels both natural and engaging.</p>\n          </aside>\n\n          <h2>Transform Your Blog's Visual Appeal</h2>\n\n          <ol >\n            <li>\n              <h4>Establish Clear Hierarchy</h4>\n              <p>See how different heading sizes create natural breakpoints in your content?</p>\n            </li>\n            <li>\n              <h4>Use White Space Strategically</h4>\n              <p>Notice how breathing room around elements makes them feel more important?</p>\n            </li>\n            <li>\n              <h4>Create Visual Patterns</h4>\n              <p>What if your design elements worked together to create a cohesive reading experience?</p>\n            </li>\n          </ol>\n\n          <div >\n            <h3 >Pro Tip That Changes Everything</h3>\n            <p>Always test your design with real content. Notice how beautiful typography with poor content hierarchy still fails to engage readers? That's why we always start with content strategy.</p>\n          </div>\n\n          <p>Ready to transform your blog's visual impact? Let's take your first step toward a more engaging design today.</p>\n        </article>\n      ",
                         "excerpt": "Master the invisible forces that guide your readers through your content. Transform your blog from chaotic to captivating through strategic visual design.",
                         "categories": [
                           "Design"
@@ -531,15 +531,16 @@
                         ],
                         "media": {
                           "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1726725066/arpowers_Minimalist_futuristic_interpretation_of_an_ancient_Gre_e3f548f9-8daa-4a3f-9e8f-16e6ef735eb2_c3cuko.png",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556310/arpowers_minimal_midshot_photo_of_object_1990s_style_futuristic_59c5e3d3-695e-4a03-88ac-ca87bff23762_pyzzqu.png",
                           "tags": [
+                            "annotated",
+                            "aspect:portrait",
                             "aspect:square",
                             "color:warm",
-                            "image",
                             "object",
-                            "annotated"
+                            "image"
                           ],
-                          "slug": "arpowers_Minimalist_futuristic_interpretation_of_an_ancient_Gre_e3f548f9-8daa-4a3f-9e8f-16e6ef735eb2_c3cuko"
+                          "slug": "arpowers_minimal_midshot_photo_of_object_1990s_style_futuristic_59c5e3d3-695e-4a03-88ac-ca87bff23762_pyzzqu"
                         },
                         "dateAt": "2024-03-19T00:00:00.000Z"
                       },
@@ -554,18 +555,18 @@
                             "email": "maya@example.com",
                             "avatar": {
                               "format": "image",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724443235/arpowers_minimal_midshot_photo_stylistic_attire_1990s_style_fut_151aeb1d-43c1-4253-9024-589479de3d89_cvvv2k.png",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724440988/arpowers_incredibly_beautiful_headshot_of_man_business_attire_S_dec9f064-6403-4ff1-8412-d84c0037363f_cteuch.png",
                               "tags": [
                                 "annotated",
                                 "aspect:landscape",
                                 "aspect:square",
-                                "color:cool",
+                                "color:warm",
+                                "man",
                                 "midshot",
                                 "person",
-                                "woman",
                                 "image"
                               ],
-                              "slug": "arpowers_minimal_midshot_photo_stylistic_attire_1990s_style_fut_151aeb1d-43c1-4253-9024-589479de3d89_cvvv2k"
+                              "slug": "arpowers_incredibly_beautiful_headshot_of_man_business_attire_S_dec9f064-6403-4ff1-8412-d84c0037363f_cteuch"
                             }
                           }
                         ],
@@ -581,15 +582,16 @@
                         ],
                         "media": {
                           "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556405/arpowers_close-up_photo_of_art_deco_statue_ancient_greek_ideal__95cb200f-30a0-478a-9737-f4846d630dde_kjx4qm.png",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1726725064/arpowers_Minimalist_futuristic_interpretation_of_a_poseiden_ele_1a9bb2c0-a94d-490b-b59a-854a1e41516f_g65add.png",
                           "tags": [
-                            "annotated",
-                            "aspect:square",
+                            "aspect:landscape",
                             "color:warm",
+                            "image",
+                            "man",
                             "object",
-                            "image"
+                            "annotated"
                           ],
-                          "slug": "arpowers_close-up_photo_of_art_deco_statue_ancient_greek_ideal__95cb200f-30a0-478a-9737-f4846d630dde_kjx4qm"
+                          "slug": "arpowers_Minimalist_futuristic_interpretation_of_a_poseiden_ele_1a9bb2c0-a94d-490b-b59a-854a1e41516f_g65add"
                         },
                         "dateAt": "2024-03-14T00:00:00.000Z"
                       },
@@ -604,18 +606,17 @@
                             "email": "david@example.com",
                             "avatar": {
                               "format": "image",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724443251/arpowers_minimal_midshot_photo_stylistic_attire_1990s_style_fut_dcf90573-20b3-4e04-81f0-148536257f1a_baqmvj.png",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441013/arpowers_minimal_stock_background_for_profile_photo_professiona_3dfbcab8-fc4a-4079-b5a8-2b81a26e24df_qoijpt.png",
                               "tags": [
                                 "annotated",
-                                "aspect:landscape",
-                                "aspect:square",
-                                "color:warm",
-                                "midshot",
+                                "aspect:portrait",
+                                "color:cool",
                                 "person",
+                                "silhouette",
                                 "woman",
                                 "image"
                               ],
-                              "slug": "arpowers_minimal_midshot_photo_stylistic_attire_1990s_style_fut_dcf90573-20b3-4e04-81f0-148536257f1a_baqmvj"
+                              "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_3dfbcab8-fc4a-4079-b5a8-2b81a26e24df_qoijpt"
                             }
                           }
                         ],
@@ -631,16 +632,15 @@
                         ],
                         "media": {
                           "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556153/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_e8b14321-4f8b-49a5-834f-ea5f44bc081c_xxcsqr.png",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556320/arpowers_minimal_midshot_photo_of_object_1990s_style_futuristic_d84c6546-f1a3-4171-8d57-bae4de7d33cd_kyjjmy.png",
                           "tags": [
                             "annotated",
-                            "aspect:landscape",
-                            "aspect:square",
+                            "aspect:portrait",
                             "color:warm",
                             "object",
-                            "image"
+                            "aspect:square"
                           ],
-                          "slug": "arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_e8b14321-4f8b-49a5-834f-ea5f44bc081c_xxcsqr"
+                          "slug": "arpowers_minimal_midshot_photo_of_object_1990s_style_futuristic_d84c6546-f1a3-4171-8d57-bae4de7d33cd_kyjjmy"
                         },
                         "dateAt": "2024-03-13T00:00:00.000Z"
                       },
@@ -655,20 +655,18 @@
                             "email": "emma@example.com",
                             "avatar": {
                               "format": "image",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724440973/arpowers_incredibly_beautiful_profile_photo_business_attire_Sil_d0620df0-00c5-47b5-b034-796e89ef935a_yr4uvl.png",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441028/arpowers_incredibly_beautiful_profile_photo_of_man_business_att_b0083721-ba4c-4499-8853-52422401ee30_iucdcx.png",
                               "tags": [
                                 "annotated",
                                 "aspect:landscape",
                                 "aspect:square",
                                 "color:warm",
-                                "nature",
-                                "people",
+                                "man",
                                 "person",
                                 "silhouette",
-                                "woman",
                                 "image"
                               ],
-                              "slug": "arpowers_incredibly_beautiful_profile_photo_business_attire_Sil_d0620df0-00c5-47b5-b034-796e89ef935a_yr4uvl"
+                              "slug": "arpowers_incredibly_beautiful_profile_photo_of_man_business_att_b0083721-ba4c-4499-8853-52422401ee30_iucdcx"
                             }
                           }
                         ],
@@ -684,15 +682,19 @@
                         ],
                         "media": {
                           "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1726725067/arpowers_Minimalist_futuristic_interpretation_of_an_zeus_elegan_21d60602-492a-42f2-826a-9d1d78b53531_yzlgtn.png",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724550009/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_8b17dc54-1507-49d5-a510-bb773a01043f_1_rch8du.png",
                           "tags": [
-                            "aspect:landscape",
-                            "color:multi",
-                            "image",
+                            "annotated",
+                            "aspect:portrait",
+                            "aspect:square",
+                            "color:warm",
+                            "man",
+                            "nature",
                             "object",
-                            "annotated"
+                            "people",
+                            "image"
                           ],
-                          "slug": "arpowers_Minimalist_futuristic_interpretation_of_an_zeus_elegan_21d60602-492a-42f2-826a-9d1d78b53531_yzlgtn"
+                          "slug": "arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_8b17dc54-1507-49d5-a510-bb773a01043f_1_rch8du"
                         },
                         "dateAt": "2024-03-12T00:00:00.000Z"
                       },
@@ -707,18 +709,17 @@
                             "email": "james@example.com",
                             "avatar": {
                               "format": "image",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724440988/arpowers_incredibly_beautiful_headshot_of_man_business_attire_231244fb-f6fe-4691-81d8-b9589fdfe711_2_ssm7dr.png",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441064/arpowers_incredibly_beautiful_profile_photo_of_man_business_att_b7b0bc9f-3f06-4d55-a205-5314d5c26b82_jvuipg.png",
                               "tags": [
                                 "annotated",
                                 "aspect:landscape",
                                 "aspect:square",
-                                "color:neutral",
+                                "color:warm",
                                 "man",
-                                "midshot",
                                 "person",
                                 "image"
                               ],
-                              "slug": "arpowers_incredibly_beautiful_headshot_of_man_business_attire_231244fb-f6fe-4691-81d8-b9589fdfe711_2_ssm7dr"
+                              "slug": "arpowers_incredibly_beautiful_profile_photo_of_man_business_att_b7b0bc9f-3f06-4d55-a205-5314d5c26b82_jvuipg"
                             }
                           }
                         ],
@@ -734,15 +735,15 @@
                         ],
                         "media": {
                           "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556054/arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_513c012c-bb86-41e0-8cc3-e035954b4ec9_juosks.png",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556463/arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_7919e58f-099d-4c04-99f9-717bd1f752b9_yx3gvm.png",
                           "tags": [
                             "annotated",
-                            "aspect:wide",
-                            "color:cool",
+                            "color:warm",
+                            "image",
                             "object",
-                            "image"
+                            "aspect:wide"
                           ],
-                          "slug": "arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_513c012c-bb86-41e0-8cc3-e035954b4ec9_juosks"
+                          "slug": "arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_7919e58f-099d-4c04-99f9-717bd1f752b9_yx3gvm"
                         },
                         "dateAt": "2024-03-11T00:00:00.000Z"
                       },
@@ -757,17 +758,18 @@
                             "email": "sophia@example.com",
                             "avatar": {
                               "format": "image",
-                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724441068/arpowers_incredibly_beautiful_headshot_of_man_business_attire_S_135cba10-4db3-4a9c-8443-71478135233b_vs9ee7.png",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724443239/arpowers_minimal_headshot_photo_met_gala_ancient_greek_beauty_c_272171b2-974e-489c-8ba9-3e807bf88152_x48hju.png",
                               "tags": [
                                 "annotated",
                                 "aspect:square",
                                 "color:warm",
                                 "headshot",
-                                "man",
                                 "person",
-                                "silhouette"
+                                "realistic",
+                                "woman",
+                                "image"
                               ],
-                              "slug": "arpowers_incredibly_beautiful_headshot_of_man_business_attire_S_135cba10-4db3-4a9c-8443-71478135233b_vs9ee7"
+                              "slug": "arpowers_minimal_headshot_photo_met_gala_ancient_greek_beauty_c_272171b2-974e-489c-8ba9-3e807bf88152_x48hju"
                             }
                           }
                         ],
@@ -783,15 +785,15 @@
                         ],
                         "media": {
                           "format": "image",
-                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1726725067/arpowers_Minimalist_futuristic_interpretation_of_a_aphrodite_el_f46ef008-6dab-4623-945e-fce9017b0f84_td7h3n.png",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1726725067/arpowers_Minimalist_futuristic_interpretation_of_an_zeus_elegan_21d60602-492a-42f2-826a-9d1d78b53531_yzlgtn.png",
                           "tags": [
                             "aspect:landscape",
-                            "color:warm",
+                            "color:multi",
                             "image",
                             "object",
                             "annotated"
                           ],
-                          "slug": "arpowers_Minimalist_futuristic_interpretation_of_a_aphrodite_el_f46ef008-6dab-4623-945e-fce9017b0f84_td7h3n"
+                          "slug": "arpowers_Minimalist_futuristic_interpretation_of_an_zeus_elegan_21d60602-492a-42f2-826a-9d1d78b53531_yzlgtn"
                         },
                         "dateAt": "2024-03-10T00:00:00.000Z"
                       }
@@ -814,12 +816,8 @@
             ],
             "userConfig": {
               "standard": {
-                "spacing": {
-                  "verticalSpacing": "none"
-                },
-                "handling": {
-                  "showOnSingle": true
-                }
+                "spaceSize": "none",
+                "showOnSingle": true
               }
             },
             "regionId": "main",
@@ -828,13 +826,13 @@
             "effects": []
           },
           {
-            "cardId": "crd67569ffb49ee09eb851d6808",
+            "cardId": "crd6759202c33f4eefbcc427c5b",
             "templateId": "pageWrap",
             "slug": "contact",
             "cards": [
               {
-                "parentId": "crd67569ffb49ee09eb851d6808",
-                "cardId": "crd67569ffb735a82dac033766f",
+                "parentId": "crd6759202c33f4eefbcc427c5b",
+                "cardId": "crd6759202c6ae201d8226e0dbd",
                 "templateId": "contentHero",
                 "userConfig": {
                   "title": "Contact Us",
@@ -858,8 +856,8 @@
                 "depth": 1
               },
               {
-                "parentId": "crd67569ffb49ee09eb851d6808",
-                "cardId": "crd67569ffb9b28cd2e1732c8da",
+                "parentId": "crd6759202c33f4eefbcc427c5b",
+                "cardId": "crd6759202c2d2cabe007b12ed8",
                 "templateId": "convertContact",
                 "userConfig": {
                   "layout": "right",
@@ -946,8 +944,8 @@
                 "depth": 1
               },
               {
-                "parentId": "crd67569ffb49ee09eb851d6808",
-                "cardId": "crd67569ffbb5bf2b6e4f7e4dba",
+                "parentId": "crd6759202c33f4eefbcc427c5b",
+                "cardId": "crd6759202cba2eca4cde39f768",
                 "templateId": "locationMaps",
                 "userConfig": {
                   "maps": [
@@ -984,12 +982,8 @@
             ],
             "userConfig": {
               "standard": {
-                "spacing": {
-                  "verticalSpacing": "none"
-                },
-                "handling": {
-                  "showOnSingle": true
-                }
+                "spaceSize": "none",
+                "showOnSingle": true
               }
             },
             "regionId": "main",
@@ -1000,19 +994,17 @@
         ],
         "sections": {
           "header": {
-            "cardId": "crd67569ffbdcc8c858a44a5b21",
+            "cardId": "crd6759202c823b16844e07aad6",
             "templateId": "pageArea",
             "regionId": "header",
             "cards": [
               {
-                "parentId": "crd67569ffbdcc8c858a44a5b21",
-                "cardId": "crd67569ffb796f58109ecd4a96",
+                "parentId": "crd6759202c823b16844e07aad6",
+                "cardId": "crd6759202cf8efaacbecb96dc7",
                 "templateId": "pageNav",
                 "userConfig": {
                   "standard": {
-                    "spacing": {
-                      "verticalSpacing": "xs"
-                    }
+                    "spaceSize": "xs"
                   },
                   "brand": {
                     "logo": {
@@ -1075,9 +1067,7 @@
             ],
             "userConfig": {
               "standard": {
-                "spacing": {
-                  "verticalSpacing": "none"
-                }
+                "spaceSize": "none"
               }
             },
             "isHome": false,
@@ -1085,13 +1075,13 @@
             "effects": []
           },
           "footer": {
-            "cardId": "crd67569ffb5d0a738ab57c75bb",
+            "cardId": "crd6759202c8f036954f0ec3a5d",
             "templateId": "pageArea",
             "regionId": "footer",
             "cards": [
               {
-                "parentId": "crd67569ffb5d0a738ab57c75bb",
-                "cardId": "crd67569ffb6b9f4f4bc4cabc32",
+                "parentId": "crd6759202c8f036954f0ec3a5d",
+                "cardId": "crd6759202c437e91ce2a02ee85",
                 "templateId": "typographyTicker",
                 "userConfig": {
                   "fontSize": 6,
@@ -1114,10 +1104,13 @@
                 "depth": 1
               },
               {
-                "parentId": "crd67569ffb5d0a738ab57c75bb",
-                "cardId": "crd67569ffbb213775fb845552f",
+                "parentId": "crd6759202c8f036954f0ec3a5d",
+                "cardId": "crd6759202cf8626b5dc7887ff7",
                 "templateId": "convertCta",
                 "userConfig": {
+                  "standard": {
+                    "spaceSize": "sm"
+                  },
                   "superTitle": {
                     "text": "Customizable CTA Section",
                     "icon": {
@@ -1174,11 +1167,6 @@
                         "thumbCount": 3
                       }
                     }
-                  },
-                  "standard": {
-                    "spacing": {
-                      "verticalSpacing": "sm"
-                    }
                   }
                 },
                 "regionId": "footer",
@@ -1189,8 +1177,8 @@
                 "depth": 1
               },
               {
-                "parentId": "crd67569ffb5d0a738ab57c75bb",
-                "cardId": "crd67569ffb3418325a7c44dd39",
+                "parentId": "crd6759202c8f036954f0ec3a5d",
+                "cardId": "crd6759202ca4aee05b2b5fb715",
                 "templateId": "pageFooterPersonal",
                 "userConfig": {
                   "brand": {
@@ -1200,53 +1188,32 @@
                         "label": "Minimal"
                       }
                     },
-                    "tagline": "Minimal Theme by Fiction"
+                    "tagline": "Be an essentialist"
                   },
                   "menus": [
                     {
-                      "title": "Discover",
+                      "title": "Join the Movement",
                       "items": [
                         {
-                          "label": "Our Vision",
-                          "href": "/about",
+                          "label": "Creator Academy",
+                          "href": "/academy",
                           "icon": {
-                            "iconId": "eye"
+                            "iconId": "school"
                           }
                         },
                         {
-                          "label": "Services",
-                          "href": "/services",
+                          "label": "Community Hub",
+                          "href": "/community",
                           "icon": {
-                            "iconId": "star"
+                            "iconId": "users"
                           }
                         },
                         {
-                          "label": "Success Stories",
-                          "href": "/case-studies",
+                          "label": "Support My Work",
+                          "href": "/support",
                           "icon": {
-                            "iconId": "trophy"
+                            "iconId": "heart"
                           }
-                        }
-                      ]
-                    },
-                    {
-                      "title": "Connect",
-                      "items": [
-                        {
-                          "label": "Schedule a Call",
-                          "href": "/contact",
-                          "icon": {
-                            "iconId": "calendar"
-                          },
-                          "description": "Book a 30-min strategy session"
-                        },
-                        {
-                          "label": "Join Newsletter",
-                          "href": "/newsletter",
-                          "icon": {
-                            "iconId": "mail"
-                          },
-                          "description": "Weekly insights on digital growth"
                         }
                       ]
                     }
@@ -1254,20 +1221,20 @@
                   "additional": {
                     "list1": [
                       {
-                        "label": "Privacy Promise",
-                        "href": "/privacy"
+                        "label": "Creator Terms",
+                        "href": "/terms"
                       },
                       {
-                        "label": "Terms of Delight",
-                        "href": "/terms"
+                        "label": "Content Policy",
+                        "href": "/content-policy"
                       }
                     ],
                     "list2": [
                       {
-                        "label": "© 2024 Brand Visionaries. Crafting Digital Excellence."
+                        "label": "© 2024 Name | Creator Economy Advocate"
                       },
                       {
-                        "label": "Made with ♥ and Fiction"
+                        "label": "Part of the Fiction Creator Network"
                       }
                     ]
                   }
@@ -1282,9 +1249,7 @@
             ],
             "userConfig": {
               "standard": {
-                "spacing": {
-                  "verticalSpacing": "none"
-                }
+                "spaceSize": "none"
               }
             },
             "isHome": false,
@@ -1292,12 +1257,12 @@
             "effects": []
           },
           "hidden": {
-            "cardId": "crd67569ffbe262198fa4f659c7",
+            "cardId": "crd6759202c9ac6c3070b05a746",
             "templateId": "pageArea",
             "cards": [
               {
-                "parentId": "crd67569ffbe262198fa4f659c7",
-                "cardId": "crd67569ffbf2de5545f0497eb4",
+                "parentId": "crd6759202c9ac6c3070b05a746",
+                "cardId": "crd6759202c99be3b09e89ccaa7",
                 "templateId": "modalMedia",
                 "userConfig": {},
                 "regionId": "main",
@@ -1308,8 +1273,8 @@
                 "depth": 1
               },
               {
-                "parentId": "crd67569ffbe262198fa4f659c7",
-                "cardId": "crd67569ffb4dcaa8073c333aa8",
+                "parentId": "crd6759202c9ac6c3070b05a746",
+                "cardId": "crd6759202cb5b2005c7768509c",
                 "templateId": "effectText",
                 "userConfig": {},
                 "regionId": "main",
@@ -1320,14 +1285,12 @@
                 "depth": 1
               },
               {
-                "parentId": "crd67569ffbe262198fa4f659c7",
-                "cardId": "crd67569ffb9006b7a95c4292ab",
+                "parentId": "crd6759202c9ac6c3070b05a746",
+                "cardId": "crd6759202c4947a0c015673094",
                 "templateId": "convertCapture",
                 "userConfig": {
                   "standard": {
-                    "spacing": {
-                      "verticalSpacing": "sm"
-                    }
+                    "spaceSize": "sm"
                   },
                   "superTitle": {
                     "text": "Join 10k+ Subscribers"
@@ -1365,9 +1328,1918 @@
             ],
             "userConfig": {
               "standard": {
-                "spacing": {
-                  "verticalSpacing": "none"
-                }
+                "spaceSize": "none"
+              }
+            },
+            "regionId": "main",
+            "isHome": false,
+            "is404": false,
+            "effects": []
+          }
+        }
+      },
+      "templates": [
+        "contentHero",
+        "contentProfile",
+        "contentStory",
+        "contentFeatures",
+        "sliderStatement",
+        "contentBento",
+        "contentPeople",
+        "proofTestimonials",
+        "proofQuotes",
+        "proofMetrics",
+        "proofLogos",
+        "galleryShowcase",
+        "postsList",
+        "postsMagazine",
+        "socialInsta",
+        "contentNumberedList",
+        "contentFaq",
+        "contentTimeline",
+        "sliderCinema",
+        "galleryMasonry",
+        "modalMedia",
+        "contentTour",
+        "convertCta",
+        "convertCapture",
+        "convertContact",
+        "convertPricing",
+        "locationMaps",
+        "pageWrap",
+        "pageArea",
+        "pageNav",
+        "pageFooterPro",
+        "pageFooterPersonal",
+        "mediaMarquee",
+        "sliderOverlay",
+        "typographyTicker",
+        "galleryParallaxScroll",
+        "typographyFitText",
+        "effectShape",
+        "effectText",
+        "page404",
+        "pageTransaction"
+      ]
+    },
+    {
+      "themeId": "prestige",
+      "title": "Prestige",
+      "description": "A sophisticated portfolio theme designed for professionals who want to make a lasting impression. Features a stunning visual narrative structure, elegant project showcases, and strategic credibility builders. Perfect for creative professionals, executives, consultants, and thought leaders who need to establish authority and drive engagement through their digital presence.",
+      "subTitle": "Showcase your professional legacy with confidence",
+      "category": [
+        "portfolio",
+        "personal"
+      ],
+      "icon": "i-tabler-award",
+      "colorTheme": "indigo",
+      "isPublic": true,
+      "config": {
+        "userConfig": {
+          "site": {
+            "fonts": {
+              "mono": {
+                "family": "DM Mono",
+                "stack": "monospace"
+              },
+              "input": {
+                "family": "DM Mono",
+                "stack": "sans"
+              },
+              "title": {
+                "family": "DM+Serif+Text",
+                "stack": "sans"
+              },
+              "sans": {
+                "family": "Plus+Jakarta+Sans",
+                "stack": "sans"
+              },
+              "body": {
+                "stack": "sans",
+                "family": "Inter"
+              },
+              "serif": {
+                "stack": "serif"
+              },
+              "highlight": {
+                "family": "Caveat",
+                "stack": "sans"
+              }
+            },
+            "prefersColorScheme": "dark",
+            "primaryColor": "rose"
+          }
+        },
+        "pages": [
+          {
+            "cardId": "crd6759202c86b09055fa0f3256",
+            "templateId": "pageWrap",
+            "slug": "_home",
+            "cards": [
+              {
+                "parentId": "crd6759202c86b09055fa0f3256",
+                "cardId": "crd6759202c9d9493297b747ed8",
+                "templateId": "sliderOverlay",
+                "userConfig": {
+                  "standard": {
+                    "spaceSize": "sm"
+                  },
+                  "autoSlide": true,
+                  "slides": [
+                    {
+                      "title": "The Amazing Prestige Theme",
+                      "subTitle": "A magical Fiction theme for personal branding.",
+                      "media": {
+                        "format": "image",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724603292/arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_468a3e11-6136-41ef-a715-b90237729d9c_wssxqi.png",
+                        "tags": [
+                          "annotated",
+                          "aspect:landscape",
+                          "background",
+                          "color:warm",
+                          "image"
+                        ],
+                        "slug": "arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_468a3e11-6136-41ef-a715-b90237729d9c_wssxqi"
+                      },
+                      "textBlend": "difference"
+                    },
+                    {
+                      "title": "Professional Magician",
+                      "subTitle": "Director of Magic Studies, McBride's Magic & Mystery School",
+                      "media": {
+                        "format": "video",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/video/upload/f_auto,q_auto/v1724635925/replicate-prediction-knsgvczvanrj60chhh19y04ca0_lnzqcg.mp4",
+                        "tags": [
+                          "aspect:landscape",
+                          "background",
+                          "video"
+                        ],
+                        "slug": "replicate-prediction-knsgvczvanrj60chhh19y04ca0_lnzqcg"
+                      },
+                      "textBlend": "difference"
+                    },
+                    {
+                      "title": "Digital-First Magic Design",
+                      "subTitle": "Creating illusions optimized for modern media",
+                      "media": {
+                        "format": "image",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724603293/arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_7e0cc1dd-d949-466e-bbd8-c567d45112ad_fjyogc.png",
+                        "tags": [
+                          "annotated",
+                          "aspect:landscape",
+                          "aspect:square",
+                          "background",
+                          "color:warm",
+                          "image"
+                        ],
+                        "slug": "arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_7e0cc1dd-d949-466e-bbd8-c567d45112ad_fjyogc"
+                      },
+                      "textBlend": "difference"
+                    }
+                  ]
+                },
+                "regionId": "main",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "effects": [],
+                "depth": 1
+              },
+              {
+                "parentId": "crd6759202c86b09055fa0f3256",
+                "cardId": "crd6759202cc42297e4d38e4560",
+                "templateId": "contentFeatures",
+                "userConfig": {
+                  "layout": {
+                    "style": "grid",
+                    "columns": "3",
+                    "spacing": "normal",
+                    "align": "left"
+                  },
+                  "features": [
+                    {
+                      "title": "Corporate Events",
+                      "description": "Close-up magic and stage shows designed for corporate environments. Customized presentations that integrate company messages and products.",
+                      "icon": {
+                        "iconId": "briefcase"
+                      },
+                      "color": "blue",
+                      "columns": "2"
+                    },
+                    {
+                      "title": "Consulting",
+                      "description": "Magic design for theater productions and TV. Technical advisor for Netflix's 'The Magicians' and Broadway's 'The Prestige'.",
+                      "icon": {
+                        "iconId": "bulb"
+                      },
+                      "color": "emerald",
+                      "columns": "2"
+                    },
+                    {
+                      "title": "Private Functions",
+                      "description": "Bespoke performances for private events. Specialized in high-end weddings and exclusive gatherings up to 200 guests.",
+                      "icon": {
+                        "iconId": "users"
+                      },
+                      "color": "indigo",
+                      "columns": "2"
+                    }
+                  ],
+                  "style": {
+                    "iconSize": "md",
+                    "iconStyle": "duotone"
+                  },
+                  "standard": {
+                    "headers": {
+                      "title": "Services",
+                      "subTitle": "Professional magic and consulting for modern audiences",
+                      "layout": "left"
+                    }
+                  }
+                },
+                "regionId": "main",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "effects": [],
+                "depth": 1
+              },
+              {
+                "parentId": "crd6759202c86b09055fa0f3256",
+                "cardId": "crd6759202cc71eec0973373ab3",
+                "templateId": "contentHero",
+                "userConfig": {
+                  "title": "Professional Magician & Consultant",
+                  "subTitle": "Specializing in corporate entertainment and magic design for TV & theater. Based in Chicago, performing worldwide.",
+                  "action": {
+                    "buttons": [
+                      {
+                        "label": "Past Events",
+                        "href": "/work",
+                        "theme": "primary"
+                      },
+                      {
+                        "label": "Contact",
+                        "href": "/contact"
+                      }
+                    ]
+                  },
+                  "layout": "left",
+                  "superTitle": {
+                    "text": "The Amazing Prestige",
+                    "icon": {
+                      "iconId": "star"
+                    },
+                    "theme": "primary"
+                  },
+                  "media": {
+                    "format": "image",
+                    "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724442515/arpowers_minimal_stock_background_for_profile_photo_professiona_a7960150-7d50-4a78-a4d6-8b2e2b87eb39_da7u7u.png",
+                    "tags": [
+                      "annotated",
+                      "aspect:landscape",
+                      "aspect:square",
+                      "color:warm",
+                      "nature",
+                      "people",
+                      "person",
+                      "silhouette",
+                      "woman",
+                      "image"
+                    ],
+                    "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_a7960150-7d50-4a78-a4d6-8b2e2b87eb39_da7u7u"
+                  }
+                },
+                "regionId": "main",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "effects": [],
+                "depth": 1
+              },
+              {
+                "parentId": "crd6759202c86b09055fa0f3256",
+                "cardId": "crd6759202c0c26d71bf8289561",
+                "templateId": "proofMetrics",
+                "userConfig": {
+                  "layout": "grid",
+                  "metrics": [
+                    {
+                      "label": "Annual Events",
+                      "value": 120,
+                      "format": "number",
+                      "description": "Corporate & private"
+                    },
+                    {
+                      "label": "Client Retention",
+                      "value": 82,
+                      "format": "percent",
+                      "description": "Return bookings"
+                    },
+                    {
+                      "label": "Countries",
+                      "value": 23,
+                      "description": "Performance venues"
+                    }
+                  ],
+                  "standard": {
+                    "headers": {
+                      "title": "Experience & Reach",
+                      "subTitle": "15 years of professional performance"
+                    }
+                  }
+                },
+                "regionId": "main",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "effects": [],
+                "depth": 1
+              },
+              {
+                "parentId": "crd6759202c86b09055fa0f3256",
+                "cardId": "crd6759202c1cdbf75b4e8daade",
+                "templateId": "galleryParallaxScroll",
+                "userConfig": {
+                  "standard": {
+                    "widthSize": "none",
+                    "spaceSize": "sm",
+                    "headers": {
+                      "layout": "center",
+                      "superTitle": {
+                        "text": "Portfolio",
+                        "icon": {
+                          "iconId": "star"
+                        },
+                        "theme": "primary"
+                      },
+                      "title": "Recent Work",
+                      "subTitle": "Selected performances and consulting projects"
+                    }
+                  },
+                  "items": [
+                    {
+                      "title": "Google I/O 2023",
+                      "content": "Designed and performed custom effects for Google's AI presentation. Created visual metaphors for machine learning through sleight of hand.",
+                      "media": {
+                        "format": "video",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/video/upload/f_auto,q_auto/v1724634905/replicate-prediction-jch406tws9rj40chhgya0y8tc8_ykfz5l.mp4",
+                        "tags": [
+                          "aspect:landscape",
+                          "background",
+                          "video"
+                        ],
+                        "slug": "replicate-prediction-jch406tws9rj40chhgya0y8tc8_ykfz5l"
+                      },
+                      "parallaxStrength": 0.4,
+                      "action": {
+                        "buttons": [
+                          {
+                            "label": "View Case Study",
+                            "href": "/work/google-io"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "title": "Magic Technical Direction",
+                      "content": "Lead consultant for Netflix's 'The Magicians' Season 5. Designed practical effects and trained actors in sleight of hand techniques.",
+                      "media": {
+                        "format": "video",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/video/upload/f_auto,q_auto/v1724636660/replicate-prediction-8wx45kv5bdrj40chhh7r523pym_co9n3y.mp4",
+                        "tags": [
+                          "aspect:landscape",
+                          "background",
+                          "video",
+                          "aspect:square"
+                        ],
+                        "slug": "replicate-prediction-8wx45kv5bdrj40chhh7r523pym_co9n3y"
+                      },
+                      "parallaxStrength": 0.6,
+                      "action": {
+                        "buttons": [
+                          {
+                            "label": "Project Details",
+                            "href": "/work/netflix"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "title": "Private Event Design",
+                      "content": "Created a custom close-up magic show for SpaceX's executive retreat. Integrated themes of innovation and exploration into classical effects.",
+                      "media": {
+                        "format": "video",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/video/upload/f_auto,q_auto/v1724634797/replicate-prediction-an30z18kj5rj00chhgqvc4022w_1_amsepx.mp4",
+                        "tags": [
+                          "aspect:landscape",
+                          "background",
+                          "video"
+                        ],
+                        "slug": "replicate-prediction-an30z18kj5rj00chhgqvc4022w_1_amsepx"
+                      },
+                      "parallaxStrength": 0.5,
+                      "action": {
+                        "buttons": [
+                          {
+                            "label": "Event Overview",
+                            "href": "/work/spacex"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "regionId": "main",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "effects": [],
+                "depth": 1
+              },
+              {
+                "parentId": "crd6759202c86b09055fa0f3256",
+                "cardId": "crd6759202c3d3faeb2557ffc9d",
+                "templateId": "postsList",
+                "userConfig": {
+                  "standard": {
+                    "showOnSingle": true,
+                    "headers": {
+                      "title": "Insights & Ideas",
+                      "subTitle": "Read the latest articles and blog posts"
+                    }
+                  },
+                  "display": {
+                    "layout": "grid",
+                    "proportions": "standard",
+                    "showAuthor": true,
+                    "showDate": true,
+                    "showExcerpt": true,
+                    "itemsPerRow": 3,
+                    "gap": "lg"
+                  },
+                  "posts": {
+                    "format": "local",
+                    "limit": 3,
+                    "query": {
+                      "sortBy": "dateAt",
+                      "sortOrder": "desc"
+                    },
+                    "entries": [
+                      {
+                        "title": "The Hidden Story in Your Data",
+                        "subTitle": "Unlock the narrative power hiding in your numbers",
+                        "slug": "data-storytelling",
+                        "authors": [
+                          {
+                            "fullName": "Marcus Lee",
+                            "title": "Data Journalist",
+                            "email": "marcus@example.com",
+                            "avatar": {
+                              "format": "video",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/video/upload/f_auto,q_auto/v1724640264/replicate-prediction-5t67ctedz9rj00chhj5b6xt79c_nmrixq.mp4",
+                              "tags": [
+                                "man",
+                                "person",
+                                "video",
+                                "aspect:landscape"
+                              ],
+                              "slug": "replicate-prediction-5t67ctedz9rj00chhj5b6xt79c_nmrixq"
+                            }
+                          }
+                        ],
+                        "content": "\n        <article>\n          <p><em>Close your eyes and imagine</em> your data coming to life, each number transforming into a compelling story that captivates your readers. What if your charts could speak directly to your audience's deepest concerns?</p>\n\n          <h2>When Numbers Tell Tales</h2>\n          <p>Think about the last time a statistic genuinely moved you. What made it memorable? Was it the number itself, or the story it told? Let's discover how to create these moments for your readers.</p>\n\n          <div >\n            <h2>Your Data Storytelling Journey</h2>\n            <ol style=\"margin: 20px 0;\">\n              <li>\n                <h3>Find the Heart of Your Data</h3>\n                <p>Notice how raw numbers feel cold until you connect them to human experience? Start by asking: \"Why would my reader care about this?\"</p>\n              </li>\n              <li>\n                <h3>Build the Bridge</h3>\n                <p>What if you could connect your data directly to your readers' lives? Look for the personal impact in every statistic.</p>\n              </li>\n              <li>\n                <h3>Create the Aha Moment</h3>\n                <p>Remember the last time you had a sudden insight? That's what we want to create for your readers.</p>\n              </li>\n            </ol>\n          </div>\n\n          <aside >\n            <h3>Visualization Secrets Revealed</h3>\n            <ul style=\"margin: 16px 0;\">\n              <li>\n                <strong>Choose Your Story Type:</strong>\n                <p>See how different charts evoke different emotional responses? Match your visualization to your narrative.</p>\n              </li>\n              <li>\n                <strong>Simplify for Impact:</strong>\n                <p>Ever notice how the clearest charts often have the strongest impact?</p>\n              </li>\n              <li>\n                <strong>Guide the Eye:</strong>\n                <p>What catches your attention first in a visualization? Use this natural tendency to lead your readers through the data.</p>\n              </li>\n            </ul>\n          </aside>\n\n          <blockquote>\n            \"The goal isn't to tell your readers about data—it's to show them what matters. Imagine the moment they finally see what you see.\"\n            <footer style=\"margin-top: 8px;\">\n              <cite>— Marcus Lee</cite>\n            </footer>\n          </blockquote>\n\n          <p>Ready to transform your data from forgettable figures into unforgettable stories? Let's begin your journey into data storytelling mastery.</p>\n        </article>\n      ",
+                        "excerpt": "Transform dry statistics into compelling narratives that your readers can't resist. Discover the storyteller hiding in your spreadsheets.",
+                        "categories": [
+                          "Analytics"
+                        ],
+                        "tags": [
+                          "data",
+                          "storytelling",
+                          "visualization"
+                        ],
+                        "media": {
+                          "format": "image",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724603281/arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_8a0836d8-db89-4562-b866-c24a4bb9550c_clkjlu.png",
+                          "tags": [
+                            "annotated",
+                            "aspect:landscape",
+                            "aspect:square",
+                            "background",
+                            "color:cool",
+                            "image"
+                          ],
+                          "slug": "arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_8a0836d8-db89-4562-b866-c24a4bb9550c_clkjlu"
+                        },
+                        "dateAt": "2024-03-18T00:00:00.000Z"
+                      },
+                      {
+                        "title": "Why Your SEO Isn't Working (And How to Fix It)",
+                        "subTitle": "Discover the human side of search engine optimization",
+                        "slug": "seo-content-guide",
+                        "authors": [
+                          {
+                            "fullName": "Priya Sharma",
+                            "title": "SEO Strategist",
+                            "email": "priya@example.com",
+                            "avatar": {
+                              "format": "image",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724443232/arpowers_minimal_midshot_photo_stylistic_attire_1990s_style_fut_d2564113-06ec-41f8-a7aa-b59d021cc011_twdbcs.png",
+                              "tags": [
+                                "annotated",
+                                "aspect:landscape",
+                                "color:warm",
+                                "midshot",
+                                "person",
+                                "woman",
+                                "image"
+                              ],
+                              "slug": "arpowers_minimal_midshot_photo_stylistic_attire_1990s_style_fut_d2564113-06ec-41f8-a7aa-b59d021cc011_twdbcs"
+                            }
+                          }
+                        ],
+                        "content": "\n        <article>\n          <p><em>Remember the last time</em> you searched for something important? That feeling of finding exactly what you needed? That's not luck—it's strategic SEO at work. Let's make your content the answer people are searching for.</p>\n\n          <section>\n            <h2>The Truth About Modern SEO</h2>\n            <p>Forget everything you think you know about SEO. Imagine if ranking well was less about technical tricks and more about genuinely understanding your readers. Let's explore how this shift changes everything.</p>\n\n            <div >\n              <div>\n                <h3>What Search Engines See</h3>\n                <ul style=\"margin: 16px 0;\">\n                  <li>\n                    <strong>Clear Structure</strong>\n                    <p>Notice how well-organized content ranks better? It's not coincidence.</p>\n                  </li>\n                  <li>\n                    <strong>Natural Language</strong>\n                    <p>What if your keywords flowed as naturally as a conversation?</p>\n                  </li>\n                  <li>\n                    <strong>Valuable Links</strong>\n                    <p>Think of links as virtual handshakes—they build trust.</p>\n                  </li>\n                </ul>\n              </div>\n\n              <div>\n                <h3>What Readers Experience</h3>\n                <ul style=\"margin: 16px 0;\">\n                  <li>\n                    <strong>Instant Relevance</strong>\n                    <p>Feel that moment when content perfectly matches your need?</p>\n                  </li>\n                  <li>\n                    <strong>Easy Navigation</strong>\n                    <p>Imagine finding everything you need without trying.</p>\n                  </li>\n                  <li>\n                    <strong>Complete Answers</strong>\n                    <p>What if every search led to a satisfying conclusion?</p>\n                  </li>\n                </ul>\n              </div>\n            </div>\n          </section>\n\n          <aside >\n            <h3>Your SEO Transformation Checklist</h3>\n            <p>Watch how your content changes when you focus on these elements:</p>\n            <ol style=\"margin: 16px 0;\">\n              <li>Is your content answering real questions?</li>\n              <li>Could a friend understand your headlines?</li>\n              <li>Does your page structure feel natural?</li>\n              <li>Are you using terms your audience uses?</li>\n            </ol>\n          </aside>\n\n          <div>\n            <h3>The Secret Most SEO Experts Won't Tell You</h3>\n            <p>The best SEO strategy is creating content so good, so useful, that people can't help but share it. Imagine your content becoming the go-to resource in your field.</p>\n          </div>\n\n          <p>Ready to see your content climb the rankings while genuinely helping your readers? Let's make your SEO work for both search engines and humans.</p>\n        </article>\n      ",
+                        "excerpt": "Stop fighting algorithms and start connecting with readers. Discover how human-centered SEO transforms your search rankings.",
+                        "categories": [
+                          "SEO"
+                        ],
+                        "tags": [
+                          "optimization",
+                          "search",
+                          "content strategy"
+                        ],
+                        "media": {
+                          "format": "image",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556440/arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_ff30877e-aa01-46ab-b6cd-a427a7850490_yjnv6p.png",
+                          "tags": [
+                            "annotated",
+                            "aspect:wide",
+                            "color:cool",
+                            "object",
+                            "image"
+                          ],
+                          "slug": "arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_ff30877e-aa01-46ab-b6cd-a427a7850490_yjnv6p"
+                        },
+                        "dateAt": "2024-03-17T00:00:00.000Z"
+                      },
+                      {
+                        "title": "The Art of Compelling Headlines",
+                        "subTitle": "Transform your ordinary titles into attention-grabbing headlines",
+                        "slug": "headline-writing-guide",
+                        "authors": [
+                          {
+                            "fullName": "Sarah Chen",
+                            "title": "Content Strategy Lead",
+                            "email": "sarah@example.com",
+                            "avatar": {
+                              "format": "image",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724440966/arpowers_minimal_stock_background_for_profile_photo_professiona_62a15087-100b-4880-8932-1bf4f2375052_sio7al.png",
+                              "tags": [
+                                "annotated",
+                                "aspect:portrait",
+                                "color:warm",
+                                "man",
+                                "midshot",
+                                "person",
+                                "image"
+                              ],
+                              "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_62a15087-100b-4880-8932-1bf4f2375052_sio7al"
+                            }
+                          }
+                        ],
+                        "content": "\n        <article>\n          <p><em>Picture this:</em> Your brilliant article sits unread while others get all the attention. The difference? Often it's just the headline. Let's transform your headlines from forgotten to unforgettable.</p>\n\n          <h2>The 4 U's That Make Headlines Irresistible</h2>\n\n          <p>Notice how great headlines seem to pull you in effortlessly? Here's the framework behind that magic:</p>\n\n          <ul style=\"margin: 24px 0;\">\n            <li>\n              <h3>Useful</h3>\n              <p>Imagine your reader asking \"What's in it for me?\" Your headline should answer that instantly.</p>\n            </li>\n            <li>\n              <h3>Urgent</h3>\n              <p>Feel that slight anxiety when you might miss out on something important? That's urgency at work.</p>\n            </li>\n            <li>\n              <h3>Unique</h3>\n              <p>What would it feel like if your headline stood out from thousands of others? That's the power of uniqueness.</p>\n            </li>\n            <li>\n              <h3>Ultra-specific</h3>\n              <p>See how detailed headlines build instant credibility? They promise—and deliver—clear value.</p>\n            </li>\n          </ul>\n\n          <h2>Transform Your Headlines Today</h2>\n\n          <aside >\n            <p><strong>Try this exercise:</strong> Take your last three blog titles and rewrite each one using the 4 U's. Watch how they transform from basic statements into compelling invitations.</p>\n          </aside>\n\n          <p>Have you ever noticed how some blogs seem to consistently capture attention while others struggle? The secret often lies in their headlines. Let's unlock that secret together.</p>\n\n          <blockquote>\n            \"The headlines which work best are those that promise a story the audience already cares about. Now imagine how powerful your writing becomes when you master this art.\"\n            <footer>\n              <cite>— John Caples, Advertising Legend</cite>\n            </footer>\n          </blockquote>\n\n          <p>Ready to see your engagement numbers transform? Your next great headline is waiting to be written. Let's create it together.</p>\n        </article>\n      ",
+                        "excerpt": "Discover the secrets of headlines that don't just attract clicks—they compel action. Transform your titles from skippable to unforgettable.",
+                        "categories": [
+                          "Writing"
+                        ],
+                        "tags": [
+                          "headlines",
+                          "copywriting",
+                          "engagement"
+                        ],
+                        "media": {
+                          "format": "image",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556187/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_15f06b6c-8492-4d3a-9c0b-57a9b18e839d_zoq8og.png",
+                          "tags": [
+                            "annotated",
+                            "aspect:landscape",
+                            "aspect:square",
+                            "color:warm",
+                            "object",
+                            "image"
+                          ],
+                          "slug": "arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_15f06b6c-8492-4d3a-9c0b-57a9b18e839d_zoq8og"
+                        },
+                        "dateAt": "2024-03-20T00:00:00.000Z"
+                      }
+                    ],
+                    "viewSlug": "blog"
+                  }
+                },
+                "regionId": "main",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "effects": [],
+                "depth": 1
+              }
+            ],
+            "userConfig": {
+              "standard": {
+                "spaceSize": "none",
+                "showOnSingle": true
+              }
+            },
+            "regionId": "main",
+            "isHome": false,
+            "is404": false,
+            "effects": []
+          },
+          {
+            "cardId": "crd6759202cec15725eea0925a3",
+            "templateId": "pageWrap",
+            "slug": "work",
+            "cards": [
+              {
+                "parentId": "crd6759202cec15725eea0925a3",
+                "cardId": "crd6759202cef0ac27a7ed24c12",
+                "templateId": "contentHero",
+                "userConfig": {
+                  "title": "Enter Your Title",
+                  "subTitle": "Write a sentence or two that adds context to your headline",
+                  "action": {
+                    "buttons": []
+                  }
+                },
+                "regionId": "main",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "effects": [],
+                "depth": 1
+              },
+              {
+                "parentId": "crd6759202cec15725eea0925a3",
+                "cardId": "crd6759202c0ff1d7d099884b67",
+                "templateId": "contentBento",
+                "userConfig": {
+                  "items": [
+                    {
+                      "cols": 4,
+                      "rows": 2,
+                      "title": "Feature Title Here",
+                      "superTitle": {
+                        "text": "Badge Text"
+                      },
+                      "content": "Add a brief description of your feature. Keep it concise and compelling - about 1-2 lines.",
+                      "action": {
+                        "buttons": [
+                          {
+                            "label": "Learn More",
+                            "href": "#"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "cols": 4,
+                      "rows": 2,
+                      "title": "Second Feature",
+                      "content": "Add a brief description of your feature. Keep it concise and compelling - about 1-2 lines.",
+                      "action": {
+                        "buttons": [
+                          {
+                            "label": "Learn More",
+                            "href": "#"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "cols": 4,
+                      "rows": 2,
+                      "title": "Third Feature",
+                      "content": "Add a brief description of your feature. Keep it concise and compelling - about 1-2 lines.",
+                      "action": {
+                        "buttons": [
+                          {
+                            "label": "Learn More",
+                            "href": "#"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "cols": 12,
+                      "rows": 2,
+                      "title": "Card With Media",
+                      "content": "Add media or background images to create visual interest.",
+                      "bg": {
+                        "format": "image",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724603282/arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_218f96fd-cd7e-4074-bf6b-62d85a1daf1f_kfotej.png",
+                        "tags": [
+                          "annotated",
+                          "aspect:landscape",
+                          "aspect:square",
+                          "background",
+                          "color:cool",
+                          "urban",
+                          "image"
+                        ],
+                        "slug": "arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_218f96fd-cd7e-4074-bf6b-62d85a1daf1f_kfotej",
+                        "overlay": {
+                          "opacity": 0.4
+                        }
+                      },
+                      "verticalPosition": "center",
+                      "horizontalPosition": "center",
+                      "action": {
+                        "buttons": [
+                          {
+                            "label": "Learn More",
+                            "href": "#"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "regionId": "main",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "effects": [],
+                "depth": 1
+              },
+              {
+                "parentId": "crd6759202cec15725eea0925a3",
+                "cardId": "crd6759202cfd4d85777ad5f80a",
+                "templateId": "galleryMasonry",
+                "userConfig": {
+                  "layout": {
+                    "gapSize": "md",
+                    "aspectRatio": "dynamic",
+                    "animation": "fade",
+                    "showAllText": false,
+                    "baseRowHeight": 250
+                  },
+                  "lightbox": {
+                    "enabled": true,
+                    "showCaption": true
+                  },
+                  "items": [
+                    {
+                      "title": "Create Visual Impact",
+                      "content": "Notice how this taller image commands attention? Use larger tiles strategically to highlight your most compelling content. This 1x2 format is perfect for portraits and key storytelling moments.",
+                      "media": {
+                        "format": "image",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556374/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_beda1d16-a6d3-46af-9fa5-6508f8d3ce52_oc8s3f.png",
+                        "tags": [
+                          "annotated",
+                          "aspect:portrait",
+                          "aspect:square",
+                          "color:warm",
+                          "object",
+                          "image"
+                        ],
+                        "slug": "arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_beda1d16-a6d3-46af-9fa5-6508f8d3ce52_oc8s3f"
+                      },
+                      "columns": "1",
+                      "rows": "2",
+                      "theme": "blue"
+                    },
+                    {
+                      "title": "Balance Through Scale",
+                      "content": "See how this larger tile creates a natural focal point? Combine different sizes to guide your viewer's journey through the gallery. The 2x3 format provides ample space for showcasing detailed imagery.",
+                      "media": {
+                        "format": "image",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556234/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_851b3067-f015-416c-bcbd-6744165c6848_e2b4be.png",
+                        "tags": [
+                          "annotated",
+                          "aspect:portrait",
+                          "aspect:square",
+                          "color:cool",
+                          "object",
+                          "image"
+                        ],
+                        "slug": "arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_851b3067-f015-416c-bcbd-6744165c6848_e2b4be"
+                      },
+                      "columns": "2",
+                      "rows": "3",
+                      "theme": "emerald",
+                      "showText": true
+                    },
+                    {
+                      "title": "Create Rhythm",
+                      "content": "Vertical tiles like this help create visual rhythm. Alternate between heights to keep your viewers engaged as they scroll through your gallery.",
+                      "media": {
+                        "format": "image",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556293/arpowers_minimal_midshot_photo_of_object_2030s_futuristic_ancie_a797e9d2-5c50-4e55-a1f6-815dd167d8fc_cvorkh.png",
+                        "tags": [
+                          "annotated",
+                          "aspect:portrait",
+                          "aspect:square",
+                          "color:warm",
+                          "object",
+                          "image"
+                        ],
+                        "slug": "arpowers_minimal_midshot_photo_of_object_2030s_futuristic_ancie_a797e9d2-5c50-4e55-a1f6-815dd167d8fc_cvorkh"
+                      },
+                      "columns": "1",
+                      "rows": "2",
+                      "theme": "violet"
+                    },
+                    {
+                      "title": "Quick Impact",
+                      "content": "Small squares are perfect for creating quick visual moments. Use them to break up larger images and add variety to your layout.",
+                      "media": {
+                        "format": "image",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556454/arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_849475d1-33f6-48f0-bed2-676c390b6c71_qtgr2y.png",
+                        "tags": [
+                          "annotated",
+                          "aspect:wide",
+                          "color:cool",
+                          "object",
+                          "image"
+                        ],
+                        "slug": "arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_849475d1-33f6-48f0-bed2-676c390b6c71_qtgr2y"
+                      },
+                      "columns": "1",
+                      "rows": "1"
+                    },
+                    {
+                      "title": "Build Harmony",
+                      "content": "Another small square helps maintain balance. Notice how it works with its neighbor to create a pleasing visual rhythm.",
+                      "media": {
+                        "format": "image",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556378/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_987d238b-9d42-4753-a41d-67c422307c06_wsxqzj.png",
+                        "tags": [
+                          "annotated",
+                          "aspect:square",
+                          "color:warm",
+                          "object",
+                          "image"
+                        ],
+                        "slug": "arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_987d238b-9d42-4753-a41d-67c422307c06_wsxqzj"
+                      },
+                      "columns": "1",
+                      "rows": "1"
+                    },
+                    {
+                      "title": "Make a Statement",
+                      "content": "Wide format tiles like this are perfect for landscapes or group shots. The 3x2 format creates a dramatic panoramic effect that naturally draws the eye.",
+                      "media": {
+                        "format": "image",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556215/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_26a95636-e166-40d7-9c13-90a29e031845_ervwq7.png",
+                        "tags": [
+                          "annotated",
+                          "aspect:landscape",
+                          "aspect:square",
+                          "color:warm",
+                          "object",
+                          "image"
+                        ],
+                        "slug": "arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_26a95636-e166-40d7-9c13-90a29e031845_ervwq7"
+                      },
+                      "columns": "3",
+                      "rows": "2",
+                      "theme": "amber",
+                      "showText": true
+                    },
+                    {
+                      "title": "Perfect Proportions",
+                      "content": "The 2x2 square format offers balanced proportions for complex images. Use it when your content needs room to breathe.",
+                      "media": {
+                        "format": "image",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1726725069/arpowers_minimal_midshot_photo_of_abstract_skull_sculpture_inte_5480708a-3db8-4ede-b250-46f7b014d99f_mwu7fr.png",
+                        "tags": [
+                          "aspect:square",
+                          "color:warm",
+                          "image",
+                          "object",
+                          "annotated"
+                        ],
+                        "slug": "arpowers_minimal_midshot_photo_of_abstract_skull_sculpture_inte_5480708a-3db8-4ede-b250-46f7b014d99f_mwu7fr"
+                      },
+                      "columns": "2",
+                      "rows": "2"
+                    },
+                    {
+                      "title": "Dynamic Pairing",
+                      "content": "These two wide tiles work together to create a harmonious flow. Consider how your images complement each other when placing them side by side.",
+                      "media": {
+                        "format": "image",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1726725062/arpowers_Minimalist_futuristic_interpretation_of_an_zeus_elegan_77383c52-c3c6-4124-9239-5ad6f2ab6d0b_h2qazu.png",
+                        "tags": [
+                          "aspect:landscape",
+                          "color:warm",
+                          "image",
+                          "object",
+                          "annotated"
+                        ],
+                        "slug": "arpowers_Minimalist_futuristic_interpretation_of_an_zeus_elegan_77383c52-c3c6-4124-9239-5ad6f2ab6d0b_h2qazu"
+                      },
+                      "columns": "2",
+                      "rows": "1",
+                      "theme": "indigo",
+                      "showText": true
+                    },
+                    {
+                      "title": "Visual Flow",
+                      "content": "Paired with its neighbor, this tile helps guide the eye across the gallery. Think about the journey you want your viewers to take.",
+                      "media": {
+                        "format": "image",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556206/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_c954fed0-a698-4b95-8470-e8a0541b0b55_qkrjxn.png",
+                        "tags": [
+                          "annotated",
+                          "aspect:landscape",
+                          "aspect:square",
+                          "color:cool",
+                          "object",
+                          "image"
+                        ],
+                        "slug": "arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_c954fed0-a698-4b95-8470-e8a0541b0b55_qkrjxn"
+                      },
+                      "columns": "2",
+                      "rows": "1"
+                    },
+                    {
+                      "title": "Create Focus",
+                      "content": "Vertical tiles excel at drawing attention to specific details. Use them to highlight products or portraits.",
+                      "media": {
+                        "format": "image",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556503/arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_47d32e8b-3593-4402-adec-8314db0bce48_hpig5h.png",
+                        "tags": [
+                          "annotated",
+                          "aspect:tall",
+                          "color:cool",
+                          "object",
+                          "image"
+                        ],
+                        "slug": "arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_47d32e8b-3593-4402-adec-8314db0bce48_hpig5h"
+                      },
+                      "columns": "1",
+                      "rows": "2",
+                      "theme": "rose"
+                    },
+                    {
+                      "title": "Mirror Elements",
+                      "content": "Echo similar formats to create consistency. This matching vertical tile helps frame the wider elements above.",
+                      "media": {
+                        "format": "image",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556175/arpowers_minimal_midshot_photo_of_object_incredible_light_and_s_65488929-9a6c-4752-b872-90f038a94632_ivy9fl.png",
+                        "tags": [
+                          "annotated",
+                          "color:warm",
+                          "image",
+                          "object",
+                          "aspect:tall"
+                        ],
+                        "slug": "arpowers_minimal_midshot_photo_of_object_incredible_light_and_s_65488929-9a6c-4752-b872-90f038a94632_ivy9fl"
+                      },
+                      "columns": "1",
+                      "rows": "2"
+                    },
+                    {
+                      "title": "Breathing Room",
+                      "content": "Use wider tiles to give your gallery moments of expansion. This helps prevent visual fatigue as viewers explore your content.",
+                      "media": {
+                        "format": "image",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556084/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal__66907fac-c53d-414e-883d-6e729aa4bf4c_2_shvx2h.png",
+                        "tags": [
+                          "annotated",
+                          "color:warm",
+                          "image",
+                          "object",
+                          "aspect:wide"
+                        ],
+                        "slug": "arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal__66907fac-c53d-414e-883d-6e729aa4bf4c_2_shvx2h"
+                      },
+                      "columns": "2",
+                      "rows": "1",
+                      "theme": "cyan"
+                    },
+                    {
+                      "title": "Bold Presence",
+                      "content": "Another 2x2 square creates a strong anchor point in your layout. Perfect for images that need more visual weight.",
+                      "media": {
+                        "format": "image",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556091/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_8b17dc54-1507-49d5-a510-bb773a01043f_1_oyq7mu.png",
+                        "tags": [
+                          "annotated",
+                          "aspect:portrait",
+                          "aspect:square",
+                          "color:warm",
+                          "man",
+                          "nature",
+                          "object",
+                          "people",
+                          "image"
+                        ],
+                        "slug": "arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_8b17dc54-1507-49d5-a510-bb773a01043f_1_oyq7mu"
+                      },
+                      "columns": "2",
+                      "rows": "2",
+                      "showText": true
+                    },
+                    {
+                      "title": "Dramatic Finish",
+                      "content": "End your gallery with impact. This tall 1x3 format creates a strong finishing note that leaves a lasting impression.",
+                      "media": {
+                        "format": "image",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556494/arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_fee8427e-5c76-4af3-9524-4f068caf4194_mvtypu.png",
+                        "tags": [
+                          "annotated",
+                          "aspect:wide",
+                          "color:warm",
+                          "object"
+                        ],
+                        "slug": "arpowers_minimal_wide_shot_photo_of_every_day_item_ancient_gree_fee8427e-5c76-4af3-9524-4f068caf4194_mvtypu"
+                      },
+                      "columns": "1",
+                      "rows": "3",
+                      "theme": "slate",
+                      "showText": true
+                    }
+                  ]
+                },
+                "regionId": "main",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "effects": [],
+                "depth": 1
+              }
+            ],
+            "userConfig": {
+              "standard": {
+                "spaceSize": "none",
+                "showOnSingle": true
+              }
+            },
+            "regionId": "main",
+            "isHome": false,
+            "is404": false,
+            "effects": []
+          },
+          {
+            "cardId": "crd6759202c0cc2dc629c4daf16",
+            "templateId": "pageWrap",
+            "slug": "about",
+            "cards": [
+              {
+                "parentId": "crd6759202c0cc2dc629c4daf16",
+                "cardId": "crd6759202cea88c4131b5dbf0f",
+                "templateId": "contentStory",
+                "userConfig": {
+                  "layout": "left",
+                  "scrollHandling": "scrolling",
+                  "items": [
+                    {
+                      "content": "<p>[text_effect]Your story[/text_effect] begins to unfold as readers scroll down the page. This engaging format naturally draws attention and keeps your audience immersed in your narrative.</p>\n               <p>See how the images beside your text create visual anchor points, helping readers connect with key moments in your story while maintaining a smooth reading flow.</p>",
+                      "media": {
+                        "format": "image",
+                        "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724440979/arpowers_incredibly_beautiful_headshot_of_woman_business_attire_186551ef-845d-4c9b-9078-be5dc7ea6eb6_qutt1i.png",
+                        "tags": [
+                          "annotated",
+                          "aspect:landscape",
+                          "aspect:square",
+                          "color:warm",
+                          "headshot",
+                          "person",
+                          "realistic",
+                          "woman",
+                          "image"
+                        ],
+                        "slug": "arpowers_incredibly_beautiful_headshot_of_woman_business_attire_186551ef-845d-4c9b-9078-be5dc7ea6eb6_qutt1i"
+                      }
+                    }
+                  ]
+                },
+                "regionId": "main",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "effects": [],
+                "depth": 1
+              },
+              {
+                "parentId": "crd6759202c0cc2dc629c4daf16",
+                "cardId": "crd6759202cbbe2222e6f2e35ad",
+                "templateId": "contentTimeline",
+                "userConfig": {
+                  "milestones": [
+                    {
+                      "date": "2024-12-11T05:16:28.998Z",
+                      "title": "Achievement Title",
+                      "subTitle": "Role or Project Focus",
+                      "content": "Describe the impact: Include metrics, scale, and business outcomes.",
+                      "icon": {
+                        "class": "i-tabler-flag"
+                      }
+                    }
+                  ]
+                },
+                "regionId": "main",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "effects": [],
+                "depth": 1
+              },
+              {
+                "parentId": "crd6759202c0cc2dc629c4daf16",
+                "cardId": "crd6759202c0c573b6ee5ac00b7",
+                "templateId": "proofQuotes",
+                "userConfig": {
+                  "quotes": [
+                    {
+                      "text": "Notice how a well-crafted testimonial can instantly build trust?",
+                      "layout": "featured",
+                      "theme": "emerald",
+                      "author": {
+                        "label": "Sarah Chen",
+                        "subLabel": "Marketing Director",
+                        "media": {
+                          "format": "image",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724440976/arpowers_minimal_stock_background_for_profile_photo_professiona_63facb31-584d-410e-9b14-62ab9d55f79b_zepla8.png",
+                          "tags": [
+                            "annotated",
+                            "aspect:portrait",
+                            "color:warm",
+                            "headshot",
+                            "person",
+                            "silhouette",
+                            "woman",
+                            "image"
+                          ],
+                          "slug": "arpowers_minimal_stock_background_for_profile_photo_professiona_63facb31-584d-410e-9b14-62ab9d55f79b_zepla8"
+                        }
+                      },
+                      "org": {
+                        "label": "GrowthMetrics",
+                        "media": {
+                          "format": "html",
+                          "html": "lorem1.svg",
+                          "tags": [
+                            "lorem",
+                            "image"
+                          ]
+                        }
+                      },
+                      "action": {
+                        "buttons": [
+                          {
+                            "label": "View Case Study",
+                            "href": "#"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "regionId": "main",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "effects": [],
+                "depth": 1
+              }
+            ],
+            "userConfig": {
+              "standard": {
+                "spaceSize": "none",
+                "showOnSingle": true
+              }
+            },
+            "regionId": "main",
+            "isHome": false,
+            "is404": false,
+            "effects": []
+          },
+          {
+            "cardId": "crd6759202d59f5f03390a321ed",
+            "templateId": "pageWrap",
+            "slug": "blog",
+            "cards": [
+              {
+                "parentId": "crd6759202d59f5f03390a321ed",
+                "cardId": "crd6759202d7967db184084ab1b",
+                "templateId": "postsMagazine",
+                "userConfig": {
+                  "standard": {
+                    "showOnSingle": true,
+                    "headers": {
+                      "title": "Latest Articles",
+                      "subTitle": "Discover our latest insights and stories"
+                    }
+                  },
+                  "posts": {
+                    "format": "standard",
+                    "limit": 12,
+                    "entries": [
+                      {
+                        "title": "The Hidden Story in Your Data",
+                        "subTitle": "Unlock the narrative power hiding in your numbers",
+                        "slug": "data-storytelling",
+                        "authors": [
+                          {
+                            "fullName": "Marcus Lee",
+                            "title": "Data Journalist",
+                            "email": "marcus@example.com",
+                            "avatar": {
+                              "format": "image",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724440967/arpowers_incredibly_beautiful_profile_photo_business_attire_Sil_dd158f53-8be3-46fe-91da-e9fbda1d4516_tffnws.png",
+                              "tags": [
+                                "annotated",
+                                "aspect:landscape",
+                                "aspect:square",
+                                "color:warm",
+                                "nature",
+                                "people",
+                                "person",
+                                "silhouette",
+                                "woman",
+                                "image"
+                              ],
+                              "slug": "arpowers_incredibly_beautiful_profile_photo_business_attire_Sil_dd158f53-8be3-46fe-91da-e9fbda1d4516_tffnws"
+                            }
+                          }
+                        ],
+                        "content": "\n        <article>\n          <p><em>Close your eyes and imagine</em> your data coming to life, each number transforming into a compelling story that captivates your readers. What if your charts could speak directly to your audience's deepest concerns?</p>\n\n          <h2>When Numbers Tell Tales</h2>\n          <p>Think about the last time a statistic genuinely moved you. What made it memorable? Was it the number itself, or the story it told? Let's discover how to create these moments for your readers.</p>\n\n          <div >\n            <h2>Your Data Storytelling Journey</h2>\n            <ol style=\"margin: 20px 0;\">\n              <li>\n                <h3>Find the Heart of Your Data</h3>\n                <p>Notice how raw numbers feel cold until you connect them to human experience? Start by asking: \"Why would my reader care about this?\"</p>\n              </li>\n              <li>\n                <h3>Build the Bridge</h3>\n                <p>What if you could connect your data directly to your readers' lives? Look for the personal impact in every statistic.</p>\n              </li>\n              <li>\n                <h3>Create the Aha Moment</h3>\n                <p>Remember the last time you had a sudden insight? That's what we want to create for your readers.</p>\n              </li>\n            </ol>\n          </div>\n\n          <aside >\n            <h3>Visualization Secrets Revealed</h3>\n            <ul style=\"margin: 16px 0;\">\n              <li>\n                <strong>Choose Your Story Type:</strong>\n                <p>See how different charts evoke different emotional responses? Match your visualization to your narrative.</p>\n              </li>\n              <li>\n                <strong>Simplify for Impact:</strong>\n                <p>Ever notice how the clearest charts often have the strongest impact?</p>\n              </li>\n              <li>\n                <strong>Guide the Eye:</strong>\n                <p>What catches your attention first in a visualization? Use this natural tendency to lead your readers through the data.</p>\n              </li>\n            </ul>\n          </aside>\n\n          <blockquote>\n            \"The goal isn't to tell your readers about data—it's to show them what matters. Imagine the moment they finally see what you see.\"\n            <footer style=\"margin-top: 8px;\">\n              <cite>— Marcus Lee</cite>\n            </footer>\n          </blockquote>\n\n          <p>Ready to transform your data from forgettable figures into unforgettable stories? Let's begin your journey into data storytelling mastery.</p>\n        </article>\n      ",
+                        "excerpt": "Transform dry statistics into compelling narratives that your readers can't resist. Discover the storyteller hiding in your spreadsheets.",
+                        "categories": [
+                          "Analytics"
+                        ],
+                        "tags": [
+                          "data",
+                          "storytelling",
+                          "visualization"
+                        ],
+                        "media": {
+                          "format": "video",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/video/upload/f_auto,q_auto/v1724634797/replicate-prediction-an30z18kj5rj00chhgqvc4022w_1_amsepx.mp4",
+                          "tags": [
+                            "aspect:landscape",
+                            "background",
+                            "video"
+                          ],
+                          "slug": "replicate-prediction-an30z18kj5rj00chhgqvc4022w_1_amsepx"
+                        },
+                        "dateAt": "2024-03-18T00:00:00.000Z"
+                      },
+                      {
+                        "title": "Why Your SEO Isn't Working (And How to Fix It)",
+                        "subTitle": "Discover the human side of search engine optimization",
+                        "slug": "seo-content-guide",
+                        "authors": [
+                          {
+                            "fullName": "Priya Sharma",
+                            "title": "SEO Strategist",
+                            "email": "priya@example.com",
+                            "avatar": {
+                              "format": "image",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724443253/arpowers_minimal_midshot_photo_stylistic_attire_1990s_style_fut_66bb224b-8c74-43bf-a013-b9389b334282_plxete.png",
+                              "tags": [
+                                "annotated",
+                                "aspect:landscape",
+                                "aspect:square",
+                                "color:warm",
+                                "midshot",
+                                "person",
+                                "woman",
+                                "image"
+                              ],
+                              "slug": "arpowers_minimal_midshot_photo_stylistic_attire_1990s_style_fut_66bb224b-8c74-43bf-a013-b9389b334282_plxete"
+                            }
+                          }
+                        ],
+                        "content": "\n        <article>\n          <p><em>Remember the last time</em> you searched for something important? That feeling of finding exactly what you needed? That's not luck—it's strategic SEO at work. Let's make your content the answer people are searching for.</p>\n\n          <section>\n            <h2>The Truth About Modern SEO</h2>\n            <p>Forget everything you think you know about SEO. Imagine if ranking well was less about technical tricks and more about genuinely understanding your readers. Let's explore how this shift changes everything.</p>\n\n            <div >\n              <div>\n                <h3>What Search Engines See</h3>\n                <ul style=\"margin: 16px 0;\">\n                  <li>\n                    <strong>Clear Structure</strong>\n                    <p>Notice how well-organized content ranks better? It's not coincidence.</p>\n                  </li>\n                  <li>\n                    <strong>Natural Language</strong>\n                    <p>What if your keywords flowed as naturally as a conversation?</p>\n                  </li>\n                  <li>\n                    <strong>Valuable Links</strong>\n                    <p>Think of links as virtual handshakes—they build trust.</p>\n                  </li>\n                </ul>\n              </div>\n\n              <div>\n                <h3>What Readers Experience</h3>\n                <ul style=\"margin: 16px 0;\">\n                  <li>\n                    <strong>Instant Relevance</strong>\n                    <p>Feel that moment when content perfectly matches your need?</p>\n                  </li>\n                  <li>\n                    <strong>Easy Navigation</strong>\n                    <p>Imagine finding everything you need without trying.</p>\n                  </li>\n                  <li>\n                    <strong>Complete Answers</strong>\n                    <p>What if every search led to a satisfying conclusion?</p>\n                  </li>\n                </ul>\n              </div>\n            </div>\n          </section>\n\n          <aside >\n            <h3>Your SEO Transformation Checklist</h3>\n            <p>Watch how your content changes when you focus on these elements:</p>\n            <ol style=\"margin: 16px 0;\">\n              <li>Is your content answering real questions?</li>\n              <li>Could a friend understand your headlines?</li>\n              <li>Does your page structure feel natural?</li>\n              <li>Are you using terms your audience uses?</li>\n            </ol>\n          </aside>\n\n          <div>\n            <h3>The Secret Most SEO Experts Won't Tell You</h3>\n            <p>The best SEO strategy is creating content so good, so useful, that people can't help but share it. Imagine your content becoming the go-to resource in your field.</p>\n          </div>\n\n          <p>Ready to see your content climb the rankings while genuinely helping your readers? Let's make your SEO work for both search engines and humans.</p>\n        </article>\n      ",
+                        "excerpt": "Stop fighting algorithms and start connecting with readers. Discover how human-centered SEO transforms your search rankings.",
+                        "categories": [
+                          "SEO"
+                        ],
+                        "tags": [
+                          "optimization",
+                          "search",
+                          "content strategy"
+                        ],
+                        "media": {
+                          "format": "image",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556103/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_427e4e07-b84a-40d1-9222-6b5a7a3d7352_xus1tx.png",
+                          "tags": [
+                            "annotated",
+                            "color:warm",
+                            "image",
+                            "man",
+                            "object",
+                            "aspect:wide"
+                          ],
+                          "slug": "arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_427e4e07-b84a-40d1-9222-6b5a7a3d7352_xus1tx"
+                        },
+                        "dateAt": "2024-03-17T00:00:00.000Z"
+                      },
+                      {
+                        "title": "The Art of Compelling Headlines",
+                        "subTitle": "Transform your ordinary titles into attention-grabbing headlines",
+                        "slug": "headline-writing-guide",
+                        "authors": [
+                          {
+                            "fullName": "Sarah Chen",
+                            "title": "Content Strategy Lead",
+                            "email": "sarah@example.com",
+                            "avatar": {
+                              "format": "video",
+                              "url": "https://res.cloudinary.com/fiction-com-inc/video/upload/f_auto,q_auto/v1724639820/replicate-prediction-559jvxt0y9rj40chhhxsrfm6er_zrb9u3.mp4",
+                              "tags": [
+                                "abstract",
+                                "person",
+                                "video",
+                                "woman",
+                                "aspect:landscape"
+                              ],
+                              "slug": "replicate-prediction-559jvxt0y9rj40chhhxsrfm6er_zrb9u3"
+                            }
+                          }
+                        ],
+                        "content": "\n        <article>\n          <p><em>Picture this:</em> Your brilliant article sits unread while others get all the attention. The difference? Often it's just the headline. Let's transform your headlines from forgotten to unforgettable.</p>\n\n          <h2>The 4 U's That Make Headlines Irresistible</h2>\n\n          <p>Notice how great headlines seem to pull you in effortlessly? Here's the framework behind that magic:</p>\n\n          <ul style=\"margin: 24px 0;\">\n            <li>\n              <h3>Useful</h3>\n              <p>Imagine your reader asking \"What's in it for me?\" Your headline should answer that instantly.</p>\n            </li>\n            <li>\n              <h3>Urgent</h3>\n              <p>Feel that slight anxiety when you might miss out on something important? That's urgency at work.</p>\n            </li>\n            <li>\n              <h3>Unique</h3>\n              <p>What would it feel like if your headline stood out from thousands of others? That's the power of uniqueness.</p>\n            </li>\n            <li>\n              <h3>Ultra-specific</h3>\n              <p>See how detailed headlines build instant credibility? They promise—and deliver—clear value.</p>\n            </li>\n          </ul>\n\n          <h2>Transform Your Headlines Today</h2>\n\n          <aside >\n            <p><strong>Try this exercise:</strong> Take your last three blog titles and rewrite each one using the 4 U's. Watch how they transform from basic statements into compelling invitations.</p>\n          </aside>\n\n          <p>Have you ever noticed how some blogs seem to consistently capture attention while others struggle? The secret often lies in their headlines. Let's unlock that secret together.</p>\n\n          <blockquote>\n            \"The headlines which work best are those that promise a story the audience already cares about. Now imagine how powerful your writing becomes when you master this art.\"\n            <footer>\n              <cite>— John Caples, Advertising Legend</cite>\n            </footer>\n          </blockquote>\n\n          <p>Ready to see your engagement numbers transform? Your next great headline is waiting to be written. Let's create it together.</p>\n        </article>\n      ",
+                        "excerpt": "Discover the secrets of headlines that don't just attract clicks—they compel action. Transform your titles from skippable to unforgettable.",
+                        "categories": [
+                          "Writing"
+                        ],
+                        "tags": [
+                          "headlines",
+                          "copywriting",
+                          "engagement"
+                        ],
+                        "media": {
+                          "format": "image",
+                          "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556261/arpowers_minimal_midshot_photo_of_object_2050s_aesthetic_incred_85d766ca-3cc0-4722-a9bd-7ca2c2229b18_blgxdm.png",
+                          "tags": [
+                            "annotated",
+                            "aspect:portrait",
+                            "color:warm",
+                            "object",
+                            "image"
+                          ],
+                          "slug": "arpowers_minimal_midshot_photo_of_object_2050s_aesthetic_incred_85d766ca-3cc0-4722-a9bd-7ca2c2229b18_blgxdm"
+                        },
+                        "dateAt": "2024-03-20T00:00:00.000Z"
+                      }
+                    ]
+                  }
+                },
+                "regionId": "main",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "effects": [],
+                "depth": 1
+              }
+            ],
+            "userConfig": {
+              "standard": {
+                "spaceSize": "none",
+                "showOnSingle": true
+              }
+            },
+            "regionId": "main",
+            "isHome": false,
+            "is404": false,
+            "effects": []
+          },
+          {
+            "cardId": "crd6759202dbcce136fa4dd99e4",
+            "templateId": "pageWrap",
+            "slug": "contact",
+            "cards": [
+              {
+                "parentId": "crd6759202dbcce136fa4dd99e4",
+                "cardId": "crd6759202d5b2f0b5e1f1ccbd0",
+                "templateId": "contentHero",
+                "userConfig": {
+                  "title": "Enter Your Title",
+                  "subTitle": "Write a sentence or two that adds context to your headline",
+                  "action": {
+                    "buttons": []
+                  }
+                },
+                "regionId": "main",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "effects": [],
+                "depth": 1
+              },
+              {
+                "parentId": "crd6759202dbcce136fa4dd99e4",
+                "cardId": "crd6759202d897a267d0e9a1494",
+                "templateId": "convertContact",
+                "userConfig": {
+                  "layout": "right",
+                  "groups": [
+                    {
+                      "title": "Contact Methods",
+                      "items": [
+                        {
+                          "label": "Email",
+                          "value": "hello@example.com",
+                          "href": "mailto:hello@example.com",
+                          "icon": {
+                            "iconId": "mail"
+                          }
+                        },
+                        {
+                          "label": "Phone",
+                          "value": "+1 (555) 123-4567",
+                          "href": "tel:+15551234567",
+                          "icon": {
+                            "iconId": "phone"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Location",
+                      "items": [
+                        {
+                          "label": "Office",
+                          "value": "123 Business Ave, Suite 100, City, ST 12345",
+                          "href": "https://maps.google.com",
+                          "icon": {
+                            "iconId": "map"
+                          }
+                        },
+                        {
+                          "label": "Hours",
+                          "value": "Mon-Fri: 9AM-5PM EST",
+                          "icon": {
+                            "iconId": "clock"
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "action": {
+                    "buttons": [
+                      {
+                        "label": "@company at LinkedIn",
+                        "href": "https://linkedin.com/company",
+                        "icon": {
+                          "iconId": "brand-linkedin"
+                        },
+                        "theme": "cyan"
+                      },
+                      {
+                        "label": "@company at X",
+                        "href": "https://x.com/company",
+                        "icon": {
+                          "iconId": "brand-x"
+                        },
+                        "theme": "blue"
+                      }
+                    ]
+                  },
+                  "form": {
+                    "notifyEmails": [
+                      {
+                        "email": "notifications@example.com"
+                      }
+                    ],
+                    "success": {
+                      "title": "Message Sent",
+                      "subTitle": "Thanks for reaching out! We'll get back to you shortly."
+                    }
+                  }
+                },
+                "regionId": "main",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "effects": [],
+                "depth": 1
+              },
+              {
+                "parentId": "crd6759202dbcce136fa4dd99e4",
+                "cardId": "crd6759202d290fcf5c0adf1cc6",
+                "templateId": "locationMaps",
+                "userConfig": {
+                  "maps": [
+                    {
+                      "lat": 33.652199,
+                      "lng": -117.747719,
+                      "zoom": 13,
+                      "pitch": 0,
+                      "mapStyle": "mode",
+                      "markers": [
+                        {
+                          "lat": 33.652199,
+                          "lng": -117.747719,
+                          "label": "Headquarters"
+                        }
+                      ],
+                      "aspectRatio": "landscape"
+                    }
+                  ]
+                },
+                "regionId": "main",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "effects": [],
+                "depth": 1
+              }
+            ],
+            "userConfig": {
+              "standard": {
+                "spaceSize": "none",
+                "showOnSingle": true
+              }
+            },
+            "regionId": "main",
+            "isHome": false,
+            "is404": false,
+            "effects": []
+          }
+        ],
+        "sections": {
+          "header": {
+            "cardId": "crd6759202c50aadc3003973307",
+            "templateId": "pageArea",
+            "regionId": "header",
+            "cards": [
+              {
+                "parentId": "crd6759202c50aadc3003973307",
+                "cardId": "crd6759202ccd1243e0b141c18a",
+                "templateId": "pageNav",
+                "userConfig": {
+                  "standard": {
+                    "spaceSize": "xs"
+                  },
+                  "brand": {
+                    "logo": {
+                      "typography": {
+                        "label": "Prestige"
+                      },
+                      "variant": "typography",
+                      "scale": 1.1
+                    }
+                  },
+                  "layout": "navCenter",
+                  "nav": {
+                    "primary": [
+                      {
+                        "label": "Services",
+                        "href": "/services"
+                      },
+                      {
+                        "label": "Events",
+                        "href": "/events"
+                      },
+                      {
+                        "label": "About",
+                        "href": "/about"
+                      }
+                    ],
+                    "utility": [
+                      {
+                        "label": "Social",
+                        "list": {
+                          "items": [
+                            {
+                              "label": "Instagram",
+                              "href": "#",
+                              "icon": {
+                                "class": "i-tabler-brand-instagram"
+                              }
+                            },
+                            {
+                              "label": "LinkedIn",
+                              "href": "#",
+                              "icon": {
+                                "class": "i-tabler-brand-linkedin"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "label": "Book Event",
+                        "href": "/contact",
+                        "variant": "button",
+                        "theme": "primary",
+                        "design": "outline"
+                      }
+                    ]
+                  }
+                },
+                "regionId": "header",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "effects": [],
+                "depth": 1
+              }
+            ],
+            "userConfig": {
+              "standard": {
+                "spaceSize": "none"
+              }
+            },
+            "isHome": false,
+            "is404": false,
+            "effects": []
+          },
+          "footer": {
+            "cardId": "crd6759202c463ab3c0116d36de",
+            "templateId": "pageArea",
+            "regionId": "footer",
+            "cards": [
+              {
+                "parentId": "crd6759202c463ab3c0116d36de",
+                "cardId": "crd6759202cee3e92661ba80910",
+                "templateId": "convertCta",
+                "userConfig": {
+                  "standard": {
+                    "spaceSize": "xs"
+                  },
+                  "superTitle": {
+                    "text": "Customizable CTA Section",
+                    "icon": {
+                      "class": "i-tabler-star"
+                    }
+                  },
+                  "title": "Looking for something unique?",
+                  "subTitle": "Let's discuss how we can create an unforgettable experience for your next event",
+                  "benefits": {
+                    "title": "Key Benefits",
+                    "items": [
+                      {
+                        "label": "Choose Your Action Type",
+                        "description": "Switch between email subscription and custom buttons",
+                        "icon": {
+                          "class": "i-tabler-adjustments"
+                        }
+                      },
+                      {
+                        "label": "Social Proof",
+                        "description": "Enable community bar to showcase your audience",
+                        "icon": {
+                          "class": "i-tabler-users-group"
+                        }
+                      },
+                      {
+                        "label": "Visual Hierarchy",
+                        "description": "Organize content with super title, main title, and subtitle",
+                        "icon": {
+                          "class": "i-tabler-layout-list"
+                        }
+                      }
+                    ]
+                  },
+                  "action": {
+                    "variant": "subscribe",
+                    "subscribe": {
+                      "input": {
+                        "placeholder": "Your email address"
+                      },
+                      "button": {
+                        "label": "Get Started"
+                      },
+                      "success": {
+                        "title": "Perfect!",
+                        "content": "Watch your inbox for our welcome message"
+                      }
+                    },
+                    "proof": {
+                      "community": {
+                        "isEnabled": true,
+                        "text": "join 1250+ others",
+                        "count": 1250,
+                        "thumbCount": 3
+                      }
+                    },
+                    "buttons": [
+                      {
+                        "label": "Get in Touch",
+                        "href": "/contact",
+                        "theme": "primary"
+                      },
+                      {
+                        "label": "View Services",
+                        "href": "/services"
+                      }
+                    ]
+                  }
+                },
+                "regionId": "footer",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "effects": [],
+                "depth": 1
+              },
+              {
+                "parentId": "crd6759202c463ab3c0116d36de",
+                "cardId": "crd6759202c7b34d6ae82859728",
+                "templateId": "pageFooterPro",
+                "userConfig": {
+                  "brand": {
+                    "logo": {
+                      "variant": "typography",
+                      "typography": {
+                        "label": "Prestige"
+                      },
+                      "scale": 1.1
+                    },
+                    "tagline": "Corporate Magic & Consulting",
+                    "action": {
+                      "buttons": []
+                    }
+                  },
+                  "menus": [
+                    {
+                      "title": "Services",
+                      "items": [
+                        {
+                          "label": "Corporate Events",
+                          "href": "/services/corporate",
+                          "icon": {
+                            "iconId": "building"
+                          }
+                        },
+                        {
+                          "label": "Private Functions",
+                          "href": "/services/private",
+                          "icon": {
+                            "iconId": "glass"
+                          }
+                        },
+                        {
+                          "label": "Consulting",
+                          "href": "/services/consulting",
+                          "icon": {
+                            "iconId": "bulb"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "title": "Information",
+                      "items": [
+                        {
+                          "label": "Technical Requirements",
+                          "href": "/tech-specs",
+                          "icon": {
+                            "iconId": "settings"
+                          }
+                        },
+                        {
+                          "label": "Event Planning Guide",
+                          "href": "/planning",
+                          "icon": {
+                            "iconId": "calendar"
+                          }
+                        },
+                        {
+                          "label": "Press Kit",
+                          "href": "/press",
+                          "icon": {
+                            "iconId": "newspaper"
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "badges": {
+                    "buttons": [
+                      {
+                        "label": "Member of The Magic Circle",
+                        "href": "/credentials",
+                        "theme": "primary",
+                        "design": "ghost",
+                        "icon": {
+                          "iconId": "wand"
+                        }
+                      },
+                      {
+                        "label": "FISM Award Winner",
+                        "href": "/about",
+                        "theme": "blue",
+                        "design": "ghost",
+                        "icon": {
+                          "iconId": "award"
+                        }
+                      }
+                    ]
+                  },
+                  "additional": {
+                    "links": [
+                      {
+                        "label": "Privacy Policy",
+                        "href": "/privacy"
+                      },
+                      {
+                        "label": "Terms of Service",
+                        "href": "/terms"
+                      }
+                    ],
+                    "social": [
+                      {
+                        "label": "Instagram",
+                        "media": {
+                          "iconId": "brand-instagram"
+                        },
+                        "href": "#"
+                      },
+                      {
+                        "label": "LinkedIn",
+                        "media": {
+                          "iconId": "brand-linkedin"
+                        },
+                        "href": "#"
+                      }
+                    ]
+                  }
+                },
+                "regionId": "footer",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "effects": [],
+                "depth": 1
+              }
+            ],
+            "userConfig": {
+              "standard": {
+                "spaceSize": "none"
+              }
+            },
+            "isHome": false,
+            "is404": false,
+            "effects": []
+          },
+          "hidden": {
+            "cardId": "crd6759202cf299dc5207b280f0",
+            "templateId": "pageArea",
+            "cards": [
+              {
+                "parentId": "crd6759202cf299dc5207b280f0",
+                "cardId": "crd6759202c7ea0e63bbc39aa1e",
+                "templateId": "modalMedia",
+                "userConfig": {},
+                "regionId": "main",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "effects": [],
+                "depth": 1
+              },
+              {
+                "parentId": "crd6759202cf299dc5207b280f0",
+                "cardId": "crd6759202cb2897a430951a234",
+                "templateId": "convertCapture",
+                "userConfig": {
+                  "standard": {
+                    "spaceSize": "sm"
+                  },
+                  "superTitle": {
+                    "text": "Join 10k+ Subscribers"
+                  },
+                  "title": "Exclusive Subscriber-Only Resources",
+                  "subTitle": "Subscribers get exclusive tips, reports and strategies every week.",
+                  "media": {
+                    "format": "html",
+                    "html": "lorem1.svg",
+                    "tags": [
+                      "lorem",
+                      "image"
+                    ]
+                  },
+                  "action": {
+                    "variant": "subscribe",
+                    "subscribe": {
+                      "button": {
+                        "label": "Join The List"
+                      },
+                      "success": {
+                        "title": "Welcome aboard!",
+                        "content": "Check your inbox for your guide."
+                      }
+                    }
+                  }
+                },
+                "regionId": "main",
+                "isHome": false,
+                "is404": false,
+                "cards": [],
+                "effects": [],
+                "depth": 1
+              }
+            ],
+            "userConfig": {
+              "standard": {
+                "spaceSize": "none"
               }
             },
             "regionId": "main",

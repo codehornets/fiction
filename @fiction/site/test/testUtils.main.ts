@@ -2,6 +2,7 @@ import * as adminTheme from '@fiction/admin/theme'
 import CardSite from '@fiction/cards/CardSite.vue'
 import { AppRoute, type ServiceConfig } from '@fiction/core'
 import * as fictionTheme from '@fiction/theme-fiction'
+import * as prestigeTheme from '@fiction/theme-prestige'
 import { createSiteTestUtils } from './testUtils'
 
 export async function setup(args: { context?: 'node' | 'app', mainFilePath?: string } = {}) {
@@ -11,7 +12,7 @@ export async function setup(args: { context?: 'node' | 'app', mainFilePath?: str
   const testUtils = await createSiteTestUtils({
     mainFilePath,
     context,
-    themes: [fictionTheme.theme, adminTheme.theme],
+    themes: [fictionTheme.theme, adminTheme.theme, prestigeTheme.theme],
     delaySiteRouterCreation: true, // created on editor start
   })
 

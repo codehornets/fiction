@@ -241,14 +241,14 @@ export type NavListItem = z.infer<typeof BaseNavListItemSchema> & {
 }
 
 export const ActionButtonSchema = z.object({
-  label: z.string().optional(),
-  href: z.string().optional(),
-  size: SizeSchema.optional(),
-  theme: ButtonColorThemeSchema.optional(),
-  design: ButtonDesignSchema.optional(),
+  label: z.string().optional().describe('Button text [ai]'),
+  href: z.string().optional().describe('Button link URL or /path [ai]'),
+  size: SizeSchema.optional().describe('Button size'),
+  theme: ButtonColorThemeSchema.optional().describe('Button color scheme [ai]'),
+  design: ButtonDesignSchema.optional().describe('Button visual style [ai]'),
   format: ButtonFormatSchema.optional(),
   rounding: ButtonRoundingSchema.optional(),
-  icon: z.union([z.string(), MediaIconSchema]).optional(),
+  icon: z.union([z.string(), MediaIconSchema]).optional().describe('Button icon [ai]'),
   iconAfter: z.union([z.string(), MediaIconSchema]).optional(),
   loading: z.boolean().optional(),
   disabled: z.boolean().optional(),
@@ -262,36 +262,36 @@ export type ActionButton = z.infer<typeof ActionButtonSchema>
 
 export const ActionSubscribeSchema = z.object({
   input: z.object({
-    placeholder: z.string().optional(),
+    placeholder: z.string().optional().describe('Email input placeholder [ai]'),
   }).optional(),
   button: z.object({
-    label: z.string().optional(),
-    icon: MediaIconSchema.optional(),
-  }).optional(),
+    label: z.string().optional().describe('Button text [ai]'),
+    icon: MediaIconSchema.optional().describe('Button icon [ai]'),
+  }).optional().describe('buttons [ai]'),
   success: z.object({
-    title: z.string().optional(),
-    content: z.string().optional(),
+    title: z.string().optional().describe('Success message title [ai]'),
+    content: z.string().optional().describe('Success message content [ai]'),
   }).optional(),
 })
 
 export type ActionSubscribe = z.infer<typeof ActionSubscribeSchema>
 
 export const ActionAreaSchema = z.object({
-  title: z.string().optional(),
-  variant: z.enum(['buttons', 'subscribe']).optional(),
-  buttons: z.array(ActionButtonSchema).optional(),
-  size: SizeSchema.optional(),
-  theme: ButtonColorThemeSchema.optional(),
-  design: ButtonDesignSchema.optional(),
-  subscribe: ActionSubscribeSchema.optional(),
+  title: z.string().optional().describe('Header text above actions [ai]'),
+  variant: z.enum(['buttons', 'subscribe']).optional().describe('Action type format [ai]'),
+  buttons: z.array(ActionButtonSchema).optional().describe('Interactive buttons [ai]'),
+  size: SizeSchema.optional().describe('Component size'),
+  theme: ButtonColorThemeSchema.optional().describe('Color scheme'),
+  design: ButtonDesignSchema.optional().describe('Visual style'),
+  subscribe: ActionSubscribeSchema.optional().describe('Email capture settings [ai]'),
   proof: z.object({
     community: z.object({
-      isEnabled: z.boolean().optional(),
-      text: z.string().optional(),
-      count: z.number().optional(),
-      thumbCount: z.number().optional(),
-    }).optional(),
-  }).optional(),
+      isEnabled: z.boolean().optional().describe('Show social proof'),
+      text: z.string().optional().describe('Social proof message '),
+      count: z.number().optional().describe('Community size'),
+      thumbCount: z.number().optional().describe('Avatar count to show'),
+    }).optional().describe('Social proof display'),
+  }).optional().describe('Trust indicators'),
 })
 
 export type ActionArea = z.infer<typeof ActionAreaSchema>
@@ -314,18 +314,18 @@ export type BrandObject = z.infer<typeof brandSchema>
 export type LogoObject = z.infer<typeof logoSchema>
 
 export const SuperTitleSchema = z.object({
-  text: z.string().optional(),
-  icon: MediaIconSchema.optional(),
-  theme: z.enum(colorThemeUser).optional(),
+  text: z.string().optional().describe('Short text above main title [ai]'),
+  icon: MediaIconSchema.optional().describe('Visual indicator icon [ai]'),
+  theme: z.enum(colorThemeUser).optional().describe('Color style'),
 })
 
 export type SuperTitle = z.infer<typeof SuperTitleSchema>
 
-export const TaxonomySchema = z.object({
-  title: z.string().optional(),
-  slug: z.string().optional(),
-  type: z.enum(['category', 'tag']).optional(),
-})
+// export const TaxonomySchema = z.object({
+//   title: z.string().optional(),
+//   slug: z.string().optional(),
+//   type: z.enum(['category', 'tag']).optional(),
+// })
 
 export const UserSchema = z.object({
   fullName: z.string().optional(),
@@ -347,64 +347,54 @@ const PostUserConfigSchema = z.object({
 
 export const PostSchema = z.object({
   // Core Content
-  title: z.string().optional().describe('Main title/headline of the post'),
-  subTitle: z.string().optional().describe('Secondary title providing additional context'),
-  superTitle: SuperTitleSchema.optional().describe('Small text above title for categorization or context'),
-  content: z.string().optional().describe('Main body content of the post in HTML/Markdown format'),
-  excerpt: z.string().optional().describe('Short summary of the post for previews and listings'),
+  title: z.string().optional().describe('Primary headline [ai]'),
+  subTitle: z.string().optional().describe('Supporting headline [ai]'),
+  superTitle: SuperTitleSchema.optional().describe('Small header text above title [ai]'),
+  content: z.string().optional().describe('Main content in HTML/Markdown [ai]'),
+  excerpt: z.string().optional().describe('Brief summary for previews [ai]'),
 
   // Meta Information
-  status: PostStatusSchema.optional().describe('Publication status (draft, published, etc)'),
-  emphasis: emphasisSchema.optional().describe('Visual prominence level in listings (featured, standard, minimal)'),
-  dateAt: z.string().optional().describe('ISO 8601 publication date'),
-  publishAt: z.string().optional().describe('ISO 8601 scheduled publication date'),
+  status: PostStatusSchema.optional().describe('Publication state'),
+  emphasis: emphasisSchema.optional().describe('Display prominence level'),
+  dateAt: z.string().optional().describe('Publish date'),
+  publishAt: z.string().optional().describe('Scheduled publish date'),
 
   // Visual Elements
-  media: MediaDisplaySchema.optional().describe('Featured image or video with display settings'),
-  icon: MediaIconSchema.optional().describe('Optional icon for visual identification in listings'),
+  media: MediaDisplaySchema.optional().describe('Featured image/video [ai]'),
+  icon: MediaIconSchema.optional().describe('List view icon [ai]'),
 
   // Taxonomy & Organization
-  slug: z.string().optional().describe('URL-friendly version of the title for routing'),
-  href: z.string().optional().describe('Full URL or path to the post'),
-  tags: z.array(z.string()).optional().describe('Topic tags for filtering and related content'),
-  categories: z.array(z.string()).optional().describe('Broad classifications for content organization'),
+  slug: z.string().optional().describe('URL-friendly title'),
+  href: z.string().optional().describe('Content permalink'),
+  tags: z.array(z.string()).optional().describe('Topic labels [ai]'),
+  categories: z.array(z.string()).optional().describe('Content groupings [ai]'),
 
   // Associated Data
-  authors: z.array(UserSchema).optional().describe('List of post authors with profiles'),
-  action: ActionAreaSchema.optional().describe('Call-to-action buttons and interaction elements'),
+  authors: z.array(UserSchema).optional().describe('Content creators'),
+  action: ActionAreaSchema.optional().describe('Interactive buttons [ai]'),
 
-  userConfig: PostUserConfigSchema.optional().describe('User-specific configuration settings'),
-
+  userConfig: PostUserConfigSchema.optional().describe('Custom settings'),
 })
 
-// export const AndDataFilterSchema = z.object({
-//   field: z.string(),
-//   value: z.union([z.string(), z.number(), z.array(z.union([z.string(), z.number()]))]),
-//   operator: z.enum(['=', '!=', '>', '<', '>=', '<=', 'like', 'not like', 'in', 'not in']),
-// })
-
-// export const OrFilterGroupSchema = z.array(AndDataFilterSchema)
-
 export const GlobalQuerySchema = z.object({
-
-  filters: z.array(OrFilterGroupSchema).optional().describe('Array of filter groups which selects by OR'),
-  sortBy: z.string().optional(),
-  sortOrder: z.enum(['asc', 'desc']).optional(),
-  search: z.string().optional(),
+  filters: z.array(OrFilterGroupSchema).optional().describe('OR-based filter groups [ai]'),
+  sortBy: z.string().optional().describe('Field to sort by'),
+  sortOrder: z.enum(['asc', 'desc']).optional().describe('Sort direction'),
+  search: z.string().optional().describe('Search query [ai]'),
   dateRange: z.object({
     start: z.date().optional(),
     end: z.date().optional(),
-  }).optional(),
+  }).optional().describe('Date filter range'),
 })
 
-// Updated PostHandlingSchema
 export const PostHandlingSchema = z.object({
-  format: z.enum(['standard', 'local']).optional().describe('Either get from global posts or inline entries, AI always uses local'),
-  limit: z.number().optional().describe('Limit the number of posts to show - default is 12'),
-  offset: z.number().optional().describe('Offset the number of posts to show'),
-  entries: z.array(PostSchema).optional().describe('Inline post entries for local format'),
-  query: GlobalQuerySchema.optional().describe('Query for global posts'),
-  viewSlug: z.string().optional().describe('Base path for post links'),
+  format: z.enum(['standard', 'local']).optional().describe('Global or inline posts source'),
+  limit: z.number().optional().describe('Max posts to show'),
+  offset: z.number().optional().describe('Number of posts to skip'),
+  entries: z.array(PostSchema).optional().describe('Local post entries [ai]'),
+  query: GlobalQuerySchema.optional()
+    .describe('Filter and sort options [ai]'),
+  viewSlug: z.string().optional().describe('Base URL for posts'),
 })
 
 export type PostObject = z.infer<typeof PostSchema>
