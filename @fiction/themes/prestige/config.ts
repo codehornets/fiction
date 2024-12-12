@@ -208,8 +208,20 @@ export async function getPages(args: SectionArgs) {
         await factory.fromTemplate<typeof heroTemplate>({
           templateId: 'cardHeroV1',
           userConfig: {
-            title: 'Recent Work',
-            subTitle: 'Selected performances and consulting projects',
+            title: 'Portfolio of Wonder',
+            subTitle: 'A collection of extraordinary performances and innovative magical consulting across corporate, entertainment, and private sectors',
+            superTitle: {
+              text: 'Selected Works',
+              icon: { iconId: 'wand' },
+              theme: 'primary',
+            },
+            media: stock.getRandomByTags(['aspect:wide']),
+            action: {
+              buttons: [
+                { label: 'Discover the Magic', href: '#featured', theme: 'primary' },
+                { label: 'Consulting Work', href: '#consulting' },
+              ],
+            },
           },
         }),
         await factory.fromTemplate<typeof bentoTemplate>({
@@ -217,21 +229,126 @@ export async function getPages(args: SectionArgs) {
           userConfig: {
             items: [
               {
-                title: 'Title',
+                superTitle: { text: 'Featured Performance', theme: 'blue' },
+                title: 'Google I/O 2023',
+                content: 'Reimagining the future through impossible moments. A groundbreaking fusion of classical magic and artificial intelligence.',
+                bg: stock.getRandomByTags(['object']),
+                cols: 6,
+                rows: 2,
+                theme: 'blue',
+                verticalPosition: 'top',
+                action: {
+                  buttons: [{ label: 'Explore Project', href: '/work/google-io' }],
+                },
+              },
+              {
+                title: 'Netflix Creative Direction',
+                content: 'Lead illusion designer for "The Magicians" Season 5, bringing authenticity to modern magical storytelling.',
+                bg: stock.getRandomByTags(['object']),
+                cols: 3,
+                rows: 2,
+                theme: 'emerald',
+              },
+              {
+                title: 'Broadway Magic',
+                content: 'Technical direction for "The Prestige" stage adaptation, merging Victorian illusions with contemporary theater.',
+                bg: stock.getRandomByTags(['object']),
+                cols: 3,
+                rows: 2,
+                theme: 'violet',
+              },
+              {
+                superTitle: { text: 'Private Event', theme: 'indigo' },
+                title: 'SpaceX Executive Retreat',
+                content: 'Custom close-up performance exploring the parallels between space exploration and impossible possibilities.',
+                media: stock.getRandomByTags(['object']),
+                cols: 4,
+                rows: 3,
+                theme: 'indigo',
+              },
+              {
+                title: 'Microsoft HoloLens Launch',
+                content: 'Magical product reveal combining classical sleight of hand with augmented reality.',
+                bg: stock.getRandomByTags(['object']),
+                cols: 4,
+                rows: 3,
+                theme: 'cyan',
+              },
+              {
+                title: 'Royal Albert Hall',
+                content: 'Sold-out theater show featuring signature illusions and world premieres.',
+                media: stock.getRandomByTags(['object']),
+                verticalPosition: 'top',
+                cols: 4,
+                rows: 3,
+                theme: 'rose',
               },
             ],
           },
-        }), // Project grid
-
+        }),
         await factory.fromTemplate<typeof galleryTemplate>({
           templateId: 'cardPhotoGalleryV1',
           userConfig: {
+            standard: {
+              headers: {
+                title: 'Performance Gallery',
+                subTitle: 'Moments of wonder captured across global venues',
+              },
+            },
             items: [
               {
-                title: 'Google I/O 2023',
-                content: 'Designed and performed custom effects for Google\'s AI presentation. Created visual metaphors for machine learning through sleight of hand.',
+                title: 'Corporate Innovation',
+                content: 'Creating impossible moments for product launches and brand experiences that leave lasting impressions.',
+                media: stock.getRandomByTags(['object']),
+                cols: '2',
+                theme: 'blue',
+              },
+              {
+                title: 'Television Magic',
+                content: 'Bringing authentic illusions to the screen through technical direction and performance.',
+                media: stock.getRandomByTags(['object']),
+                cols: '2',
+                theme: 'emerald',
+              },
+              {
+                title: 'Private Events',
+                content: 'Crafting intimate magical experiences for exclusive gatherings and celebrations.',
+                media: stock.getRandomByTags(['object']),
+                cols: '2',
+                theme: 'violet',
+              },
+              {
+                title: 'Stage Shows',
+                content: 'Theater performances that combine classical illusion with modern storytelling.',
+                media: stock.getRandomByTags(['object']),
+                cols: '2',
+                theme: 'indigo',
+              },
+              {
+                title: 'Consulting Projects',
+                content: 'Behind-the-scenes magic design for entertainment and corporate clients.',
+                media: stock.getRandomByTags(['object']),
+                cols: '2',
+                theme: 'cyan',
+              },
+              {
+                title: 'International Tours',
+                content: 'Bringing sophisticated illusion to prestigious venues worldwide.',
+                media: stock.getRandomByTags(['object']),
+                cols: '2',
+                theme: 'rose',
               },
             ],
+            layout: {
+              gapSize: 'md',
+              aspectRatio: 'video',
+              animation: 'fade',
+              showAllText: false,
+            },
+            lightbox: {
+              enabled: true,
+              showCaption: true,
+            },
           },
         }),
       ],

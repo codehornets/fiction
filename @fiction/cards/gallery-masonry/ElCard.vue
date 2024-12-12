@@ -48,7 +48,7 @@ function getItemStyle(item: MediaItem) {
 }
 
 function getItemClasses(item: MediaItem) {
-  const cols = item?.columns || '1'
+  const cols = item?.cols || '1'
 
   return [
     'masonry-grid-item',

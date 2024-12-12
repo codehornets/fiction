@@ -53,62 +53,70 @@ const gapClass = vue.computed(() => {
         :class="getGridStyle(item).class"
       >
         <div
-          class="relative h-full px-6 py-8 @xs:px-8 @xs:py-10 @2xl:p-12 @4xl:p-16 flex flex-col z-10"
+          class="relative h-full  flex flex-col z-10"
           :style="[
             getPositionStyles(item),
             item.bg?.url ? getTextOverlayStyles(item) : {},
           ]"
         >
           <div
-            class="flex flex-col gap-1 @2xl:gap-3"
+            class="flex flex-col h-full"
             :style="getContentMaxWidth(item)"
           >
-            <XLogo
-              v-if="item.media && (!item.verticalPosition || item.verticalPosition !== 'top')"
-              :media="item.media"
-              class="max-w-full mb-6"
-              :style="{ width: item.media.displayWidthPercent ? `${item.media.displayWidthPercent}%` : 'auto' }"
-            />
-            <SuperTitle
-              :card
-              :base-path="pathCheck(`items.${i}.superTitle`, schema)"
-              :classes="{ text: 'text-sm @lg:text-base @2xl:text-lg font-medium opacity-90 font-sans' }"
-              :theme="item.bg?.url ? 'overlay' : (item.theme || 'default')"
-            />
+            <div v-if="(!item.verticalPosition || item.verticalPosition !== 'top')" class="h-full">
+              <XMedia
+                v-if="item.media"
+                :media="item.media"
+                class="h-full w-full"
+                :style="{ width: item.media.displayWidthPercent ? `${item.media.displayWidthPercent}%` : 'auto' }"
+              />
+            </div>
+            <div class="px-6 py-8 @xs:px-8 @xs:py-10 @2xl:p-12 @4xl:p-16 space-y-4">
+              <div class="space-y-2">
+                <SuperTitle
+                  :card
+                  :base-path="pathCheck(`items.${i}.superTitle`, schema)"
+                  :classes="{ text: 'text-sm @lg:text-base @2xl:text-lg font-medium opacity-90 font-sans' }"
+                  :theme="item.bg?.url ? 'overlay' : (item.theme || 'default')"
+                />
 
-            <CardText
-              v-if="item.title"
-              :card
-              :path="pathCheck(`items.${i}.title`, schema)"
-              tag="h3"
-              class="text-2xl @xs:text-3xl @xl:text-4xl @5xl:text-6xl @xl:mb-2 @5xl:mb-4 text-balance font-medium @2xl:font-semibold  x-font-title"
-              :style="getContentStyles(item, 'text', bentoWrapEl)"
-            />
+                <CardText
+                  v-if="item.title"
+                  :card
+                  :path="pathCheck(`items.${i}.title`, schema)"
+                  tag="h3"
+                  class="text-2xl @xs:text-3xl @xl:text-4xl @5xl:text-6xl @xl:mb-2 @5xl:mb-4 text-balance font-medium @2xl:font-semibold  x-font-title"
+                  :style="getContentStyles(item, 'text', bentoWrapEl)"
+                />
 
-            <CardText
-              v-if="item.content"
-              :card
-              :path="pathCheck(`items.${i}.content`, schema)"
-              tag="p"
-              class="line-clamp-3 opacity-90 @xs:text-lg @xl:text-xl @5xl:text-2xl"
-              :style="getContentStyles(item, 'sub', bentoWrapEl)"
-            />
+                <CardText
+                  v-if="item.content"
+                  :card
+                  :path="pathCheck(`items.${i}.content`, schema)"
+                  tag="p"
+                  class="line-clamp-3 opacity-90 @xs:text-lg @xl:text-xl @5xl:text-2xl"
+                  :style="getContentStyles(item, 'sub', bentoWrapEl)"
+                />
+              </div>
 
-            <CardActionArea
-              :card
-              class="mt-4"
-              :base-path="pathCheck(`items.${i}.action`, schema)"
-              :classes="{ buttons: 'flex gap-3' }"
-              design="outline"
-              :theme="(item.bg?.url ? 'overlay' : (item.theme || 'default'))"
-            />
+              <CardActionArea
+                :card
+                class="mt-6"
+                :base-path="pathCheck(`items.${i}.action`, schema)"
+                :classes="{ buttons: 'flex gap-3' }"
+                design="outline"
+                :theme="(item.bg?.url ? 'overlay' : (item.theme || 'default'))"
+              />
+            </div>
 
-            <XLogo
-              v-if="item.media && item.verticalPosition === 'top'"
-              :media="item.media"
-              class="max-w-full mt-6"
-              :style="{ width: item.media.displayWidthPercent ? `${item.media.displayWidthPercent}%` : 'auto' }"
-            />
+            <div v-if=" item.verticalPosition === 'top'" class="grow h-full">
+              <XMedia
+                v-if="item.media"
+                :media="item.media"
+                class="h-full w-full"
+                :style="{ width: item.media.displayWidthPercent ? `${item.media.displayWidthPercent}%` : 'auto' }"
+              />
+            </div>
           </div>
         </div>
 

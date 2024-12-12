@@ -9,7 +9,7 @@ import CardActionArea from '../el/CardActionArea.vue'
 import SuperTitle from '../el/SuperTitle.vue'
 import { schema } from './config'
 
-defineOptions({ name: 'cardCtaV1' })
+defineOptions({ name: 'CardCtaV1' })
 
 const props = defineProps<{
   card: Card<UserConfig>
@@ -31,7 +31,7 @@ vue.onMounted(() => {
   })
 })
 
-const colPad = 'p-12 xl:p-16'
+const colPad = 'p-4 md:p-12 xl:p-16'
 </script>
 
 <template>
