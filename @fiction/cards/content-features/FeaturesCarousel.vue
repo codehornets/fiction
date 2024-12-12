@@ -49,7 +49,7 @@ const carouselWidth = vue.computed(() => ({
       v-model:active-item="activeIndex"
       :wrap-selector="`[data-card-id='${card.cardId}']`"
       :items="features"
-      class="mt-16 z-20"
+      class="mt-16 z-20 justify-center "
     />
   </div>
 </template>

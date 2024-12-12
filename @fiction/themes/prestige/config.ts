@@ -36,19 +36,19 @@ export async function getPages(args: SectionArgs) {
               {
                 title: 'The Amazing Prestige Theme',
                 subTitle: 'A magical Fiction theme for personal branding.',
-                media: stock.getRandomByTags(['background']),
+                media: stock.getRandomByTags(['person']),
                 textBlend: 'difference',
               },
               {
                 title: 'Professional Magic',
                 subTitle: 'Director of Magic Studies, McBride\'s Magic & Mystery School',
-                media: stock.getRandomByTags(['background']),
+                media: stock.getRandomByTags(['person']),
                 textBlend: 'difference',
               },
               {
                 title: 'Magical First Design',
                 subTitle: 'Creating illusions optimized for modern media',
-                media: stock.getRandomByTags(['background']),
+                media: stock.getRandomByTags(['person']),
                 textBlend: 'difference',
               },
             ],
@@ -144,7 +144,7 @@ export async function getPages(args: SectionArgs) {
               {
                 title: 'Google I/O 2023',
                 content: 'Designed and performed custom effects for Google\'s AI presentation. Created visual metaphors for machine learning through sleight of hand.',
-                media: stock.getRandomByTags(['background']),
+                media: stock.getRandomByTags(['object']),
                 parallaxStrength: 0.4,
                 action: {
                   buttons: [
@@ -155,7 +155,7 @@ export async function getPages(args: SectionArgs) {
               {
                 title: 'Magic Technical Direction',
                 content: 'Lead consultant for Netflix\'s \'The Magicians\' Season 5. Designed practical effects and trained actors in sleight of hand techniques.',
-                media: stock.getRandomByTags(['background']),
+                media: stock.getRandomByTags(['object']),
                 parallaxStrength: 0.6,
                 action: {
                   buttons: [
@@ -166,7 +166,7 @@ export async function getPages(args: SectionArgs) {
               {
                 title: 'Private Event Design',
                 content: 'Created a custom close-up magic show for SpaceX\'s executive retreat. Integrated themes of innovation and exploration into classical effects.',
-                media: stock.getRandomByTags(['background']),
+                media: stock.getRandomByTags(['object']),
                 parallaxStrength: 0.5,
                 action: {
                   buttons: [

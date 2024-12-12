@@ -76,7 +76,7 @@ function onSlideChange(index: number) {
       v-model:active-item="activeIndex"
       :wrap-selector="`[data-card-id='${card.cardId}']`"
       :items="items"
-      class="mt-12 z-20"
+      class="mt-12 z-20 justify-center "
     />
   </div>
 </template>

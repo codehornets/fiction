@@ -4,8 +4,8 @@
     "url": "https://res.cloudinary.com/fiction-com-inc/video/upload/f_auto,q_auto/v1733965383/tmp_sfc7kwaGen-3_Alpha_Turbo_1041833194_slow_motion_shot_ni_Cropped_-_arpowers_m_M_5_out_ud14ec.mp4",
     "tags": [
       "aspect:landscape",
-      "video",
-      "background"
+      "background",
+      "video"
     ],
     "slug": "tmp_sfc7kwaGen-3_Alpha_Turbo_1041833194_slow_motion_shot_ni_Cropped_-_arpowers_m_M_5_out_ud14ec"
   },
@@ -39,8 +39,8 @@
     "url": "https://res.cloudinary.com/fiction-com-inc/video/upload/f_auto,q_auto/v1733965382/replicate-prediction-y6mkhgdranrj00ckq1g8hcp1j0_kqdtra.mp4",
     "tags": [
       "aspect:landscape",
-      "video",
-      "background"
+      "background",
+      "video"
     ],
     "slug": "replicate-prediction-y6mkhgdranrj00ckq1g8hcp1j0_kqdtra"
   },
@@ -175,8 +175,8 @@
     "url": "https://res.cloudinary.com/fiction-com-inc/video/upload/f_auto,q_auto/v1733965053/replicate-prediction-8201cvzxahrj20ckq1ab16ebs4_scwjtp.mp4",
     "tags": [
       "aspect:landscape",
-      "video",
-      "background"
+      "background",
+      "video"
     ],
     "slug": "replicate-prediction-8201cvzxahrj20ckq1ab16ebs4_scwjtp"
   },
@@ -349,19 +349,6 @@
   },
   {
     "format": "image",
-    "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1725686153/profile-man-8_isdi8z.png",
-    "tags": [
-      "aspect:square",
-      "color:cool",
-      "headshot",
-      "man",
-      "realistic",
-      "annotated"
-    ],
-    "slug": "profile-man-8_isdi8z"
-  },
-  {
-    "format": "image",
     "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1725686124/profile-man-6_aratfe.png",
     "tags": [
       "annotated",
@@ -470,6 +457,175 @@
       "annotated"
     ],
     "slug": "hugo-rebora-headshot"
+  },
+  {
+    "format": "image",
+    "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1733967331/arpowers_minimalist_realistic_mediterranean_scene_futuristic_be_35af1f50-7dc7-40a7-bb6a-58a791fad53d_ijjsvj.png",
+    "tags": [
+      "background",
+      "aspect:wide",
+      "color:warm"
+    ],
+    "slug": "arpowers_minimalist_realistic_mediterranean_scene_futuristic_be_35af1f50-7dc7-40a7-bb6a-58a791fad53d_ijjsvj"
+  },
+  {
+    "format": "image",
+    "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1733967609/arpowers_minimalist_realistic_mediterranean_scene_futuristic_an_e28b06c6-3c5e-42bb-9390-40cf6f5f87dd_ootiwd.png",
+    "tags": [
+      "background",
+      "aspect:wide",
+      "color:warm"
+    ],
+    "slug": "arpowers_minimalist_realistic_mediterranean_scene_futuristic_an_e28b06c6-3c5e-42bb-9390-40cf6f5f87dd_ootiwd"
+  },
+  {
+    "format": "image",
+    "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1733967332/arpowers_minimalist_realistic_mediterranean_scene_futuristic_an_cc45fa22-6d51-49c9-bd97-91bd9f334ee4_jzxctd.png",
+    "tags": [
+      "background",
+      "aspect:wide",
+      "color:warm"
+    ],
+    "slug": "arpowers_minimalist_realistic_mediterranean_scene_futuristic_an_cc45fa22-6d51-49c9-bd97-91bd9f334ee4_jzxctd"
+  },
+  {
+    "format": "image",
+    "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1733967836/arpowers_minimalist_realistic_mediterranean_scene_futuristic_an_b6550cd1-0927-4e0d-9fe9-24447e245378_s4bigm.png",
+    "tags": [
+      "background",
+      "aspect:wide",
+      "color:warm"
+    ],
+    "slug": "arpowers_minimalist_realistic_mediterranean_scene_futuristic_an_b6550cd1-0927-4e0d-9fe9-24447e245378_s4bigm"
+  },
+  {
+    "format": "image",
+    "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1733967763/arpowers_minimalist_realistic_mediterranean_scene_futuristic_an_b47b6ece-21de-4eec-aa1d-17735905f087_mzeycs.png",
+    "tags": [
+      "background",
+      "aspect:wide",
+      "color:multi"
+    ],
+    "slug": "arpowers_minimalist_realistic_mediterranean_scene_futuristic_an_b47b6ece-21de-4eec-aa1d-17735905f087_mzeycs"
+  },
+  {
+    "format": "image",
+    "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1733967760/arpowers_minimalist_realistic_mediterranean_scene_futuristic_an_b445f5e5-ec6a-4210-aa91-1ebe7a4c35d0_miws1h.png",
+    "tags": [
+      "background",
+      "aspect:wide",
+      "color:multi"
+    ],
+    "slug": "arpowers_minimalist_realistic_mediterranean_scene_futuristic_an_b445f5e5-ec6a-4210-aa91-1ebe7a4c35d0_miws1h"
+  },
+  {
+    "format": "image",
+    "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1733967872/arpowers_minimalist_realistic_mediterranean_scene_futuristic_an_afd553d3-9386-414c-89db-39c4a22e6b61_qyz3i3.png",
+    "tags": [
+      "aspect:wide",
+      "color:warm"
+    ],
+    "slug": "arpowers_minimalist_realistic_mediterranean_scene_futuristic_an_afd553d3-9386-414c-89db-39c4a22e6b61_qyz3i3"
+  },
+  {
+    "format": "image",
+    "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1733967613/arpowers_minimalist_realistic_mediterranean_scene_futuristic_an_8ee14b01-7f2c-4731-93ee-8a9c590c654a_di6cyd.png",
+    "tags": [
+      "background",
+      "aspect:wide",
+      "color:warm"
+    ],
+    "slug": "arpowers_minimalist_realistic_mediterranean_scene_futuristic_an_8ee14b01-7f2c-4731-93ee-8a9c590c654a_di6cyd"
+  },
+  {
+    "format": "image",
+    "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1733967835/arpowers_minimalist_realistic_mediterranean_scene_futuristic_an_844d31a5-275a-41ea-aa6a-6c2021190d4a_q9cryo.png",
+    "tags": [
+      "background",
+      "aspect:wide",
+      "color:warm"
+    ],
+    "slug": "arpowers_minimalist_realistic_mediterranean_scene_futuristic_an_844d31a5-275a-41ea-aa6a-6c2021190d4a_q9cryo"
+  },
+  {
+    "format": "image",
+    "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1733967608/arpowers_minimalist_realistic_mediterranean_scene_futuristic_an_712613aa-ea34-47e5-aa5e-1a598b78f781_ql8cac.png",
+    "tags": [
+      "background",
+      "aspect:wide",
+      "color:warm"
+    ],
+    "slug": "arpowers_minimalist_realistic_mediterranean_scene_futuristic_an_712613aa-ea34-47e5-aa5e-1a598b78f781_ql8cac"
+  },
+  {
+    "format": "image",
+    "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1733967610/arpowers_minimalist_realistic_mediterranean_scene_futuristic_an_5bca2b6f-e0b6-4065-8c23-5be3063bfb04_zobqus.png",
+    "tags": [
+      "background",
+      "aspect:wide",
+      "color:warm"
+    ],
+    "slug": "arpowers_minimalist_realistic_mediterranean_scene_futuristic_an_5bca2b6f-e0b6-4065-8c23-5be3063bfb04_zobqus"
+  },
+  {
+    "format": "image",
+    "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1733967874/arpowers_minimalist_realistic_mediterranean_scene_futuristic_an_38509819-d3c9-4946-af53-5c4b40976d76_ckg2yi.png",
+    "tags": [
+      "aspect:wide",
+      "object",
+      "color:warm"
+    ],
+    "slug": "arpowers_minimalist_realistic_mediterranean_scene_futuristic_an_38509819-d3c9-4946-af53-5c4b40976d76_ckg2yi"
+  },
+  {
+    "format": "image",
+    "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1733967693/arpowers_minimalist_realistic_mediterranean_scene_futuristic_an_31d33a40-8bc9-4fb1-b3cd-70e69709ed64_thzunh.png",
+    "tags": [
+      "background",
+      "aspect:wide",
+      "color:warm"
+    ],
+    "slug": "arpowers_minimalist_realistic_mediterranean_scene_futuristic_an_31d33a40-8bc9-4fb1-b3cd-70e69709ed64_thzunh"
+  },
+  {
+    "format": "image",
+    "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1733967762/arpowers_minimalist_realistic_mediterranean_scene_futuristic_an_1c14b7bc-caf2-4daf-8714-fd29463b5c52_csr2h2.png",
+    "tags": [
+      "background",
+      "aspect:wide",
+      "color:warm"
+    ],
+    "slug": "arpowers_minimalist_realistic_mediterranean_scene_futuristic_an_1c14b7bc-caf2-4daf-8714-fd29463b5c52_csr2h2"
+  },
+  {
+    "format": "image",
+    "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1733967611/arpowers_minimalist_realistic_mediterranean_scene_futuristic_an_1a7716fe-244a-4d31-b664-c9fe9545dc6b_pbebku.png",
+    "tags": [
+      "background",
+      "aspect:wide",
+      "color:warm"
+    ],
+    "slug": "arpowers_minimalist_realistic_mediterranean_scene_futuristic_an_1a7716fe-244a-4d31-b664-c9fe9545dc6b_pbebku"
+  },
+  {
+    "format": "image",
+    "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1733967371/arpowers_minimalist_realistic_mediterranean_scene_futuristic_an_091ee1df-8fb1-4281-b0e8-9322d8cf089a_cjfqma.png",
+    "tags": [
+      "background",
+      "aspect:wide",
+      "color:warm"
+    ],
+    "slug": "arpowers_minimalist_realistic_mediterranean_scene_futuristic_an_091ee1df-8fb1-4281-b0e8-9322d8cf089a_cjfqma"
+  },
+  {
+    "format": "image",
+    "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1733967352/arpowers_minimalist_mediterranean_landscape_futuristic_ancient__b32b3749-88da-48c1-bcdd-c1e3a93300f7_y05sqv.png",
+    "tags": [
+      "background",
+      "aspect:wide",
+      "color:warm"
+    ],
+    "slug": "arpowers_minimalist_mediterranean_landscape_futuristic_ancient__b32b3749-88da-48c1-bcdd-c1e3a93300f7_y05sqv"
   },
   {
     "format": "image",
@@ -1889,18 +2045,6 @@
   },
   {
     "format": "image",
-    "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556118/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_4d9b8248-1cb0-4f19-8309-c75321133f82_woikyd.png",
-    "tags": [
-      "annotated",
-      "color:warm",
-      "image",
-      "object",
-      "aspect:wide"
-    ],
-    "slug": "arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_4d9b8248-1cb0-4f19-8309-c75321133f82_woikyd"
-  },
-  {
-    "format": "image",
     "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556244/arpowers_minimal_midshot_photo_of_object_ancient_greek_ideal_be_4b9aa180-978e-48ca-b88f-7e385e01efd3_loes2x.png",
     "tags": [
       "annotated",
@@ -2444,168 +2588,6 @@
   },
   {
     "format": "image",
-    "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724603280/arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_e3943227-f092-44b6-b30b-3dffdd5b4277_jap0i5.png",
-    "tags": [
-      "annotated",
-      "aspect:landscape",
-      "aspect:square",
-      "background",
-      "color:warm",
-      "nature",
-      "image"
-    ],
-    "slug": "arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_e3943227-f092-44b6-b30b-3dffdd5b4277_jap0i5"
-  },
-  {
-    "format": "image",
-    "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724603288/arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_cc0b99f5-25c2-4e14-963b-98e61da1d084_rs5ij4.png",
-    "tags": [
-      "annotated",
-      "aspect:landscape",
-      "aspect:square",
-      "background",
-      "color:cool",
-      "urban",
-      "image"
-    ],
-    "slug": "arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_cc0b99f5-25c2-4e14-963b-98e61da1d084_rs5ij4"
-  },
-  {
-    "format": "image",
-    "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724603280/arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_a6510283-295d-4af6-b2b0-b82a5d4e30fa_dc8u3y.png",
-    "tags": [
-      "annotated",
-      "aspect:landscape",
-      "aspect:square",
-      "background",
-      "color:cool",
-      "image"
-    ],
-    "slug": "arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_a6510283-295d-4af6-b2b0-b82a5d4e30fa_dc8u3y"
-  },
-  {
-    "format": "image",
-    "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724603281/arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_8a0836d8-db89-4562-b866-c24a4bb9550c_clkjlu.png",
-    "tags": [
-      "annotated",
-      "aspect:landscape",
-      "aspect:square",
-      "background",
-      "color:cool",
-      "image"
-    ],
-    "slug": "arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_8a0836d8-db89-4562-b866-c24a4bb9550c_clkjlu"
-  },
-  {
-    "format": "image",
-    "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724603293/arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_7e0cc1dd-d949-466e-bbd8-c567d45112ad_fjyogc.png",
-    "tags": [
-      "annotated",
-      "aspect:landscape",
-      "aspect:square",
-      "background",
-      "color:warm",
-      "image"
-    ],
-    "slug": "arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_7e0cc1dd-d949-466e-bbd8-c567d45112ad_fjyogc"
-  },
-  {
-    "format": "image",
-    "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724603292/arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_6cf150cd-a945-4962-bb48-13ceedc2badb_xthcpy.png",
-    "tags": [
-      "annotated",
-      "aspect:landscape",
-      "aspect:square",
-      "background",
-      "color:warm",
-      "nature",
-      "image"
-    ],
-    "slug": "arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_6cf150cd-a945-4962-bb48-13ceedc2badb_xthcpy"
-  },
-  {
-    "format": "image",
-    "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724603284/arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_681fae0e-e289-4714-a2bb-8be682c37c8b_b4y6wd.png",
-    "tags": [
-      "annotated",
-      "aspect:landscape",
-      "aspect:square",
-      "background",
-      "color:warm",
-      "nature",
-      "image"
-    ],
-    "slug": "arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_681fae0e-e289-4714-a2bb-8be682c37c8b_b4y6wd"
-  },
-  {
-    "format": "image",
-    "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724603292/arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_468a3e11-6136-41ef-a715-b90237729d9c_wssxqi.png",
-    "tags": [
-      "annotated",
-      "aspect:landscape",
-      "background",
-      "color:warm",
-      "image"
-    ],
-    "slug": "arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_468a3e11-6136-41ef-a715-b90237729d9c_wssxqi"
-  },
-  {
-    "format": "image",
-    "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724603279/arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_38bde571-3ac6-4f9f-a6ef-c0e446717db7_ukaveo.png",
-    "tags": [
-      "annotated",
-      "aspect:landscape",
-      "aspect:square",
-      "background",
-      "color:neutral",
-      "urban",
-      "image"
-    ],
-    "slug": "arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_38bde571-3ac6-4f9f-a6ef-c0e446717db7_ukaveo"
-  },
-  {
-    "format": "image",
-    "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724603285/arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_2e5a3aa1-ac51-497c-8868-5232a43ea62a_v23smo.png",
-    "tags": [
-      "annotated",
-      "aspect:landscape",
-      "aspect:square",
-      "background",
-      "color:warm",
-      "urban",
-      "image"
-    ],
-    "slug": "arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_2e5a3aa1-ac51-497c-8868-5232a43ea62a_v23smo"
-  },
-  {
-    "format": "image",
-    "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724603283/arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_2424a6a8-37b9-4442-b539-af9425d4f67b_qsdzrb.png",
-    "tags": [
-      "annotated",
-      "aspect:landscape",
-      "aspect:square",
-      "background",
-      "color:warm",
-      "image"
-    ],
-    "slug": "arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_2424a6a8-37b9-4442-b539-af9425d4f67b_qsdzrb"
-  },
-  {
-    "format": "image",
-    "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724603282/arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_218f96fd-cd7e-4074-bf6b-62d85a1daf1f_kfotej.png",
-    "tags": [
-      "annotated",
-      "aspect:landscape",
-      "aspect:square",
-      "background",
-      "color:cool",
-      "urban",
-      "image"
-    ],
-    "slug": "arpowers_minimal_futuristic_city_futuristic_ancient_greek_beaut_218f96fd-cd7e-4074-bf6b-62d85a1daf1f_kfotej"
-  },
-  {
-    "format": "image",
     "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1724556387/arpowers_minimal_close_photo_of_object_ancient_greek_ideal_beau_8ede6028-d3a5-4418-b020-3c802d2a8742_qm4lkf.png",
     "tags": [
       "annotated",
@@ -2665,6 +2647,16 @@
       "image"
     ],
     "slug": "arpowers_minimal_close_photo_of_object_ancient_greek_ideal_beau_30b45650-f0d2-4fcb-8290-f0c2f26c292a_tkp2s4"
+  },
+  {
+    "format": "image",
+    "url": "https://res.cloudinary.com/fiction-com-inc/image/upload/f_auto,q_auto/v1733967344/arpowers_mediterranean_landscape_futuristic_ancient_greek_beaut_695ff549-0fb7-4f0c-8527-5614858d8282_hjpr6a.png",
+    "tags": [
+      "background",
+      "aspect:wide",
+      "color:multi"
+    ],
+    "slug": "arpowers_mediterranean_landscape_futuristic_ancient_greek_beaut_695ff549-0fb7-4f0c-8527-5614858d8282_hjpr6a"
   },
   {
     "format": "image",

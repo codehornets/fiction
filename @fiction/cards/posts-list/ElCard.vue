@@ -206,7 +206,7 @@ vue.onServerPrefetch(() => fetchPosts())
         v-model:active-item="activeItem"
         :wrap-selector="`[data-card-id='${card.cardId}']`"
         :items="posts"
-        class="mt-16 z-20"
+        class="mt-16 z-20 justify-center "
       />
     </div>
 

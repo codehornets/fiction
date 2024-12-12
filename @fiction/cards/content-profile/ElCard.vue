@@ -52,7 +52,7 @@ const hoverClasses = 'group-hover/item:text-primary-600 dark:group-hover/item:te
               v-model:active-item="activeItem"
               :items="mediaItems || []"
               :wrap-selector="`[data-card-id='${card.cardId}']`"
-              class="absolute bottom-4 z-20 justify-center w-full"
+              class="absolute bottom-4 z-20 justify-center w-full "
               :overlay="true"
             />
           </div>

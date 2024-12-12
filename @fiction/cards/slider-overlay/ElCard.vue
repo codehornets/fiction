@@ -90,7 +90,7 @@ function getItemStyle(index: number) {
   return {
     zIndex: renderItems.value.length - index,
     opacity: 1 - (index * 0.15),
-    transform: `translateX(${index * 20}px) translateY(${index * 10}px) scale(${1 - (index * 0.05)})`,
+    transform: `translateX(${index * 1.5}vw) translateY(${index * 0.5}vw) scale(${1 - (index * 0.05)})`,
     right: `${index * -1}%`,
   }
 }
@@ -165,8 +165,8 @@ vue.onBeforeUnmount(() => {
       <div v-if="!currentItem && card.site?.isEditable.value" class="p-12 text-center font-sans text-theme-400/80 dark:text-theme-600/80">
         No Slides Added
       </div>
-      <div v-else class="md:flex items-center justify-between md:h-[680px]">
-        <div class="relative h-full basis-[30%]">
+      <div v-else class="md:flex items-center justify-between md:h-[620px] xl:h-[700px] space-y-8 md:space-y-0">
+        <div class="relative h-full basis-[33%]">
           <transition
             enter-active-class="transition-all duration-500 ease-[cubic-bezier(0.25,1,0.33,1)]"
             enter-from-class="opacity-0 translate-x-44"
@@ -194,19 +194,19 @@ vue.onBeforeUnmount(() => {
                 :lines="1"
                 :min-size="28"
                 :content="currentItem?.subTitle || ''"
-                class="x-font-title z-20 font-medium md:w-[160%] mt-4 !leading-[1.4]"
+                class="x-font-title z-20 font-medium md:w-[160%] mt-4"
               >
                 <CardText animate="fade" :card tag="span" :path="pathCheck(`slides.${currentItemIndex}.subTitle`, schema)" />
               </EffectFitText>
             </div>
           </transition>
         </div>
-        <div class="h-[400px] md:h-full relative basis-[70%] [perspective:1000px] z-10">
+        <div class="h-[400px] md:h-full relative basis-[67%] [perspective:1000px] z-10">
           <div class="absolute md:relative w-full h-full flex justify-end items-center">
             <div
               v-for="(item, i) in renderItems"
               :key="item._id"
-              class="carousel-item absolute w-full md:w-[90%] md:h-[80%] aspect-[5/3] md:aspect-[4.5/3] cursor-pointer"
+              class="carousel-item absolute w-full h-full cursor-pointer"
               :style="getItemStyle(i)"
               @click="setActiveItemByTitle(item.title)"
             >
@@ -215,16 +215,16 @@ vue.onBeforeUnmount(() => {
                 class="w-full h-full object-cover rounded-[20px] overflow-hidden shadow-[10px_-10px_10px_-8px_rgba(0_0_0/0.3)]"
               />
             </div>
+            <NavDots
+              class=" mt-6 justify-center z-10 absolute bottom-4 right-0 w-full"
+              :active-item="currentItemIndex"
+              :items="slidesWithIds"
+              :wrap-selector="`[data-card-id='${card.cardId}']`"
+              @update:active-item="setActiveItem($event)"
+            />
           </div>
         </div>
       </div>
-      <NavDots
-        class="mt-6 md:mt-0"
-        :active-item="currentItemIndex"
-        :items="slidesWithIds"
-        :wrap-selector="`[data-card-id='${card.cardId}']`"
-        @update:active-item="setActiveItem($event)"
-      />
     </div>
   </div>
 </template>

@@ -66,7 +66,7 @@ const activeItem = vue.ref(0)
       v-model:active-item="activeItem"
       :wrap-selector="`[data-card-id='${card.cardId}']`"
       :items="quotes"
-      class="mt-12 z-20 mb-6"
+      class="mt-12 z-20 mb-6 justify-center "
     />
   </div>
 </template>

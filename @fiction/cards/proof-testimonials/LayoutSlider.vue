@@ -100,7 +100,7 @@ function getBgClass(args: { slide: Testimonial, index: number }) {
       v-model:active-item="activeIndex"
       :wrap-selector="`[data-card-id='${card.cardId}']`"
       :items="items"
-      class="mt-16 z-20"
+      class="mt-16 z-20 justify-center "
     />
   </div>
 </template>

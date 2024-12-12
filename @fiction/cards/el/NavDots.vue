@@ -128,31 +128,29 @@ const colorClass = vue.computed(() => ({
 </script>
 
 <template>
-  <div>
-    <div v-if="items?.length && items.length > 1" class="h-5 nav flex items-center justify-center space-x-3 ">
-      <div
-        v-for="(s, i) in items"
-        :key="i"
-        class="group dots-nav flex justify-center items-center rounded-full transition-all relative"
-        :class="[i === activeItem ? 'is-active' : 'cursor-pointer']"
-        :data-test-id="`nav-dot-${i}`"
-        @click="setActiveItem(i, true)"
-      >
-        <div :class="[colorClass.dot, i === activeItem ? 'opacity-0 size-5' : 'opacity-100 size-2']" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full group-active:opacity-50 transition-all duration-1000" />
-        <svg class="size-6" :class="colorClass.circle" viewBox="0 0 66 66" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-          <circle
-            class="time"
-            stroke-width="5"
-            fill="none"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-dashoffset="0"
-            cx="33"
-            cy="33"
-            r="28"
-          />
-        </svg>
-      </div>
+  <div v-if="items?.length && items.length > 1" class="h-5 nav flex items-center space-x-3 ">
+    <div
+      v-for="(s, i) in items"
+      :key="i"
+      class="group dots-nav flex justify-center items-center rounded-full transition-all relative"
+      :class="[i === activeItem ? 'is-active' : 'cursor-pointer']"
+      :data-test-id="`nav-dot-${i}`"
+      @click="setActiveItem(i, true)"
+    >
+      <div :class="[colorClass.dot, i === activeItem ? 'opacity-0 size-5' : 'opacity-100 size-2']" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full group-active:opacity-50 transition-all duration-1000" />
+      <svg class="size-6" :class="colorClass.circle" viewBox="0 0 66 66" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+        <circle
+          class="time"
+          stroke-width="5"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-dashoffset="0"
+          cx="33"
+          cy="33"
+          r="28"
+        />
+      </svg>
     </div>
   </div>
 </template>

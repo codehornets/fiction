@@ -88,7 +88,7 @@ function setActiveItem(index: number) {
       :active-item="activeItem"
       :items="mediaItems || []"
       :wrap-selector="`[data-card-id='${card.cardId}']`"
-      class="absolute bottom-4 z-20 left-1/2 -translate-x-1/2"
+      class="absolute bottom-4 z-20 left-1/2 -translate-x-1/2 justify-center "
       @update:active-item="setActiveItem($event)"
     />
   </div>
