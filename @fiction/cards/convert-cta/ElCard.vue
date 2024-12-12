@@ -77,7 +77,7 @@ const colPad = 'p-4 md:p-12 xl:p-16'
           <!-- Benefits Grid -->
           <div v-if="uc.benefits?.items?.length" class="flex flex-col gap-6 lg:gap-8 justify-center lg:col-span-5 bg-theme-50/50 dark:bg-theme-900" :class="colPad">
             <div class="relative space-y-6">
-              <div v-if="uc.benefits.title" class="x-font-highlight  flex items-center gap-3 -ml-4">
+              <div v-if="uc.benefits.title" class="x-font-highlight  flex items-center gap-3 md:-ml-4">
                 <div>
                   <CardText :card :path="pathCheck('benefits.title', schema)" class="text-theme-400 dark:text-theme-500 text-lg md:text-2xl x-font-highlight" />
                 </div>

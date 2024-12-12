@@ -220,6 +220,7 @@ vue.onBeforeUnmount(() => {
               :active-item="currentItemIndex"
               :items="slidesWithIds"
               :wrap-selector="`[data-card-id='${card.cardId}']`"
+              :overlay="true"
               @update:active-item="setActiveItem($event)"
             />
           </div>

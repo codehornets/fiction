@@ -62,6 +62,7 @@ function setActiveCardConfig(config: Partial<TableCardConfig>) {
         <FormEngine
           :key="site.activeCardConfig.value.cardId"
           state-key="cardEdit"
+          :data-active-template="site.activeCardConfig.value.templateId"
           :model-value="site.activeCardConfig.value"
           :options
           :input-props="{ site }"

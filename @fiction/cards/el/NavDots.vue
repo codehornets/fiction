@@ -6,7 +6,6 @@ const {
   wrapSelector,
   activeItem = 0,
   itemClass = 'slide',
-  mode = 'dots',
   overlay = false,
 } = defineProps<{
   items?: any[]

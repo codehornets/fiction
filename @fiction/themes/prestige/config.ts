@@ -41,19 +41,19 @@ export async function getPages(args: SectionArgs) {
               {
                 title: 'The Art of Prestige',
                 subTitle: 'Where classical illusion meets modern sophistication',
-                media: stock.getRandomByTags(['person']),
+                media: stock.getRandomByTags(['woman']),
                 textBlend: 'difference',
               },
               {
                 title: 'Masters of Misdirection',
                 subTitle: 'Crafting unforgettable moments of wonder for elite audiences',
-                media: stock.getRandomByTags(['person']),
+                media: stock.getRandomByTags(['woman']),
                 textBlend: 'difference',
               },
               {
                 title: 'Beyond Illusion',
                 subTitle: 'Transform your event into an extraordinary experience',
-                media: stock.getRandomByTags(['person']),
+                media: stock.getRandomByTags(['woman']),
                 textBlend: 'difference',
               },
             ],
@@ -108,7 +108,7 @@ export async function getPages(args: SectionArgs) {
               icon: { iconId: 'star' },
               theme: 'primary',
             },
-            media: stock.getRandomByTags(['people']),
+            media: stock.getRandomByTags(['woman']),
             action: {
               buttons: [
                 { label: 'Past Performances', href: '/work', theme: 'primary' },
@@ -505,6 +505,7 @@ export async function getHeader(args: SectionArgs) {
               variant: 'typography',
               typography: {
                 label: 'Prestige',
+                font: { family: 'DM Serif Display' },
               },
               scale: 1.1,
             },
@@ -568,8 +569,9 @@ export async function getFooter(args: SectionArgs) {
               variant: 'typography',
               typography: {
                 label: 'Prestige',
+                font: { family: 'DM Serif Display' },
               },
-              scale: 1.1,
+              scale: 1.3,
             },
             tagline: 'Corporate Magic & Consulting',
           },

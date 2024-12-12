@@ -21,25 +21,22 @@ const editingStoryText = vue.ref(false)
   <div>
     <div v-for="(item, i) in uc.items" :key="i" class="py-[4vw]">
       <div
-        class="md:flex gap-8 md:gap-16 lg:gap-20 relative"
+        class="md:flex gap-8 md:gap-16 lg:gap-20 relative space-y-6 md:space-y-0"
         :class="[card.classes.value.contentWidth, uc.layout === 'right' ? 'md:flex-row-reverse' : '']"
       >
-        <div class="md:w-[clamp(100px,20%,400px)] pt-4 pb-6">
+        <div class="md:w-[clamp(100px,20%,400px)] pt-4 pb-8">
           <div class="top-6 flex justify-center md:justify-end" :class="uc.scrollHandling === 'sticky' ? 'sticky' : ''">
             <XMedia :animate="true" :media="item.media" class="aspect-square w-full " />
           </div>
         </div>
         <div class=" md:w-[70%] grow space-y-6">
-          <EffectScrollReveal class="space-y-6" :disable="card.site?.isEditable.value">
-            <div class="flex items-center gap-4">
-              <CardText
-                :card
-                :path="pathCheck(`items.${i}.title`, schema)"
-                tag="h2"
-                class="text-3xl x-font-title text-theme-300 dark:text-theme-600 whitespace-nowrap"
-              />
-              <div class="h-[1px] bg-theme-200/70 dark:bg-theme-700/70 w-full " />
-            </div>
+          <EffectScrollReveal class="space-y-4" :disable="card.site?.isEditable.value">
+            <CardText
+              :card
+              :path="pathCheck(`items.${i}.title`, schema)"
+              tag="h2"
+              class="text-3xl x-font-title text-theme-300 dark:text-theme-600  "
+            />
             <CardText
               tag="div"
               :card

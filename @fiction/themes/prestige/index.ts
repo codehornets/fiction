@@ -15,8 +15,8 @@ export const theme = new Theme({
   category: ['portfolio', 'personal'],
   version: '1.0.0',
   screenshots: {
-    light: { desktop: new URL('../minimal/mg/light-desktop.png', import.meta.url).href },
-    dark: { desktop: new URL('../minimal/img/dark-desktop.png', import.meta.url).href },
+    light: { desktop: new URL('./img/light-desktop.png', import.meta.url).href },
+    dark: { desktop: new URL('./img/dark-desktop.png', import.meta.url).href },
   },
 
   isPublic: true,

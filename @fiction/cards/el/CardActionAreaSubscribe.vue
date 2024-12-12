@@ -104,17 +104,16 @@ async function createSubscription() {
       >
         {{ subscribe.button?.label || 'Subscribe' }}
       </XButton>
-
-      <ConfirmModal
-        v-if="enableConfirmModal"
-        :card="card"
-        :vis="showConfirmModal"
-        :confirm-text="{
-          title: subscribe.success?.title || 'Congratulations!',
-          content: subscribe.success?.content || 'Check your email to confirm.',
-        }"
-        @update:vis="showConfirmModal = false"
-      />
     </ElForm>
+    <ConfirmModal
+      v-if="enableConfirmModal"
+      :card="card"
+      :vis="showConfirmModal"
+      :confirm-text="{
+        title: subscribe.success?.title || 'Congratulations!',
+        content: subscribe.success?.content || 'Check your email to confirm.',
+      }"
+      @update:vis="showConfirmModal = false"
+    />
   </div>
 </template>
