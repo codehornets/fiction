@@ -66,7 +66,7 @@ const layout = vue.computed(() => {
         <CardText
           tag="h1"
           :card
-          class="x-font-title font-semibold md:text-balance text-4xl sm:text-5xl"
+          class="x-font-title font-semibold md:text-balance text-3xl md:text-4xl lg:text-5xl"
           :path="pathCheck('title', schema)"
           placeholder="Title"
           animate="fade"
@@ -76,7 +76,7 @@ const layout = vue.computed(() => {
         <CardText
           tag="h3"
           :card
-          class="text-xl lg:text-2xl md:text-balance text-theme-800 dark:text-theme-200"
+          class="text-lg md:text-xl lg:text-2xl md:text-balance text-theme-800 dark:text-theme-200"
           :class="layout === 'justify' ? 'lg:text-right' : ''"
           :path="pathCheck('subTitle', schema)"
           placeholder="Sub Title"
@@ -86,7 +86,7 @@ const layout = vue.computed(() => {
           v-if="withActions && layout === 'justify'"
           :base-path="pathCheck('action', schema)"
           :card
-          :classes="{ buttons: ['flex gap-4 lg:gap-6 justify-end'].join(' ') }"
+          :classes="{ buttons: ['flex gap-4 lg:gap-6 justify-start md:justify-end'].join(' ') }"
           size="md"
         />
       </div>

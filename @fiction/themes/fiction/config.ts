@@ -621,7 +621,7 @@ export async function getTourPage(args: { factory: CardFactory, stock: StockMedi
             userConfig: {
               quotes: [
                 {
-                  text: `While you're reading this, someone is Googling your name. The story they find will shape their decision to work with you, hire you, or invest in you. Can you afford to let others control your narrative?`,
+                  text: `<p>Ever notice that what people find when they Google your name, shapes their decision to work with, hire, or invest in you?</p><p> Can you afford to let others tell your story?</p>`,
                   author: {
                     label: 'Tim Ferris',
                     media: {

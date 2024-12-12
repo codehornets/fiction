@@ -57,8 +57,7 @@ const options = [
             schema,
             key: 'quotes.0.text',
             label: 'Quote Text',
-            input: 'InputTextarea',
-            props: { rows: 3, placeholder: 'Share your customer\'s transformative experience...' },
+            input: 'InputProse',
           }),
           createOption({
             schema,

@@ -2,9 +2,9 @@
 import type { Card } from '@fiction/site'
 import type { Quote, UserConfig } from './config'
 import { vue } from '@fiction/core'
+import XIcon from '@fiction/ui/media/XIcon.vue'
 import XMedia from '@fiction/ui/media/XMedia.vue'
 import CardText from '../CardText.vue'
-
 import NavDots from '../el/NavDots.vue'
 
 const props = defineProps({
@@ -21,10 +21,10 @@ const activeItem = vue.ref(0)
 </script>
 
 <template>
-  <div class="mx-auto max-w-5xl px-6 lg:px-8">
+  <div class="mx-auto max-w-5xl ">
     <div class="flex overflow-x-auto no-scrollbar snap-mandatory snap-x">
-      <div v-for="(quote, i) in quotes" :key="i" class="slide shrink-0 w-full snap-center">
-        <div v-if="hasOrgImage(quote) && quote?.org" class="org mb-6 md:text-center">
+      <div v-for="(quote, i) in quotes" :key="i" class="slide shrink-0 w-full snap-center px-10 space-y-6 md:space-y-8">
+        <div v-if="hasOrgImage(quote) && quote?.org" class="org text-center">
           <div data-test-id="org-image" class="relative inline-block dark:text-theme-0">
             <XMedia
               class="h-10 md:h-20 aspect-[2/1] object-contain"
@@ -33,19 +33,20 @@ const activeItem = vue.ref(0)
             />
           </div>
         </div>
-        <div class="flex-col justify-center sm:text-balance">
-          <div class="min-w-0 text-left sm:text-center text-4xl lg:text-5xl !leading-[1.2] x-font-title">
+        <div class="flex justify-center gap-2 md:gap-5">
+          <div class="shrink-0 ">
+            <XIcon class="size-6 md:ml-0 lg:size-16 rotate-180 text-theme-500 dark:text-theme-400" :media="{ class: 'i-tabler-quote' }" />
+          </div>
+          <div class="entry min-w-0 text-left text-xl md:text-4xl lg:text-5xl x-font-title !leading-[1.3]">
             <CardText
               tag="span"
               :card
               :path="`quotes.${i}.text`"
               animate="fade"
-              prefix="&#8220;"
-              suffix="&#8221;"
             />
           </div>
         </div>
-        <div v-if="quote?.author?.label" class="mt-4 md:mt-8 flex items-center justify-start sm:justify-center gap-4 ">
+        <div v-if="quote?.author?.label" class="flex items-center  justify-center gap-4 ">
           <div
             v-if="hasAuthorImage(quote)"
             class="relative aspect-square h-10 md:h-14 overflow-hidden rounded-full dark:ring-2 dark:ring-theme-0 m-1"
@@ -70,3 +71,7 @@ const activeItem = vue.ref(0)
     />
   </div>
 </template>
+
+<style lang="less">
+@import '@fiction/ui/entry.less';
+</style>

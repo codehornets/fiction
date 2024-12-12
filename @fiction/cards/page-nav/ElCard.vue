@@ -92,8 +92,7 @@ function closeMenu() {
     <div class="x-header-container">
       <div class="relative">
         <nav class="relative flex items-center justify-between gap-12" aria-label="Global">
-          <!-- Brand Section -->
-          <div v-if="uc.brand?.logo" class="flex mr-4" :class="layoutClass.brand">
+          <div v-if="uc.brand?.logo" class="inline-flex mr-4" :class="layoutClass.brand">
             <CardLink
               :card
               href="/"
@@ -104,14 +103,13 @@ function closeMenu() {
                 :classes="{
                   text: 'x-font-title text-2xl font-medium',
                 }"
-                :media-handling="{ height: 1.75 }"
+                :media-handling="{ height: 1.6 }"
                 class="transition-all group-hover:opacity-80 duration-200"
                 data-test-id="page-nav-logo"
               />
             </CardLink>
           </div>
 
-          <!-- Primary Navigation -->
           <XNav
             :nav="nav.primary"
             :card
