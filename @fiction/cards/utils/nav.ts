@@ -12,11 +12,14 @@ export function processNavItems<T extends NavListItem = NavListItem>(args: {
   const current = fictionRouter?.current.value
 
   const currentPath = current?.fullPath
-  return items.map((item, index) => {
+  const out = items.map((item, index) => {
     const isHidden = !!((item.onAuthState === 'loggedIn' && !loggedIn) || (item.onAuthState === 'loggedOut' && loggedIn))
     const isActive = item.href === currentPath
 
     const indexBasePath = `${basePathPrefix}.${index}`
+
+    if (isHidden)
+      return undefined
 
     return {
       ...item,
@@ -36,5 +39,7 @@ export function processNavItems<T extends NavListItem = NavListItem>(args: {
           : undefined,
       },
     }
-  })
+  }).filter(Boolean) as T[]
+
+  return out
 }

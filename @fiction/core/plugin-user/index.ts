@@ -216,9 +216,9 @@ export class FictionUser extends FictionPlugin<UserPluginSettings> {
 
         const routeVars = { ...route.params, ...route.query } as Record<string, string | undefined>
 
-        const { logout, orgId } = routeVars
+        const { _logout, orgId } = routeVars
 
-        if (logout) {
+        if (_logout) {
           await this?.logout({ caller: 'watchRouteUserChanges-logout-param' })
           return
         }
@@ -299,9 +299,9 @@ export class FictionUser extends FictionPlugin<UserPluginSettings> {
 
       // If no redirect is provided, modify the URL to remove 'logout' query param
       // remove 'token' due to recursion that occurs if token error, triggers logout, trigger another login attempt
-      if (url.searchParams.has('logout')) {
-        this.log.warn(`redirecting due to logout (${caller})`)
-        url.searchParams.delete('logout')
+      if (url.searchParams.has('_logout')) {
+        this.log.warn(`redirecting due to _logout (${caller})`)
+        url.searchParams.delete('_logout')
         window.location.href = url.toString()
       }
     }

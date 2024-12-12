@@ -258,8 +258,7 @@ export async function getHeader(args: SectionArgs) {
           },
           nav: {
             primary: [
-              { label: 'Services', href: '/services' },
-              { label: 'Events', href: '/events' },
+              { label: 'Work', href: '/work' },
               { label: 'About', href: '/about' },
             ],
             utility: [

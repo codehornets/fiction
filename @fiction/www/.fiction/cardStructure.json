@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generatedAt": "2024-12-11T23:13:19.851Z",
+  "generatedAt": "2024-12-12T09:19:02.369Z",
   "templates": [
     {
       "templateId": "contentHero",
@@ -11,45 +11,10 @@
         "basic",
         "marketing"
       ],
+      "classification": {},
       "icon": "i-tabler-presentation",
       "colorTheme": "violet",
-      "isPublic": true,
-      "aiSchema": {
-        "title": "string, Main headline (3-13 words) [ai]",
-        "subTitle": "string, Supporting message (10-30 words) [ai]",
-        "superTitle": {
-          "text": "string, Short text above main title [ai]"
-        },
-        "caption": "string, Media description [ai]",
-        "action": {
-          "title": "string, Header text above actions [ai]",
-          "variant": "string, Action type format [ai]",
-          "buttons": [
-            {
-              "label": "string, Button text [ai]",
-              "href": "string, Button link URL or /path [ai]",
-              "theme": "string, Button color scheme [ai]",
-              "design": "string, Button visual style [ai]",
-              "icon": "undefined, Button icon [ai]"
-            }
-          ],
-          "subscribe": {
-            "input": {
-              "placeholder": "string, Email input placeholder [ai]"
-            },
-            "button": {
-              "label": "string, Button text [ai]"
-            },
-            "success": {
-              "title": "string, Success message title [ai]",
-              "content": "string, Success message content [ai]"
-            }
-          }
-        }
-      },
-      "demo": {
-        "templateId": "contentHero"
-      }
+      "isPublic": true
     },
     {
       "templateId": "contentProfile",
@@ -60,45 +25,10 @@
         "marketing",
         "content"
       ],
+      "classification": {},
       "icon": "i-tabler-user-circle",
       "colorTheme": "blue",
-      "isPublic": true,
-      "aiSchema": {
-        "title": "string, Primary headline for profile 3 to 8 words [ai]",
-        "content": "string, Formatted markdown of profile with paragraphs, 30 to 60 words, 2 paragraphs [ai]",
-        "superTitle": {
-          "text": "string, Short text above main title [ai]"
-        },
-        "detailsTitle": "string, Title for list of details [ai]",
-        "action": {
-          "title": "string, Header text above actions [ai]",
-          "variant": "string, Action type format [ai]",
-          "buttons": [
-            {
-              "label": "string, Button text [ai]",
-              "href": "string, Button link URL or /path [ai]",
-              "theme": "string, Button color scheme [ai]",
-              "design": "string, Button visual style [ai]",
-              "icon": "undefined, Button icon [ai]"
-            }
-          ],
-          "subscribe": {
-            "input": {
-              "placeholder": "string, Email input placeholder [ai]"
-            },
-            "button": {
-              "label": "string, Button text [ai]"
-            },
-            "success": {
-              "title": "string, Success message title [ai]",
-              "content": "string, Success message content [ai]"
-            }
-          }
-        }
-      },
-      "demo": {
-        "templateId": "contentProfile"
-      }
+      "isPublic": true
     },
     {
       "templateId": "contentStory",
@@ -108,43 +38,10 @@
       "category": [
         "content"
       ],
+      "classification": {},
       "icon": "i-tabler-book-2",
       "colorTheme": "fuchsia",
-      "isPublic": true,
-      "aiSchema": {
-        "items": [
-          {
-            "action": {
-              "title": "string, Header text above actions [ai]",
-              "variant": "string, Action type format [ai]",
-              "buttons": [
-                {
-                  "label": "string, Button text [ai]",
-                  "href": "string, Button link URL or /path [ai]",
-                  "theme": "string, Button color scheme [ai]",
-                  "design": "string, Button visual style [ai]",
-                  "icon": "undefined, Button icon [ai]"
-                }
-              ],
-              "subscribe": {
-                "input": {
-                  "placeholder": "string, Email input placeholder [ai]"
-                },
-                "button": {
-                  "label": "string, Button text [ai]"
-                },
-                "success": {
-                  "title": "string, Success message title [ai]",
-                  "content": "string, Success message content [ai]"
-                }
-              }
-            }
-          }
-        ]
-      },
-      "demo": {
-        "templateId": "contentStory"
-      }
+      "isPublic": true
     },
     {
       "templateId": "contentFeatures",
@@ -155,45 +52,10 @@
         "marketing",
         "content"
       ],
+      "classification": {},
       "icon": "i-tabler-layout-list",
       "colorTheme": "lime",
-      "isPublic": true,
-      "aiSchema": {
-        "features": [
-          {
-            "title": "string, Feature name or headline [ai]",
-            "description": "string, Feature explanation text [ai]",
-            "action": {
-              "title": "string, Header text above actions [ai]",
-              "variant": "string, Action type format [ai]",
-              "buttons": [
-                {
-                  "label": "string, Button text [ai]",
-                  "href": "string, Button link URL or /path [ai]",
-                  "theme": "string, Button color scheme [ai]",
-                  "design": "string, Button visual style [ai]",
-                  "icon": "undefined, Button icon [ai]"
-                }
-              ],
-              "subscribe": {
-                "input": {
-                  "placeholder": "string, Email input placeholder [ai]"
-                },
-                "button": {
-                  "label": "string, Button text [ai]"
-                },
-                "success": {
-                  "title": "string, Success message title [ai]",
-                  "content": "string, Success message content [ai]"
-                }
-              }
-            }
-          }
-        ]
-      },
-      "demo": {
-        "templateId": "contentFeatures"
-      }
+      "isPublic": true
     },
     {
       "templateId": "sliderStatement",
@@ -204,44 +66,10 @@
         "content",
         "marketing"
       ],
+      "classification": {},
       "icon": "i-tabler-message-circle-2",
       "colorTheme": "indigo",
-      "isPublic": true,
-      "aiSchema": {
-        "items": [
-          {
-            "title": "string, The headline that captures attention (3-8 words) [ai]",
-            "action": {
-              "title": "string, Header text above actions [ai]",
-              "variant": "string, Action type format [ai]",
-              "buttons": [
-                {
-                  "label": "string, Button text [ai]",
-                  "href": "string, Button link URL or /path [ai]",
-                  "theme": "string, Button color scheme [ai]",
-                  "design": "string, Button visual style [ai]",
-                  "icon": "undefined, Button icon [ai]"
-                }
-              ],
-              "subscribe": {
-                "input": {
-                  "placeholder": "string, Email input placeholder [ai]"
-                },
-                "button": {
-                  "label": "string, Button text [ai]"
-                },
-                "success": {
-                  "title": "string, Success message title [ai]",
-                  "content": "string, Success message content [ai]"
-                }
-              }
-            }
-          }
-        ]
-      },
-      "demo": {
-        "templateId": "sliderStatement"
-      }
+      "isPublic": true
     },
     {
       "templateId": "contentBento",
@@ -252,48 +80,10 @@
         "layout",
         "content"
       ],
+      "classification": {},
       "icon": "i-tabler-layout-grid",
       "colorTheme": "violet",
-      "isPublic": true,
-      "aiSchema": {
-        "items": [
-          {
-            "superTitle": {
-              "text": "string, Short text above main title [ai]"
-            },
-            "title": "string, Main headline for this content box [ai]",
-            "content": "string, Supporting text that expands on your title - aim for 1-2 sentences [ai]",
-            "action": {
-              "title": "string, Header text above actions [ai]",
-              "variant": "string, Action type format [ai]",
-              "buttons": [
-                {
-                  "label": "string, Button text [ai]",
-                  "href": "string, Button link URL or /path [ai]",
-                  "theme": "string, Button color scheme [ai]",
-                  "design": "string, Button visual style [ai]",
-                  "icon": "undefined, Button icon [ai]"
-                }
-              ],
-              "subscribe": {
-                "input": {
-                  "placeholder": "string, Email input placeholder [ai]"
-                },
-                "button": {
-                  "label": "string, Button text [ai]"
-                },
-                "success": {
-                  "title": "string, Success message title [ai]",
-                  "content": "string, Success message content [ai]"
-                }
-              }
-            }
-          }
-        ]
-      },
-      "demo": {
-        "templateId": "contentBento"
-      }
+      "isPublic": true
     },
     {
       "templateId": "contentPeople",
@@ -305,48 +95,10 @@
         "marketing",
         "engagement"
       ],
+      "classification": {},
       "icon": "i-tabler-users-group",
       "colorTheme": "blue",
-      "isPublic": true,
-      "aiSchema": {
-        "title": "string, Team section title [ai]",
-        "subTitle": "string, Team description [ai]",
-        "profiles": [
-          {
-            "title": "string, Primary headline [ai]",
-            "subTitle": "string, Supporting headline [ai]",
-            "content": "string, Main content in HTML/Markdown [ai]",
-            "action": {
-              "title": "string, Header text above actions [ai]",
-              "variant": "string, Action type format [ai]",
-              "buttons": [
-                {
-                  "label": "string, Button text [ai]",
-                  "href": "string, Button link URL or /path [ai]",
-                  "theme": "string, Button color scheme [ai]",
-                  "design": "string, Button visual style [ai]",
-                  "icon": "undefined, Button icon [ai]"
-                }
-              ],
-              "subscribe": {
-                "input": {
-                  "placeholder": "string, Email input placeholder [ai]"
-                },
-                "button": {
-                  "label": "string, Button text [ai]"
-                },
-                "success": {
-                  "title": "string, Success message title [ai]",
-                  "content": "string, Success message content [ai]"
-                }
-              }
-            }
-          }
-        ]
-      },
-      "demo": {
-        "templateId": "contentPeople"
-      }
+      "isPublic": true
     },
     {
       "templateId": "proofTestimonials",
@@ -356,20 +108,10 @@
       "category": [
         "content"
       ],
+      "classification": {},
       "icon": "i-tabler-messages",
       "colorTheme": "emerald",
-      "isPublic": true,
-      "aiSchema": {
-        "items": [
-          {
-            "title": "string, Primary headline [ai]",
-            "content": "string, Main content in HTML/Markdown [ai]"
-          }
-        ]
-      },
-      "demo": {
-        "templateId": "proofTestimonials"
-      }
+      "isPublic": true
     },
     {
       "templateId": "proofQuotes",
@@ -380,43 +122,10 @@
         "content",
         "marketing"
       ],
+      "classification": {},
       "icon": "i-tabler-quote",
       "colorTheme": "emerald",
-      "isPublic": true,
-      "aiSchema": {
-        "quotes": [
-          {
-            "action": {
-              "title": "string, Header text above actions [ai]",
-              "variant": "string, Action type format [ai]",
-              "buttons": [
-                {
-                  "label": "string, Button text [ai]",
-                  "href": "string, Button link URL or /path [ai]",
-                  "theme": "string, Button color scheme [ai]",
-                  "design": "string, Button visual style [ai]",
-                  "icon": "undefined, Button icon [ai]"
-                }
-              ],
-              "subscribe": {
-                "input": {
-                  "placeholder": "string, Email input placeholder [ai]"
-                },
-                "button": {
-                  "label": "string, Button text [ai]"
-                },
-                "success": {
-                  "title": "string, Success message title [ai]",
-                  "content": "string, Success message content [ai]"
-                }
-              }
-            }
-          }
-        ]
-      },
-      "demo": {
-        "templateId": "proofQuotes"
-      }
+      "isPublic": true
     },
     {
       "templateId": "proofMetrics",
@@ -427,12 +136,10 @@
         "stats",
         "marketing"
       ],
+      "classification": {},
       "icon": "i-tabler-chart-dots",
       "colorTheme": "emerald",
-      "isPublic": true,
-      "demo": {
-        "templateId": "proofMetrics"
-      }
+      "isPublic": true
     },
     {
       "templateId": "proofLogos",
@@ -442,12 +149,10 @@
       "category": [
         "marketing"
       ],
+      "classification": {},
       "icon": "i-tabler-building-store",
       "colorTheme": "yellow",
-      "isPublic": true,
-      "demo": {
-        "templateId": "proofLogos"
-      }
+      "isPublic": true
     },
     {
       "templateId": "galleryShowcase",
@@ -458,58 +163,10 @@
         "portfolio",
         "content"
       ],
+      "classification": {},
       "icon": "i-tabler-photo-up",
       "colorTheme": "amber",
-      "isPublic": true,
-      "aiSchema": {
-        "posts": {
-          "entries": [
-            {
-              "title": "string, Primary headline [ai]",
-              "subTitle": "string, Supporting headline [ai]",
-              "superTitle": {
-                "text": "string, Short text above main title [ai]"
-              },
-              "content": "string, Main content in HTML/Markdown [ai]",
-              "excerpt": "string, Brief summary for previews [ai]",
-              "tags": "array, Topic labels [ai]",
-              "categories": "array, Content groupings [ai]",
-              "action": {
-                "title": "string, Header text above actions [ai]",
-                "variant": "string, Action type format [ai]",
-                "buttons": [
-                  {
-                    "label": "string, Button text [ai]",
-                    "href": "string, Button link URL or /path [ai]",
-                    "theme": "string, Button color scheme [ai]",
-                    "design": "string, Button visual style [ai]",
-                    "icon": "undefined, Button icon [ai]"
-                  }
-                ],
-                "subscribe": {
-                  "input": {
-                    "placeholder": "string, Email input placeholder [ai]"
-                  },
-                  "button": {
-                    "label": "string, Button text [ai]"
-                  },
-                  "success": {
-                    "title": "string, Success message title [ai]",
-                    "content": "string, Success message content [ai]"
-                  }
-                }
-              }
-            }
-          ],
-          "query": {
-            "filters": "array, OR-based filter groups [ai]",
-            "search": "string, Search query [ai]"
-          }
-        }
-      },
-      "demo": {
-        "templateId": "galleryShowcase"
-      }
+      "isPublic": true
     },
     {
       "templateId": "postsList",
@@ -519,58 +176,10 @@
       "category": [
         "posts"
       ],
+      "classification": {},
       "icon": "i-tabler-article",
       "colorTheme": "rose",
-      "isPublic": true,
-      "aiSchema": {
-        "posts": {
-          "entries": [
-            {
-              "title": "string, Primary headline [ai]",
-              "subTitle": "string, Supporting headline [ai]",
-              "superTitle": {
-                "text": "string, Short text above main title [ai]"
-              },
-              "content": "string, Main content in HTML/Markdown [ai]",
-              "excerpt": "string, Brief summary for previews [ai]",
-              "tags": "array, Topic labels [ai]",
-              "categories": "array, Content groupings [ai]",
-              "action": {
-                "title": "string, Header text above actions [ai]",
-                "variant": "string, Action type format [ai]",
-                "buttons": [
-                  {
-                    "label": "string, Button text [ai]",
-                    "href": "string, Button link URL or /path [ai]",
-                    "theme": "string, Button color scheme [ai]",
-                    "design": "string, Button visual style [ai]",
-                    "icon": "undefined, Button icon [ai]"
-                  }
-                ],
-                "subscribe": {
-                  "input": {
-                    "placeholder": "string, Email input placeholder [ai]"
-                  },
-                  "button": {
-                    "label": "string, Button text [ai]"
-                  },
-                  "success": {
-                    "title": "string, Success message title [ai]",
-                    "content": "string, Success message content [ai]"
-                  }
-                }
-              }
-            }
-          ],
-          "query": {
-            "filters": "array, OR-based filter groups [ai]",
-            "search": "string, Search query [ai]"
-          }
-        }
-      },
-      "demo": {
-        "templateId": "postsList"
-      }
+      "isPublic": true
     },
     {
       "templateId": "postsMagazine",
@@ -580,58 +189,10 @@
       "category": [
         "posts"
       ],
+      "classification": {},
       "icon": "i-tabler-notebook",
       "colorTheme": "blue",
-      "isPublic": true,
-      "aiSchema": {
-        "posts": {
-          "entries": [
-            {
-              "title": "string, Primary headline [ai]",
-              "subTitle": "string, Supporting headline [ai]",
-              "superTitle": {
-                "text": "string, Short text above main title [ai]"
-              },
-              "content": "string, Main content in HTML/Markdown [ai]",
-              "excerpt": "string, Brief summary for previews [ai]",
-              "tags": "array, Topic labels [ai]",
-              "categories": "array, Content groupings [ai]",
-              "action": {
-                "title": "string, Header text above actions [ai]",
-                "variant": "string, Action type format [ai]",
-                "buttons": [
-                  {
-                    "label": "string, Button text [ai]",
-                    "href": "string, Button link URL or /path [ai]",
-                    "theme": "string, Button color scheme [ai]",
-                    "design": "string, Button visual style [ai]",
-                    "icon": "undefined, Button icon [ai]"
-                  }
-                ],
-                "subscribe": {
-                  "input": {
-                    "placeholder": "string, Email input placeholder [ai]"
-                  },
-                  "button": {
-                    "label": "string, Button text [ai]"
-                  },
-                  "success": {
-                    "title": "string, Success message title [ai]",
-                    "content": "string, Success message content [ai]"
-                  }
-                }
-              }
-            }
-          ],
-          "query": {
-            "filters": "array, OR-based filter groups [ai]",
-            "search": "string, Search query [ai]"
-          }
-        }
-      },
-      "demo": {
-        "templateId": "postsMagazine"
-      }
+      "isPublic": true
     },
     {
       "templateId": "contentNumberedList",
@@ -641,20 +202,10 @@
       "category": [
         "marketing"
       ],
+      "classification": {},
       "icon": "i-tabler-list-numbers",
       "colorTheme": "rose",
-      "isPublic": true,
-      "aiSchema": {
-        "title": "string, Section headline [ai]",
-        "items": [
-          {
-            "content": "string, Point text or description [ai]"
-          }
-        ]
-      },
-      "demo": {
-        "templateId": "contentNumberedList"
-      }
+      "isPublic": true
     },
     {
       "templateId": "contentFaq",
@@ -664,48 +215,10 @@
       "category": [
         "content"
       ],
+      "classification": {},
       "icon": "i-tabler-list-details",
       "colorTheme": "emerald",
-      "isPublic": true,
-      "aiSchema": {
-        "items": [
-          {
-            "title": "string, Primary headline [ai]",
-            "content": "string, Main content in HTML/Markdown [ai]"
-          }
-        ],
-        "support": {
-          "text": "string, Help text shown below FAQs [ai]",
-          "action": {
-            "title": "string, Header text above actions [ai]",
-            "variant": "string, Action type format [ai]",
-            "buttons": [
-              {
-                "label": "string, Button text [ai]",
-                "href": "string, Button link URL or /path [ai]",
-                "theme": "string, Button color scheme [ai]",
-                "design": "string, Button visual style [ai]",
-                "icon": "undefined, Button icon [ai]"
-              }
-            ],
-            "subscribe": {
-              "input": {
-                "placeholder": "string, Email input placeholder [ai]"
-              },
-              "button": {
-                "label": "string, Button text [ai]"
-              },
-              "success": {
-                "title": "string, Success message title [ai]",
-                "content": "string, Success message content [ai]"
-              }
-            }
-          }
-        }
-      },
-      "demo": {
-        "templateId": "contentFaq"
-      }
+      "isPublic": true
     },
     {
       "templateId": "contentTimeline",
@@ -716,71 +229,14 @@
         "content",
         "marketing"
       ],
-      "icon": "i-tabler-timeline",
-      "colorTheme": "green",
-      "isPublic": true,
-      "aiSchema": {
-        "milestones": [
-          {
-            "title": "string, Primary headline [ai]",
-            "subTitle": "string, Supporting headline [ai]",
-            "content": "string, Main content in HTML/Markdown [ai]",
-            "action": {
-              "title": "string, Header text above actions [ai]",
-              "variant": "string, Action type format [ai]",
-              "buttons": [
-                {
-                  "label": "string, Button text [ai]",
-                  "href": "string, Button link URL or /path [ai]",
-                  "theme": "string, Button color scheme [ai]",
-                  "design": "string, Button visual style [ai]",
-                  "icon": "undefined, Button icon [ai]"
-                }
-              ],
-              "subscribe": {
-                "input": {
-                  "placeholder": "string, Email input placeholder [ai]"
-                },
-                "button": {
-                  "label": "string, Button text [ai]"
-                },
-                "success": {
-                  "title": "string, Success message title [ai]",
-                  "content": "string, Success message content [ai]"
-                }
-              }
-            },
-            "badges": {
-              "title": "string, Header text above actions [ai]",
-              "variant": "string, Action type format [ai]",
-              "buttons": [
-                {
-                  "label": "string, Button text [ai]",
-                  "href": "string, Button link URL or /path [ai]",
-                  "theme": "string, Button color scheme [ai]",
-                  "design": "string, Button visual style [ai]",
-                  "icon": "undefined, Button icon [ai]"
-                }
-              ],
-              "subscribe": {
-                "input": {
-                  "placeholder": "string, Email input placeholder [ai]"
-                },
-                "button": {
-                  "label": "string, Button text [ai]"
-                },
-                "success": {
-                  "title": "string, Success message title [ai]",
-                  "content": "string, Success message content [ai]"
-                }
-              }
-            }
-          }
+      "classification": {
+        "category": [
+          "tour"
         ]
       },
-      "demo": {
-        "templateId": "contentTimeline"
-      }
+      "icon": "i-tabler-timeline",
+      "colorTheme": "green",
+      "isPublic": true
     },
     {
       "templateId": "sliderCinema",
@@ -792,48 +248,10 @@
         "portfolio",
         "media"
       ],
+      "classification": {},
       "icon": "i-tabler-movie",
       "colorTheme": "rose",
-      "isPublic": true,
-      "aiSchema": {
-        "items": [
-          {
-            "superTitle": {
-              "text": "string, Short text above main title [ai]"
-            },
-            "action": {
-              "title": "string, Header text above actions [ai]",
-              "variant": "string, Action type format [ai]",
-              "buttons": [
-                {
-                  "label": "string, Button text [ai]",
-                  "href": "string, Button link URL or /path [ai]",
-                  "theme": "string, Button color scheme [ai]",
-                  "design": "string, Button visual style [ai]",
-                  "icon": "undefined, Button icon [ai]"
-                }
-              ],
-              "subscribe": {
-                "input": {
-                  "placeholder": "string, Email input placeholder [ai]"
-                },
-                "button": {
-                  "label": "string, Button text [ai]"
-                },
-                "success": {
-                  "title": "string, Success message title [ai]",
-                  "content": "string, Success message content [ai]"
-                }
-              }
-            }
-          }
-        ]
-      },
-      "demo": {
-        "templateId": "sliderCinema",
-        "title": "Visual Storytelling Guide",
-        "description": "Learn how to create high-impact, conversion-focused sliders"
-      }
+      "isPublic": true
     },
     {
       "templateId": "galleryMasonry",
@@ -843,12 +261,10 @@
       "category": [
         "media"
       ],
+      "classification": {},
       "icon": "i-tabler-library-photo",
       "colorTheme": "emerald",
-      "isPublic": true,
-      "demo": {
-        "templateId": "galleryMasonry"
-      }
+      "isPublic": true
     },
     {
       "templateId": "modalMedia",
@@ -859,12 +275,10 @@
         "media",
         "engagement"
       ],
+      "classification": {},
       "icon": "i-tabler-player-play",
       "colorTheme": "pink",
-      "isPublic": true,
-      "demo": {
-        "templateId": "features"
-      }
+      "isPublic": true
     },
     {
       "templateId": "contentTour",
@@ -875,49 +289,10 @@
         "marketing",
         "content"
       ],
+      "classification": {},
       "icon": "i-tabler-compass",
       "colorTheme": "cyan",
-      "isPublic": true,
-      "aiSchema": {
-        "items": [
-          {
-            "title": "string, Main headline (3-13 words) [ai]",
-            "subTitle": "string, Supporting message (10-30 words) [ai]",
-            "superTitle": {
-              "text": "string, Short text above main title [ai]"
-            },
-            "caption": "string, Media description [ai]",
-            "action": {
-              "title": "string, Header text above actions [ai]",
-              "variant": "string, Action type format [ai]",
-              "buttons": [
-                {
-                  "label": "string, Button text [ai]",
-                  "href": "string, Button link URL or /path [ai]",
-                  "theme": "string, Button color scheme [ai]",
-                  "design": "string, Button visual style [ai]",
-                  "icon": "undefined, Button icon [ai]"
-                }
-              ],
-              "subscribe": {
-                "input": {
-                  "placeholder": "string, Email input placeholder [ai]"
-                },
-                "button": {
-                  "label": "string, Button text [ai]"
-                },
-                "success": {
-                  "title": "string, Success message title [ai]",
-                  "content": "string, Success message content [ai]"
-                }
-              }
-            }
-          }
-        ]
-      },
-      "demo": {
-        "templateId": "contentTour"
-      }
+      "isPublic": true
     },
     {
       "templateId": "convertCta",
@@ -927,42 +302,10 @@
       "category": [
         "conversion"
       ],
+      "classification": {},
       "icon": "i-tabler-speakerphone",
       "colorTheme": "red",
-      "isPublic": true,
-      "aiSchema": {
-        "superTitle": {
-          "text": "string, Short text above main title [ai]"
-        },
-        "action": {
-          "title": "string, Header text above actions [ai]",
-          "variant": "string, Action type format [ai]",
-          "buttons": [
-            {
-              "label": "string, Button text [ai]",
-              "href": "string, Button link URL or /path [ai]",
-              "theme": "string, Button color scheme [ai]",
-              "design": "string, Button visual style [ai]",
-              "icon": "undefined, Button icon [ai]"
-            }
-          ],
-          "subscribe": {
-            "input": {
-              "placeholder": "string, Email input placeholder [ai]"
-            },
-            "button": {
-              "label": "string, Button text [ai]"
-            },
-            "success": {
-              "title": "string, Success message title [ai]",
-              "content": "string, Success message content [ai]"
-            }
-          }
-        }
-      },
-      "demo": {
-        "templateId": "convertCta"
-      }
+      "isPublic": true
     },
     {
       "templateId": "convertCapture",
@@ -973,44 +316,10 @@
         "marketing",
         "conversion"
       ],
+      "classification": {},
       "icon": "i-tabler-mail",
       "colorTheme": "blue",
-      "isPublic": true,
-      "aiSchema": {
-        "superTitle": {
-          "text": "string, Short text above main title [ai]"
-        },
-        "title": "string, 5-7 word hook emphasizing key benefit (e.g. \"Get Weekly Growth Strategies\") [ai]",
-        "subTitle": "string, Specific outcome subscribers will achieve (e.g. \"Double conversions in 30 days\") [ai]",
-        "action": {
-          "title": "string, Header text above actions [ai]",
-          "variant": "string, Action type format [ai]",
-          "buttons": [
-            {
-              "label": "string, Button text [ai]",
-              "href": "string, Button link URL or /path [ai]",
-              "theme": "string, Button color scheme [ai]",
-              "design": "string, Button visual style [ai]",
-              "icon": "undefined, Button icon [ai]"
-            }
-          ],
-          "subscribe": {
-            "input": {
-              "placeholder": "string, Email input placeholder [ai]"
-            },
-            "button": {
-              "label": "string, Button text [ai]"
-            },
-            "success": {
-              "title": "string, Success message title [ai]",
-              "content": "string, Success message content [ai]"
-            }
-          }
-        }
-      },
-      "demo": {
-        "templateId": "convertCapture"
-      }
+      "isPublic": true
     },
     {
       "templateId": "convertContact",
@@ -1021,39 +330,10 @@
         "form",
         "marketing"
       ],
+      "classification": {},
       "icon": "i-tabler-mail-fast",
       "colorTheme": "blue",
-      "isPublic": true,
-      "aiSchema": {
-        "action": {
-          "title": "string, Header text above actions [ai]",
-          "variant": "string, Action type format [ai]",
-          "buttons": [
-            {
-              "label": "string, Button text [ai]",
-              "href": "string, Button link URL or /path [ai]",
-              "theme": "string, Button color scheme [ai]",
-              "design": "string, Button visual style [ai]",
-              "icon": "undefined, Button icon [ai]"
-            }
-          ],
-          "subscribe": {
-            "input": {
-              "placeholder": "string, Email input placeholder [ai]"
-            },
-            "button": {
-              "label": "string, Button text [ai]"
-            },
-            "success": {
-              "title": "string, Success message title [ai]",
-              "content": "string, Success message content [ai]"
-            }
-          }
-        }
-      },
-      "demo": {
-        "templateId": "convertContact"
-      }
+      "isPublic": true
     },
     {
       "templateId": "convertPricing",
@@ -1064,12 +344,10 @@
         "marketing",
         "conversion"
       ],
+      "classification": {},
       "icon": "i-tabler-report-money",
       "colorTheme": "emerald",
-      "isPublic": true,
-      "demo": {
-        "templateId": "convertPricing"
-      }
+      "isPublic": true
     },
     {
       "templateId": "locationMaps",
@@ -1079,12 +357,10 @@
       "category": [
         "advanced"
       ],
+      "classification": {},
       "icon": "i-tabler-map-2",
       "colorTheme": "blue",
-      "isPublic": true,
-      "demo": {
-        "templateId": "locationMaps"
-      }
+      "isPublic": true
     },
     {
       "templateId": "pageArea",
@@ -1095,12 +371,10 @@
         "layout",
         "basic"
       ],
+      "classification": {},
       "icon": "i-tabler-layout-board",
       "colorTheme": "blue",
-      "isPublic": true,
-      "demo": {
-        "templateId": "pageArea"
-      }
+      "isPublic": true
     },
     {
       "templateId": "pageNav",
@@ -1110,12 +384,10 @@
       "category": [
         "navigation"
       ],
+      "classification": {},
       "icon": "i-tabler-menu-2",
       "colorTheme": "green",
-      "isPublic": true,
-      "demo": {
-        "templateId": "pageNav"
-      }
+      "isPublic": true
     },
     {
       "templateId": "pageFooterPro",
@@ -1125,66 +397,10 @@
       "category": [
         "navigation"
       ],
+      "classification": {},
       "icon": "i-tabler-box-align-bottom",
       "colorTheme": "blue",
-      "isPublic": true,
-      "aiSchema": {
-        "brand": {
-          "action": {
-            "title": "string, Header text above actions [ai]",
-            "variant": "string, Action type format [ai]",
-            "buttons": [
-              {
-                "label": "string, Button text [ai]",
-                "href": "string, Button link URL or /path [ai]",
-                "theme": "string, Button color scheme [ai]",
-                "design": "string, Button visual style [ai]",
-                "icon": "undefined, Button icon [ai]"
-              }
-            ],
-            "subscribe": {
-              "input": {
-                "placeholder": "string, Email input placeholder [ai]"
-              },
-              "button": {
-                "label": "string, Button text [ai]"
-              },
-              "success": {
-                "title": "string, Success message title [ai]",
-                "content": "string, Success message content [ai]"
-              }
-            }
-          }
-        },
-        "badges": {
-          "title": "string, Header text above actions [ai]",
-          "variant": "string, Action type format [ai]",
-          "buttons": [
-            {
-              "label": "string, Button text [ai]",
-              "href": "string, Button link URL or /path [ai]",
-              "theme": "string, Button color scheme [ai]",
-              "design": "string, Button visual style [ai]",
-              "icon": "undefined, Button icon [ai]"
-            }
-          ],
-          "subscribe": {
-            "input": {
-              "placeholder": "string, Email input placeholder [ai]"
-            },
-            "button": {
-              "label": "string, Button text [ai]"
-            },
-            "success": {
-              "title": "string, Success message title [ai]",
-              "content": "string, Success message content [ai]"
-            }
-          }
-        }
-      },
-      "demo": {
-        "templateId": "pageFooterPro"
-      }
+      "isPublic": true
     },
     {
       "templateId": "pageFooterPersonal",
@@ -1194,41 +410,10 @@
       "category": [
         "navigation"
       ],
+      "classification": {},
       "icon": "i-tabler-layout-bottombar",
       "colorTheme": "violet",
-      "isPublic": true,
-      "aiSchema": {
-        "brand": {
-          "action": {
-            "title": "string, Header text above actions [ai]",
-            "variant": "string, Action type format [ai]",
-            "buttons": [
-              {
-                "label": "string, Button text [ai]",
-                "href": "string, Button link URL or /path [ai]",
-                "theme": "string, Button color scheme [ai]",
-                "design": "string, Button visual style [ai]",
-                "icon": "undefined, Button icon [ai]"
-              }
-            ],
-            "subscribe": {
-              "input": {
-                "placeholder": "string, Email input placeholder [ai]"
-              },
-              "button": {
-                "label": "string, Button text [ai]"
-              },
-              "success": {
-                "title": "string, Success message title [ai]",
-                "content": "string, Success message content [ai]"
-              }
-            }
-          }
-        }
-      },
-      "demo": {
-        "templateId": "pageFooterPersonal"
-      }
+      "isPublic": true
     },
     {
       "templateId": "mediaMarquee",
@@ -1239,12 +424,10 @@
         "marketing",
         "content"
       ],
+      "classification": {},
       "icon": "i-tabler-carousel-horizontal",
       "colorTheme": "pink",
-      "isPublic": true,
-      "demo": {
-        "templateId": "mediaMarquee"
-      }
+      "isPublic": true
     },
     {
       "templateId": "sliderOverlay",
@@ -1255,20 +438,10 @@
         "marketing",
         "portfolio"
       ],
+      "classification": {},
       "icon": "i-tabler-layers-intersect",
       "colorTheme": "teal",
-      "isPublic": true,
-      "aiSchema": {
-        "slides": [
-          {
-            "title": "string, Primary headline [ai]",
-            "subTitle": "string, Supporting headline [ai]"
-          }
-        ]
-      },
-      "demo": {
-        "templateId": "sliderOverlay"
-      }
+      "isPublic": true
     },
     {
       "templateId": "typographyTicker",
@@ -1279,12 +452,10 @@
         "marketing",
         "content"
       ],
+      "classification": {},
       "icon": "i-tabler-arrow-autofit-width",
       "colorTheme": "blue",
-      "isPublic": true,
-      "demo": {
-        "templateId": "typographyTicker"
-      }
+      "isPublic": true
     },
     {
       "templateId": "galleryParallaxScroll",
@@ -1294,43 +465,10 @@
       "category": [
         "content"
       ],
+      "classification": {},
       "icon": "i-tabler-route",
       "colorTheme": "cyan",
-      "isPublic": true,
-      "aiSchema": {
-        "items": [
-          {
-            "action": {
-              "title": "string, Header text above actions [ai]",
-              "variant": "string, Action type format [ai]",
-              "buttons": [
-                {
-                  "label": "string, Button text [ai]",
-                  "href": "string, Button link URL or /path [ai]",
-                  "theme": "string, Button color scheme [ai]",
-                  "design": "string, Button visual style [ai]",
-                  "icon": "undefined, Button icon [ai]"
-                }
-              ],
-              "subscribe": {
-                "input": {
-                  "placeholder": "string, Email input placeholder [ai]"
-                },
-                "button": {
-                  "label": "string, Button text [ai]"
-                },
-                "success": {
-                  "title": "string, Success message title [ai]",
-                  "content": "string, Success message content [ai]"
-                }
-              }
-            }
-          }
-        ]
-      },
-      "demo": {
-        "templateId": "galleryParallaxScroll"
-      }
+      "isPublic": true
     },
     {
       "templateId": "typographyFitText",
@@ -1341,12 +479,10 @@
         "content",
         "typography"
       ],
+      "classification": {},
       "icon": "i-tabler-text-size",
       "colorTheme": "indigo",
-      "isPublic": true,
-      "demo": {
-        "templateId": "typographyFitText"
-      }
+      "isPublic": true
     },
     {
       "templateId": "effectText",
@@ -1356,12 +492,10 @@
       "category": [
         "typography"
       ],
+      "classification": {},
       "icon": "i-tabler-text-size",
       "colorTheme": "indigo",
-      "isPublic": true,
-      "demo": {
-        "templateId": "contentHero"
-      }
+      "isPublic": true
     }
   ]
 }

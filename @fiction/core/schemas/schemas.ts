@@ -109,7 +109,7 @@ export const MediaBasicSchema = z.object({
   }, { message: 'Must be an async component or Promise' }).optional(),
   props: z.record(z.string(), z.any()).optional(),
   aspect: AspectRatioSchema.optional(),
-})
+}, { description: 'MediaBasicSchema' })
 
 export const MediaIconSchema = MediaBasicSchema.extend({
   iconId: z.string().optional().describe('iconId is common icon name (e.g. user, check, lock)') as z.Schema<IconName | undefined>,
@@ -218,7 +218,7 @@ const BaseNavListItemSchema = z.object({
     }),
     props: z.record(z.string(), z.any()).optional(),
   }).optional(),
-})
+}, { description: 'NavListItemSchema' })
 
 // Navigation list container
 export const NavListSchema = z.object({
@@ -226,7 +226,7 @@ export const NavListSchema = z.object({
   description: z.string().optional().describe('Optional section/group description'),
   items: z.array(z.record(z.string(), z.any())).optional().describe('Navigation items in this section'),
   variant: z.enum(['default', 'expanded']).optional().describe('Variant of the list'),
-})
+}, { description: 'NavListSchema' })
 
 // Full navigation item with recursive list support
 export const NavListItemSchema = BaseNavListItemSchema.extend({
@@ -256,7 +256,7 @@ export const ActionButtonSchema = z.object({
   testId: z.string().optional(),
   target: z.enum(['_blank', '_self']).optional(),
   hover: ButtonHoverSchema.optional(),
-})
+}, { description: 'ActionButtonSchema' })
 
 export type ActionButton = z.infer<typeof ActionButtonSchema>
 
@@ -272,7 +272,7 @@ export const ActionSubscribeSchema = z.object({
     title: z.string().optional().describe('Success message title [ai]'),
     content: z.string().optional().describe('Success message content [ai]'),
   }).optional(),
-})
+}, { description: 'ActionSubscribeSchema' })
 
 export type ActionSubscribe = z.infer<typeof ActionSubscribeSchema>
 
@@ -374,7 +374,7 @@ export const PostSchema = z.object({
   action: ActionAreaSchema.optional().describe('Interactive buttons [ai]'),
 
   userConfig: PostUserConfigSchema.optional().describe('Custom settings'),
-})
+}, { description: 'PostSchema' })
 
 export const GlobalQuerySchema = z.object({
   filters: z.array(OrFilterGroupSchema).optional().describe('OR-based filter groups [ai]'),

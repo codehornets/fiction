@@ -25,8 +25,6 @@ export const theme = new Theme({
     return {
       site: {
         fonts: {
-          title: { family: 'DM+Serif+Text', stack: 'sans' },
-          body: { family: 'Inter', stack: 'sans' },
         },
         prefersColorScheme: 'dark',
         primaryColor: 'rose',

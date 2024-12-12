@@ -818,6 +818,7 @@ export async function getConfig(args: {
                       items: [
                         { label: 'Sign In', href: '/app/auth/login?_reload=1', onAuthState: 'loggedOut' },
                         { label: 'Dashboard', href: '/app?_reload=1', onAuthState: 'loggedIn' },
+                        { label: 'Logout', href: '/?_logout=1', onAuthState: 'loggedIn' },
                       ],
                     },
                   },
