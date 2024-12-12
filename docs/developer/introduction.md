@@ -36,7 +36,7 @@ Here's a minimal example:
 
 import { FictionService, Theme, cardTemplates, cardConfig } from '@fiction/core'
 
-const myElement = cardConfig({ templateId: 'contentHero',userConfig: { title: 'Hello, World!'}, cardTemplates })
+const myElement = cardConfig({ templateId: 'cardHeroV1',userConfig: { title: 'Hello, World!'}, cardTemplates })
 const myPage = cardConfig({ isHome: true, cards: [myElement], cardTemplates })
 const myTheme = new Theme({ themeId: 'example', pages: [myPage]})
 

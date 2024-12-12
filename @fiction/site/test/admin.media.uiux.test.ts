@@ -22,7 +22,7 @@ describe('admin site pages', async () => {
       actions: [
         { type: 'visible', selector: `[data-view-id="${initialViewId}"]` },
         { type: 'frameInteraction', frameSelector: `#site-builder-iframe`, frameActions: [
-          { type: 'click', selector: `[data-card-template-id="pageNav"]` },
+          { type: 'click', selector: `[data-card-template-id="cardSiteNavV1"]` },
         ] },
         { type: 'click', selector: `[data-test-id="radio-button-typography"]` },
         { type: 'fill', selector: `[data-test-id="typography.label"] input`, text: logoText },

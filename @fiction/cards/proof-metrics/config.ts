@@ -18,7 +18,7 @@ export type MetricItem = z.infer<typeof MetricSchema>
 
 export const schema = z.object({
   layout: z.enum(['grid', 'inline', 'featured']).optional(),
-  metrics: z.array(MetricSchema).optional(),
+  items: z.array(MetricSchema).optional(),
 })
 
 export type UserConfig = z.infer<typeof schema> & SiteUserConfig
@@ -33,8 +33,8 @@ const options = [
     options: [
       createOption({
         schema,
-        key: 'metrics',
-        label: 'Metrics',
+        key: 'items',
+        label: 'items',
         input: 'InputList',
         props: {
           itemLabel: 'Metric',
@@ -42,7 +42,7 @@ const options = [
         options: [
           createOption({
             schema,
-            key: 'metrics.0.label',
+            key: 'items.0.label',
             label: 'Metric Name',
             input: 'InputText',
             props: {
@@ -51,7 +51,7 @@ const options = [
           }),
           createOption({
             schema,
-            key: 'metrics.0.description',
+            key: 'items.0.description',
             label: 'Description',
             input: 'InputText',
             props: {
@@ -60,32 +60,32 @@ const options = [
           }),
           createOption({
             schema,
-            key: 'metrics.0.value',
+            key: 'items.0.value',
             label: 'Value',
             input: 'InputNumber',
           }),
           createOption({
             schema,
-            key: 'metrics.0.format',
+            key: 'items.0.format',
             label: 'Number Format',
             input: 'InputSelect',
             list: numberFormats,
           }),
           createOption({
             schema,
-            key: 'metrics.0.icon',
+            key: 'items.0.icon',
             label: 'Icon',
             input: 'InputIcon',
           }),
           createOption({
             schema,
-            key: 'metrics.0.theme',
+            key: 'items.0.theme',
             label: 'Color Theme',
             input: 'InputColorTheme',
           }),
           createOption({
             schema,
-            key: 'metrics.0.emphasis',
+            key: 'items.0.emphasis',
             label: 'Emphasis',
             input: 'InputRadioButton',
             description: 'Makes this metric more prominent in featured layout',
@@ -125,7 +125,7 @@ const options = [
 function defaultConfig(): UserConfig {
   return {
     layout: 'grid',
-    metrics: [
+    items: [
       {
         label: 'Numbers Talk',
         description: 'Show impact with metrics',
@@ -146,7 +146,7 @@ function getBrandGrowthDemo(): UserConfig {
     } },
 
     layout: 'grid',
-    metrics: [
+    items: [
       {
         label: 'Client Revenue Growth',
         description: 'Average increase in annual revenue',
@@ -183,7 +183,7 @@ function getEngagementDemo(): UserConfig {
     } },
 
     layout: 'featured',
-    metrics: [
+    items: [
       {
         label: 'Social Engagement',
         description: 'Monthly interactions across platforms',
@@ -220,7 +220,7 @@ function getEcommerceDemo(): UserConfig {
     } },
 
     layout: 'inline',
-    metrics: [
+    items: [
       {
         label: 'Sales Growth',
         description: 'Year over year increase',

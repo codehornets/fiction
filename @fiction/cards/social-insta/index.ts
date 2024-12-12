@@ -2,7 +2,7 @@ import { vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site'
 import { getQueries } from './queries'
 
-const templateId = 'socialInsta'
+const templateId = 'cardInstaV1'
 
 export const template = cardTemplate({
   templateId,

@@ -28,7 +28,7 @@ export async function getConfig(args: { templateId: string, factory: CardFactory
         spacing: 'normal',
         align: 'center',
       },
-      features: [
+      items: [
         {
           title: 'Watch Product Demo',
           description: 'See our platform in action with our newly released demo video. Click to watch in high-definition.',

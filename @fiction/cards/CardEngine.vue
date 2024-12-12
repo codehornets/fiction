@@ -38,7 +38,7 @@ const renderCards = vue.computed(() => {
     : c
 
   if (out.length === 0 && currentItemId && tag === 'main') {
-    out.push(new Card({ templateId: 'page404', site: card?.site }))
+    out.push(new Card({ templateId: 'card404ErrorV1', site: card?.site }))
   }
 
   return {

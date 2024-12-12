@@ -104,26 +104,30 @@ function previousItem() {
           </button>
         </div>
 
-        <AnimClipPath animate="expand" caller="lightbox">
-          <div ref="animatedDivRef" class="relative  h-[80vh] w-[80vw] md:w-[80dvw] flex flex-col gap-6 overflow-hidden rounded-xl justify-center">
-            <div class="relative">
-              <XMedia ref="mediaRef" class="w-full max-h-[70vh] mx-auto overflow-hidden flex justify-center" image-mode="inline" :media="activeItem.media" />
-              <div class="absolute inset-0 grid grid-cols-2 z-10">
-                <div class="active:bg-white/5" @click.stop="previousItem" />
-                <div class="active:bg-white/5" @click.stop="nextItem" />
-              </div>
-            </div>
-
-            <div ref="contentRef" class=" space-y-2 text-white md:p-8 max-w-2xl mx-auto">
-              <h3 class="text-xl lg:text-2xl font-semibold x-font-title">
-                {{ activeItem?.title }}
-              </h3>
-              <p class="text-theme-200 text-lg lg:text-xl leading-relaxed">
-                {{ activeItem?.content }}
-              </p>
+        <div ref="animatedDivRef" class="relative  h-[80vh] w-[80vw] md:w-[80dvw] flex flex-col gap-6 rounded-xl justify-center">
+          <div class="relative w-full flex justify-center">
+            <XMedia
+              ref="mediaRef"
+              :animate="true"
+              class="max-h-[70vh] mx-auto flex justify-center"
+              image-mode="inline"
+              :media="activeItem.media"
+            />
+            <div class="absolute inset-0 grid grid-cols-2 z-10">
+              <div class="active:bg-white/5" @click.stop="previousItem" />
+              <div class="active:bg-white/5" @click.stop="nextItem" />
             </div>
           </div>
-        </AnimClipPath>
+
+          <div ref="contentRef" class=" space-y-2 text-white md:p-8 max-w-2xl mx-auto">
+            <h3 class="text-xl lg:text-2xl font-semibold x-font-title">
+              {{ activeItem?.title }}
+            </h3>
+            <p class="text-theme-200 text-lg lg:text-xl leading-relaxed">
+              {{ activeItem?.content }}
+            </p>
+          </div>
+        </div>
       </div>
     </transition>
   </teleport>

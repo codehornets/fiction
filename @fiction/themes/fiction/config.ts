@@ -3,10 +3,10 @@ import type { template as heroTemplate } from '@fiction/cards/content-hero'
 import type { template as peopleTemplate } from '@fiction/cards/content-people/index.js'
 import type { template as tourTemplate } from '@fiction/cards/content-tour/index.js'
 import type { template as pricingTemplate } from '@fiction/cards/convert-pricing'
-import type { template as effectText } from '@fiction/cards/effect-text/index.js'
+import type { template as cardTextEffectV1 } from '@fiction/cards/effect-text/index.js'
 import type { template as mapsTemplate, MapUserConfig } from '@fiction/cards/location-maps/index.js'
 import type { template as marqueeTemplate } from '@fiction/cards/media-marquee/index.js'
-import type { template as modalMedia } from '@fiction/cards/modal-media/index.js'
+import type { template as cardModalMediaV1 } from '@fiction/cards/modal-media/index.js'
 import type { template as areaTemplate } from '@fiction/cards/page-area/index.js'
 import type { template as footerProTemplate } from '@fiction/cards/page-footer-pro/index.js'
 import type { template as navTemplate } from '@fiction/cards/page-nav/index.js'
@@ -53,7 +53,7 @@ async function purchaseUrl(args: { priceId: string, fictionStripe?: FictionStrip
 export async function getAboutPage(args: { site: Site, factory: CardFactory }) {
   const { factory } = args
   const topHeroCard = await factory.fromTemplate<typeof heroTemplate>({
-    templateId: 'contentHero',
+    templateId: 'cardHeroV1',
     userConfig: {
       superTitle: {
         icon: { class: 'i-tabler-home' },
@@ -79,7 +79,7 @@ export async function getAboutPage(args: { site: Site, factory: CardFactory }) {
   })
 
   const missionHeroCard = await factory.fromTemplate<typeof heroTemplate>({
-    templateId: 'contentHero',
+    templateId: 'cardHeroV1',
     userConfig: {
       superTitle: {
         icon: { class: 'i-tabler-trending-up' },
@@ -98,7 +98,7 @@ export async function getAboutPage(args: { site: Site, factory: CardFactory }) {
   })
 
   const missionHeroCard2 = await factory.fromTemplate<typeof heroTemplate>({
-    templateId: 'contentHero',
+    templateId: 'cardHeroV1',
     userConfig: {
       superTitle: {
         icon: { class: 'i-tabler-users' },
@@ -117,11 +117,11 @@ export async function getAboutPage(args: { site: Site, factory: CardFactory }) {
   })
 
   const teamCard = await factory.fromTemplate<typeof peopleTemplate>({
-    templateId: 'contentPeople',
+    templateId: 'cardPeopleV1',
     userConfig: {
       subTitle: `Building the future of personal branding together`,
       title: `The Team`,
-      profiles: [{
+      items: [{
         title: 'Andrew Powers',
         subTitle: 'Founder',
         content: 'With two decades in software development, Andrew started Fiction with a simple belief: everyone deserves access to professional branding tools, regardless of their background or resources. Today, that vision grows stronger with each new member of the Fiction community.',
@@ -161,14 +161,14 @@ export async function getAboutPage(args: { site: Site, factory: CardFactory }) {
   }
 
   const mapCard = await factory.fromTemplate<typeof mapsTemplate>({
-    templateId: 'locationMaps',
+    templateId: 'cardMapsV1',
     userConfig: {
       maps: [mapIrvine, mapSaltLake],
     },
   })
 
   const valueCard = await factory.fromTemplate<typeof faqTemplate>({
-    templateId: 'contentFaq',
+    templateId: 'cardFaqV1',
     userConfig: {
       layout: 'visible',
       standard: {
@@ -218,11 +218,11 @@ export async function getAboutPage(args: { site: Site, factory: CardFactory }) {
 
   return factory.fromTemplate({
     regionId: 'main',
-    templateId: 'pageWrap',
+    templateId: 'cardPageWrapV1',
     slug: 'about',
     cards: [
       await factory.fromTemplate<typeof areaTemplate>({
-        templateId: 'pageArea',
+        templateId: 'cardPageAreaV1',
         cards: [
           topHeroCard,
           missionHeroCard,
@@ -243,7 +243,7 @@ export async function getPricingPage(args: { factory: CardFactory, site: Site })
   const { fictionStripe } = site.fictionSites.fictionEnv.getService<{ fictionStripe: FictionStripe }>()
 
   const pricingCard = await factory.fromTemplate<typeof pricingTemplate>({
-    templateId: 'convertPricing',
+    templateId: 'cardPricingV1',
     userConfig: {
       annualDiscountPercent: 40,
       prices: [
@@ -293,7 +293,7 @@ export async function getPricingPage(args: { factory: CardFactory, site: Site })
   })
 
   const topHeroCard = await factory.fromTemplate<typeof heroTemplate>({
-    templateId: 'contentHero',
+    templateId: 'cardHeroV1',
     userConfig: {
       superTitle: { text: 'Simple Premium Pricing' },
       subTitle: `40% Discount When Paying Annually`,
@@ -302,7 +302,7 @@ export async function getPricingPage(args: { factory: CardFactory, site: Site })
   })
 
   const valueCard = await factory.fromTemplate<typeof faqTemplate>({
-    templateId: 'contentFaq',
+    templateId: 'cardFaqV1',
     userConfig: {
       standard: { headers: { title: 'Frequently Asked Questions', subTitle: 'Get answers to common questions about Fiction' } },
       items: [
@@ -316,11 +316,11 @@ export async function getPricingPage(args: { factory: CardFactory, site: Site })
 
   return factory.fromTemplate({
     regionId: 'main',
-    templateId: 'pageWrap',
+    templateId: 'cardPageWrapV1',
     slug: 'pricing',
     cards: [
       await factory.fromTemplate({
-        templateId: 'pageArea',
+        templateId: 'cardPageAreaV1',
         cards: [
           topHeroCard,
           pricingCard,
@@ -337,7 +337,7 @@ export async function getHomePage(args: { factory: CardFactory, stock: StockMedi
 
   return factory.fromTemplate<typeof wrapTemplate>({
     regionId: 'main',
-    templateId: 'pageWrap',
+    templateId: 'cardPageWrapV1',
     slug: '_home',
     title: 'Home',
     userConfig: {
@@ -348,11 +348,11 @@ export async function getHomePage(args: { factory: CardFactory, stock: StockMedi
     },
     cards: [
       await factory.fromTemplate({
-        templateId: 'pageArea',
+        templateId: 'cardPageAreaV1',
         userConfig: { },
         cards: [
           await factory.fromTemplate<typeof heroTemplate>({
-            templateId: 'contentHero',
+            templateId: 'cardHeroV1',
             userConfig: {
               superTitle: {
                 text: 'The Personal Marketing Platform',
@@ -381,7 +381,7 @@ export async function getHomePage(args: { factory: CardFactory, stock: StockMedi
             },
           }),
           await factory.fromTemplate<typeof marqueeTemplate>({
-            templateId: 'mediaMarquee',
+            templateId: 'cardMarqueeV1',
             userConfig: {
               items: [
                 {
@@ -451,7 +451,7 @@ export async function getHomePage(args: { factory: CardFactory, stock: StockMedi
             },
           }),
           await factory.fromTemplate<typeof logosTemplate>({
-            templateId: 'proofLogos',
+            templateId: 'cardLogosV1',
             userConfig: {
               items: [
                 {
@@ -485,15 +485,15 @@ export async function getTourPage(args: { factory: CardFactory, stock: StockMedi
   const { factory } = args
   return factory.fromTemplate({
     regionId: 'main',
-    templateId: 'pageWrap',
+    templateId: 'cardPageWrapV1',
     slug: 'tour',
     title: 'Tour',
     cards: [
       await factory.fromTemplate<typeof areaTemplate>({
-        templateId: 'pageArea',
+        templateId: 'cardPageAreaV1',
         cards: [
           await factory.fromTemplate<typeof heroTemplate>({
-            templateId: 'contentHero',
+            templateId: 'cardHeroV1',
             userConfig: {
               superTitle: {
                 text: 'Your Story Deserves To Be Heard',
@@ -517,7 +517,7 @@ export async function getTourPage(args: { factory: CardFactory, stock: StockMedi
           }),
 
           await factory.fromTemplate<typeof tourTemplate>({
-            templateId: 'contentTour',
+            templateId: 'cardTourV1',
             userConfig: {
               items: [
                 {
@@ -590,13 +590,13 @@ export async function getTourPage(args: { factory: CardFactory, stock: StockMedi
         ],
       }),
       await factory.fromTemplate({
-        templateId: 'pageArea',
+        templateId: 'cardPageAreaV1',
         userConfig: {},
         cards: [
           await factory.fromTemplate<typeof templateMetrics>({
-            templateId: 'proofMetrics',
+            templateId: 'cardMetricsV1',
             userConfig: {
-              metrics: [
+              items: [
                 {
                   label: 'Personal Brands',
                   description: 'Built & Thriving',
@@ -617,9 +617,9 @@ export async function getTourPage(args: { factory: CardFactory, stock: StockMedi
             },
           }),
           await factory.fromTemplate<typeof templateQuotes>({
-            templateId: 'proofQuotes',
+            templateId: 'cardQuotesV1',
             userConfig: {
-              quotes: [
+              items: [
                 {
                   text: `<p>Ever notice that what people find when they Google your name, shapes their decision to work with, hire, or invest in you?</p><p> Can you afford to let others tell your story?</p>`,
                   author: {
@@ -682,7 +682,7 @@ export async function getTourPage(args: { factory: CardFactory, stock: StockMedi
         ],
       }),
       await factory.fromTemplate({
-        templateId: 'pageArea',
+        templateId: 'cardPageAreaV1',
         userConfig: {
           standard: {
             primaryColor: 'blue',
@@ -700,14 +700,14 @@ export async function getTourPage(args: { factory: CardFactory, stock: StockMedi
         },
         cards: [
           await factory.fromTemplate<typeof heroTemplate>({
-            templateId: 'contentHero',
+            templateId: 'cardHeroV1',
             userConfig: {
               standard: {
                 spaceSize: 'lg',
               },
               superTitle: {
                 icon: { iconId: 'rocket' },
-                text: 'Finally launch your personal brand!',
+                text: 'Feeling frustrated? The solution is here.',
                 theme: 'orange',
               },
               title: `Your Story Is [text_effect type=squiggle]Worth Telling[/text_effect]`,
@@ -777,23 +777,20 @@ export async function getConfig(args: {
     sections: {
       hidden: await factory.fromTemplate({
         cards: [
-          await factory.fromTemplate<typeof modalMedia>({ templateId: 'modalMedia', userConfig: { } }),
-          await factory.fromTemplate<typeof effectText>({ templateId: 'effectText', userConfig: { } }),
+          await factory.fromTemplate<typeof cardModalMediaV1>({ templateId: 'cardModalMediaV1', userConfig: { } }),
+          await factory.fromTemplate<typeof cardTextEffectV1>({ templateId: 'cardTextEffectV1', userConfig: { } }),
         ],
       }),
       header: await factory.fromTemplate({
         cards: [
           await factory.fromTemplate<typeof navTemplate>({
-            templateId: 'pageNav',
+            templateId: 'cardSiteNavV1',
             userConfig: {
               layout: 'navCenter',
               brand: {
                 logo: {
                   variant: 'media',
-                  media: {
-                    format: 'component',
-                    el: vue.defineAsyncComponent(() => import('@fiction/ui/brand/FictionLogo.vue')),
-                  },
+                  media: stock.getLocalMedia({ key: 'fictionLogoComponent' }),
                 },
               },
               nav: {
@@ -833,7 +830,7 @@ export async function getConfig(args: {
       footer: await factory.fromTemplate({
         cards: [
           await factory.fromTemplate<typeof footerProTemplate>({
-            templateId: 'pageFooterPro',
+            templateId: 'cardFooterProV1',
             userConfig: {
               brand: {
                 logo: {

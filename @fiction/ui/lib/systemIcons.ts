@@ -116,6 +116,7 @@ export const recommendedIcons = [
   { class: 'i-tabler-layout', category: 'content' },
   { class: 'i-tabler-crown', category: 'content' },
   { class: 'i-tabler-telescope', category: 'content' },
+  { class: 'i-tabler-device-tv', category: 'content' },
 
   // Commerce - Shopping and business
   { class: 'i-tabler-shopping-cart', category: 'commerce' },

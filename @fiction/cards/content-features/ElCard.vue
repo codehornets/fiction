@@ -29,7 +29,7 @@ const LayoutComponent = vue.computed(() => {
     <component
       :is="LayoutComponent"
       :card="card"
-      :features="uc.features || []"
+      :features="uc.items || []"
       :layout="uc.layout || {}"
       :style="uc.style || {}"
     />

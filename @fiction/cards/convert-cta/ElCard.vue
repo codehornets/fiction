@@ -9,7 +9,7 @@ import CardActionArea from '../el/CardActionArea.vue'
 import SuperTitle from '../el/SuperTitle.vue'
 import { schema } from './config'
 
-defineOptions({ name: 'ConvertCta' })
+defineOptions({ name: 'cardCtaV1' })
 
 const props = defineProps<{
   card: Card<UserConfig>

@@ -3,8 +3,13 @@ import { cardTemplate } from '@fiction/site/card'
 
 // Main template definition with minimal synchronous code
 export const template = cardTemplate({
-  templateId: 'convertContact',
+  templateId: 'cardContactV1',
   category: ['form', 'marketing'],
+  classification: {
+    category: ['forms'],
+    useCase: ['contact', 'support'],
+    type: ['input'],
+  },
   icon: 'i-tabler-mail-fast',
   title: 'Contact & Support',
   colorTheme: 'blue',

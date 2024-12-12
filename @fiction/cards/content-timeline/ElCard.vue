@@ -1,13 +1,14 @@
 <script lang="ts" setup>
 import type { Card } from '@fiction/site/card'
 import type { UserConfig } from './config'
-import { vue } from '@fiction/core'
+import { pathCheck, vue } from '@fiction/core'
 import { animateItemEnter, useElementVisible } from '@fiction/ui/anim'
 import AnimItemPop from '@fiction/ui/anim/AnimItemPop.vue'
 import XIcon from '@fiction/ui/media/XIcon.vue'
 import XMedia from '@fiction/ui/media/XMedia.vue'
 import CardText from '../CardText.vue'
 import CardActionArea from '../el/CardActionArea.vue'
+import { schema } from './config'
 
 defineOptions({ name: 'TimelineCard' })
 
@@ -86,8 +87,8 @@ const timelineLineStyle = vue.computed(() => {
 </script>
 
 <template>
-  <div v-if="uc.milestones?.length" :id="card.cardId" :class="card.classes.value.contentWidth">
-    <div class="flex flex-col gap-12 md:gap-32 max-w-4xl mx-auto relative pt-24 pb-8">
+  <div v-if="uc.items?.length" :id="card.cardId" :class="card.classes.value.contentWidth">
+    <div class="flex flex-col gap-12 md:gap-24 max-w-4xl mx-auto relative pt-24 pb-8">
       <!-- Animated Timeline Line -->
       <div
         class="absolute left-[19px] md:left-[156px] top-0 bottom-0 w-0.5 transition-all duration-300 ease-in-out"
@@ -96,7 +97,7 @@ const timelineLineStyle = vue.computed(() => {
 
       <!-- Rest of the template remains the same -->
       <div
-        v-for="(milestone, i) in uc.milestones"
+        v-for="(milestone, i) in uc.items"
         :key="i"
         class="animate-item relative flex gap-4 lg:gap-10 items-start"
       >
@@ -106,14 +107,14 @@ const timelineLineStyle = vue.computed(() => {
             <div class="text-sm font-medium text-theme-600 dark:text-theme-0 font-sans">
               <CardText
                 :card="card"
-                :path="`milestones.${i}.date`"
+                :path="pathCheck(`items.${i}.date`, schema)"
                 tag="div"
                 class="text-theme-500 dark:text-theme-400"
               />
               <CardText
                 v-if="milestone.endDate"
                 :card="card"
-                :path="`milestones.${i}.endDate`"
+                :path="pathCheck(`items.${i}.endDate`, schema)"
                 tag="div"
               />
             </div>
@@ -137,14 +138,14 @@ const timelineLineStyle = vue.computed(() => {
           </AnimItemPop>
         </div>
 
-        <div class="flex-1 pb-8">
+        <div class="flex-1">
           <div class="space-y-8">
             <div class="space-y-4">
               <div class="flex flex-col ">
                 <div class="">
                   <CardText
                     :card="card"
-                    :path="`milestones.${i}.title`"
+                    :path="pathCheck(`items.${i}.title`, schema)"
                     tag="h3"
                     class="text-xl md:text-3xl lg:text-4xl font-semibold x-font-title"
                     animate="fade"
@@ -154,14 +155,14 @@ const timelineLineStyle = vue.computed(() => {
                   <CardText
                     v-if="milestone.subTitle"
                     :card
-                    :path="`milestones.${i}.subTitle`"
+                    :path="pathCheck(`items.${i}.subTitle`, schema)"
                     tag="span"
                     :animate="true"
                   />
                   <CardActionArea
                     size="xs"
                     :card
-                    :base-path="`milestones.${i}.badges`"
+                    :base-path="pathCheck(`items.${i}.badges`, schema)"
                     class="pt-2"
                     :classes="{ buttons: 'flex gap-3' }"
                   />
@@ -170,7 +171,7 @@ const timelineLineStyle = vue.computed(() => {
               <CardText
                 v-if="milestone.content"
                 :card="card"
-                :path="`milestones.${i}.content`"
+                :path="pathCheck(`items.${i}.content`, schema)"
                 tag="p"
                 class="text-theme-600 dark:text-theme-400 text-sm md:text-base lg:text-2xl"
                 :animate="true"
@@ -184,7 +185,13 @@ const timelineLineStyle = vue.computed(() => {
               />
             </div>
 
-            <CardActionArea :card :base-path="`milestone.${i}.action`" class="pt-2" :classes="{ buttons: 'flex gap-4 lg:gap-5' }" />
+            <CardActionArea
+              v-if="milestone.action"
+              :card
+              :base-path="pathCheck(`items.${i}.action`, schema)"
+              class="pt-2"
+              :classes="{ buttons: 'flex gap-4 lg:gap-5' }"
+            />
           </div>
         </div>
       </div>

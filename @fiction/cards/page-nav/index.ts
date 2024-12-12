@@ -1,14 +1,14 @@
 import { vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site/card'
 
-export const templateId = 'pageNav'
+export const templateId = 'cardSiteNavV1'
 
 // Main template definition with minimal synchronous code
 export const template = cardTemplate({
   templateId,
   category: ['navigation'],
   icon: 'i-tabler-menu-2',
-  title: 'Brand Navigation',
+  title: 'Site Navigation',
   subTitle: 'Sophisticated navigation for modern websites',
   colorTheme: 'green',
   description: `Create an engaging brand experience with this premium navigation component.

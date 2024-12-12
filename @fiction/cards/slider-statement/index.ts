@@ -1,7 +1,7 @@
 import { vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site'
 
-export const templateId = 'sliderStatement'
+export const templateId = 'cardStatementSliderV1'
 
 export type { Statement, UserConfig } from './config'
 

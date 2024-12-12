@@ -7,7 +7,7 @@ import FeatureItem from './FeatureItem.vue'
 
 const props = defineProps({
   card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
-  features: { type: Array as vue.PropType<NonNullable<UserConfig['features']>>, required: true },
+  features: { type: Array as vue.PropType<NonNullable<UserConfig['items']>>, required: true },
   layout: { type: Object as vue.PropType<UserConfig['layout']>, required: true },
   style: { type: Object as vue.PropType<UserConfig['style']>, required: true },
 })
@@ -20,7 +20,7 @@ const gridGap = vue.computed(() => ({
 }[props.layout?.spacing || 'normal']))
 
 // Use fixed Tailwind classes for column spans
-function getColSpan(feature: NonNullable<UserConfig['features']>[0]) {
+function getColSpan(feature: NonNullable<UserConfig['items']>[0]) {
   const cols = feature.columns || '2'
 
   const spanClasses = {

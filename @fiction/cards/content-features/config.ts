@@ -22,7 +22,7 @@ export const schema = z.object({
     spacing: z.enum(['tight', 'normal', 'relaxed']).optional().describe('Gap between features'),
     align: z.enum(['left', 'center']).optional().describe('Content alignment'),
   }).optional().describe('Layout settings'),
-  features: z.array(featureSchema).optional().describe('Feature list items [ai]'),
+  items: z.array(featureSchema).optional().describe('Feature list items [ai]'),
   style: z.object({
     iconSize: SizeSchema.optional().describe('Icon dimensions'),
     iconStyle: z.enum(['outline', 'solid', 'duotone']).optional().describe('Icon visual style'),
@@ -34,12 +34,12 @@ export type UserConfig = z.infer<typeof schema>
 
 const options: InputOption[] = [
   createOption({
-    key: 'featuresGroup',
+    key: 'group.features',
     label: 'Features',
     input: 'group',
     options: [
       createOption({
-        key: 'features',
+        key: 'items',
         input: 'InputList',
         props: {
           itemLabel: args => (args?.item as FeatureConfig)?.title ?? 'Untitled',
@@ -47,26 +47,26 @@ const options: InputOption[] = [
         },
         options: [
           createOption({
-            key: 'features.0.title',
+            key: 'items.0.title',
             label: 'Title',
             input: 'InputText',
             isRequired: true,
             schema,
           }),
           createOption({
-            key: 'features.0.description',
+            key: 'items.0.description',
             label: 'Description',
             input: 'InputTextarea',
             schema,
           }),
           createOption({
-            key: 'features.0.icon',
+            key: 'items.0.icon',
             label: 'Icon',
             input: 'InputIcon',
             schema,
           }),
           createOption({
-            key: 'features.0.color',
+            key: 'items.0.color',
             label: 'Accent Color',
             input: 'InputColorTheme',
             schema,
@@ -77,13 +77,13 @@ const options: InputOption[] = [
             key: 'linkGroup',
             options: [
               createOption({
-                key: 'features.0.href',
+                key: 'items.0.href',
                 label: 'Link URL',
                 input: 'InputUrl',
                 schema,
               }),
               createOption({
-                key: 'features.0.action',
+                key: 'items.0.action',
                 label: 'Actions',
                 input: 'InputActionArea',
                 schema,
@@ -97,7 +97,7 @@ const options: InputOption[] = [
             isClosed: true,
             options: [
               createOption({
-                key: 'features.0.columns',
+                key: 'items.0.columns',
                 label: 'Width (Masonry)',
                 input: 'InputSelect',
                 props: { list: ['1', '2', '3', '4'] },
@@ -133,24 +133,24 @@ const options: InputOption[] = [
         key: 'layout.columns',
         label: 'Columns',
         subLabel: 'How wide should each feature be?',
-        input: 'InputSelect',
-        props: { list: ['2', '3', '4'] },
+        input: 'InputRadioButton',
+        list: ['2', '3', '4'],
         schema,
       }),
       createOption({
         key: 'layout.spacing',
         label: 'Spacing',
         subLabel: 'How much space between features?',
-        input: 'InputSelect',
-        props: { list: ['tight', 'normal', 'relaxed'] },
+        input: 'InputRadioButton',
+        list: ['tight', 'normal', 'relaxed'],
         schema,
       }),
       createOption({
         key: 'layout.align',
         label: 'Text Alignment',
         subLabel: 'How should text be aligned?',
-        input: 'InputSelect',
-        props: { list: ['left', 'center'] },
+        input: 'InputRadioButton',
+        list: ['left', 'center'],
         schema,
       }),
     ],
@@ -186,7 +186,7 @@ function getDefaultConfig(): UserConfig {
       spacing: 'normal',
       align: 'left',
     },
-    features: [
+    items: [
       {
         title: 'Create Visual Hierarchy',
         description: 'Notice how icons and colors naturally guide attention? Try emphasizing key features by mixing text sizes and adding accent colors that match your brand.',
@@ -220,7 +220,7 @@ function getMasonryDemo(): UserConfig {
       columns: '4',
       spacing: 'normal',
     },
-    features: [
+    items: [
       {
         title: 'Your Brand Story',
         description: 'Imagine your brand story unfolding naturally as visitors scroll. Start with a powerful overview that captures attention and sets expectations.\n\nNotice how varying content lengths create visual interest while maintaining a cohesive narrative?',
@@ -297,7 +297,7 @@ function getCarouselDemo(): UserConfig {
       spacing: 'normal',
       align: 'left',
     },
-    features: [
+    items: [
       {
         title: 'Start Your Journey',
         description: 'Notice how the carousel guides visitors through your brand story? Each slide reveals another compelling reason to engage.',
@@ -342,7 +342,7 @@ function getLayoutDemos(): UserConfig[] {
   return [
     {
       layout: { style: 'grid', columns: '4', align: 'center' },
-      features: [
+      items: [
         {
           title: 'Brand Foundation',
           description: 'See how a balanced grid creates visual harmony? Perfect for showcasing your core brand elements.',
@@ -378,7 +378,7 @@ function getLayoutDemos(): UserConfig[] {
     getMasonryDemo(),
     {
       layout: { style: 'cards', columns: '3', spacing: 'normal', align: 'center' },
-      features: [
+      items: [
         {
           title: 'Brand Presence',
           description: 'Experience how card layouts create a sophisticated, memorable impression of your brand.',

@@ -1,13 +1,15 @@
 import { vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site/card'
 
-export const templateId = 'contentTimeline'
+export const templateId = 'cardTimelineV1'
 
 export const template = cardTemplate({
   templateId,
   category: ['content', 'marketing'],
   classification: {
-    category: ['tour'],
+    type: ['text'],
+    category: ['content'],
+    useCase: ['timeline', 'list', 'roadmap', 'cv'],
   } as const,
   icon: 'i-tabler-timeline',
   title: 'Milestone Timeline',

@@ -27,7 +27,7 @@ describe('admin site editing', async () => {
         { type: 'click', selector: `[data-test-id="createSiteModal"] [data-test-el="step-submit"]` },
         { type: 'visible', selector: `[data-view-id="edit-site"]` },
         { type: 'frameInteraction', frameSelector: `#site-builder-iframe`, frameActions: [
-          { type: 'click', selector: `[data-card-template-id="sliderOverlay"]` },
+          { type: 'click', selector: `[data-card-template-id="cardOverlaySliderV1"]` },
         ] },
         { type: 'click', selector: `[data-option-path="autoSlide"] button` },
         { type: 'click', selector: `[data-option-path="slides"] [data-handle-index="0"] [data-test-id="handle"]` },

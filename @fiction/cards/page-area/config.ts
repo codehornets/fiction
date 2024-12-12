@@ -9,7 +9,7 @@ export type UserConfig = SiteUserConfig
 function getDemoContent(type: string) {
   return [
     {
-      templateId: 'contentHero',
+      templateId: 'cardHeroV1',
       userConfig: {
         title: type,
         subTitle: 'Showcase different area styles and capabilities',

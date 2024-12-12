@@ -52,7 +52,7 @@ export class Theme<T extends Record<string, unknown> = Record<string, unknown>> 
   themeId = this.settings.themeId
   title = this.settings.title || toLabel(this.themeId)
   templates: CardTemplate<any>[] = []
-  templateDefaults = vue.computed(() => ({ page: 'pageWrap', transaction: 'pageWrap', ...this.settings.templateDefaults }))
+  templateDefaults = vue.computed(() => ({ page: 'cardPageWrapV1', transaction: 'cardPageWrapV1', ...this.settings.templateDefaults }))
 
   constructor(settings: ThemeSettings<T>) {
     super('Theme', settings)

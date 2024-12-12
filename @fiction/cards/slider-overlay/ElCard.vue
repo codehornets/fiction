@@ -17,7 +17,7 @@ const { card } = defineProps<{
 
 const uc = vue.computed(() => card.userConfig.value)
 const currentItemIndex = vue.ref(0)
-const slides = vue.computed(() => uc.value.slides || [])
+const slides = vue.computed(() => uc.value.items || [])
 const slideTime = 15000
 const timer = vue.ref<NodeJS.Timeout>()
 
@@ -187,7 +187,7 @@ vue.onBeforeUnmount(() => {
                 class="x-font-title z-20 font-bold md:w-[170%]"
                 :min-size="40"
               >
-                <CardText :card tag="span" :path="pathCheck(`slides.${currentItemIndex}.title`, schema)" />
+                <CardText :card tag="span" :path="pathCheck(`items.${currentItemIndex}.title`, schema)" />
               </EffectFitText>
               <EffectFitText
                 v-if="currentItem?.subTitle"
@@ -196,7 +196,7 @@ vue.onBeforeUnmount(() => {
                 :content="currentItem?.subTitle || ''"
                 class="x-font-title z-20 font-medium md:w-[160%] mt-4"
               >
-                <CardText animate="fade" :card tag="span" :path="pathCheck(`slides.${currentItemIndex}.subTitle`, schema)" />
+                <CardText animate="fade" :card tag="span" :path="pathCheck(`items.${currentItemIndex}.subTitle`, schema)" />
               </EffectFitText>
             </div>
           </transition>

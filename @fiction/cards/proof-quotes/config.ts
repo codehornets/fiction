@@ -28,8 +28,8 @@ const QuoteSchema = z.object({
   layout: z.enum(['standard', 'compact', 'featured']).optional(),
 })
 
-const schema = z.object({
-  quotes: z.array(QuoteSchema).optional(),
+export const schema = z.object({
+  items: z.array(QuoteSchema).optional(),
 })
 
 export type Quote = z.infer<typeof QuoteSchema>
@@ -46,7 +46,7 @@ const options = [
     options: [
       createOption({
         schema,
-        key: 'quotes',
+        key: 'items',
         input: 'InputList',
         props: {
           itemName: 'Quote',
@@ -55,50 +55,50 @@ const options = [
         options: [
           createOption({
             schema,
-            key: 'quotes.0.text',
+            key: 'items.0.text',
             label: 'Quote Text',
             input: 'InputProse',
           }),
           createOption({
             schema,
-            key: 'quotes.0.layout',
+            key: 'items.0.layout',
             label: 'Quote Layout',
             input: 'InputSelect',
             props: { list: ['standard', 'compact', 'featured'] },
           }),
           createOption({
             schema,
-            key: 'quotes.0.theme',
+            key: 'items.0.theme',
             label: 'Color Theme',
             input: 'InputColorTheme',
           }),
           createOption({
             schema,
-            key: 'quotes.0.author',
+            key: 'items.0.author',
             label: 'Author Details',
             input: 'group',
             options: [
               createOption({
                 schema,
-                key: 'quotes.0.author.label',
+                key: 'items.0.author.label',
                 label: 'Name',
                 input: 'InputText',
               }),
               createOption({
                 schema,
-                key: 'quotes.0.author.subLabel',
+                key: 'items.0.author.subLabel',
                 label: 'Title/Role',
                 input: 'InputText',
               }),
               createOption({
                 schema,
-                key: 'quotes.0.author.media',
+                key: 'items.0.author.media',
                 label: 'Photo',
                 input: 'InputMedia',
               }),
               createOption({
                 schema,
-                key: 'quotes.0.author.href',
+                key: 'items.0.author.href',
                 label: 'Profile Link',
                 input: 'InputUrl',
               }),
@@ -106,31 +106,31 @@ const options = [
           }),
           createOption({
             schema,
-            key: 'quotes.0.org',
+            key: 'items.0.org',
             label: 'Organization',
             input: 'group',
             options: [
               createOption({
                 schema,
-                key: 'quotes.0.org.label',
+                key: 'items.0.org.label',
                 label: 'Company Name',
                 input: 'InputText',
               }),
               createOption({
                 schema,
-                key: 'quotes.0.org.subLabel',
+                key: 'items.0.org.subLabel',
                 label: 'Company Description',
                 input: 'InputText',
               }),
               createOption({
                 schema,
-                key: 'quotes.0.org.media',
+                key: 'items.0.org.media',
                 label: 'Logo',
                 input: 'InputMedia',
               }),
               createOption({
                 schema,
-                key: 'quotes.0.org.href',
+                key: 'items.0.org.href',
                 label: 'Website',
                 input: 'InputUrl',
               }),
@@ -138,7 +138,7 @@ const options = [
           }),
           createOption({
             schema,
-            key: 'quotes.0.action',
+            key: 'items.0.action',
             label: 'Actions',
             input: 'InputActionArea',
           }),
@@ -153,7 +153,7 @@ const options = [
 export async function getUserConfig(args: { factory: CardFactory, stock: StockMedia }): Promise<UserConfig> {
   const { stock } = args
   return {
-    quotes: [{
+    items: [{
       text: 'Notice how a well-crafted testimonial can instantly build trust?',
       layout: 'featured',
       theme: 'emerald',
@@ -180,7 +180,7 @@ export async function getDemoUserConfig(args: { factory: CardFactory, stock: Sto
   const { stock } = args
 
   return {
-    quotes: [
+    items: [
       {
         text: 'Feel the impact of strategic positioning. This featured testimonial commands attention through its prominent placement and bold design.',
         layout: 'featured',

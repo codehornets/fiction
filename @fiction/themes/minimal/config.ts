@@ -40,16 +40,16 @@ export async function getPages(args: SectionArgs) {
     await factory.fromTemplate({
       slug: '_home',
       cards: [
-        await factory.fromTemplate<typeof ProfileTemplate>({ templateId: 'contentProfile' }),
-        await factory.fromTemplate<typeof BentoTemplate>({ templateId: 'contentBento' }),
-        await factory.fromTemplate<typeof QuotesTemplate>({ templateId: 'proofQuotes' }),
+        await factory.fromTemplate<typeof ProfileTemplate>({ templateId: 'cardProfileV1' }),
+        await factory.fromTemplate<typeof BentoTemplate>({ templateId: 'cardBentoV1' }),
+        await factory.fromTemplate<typeof QuotesTemplate>({ templateId: 'cardQuotesV1' }),
       ],
     }),
     await factory.fromTemplate({
       slug: 'blog',
       cards: [
         await factory.fromTemplate<typeof MagazineTemplate>({
-          templateId: 'postsMagazine',
+          templateId: 'cardPostsMagazineV1',
           userConfig: await getDemoUserConfig({ factory, stock }),
         }),
       ],
@@ -57,15 +57,15 @@ export async function getPages(args: SectionArgs) {
     await factory.fromTemplate({
       slug: 'contact',
       cards: [
-        await factory.fromTemplate<typeof heroTemplate>({ templateId: 'contentHero', userConfig: {
+        await factory.fromTemplate<typeof heroTemplate>({ templateId: 'cardHeroV1', userConfig: {
           title: 'Contact Us',
           subTitle: `We'll get back to you as soon as possible.`,
           superTitle: { text: 'Get in Touch', icon: { class: 'i-tabler-phone' }, theme: 'orange' },
         } }),
-        await factory.fromTemplate<typeof ContactTemplate>({ templateId: 'convertContact', userConfig: {
+        await factory.fromTemplate<typeof ContactTemplate>({ templateId: 'cardContactV1', userConfig: {
 
         } }),
-        await factory.fromTemplate<typeof MapsTemplate>({ templateId: 'locationMaps', userConfig: {
+        await factory.fromTemplate<typeof MapsTemplate>({ templateId: 'cardMapsV1', userConfig: {
           standard: {
             headers: {
               title: 'Company Location',
@@ -85,10 +85,10 @@ export async function getHeader(args: SectionArgs) {
 
   return await factory.fromTemplate<typeof areaTemplate>({
     regionId: 'header',
-    templateId: 'pageArea',
+    templateId: 'cardPageAreaV1',
     cards: [
       await factory.fromTemplate<typeof navTemplate>({
-        templateId: 'pageNav',
+        templateId: 'cardSiteNavV1',
         userConfig: {
           brand: {
             logo: {
@@ -132,10 +132,10 @@ export async function getFooter(args: SectionArgs) {
   const { factory } = args
   return await factory.fromTemplate<typeof areaTemplate>({
     regionId: 'footer',
-    templateId: 'pageArea',
+    templateId: 'cardPageAreaV1',
     cards: [
       await factory.fromTemplate<typeof TickerTemplate>({
-        templateId: 'typographyTicker',
+        templateId: 'cardTickerV1',
         userConfig: {
           fontSize: 6,
           scrollEffect: true,
@@ -150,13 +150,13 @@ export async function getFooter(args: SectionArgs) {
         },
       }),
       await factory.fromTemplate<typeof callToActionTemplate>({
-        templateId: 'convertCta',
+        templateId: 'cardCtaV1',
         userConfig: {
           standard: { spaceSize: 'sm' },
         },
       }),
       await factory.fromTemplate<typeof templateFooterPersonal>({
-        templateId: 'pageFooterPersonal',
+        templateId: 'cardFooterPersonalV1',
         userConfig: {
           brand: {
             logo: { variant: 'typography', typography: { label: 'Minimal' } },
@@ -193,9 +193,9 @@ export async function getHidden(args: SectionArgs) {
 
   return await factory.fromTemplate({
     cards: [
-      await factory.fromTemplate<typeof contentModalTemplate>({ templateId: 'modalMedia', userConfig: { } }),
-      await factory.fromTemplate<typeof textEffectsTemplate>({ templateId: 'effectText', userConfig: { } }),
-      await factory.fromTemplate<typeof captureTemplate>({ templateId: 'convertCapture', userConfig: { } }),
+      await factory.fromTemplate<typeof contentModalTemplate>({ templateId: 'cardModalMediaV1', userConfig: { } }),
+      await factory.fromTemplate<typeof textEffectsTemplate>({ templateId: 'cardTextEffectV1', userConfig: { } }),
+      await factory.fromTemplate<typeof captureTemplate>({ templateId: 'cardCaptureV1', userConfig: { } }),
     ],
   })
 }

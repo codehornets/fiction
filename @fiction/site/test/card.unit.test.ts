@@ -11,7 +11,7 @@ describe('card', async () => {
   const site = await Site.create({ fictionSites: testUtils.fictionSites, siteRouter: testUtils.fictionRouterSites, themeId: 'test', siteId: `test-${shortId()}` })
 
   const templates = await getCardTemplates()
-  const inlineTemplate = templates.find(t => t.settings.templateId === 'contentHero')
+  const inlineTemplate = templates.find(t => t.settings.templateId === 'cardHeroV1')
   const card = new Card({
     site,
     inlineTemplate,
@@ -25,7 +25,7 @@ describe('card', async () => {
   })
 
   it('cardTemplate initializes with correct settings', () => {
-    expect(card.tpl.value?.settings.templateId).toBe('contentHero')
+    expect(card.tpl.value?.settings.templateId).toBe('cardHeroV1')
     expect(card.tpl.value?.settings.title).toBe('Hero')
   })
 
@@ -35,8 +35,8 @@ describe('card', async () => {
   })
 
   it('cardTemplate toCard method generates a card with expected properties', async () => {
-    const newCard = await templates.find(t => t.settings.templateId === 'contentHero')?.toCard({ site })
-    expect(newCard?.settings.templateId).toBe('contentHero')
+    const newCard = await templates.find(t => t.settings.templateId === 'cardHeroV1')?.toCard({ site })
+    expect(newCard?.settings.templateId).toBe('cardHeroV1')
     expect(newCard?.settings.title).toBeFalsy()
   })
 
@@ -149,56 +149,56 @@ describe('cardTemplate', async () => {
 
     expect(site?.theme.value?.templates.map(t => t.settings.templateId)).toMatchInlineSnapshot(`
       [
-        "contentHero",
-        "contentProfile",
-        "contentStory",
-        "contentFeatures",
-        "sliderStatement",
-        "contentBento",
-        "contentPeople",
-        "proofTestimonials",
-        "proofQuotes",
-        "proofMetrics",
-        "proofLogos",
-        "galleryShowcase",
-        "postsList",
-        "postsMagazine",
-        "socialInsta",
-        "contentNumberedList",
-        "contentFaq",
-        "contentTimeline",
-        "sliderCinema",
-        "galleryMasonry",
-        "modalMedia",
-        "contentTour",
-        "convertCta",
-        "convertCapture",
-        "convertContact",
-        "convertPricing",
-        "locationMaps",
-        "pageWrap",
-        "pageArea",
-        "pageNav",
-        "pageFooterPro",
-        "pageFooterPersonal",
-        "mediaMarquee",
-        "sliderOverlay",
-        "typographyTicker",
-        "galleryParallaxScroll",
-        "typographyFitText",
-        "effectShape",
-        "effectText",
-        "page404",
-        "pageTransaction",
+        "cardHeroV1",
+        "cardProfileV1",
+        "cardStoryV1",
+        "cardFeaturesV1",
+        "cardStatementSliderV1",
+        "cardBentoV1",
+        "cardPeopleV1",
+        "cardTestimonialsV1",
+        "cardQuotesV1",
+        "cardMetricsV1",
+        "cardLogosV1",
+        "cardShowcaseGalleryV1",
+        "cardPostsListV1",
+        "cardPostsMagazineV1",
+        "cardInstaV1",
+        "cardStepsV1",
+        "cardFaqV1",
+        "cardTimelineV1",
+        "cardCinemaSliderV1",
+        "cardPhotoGalleryV1",
+        "cardModalMediaV1",
+        "cardTourV1",
+        "cardCtaV1",
+        "cardCaptureV1",
+        "cardContactV1",
+        "cardPricingV1",
+        "cardMapsV1",
+        "cardPageWrapV1",
+        "cardPageAreaV1",
+        "cardSiteNavV1",
+        "cardFooterProV1",
+        "cardFooterPersonalV1",
+        "cardMarqueeV1",
+        "cardOverlaySliderV1",
+        "cardTickerV1",
+        "CardParallaxScrollV1",
+        "cardResponsiveTextV1",
+        "cardShapeEffectV1",
+        "cardTextEffectV1",
+        "card404ErrorV1",
+        "cardTransactionViewV1",
         "testWrap",
         "testBlog",
       ]
     `)
-    const card = new Card({ templateId: 'contentHero', site })
+    const card = new Card({ templateId: 'cardHeroV1', site })
 
     await waitFor(50)
 
-    expect(card.templateId.value).toBe('contentHero')
+    expect(card.templateId.value).toBe('cardHeroV1')
 
     expect(card.tpl.value).toBeInstanceOf(CardTemplate)
   })

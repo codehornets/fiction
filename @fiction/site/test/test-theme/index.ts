@@ -55,7 +55,7 @@ export const theme = new Theme({
     const obama = staticFileUrl({ site, filename: 'obama.webp' })
 
     const mediaGridCard = await factory.fromTemplate<typeof MarqueeTemplate>({
-      templateId: 'mediaMarquee',
+      templateId: 'cardMarqueeV1',
       userConfig: {
         items: [
           {
@@ -79,11 +79,11 @@ export const theme = new Theme({
           isHome: true,
           cards: [
             mediaGridCard,
-            { templateId: 'contentHero' },
-            { templateId: 'pageArea', cards: [
-              { templateId: 'contentHero' },
+            { templateId: 'cardHeroV1' },
+            { templateId: 'cardPageAreaV1', cards: [
+              { templateId: 'cardHeroV1' },
             ] },
-            { templateId: 'contentHero' },
+            { templateId: 'cardHeroV1' },
           ],
         }),
         await factory.fromTemplate({
@@ -91,8 +91,8 @@ export const theme = new Theme({
           title: 'Example Page',
           templateId: 'testWrap',
           cards: [{
-            templateId: 'pageArea',
-            cards: [{ templateId: 'contentHero' }],
+            templateId: 'cardPageAreaV1',
+            cards: [{ templateId: 'cardHeroV1' }],
           }],
         }),
       ],

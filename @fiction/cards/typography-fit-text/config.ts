@@ -3,7 +3,7 @@ import { fontFamilySchema } from '@fiction/core'
 import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
-const schema = z.object({
+export const schema = z.object({
   text: z.string().optional().describe('Text that dynamically adjusts to fill available space'),
   lines: z.number().optional().describe('Number of lines to display (1-5)'),
   minFontSize: z.number().optional().describe('Minimum font size to maintain readability'),

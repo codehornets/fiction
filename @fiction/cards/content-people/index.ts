@@ -1,7 +1,7 @@
 import { vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site'
 
-export const templateId = 'contentPeople'
+export const templateId = 'cardPeopleV1'
 
 export const template = cardTemplate({
   templateId,

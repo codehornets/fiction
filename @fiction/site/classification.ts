@@ -1,101 +1,84 @@
 import { z } from 'zod'
 
 const CardContentTypeSchema = z.enum([
-  'text', // Primarily text content
-  'media', // Images/videos primary
-  'mixed', // Balanced text/media
-  'interactive', // User input focused
-  'data', // Numbers/charts/stats
-])
-
-const CardPurposeSchema = z.enum([
-  'conversion',
-  'engagement',
-  'awareness',
-  'education',
-  'trust',
-  'navigation',
-  'presentation',
+  'text', // Text-driven content (articles, posts)
+  'visual', // Image/video focused (more intuitive than 'media')
+  'hybrid', // Balanced text/visual (clearer than 'mixed')
+  'input', // User interaction focused (forms, comments)
+  'stats', // Data visualization, metrics
+  'detachable', //  Elements that can be removed from the main flow
+  'detached', // Always detached from the main flow
 ])
 
 /**
- * Categories users will be looking for
+ * Core categories for component discovery
  */
 const CardCategorySchema = z.enum([
-  'common', // Fundamental components
-  'layout', // Structure and grid systems
-  'tour', // Text and rich media content
-  'list',
-  'cta', // Call-to-action buttons
-  'navigation', // Menus, links, site structure
-  'gallery', // Image and media displays
-  'slider', // Carousel and slideshow
-  'social', // Social proof, sharing
-  'forms', // Shopping, payments
-  'posts', // Blog, articles, news
-  'quotes', // Reviews, quotes
-  'typography', // Text styling and effects
-  'data', // Data visualization, stats
-  'utility', // Helper components
-  'advanced', // Complex, composite components
+  'essentials', // Basic building blocks (headers, text, buttons)
+  'layout', // Structure (grids, containers, sections)
+  'navigation', // Site structure (menus, breadcrumbs)
+  'media', // Rich media (galleries, sliders, video)
+  'forms', // User input (contact, signup, search)
+  'content', // Display patterns (posts, cards, lists)
+  'conversion', // Lead generation (email capture, CTAs)
+  'social', // Community features (comments, sharing)
+  'commerce', // Shopping (products, cart, checkout)
+  'data', // Information display (tables, charts)
 ])
 
+/**
+ * Specific use cases for AI-driven generation
+ */
 const CardUseCaseSchema = z.enum([
-  // Professional
-  'resume', // CV/Resume presentation
-  'job-posting', // Career/job listings
-  'case-study', // Project/work showcases
-  'service-offer', // Service descriptions
+  // Brand & Identity
+  'about', // Company/personal intro
+  'team', // Team/staff profiles
+  'contact', // Contact information
+  'services', // Service offerings
 
   // Marketing
-  'product-launch', // New product/feature releases
-  'event-promo', // Event promotion
-  'lead-magnet', // Lead generation offers
-  'sales-page', // Product/service sales
+  'feature', // Product/service highlights
+  'pricing', // Pricing plans
+  'comparison', // Product comparisons
+  'testimonial', // Reviews and social proof
+  'overview', // General information
+  'faq', // Frequently asked questions
+  'list', // Itemized content
 
   // Content
-  'tutorial', // How-to guides
-  'comparison', // Product/service comparisons
-  'showcase', // Portfolio items
-  'announcement', // News/updates
-
-  // Social Proof
-  'testimonial', // Client reviews
-  'awards', // Achievements/recognition
-  'press', // Media mentions
-  'team', // Team members
+  'blog', // Blog posts/articles
+  'portfolio', // Work showcase
+  'case-study', // Detailed examples
+  'tutorial', // How-to content
 
   // Journey
-  'timeline', // Historical progression
-  'roadmap', // Future plans
-  'milestones', // Achievement tracking
+  'timeline', // History/progression
   'process', // Step-by-step flows
+  'roadmap', // Future plans
+  'milestone', // Key achievements
+  'cv', // Resume/CV
+
+  'conversion', // Email signup
+  'subscribe', // Newsletter signupz
+  'lead',
+  'feedback', // User input/surveys
+  'support', // Help desk/FAQ
 
   // Community
-  'membership', // Member profiles/directories
-  'discussion', // Forums/comments
-  'newsletter', // Email signups
-  'social-feed', // Social media integration
+  'profile', // User profiles
+  'feed', // Activity streams
+  'comments', // Discussion areas
 
   // Commerce
-  'pricing', // Pricing tables
-  'product-card', // Product displays
-  'cart', // Shopping cart
-  'checkout', // Payment process
-])
-
-const ComplexitySchema = z.enum([
-  'basic', // Simple, single purpose
-  'standard', // Moderate complexity
-  'advanced', // Complex functionality
+  'product', // Product displays
+  'catalog', // Product listings
+  'checkout', // Purchase flow
 ])
 
 export const CardClassificationSchema = z.object({
   type: z.array(CardContentTypeSchema).optional(),
-  purpose: z.array(CardPurposeSchema).optional(),
   category: z.array(CardCategorySchema).optional(),
   useCase: z.array(CardUseCaseSchema).optional(),
-  complexity: ComplexitySchema.optional(),
 })
 
 export type CardClassification = z.infer<typeof CardClassificationSchema>

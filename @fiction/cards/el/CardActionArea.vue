@@ -31,10 +31,14 @@ const joinText = vue.computed(() => {
   const count = uc.value?.proof?.community?.count || 0
   return simpleHandlebarsParser(rawText, { count: count.toString() })
 })
+
+const hasActions = vue.computed(() => {
+  return uc.value?.buttons?.length || uc.value?.variant === 'subscribe'
+})
 </script>
 
 <template>
-  <div class="space-y-8">
+  <div v-if="hasActions" class="space-y-8" data-part="CardActionArea">
     <div>
       <CardActionAreaSubscribe
         v-if="uc?.variant === 'subscribe'"

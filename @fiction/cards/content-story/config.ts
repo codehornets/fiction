@@ -18,8 +18,8 @@ const StorySectionSchema = z.object({
   action: fields.action.describe('Optional calls-to-action at key moments'),
 })
 
-const schema = z.object({
-  items: z.array(StorySectionSchema).describe('Story sections that reveal as users scroll'),
+export const schema = z.object({
+  items: z.array(StorySectionSchema).optional().describe('Story sections that reveal as users scroll'),
   layout: z.enum(['left', 'right']).optional().describe('Media on left or right'),
   scrollHandling: z.enum(['sticky', 'scrolling']).optional().describe('Media behavior on scroll'),
 })

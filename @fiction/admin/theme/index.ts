@@ -29,7 +29,7 @@ export async function getPages(args: { factory: CardFactory }) {
       slug: '_404',
       title: 'Not Found (404)',
       cards: [
-        await factory.fromTemplate({ templateId: 'page404' }),
+        await factory.fromTemplate({ templateId: 'card404ErrorV1' }),
       ],
     }),
     await factory.fromTemplate<typeof dashTemplate>({
@@ -88,7 +88,7 @@ export async function getPages(args: { factory: CardFactory }) {
       ],
     }),
     await factory.fromTemplate<typeof TransactionTemplate>({
-      templateId: 'pageTransaction',
+      templateId: 'cardTransactionViewV1',
       slug: 'auth',
       title: 'Settings',
       cards: [
@@ -139,7 +139,7 @@ export const theme = new Theme({
       } satisfies SiteUserConfig,
     }
   },
-  templateDefaults: { page: 'dash', transaction: 'pageTransaction' },
+  templateDefaults: { page: 'dash', transaction: 'cardTransactionViewV1' },
   getBaseConfig: () => {
     return {
       spacing: { contentWidthSize: 'sm', spacingSize: `none` },

@@ -15,7 +15,7 @@ const SlideSchema = PostSchema.pick({
 
 export const schema = z.object({
   autoSlide: z.boolean().optional().describe('Animate slide transition automatically'),
-  slides: z.array(SlideSchema).optional().describe('Slides for slider with media, title, and subtitle'),
+  items: z.array(SlideSchema).optional().describe('Slides for slider with media, title, and subtitle'),
 })
 
 export type UserConfig = z.infer<typeof schema> & SiteUserConfig
@@ -31,8 +31,8 @@ export const options = [
     options: [
       createOption({
         schema,
-        key: 'slides',
-        label: 'Slides',
+        key: 'items',
+        label: 'items',
         input: 'InputList',
         props: {
           itemName: 'Slide',
@@ -41,27 +41,27 @@ export const options = [
         options: [
           createOption({
             schema,
-            key: 'slides.0.media',
+            key: 'items.0.media',
             label: 'Background Media',
             input: 'InputMedia',
           }),
           createOption({
             schema,
-            key: 'slides.0.title',
+            key: 'items.0.title',
             label: 'Main Heading',
             placeholder: 'Enter a title',
             input: 'InputText',
           }),
           createOption({
             schema,
-            key: 'slides.0.subTitle',
+            key: 'items.0.subTitle',
             label: 'Supporting Text',
             placeholder: 'Enter a subtitle',
             input: 'InputText',
           }),
           createOption({
             schema,
-            key: 'slides.0.textBlend',
+            key: 'items.0.textBlend',
             label: 'Text Visibility',
             input: 'InputRadioButton',
             list: [
@@ -95,7 +95,7 @@ export async function getDefaultConfig(args: { stock: StockMedia }): Promise<Use
   const { stock } = args
   return {
     autoSlide: true,
-    slides: [
+    items: [
       {
         title: 'First and Last Name',
         subTitle: 'Tagline or Key Achievement Here',
@@ -128,7 +128,7 @@ export async function getDemoConfig(args: { stock: StockMedia }): Promise<UserCo
   const { stock } = args
   return {
     autoSlide: true,
-    slides: [
+    items: [
       // Visual Impact Demo
       {
         title: 'Notice the Visual Impact',
@@ -187,7 +187,7 @@ export async function getConfig({ templateId, factory }: { templateId: string, f
           templateId,
           userConfig: {
             autoSlide: true,
-            slides: [
+            items: [
               {
                 title: 'Discover What\'s Possible',
                 subTitle: 'Feel the difference our products make',
@@ -207,7 +207,7 @@ export async function getConfig({ templateId, factory }: { templateId: string, f
                 media: stock.getRandomByTags(['aspect:landscape']),
               },
             ],
-          },
+          } satisfies UserConfig,
         },
       ],
     },

@@ -13,11 +13,11 @@ const MemberSchema = PostSchema.pick({
   action: true,
 })
 
-const schema = z.object({
+export const schema = z.object({
   layout: z.enum(['mediabox', 'grid']).optional().describe('Team display format'),
   title: z.string().optional().describe('Team section title [ai]'),
   subTitle: z.string().optional().describe('Team description [ai]'),
-  profiles: z.array(MemberSchema).optional().describe('Team member list [ai]'),
+  items: z.array(MemberSchema).optional().describe('Team member list [ai]'),
 })
 export type UserConfig = z.infer<typeof schema>
 type MemberConfig = z.infer<typeof MemberSchema>
@@ -33,7 +33,7 @@ function getOptions() {
       options: [
         createOption({
           schema,
-          key: 'profiles',
+          key: 'items',
           input: 'InputList',
           label: 'Team Members',
           props: {
@@ -43,28 +43,28 @@ function getOptions() {
           options: [
             createOption({
               schema,
-              key: 'profiles.0.title',
+              key: 'items.0.title',
               input: 'InputText',
               label: 'Full Name',
               placeholder: 'Enter their name',
             }),
             createOption({
               schema,
-              key: 'profiles.0.subTitle',
+              key: 'items.0.subTitle',
               input: 'InputText',
               label: 'Role or Sub Title',
               placeholder: 'e.g., Chief Innovation Officer',
             }),
             createOption({
               schema,
-              key: 'profiles.0.content',
+              key: 'items.0.content',
               input: 'InputTextarea',
               label: 'Details',
               placeholder: 'Share their story, expertise and impact',
             }),
             createOption({
               schema,
-              key: 'profiles.0.media',
+              key: 'items.0.media',
               input: 'InputMedia',
               label: 'Profile Photo',
               props: {
@@ -75,7 +75,7 @@ function getOptions() {
             }),
             createOption({
               schema,
-              key: 'profiles.0.action',
+              key: 'items.0.action',
               input: 'InputActionArea',
               label: 'Links / Actions',
             }),
@@ -126,7 +126,7 @@ async function getDefaultConfig(args: { stock: StockMedia }): Promise<UserConfig
     layout: 'grid',
     title: 'Build Trust with Faces',
     subTitle: 'Notice how a well-crafted team section instantly builds credibility. Add your team members to create meaningful connections with visitors.',
-    profiles: [{
+    items: [{
       title: 'Your Team Member',
       subTitle: 'Share Their Role',
       content: 'Imagine the impact of sharing their unique story. What expertise do they bring? What accomplishments make them stand out? Use this space to help visitors connect with your team personally.',
@@ -151,7 +151,7 @@ async function getDemoConfigs(args: { stock: StockMedia }): Promise<Record<strin
       layout: 'grid',
       title: 'Meet Our Innovators',
       subTitle: 'Feel the energy of a team that\'s reshaping the future of technology, one breakthrough at a time.',
-      profiles: [{
+      items: [{
         title: 'Alexandra Rivera',
         subTitle: 'Innovation Lead',
         content: 'Visualize the possibilities with Alexandra leading the way. Previously scaled three AI startups, now revolutionizing how we approach machine learning ethics.',
@@ -179,7 +179,7 @@ async function getDemoConfigs(args: { stock: StockMedia }): Promise<Record<strin
       layout: 'mediabox',
       title: 'Creative Minds',
       subTitle: 'Discover the artists and strategists crafting unforgettable brand experiences.',
-      profiles: [{
+      items: [{
         title: 'Sophie Laurent',
         subTitle: 'Creative Director',
         content: 'Watch your brand transform under Sophie\'s creative direction. Her award-winning campaigns have captured hearts and headlines across three continents.',

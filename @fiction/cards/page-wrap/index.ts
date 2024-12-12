@@ -3,7 +3,7 @@ import { cardTemplate } from '@fiction/site'
 import { InputOption } from '@fiction/ui'
 import { z } from 'zod'
 
-export const templateId = 'pageWrap'
+export const templateId = 'cardPageWrapV1'
 
 const UserConfigSchema = z.object({
   fixedHeader: z.boolean().optional(),

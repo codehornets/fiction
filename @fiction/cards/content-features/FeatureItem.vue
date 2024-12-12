@@ -10,7 +10,7 @@ import { schema } from './config'
 
 const props = defineProps({
   card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
-  feature: { type: Object as vue.PropType<NonNullable<UserConfig['features']>[0]>, required: true },
+  feature: { type: Object as vue.PropType<NonNullable<UserConfig['items']>[0]>, required: true },
   index: { type: Number, required: true },
   style: { type: Object as vue.PropType<UserConfig['style']>, default: () => ({}) },
   layout: { type: Object as vue.PropType<UserConfig['layout']>, default: () => ({}) },
@@ -81,7 +81,7 @@ const iconSize = vue.computed(() => ({
       <CardText
         tag="h3"
         :card="card"
-        :path="pathCheck(`features.${index}.title`, schema)"
+        :path="pathCheck(`items.${index}.title`, schema)"
         class="text-xl lg:text-2xl font-semibold x-font-title"
         animate="fade"
       />
@@ -89,7 +89,7 @@ const iconSize = vue.computed(() => ({
       <CardText
         tag="p"
         :card="card"
-        :path="pathCheck(`features.${index}.description`, schema)"
+        :path="pathCheck(`items.${index}.description`, schema)"
         class="mt-3 text-lg lg:text-xl text-theme-600 dark:text-theme-300 lg:leading-relaxed"
         animate="fade"
       />
@@ -97,8 +97,8 @@ const iconSize = vue.computed(() => ({
       <CardActionArea
         class="mt-6"
         :card
-        :base-path="pathCheck(`features.${index}.action`, schema)"
-        :classes="{ buttons: 'flex gap-4' }"
+        :base-path="pathCheck(`items.${index}.action`, schema)"
+        :classes="{ buttons: 'flex gap-4  flex-wrap' }"
         theme="primary"
       />
     </div>

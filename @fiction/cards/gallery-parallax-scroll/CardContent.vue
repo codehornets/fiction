@@ -1,9 +1,10 @@
 <script lang="ts" setup>
 import type { Card } from '@fiction/site'
 import type { UserConfig } from '.'
-import { vue } from '@fiction/core'
+import { pathCheck, vue } from '@fiction/core'
 import CardText from '../CardText.vue'
 import CardActionArea from '../el/CardActionArea.vue'
+import { schema } from './config'
 
 const props = defineProps({
   card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
@@ -29,10 +30,10 @@ const uc = vue.computed(() => props.card.userConfig.value || {})
     >
       <div :key="itemIndex" class="space-y-6">
         <div class="space-y-3">
-          <CardText :card :path="`items.${itemIndex}.title`" tag="h2" class="font-medium x-font-title text-xl md:text-3xl xl:text-4xl text-pretty" />
+          <CardText :card :path="pathCheck(`items.${itemIndex}.title`, schema)" tag="h2" class="font-medium x-font-title text-xl md:text-3xl xl:text-4xl text-pretty" />
           <CardText
             :card
-            :path="`items.${itemIndex}.content`"
+            :path="pathCheck(`items.${itemIndex}.content`, schema)"
             tag="p"
             class="text-lg md:text-xl xl:text-2xl text-pretty !leading-[1.4] line-clamp-4"
           />
@@ -40,7 +41,7 @@ const uc = vue.computed(() => props.card.userConfig.value || {})
         <CardActionArea
           size="lg"
           :card
-          :base-path="`items.${itemIndex}.action`"
+          :base-path="pathCheck(`items.${itemIndex}.action`, schema)"
           :classes="{ buttons: 'flex gap-4' }"
         />
       </div>

@@ -1,18 +1,19 @@
 <script lang="ts" setup>
 import type { Card } from '@fiction/site'
 import type { Quote, UserConfig } from './config'
-import { vue } from '@fiction/core'
+import { pathCheck, vue } from '@fiction/core'
 import XIcon from '@fiction/ui/media/XIcon.vue'
 import XMedia from '@fiction/ui/media/XMedia.vue'
 import CardText from '../CardText.vue'
 import NavDots from '../el/NavDots.vue'
+import { schema } from './config'
 
 const props = defineProps({
   card: { type: Object as vue.PropType<Card<UserConfig>>, required: true },
 })
 
 const uc = vue.computed(() => props.card.userConfig.value || {})
-const quotes = vue.computed(() => uc.value.quotes?.length ? uc.value.quotes : [])
+const quotes = vue.computed(() => uc.value.items?.length ? uc.value.items : [])
 
 const hasAuthorImage = (quote: Quote) => quote?.author?.media?.url || quote?.author?.media?.html
 const hasOrgImage = (quote: Quote) => quote?.org?.media?.url || quote?.org?.media?.html
@@ -41,7 +42,7 @@ const activeItem = vue.ref(0)
             <CardText
               tag="span"
               :card
-              :path="`quotes.${i}.text`"
+              :path="pathCheck(`items.${i}.text`, schema)"
               animate="fade"
             />
           </div>
@@ -57,8 +58,18 @@ const activeItem = vue.ref(0)
             />
           </div>
           <div class="text-left  space-y-0.5" :class="hasAuthorImage(quote) ? 'text-left' : 'md:text-center'">
-            <CardText :card :path="`quotes.${i}.author.label`" class="text-lg md:text-2xl font-medium" animate="fade" />
-            <CardText class="font-sans text-sm md:text-xl text-theme-500 dark:text-theme-400" :card :path="`quotes.${i}.author.subLabel`" animate="fade" />
+            <CardText
+              :card
+              :path="pathCheck(`items.${i}.author.label`, schema)"
+              class="text-lg md:text-2xl font-medium"
+              animate="fade"
+            />
+            <CardText
+              class="font-sans text-sm md:text-xl text-theme-500 dark:text-theme-400"
+              :card
+              :path="pathCheck(`items.${i}.author.subLabel`, schema)"
+              animate="fade"
+            />
           </div>
         </div>
       </div>

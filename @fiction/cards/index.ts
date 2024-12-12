@@ -54,7 +54,7 @@ const templateGroups: TemplateGroup[] = [
       () => import('./posts-list'),
       () => import('./posts-magazine'),
       () => import('./social-insta'),
-      () => import('./content-numbered-list'),
+      () => import('./content-steps'),
       () => import('./content-faq'),
       () => import('./content-timeline'),
     ],

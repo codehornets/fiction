@@ -1,12 +1,17 @@
 import { vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site/card'
 
-export const templateId = 'convertCta'
+export const templateId = 'cardCtaV1'
 
 // Main template definition with minimal synchronous code
 export const template = cardTemplate({
   templateId,
   category: ['conversion'],
+  classification: {
+    category: ['conversion'],
+    useCase: ['conversion', 'subscribe', 'lead'],
+    type: ['text', 'input'],
+  },
   icon: 'i-tabler-speakerphone',
   title: 'Call To Action',
   colorTheme: 'red',

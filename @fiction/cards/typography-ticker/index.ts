@@ -1,7 +1,7 @@
 import { vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site/card'
 
-export const templateId = 'typographyTicker'
+export const templateId = 'cardTickerV1'
 
 // Main template definition with minimal synchronous code
 export const template = cardTemplate({

@@ -20,11 +20,7 @@ export function initApp(config: { env: 'server' | 'client' }) {
   const app = createSSRApp(PageWrap as Component)
   const history = env === 'server' ? createMemoryHistory() : createWebHistory()
   const routes: RouteRecordRaw[] = [
-    {
-      name: 'home',
-      path: '/',
-      component: PageHome,
-    },
+    { name: 'home', path: '/', component: PageHome },
     { name: 'tour', path: '/tour', component: PageSingle },
     { name: 'pricing', path: '/pricing', component: PageOther },
     { name: 'about', path: '/about', component: PageAbout },

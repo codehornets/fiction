@@ -14,10 +14,10 @@ export async function page(args: { site: Site, factory: CardFactory }) {
 
   return factory.fromTemplate({
     regionId: 'main',
-    templateId: 'pageWrap',
+    templateId: 'cardPageWrapV1',
     slug: 'developer',
     cards: [
-      await factory.fromTemplate({ templateId: 'pageArea', cards: [homeCard] }),
+      await factory.fromTemplate({ templateId: 'cardPageAreaV1', cards: [homeCard] }),
 
     ],
   })

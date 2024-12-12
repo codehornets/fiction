@@ -36,7 +36,7 @@ const options = vue.computed<InputOption[]>(() => {
   ]
 })
 
-const page = vue.ref<CardConfigPortable>({ title: '', slug: '', cards: [{ templateId: 'contentHero' }] })
+const page = vue.ref<CardConfigPortable>({ title: '', slug: '', cards: [{ templateId: 'cardHeroV1' }] })
 
 vue.onMounted(() => {
   /**

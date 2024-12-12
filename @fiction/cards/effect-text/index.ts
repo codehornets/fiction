@@ -1,7 +1,7 @@
 import { vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site/card'
 
-export const templateId = 'effectText'
+export const templateId = 'cardTextEffectV1'
 
 export const template = cardTemplate({
   templateId,

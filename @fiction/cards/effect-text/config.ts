@@ -12,7 +12,7 @@ export async function getConfig(_args: { factory: CardFactory, templateId: strin
     demoPage: {
       cards: [
         await factory.fromTemplate<typeof heroTemplate>({
-          templateId: 'contentHero',
+          templateId: 'cardHeroV1',
           userConfig: {
             superTitle: {
               text: 'Text Animation System',
@@ -29,9 +29,9 @@ export async function getConfig(_args: { factory: CardFactory, templateId: strin
           },
         }),
         await factory.fromTemplate<typeof featuresTemplate>({
-          templateId: 'contentFeatures',
+          templateId: 'cardFeaturesV1',
           userConfig: {
-            features: [
+            items: [
               {
                 title: '[text_effect type=line theme=blue]Simple Shortcodes[/text_effect]',
                 description: 'Just wrap your text in shortcodes to add effects. Use type and theme attributes to customize the look.',
@@ -62,7 +62,7 @@ export async function getConfig(_args: { factory: CardFactory, templateId: strin
           },
         }),
         await factory.fromTemplate<typeof callToActionTemplate>({
-          templateId: 'convertCta',
+          templateId: 'cardCtaV1',
           userConfig: {
             title: 'Ready to [text_effect type=circle theme=primary]Transform[/text_effect] Your Content?',
             subTitle: 'Start adding [text_effect type=line theme=emerald]eye-catching effects[/text_effect] to your text with simple shortcodes.',

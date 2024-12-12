@@ -6,7 +6,7 @@ import FeatureItem from './FeatureItem.vue'
 
 const { card, features, layout, style } = defineProps<{
   card: Card<UserConfig>
-  features: NonNullable<UserConfig['features']>
+  features: NonNullable<UserConfig['items']>
   layout: UserConfig['layout']
   style: UserConfig['style']
 }>()

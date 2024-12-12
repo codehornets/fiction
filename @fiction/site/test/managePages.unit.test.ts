@@ -49,9 +49,9 @@ describe('managePage query', async () => {
 
   const createPageFields = (title: string) => new Card({
     regionId: 'main',
-    templateId: 'pageWrap',
+    templateId: 'cardPageWrapV1',
     title,
-    cards: [{ templateId: 'contentHero' }],
+    cards: [{ templateId: 'cardHeroV1' }],
   }).toConfig()
 
   const caller = 'test'
@@ -318,9 +318,9 @@ describe('upsert action', async () => {
 
   const fields = new Card({
     regionId: 'main',
-    templateId: 'pageWrap',
+    templateId: 'cardPageWrapV1',
     title: 'Example',
-    cards: [{ templateId: 'contentHero' }],
+    cards: [{ templateId: 'cardHeroV1' }],
   }).toConfig()
 
   if (!siteId)

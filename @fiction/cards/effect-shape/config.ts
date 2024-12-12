@@ -384,7 +384,7 @@ export async function getConfig(args: { templateId: string, factory: CardFactory
     cards: [
       // Basic shapes and positioning
       await factory.fromTemplate<typeof heroTemplate>({
-        templateId: 'contentHero',
+        templateId: 'cardHeroV1',
         userConfig: {
           title: 'Basic Shapes & Rotation',
           subTitle: 'Basic example showing shape positioning and continuous rotation animations. Notice the gentle circular and triangular motion.',
@@ -403,7 +403,7 @@ export async function getConfig(args: { templateId: string, factory: CardFactory
 
       // Interactive features
       await factory.fromTemplate<typeof heroTemplate>({
-        templateId: 'contentHero',
+        templateId: 'cardHeroV1',
         userConfig: {
           title: 'Interactive Shapes',
           subTitle: 'Move your cursor around to see the shapes follow. Hover over the shapes to trigger scale effects. The shapes maintain continuous rotation while following movement.',
@@ -422,7 +422,7 @@ export async function getConfig(args: { templateId: string, factory: CardFactory
 
       // Blending demonstration
       await factory.fromTemplate<typeof heroTemplate>({
-        templateId: 'contentHero',
+        templateId: 'cardHeroV1',
         userConfig: {
           title: 'Blend Modes & Opacity',
           subTitle: 'Demonstration of overlapping shapes with different blend modes. The circles use "overlay" and "multiply" blend modes with increased opacity for rich color mixing.',

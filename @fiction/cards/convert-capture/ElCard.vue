@@ -82,7 +82,7 @@ vue.onMounted(async () => {
 
 onResetUi(() => {
   card.userConfig.value = { ...card.userConfig.value, _editorPreview: undefined }
-  card?.syncCard({ caller: 'convertCapturePreview' })
+  card?.syncCard({ caller: 'cardCaptureV1Preview' })
 })
 
 const attrs = vue.useAttrs()
@@ -117,7 +117,7 @@ function handleDismiss(mode: DismissMode) {
   // Clear modal state if it matches the mapped value
   if (modalState.value === modalMap[mode]) {
     modalState.value = ''
-    resetUi({ cause: 'convertCapture', scope: 'all', trigger: 'manualReset' })
+    resetUi({ cause: 'cardCaptureV1', scope: 'all', trigger: 'manualReset' })
   }
 }
 </script>

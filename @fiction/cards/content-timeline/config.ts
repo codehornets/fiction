@@ -18,7 +18,7 @@ const MilestoneSchema = PostSchema.pick({
 })
 
 export const schema = z.object({
-  milestones: z.array(MilestoneSchema).optional(),
+  items: z.array(MilestoneSchema).optional(),
 })
 
 export type UserConfig = z.infer<typeof schema>
@@ -29,7 +29,7 @@ export function getOptions() {
 
     createOption({
       schema,
-      key: 'milestones',
+      key: 'items',
       label: 'Milestones',
       input: 'InputList',
       props: {
@@ -46,13 +46,13 @@ export function getOptions() {
 
             createOption({
               schema,
-              key: 'milestones.0.date',
+              key: 'items.0.date',
               label: 'Start Date',
               input: 'InputText',
             }),
             createOption({
               schema,
-              key: 'milestones.0.endDate',
+              key: 'items.0.endDate',
               label: 'End Date',
               input: 'InputText',
             }),
@@ -65,38 +65,38 @@ export function getOptions() {
           options: [
             createOption({
               schema,
-              key: 'milestones.0.icon',
+              key: 'items.0.icon',
               label: 'Icon',
               input: 'InputIcon',
             }),
             createOption({
               schema,
-              key: 'milestones.0.title',
+              key: 'items.0.title',
               label: 'Milestone Title',
               input: 'InputText',
               isRequired: true,
             }),
             createOption({
               schema,
-              key: 'milestones.0.subTitle',
+              key: 'items.0.subTitle',
               label: 'Milestone Subtitle',
               input: 'InputText',
             }),
             createOption({
               schema,
-              key: 'milestones.0.content',
+              key: 'items.0.content',
               label: 'Description',
               input: 'InputTextarea',
             }),
             createOption({
               schema,
-              key: 'milestones.0.media',
+              key: 'items.0.media',
               label: 'Image',
               input: 'InputMedia',
             }),
             createOption({
               schema,
-              key: 'milestones.0.badges',
+              key: 'items.0.badges',
               label: 'Badges',
               input: 'InputActionArea',
               props: { variants: ['buttons'] },
@@ -106,7 +106,7 @@ export function getOptions() {
 
         createOption({
           schema,
-          key: 'milestones.0.action',
+          key: 'items.0.action',
           input: 'InputActionArea',
         }),
       ],
@@ -117,7 +117,7 @@ export function getOptions() {
 export function getDemoConfig(args: { stock: StockMedia }): UserConfig {
   const { stock } = args
   return {
-    milestones: [
+    items: [
       {
         date: '2024',
         endDate: 'Present',
@@ -174,7 +174,7 @@ export function getDemoConfig(args: { stock: StockMedia }): UserConfig {
 
 export function getDefaultConfig(): UserConfig {
   return {
-    milestones: [
+    items: [
       {
         date: new Date().toISOString(),
         title: 'Achievement Title',

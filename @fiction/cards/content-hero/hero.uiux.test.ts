@@ -16,7 +16,7 @@ describe('hero: card', async () => {
       caller: 'hero',
       path: `/demo-${toKebab(templateId)}`,
       actions: [
-        { type: 'count', selector: '[data-card-type="contentHero"]' },
+        { type: 'count', selector: '[data-card-type="cardHeroV1"]' },
       ],
     })
   })

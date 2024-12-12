@@ -17,14 +17,14 @@ const uc = vue.computed(() => props.card.userConfig.value)
   <div>
     <div
       class="mx-auto grid max-w-6xl  px-6 lg:px-8 gap-8 gap-y-12 md:gap-24"
-      :class="uc.metrics?.length === 1 ? 'md:grid-cols-1' : uc.metrics?.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3'"
+      :class="uc.items?.length === 1 ? 'md:grid-cols-1' : uc.items?.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3'"
     >
       <div
-        v-for="(feat, i) in uc.metrics"
+        v-for="(feat, i) in uc.items"
         :key="i"
       >
         <div class="text-center">
-          <CardText :card tag="h3" :path="pathCheck(`metrics.${i}.label`, schema)" class="text-xl lg:text-2xl" />
+          <CardText :card tag="h3" :path="pathCheck(`items.${i}.label`, schema)" class="text-xl lg:text-2xl" />
 
           <XNumber
             :animate="true"
@@ -33,7 +33,7 @@ const uc = vue.computed(() => props.card.userConfig.value)
             :format="feat.format || 'abbreviated'"
           />
 
-          <CardText :card tag="p" :path="pathCheck(`metrics.${i}.description`, schema)" class="text-balance text-theme-400 dark:text-theme-500 mt-3 font-sans text-sm " />
+          <CardText :card tag="p" :path="pathCheck(`items.${i}.description`, schema)" class="text-balance text-theme-400 dark:text-theme-500 mt-3 font-sans text-sm " />
         </div>
       </div>
     </div>

@@ -8,6 +8,7 @@ const { fromTop = 80, disable = false } = defineProps<{ fromTop?: number, disabl
 
 const revealText = vue.ref<HTMLElement | null>(null)
 const originalHtml = vue.ref<string>()
+const loading = vue.ref(true)
 
 // Load GSAP and ScrollTrigger in client only as problems in node
 async function getGsap() {
@@ -85,12 +86,14 @@ vue.onMounted(async () => {
       await clearGsap()
       revertToOriginal()
     }
+
+    loading.value = false
   }, { immediate: true })
 })
 </script>
 
 <template>
-  <div ref="revealText" class="scroll-reveal-text relative">
+  <div ref="revealText" class="scroll-reveal-text relative transition-opacity" :class="loading ? 'opacity-0' : 'opacity-100'">
     <slot />
   </div>
 </template>

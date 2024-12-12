@@ -24,8 +24,6 @@ export const theme = new Theme({
   getBaseConfig: () => {
     return {
       site: {
-        fonts: {
-        },
         prefersColorScheme: 'dark',
         primaryColor: 'rose',
       },

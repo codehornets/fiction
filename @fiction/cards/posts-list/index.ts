@@ -1,7 +1,7 @@
 import { safeDirname, vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site'
 
-export const templateId = 'postsList'
+export const templateId = 'cardPostsListV1'
 
 export const template = cardTemplate({
   root: safeDirname(import.meta.url),

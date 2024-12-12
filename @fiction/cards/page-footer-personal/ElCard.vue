@@ -8,7 +8,7 @@ import CardNavLink from '../CardNavLink.vue'
 import CardText from '../CardText.vue'
 import CardLink from '../el/CardLink.vue'
 
-defineOptions({ name: 'PageFooterPersonal' })
+defineOptions({ name: 'cardFooterPersonalV1' })
 
 const props = defineProps<{
   card: Card<UserConfig>

@@ -14,7 +14,7 @@ const uc = vue.computed(() => card.userConfig.value || {})
 function createHeroCard(item: HeroUserConfig, index: number) {
   return new Card({
     cardId: card.cardId,
-    templateId: 'contentHero',
+    templateId: 'cardHeroV1',
     userConfig: item,
     site: card.site,
     onSync: (subCard) => {

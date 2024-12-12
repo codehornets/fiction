@@ -1,5 +1,5 @@
 import type { template as heroTemplate } from '@fiction/cards/content-hero/index.js'
-import type { template as pageWrapTemplate } from '@fiction/cards/page-wrap/index.js'
+import type { template as cardPageWrapV1Template } from '@fiction/cards/page-wrap/index.js'
 import type { CardTemplate, Site } from '@fiction/site'
 import { toKebab } from '@fiction/core/index.js'
 import { CardFactory } from '../cardFactory.js'
@@ -18,16 +18,16 @@ export async function createDemoPage(args: { site: Site, template: CardTemplate<
 
   const factory = new CardFactory({ templates, site, caller: 'createDemoPage' })
 
-  const pg = await factory.fromTemplate<typeof pageWrapTemplate>({
+  const pg = await factory.fromTemplate<typeof cardPageWrapV1Template>({
     slug,
-    templateId: 'pageWrap',
+    templateId: 'cardPageWrapV1',
     baseConfig: { site: { title: `${title} - Web Element Demo` } },
     userConfig: {
       // fixedHeader: true,
     },
     cards: [
       await factory.fromTemplate<typeof heroTemplate>({
-        templateId: 'contentHero',
+        templateId: 'cardHeroV1',
         userConfig: {
           superTitle: {
             text: category?.join(', ').toUpperCase(),

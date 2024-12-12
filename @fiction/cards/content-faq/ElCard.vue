@@ -131,7 +131,7 @@ function isItemOpen(index: number) {
         :card
         :base-path="pathCheck(`support.action`, schema)"
         :actions="uc.support.action"
-        :classes="{ buttons: 'flex gap-4 justify-center' }"
+        :classes="{ buttons: 'flex gap-4 justify-center  flex-wrap ' }"
       />
     </div>
   </div>

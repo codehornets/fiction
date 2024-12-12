@@ -21,8 +21,8 @@ describe('admin site pages', async () => {
       actions: [
         { type: 'visible', selector: `[data-view-id="${initialViewId}"]` },
         { type: 'click', selector: `[data-test-id="tool-button-editLayout"]` },
-        { type: 'click', selector: `[data-test-id="add-element-contentHero"]:first-of-type` },
-        { type: 'visible', selector: `[data-test-id="layout-card-contentHero"]` },
+        { type: 'click', selector: `[data-test-id="add-element-cardHeroV1"]:first-of-type` },
+        { type: 'visible', selector: `[data-test-id="layout-card-cardHeroV1"]` },
         { type: 'click', selector: `[data-test-id="tool-button-managePages"]` },
         { type: 'click', selector: `[data-test-id="addPage"]`, waitAfter: 1000 },
         { type: 'fill', selector: `[data-test-id="add-page-title"] input`, text: `New Page ${slugId}` },

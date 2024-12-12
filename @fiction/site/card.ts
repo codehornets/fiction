@@ -203,7 +203,7 @@ type Surface<T> = MergeTypes<T, CardSurface>
 
 function getDetaultTemplateId(card: Card): string {
   const inlineTemplateId = card.settings.inlineTemplate ? card.settings.inlineTemplate.settings.templateId : undefined
-  return inlineTemplateId || card.settings.templateId || (card.parentId ? 'pageArea' : card.site?.theme.value?.templateDefaults.value.page || 'pageWrap')
+  return inlineTemplateId || card.settings.templateId || (card.parentId ? 'cardPageAreaV1' : card.site?.theme.value?.templateDefaults.value.page || 'cardPageWrapV1')
 }
 
 export class Card<

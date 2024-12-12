@@ -1,7 +1,7 @@
 import { vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site'
 
-const templateId = 'typographyFitText'
+const templateId = 'cardResponsiveTextV1'
 
 export const template = cardTemplate({
   templateId,

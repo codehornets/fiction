@@ -2,14 +2,14 @@
 import { vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site'
 
-export const templateId = 'galleryMasonry'
+export const templateId = 'cardPhotoGalleryV1'
 
 // Main template definition with minimal synchronous code
 export const template = cardTemplate({
   templateId,
   category: ['media'],
   icon: 'i-tabler-library-photo',
-  title: 'Masonry Gallery',
+  title: 'Photo Gallery',
   colorTheme: 'emerald',
   subTitle: 'Create stunning masonry layouts that showcase your visual content in an engaging, responsive grid',
   description: `Transform your images and videos into an immersive visual story with our dynamic masonry gallery.

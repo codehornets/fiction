@@ -126,11 +126,9 @@ const elementStyle = vue.computed(() => {
   if (mediaHandling) {
     if (mediaHandling.height) {
       styles.height = `${mediaHandling.height}rem`
-      styles.width = 'auto' // Maintain aspect ratio
     }
     if (mediaHandling.width) {
       styles.width = `${mediaHandling.width}rem`
-      styles.height = 'auto' // Maintain aspect ratio
     }
   }
 
@@ -251,9 +249,8 @@ vue.onBeforeUnmount(() => {
 
 <style scoped>
 .svg-wrapper :deep(svg) {
-  width: 100%;
+
   height: 100%;
-  max-width: 100%;
   max-height: 100%;
 }
 </style>

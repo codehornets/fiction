@@ -28,7 +28,7 @@ async function getConfig() {
 }
 
 export const template = cardTemplate({
-  templateId: 'page404',
+  templateId: 'card404ErrorV1',
   subTitle: 'A simple yet effective not-found page.',
   category: ['special'],
   icon: 'i-tabler-error-404',

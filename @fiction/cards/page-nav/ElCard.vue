@@ -92,7 +92,7 @@ function closeMenu() {
     <div class="x-header-container">
       <div class="relative">
         <nav class="relative flex items-center justify-between gap-12" aria-label="Global">
-          <div v-if="uc.brand?.logo" class="inline-flex mr-4" :class="layoutClass.brand">
+          <div v-if="uc.brand?.logo" class="inline-flex mr-4 justify-start" :class="layoutClass.brand">
             <CardLink
               :card
               href="/"

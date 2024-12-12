@@ -191,7 +191,7 @@ const aspectClass = vue.computed(() => {
   >
     <div
       v-if="media"
-      :class="[!inlineImage ? 'h-full w-full' : 'h-full flex', flipClass]"
+      :class="[!inlineImage ? 'h-full w-full' : 'flex', flipClass]"
       :style="[bgStyle]"
       :data-loading="loading"
     >

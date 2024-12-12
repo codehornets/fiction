@@ -13,7 +13,7 @@ const TrekItemSchema = z.object({
   parallaxStrength: z.number().min(0).max(1).optional().describe('Visual depth intensity (0-1)'),
 })
 
-const schema = z.object({
+export const schema = z.object({
   items: z.array(TrekItemSchema).optional().describe('Chapters in your visual story'),
 })
 
