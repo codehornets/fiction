@@ -1,4 +1,3 @@
-import type { UserConfig } from './config'
 import { vue } from '@fiction/core'
 import { cardTemplate } from '@fiction/site'
 

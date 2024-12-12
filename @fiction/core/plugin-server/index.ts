@@ -1,7 +1,7 @@
 import type http from 'node:http'
-import type { FictionPluginSettings } from '../plugin.js'
 import type { FictionEnv } from '../plugin-env/index.js'
 import type { FictionUser } from '../plugin-user/index.js'
+import type { FictionPluginSettings } from '../plugin.js'
 import type { Endpoint } from '../utils/index.js'
 import { FictionPlugin } from '../plugin.js'
 import { EndpointServer, vue } from '../utils/index.js'

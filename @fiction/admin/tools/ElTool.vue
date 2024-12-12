@@ -1,8 +1,6 @@
 <script lang="ts" setup>
 import type { ActionButton, vue } from '@fiction/core'
 import type { EditorTool } from './tools'
-import { toLabel } from '@fiction/core'
-import XButton from '@fiction/ui/buttons/XButton.vue'
 
 defineOptions({ name: 'ElTool' })
 

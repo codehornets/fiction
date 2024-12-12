@@ -1,6 +1,5 @@
 import type { CardFactory } from '@fiction/site/cardFactory.js'
 import type { Site } from '@fiction/site/site.js'
-import { template as dashTemplate, panelTemplate } from '@fiction/admin/dashboard/cardDash'
 import { vue } from '@fiction/core/index.js'
 
 export async function page(args: { site: Site, factory: CardFactory }) {

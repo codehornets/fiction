@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generatedAt": "2024-12-11T05:16:28.931Z",
+  "generatedAt": "2024-12-11T23:13:19.851Z",
   "templates": [
     {
       "templateId": "contentHero",
@@ -29,9 +29,22 @@
               "label": "string, Button text [ai]",
               "href": "string, Button link URL or /path [ai]",
               "theme": "string, Button color scheme [ai]",
-              "design": "string, Button visual style [ai]"
+              "design": "string, Button visual style [ai]",
+              "icon": "undefined, Button icon [ai]"
             }
-          ]
+          ],
+          "subscribe": {
+            "input": {
+              "placeholder": "string, Email input placeholder [ai]"
+            },
+            "button": {
+              "label": "string, Button text [ai]"
+            },
+            "success": {
+              "title": "string, Success message title [ai]",
+              "content": "string, Success message content [ai]"
+            }
+          }
         }
       },
       "demo": {
@@ -65,9 +78,22 @@
               "label": "string, Button text [ai]",
               "href": "string, Button link URL or /path [ai]",
               "theme": "string, Button color scheme [ai]",
-              "design": "string, Button visual style [ai]"
+              "design": "string, Button visual style [ai]",
+              "icon": "undefined, Button icon [ai]"
             }
-          ]
+          ],
+          "subscribe": {
+            "input": {
+              "placeholder": "string, Email input placeholder [ai]"
+            },
+            "button": {
+              "label": "string, Button text [ai]"
+            },
+            "success": {
+              "title": "string, Success message title [ai]",
+              "content": "string, Success message content [ai]"
+            }
+          }
         }
       },
       "demo": {
@@ -96,9 +122,22 @@
                   "label": "string, Button text [ai]",
                   "href": "string, Button link URL or /path [ai]",
                   "theme": "string, Button color scheme [ai]",
-                  "design": "string, Button visual style [ai]"
+                  "design": "string, Button visual style [ai]",
+                  "icon": "undefined, Button icon [ai]"
                 }
-              ]
+              ],
+              "subscribe": {
+                "input": {
+                  "placeholder": "string, Email input placeholder [ai]"
+                },
+                "button": {
+                  "label": "string, Button text [ai]"
+                },
+                "success": {
+                  "title": "string, Success message title [ai]",
+                  "content": "string, Success message content [ai]"
+                }
+              }
             }
           }
         ]
@@ -132,9 +171,22 @@
                   "label": "string, Button text [ai]",
                   "href": "string, Button link URL or /path [ai]",
                   "theme": "string, Button color scheme [ai]",
-                  "design": "string, Button visual style [ai]"
+                  "design": "string, Button visual style [ai]",
+                  "icon": "undefined, Button icon [ai]"
                 }
-              ]
+              ],
+              "subscribe": {
+                "input": {
+                  "placeholder": "string, Email input placeholder [ai]"
+                },
+                "button": {
+                  "label": "string, Button text [ai]"
+                },
+                "success": {
+                  "title": "string, Success message title [ai]",
+                  "content": "string, Success message content [ai]"
+                }
+              }
             }
           }
         ]
@@ -167,9 +219,22 @@
                   "label": "string, Button text [ai]",
                   "href": "string, Button link URL or /path [ai]",
                   "theme": "string, Button color scheme [ai]",
-                  "design": "string, Button visual style [ai]"
+                  "design": "string, Button visual style [ai]",
+                  "icon": "undefined, Button icon [ai]"
                 }
-              ]
+              ],
+              "subscribe": {
+                "input": {
+                  "placeholder": "string, Email input placeholder [ai]"
+                },
+                "button": {
+                  "label": "string, Button text [ai]"
+                },
+                "success": {
+                  "title": "string, Success message title [ai]",
+                  "content": "string, Success message content [ai]"
+                }
+              }
             }
           }
         ]
@@ -206,9 +271,22 @@
                   "label": "string, Button text [ai]",
                   "href": "string, Button link URL or /path [ai]",
                   "theme": "string, Button color scheme [ai]",
-                  "design": "string, Button visual style [ai]"
+                  "design": "string, Button visual style [ai]",
+                  "icon": "undefined, Button icon [ai]"
                 }
-              ]
+              ],
+              "subscribe": {
+                "input": {
+                  "placeholder": "string, Email input placeholder [ai]"
+                },
+                "button": {
+                  "label": "string, Button text [ai]"
+                },
+                "success": {
+                  "title": "string, Success message title [ai]",
+                  "content": "string, Success message content [ai]"
+                }
+              }
             }
           }
         ]
@@ -246,9 +324,22 @@
                   "label": "string, Button text [ai]",
                   "href": "string, Button link URL or /path [ai]",
                   "theme": "string, Button color scheme [ai]",
-                  "design": "string, Button visual style [ai]"
+                  "design": "string, Button visual style [ai]",
+                  "icon": "undefined, Button icon [ai]"
                 }
-              ]
+              ],
+              "subscribe": {
+                "input": {
+                  "placeholder": "string, Email input placeholder [ai]"
+                },
+                "button": {
+                  "label": "string, Button text [ai]"
+                },
+                "success": {
+                  "title": "string, Success message title [ai]",
+                  "content": "string, Success message content [ai]"
+                }
+              }
             }
           }
         ]
@@ -303,9 +394,22 @@
                   "label": "string, Button text [ai]",
                   "href": "string, Button link URL or /path [ai]",
                   "theme": "string, Button color scheme [ai]",
-                  "design": "string, Button visual style [ai]"
+                  "design": "string, Button visual style [ai]",
+                  "icon": "undefined, Button icon [ai]"
                 }
-              ]
+              ],
+              "subscribe": {
+                "input": {
+                  "placeholder": "string, Email input placeholder [ai]"
+                },
+                "button": {
+                  "label": "string, Button text [ai]"
+                },
+                "success": {
+                  "title": "string, Success message title [ai]",
+                  "content": "string, Success message content [ai]"
+                }
+              }
             }
           }
         ]
@@ -378,9 +482,22 @@
                     "label": "string, Button text [ai]",
                     "href": "string, Button link URL or /path [ai]",
                     "theme": "string, Button color scheme [ai]",
-                    "design": "string, Button visual style [ai]"
+                    "design": "string, Button visual style [ai]",
+                    "icon": "undefined, Button icon [ai]"
                   }
-                ]
+                ],
+                "subscribe": {
+                  "input": {
+                    "placeholder": "string, Email input placeholder [ai]"
+                  },
+                  "button": {
+                    "label": "string, Button text [ai]"
+                  },
+                  "success": {
+                    "title": "string, Success message title [ai]",
+                    "content": "string, Success message content [ai]"
+                  }
+                }
               }
             }
           ],
@@ -426,9 +543,22 @@
                     "label": "string, Button text [ai]",
                     "href": "string, Button link URL or /path [ai]",
                     "theme": "string, Button color scheme [ai]",
-                    "design": "string, Button visual style [ai]"
+                    "design": "string, Button visual style [ai]",
+                    "icon": "undefined, Button icon [ai]"
                   }
-                ]
+                ],
+                "subscribe": {
+                  "input": {
+                    "placeholder": "string, Email input placeholder [ai]"
+                  },
+                  "button": {
+                    "label": "string, Button text [ai]"
+                  },
+                  "success": {
+                    "title": "string, Success message title [ai]",
+                    "content": "string, Success message content [ai]"
+                  }
+                }
               }
             }
           ],
@@ -474,9 +604,22 @@
                     "label": "string, Button text [ai]",
                     "href": "string, Button link URL or /path [ai]",
                     "theme": "string, Button color scheme [ai]",
-                    "design": "string, Button visual style [ai]"
+                    "design": "string, Button visual style [ai]",
+                    "icon": "undefined, Button icon [ai]"
                   }
-                ]
+                ],
+                "subscribe": {
+                  "input": {
+                    "placeholder": "string, Email input placeholder [ai]"
+                  },
+                  "button": {
+                    "label": "string, Button text [ai]"
+                  },
+                  "success": {
+                    "title": "string, Success message title [ai]",
+                    "content": "string, Success message content [ai]"
+                  }
+                }
               }
             }
           ],
@@ -541,9 +684,22 @@
                 "label": "string, Button text [ai]",
                 "href": "string, Button link URL or /path [ai]",
                 "theme": "string, Button color scheme [ai]",
-                "design": "string, Button visual style [ai]"
+                "design": "string, Button visual style [ai]",
+                "icon": "undefined, Button icon [ai]"
               }
-            ]
+            ],
+            "subscribe": {
+              "input": {
+                "placeholder": "string, Email input placeholder [ai]"
+              },
+              "button": {
+                "label": "string, Button text [ai]"
+              },
+              "success": {
+                "title": "string, Success message title [ai]",
+                "content": "string, Success message content [ai]"
+              }
+            }
           }
         }
       },
@@ -577,9 +733,22 @@
                   "label": "string, Button text [ai]",
                   "href": "string, Button link URL or /path [ai]",
                   "theme": "string, Button color scheme [ai]",
-                  "design": "string, Button visual style [ai]"
+                  "design": "string, Button visual style [ai]",
+                  "icon": "undefined, Button icon [ai]"
                 }
-              ]
+              ],
+              "subscribe": {
+                "input": {
+                  "placeholder": "string, Email input placeholder [ai]"
+                },
+                "button": {
+                  "label": "string, Button text [ai]"
+                },
+                "success": {
+                  "title": "string, Success message title [ai]",
+                  "content": "string, Success message content [ai]"
+                }
+              }
             },
             "badges": {
               "title": "string, Header text above actions [ai]",
@@ -589,9 +758,22 @@
                   "label": "string, Button text [ai]",
                   "href": "string, Button link URL or /path [ai]",
                   "theme": "string, Button color scheme [ai]",
-                  "design": "string, Button visual style [ai]"
+                  "design": "string, Button visual style [ai]",
+                  "icon": "undefined, Button icon [ai]"
                 }
-              ]
+              ],
+              "subscribe": {
+                "input": {
+                  "placeholder": "string, Email input placeholder [ai]"
+                },
+                "button": {
+                  "label": "string, Button text [ai]"
+                },
+                "success": {
+                  "title": "string, Success message title [ai]",
+                  "content": "string, Success message content [ai]"
+                }
+              }
             }
           }
         ]
@@ -627,9 +809,22 @@
                   "label": "string, Button text [ai]",
                   "href": "string, Button link URL or /path [ai]",
                   "theme": "string, Button color scheme [ai]",
-                  "design": "string, Button visual style [ai]"
+                  "design": "string, Button visual style [ai]",
+                  "icon": "undefined, Button icon [ai]"
                 }
-              ]
+              ],
+              "subscribe": {
+                "input": {
+                  "placeholder": "string, Email input placeholder [ai]"
+                },
+                "button": {
+                  "label": "string, Button text [ai]"
+                },
+                "success": {
+                  "title": "string, Success message title [ai]",
+                  "content": "string, Success message content [ai]"
+                }
+              }
             }
           }
         ]
@@ -700,9 +895,22 @@
                   "label": "string, Button text [ai]",
                   "href": "string, Button link URL or /path [ai]",
                   "theme": "string, Button color scheme [ai]",
-                  "design": "string, Button visual style [ai]"
+                  "design": "string, Button visual style [ai]",
+                  "icon": "undefined, Button icon [ai]"
                 }
-              ]
+              ],
+              "subscribe": {
+                "input": {
+                  "placeholder": "string, Email input placeholder [ai]"
+                },
+                "button": {
+                  "label": "string, Button text [ai]"
+                },
+                "success": {
+                  "title": "string, Success message title [ai]",
+                  "content": "string, Success message content [ai]"
+                }
+              }
             }
           }
         ]
@@ -734,9 +942,22 @@
               "label": "string, Button text [ai]",
               "href": "string, Button link URL or /path [ai]",
               "theme": "string, Button color scheme [ai]",
-              "design": "string, Button visual style [ai]"
+              "design": "string, Button visual style [ai]",
+              "icon": "undefined, Button icon [ai]"
             }
-          ]
+          ],
+          "subscribe": {
+            "input": {
+              "placeholder": "string, Email input placeholder [ai]"
+            },
+            "button": {
+              "label": "string, Button text [ai]"
+            },
+            "success": {
+              "title": "string, Success message title [ai]",
+              "content": "string, Success message content [ai]"
+            }
+          }
         }
       },
       "demo": {
@@ -769,9 +990,22 @@
               "label": "string, Button text [ai]",
               "href": "string, Button link URL or /path [ai]",
               "theme": "string, Button color scheme [ai]",
-              "design": "string, Button visual style [ai]"
+              "design": "string, Button visual style [ai]",
+              "icon": "undefined, Button icon [ai]"
             }
-          ]
+          ],
+          "subscribe": {
+            "input": {
+              "placeholder": "string, Email input placeholder [ai]"
+            },
+            "button": {
+              "label": "string, Button text [ai]"
+            },
+            "success": {
+              "title": "string, Success message title [ai]",
+              "content": "string, Success message content [ai]"
+            }
+          }
         }
       },
       "demo": {
@@ -799,9 +1033,22 @@
               "label": "string, Button text [ai]",
               "href": "string, Button link URL or /path [ai]",
               "theme": "string, Button color scheme [ai]",
-              "design": "string, Button visual style [ai]"
+              "design": "string, Button visual style [ai]",
+              "icon": "undefined, Button icon [ai]"
             }
-          ]
+          ],
+          "subscribe": {
+            "input": {
+              "placeholder": "string, Email input placeholder [ai]"
+            },
+            "button": {
+              "label": "string, Button text [ai]"
+            },
+            "success": {
+              "title": "string, Success message title [ai]",
+              "content": "string, Success message content [ai]"
+            }
+          }
         }
       },
       "demo": {
@@ -891,9 +1138,22 @@
                 "label": "string, Button text [ai]",
                 "href": "string, Button link URL or /path [ai]",
                 "theme": "string, Button color scheme [ai]",
-                "design": "string, Button visual style [ai]"
+                "design": "string, Button visual style [ai]",
+                "icon": "undefined, Button icon [ai]"
               }
-            ]
+            ],
+            "subscribe": {
+              "input": {
+                "placeholder": "string, Email input placeholder [ai]"
+              },
+              "button": {
+                "label": "string, Button text [ai]"
+              },
+              "success": {
+                "title": "string, Success message title [ai]",
+                "content": "string, Success message content [ai]"
+              }
+            }
           }
         },
         "badges": {
@@ -904,9 +1164,22 @@
               "label": "string, Button text [ai]",
               "href": "string, Button link URL or /path [ai]",
               "theme": "string, Button color scheme [ai]",
-              "design": "string, Button visual style [ai]"
+              "design": "string, Button visual style [ai]",
+              "icon": "undefined, Button icon [ai]"
             }
-          ]
+          ],
+          "subscribe": {
+            "input": {
+              "placeholder": "string, Email input placeholder [ai]"
+            },
+            "button": {
+              "label": "string, Button text [ai]"
+            },
+            "success": {
+              "title": "string, Success message title [ai]",
+              "content": "string, Success message content [ai]"
+            }
+          }
         }
       },
       "demo": {
@@ -934,9 +1207,22 @@
                 "label": "string, Button text [ai]",
                 "href": "string, Button link URL or /path [ai]",
                 "theme": "string, Button color scheme [ai]",
-                "design": "string, Button visual style [ai]"
+                "design": "string, Button visual style [ai]",
+                "icon": "undefined, Button icon [ai]"
               }
-            ]
+            ],
+            "subscribe": {
+              "input": {
+                "placeholder": "string, Email input placeholder [ai]"
+              },
+              "button": {
+                "label": "string, Button text [ai]"
+              },
+              "success": {
+                "title": "string, Success message title [ai]",
+                "content": "string, Success message content [ai]"
+              }
+            }
           }
         }
       },
@@ -1022,9 +1308,22 @@
                   "label": "string, Button text [ai]",
                   "href": "string, Button link URL or /path [ai]",
                   "theme": "string, Button color scheme [ai]",
-                  "design": "string, Button visual style [ai]"
+                  "design": "string, Button visual style [ai]",
+                  "icon": "undefined, Button icon [ai]"
                 }
-              ]
+              ],
+              "subscribe": {
+                "input": {
+                  "placeholder": "string, Email input placeholder [ai]"
+                },
+                "button": {
+                  "label": "string, Button text [ai]"
+                },
+                "success": {
+                  "title": "string, Success message title [ai]",
+                  "content": "string, Success message content [ai]"
+                }
+              }
             }
           }
         ]

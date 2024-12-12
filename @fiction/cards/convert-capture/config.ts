@@ -1,6 +1,6 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { StockMedia } from '@fiction/ui/stock'
-import { ActionAreaSchema, MediaBasicSchema, SuperTitleSchema, vue } from '@fiction/core'
+import { ActionAreaSchema, MediaBasicSchema, SuperTitleSchema } from '@fiction/core'
 import { createOption } from '@fiction/ui/index.js'
 import { z } from 'zod'
 

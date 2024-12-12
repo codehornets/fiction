@@ -1,4 +1,3 @@
-import type { template as heroTemplate } from '@fiction/cards/content-hero/index.js'
 import type { FictionRouter, RunVars } from '@fiction/core'
 import type { ManageSiteParams } from './endpoint.js'
 import type { FictionSites, TableSiteConfig } from './index.js'

@@ -1,5 +1,5 @@
 import type { TestUtils } from '@fiction/core/test-utils/init'
-import type { Theme, ThemeSetup } from '../index.js'
+import type { Theme } from '../index.js'
 import { FictionAdmin } from '@fiction/admin'
 import FSite from '@fiction/cards/CardSite.vue'
 import { FictionCards } from '@fiction/cards/index.js'

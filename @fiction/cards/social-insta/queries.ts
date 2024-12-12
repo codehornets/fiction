@@ -1,6 +1,6 @@
 // queries.ts
 import type { EndpointMeta, EndpointResponse } from '@fiction/core'
-import { abort, log } from '@fiction/core'
+import { abort } from '@fiction/core'
 import { CardQuery, type CardQuerySettings } from '@fiction/site/cardQuery'
 
 type InstagramPost = {

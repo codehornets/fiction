@@ -1,13 +1,13 @@
-// importing this endpoint module is here to fix a bug in DTS generation
-import type { FictionPluginSettings } from '../plugin.js'
 import type { FictionDb } from '../plugin-db/index.js'
 import type { FictionEmail } from '../plugin-email/index.js'
 import type { FictionRouter } from '../plugin-router/index.js'
 import type { FictionServer } from '../plugin-server/index.js'
+// importing this endpoint module is here to fix a bug in DTS generation
+import type { FictionPluginSettings } from '../plugin.js'
 import type { Organization, OrganizationMember, User } from './types.js'
+import { EnvVar, vars } from '../plugin-env/index.js'
 // likely fixed in TS 4.8
 import { FictionPlugin } from '../plugin.js'
-import { EnvVar, vars } from '../plugin-env/index.js'
 import { TypedEventTarget } from '../utils/eventTarget.js'
 import { crossVar, hasWindow, isActualBrowser, isNode, safeDirname, vue } from '../utils/index.js'
 import { createUserToken, decodeUserToken, manageClientUserToken } from '../utils/jwt.js'

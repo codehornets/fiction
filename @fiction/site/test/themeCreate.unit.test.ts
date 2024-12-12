@@ -1,9 +1,7 @@
 /**
  * @vitest-environment happy-dom
  */
-import { findValueByKey } from '@fiction/core'
-import { afterAll, describe, expect, it } from 'vitest'
-import { theme } from './test-theme'
+import { afterAll, describe } from 'vitest'
 import { createSiteTestUtils } from './testUtils'
 
 describe('themeCreation', async () => {

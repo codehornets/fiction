@@ -1,5 +1,5 @@
 import type { FictionAdmin } from '@fiction/admin/index.js'
-import type { ColorThemeBright, FictionEnv, FictionPluginSettings, ServiceList } from '@fiction/core'
+import type { ColorThemeBright, FictionEnv, ServiceList } from '@fiction/core'
 import type { CardTemplate } from './card.js'
 import type { SiteUserConfig } from './schema.js'
 import type { TableCardConfig } from './tables.js'

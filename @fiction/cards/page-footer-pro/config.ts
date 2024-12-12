@@ -1,7 +1,6 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
-import type { InputOption } from '@fiction/ui'
 import type { StockMedia } from '@fiction/ui/stock'
-import { ActionAreaSchema, brandSchema, NavListItemSchema, NavListSchema, type User } from '@fiction/core'
+import { ActionAreaSchema, brandSchema, NavListItemSchema, NavListSchema } from '@fiction/core'
 import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 

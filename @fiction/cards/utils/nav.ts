@@ -28,11 +28,11 @@ export function processNavItems<T extends NavListItem = NavListItem>(args: {
         ...item.list,
         items: item.list?.items
           ? processNavItems({
-            fictionUser,
-            fictionRouter,
-            items: item.list.items,
-            basePathPrefix: `${indexBasePath}.list.items`,
-          })
+              fictionUser,
+              fictionRouter,
+              items: item.list.items,
+              basePathPrefix: `${indexBasePath}.list.items`,
+            })
           : undefined,
       },
     }

@@ -72,8 +72,8 @@ export function getRequestVars(args: { request: Request }): Record<string, strin
   // For debugging: concatenate all headers into a single string
   const allHeaders = request?.headers
     ? Object.entries(request.headers)
-      .map(([key, value]) => `${key}: ${String(value)}`)
-      .join(', ')
+        .map(([key, value]) => `${key}: ${String(value)}`)
+        .join(', ')
     : ''
 
   const originalHost = request?.get('X-Original-Host') || ''

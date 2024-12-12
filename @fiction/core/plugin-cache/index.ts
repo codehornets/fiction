@@ -1,7 +1,7 @@
 import type { FictionPluginSettings } from '../plugin.js'
 import { Redis } from 'ioredis'
-import { FictionPlugin } from '../plugin.js'
 import { EnvVar, vars } from '../plugin-env/index.js'
+import { FictionPlugin } from '../plugin.js'
 import { convertKeyCase, safeDirname, shortId, uuid } from '../utils/index.js'
 
 export { Redis }

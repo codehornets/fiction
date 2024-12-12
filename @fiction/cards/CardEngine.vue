@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { resetUi, toLabel, vue } from '@fiction/core'
+import { resetUi, vue } from '@fiction/core'
 import { Card } from '@fiction/site/card'
 import CardWrap from './CardWrap.vue'
 import EffectTransitionCardList from './EffectTransitionCardList.vue'
@@ -26,15 +26,15 @@ const renderCards = vue.computed(() => {
 
   const out = tag === 'main'
     ? c.filter((c) => {
-      if (c.isDetached.value) {
-        return true
-      }
+        if (c.isDetached.value) {
+          return true
+        }
 
-      const uc = c.fullConfig.value
-      const showOnSingle = uc.standard?.showOnSingle
-      const hideOnPage = uc.standard?.hideOnPage
-      return (currentItemId && showOnSingle) || (!currentItemId && !hideOnPage)
-    })
+        const uc = c.fullConfig.value
+        const showOnSingle = uc.standard?.showOnSingle
+        const hideOnPage = uc.standard?.hideOnPage
+        return (currentItemId && showOnSingle) || (!currentItemId && !hideOnPage)
+      })
     : c
 
   if (out.length === 0 && currentItemId && tag === 'main') {

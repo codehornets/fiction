@@ -1,8 +1,7 @@
 import type { SiteUserConfig } from '@fiction/site/schema'
 import { brandSchema, NavListItemSchema, NavListSchema } from '@fiction/core/schemas/schemas'
-import { createOption, InputOption } from '@fiction/ui'
+import { createOption } from '@fiction/ui'
 import { z } from 'zod'
-import {templateId} from '../content-hero'
 
 export const schema = z.object({
   brand: brandSchema.optional(),

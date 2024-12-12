@@ -1,6 +1,6 @@
 import type { CardFactory } from '@fiction/site/cardFactory'
 import type { StockMedia } from '@fiction/ui/stock/index.js'
-import { ActionAreaSchema, colorThemeUser, MediaDisplaySchema, NavListItemSchema } from '@fiction/core'
+import { ActionAreaSchema, colorThemeUser, NavListItemSchema } from '@fiction/core'
 import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 

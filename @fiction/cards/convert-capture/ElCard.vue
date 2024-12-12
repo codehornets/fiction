@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { Card, Site } from '@fiction/site'
 import type { UserConfig } from './config'
-import { localRef, onResetUi, resetUi, useService, vue } from '@fiction/core'
+import { localRef, onResetUi, resetUi, vue } from '@fiction/core'
 import { type QueryVarHook, setupRouteWatcher } from '@fiction/site/utils/site'
 import XButton from '@fiction/ui/buttons/XButton.vue'
 import ElClose from '@fiction/ui/common/ElClose.vue'

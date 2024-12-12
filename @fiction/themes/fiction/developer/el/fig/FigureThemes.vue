@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { vue } from '@fiction/core'
-import themeAlpha from './img/theme-alpha.jpg'
 import themeYellow from './img/theme-alpha-yellow.jpg'
+import themeAlpha from './img/theme-alpha.jpg'
 import themeUltra from './img/theme-ultra.jpg'
 
 const wrapper = vue.ref<HTMLElement>()

@@ -211,9 +211,9 @@ export class QueryManageCustomer extends Query<StripeEndpointSettings> {
       const customerMerge = data === null
         ? db.raw(`'{}'::jsonb`)
         : db.raw(
-          `coalesce(${customerField}::jsonb, '{}'::jsonb) || ?::jsonb`,
-          JSON.stringify(data),
-        )
+            `coalesce(${customerField}::jsonb, '{}'::jsonb) || ?::jsonb`,
+            JSON.stringify(data),
+          )
 
       const saveMeta = liveStripe
         ? { customer: customerMerge }

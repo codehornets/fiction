@@ -2,7 +2,6 @@
  * @vitest-environment happy-dom
  */
 
-import type { ServiceList } from '@fiction/core'
 import type { Interaction } from '@fiction/core/test-utils'
 import { log } from '@fiction/core'
 import { createTestUtilServices, testComponentStability } from '@fiction/core/test-utils'

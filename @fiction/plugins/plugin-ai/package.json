@@ -1,13 +1,13 @@
 {
   "dependencies": {
-    "@ai-sdk/anthropic": "^1.0.2",
-    "@ai-sdk/openai": "^1.0.4",
+    "@ai-sdk/anthropic": "^1.0.5",
+    "@ai-sdk/openai": "^1.0.8",
     "@fiction/core": "workspace:*",
     "@fiction/plugin-unsplash": "workspace:*",
     "@pinecone-database/pinecone": "^4.0.0",
-    "ai": "^4.0.3",
-    "openai": "^4.73.0",
-    "tailwindcss": "^3.4.15",
+    "ai": "^4.0.14",
+    "openai": "^4.76.1",
+    "tailwindcss": "^3.4.16",
     "vue": "^3.5.13"
   },
   "gitHead": "b257411e1c6c32b52b444cc6f1518bf1bee1e480",

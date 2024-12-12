@@ -1,4 +1,3 @@
-import type { title } from 'node:process'
 import { getCardTemplates } from '@fiction/cards'
 import { shortId, waitFor } from '@fiction/core'
 import { describe, expect, it } from 'vitest'

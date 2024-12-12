@@ -2,8 +2,8 @@ import type { Knex } from 'knex'
 import type { ZodSchema } from 'zod'
 import type { LogHelper } from '../plugin-log/index.js'
 import { z } from 'zod'
-import { FictionObject } from '../plugin.js'
 import { log } from '../plugin-log/index.js'
+import { FictionObject } from '../plugin.js'
 import { toSnake } from '../utils/index.js'
 
 type PrepareForStorage<T extends ColDefaultValue = ColDefaultValue> = (args: { value: T, key: string, db?: Knex }) => unknown

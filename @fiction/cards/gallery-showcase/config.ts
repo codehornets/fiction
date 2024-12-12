@@ -1,5 +1,5 @@
-import { type ActionButton, PostHandlingSchema, vue } from '@fiction/core'
-import { createOption, InputOption } from '@fiction/ui'
+import { type ActionButton, PostHandlingSchema } from '@fiction/core'
+import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 
 const aspectOptions = [

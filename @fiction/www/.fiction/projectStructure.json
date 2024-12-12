@@ -244,8 +244,6 @@
         "index.ts": null
       },
       "convert-capture": {
-        "CaptureAction.vue": null,
-        "ConfirmModal.vue": null,
         "DemoProse.vue": null,
         "EffectScrollModal.vue": null,
         "ElCard.vue": null,
@@ -281,6 +279,8 @@
       },
       "el": {
         "CardActionArea.vue": null,
+        "CardActionAreaConfirmModal.vue": null,
+        "CardActionAreaSubscribe.vue": null,
         "CardActions.vue": null,
         "CardButtons.vue": null,
         "CardHeader.vue": null,

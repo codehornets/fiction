@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { ColorThemeUser, NavListItem } from '@fiction/core'
+import type { NavListItem } from '@fiction/core'
 import type { Card } from '@fiction/site'
 import { useService, vue } from '@fiction/core'
 import ElAvatar from '@fiction/ui/common/ElAvatar.vue'

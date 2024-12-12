@@ -1,5 +1,5 @@
 import type { NavListItem } from '@fiction/core'
-import { ActionAreaSchema, MediaBasicSchema, NavListItemSchema, NavListSchema, SuperTitleSchema } from '@fiction/core'
+import { ActionAreaSchema, NavListItemSchema, NavListSchema, SuperTitleSchema } from '@fiction/core'
 import { createOption } from '@fiction/ui'
 import { z } from 'zod'
 

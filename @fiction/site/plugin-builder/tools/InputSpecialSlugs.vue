@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import type { ResponseStatus, ValidationReason } from '@fiction/core'
 import type { Site } from '../../site'
 import { vue } from '@fiction/core'
 import XButton from '@fiction/ui/buttons/XButton.vue'

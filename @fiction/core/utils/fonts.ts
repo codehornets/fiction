@@ -1,5 +1,4 @@
 import type { FontFamily } from '../schemas/schemas.js'
-import { toCamel } from './casing'
 
 export const safeStacks = {
   monospace: `'Nimbus Mono PS', 'Courier New', monospace`,

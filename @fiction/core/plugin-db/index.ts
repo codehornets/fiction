@@ -1,16 +1,16 @@
 /// <reference path="./env.d.ts" />
 
 import type { Knex } from 'knex'
-import type { FictionPluginSettings } from '../plugin.js'
 import type { FictionEnv } from '../plugin-env/index.js'
 import type { FictionServer } from '../plugin-server/index.js'
+import type { FictionPluginSettings } from '../plugin.js'
 import type { Col, FictionDbTable } from './objects.js'
 import process from 'node:process'
 
 import * as typebox from '@sinclair/typebox'
 import knex from 'knex'
-import { FictionPlugin } from '../plugin.js'
 import { EnvVar, vars } from '../plugin-env/index.js'
+import { FictionPlugin } from '../plugin.js'
 import { toCamel } from '../utils/casing.js'
 import { isActualBrowser, isTest, safeDirname } from '../utils/index.js'
 import { CheckUsername } from './endpoint.js'

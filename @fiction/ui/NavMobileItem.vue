@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { NavListItem } from '@fiction/core'
-import { getNavComponentType, pathIsHref, vue } from '@fiction/core'
+import { getNavComponentType, vue } from '@fiction/core'
 import TransitionSlide from './anim/TransitionSlide.vue'
 import XIcon from './media/XIcon.vue'
 

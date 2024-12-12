@@ -1,6 +1,6 @@
 import type { Card } from './card'
 import { colorTheme, colorThemeBright, HeaderLayoutSchema, SizeSchema, SizeSchemaComplete } from '@fiction/core'
-import { createOption, InputOption } from '@fiction/ui'
+import { createOption } from '@fiction/ui'
 import InputAi from './ai/InputAi.vue'
 import { SiteUserConfigSchema as schema } from './schema'
 

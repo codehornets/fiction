@@ -1,5 +1,3 @@
-import type { NavItem } from '../types/index.js'
-
 /**
  * Determines the appropriate component type for navigation elements
  * Uses RouterLink for internal navigation when possible to maintain SPA behavior
