@@ -58,10 +58,11 @@ export async function getAboutPage(args: { site: Site, factory: CardFactory }) {
       superTitle: {
         icon: { class: 'i-tabler-home' },
         theme: 'primary',
-        text: 'Welcome Home',
+        text: 'About Fiction',
       },
-      subTitle: `Born in California, Fiction exists to help people tell their story.`,
-      title: `A Place For Every Story`,
+      title: `Built for Storytellers`,
+      subTitle: `Fiction helps experts and leaders tell their story. Born in California.`,
+
       media: {
         format: 'url',
         url: new URL('img/about/fiction-office.webp', import.meta.url).href,
@@ -86,8 +87,9 @@ export async function getAboutPage(args: { site: Site, factory: CardFactory }) {
         text: 'The Vision',
         theme: 'orange',
       },
-      subTitle: `In a world of noise, authentic stories stand out. Fiction helps amplify genuine voices, build meaningful connections, and transform expertise into lasting impact.`,
-      title: `Where Stories Matter`,
+      title: `Own Your Influence`,
+      subTitle: `Stop relying on social media algorithms to reach your audience. Fiction gives you the tools to build a personal brand that lasts.`,
+
       media: {
         format: 'url' as const,
         url: new URL('img/about/pro.webp', import.meta.url).href,
@@ -102,11 +104,11 @@ export async function getAboutPage(args: { site: Site, factory: CardFactory }) {
     userConfig: {
       superTitle: {
         icon: { class: 'i-tabler-users' },
-        text: 'People First',
+        text: 'Excellence',
         theme: 'green',
       },
-      subTitle: `Great software should be accessible to everyone. Fiction grows stronger with every voice that joins. When the community thrives, possibilities expand for everyone.`,
-      title: `Built Together`,
+      title: `Simple Tools, Powerful Results`,
+      subTitle: `Professional tools shouldn't require an engineering degree. Fiction combines powerful features with refined simplicity.`,
       media: {
         format: 'url',
         url: new URL('img/about/girl-computer.webp', import.meta.url).href,
@@ -116,31 +118,31 @@ export async function getAboutPage(args: { site: Site, factory: CardFactory }) {
     },
   })
 
-  const teamCard = await factory.fromTemplate<typeof peopleTemplate>({
-    templateId: 'cardPeopleV1',
-    userConfig: {
-      subTitle: `Building the future of personal branding together`,
-      title: `The Team`,
-      items: [{
-        title: 'Andrew Powers',
-        subTitle: 'Founder',
-        content: 'With two decades in software development, Andrew started Fiction with a simple belief: everyone deserves access to professional branding tools, regardless of their background or resources. Today, that vision grows stronger with each new member of the Fiction community.',
-        media: {
-          format: 'url',
-          url: new URL('img/about/ap.webp', import.meta.url).href,
-        },
-        action: {
-          buttons: [{
-            label: 'LinkedIn',
-            theme: 'cyan',
-            icon: { class: 'i-tabler-brand-linkedin' },
-            href: 'https://www.linkedin.com/in/arpowers',
-          }],
-        },
-      }],
-      layout: 'mediabox',
-    },
-  })
+  // const teamCard = await factory.fromTemplate<typeof peopleTemplate>({
+  //   templateId: 'cardPeopleV1',
+  //   userConfig: {
+  //     subTitle: `Innovation in Personal Branding`,
+  //     title: `Execs`,
+  //     items: [{
+  //       title: 'Andrew Powers',
+  //       subTitle: 'Founder',
+  //       content: 'Andrew has spent his career at the intersection of design and influence. After growing his web-tools company, PageLines, to 70,000 customers, he saw a need: people need an easier way to own their online presence.',
+  //       media: {
+  //         format: 'url',
+  //         url: new URL('img/about/ap.webp', import.meta.url).href,
+  //       },
+  //       action: {
+  //         buttons: [{
+  //           label: 'LinkedIn',
+  //           theme: 'cyan',
+  //           icon: { class: 'i-tabler-brand-linkedin' },
+  //           href: 'https://www.linkedin.com/in/arpowers',
+  //         }],
+  //       },
+  //     }],
+  //     layout: 'mediabox',
+  //   },
+  // })
 
   const mapIrvine: MapUserConfig = {
     lat: 33.5427,
@@ -180,35 +182,34 @@ export async function getAboutPage(args: { site: Site, factory: CardFactory }) {
       items: [
         {
           title: 'Purpose-Driven Focus',
-          content: `Creating extraordinary value means understanding specific needs. Fiction helps you connect deeply with the people who resonate most with your message.`,
+          content: `Creating extraordinary value means understanding specific needs. Fiction helps you connect with the people who resonate most with your message.`,
           icon: { iconId: 'target' },
-
         },
         {
-          title: `Give First`,
-          content: `Success grows through sharing. The Fiction community thrives on meaningful contributions, creating a space where positive impact leads to collective growth.`,
-          icon: { class: 'i-tabler-heart-handshake' },
-        },
-        {
-          title: `Crafted Excellence`,
-          content: `Quality elevates everyone. Fiction provides tools that exceed expectations, because sharing your story deserves nothing less than the best.`,
-          icon: { iconId: 'sparkles' },
+          title: `Refined Excellence`,
+          content: `Quality elevates everyone. We craft tools that exceed expectations, because building influence demands the best.`,
+          icon: { class: 'i-tabler-sparkles' },
         },
         {
           title: `Beautiful Simplicity`,
-          content: `In a complex world, clarity stands out. Fiction strips away the unnecessary, letting you focus on what truly matters - connecting with your audience.`,
+          content: `In a complex world, clarity stands out. Fiction strips away the unnecessary, letting you focus on what matters - connecting with your audience.`,
           icon: { iconId: 'sparkles' },
+        },
+        {
+          title: `Forward Motion`,
+          content: `Progress requires momentum. We constantly refine and evolve our platform to keep our users ahead of the curve.`,
+          icon: { iconId: 'rocket' },
         },
       ],
       support: {
-        text: 'Ready to be part of something bigger?',
+        text: 'Ready to elevate your influence?',
         action: {
           buttons: [
             {
-              label: 'Join Fiction Today',
+              label: 'Get Started',
               href: '/tour',
               theme: 'primary',
-              icon: 'i-tabler-rocket',
+              icon: 'i-tabler-arrow-right',
             },
           ],
         },
@@ -227,7 +228,6 @@ export async function getAboutPage(args: { site: Site, factory: CardFactory }) {
           topHeroCard,
           missionHeroCard,
           missionHeroCard2,
-          teamCard,
           mapCard,
           valueCard,
         ],
