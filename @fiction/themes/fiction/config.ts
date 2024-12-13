@@ -1,6 +1,5 @@
 import type { template as faqTemplate } from '@fiction/cards/content-faq'
 import type { template as heroTemplate } from '@fiction/cards/content-hero'
-import type { template as peopleTemplate } from '@fiction/cards/content-people/index.js'
 import type { template as tourTemplate } from '@fiction/cards/content-tour/index.js'
 import type { template as pricingTemplate } from '@fiction/cards/convert-pricing'
 import type { template as cardTextEffectV1 } from '@fiction/cards/effect-text/index.js'
@@ -23,7 +22,7 @@ import type { SiteUserConfig } from '@fiction/site/schema.js'
 import type { StockMedia } from '@fiction/ui/stock/index.js'
 
 import { getCardDemoListing, getDemoPages } from '@fiction/cards'
-import { dayjs, type NavItem, vue } from '@fiction/core'
+import { dayjs, type NavItem } from '@fiction/core'
 import { getCheckoutUrl } from '@fiction/plugin-stripe/index.js'
 
 import favicon from '@fiction/ui/brand/favicon.svg'

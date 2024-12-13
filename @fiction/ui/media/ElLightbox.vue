@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import type { PostObject } from '@fiction/core'
 import { onResetUi, vue, waitFor } from '@fiction/core'
-import AnimClipPath from '../anim/AnimClipPath.vue'
 import { PopupUtility } from '../anim/popupUtil'
 import ElClose from '../common/ElClose.vue'
 import XMedia from './XMedia.vue'

@@ -177,7 +177,6 @@ export class FictionBuild extends FictionPlugin<FictionBuildSettings> {
         'vue',
         'vite',
         'vue-router',
-        '@medv/finder',
         'es-module-lexer',
         'cjs-module-lexer',
         'module',
