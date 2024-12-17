@@ -162,7 +162,6 @@ export class FictionRender extends FictionPlugin<FictionRenderSettings> {
     const { mode } = config
 
     const { default: pluginVue } = await import('@vitejs/plugin-vue')
-    const { default: svgLoader } = await import('vite-svg-loader')
 
     const commonVite = await this.fictionBuild?.getFictionViteConfig({
       mode,
@@ -180,7 +179,6 @@ export class FictionRender extends FictionPlugin<FictionRenderSettings> {
 
     const plugins = [
       pluginVue(),
-      svgLoader({ defaultImport: 'url' }),
       ...getMarkdownPlugins({ isProd, distClient: this.distFolderClient }),
     ]
 

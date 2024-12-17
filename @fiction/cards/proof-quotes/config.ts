@@ -152,6 +152,9 @@ const options = [
 // Default Configuration
 export async function getUserConfig(args: { factory: CardFactory, stock: StockMedia }): Promise<UserConfig> {
   const { stock } = args
+
+  const ig = stock.getLocalMedia({ key: 'lorem1' })
+
   return {
     items: [{
       text: 'Notice how a well-crafted testimonial can instantly build trust?',
@@ -164,7 +167,7 @@ export async function getUserConfig(args: { factory: CardFactory, stock: StockMe
       },
       org: {
         label: 'GrowthMetrics',
-        media: stock.getLocalMedia({ key: 'lorem1' }),
+        media: ig,
       },
       action: {
         buttons: [
