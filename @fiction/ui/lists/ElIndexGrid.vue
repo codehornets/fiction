@@ -10,17 +10,17 @@ const {
   list = [],
   indexMeta = {},
   empty,
-  action,
+  action = {},
   loading,
   listTitle = 'Items',
   onItemClick,
 } = defineProps<{
   list?: NavListItem[]
   indexMeta?: IndexMeta
-  empty: NavListItem
-  action: ActionArea
-  loading: boolean
-  listTitle: string
+  empty?: NavListItem
+  action?: ActionArea
+  loading?: boolean
+  listTitle?: string
   onItemClick?: (id: string | number) => void
 }>()
 

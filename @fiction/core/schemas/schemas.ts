@@ -272,6 +272,7 @@ const BaseNavListItemSchema = z.object({
   design: ButtonDesignSchema.optional().describe('Design style for the item'),
 
   action: ActionAreaSchema.optional().describe('Interactive buttons or subscribe form'),
+  dateAt: z.string().optional().describe('Date associated with the item'),
 
   // State management
   onAuthState: z.enum([

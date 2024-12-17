@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { ActionButton, FictionApp, IndexItem, IndexMeta } from '@fiction/core'
+import type { ActionButton, FictionApp, IndexMeta, NavListItem } from '@fiction/core'
 import type { FictionSites } from '..'
 import type { Card } from '../card'
 import type { Site } from '../site'
@@ -40,19 +40,19 @@ vue.onMounted(async () => {
   })
 })
 
-const list = vue.computed<IndexItem[]>(() => {
+const list = vue.computed<NavListItem[]>(() => {
   return getSiteIndexItemList(sites.value, props.card)
 })
 
 function getActions(location: 'top' | 'zero') {
-  const actions: ActionButton[] = [{
+  const buttons: ActionButton[] = [{
     testId: 'createSite',
     label: 'Create New Site',
     icon: 'i-tabler-plus',
     theme: 'primary',
     onClick: () => (showCreateModal.value = true),
   }]
-  return location === 'zero' || list.value.length > 0 ? actions : []
+  return location === 'zero' || list.value.length > 0 ? { buttons } : {}
 }
 </script>
 
@@ -68,10 +68,10 @@ function getActions(location: 'top' | 'zero') {
         :empty="{
           label: 'Create Your First Site',
           description: `The homebase for your online presence.`,
-          actions: getActions('zero'),
-          icon: 'i-tabler-browser-plus',
+          action: getActions('zero'),
+          icon: { class: 'i-tabler-browser-plus' },
         }"
-        :actions="getActions('top')"
+        :action="getActions('top')"
         :on-item-click="() => {}"
         @bulk-edit="() => {}"
       />

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { ActionButton, IndexItem } from '@fiction/core'
+import type { ActionButton, NavListItem } from '@fiction/core'
 import type { FictionSubscribe, Subscriber } from '@fiction/plugin-subscribe'
 import type { Card } from '@fiction/site'
 import { dayjs, gravatarUrlSync, useService, vue } from '@fiction/core'
@@ -16,7 +16,7 @@ const service = useService<{ fictionSubscribe: FictionSubscribe }>()
 
 const subscribers = vue.shallowRef<Subscriber[]>([])
 
-const list = vue.computed<IndexItem[]>(() => {
+const list = vue.computed<NavListItem[]>(() => {
   return subscribers.value.map((p) => {
     const label = p.user?.fullName || p.user?.email || p.email || 'Unknown'
     const description = [`Added ${dayjs(p.createdAt).format('MMM D, YYYY')}`]
@@ -33,7 +33,7 @@ const list = vue.computed<IndexItem[]>(() => {
       description: description.join(' | '),
       href: props.card.link(`/audience/view?subscriptionId=${p.subscriptionId}`),
       media: p.user?.avatar || p.avatar,
-    } as IndexItem
+    } as NavListItem
   })
 })
 
@@ -84,7 +84,7 @@ vue.onMounted(async () => {
   vue.watch(() => service.fictionSubscribe.cacheKey.value, () => load(), { immediate: true })
 })
 
-const actions: ActionButton[] = [
+const buttons: ActionButton[] = [
   {
     testId: 'add-subscribers-button',
     label: 'Add Subscribers to Audience',
@@ -100,15 +100,15 @@ const actions: ActionButton[] = [
     <ElIndexGrid
       :list
       :loading
-      :actions
+      :action="{ buttons }"
       list-title="Subscribers"
       :index-meta="indexMeta"
       :empty="{
         testId: 'subscriber-list-empty',
         label: 'Your Subscribers',
         description: 'Import your email list or start capturing emails on your site.',
-        icon: 'i-tabler-users',
-        actions,
+        icon: { class: 'i-tabler-users' },
+        action: { buttons },
       }"
       @update:offset="load({ offset: $event })"
     />

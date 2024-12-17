@@ -1,7 +1,8 @@
 <script lang="ts" setup>
-import type { IndexItem } from '@fiction/core'
+import type { IndexItem, NavListItem } from '@fiction/core'
 import type { Card } from '@fiction/site/card'
-import type { FictionPosts } from '..'
+import type { as } from 'vitest/dist/chunks/reporters.D7Jzd9GS.js'
+import type { FictionPosts, TablePostConfig } from '..'
 import type { Post } from '../post'
 import { useService, vue } from '@fiction/core'
 import ElAvatar from '@fiction/ui/common/ElAvatar.vue'
@@ -29,7 +30,9 @@ vue.onMounted(() => {
   })
 })
 
-const list = vue.computed<IndexItem[]>(() => {
+type NavListItemPost = NavListItem & TablePostConfig
+
+const list = vue.computed<NavListItemPost[]>(() => {
   return posts.value.map((p) => {
     return {
       ...p.toConfig(),
@@ -38,8 +41,8 @@ const list = vue.computed<IndexItem[]>(() => {
       description: p.subTitle.value || 'No description',
       href: props.card.link(`/edit-post?postId=${p.postId}`),
       media: p.media.value,
-      icon: 'i-tabler-pin',
-    } satisfies IndexItem
+      icon: { class: 'i-tabler-pin' },
+    } satisfies NavListItemPost
   })
 })
 
@@ -59,23 +62,25 @@ vue.onMounted(async () => {
 <template>
   <div>
     <ElIndexGrid
-      :list="list"
+      :list
       :loading="loading"
-      :actions="[{
-        label: 'Create Post',
-        icon: 'i-tabler-plus',
-        theme: 'primary',
-        onClick: () => (showCreateModal = true),
-        rounding: 'full',
-        testId: 'createPostButtonTop',
-      }]"
+      :action="{
+        buttons: [{
+          label: 'Create Post',
+          icon: 'i-tabler-plus',
+          theme: 'primary',
+          onClick: () => (showCreateModal = true),
+          rounding: 'full',
+          testId: 'createPostButtonTop',
+        }],
+      }"
     >
       <template #item="{ item }">
         <div class="flex -space-x-0.5">
           <dt class="sr-only">
             Authors
           </dt>
-          <dd v-for="(member, ii) in item.authors" :key="ii">
+          <dd v-for="(member, ii) in (item as NavListItemPost).authors" :key="ii">
             <ElAvatar class="h-6 w-6 rounded-full bg-theme-50 ring-2 ring-white" :email="member.email" />
           </dd>
         </div>
@@ -85,13 +90,17 @@ vue.onMounted(async () => {
           title="Create your first post"
           description="Posts are the building blocks of your marketing efforts. Use them for newsletters, social media clips, and more."
           icon="i-tabler-pin"
-          :actions="[{
-            label: 'Create Post',
-            onClick: () => (showCreateModal = true),
-            theme: 'primary',
-            icon: 'i-heroicons-plus',
-            testId: 'createPostButton',
-          }]"
+          :action="{
+            buttons: [
+              {
+                label: 'Create Post',
+                onClick: () => (showCreateModal = true),
+                theme: 'primary',
+                icon: 'i-heroicons-plus',
+                testId: 'createPostButton',
+              },
+            ],
+          }"
         />
       </template>
     </ElIndexGrid>

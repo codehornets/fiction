@@ -28,13 +28,15 @@ const proStatus = vue.computed(() => fictionStripe?.activeCustomer.value)
       sub-title="Welcome to Premium"
       title="Success!"
       :description="`You're on the '${proStatus?.planName}' tier.`"
-      :actions="[
-        {
-          label: 'View Dashboard',
-          href: card.link('/'),
-          theme: 'primary',
-        },
-      ]"
+      :action="{
+        buttons: [
+          {
+            label: 'View Dashboard',
+            href: card.link('/'),
+            theme: 'primary',
+          },
+        ],
+      }"
     />
   </ElPanelSettings>
 </template>

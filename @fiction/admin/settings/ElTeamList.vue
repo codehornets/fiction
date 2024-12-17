@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { IndexItem } from '@fiction/core'
+import type { NavListItem } from '@fiction/core'
 import type { Card } from '@fiction/site'
 import { dayjs, useService, vue } from '@fiction/core'
 import ElModal from '@fiction/ui/ElModal.vue'
@@ -14,7 +14,7 @@ const service = useService()
 
 const modalVisible = vue.ref(false)
 
-const list = vue.computed<IndexItem[]>(() => {
+const list = vue.computed<NavListItem[]>(() => {
   const activeOrganization = service.fictionUser.activeOrganization.value
   const members = activeOrganization?.members || []
   return members.map((p) => {
@@ -30,7 +30,7 @@ const list = vue.computed<IndexItem[]>(() => {
       description: description.join(' - '),
       href: card.link(`/settings/team-member?userId=${p.userId}`),
       media: p.avatar,
-    } as IndexItem
+    } as NavListItem
   })
 })
 

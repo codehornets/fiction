@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import type { IndexItem } from '@fiction/core'
+import type { NavListItem } from '@fiction/core'
 import type { Card } from '@fiction/site/card'
 import type { EmailCampaign } from '../campaign.js'
 import type { FictionNewsletter } from '../index.js'
+import type { EmailCampaignConfig } from '../schema.js'
 import SettingsPanel from '@fiction/admin/settings/SettingsPanel.vue'
 import { useService, vue } from '@fiction/core'
-import ElAvatar from '@fiction/ui/common/ElAvatar.vue'
 import ElZeroBanner from '@fiction/ui/ElZeroBanner.vue'
 import ElIndexGrid from '@fiction/ui/lists/ElIndexGrid.vue'
 import { manageEmailCampaign } from '../utils.js'
@@ -19,7 +19,9 @@ const { fictionNewsletter, fictionRouter } = useService<{ fictionNewsletter: Fic
 
 const campaigns = vue.shallowRef<EmailCampaign[]>([])
 
-const list = vue.computed<IndexItem[]>(() => {
+type NavListItemCampaign = NavListItem & EmailCampaignConfig
+
+const list = vue.computed<NavListItemCampaign[]>(() => {
   return campaigns.value.map((campaign) => {
     const p = campaign.post.value
     return {
@@ -30,7 +32,7 @@ const list = vue.computed<IndexItem[]>(() => {
       href: props.card.link(`/manage-newsletter?campaignId=${campaign.campaignId}`),
       media: p.media.value,
       icon: 'i-tabler-mail',
-    } as IndexItem
+    } as NavListItemCampaign
   })
 })
 
@@ -64,37 +66,35 @@ vue.onMounted(async () => {
         list-title="Email Campaigns"
         :list="list"
         :loading="loading"
-        :actions="[{
-          testId: 'new-campaign-button-index',
-          label: 'Create Campaign',
-          icon: 'i-tabler-plus',
-          theme: 'primary',
-          onClick: () => { showStartModal = true },
-        }]"
+        :actions="{
+          buttons: [
+            {
+              testId: 'new-campaign-button-index',
+              label: 'Create Campaign',
+              icon: 'i-tabler-plus',
+              theme: 'primary',
+              onClick: () => { showStartModal = true },
+            },
+          ],
+        }"
       >
-        <template #item="{ item }">
-          <div class="flex -space-x-0.5">
-            <dt class="sr-only">
-              Campaign Authors
-            </dt>
-            <dd v-for="(member, ii) in item.authors" :key="ii">
-              <ElAvatar class="h-6 w-6 rounded-full bg-theme-50 ring-2 ring-white" :email="member.email" />
-            </dd>
-          </div>
-        </template>
         <template #zero>
           <ElZeroBanner
             data-test-id="campaign-zero"
             title="Email Your Audience"
             description="Create engaging email campaigns to connect with your audience. Design, schedule, and track performance all in one place."
             icon="i-tabler-mail-share"
-            :actions="[{
-              testId: 'new-campaign-button-zero',
-              label: 'Create First Campaign',
-              onClick: () => { showStartModal = true },
-              theme: 'primary',
-              icon: 'i-heroicons-plus',
-            }]"
+            :action="{
+              buttons: [
+                {
+                  testId: 'new-campaign-button-zero',
+                  label: 'Create First Campaign',
+                  onClick: () => { showStartModal = true },
+                  theme: 'primary',
+                  icon: 'i-heroicons-plus',
+                },
+              ],
+            }"
           />
         </template>
       </ElIndexGrid>

@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import type { ActionButton, MediaObject } from '@fiction/core'
+import type { ActionArea, MediaObject } from '@fiction/core'
 import XButton from './buttons/XButton.vue'
 import XIcon from './media/XIcon.vue'
 
-const { testId = 'zero-banner', icon, title, description, actions } = defineProps<{
+const { testId = 'zero-banner', icon, title, description, action = {} } = defineProps<{
   testId?: string
   icon?: string | MediaObject
   title: string
   description: string
-  actions?: ActionButton[]
+  action: ActionArea
 }>()
 </script>
 
@@ -27,9 +27,9 @@ const { testId = 'zero-banner', icon, title, description, actions } = defineProp
             <p class="mt-3 text-base text-theme-600 dark:text-theme-300" :data-test-id="`${testId}-description`">
               {{ description }}
             </p>
-            <div v-if="actions?.length" class="mt-10 flex items-center gap-x-6">
+            <div v-if="action?.buttons?.length" class="mt-10 flex items-center gap-x-6">
               <XButton
-                v-for="(item, i) in actions"
+                v-for="(item, i) in action?.buttons"
                 :key="i"
                 :data-test-id="item.testId"
                 :href="item.href"
