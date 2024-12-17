@@ -15,7 +15,7 @@ const _x = 1
 
 <template>
   <SettingsPanel title="All Subscribers">
-    <div class="mx-auto max-w-3xl p-4 md:p-16">
+    <div class="p-6">
       <ElSubscriberList :card />
     </div>
   </SettingsPanel>

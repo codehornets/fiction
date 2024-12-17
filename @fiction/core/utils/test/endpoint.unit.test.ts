@@ -24,7 +24,6 @@ describe('setAuthorizedUser', () => {
     testUser = {
       userId: 'test-user-123',
       email: 'test@example.com',
-      role: 'user',
       orgs: [{
         orgId: 'test-org-123',
         relation: {

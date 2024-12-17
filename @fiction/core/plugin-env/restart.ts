@@ -1,4 +1,4 @@
-import type { NodemonSettings } from 'nodemon'
+import type { Nodemon, NodemonSettings } from 'nodemon'
 import type { FictionPluginSettings } from '../plugin.js'
 import process from 'node:process'
 import { FictionPlugin } from '../plugin.js'
@@ -50,11 +50,13 @@ export class FictionDevRestart extends FictionPlugin {
     this.log.info(`running [${runScript}]`, { data: nmConfig })
 
     const { default: nodemon } = await import('nodemon')
+
+    const nm = nodemon as any
     /**
      * The nodemon function takes either an object (that matches the nodemon config)
      * or can take a string that matches the arguments that would be used on the command line
      */
-    nodemon(nmConfig as NodemonSettings)
+    nm(nmConfig as NodemonSettings)
 
     nodemon
       .on('log', () => {})

@@ -3,6 +3,24 @@ import type { MediaObject, ProgressStatus } from '../schemas/schemas.js'
 import type { ColType } from '../tbl.js'
 import type { UserCapability } from '../utils/priv.js'
 import type { membersColumns, orgColumns, taxonomyCols, userColumns } from './schema.js'
+import { z } from 'zod'
+
+export const EntityStatusEnum = z.enum(['active', 'inactive', 'suspended', 'pending'])
+export const UserRoleEnum = z.enum([
+  'subscriber', // 0 - No access
+  'profile', // 100 - Profile access only
+  'observer', // 200 - View-only access to content
+  'contributor', // 300 - Create and edit content
+  'author', // 400 - Full content publishing control
+  'editor', // 500 - Manage all content/authors
+  'manager', // 600 - Manage settings, users, and billing
+  'admin', // 700 - Full system configuration access
+  'owner', // 900 - Ultimate control and billing
+])
+
+export type MemberAccess = z.infer<typeof UserRoleEnum>
+
+export const GenderEnum = z.enum(['male', 'female', 'other'])
 
 export type TableTaxonomyConfig = Partial<ColType<typeof taxonomyCols>> & { isNew?: boolean, usageCount?: number }
 
@@ -25,7 +43,7 @@ export type OrganizationLegal = {
 }
 
 export type Organization = Partial<ColType<typeof orgColumns>> & {
-  lastOrgId?: boolean
+  loadOrgId?: boolean
   members?: OrganizationMember[]
   memberCount?: number
   createdAt?: string
@@ -124,15 +142,6 @@ export interface Plan {
   status?: stripe.Subscription.Status
   trialDays?: number
 }
-
-export type MemberAccess =
-  | 'observer'
-  | 'editor'
-  | 'manager'
-  | 'admin'
-  | 'owner'
-  | 'profile'
-  | 'none'
 
 export const MemberAccessList = {
   observer: { can: 'Read Only' },

@@ -133,8 +133,8 @@ export class FictionUser extends FictionPlugin<UserPluginSettings> {
     },
   })
 
-  fallbackOrgId = vue.computed((): string | undefined => this.activeOrganizations.value.find(o => o.lastOrgId)?.orgId || this.activeOrganizations.value[0]?.orgId)
-  lastOrgId = vue.computed((): string | undefined => this.activeOrganizations.value.find(o => o.lastOrgId)?.orgId)
+  fallbackOrgId = vue.computed((): string | undefined => this.activeOrganizations.value.find(o => o.loadOrgId)?.orgId || this.activeOrganizations.value[0]?.orgId)
+  loadOrgId = vue.computed((): string | undefined => this.activeOrganizations.value.find(o => o.loadOrgId)?.orgId)
   activeOrgId = vue.computed<string | undefined>(() => this.activeOrganization.value?.orgId)
 
   activeOrganization = vue.computed<Organization | undefined>({
@@ -183,20 +183,22 @@ export class FictionUser extends FictionPlugin<UserPluginSettings> {
     return org
   }
 
-  setActiveOrgId = async (orgId?: string): Promise<void> => {
+  setNewActiveOrgId = async (args: { orgId?: string, caller?: string }): Promise<void> => {
+    const { orgId } = args
     const user = this?.activeUser.value
     const org = this.getOrgById(orgId)
 
-    if (user?.userId && org && org.orgId !== this.lastOrgId.value) {
+    if (user?.userId && org && org.orgId !== this.loadOrgId.value) {
       /**
-       * Update lastOrgId
+       * Update loadOrgId
        * Make sure to update user or it wont remember the active org
        */
       const r = await this?.requests.ManageUser.request(
-        { _action: 'update', where: { userId: user.userId }, fields: { lastOrgId: org.orgId } },
+        { _action: 'update', where: { userId: user.userId }, fields: { loadOrgId: org.orgId } },
         { disableNotify: true, disableUserUpdate: true },
       )
 
+      // this should update the client side active org
       if (r?.data)
         await this?.updateUser(() => r.data, { reason: 'watchRouteUserChanges' })
     }
@@ -224,7 +226,7 @@ export class FictionUser extends FictionPlugin<UserPluginSettings> {
         }
 
         if (orgId)
-          await this.setActiveOrgId(orgId)
+          await this.setNewActiveOrgId({ orgId, caller: 'routeOrgId' })
       },
       { immediate: true },
     )

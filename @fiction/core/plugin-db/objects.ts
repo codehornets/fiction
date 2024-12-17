@@ -9,7 +9,17 @@ import { toSnake } from '../utils/index.js'
 type PrepareForStorage<T extends ColDefaultValue = ColDefaultValue> = (args: { value: T, key: string, db?: Knex }) => unknown
 
 export type ColDefaultValue = Knex.Value | undefined
-type SecurityType = 'permanent' | 'setting' | 'authority' | 'admin' | 'private' | 'composite'
+
+export const SecurityTypeSchema = z.enum([
+  'permanent', // Cannot be changed after creation
+  'setting', // Can be changed by the user
+  'settingAdmin', // Can be changed by admin
+  'settingPrivate', // Can be changed by user, but not returned in queries
+  'authority', // information to verify user - email verification, password reset, etc
+  'composite',
+])
+
+type SecurityType = z.infer<typeof SecurityTypeSchema>
 
 type MakeCol = <U extends string = string, T extends ColDefaultValue = ColDefaultValue> (params: { s: Knex.AlterTableBuilder, col: Col<U, T>, db: Knex }) => void
 export type ColSettings<U extends string = string, T extends ColDefaultValue = ColDefaultValue> = {
@@ -47,7 +57,7 @@ export interface FictionDbTableSettings {
   tableKey: string
   timestamps?: boolean
   cols?: readonly Col<any, any>[]
-  dependsOn?: string[]
+  priority?: number
   constraints?: TableConstraint[]
 }
 
@@ -57,7 +67,7 @@ export class FictionDbTable {
   cols: Col[]
   log: LogHelper
   timestamps: boolean
-  dependsOn: string[]
+  priority: number
   constraints: TableConstraint[] = []
   constructor(params: FictionDbTableSettings) {
     this.tableKey = params.tableKey
@@ -65,7 +75,7 @@ export class FictionDbTable {
     this.log = log.contextLogger(`FictionDbTable:${this.tableKey}`)
     this.timestamps = params.timestamps ?? false
     this.cols = this.addStandardCols((params.cols || []) as Col[])
-    this.dependsOn = params.dependsOn ?? []
+    this.priority = params.priority || 100
     this.constraints = params.constraints ?? []
   }
 

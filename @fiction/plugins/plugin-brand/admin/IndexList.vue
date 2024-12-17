@@ -33,7 +33,7 @@ const showStartModal = vue.ref(false)
 
 <template>
   <SettingsPanel :title="card.title.value">
-    <div class="p-12 w-full max-w-screen-md mx-auto">
+    <div class="p-6">
       <ElIndexGrid
         media-icon="i-tabler-mail"
         list-title="Brand Guidelines"

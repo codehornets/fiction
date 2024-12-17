@@ -12,7 +12,7 @@ import knex from 'knex'
 import { EnvVar, vars } from '../plugin-env/index.js'
 import { FictionPlugin } from '../plugin.js'
 import { toCamel } from '../utils/casing.js'
-import { isActualBrowser, isTest, safeDirname } from '../utils/index.js'
+import { isActualBrowser, isTest, safeDirname, sortPriority } from '../utils/index.js'
 import { CheckUsername } from './endpoint.js'
 import { dbPrep } from './utils.js'
 
@@ -233,8 +233,9 @@ export class FictionDb extends FictionPlugin<FictionDbSettings> {
       if (this.tables.length > 0) {
         const tables = await this.settings.fictionEnv.runHooks('dbOnTables', this.tables)
 
-        for (const table of tables)
+        for (const table of sortPriority(tables, { centerNumber: 100 })) {
           await table.create(db)
+        }
       }
 
       this.log.info('extending db [done]')

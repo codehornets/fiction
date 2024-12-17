@@ -45,12 +45,30 @@ export type ButtonBorder = z.infer<typeof ButtonBorderSchema>
 // So it works in node
 const MouseEventType = typeof MouseEvent !== 'undefined' ? MouseEvent : class {}
 
+export const ValidateCallbackSchema = z.function().args(z.object({ reportValidity: z.boolean().optional() })).returns(z.boolean())
+
+export const ClickCallbackContextSchema = z.object({
+  validate: ValidateCallbackSchema.optional(),
+})
+
+export type ClickCallbackContext = z.infer<typeof ClickCallbackContextSchema>
+
+export const ClickCallbackArgsSchema = z.object({
+  event: z.instanceof(MouseEventType).optional(),
+  item: z.record(z.any()).optional(),
+  props: z.record(z.string(), z.any()).optional(),
+  context: ClickCallbackContextSchema.optional(),
+})
+
+export type ClickCallbackArgs = z.infer<typeof ClickCallbackArgsSchema>
+
 const ClickHandlerSchema = z.function()
   .args(
     z.object({
       event: z.instanceof(MouseEventType).optional(),
       item: z.record(z.any()).optional(),
       props: z.record(z.string(), z.any()).optional(),
+      context: ClickCallbackContextSchema.optional(),
     }),
   )
   .returns(z.any())
@@ -155,91 +173,6 @@ export const MediaDisplaySchema = MediaContentSchema.extend({
 })
 export type MediaObject = z.infer<typeof MediaDisplaySchema & typeof MediaIconSchema>
 
-const emphasisSchema = z.enum(['default', 'highlighted', 'muted'])
-
-// First define base schema without recursive parts
-const BaseNavListItemSchema = z.object({
-  // Core content
-  id: z.string().optional().describe('Globally unique identifier for the item'),
-  label: z.string().optional().describe('Primary text displayed for the item (e.g., "Products")'),
-  subLabel: z.string().optional().describe('Secondary text shown below label for additional context'),
-  value: z.union([z.string(), z.number()]).optional().describe('Value associated with the item'),
-  description: z.string().optional().describe('Longer description or explanation of the item'),
-  info: z.string().optional().describe('Tertiary text, often used for metadata like "5 min read" or counts'),
-
-  // Visual
-  media: MediaDisplaySchema.optional().describe('Media content shown with the item'),
-  icon: MediaIconSchema.optional().describe('Leading icon shown before the label'),
-  iconAfter: MediaIconSchema.optional().describe('Trailing icon shown after the label'),
-  badge: z.object({
-    content: z.union([z.string(), z.number()]).optional(),
-    color: z.enum(colorThemeUser).optional(),
-  }).optional().describe('Badge shown near label (e.g., "New" or count)'),
-
-  // Navigation behavior
-  href: z.string().optional().describe('Navigation URL - internal path or external link'),
-  target: z.enum(['_self', '_blank']).optional().describe('Link target - "_blank" opens in new tab'),
-  onClick: ClickHandlerSchema.optional().describe('Click handler - use for custom navigation or actions'),
-
-  // Visual & behavioral variants
-  variant: z.enum([
-    'default', // Standard link
-    'button', // Button-like appearance
-    'avatar', // User avatar display
-  ]).optional(),
-
-  emphasis: emphasisSchema.optional(),
-
-  theme: z.enum(colorThemeUser).optional().describe('Color theme for the item'),
-  design: ButtonDesignSchema.optional().describe('Design style for the item'),
-
-  // State management
-  onAuthState: z.enum([
-    'loggedIn', // Only shown when user is logged in
-    'loggedOut', // Only shown when user is logged out
-    'all', // Always shown
-  ]).optional(),
-
-  isActive: z.boolean().optional().describe('Marks the item as active or selected'),
-  isDisabled: z.boolean().optional().describe('Disables the item from interaction'),
-  isHidden: z.boolean().optional().describe('Hides the item from view'),
-
-  // Editing
-  basePath: z.string().optional(),
-
-  // Organization
-  priority: z.number().optional().describe('Priority for sorting items default is 100. Less is higher priority'),
-
-  // Development
-  testId: z.string().optional(),
-  figure: z.object({
-    el: z.custom<vue.AsyncComponentLoader | vue.Component>((val) => {
-      return typeof val === 'function' || val instanceof Promise
-    }),
-    props: z.record(z.string(), z.any()).optional(),
-  }).optional(),
-}, { description: 'NavListItemSchema' })
-
-// Navigation list container
-export const NavListSchema = z.object({
-  title: z.string().optional().describe('Optional section/group title'),
-  description: z.string().optional().describe('Optional section/group description'),
-  items: z.array(z.record(z.string(), z.any())).optional().describe('Navigation items in this section'),
-  variant: z.enum(['default', 'expanded']).optional().describe('Variant of the list'),
-}, { description: 'NavListSchema' })
-
-// Full navigation item with recursive list support
-export const NavListItemSchema = BaseNavListItemSchema.extend({
-  list: z.lazy(() => NavListSchema).optional().describe('Nested navigation list (e.g., dropdown menu)'),
-})
-
-export type NavList = Omit<z.infer<typeof NavListSchema>, 'items'> & { items?: NavListItem[] }
-
-// Define the complete type including recursive items property
-export type NavListItem = z.infer<typeof BaseNavListItemSchema> & {
-  list?: NavList
-}
-
 export const ActionButtonSchema = z.object({
   label: z.string().optional().describe('Button text [ai]'),
   href: z.string().optional().describe('Button link URL or /path [ai]'),
@@ -296,6 +229,101 @@ export const ActionAreaSchema = z.object({
 
 export type ActionArea = z.infer<typeof ActionAreaSchema>
 
+/**
+ * NAV LIST
+ */
+const emphasisSchema = z.enum(['default', 'highlighted', 'muted'])
+
+// First define base schema without recursive parts
+const BaseNavListItemSchema = z.object({
+  // Core content
+  key: z.string().optional().describe('Unique index key for the item'),
+  id: z.string().optional().describe('Globally unique identifier for the item'),
+  label: z.string().optional().describe('Primary text displayed for the item (e.g., "Products")'),
+  subLabel: z.string().optional().describe('Secondary text shown below label for additional context'),
+  value: z.union([z.string(), z.number()]).optional().describe('Value associated with the item'),
+  description: z.string().optional().describe('Longer description or explanation of the item'),
+  info: z.string().optional().describe('Tertiary text, often used for metadata like "5 min read" or counts'),
+
+  // Visual
+  media: MediaDisplaySchema.optional().describe('Media content shown with the item'),
+  icon: MediaIconSchema.optional().describe('Leading icon shown before the label'),
+  iconAfter: MediaIconSchema.optional().describe('Trailing icon shown after the label'),
+  badge: z.object({
+    content: z.union([z.string(), z.number()]).optional(),
+    color: z.enum(colorThemeUser).optional(),
+  }).optional().describe('Badge shown near label (e.g., "New" or count)'),
+
+  // Navigation behavior
+  href: z.string().optional().describe('Navigation URL - internal path or external link'),
+  target: z.enum(['_self', '_blank']).optional().describe('Link target - "_blank" opens in new tab'),
+  onClick: ClickHandlerSchema.optional().describe('Click handler - use for custom navigation or actions'),
+
+  // Visual & behavioral variants
+  variant: z.enum([
+    'default', // Standard link
+    'button', // Button-like appearance
+    'avatar', // User avatar display
+  ]).optional(),
+
+  emphasis: emphasisSchema.optional(),
+
+  theme: z.enum(colorThemeUser).optional().describe('Color theme for the item'),
+  design: ButtonDesignSchema.optional().describe('Design style for the item'),
+
+  action: ActionAreaSchema.optional().describe('Interactive buttons or subscribe form'),
+
+  // State management
+  onAuthState: z.enum([
+    'loggedIn', // Only shown when user is logged in
+    'loggedOut', // Only shown when user is logged out
+    'all', // Always shown
+  ]).optional(),
+
+  isActive: z.boolean().optional().describe('Marks the item as active or selected'),
+  isDisabled: z.boolean().optional().describe('Disables the item from interaction'),
+  isHidden: z.boolean().optional().describe('Hides the item from view'),
+
+  // Editing
+  basePath: z.string().optional(),
+
+  // Organization
+  priority: z.number().optional().describe('Priority for sorting items default is 100. Less is higher priority'),
+
+  // Development
+  testId: z.string().optional(),
+  figure: z.object({
+    el: z.custom<vue.AsyncComponentLoader | vue.Component>((val) => {
+      return typeof val === 'function' || val instanceof Promise
+    }),
+    props: z.record(z.string(), z.any()).optional(),
+  }).optional(),
+}, { description: 'NavListItemSchema' })
+
+// Navigation list container
+export const NavListSchema = z.object({
+  title: z.string().optional().describe('Optional section/group title'),
+  description: z.string().optional().describe('Optional section/group description'),
+  items: z.array(z.record(z.string(), z.any())).optional().describe('Navigation items in this section'),
+  variant: z.enum(['default', 'expanded']).optional().describe('Variant of the list'),
+}, { description: 'NavListSchema' })
+
+// Full navigation item with recursive list support
+export const NavListItemSchema = BaseNavListItemSchema.extend({
+  list: z.lazy(() => NavListSchema).optional().describe('Nested navigation list (e.g., dropdown menu)'),
+})
+
+export type NavList = Omit<z.infer<typeof NavListSchema>, 'items'> & { items?: NavListItem[] }
+
+// Define the complete type including recursive items property
+export type NavListItem = z.infer<typeof BaseNavListItemSchema> & {
+  list?: NavList
+}
+
+/**
+ * LOGO / BRAND
+ */
+
 export const logoSchema = z.object({
   variant: z.enum(['media', 'typography']).optional(),
   media: MediaIconSchema.optional(),
@@ -321,12 +349,6 @@ export const SuperTitleSchema = z.object({
 
 export type SuperTitle = z.infer<typeof SuperTitleSchema>
 
-// export const TaxonomySchema = z.object({
-//   title: z.string().optional(),
-//   slug: z.string().optional(),
-//   type: z.enum(['category', 'tag']).optional(),
-// })
-
 export const UserSchema = z.object({
   fullName: z.string().optional(),
   email: z.string().optional(),
@@ -334,6 +356,10 @@ export const UserSchema = z.object({
   title: z.string().optional(),
   websiteUrl: z.string().optional(),
 })
+
+/**
+ * POSTS
+ */
 
 export const PostSEOSchema = z.object({
   title: z.string().optional().describe('Custom SEO title, defaults to post title if not specified'),

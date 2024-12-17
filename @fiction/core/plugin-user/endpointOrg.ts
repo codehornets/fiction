@@ -49,6 +49,9 @@ export abstract class QueryOrganization extends OrgQuery {
       ['avatar', t.user],
       ['member_access', t.member],
       ['member_status', t.member],
+      ['created_at', t.member],
+      ['updated_at', t.member],
+
     ]
       .map(([key, table]) => `'${key}', ${table}.${key}`)
       .join(', ')
@@ -87,8 +90,8 @@ export abstract class QueryOrganization extends OrgQuery {
 }
 
 export class QueryOrganizationsByUserId extends QueryOrganization {
-  async run(params: { userId: string, lastOrgId?: string }, _meta: EndpointMeta): Promise<EndpointResponse<Organization[]>> {
-    const { userId, lastOrgId } = params
+  async run(params: { userId: string, loadOrgId?: string }, _meta: EndpointMeta): Promise<EndpointResponse<Organization[]>> {
+    const { userId, loadOrgId } = params
 
     const db = this.db()
     const q = this.orgBaseQuery(db)
@@ -101,17 +104,17 @@ export class QueryOrganizationsByUserId extends QueryOrganization {
     const r = await q
 
     const data = r
-      .map((org: Organization) => this.refineRawOrganization({ org, lastOrgId, userId }, _meta))
+      .map((org: Organization) => this.refineRawOrganization({ org, loadOrgId, userId }, _meta))
       .filter(Boolean) as Organization[]
 
     return { status: 'success', data }
   }
 
   refineRawOrganization(
-    params: { org: Organization, lastOrgId?: string, userId?: string },
+    params: { org: Organization, loadOrgId?: string, userId?: string },
     _meta: EndpointMeta,
   ): Organization | undefined {
-    const { org, lastOrgId } = params
+    const { org, loadOrgId } = params
     if (!org)
       return
 
@@ -128,8 +131,9 @@ export class QueryOrganizationsByUserId extends QueryOrganization {
       return m
     })
 
-    if (lastOrgId === org.orgId)
-      org.lastOrgId = true
+    // this is the active organization for the user
+    if (loadOrgId === org.orgId)
+      org.loadOrgId = true
 
     return org
   }
@@ -143,7 +147,6 @@ export class QueryManageMemberRelation extends OrgQuery {
       orgId: string
       memberAccess?: MemberAccess
       memberStatus?: MemberStatus
-      memberRole?: string
       invitedById?: string
       tags?: string[]
     },
@@ -153,7 +156,7 @@ export class QueryManageMemberRelation extends OrgQuery {
       throw abort('no user service')
     if (!meta.bearer && !meta.server)
       throw abort('auth required')
-    const { memberId, orgId, _action, memberAccess, memberStatus, memberRole, invitedById, tags } = params
+    const { memberId, orgId, _action, memberAccess, memberStatus, invitedById, tags } = params
 
     const db = this.db()
 
@@ -172,7 +175,7 @@ export class QueryManageMemberRelation extends OrgQuery {
     else if (_action === 'create' || _action === 'update') {
       // Add relation
       ;[relation] = await db
-        .insert({ userId: memberId, orgId, memberAccess, memberStatus, memberRole, invitedById, tags })
+        .insert({ userId: memberId, orgId, memberAccess, memberStatus, invitedById, tags })
         .onConflict(['user_id', 'org_id'])
         .merge()
         .into(t.member)
@@ -241,7 +244,7 @@ export class QueryManageOrganization extends OrgQuery {
   private async createOrganization(params: ManageOrganizationParams & { _action: 'create' }, meta: EndpointMeta): Promise<EndpointResponse<Organization> & { user?: User }> {
     const { fields, userId } = params
     const { orgName, orgEmail, orgId } = fields
-    const defaultName = orgEmail?.split('@')[0] || 'Personal'
+    const defaultName = orgEmail?.split('@')[0] || 'Untitled Organization'
 
     const createFields = this.settings.fictionDb.prep({ type: meta.server ? 'internal' : 'insert', fields, meta, table: t.org })
 
@@ -249,7 +252,7 @@ export class QueryManageOrganization extends OrgQuery {
       .insert({
         orgId: orgId || objectId({ prefix: 'org' }),
         orgName: orgName || defaultName,
-        ownerId: fields.ownerId || userId,
+        createdByUserId: fields.createdByUserId || userId,
         ...createFields,
       })
       .into(t.org)

@@ -38,7 +38,7 @@ describe('jWT Functions with Expiration', () => {
   const user = {
     userId: '12345',
     email: 'test@example.com',
-    role: 'admin',
+    role: 'admin' as const,
   }
 
   afterAll(() => {
@@ -93,7 +93,7 @@ describe('jwt Functions', () => {
   const user = {
     userId: '12345',
     email: 'test@example.com',
-    role: 'admin',
+    role: 'admin' as const,
   }
 
   it('successfully creates and decodes a token', () => {

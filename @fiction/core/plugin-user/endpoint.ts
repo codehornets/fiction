@@ -445,14 +445,14 @@ export class QueryManageUser extends UserBaseQuery {
     const fictionUser = this.settings.fictionUser
     if (user?.userId) {
       const orgsResponse = await fictionUser.queries.OrganizationsByUserId.serve(
-        { userId: user.userId, lastOrgId: user.lastOrgId },
+        { userId: user.userId, loadOrgId: user.loadOrgId },
         { ...meta, caller: 'processUserGetOrgs', server: true },
       )
 
       user.orgs = orgsResponse.data ?? []
 
       // this ensures that a user has at least one org
-      if (user.orgs.length === 0) {
+      if (orgsResponse.status === 'success' && user.orgs.length === 0) {
         const p = params as ManageUserParams & { _action: 'create' }
         const orgName = p.fields?.orgName
         const orgId = p.fields?.orgId

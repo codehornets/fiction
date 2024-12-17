@@ -79,6 +79,37 @@ export const brandArchetypes: { label: string, value: typeof ARCHETYPE_VALUES[nu
   },
 ]
 
+const BrandItemSchema = z.object({
+  value: z.string(),
+  description: z.string(),
+  examples: z.string(),
+})
+
+// Audience schema for target market definition
+const AudienceSchema = z.object({
+  value: z.string().describe('Specific audience segment (e.g., \'young professionals\')'),
+  description: z.string().describe('Primary audience persona (e.g., \'ambitious professionals\')'),
+  examples: z.string().describe('Specific examples of target audience members'),
+})
+
+export const BrandGuideSchemaV2 = z.object({
+  position: z.string().optional().describe('As [trend], I help [target audience(s)] to [unique value] by [unique selling proposition]'),
+  archetypes: z.array(BrandItemSchema), // combination of archetypes = avatar
+  pillars: z.array(BrandItemSchema), // topics to write about
+  communicationStyles: z.array(BrandItemSchema), // examples of writing, speaking, content
+  motifs: z.array(BrandItemSchema), // things the refer to as brand e.g. a brand might use ancient history or rap lyrics
+  avoid: z.array(BrandItemSchema), // general things to avoid e.g. trump
+  audiences: z.array(AudienceSchema), // target market
+  visual: z.object({
+    primaryColor: z.string(),
+  }),
+  aiGuidance: z.object({
+    website: z.string(),
+    email: z.string(),
+    content: z.string(),
+  }),
+})
+
 export const BrandGuideSchema = z.object({
   personality: z.object({
     archetype: z.enum(ARCHETYPE_VALUES).optional().describe('Select your core personal archetype that authentically reflects your natural way of connecting with others'),

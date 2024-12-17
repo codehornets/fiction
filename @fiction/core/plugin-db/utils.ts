@@ -1,4 +1,4 @@
-import type { FictionDb } from '.'
+import type { FictionDb, FictionDbTable } from '.'
 import { z } from 'zod'
 import { type EndpointMeta, removeUndefined } from '../utils'
 
@@ -38,12 +38,12 @@ export function dbPrep<T>(args: {
 
     const includeField = (
       type === 'internal'
-      || (type === 'update' && (sec === 'setting' || (sec === 'admin' && bearerIsAdmin)))
+      || (type === 'update' && (sec === 'setting' || (sec === 'settingAdmin' && bearerIsAdmin)))
       || (type === 'insert' && sec !== 'authority')
       || (type === 'return' && (
-        !['authority', 'private'].includes(sec)
+        !['authority', 'settingPrivate'].includes(sec)
         || (sec === 'authority' && hasReturnAuthority)
-        || (sec === 'private' && (hasPrivateAuthority || hasReturnAuthority))
+        || (sec === 'settingPrivate' && (hasPrivateAuthority || hasReturnAuthority))
       ))
     )
 

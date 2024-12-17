@@ -12,9 +12,9 @@ export function createUserToken(args: { user: Partial<User>, tokenSecret?: strin
   if (!tokenSecret)
     throw abort('tokenSecret is not set', { code: 'TOKEN_ERROR' })
 
-  const { role = '', userId, email } = user
+  const { systemRole = '', userId, email } = user
   const options = expiresIn ? { expiresIn } : undefined
-  return jwt.sign({ role, userId, email, verifyEmail }, tokenSecret, options)
+  return jwt.sign({ systemRole, userId, email, verifyEmail }, tokenSecret, options)
 }
 
 /**

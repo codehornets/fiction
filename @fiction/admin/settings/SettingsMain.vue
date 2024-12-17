@@ -13,7 +13,7 @@ defineProps({
     :card="card"
     base-path="/settings"
     :header="{
-      title: 'Account & Organization Settings',
+      title: 'All Settings',
       subTitle: 'Manage your workspace, team, and personal preferences',
     }"
   />

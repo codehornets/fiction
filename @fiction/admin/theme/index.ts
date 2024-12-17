@@ -83,6 +83,13 @@ export async function getPages(args: { factory: CardFactory }) {
               el: def(async () => import('../settings/PanelDev.vue')),
               userConfig: { isNavItem: true, navIcon: 'i-tabler-code-circle', navIconAlt: 'i-tabler-code-circle-filled' },
             }),
+            await factory.fromTemplate<typeof panelTemplate>({
+              slug: 'manage-organizations',
+              title: 'Change Organization',
+              description: 'Manage and change active organization',
+              el: def(async () => import('../settings/PanelManageOrg.vue')),
+              userConfig: { isNavItem: true, navIcon: 'i-tabler-refresh', navIconAlt: 'i-tabler-refresh' },
+            }),
           ],
         }),
       ],

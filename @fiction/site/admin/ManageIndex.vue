@@ -3,8 +3,8 @@ import type { ActionButton, FictionApp, IndexItem, IndexMeta } from '@fiction/co
 import type { FictionSites } from '..'
 import type { Card } from '../card'
 import type { Site } from '../site'
+import SettingsPanel from '@fiction/admin/settings/SettingsPanel.vue'
 import { useService, vue } from '@fiction/core'
-import ElPanel from '@fiction/ui/ElPanel.vue'
 import ElIndexGrid from '@fiction/ui/lists/ElIndexGrid.vue'
 import { getSiteIndexItemList } from '../utils/list.js'
 import { manageSiteIndex } from '../utils/manage.js'
@@ -57,8 +57,8 @@ function getActions(location: 'top' | 'zero') {
 </script>
 
 <template>
-  <ElPanel class="p-12 w-full max-w-screen-md mx-auto">
-    <div class="pt-8  ">
+  <SettingsPanel :title="card.title.value">
+    <div class="p-6">
       <ElIndexGrid
         :loading
         :list
@@ -78,5 +78,5 @@ function getActions(location: 'top' | 'zero') {
     </div>
 
     <ElSiteStart v-model:vis="showCreateModal" :card />
-  </ElPanel>
+  </SettingsPanel>
 </template>

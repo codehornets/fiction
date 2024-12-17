@@ -107,7 +107,7 @@ export class FictionSites extends FictionPlugin<SitesPluginSettings> {
             cards: [
               await factory.fromTemplate<typeof panelTemplate>({
                 slug: '_home',
-                title: 'Website Dashboard',
+                title: 'Websites',
                 description: 'View and manage all your websites, domains, and site configurations',
                 el: vue.defineAsyncComponent(async () => import('./admin/ManageIndex.vue')),
                 userConfig: {

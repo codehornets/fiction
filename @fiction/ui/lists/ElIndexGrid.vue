@@ -1,23 +1,28 @@
 <script lang="ts" setup>
-import type { ActionButton, IndexItem, IndexMeta } from '@fiction/core'
+import type { ActionArea, IndexMeta, NavListItem } from '@fiction/core'
 import { getNavComponentType, getPaginationInfo, vue } from '@fiction/core/index.js'
 import XButton from '../buttons/XButton.vue'
 import ElZeroBanner from '../ElZeroBanner.vue'
 import ElSpinner from '../loaders/ElSpinner.vue'
 import ElIndexItemMedia from './ElIndexItemMedia.vue'
 
-const props = defineProps({
-  list: { type: Array as vue.PropType<IndexItem[]>, default: () => [] },
-  listTitle: { type: String, default: 'Items' },
-  indexMeta: { type: Object as vue.PropType<IndexMeta>, default: () => ({}) },
-  editActions: { type: Array as vue.PropType<string[]>, default: () => [] },
-  empty: { type: Object as vue.PropType<IndexItem>, required: false },
-  actions: { type: Array as vue.PropType<ActionButton[]>, default: undefined },
-  size: { type: String as vue.PropType<'xs' | 'md'>, default: undefined },
-  loading: { type: Boolean, default: false },
-  onItemClick: { type: Function as vue.PropType<((id: string | number) => void) | undefined>, default: undefined },
-  mediaIcon: { type: String, default: 'i-tabler-photo' },
-})
+const {
+  list = [],
+  indexMeta = {},
+  empty,
+  action,
+  loading,
+  listTitle = 'Items',
+  onItemClick,
+} = defineProps<{
+  list?: NavListItem[]
+  indexMeta?: IndexMeta
+  empty: NavListItem
+  action: ActionArea
+  loading: boolean
+  listTitle: string
+  onItemClick?: (id: string | number) => void
+}>()
 
 const emit = defineEmits<{
   (event: 'update:offset', payload: number): void
@@ -26,9 +31,8 @@ const emit = defineEmits<{
 const sending = vue.ref(false)
 
 const boxClass = 'dark:bg-theme-800 bg-theme-0 hover:bg-theme-50 dark:hover:bg-theme-700 px-6 border border-theme-300/70 shadow-xs dark:border-theme-600/60 rounded-xl'
-const mediaClass = `size-14 ring-2 ring-theme-200/50 bg-theme-50 dark:bg-theme-400 dark:text-theme-0 dark:ring-theme-0 rounded-full overflow-hidden text-theme-500/50`
 
-const pagination = vue.computed(() => getPaginationInfo(props.indexMeta))
+const pagination = vue.computed(() => getPaginationInfo(indexMeta))
 
 async function paginate(dir: 'prev' | 'next') {
   const newPageNo = dir === 'prev' ? pagination.value.prevPageNo : pagination.value.nextPageNo
@@ -53,13 +57,13 @@ async function paginate(dir: 'prev' | 'next') {
           {{ listTitle }} <span v-if="indexMeta.count">({{ indexMeta.count }} total)</span>
         </div>
         <nav
-          v-if="actions?.length && list.length > 0"
+          v-if="action.buttons?.length && list.length > 0"
           class="flex items-center justify-between"
           aria-label="Pagination"
         >
           <div class="flex gap-4">
             <XButton
-              v-for="(act, i) in actions"
+              v-for="(act, i) in action.buttons"
               :key="i"
               :data-test-id="act.testId"
               :href="act.href"
@@ -91,12 +95,12 @@ async function paginate(dir: 'prev' | 'next') {
                 :class="boxClass"
               >
                 <div class="flex gap-6 items-center">
-                  <ElIndexItemMedia class="size-16" :media="item.media" :icon="item.icon" />
+                  <ElIndexItemMedia class="size-20" :media="item.media" :icon="item.icon" />
                   <div>
-                    <p class="text-lg font-medium leading-6 ">
+                    <p class="text-xl font-semibold leading-6 ">
                       <span class="hover:underline cursor-pointer">{{ item.label }}</span>
                     </p>
-                    <div class="mt-1 flex items-center gap-x-2 text-sm leading-5 text-theme-500">
+                    <div class="mt-1 flex items-center gap-x-2 text-base leading-5 text-theme-500 dark:*:">
                       <p>
                         <span class="hover:underline cursor-pointer">{{ item.description }}</span>
                       </p>
@@ -106,7 +110,7 @@ async function paginate(dir: 'prev' | 'next') {
                 <dl class="flex w-full flex-none justify-between gap-x-8 sm:w-auto items-center">
                   <slot :item="item" name="item" />
 
-                  <svg class="h-5 w-5 flex-none text-theme-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <svg class="size-6 flex-none text-theme-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
                   </svg>
                 </dl>
@@ -121,7 +125,7 @@ async function paginate(dir: 'prev' | 'next') {
               v-else
               :title="empty?.label || 'No items found'"
               :description="empty?.description || 'Try creating a new one.'"
-              :actions="empty?.actions || actions"
+              :action="empty?.action || action"
               :icon="empty?.icon || 'i-heroicons-search'"
               :test-id="empty?.testId"
             >
