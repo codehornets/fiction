@@ -1,6 +1,7 @@
 import type { template as TransactionTemplate } from '@fiction/cards/page-transaction/index.js'
 import type { CardFactory } from '@fiction/site/cardFactory.js'
 import type { SiteUserConfig } from '@fiction/site/schema.js'
+import type { Site } from '@fiction/site/site.js'
 import type { authTemplate, template as dashTemplate, panelTemplate } from '../dashboard/cardDash.js'
 import type { FictionAdmin } from '../index.js'
 import { getCardTemplates } from '@fiction/cards'
@@ -20,7 +21,7 @@ export async function getTemplates() {
   return [...tpl, dash.template]
 }
 
-export async function getPages(args: { factory: CardFactory }) {
+export async function getPages(args: { factory: CardFactory, site: Site }) {
   const { factory } = args
   return [
     await factory.fromTemplate<typeof dashTemplate>({
@@ -35,7 +36,7 @@ export async function getPages(args: { factory: CardFactory }) {
     await factory.fromTemplate<typeof dashTemplate>({
       templateId: 'dash',
       slug: 'settings',
-      title: 'Settings',
+      title: `Settings`,
       userConfig: { navIcon: 'i-tabler-settings', navIconAlt: 'i-tabler-settings-filled' },
       cards: [
         await factory.fromTemplate({
@@ -120,7 +121,7 @@ export const theme = new Theme({
   isPublic: false,
   getConfig: async (args) => {
     const { factory, site } = args
-    const pg = await getPages({ factory })
+    const pg = await getPages(args)
     const service = site.fictionSites.fictionEnv.getService<{ fictionAdmin: FictionAdmin }>()
 
     const adminPages = await service.fictionAdmin.getAdminPages({ factory })

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { PostObject } from '@fiction/core'
-import XButton from '@fiction/ui/buttons/XButton.vue'
+import XButtonList from '@fiction/ui/buttons/XButtonList.vue'
 import XText from '@fiction/ui/common/XText.vue'
 import ElIndexItemMedia from '@fiction/ui/lists/ElIndexItemMedia.vue'
 
@@ -41,22 +41,11 @@ function updateValue<T extends keyof PostObject = keyof PostObject>(key: T, valu
           />
         </div>
       </div>
-      <div v-if="modelValue.action?.buttons?.length" class="mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-3 sm:space-y-0 sm:space-x-reverse @xs:mt-0 @xs:flex-row @xs:space-x-3">
-        <XButton
-          v-for="(action, i) in modelValue.action.buttons"
-          :key="i"
-          :size="action.size || 'md'"
-          :icon="action.icon"
-          :theme="action.theme || 'default'"
-          :design="action.design || 'solid'"
-          :href="action.href"
-          :loading="action.loading"
-          :disabled="action.disabled"
-          @click.stop="action.onClick?.({ event: $event })"
-        >
-          {{ action.label }}
-        </XButton>
-      </div>
+      <XButtonList
+        v-if="modelValue.action?.buttons?.length"
+        class="mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-3 sm:space-y-0 sm:space-x-reverse @xs:mt-0 @xs:flex-row @xs:space-x-3"
+        :buttons="modelValue.action.buttons"
+      />
     </div>
   </div>
 </template>

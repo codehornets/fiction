@@ -8,7 +8,7 @@ import CardButton from '@fiction/cards/CardButton.vue'
 import CardLink from '@fiction/cards/el/CardLink.vue'
 import { useService, vue } from '@fiction/core'
 import ElPostEditor from '@fiction/posts/admin/ElPostEditor.vue'
-import ElActions from '@fiction/ui/buttons/ElActions.vue'
+import XButtonList from '@fiction/ui/buttons/XButtonList.vue'
 import XText from '@fiction/ui/common/XText.vue'
 import { loadEmail } from '../utils.js'
 import { emailComposeController } from './tools'
@@ -45,7 +45,7 @@ vue.onMounted(async () => {
   }, { immediate: true })
 })
 
-const actions = vue.computed(() => {
+const buttons = vue.computed(() => {
   return campaign.value?.userConfig.value.actions || []
 })
 
@@ -116,8 +116,8 @@ async function saveBeforeNavigate(args: { location: string, href: string }) {
         <div v-if="campaign?.post.value">
           <ElPostEditor :post="campaign.post.value" :card @update:post="campaign.saveUtility.autosave()">
             <template #footer>
-              <div v-if="actions.length" class="mt-12 pt-12">
-                <ElActions :actions ui-size="xl" class="flex gap-4" data-test-id="editor-actions" />
+              <div v-if="buttons.length" class="mt-12 pt-12">
+                <XButtonList :buttons ui-size="xl" class="flex gap-4" data-test-id="editor-actions" />
               </div>
             </template>
           </ElPostEditor>

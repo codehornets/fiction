@@ -26,7 +26,7 @@ const randomId = shortId()
 vue.onMounted(() => {
   if (animate !== 'none') {
     useElementVisible({
-      caller: 'actionButtons',
+      caller: 'cardButtons',
       selector: `#${randomId}`,
       onVisible: async () => {
         await animateItemEnter({ targets: `#${randomId} .x-action-item`, themeId: animate, config: { overallDelay: 400 } })

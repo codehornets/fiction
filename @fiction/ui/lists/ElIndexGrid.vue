@@ -5,6 +5,7 @@ import XButton from '../buttons/XButton.vue'
 import ElZeroBanner from '../ElZeroBanner.vue'
 import ElSpinner from '../loaders/ElSpinner.vue'
 import ElIndexItemMedia from './ElIndexItemMedia.vue'
+import XIndexItem from './XIndexItem.vue'
 
 const {
   list = [],
@@ -13,7 +14,6 @@ const {
   action = {},
   loading,
   listTitle = 'Items',
-  onItemClick,
 } = defineProps<{
   list?: NavListItem[]
   indexMeta?: IndexMeta
@@ -21,7 +21,6 @@ const {
   action?: ActionArea
   loading?: boolean
   listTitle?: string
-  onItemClick?: (id: string | number) => void
 }>()
 
 const emit = defineEmits<{
@@ -29,8 +28,6 @@ const emit = defineEmits<{
 }>()
 
 const sending = vue.ref(false)
-
-const boxClass = 'dark:bg-theme-800 bg-theme-0 hover:bg-theme-50 dark:hover:bg-theme-700 px-6 border border-theme-300/70 shadow-xs dark:border-theme-600/60 rounded-xl'
 
 const pagination = vue.computed(() => getPaginationInfo(indexMeta))
 
@@ -79,44 +76,19 @@ async function paginate(dir: 'prev' | 'next') {
         </nav>
       </div>
       <div class="grid grid-cols-12 lg:gap-8 gap-4">
-        <div :class="$slots.sidebar ? 'col-span-12 md:col-span-6 xl:col-span-8' : 'col-span-12'">
-          <ul v-if="list.length" role="list" class="space-y-5">
-            <li
+        <div class="col-span-12">
+          <div v-if="list.length" role="list" class="space-y-5">
+            <template v-if="$slots.list">
+              <slot name="list" />
+            </template>
+            <XIndexItem
               v-for="(item, i) in list"
+              v-else
               :key="item.key"
-              :data-test-id="item.testId || `index-item-${i}`"
-              @click.stop="onItemClick && item.key ? onItemClick(item.key) : ''"
-            >
-              <component
-                :is="getNavComponentType(item)"
-                :to="item.href"
-                :href="item.href"
-                class="flex flex-wrap items-center justify-between gap-x-6 gap-y-4 py-5 sm:flex-nowrap"
-                :class="boxClass"
-              >
-                <div class="flex gap-6 items-center">
-                  <ElIndexItemMedia class="size-20" :media="item.media" :icon="item.icon" />
-                  <div>
-                    <p class="text-xl font-semibold leading-6 ">
-                      <span class="hover:underline cursor-pointer">{{ item.label }}</span>
-                    </p>
-                    <div class="mt-1 flex items-center gap-x-2 text-base leading-5 text-theme-500 dark:*:">
-                      <p>
-                        <span class="hover:underline cursor-pointer">{{ item.description }}</span>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <dl class="flex w-full flex-none justify-between gap-x-8 sm:w-auto items-center">
-                  <slot :item="item" name="item" />
-
-                  <svg class="size-6 flex-none text-theme-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                    <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
-                  </svg>
-                </dl>
-              </component>
-            </li>
-          </ul>
+              :item
+              :index="i"
+            />
+          </div>
           <div v-else>
             <template v-if="$slots.zero">
               <slot name="zero" />

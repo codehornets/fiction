@@ -21,9 +21,8 @@ async function handleClick(event: MouseEvent, item: NavItem): Promise<void> {
 }
 
 const cls = {
-  active: 'font-semibold bg-primary-100/50 text-primary-600 hover:text-primary-500 dark:bg-primary-600/50 ring-1 ring-primary-400/60 dark:ring-primary-600 dark:text-primary-0',
+  active: 'font-semibold bg-primary-100/50 text-primary-950 dark:bg-primary-800/50 ring-1 ring-primary-300/60 dark:ring-primary-800 dark:text-primary-0',
   inactive: 'font-medium text-theme-700 dark:text-theme-200 dark:hover:bg-theme-700 hover:text-theme-900 border-theme-0',
-
 }
 </script>
 

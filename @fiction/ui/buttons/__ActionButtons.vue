@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import type { ActionButton } from '@fiction/core'
+import type { ActionButton } from '@fiction/core/schemas/schemas.js'
 import type { UiElementSize } from '../utils'
 import { shortId, vue } from '@fiction/core'
 import { animateItemEnter, useElementVisible } from '../anim'
-import XButton from '../buttons/XButton.vue'
+import XButton from './XButton.vue'
 
 const props = defineProps({
-  actions: { type: Array as vue.PropType<ActionButton[]>, default: () => [] },
+  buttons: { type: Array as vue.PropType<ActionButton[]>, default: () => [] },
   uiSize: { type: String as vue.PropType<UiElementSize>, default: 'md' },
   animate: { type: String as vue.PropType<'fade' | 'slide' | 'pop' | 'rise' | 'none'>, default: 'none' },
   isOverlay: { type: Boolean, default: false },
@@ -17,7 +17,7 @@ const randomId = shortId()
 vue.onMounted(() => {
   if (props.animate !== 'none') {
     useElementVisible({
-      caller: 'ElActions',
+      caller: 'actionButtons',
       selector: `#${randomId}`,
       onVisible: async () => {
         await animateItemEnter({ targets: `#${randomId} .x-action-item`, themeId: props.animate, config: { overallDelay: 400 } })
@@ -31,23 +31,22 @@ function getButtonType(action: ActionButton) {
     return 'overlay'
   }
   else {
-    return action.theme || 'default'
+    return action.theme
   }
 }
 </script>
 
 <template>
-  <div v-if="actions?.length" :id="randomId">
+  <div v-if="buttons?.length" :id="randomId">
     <XButton
-      v-for="(action, i) in actions"
+      v-for="(action, i) in buttons"
       :key="i"
       class="x-action-item"
-      :data-test-id="action.testId"
-      :theme="getButtonType(action)"
+      :theme="getButtonType(action) || 'default'"
       :design="action.design || 'solid'"
+      :hover="action.hover || 'fade'"
       :href="action.href"
       :size="action.size || uiSize"
-      :rounding="action.rounding || 'full'"
       :icon="action.icon"
       :loading="action.loading"
       :icon-after="action.iconAfter"

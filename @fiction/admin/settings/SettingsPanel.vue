@@ -1,9 +1,17 @@
 <script lang="ts" setup>
-import type { ActionButton, PostObject } from '@fiction/core'
-import ElActions from '@fiction/ui/buttons/ElActions.vue'
+import type { ActionArea, PostObject } from '@fiction/core'
+import XButtonList from '@fiction/ui/buttons/XButtonList.vue'
 import ElHeader from './ElHeader.vue'
 
-const { title, actions = [], header } = defineProps<{ title?: string, actions?: ActionButton[], header?: PostObject }>()
+const {
+  title,
+  action = {},
+  header,
+} = defineProps<{
+  title?: string
+  action?: ActionArea
+  header?: PostObject
+}>()
 </script>
 
 <template>
@@ -12,7 +20,7 @@ const { title, actions = [], header } = defineProps<{ title?: string, actions?: 
       <div class="font-semibold text-lg">
         {{ title || 'No Title' }}
       </div>
-      <ElActions :actions class="flex justify-end" />
+      <XButtonList :buttons="action.buttons" class="flex justify-end" />
     </div>
 
     <div v-if="header" class="p-6">

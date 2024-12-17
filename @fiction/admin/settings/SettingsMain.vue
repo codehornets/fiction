@@ -13,6 +13,7 @@ defineProps({
     :card="card"
     base-path="/settings"
     :header="{
+      media: { class: 'i-tabler-settings' },
       title: 'All Settings',
       subTitle: 'Manage your workspace, team, and personal preferences',
     }"

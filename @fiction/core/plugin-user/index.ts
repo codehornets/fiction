@@ -116,9 +116,7 @@ export class FictionUser extends FictionPlugin<UserPluginSettings> {
 
   activeOrganizations = vue.computed<Organization[]>({
     get: () => {
-      const activeUser = this?.activeUser.value
-      const out = activeUser?.orgs ?? []
-      return out
+      return [...this.activeUser.value?.orgs ?? []]
     },
     set: async (value) => {
       await this?.updateUser(
@@ -199,8 +197,9 @@ export class FictionUser extends FictionPlugin<UserPluginSettings> {
       )
 
       // this should update the client side active org
-      if (r?.data)
+      if (r?.data) {
         await this?.updateUser(() => r.data, { reason: 'watchRouteUserChanges' })
+      }
     }
   }
 
@@ -377,6 +376,7 @@ export class FictionUser extends FictionPlugin<UserPluginSettings> {
   ): Promise<void> => {
     const { reason = 'updateUser' } = args
     const newUser = await cb(this.activeUser.value)
+
     if (newUser)
       this.setCurrentUser({ user: newUser, reason })
   }

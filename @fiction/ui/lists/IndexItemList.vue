@@ -1,16 +1,16 @@
 <script lang="ts" setup>
-import type { ActionButton, IndexItem, vue } from '@fiction/core'
-import ElActions from '@fiction/ui/buttons/ElActions.vue'
+import type { ActionArea, IndexItem } from '@fiction/core'
+import XButtonList from '@fiction/ui/buttons/XButtonList.vue'
 import XLink from '@fiction/ui/common/XLink.vue'
 import ElSpinner from '@fiction/ui/loaders/ElSpinner.vue'
 import ElIndexItemMedia from './ElIndexItemMedia.vue'
 
-defineProps({
-  list: { type: Array as vue.PropType<IndexItem[]>, required: true },
-  loading: { type: Boolean, default: false },
-  zeroText: { type: String, default: 'No items found' },
-  actions: { type: Array as vue.PropType<ActionButton[]>, default: () => [] },
-})
+const { list, loading = false, zeroText = 'No items found', action = {} } = defineProps<{
+  list: IndexItem[]
+  loading?: boolean
+  zeroText?: string
+  action?: ActionArea
+}>()
 </script>
 
 <template>
@@ -27,9 +27,10 @@ defineProps({
         <p class="text-theme-400">
           {{ zeroText }}
         </p>
-        <ElActions
+        <XButtonList
+          v-if="action.buttons?.length"
           class="mt-4 gap-4 flex justify-center"
-          :actions="actions"
+          :buttons="action.buttons"
         />
       </div>
     </div>

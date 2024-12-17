@@ -5,7 +5,7 @@ import type { InputOption } from './index.js'
 import { getNested, setNested, vue } from '@fiction/core'
 import { twMerge } from 'tailwind-merge'
 import TransitionSlide from '../anim/TransitionSlide.vue'
-import ElActions from '../buttons/ElActions.vue'
+import XButtonList from '../buttons/XButtonList.vue'
 import XIcon from '../media/XIcon.vue'
 import ElInput from './ElInput.vue'
 import ElToolSep from './ElToolSep.vue'
@@ -21,7 +21,7 @@ const {
   inputWrapClass = '',
   inputProps = {},
   uiSize = 'md',
-  actions = [],
+  buttons = [],
   disableGroupHide = false,
   format = 'input',
 } = defineProps<{
@@ -34,7 +34,7 @@ const {
   inputWrapClass?: string
   inputProps?: Record<string, unknown>
   uiSize?: UiElementSize
-  actions?: ActionButton[]
+  buttons?: ActionButton[]
   disableGroupHide?: boolean
   format?: 'control' | 'input'
 }>()
@@ -205,6 +205,6 @@ function getGroupClasses(opt: InputOption) {
         </div>
       </template>
     </div>
-    <ElActions :actions class="mt-4 flex items-center justify-center" />
+    <XButtonList :buttons class="mt-4 flex items-center justify-center" />
   </div>
 </template>

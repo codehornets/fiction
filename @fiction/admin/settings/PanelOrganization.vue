@@ -298,14 +298,14 @@ vue.onMounted(async () => {
   <SettingsPanel
     title="Organization Details"
     :loading
-    :actions="[{
+    :action="{ buttons: [{
       testId: 'saveButton',
       label: saveUtil.isDirty.value ? 'Saving...' : 'Saved',
       onClick: () => save(),
       theme: saveUtil.isDirty.value ? 'primary' : 'default',
       loading: sending === 'saving',
       icon: saveUtil.isDirty.value ? 'i-tabler-upload' : 'i-tabler-check',
-    }]"
+    }] }"
   >
     <div class="p-6">
       <ElHeader

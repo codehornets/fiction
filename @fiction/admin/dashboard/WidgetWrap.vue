@@ -2,15 +2,14 @@
 import type { ActionButton } from '@fiction/core'
 import type { Widget } from './widget.js'
 import { vue } from '@fiction/core'
-import ElActions from '@fiction/ui/buttons/ElActions.vue'
+import XButtonList from '@fiction/ui/buttons/XButtonList.vue'
 import ElSpinner from '@fiction/ui/loaders/ElSpinner.vue'
 
 const props = defineProps({
-
   loading: { type: Boolean, default: false },
   widget: { type: Object as vue.PropType<Widget>, default: undefined },
   editable: { type: Boolean, default: false },
-  actions: { type: Array as vue.PropType<ActionButton[]>, default: () => [] },
+  buttons: { type: Array as vue.PropType<ActionButton[]>, default: () => [] },
 })
 
 const widgetTitle = vue.computed(() => props.widget?.settings.title)
@@ -55,7 +54,7 @@ const widgetDescription = vue.computed(() => props.widget?.settings.description)
         </div>
       </div>
       <div>
-        <ElActions class="flex gap-2 items-center" :actions ui-size="sm" />
+        <XButtonList class="flex gap-2 items-center" :buttons ui-size="sm" />
       </div>
     </div>
 

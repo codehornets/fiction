@@ -5,7 +5,7 @@ import type { InputOption } from '@fiction/ui'
 import type { UiElementSize } from '@fiction/ui/utils'
 import { getNested, localRef, setNested, vue } from '@fiction/core'
 import TransitionSlide from '@fiction/ui/anim/TransitionSlide.vue'
-import ElActions from '@fiction/ui/buttons/ElActions.vue'
+import XButtonList from '@fiction/ui/buttons/XButtonList.vue'
 import ElInput from '@fiction/ui/inputs/ElInput.vue'
 import ElToolSep from '@fiction/ui/inputs/ElToolSep.vue'
 
@@ -18,7 +18,7 @@ const props = defineProps({
   inputProps: { type: Object as vue.PropType<Record<string, unknown>>, default: () => ({}) },
   uiSize: { type: String as vue.PropType<UiElementSize>, default: 'md' },
   card: { type: Object as vue.PropType<Card>, default: undefined },
-  actions: { type: Array as vue.PropType<ActionButton[]>, default: () => [] },
+  buttons: { type: Array as vue.PropType<ActionButton[]>, default: () => [] },
   disableGroupHide: { type: Boolean, default: false },
 })
 
@@ -124,6 +124,6 @@ const cls = vue.computed(() => {
         </div>
       </div>
     </div>
-    <ElActions :actions class="mt-4 flex items-center justify-center" />
+    <XButtonList :buttons class="mt-4 flex items-center justify-center" />
   </div>
 </template>

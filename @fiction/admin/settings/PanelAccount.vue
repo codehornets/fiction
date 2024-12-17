@@ -291,13 +291,13 @@ const toolFormOptions = vue.computed<InputOption[]>(() => {
   <SettingsPanel
     title="User Account and Author Profile"
     :loading
-    :actions="[{
+    :action="{ buttons: [{
       label: saveUtil.isDirty.value ? 'Saving...' : 'Saved',
       onClick: () => save(),
       theme: saveUtil.isDirty.value ? 'primary' : 'default',
       loading: sending === 'saving',
       icon: saveUtil.isDirty.value ? 'i-tabler-upload' : 'i-tabler-check',
-    }]"
+    }] }"
   >
     <div class="p-6">
       <ElHeader

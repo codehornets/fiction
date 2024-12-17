@@ -18,13 +18,19 @@ const { testId = 'zero-banner', icon, title, description, action = {} } = define
       <div class="mx-auto max-w-2xl flex-shrink-0 lg:mx-0 lg:max-w-xl flex md:flex-col justify-center ">
         <div class="flex gap-5">
           <div v-if="icon" class="mb-4 lg:mb-6 relative">
-            <XIcon class="size-10 text-theme-500/30" :media="icon" />
+            <XIcon class="size-10 lg:size-14 text-theme-500/30" :media="icon" />
           </div>
           <div>
-            <h1 class=" text-lg sm:text-2xl font-semibold dark:text-theme-0 x-font-title" :data-test-id="`${testId}-title`">
+            <h1
+              class=" text-lg sm:text-xl font-semibold dark:text-theme-0 x-font-title"
+              :data-test-id="`${testId}-title`"
+            >
               {{ title }}
             </h1>
-            <p class="mt-3 text-base text-theme-600 dark:text-theme-300" :data-test-id="`${testId}-description`">
+            <p
+              class="mt-3 text-base text-theme-600 dark:text-theme-300"
+              :data-test-id="`${testId}-description`"
+            >
               {{ description }}
             </p>
             <div v-if="action?.buttons?.length" class="mt-10 flex items-center gap-x-6">
