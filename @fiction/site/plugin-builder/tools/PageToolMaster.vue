@@ -44,7 +44,7 @@ const options: InputOption[] = [
 </script>
 
 <template>
-  <ElTool :actions="[]" v-bind="props">
+  <ElTool v-bind="props">
     <ElForm>
       <FormEngine state-key="toolMaster" :options :input-props="{ site, tool, controller }" />
     </ElForm>

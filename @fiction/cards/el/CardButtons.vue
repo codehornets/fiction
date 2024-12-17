@@ -9,9 +9,9 @@ import CardButton from '../CardButton.vue'
 
 defineOptions({ name: 'CardButtons' })
 
-const { card, actions = [], uiSize = 'md', animate = 'none', theme = 'default', design } = defineProps<{
+const { card, buttons = [], uiSize = 'md', animate = 'none', theme = 'default', design } = defineProps<{
   card: Card
-  actions: ActionButton[]
+  buttons: ActionButton[]
   uiSize?: UiElementSize
   animate?: 'fade' | 'slide' | 'pop' | 'rise' | 'none'
   isOverlay?: boolean
@@ -37,9 +37,9 @@ vue.onMounted(() => {
 </script>
 
 <template>
-  <div v-if="actions?.length" :id="randomId" :data-base-theme="theme">
+  <div v-if="buttons?.length" :id="randomId" :data-base-theme="theme">
     <CardButton
-      v-for="(action, i) in actions"
+      v-for="(action, i) in buttons"
       :key="i"
       :card
       class="x-action-item"

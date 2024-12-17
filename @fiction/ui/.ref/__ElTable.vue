@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import type { ActionButton, IndexMeta } from '@fiction/core'
 import { onResetUi, resetUi, toLabel, vue } from '@fiction/core'
-import XButton from './buttons/XButton.vue'
-import ElZeroBanner from './ElZeroBanner.vue'
-import InputCheckbox from './inputs/InputCheckbox.vue'
-import ElSpinner from './loaders/ElSpinner.vue'
+import XButton from '../buttons/XButton.vue'
+import ElZeroBanner from '../ElZeroBanner.vue'
+import InputCheckbox from '../inputs/InputCheckbox.vue'
+import ElSpinner from '../loaders/ElSpinner.vue'
 
 export type TableCell =
   | {

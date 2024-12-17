@@ -113,3 +113,26 @@ export function getPageById(args: { pageId: string, site: Site }) {
 
   return activeCard
 }
+
+export async function getPageWordCount(args: { page: CardConfigPortable }) {
+  const { getObjectWordCount } = await import('@fiction/core/utils/wordCount.js')
+  const { page } = args
+  let total = 0
+
+  // Get words from page userConfig
+  if (page.userConfig) {
+    total += getObjectWordCount(page.userConfig)
+  }
+
+  // Get words from child cards' userConfig
+  if (page.cards?.length) {
+    total += page.cards.reduce((sum, card) => {
+      if (card.userConfig) {
+        sum += getObjectWordCount(card.userConfig)
+      }
+      return sum
+    }, 0)
+  }
+
+  return total
+}

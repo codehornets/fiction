@@ -195,13 +195,13 @@ const header = vue.computed(() => {
 <template>
   <SettingsPanel
     title="Team Member"
-    :actions="[{
+    :action="{ buttons: [{
       label: saveUtil.isDirty.value ? 'Saving...' : 'Saved',
       onClick: () => send(),
       theme: saveUtil.isDirty.value ? 'primary' : 'default',
       loading: sending === 'saving',
       icon: saveUtil.isDirty.value ? 'i-tabler-upload' : 'i-tabler-check',
-    }]"
+    }] }"
   >
     <div class="p-6">
       <ElHeader

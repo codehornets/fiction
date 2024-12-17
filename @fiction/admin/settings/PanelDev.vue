@@ -99,13 +99,13 @@ vue.onMounted(async () => {
   <SettingsPanel
     title="Developer Portal"
     :loading="loading"
-    :actions="[{
+    :action="{ buttons: [{
       label: saveUtil.isDirty.value ? 'Saving changes...' : 'All changes saved',
       onClick: () => save(),
       theme: saveUtil.isDirty.value ? 'primary' : 'default',
       loading: saving === 'saving',
       icon: saveUtil.isDirty.value ? 'i-tabler-upload' : 'i-tabler-check',
-    }]"
+    }] }"
     :header="header"
   >
     <div v-if="!loading" class="space-y-6">

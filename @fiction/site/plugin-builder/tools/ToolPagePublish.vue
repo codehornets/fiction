@@ -108,7 +108,6 @@ const showConfirm = vue.ref(false)
 
 <template>
   <ElTool
-    :actions="[]"
     v-bind="props"
   >
     <ElForm @submit="showConfirm = true">

@@ -12,7 +12,7 @@ const props = defineProps({
   title: { type: String, default: '' },
   subTitle: { type: String, default: '' },
   status: { type: String as vue.PropType<'success' | 'error' | 'pending'>, default: '' },
-  actions: { type: Array as vue.PropType<ActionButton[]>, default: () => [] },
+  buttons: { type: Array as vue.PropType<ActionButton[]>, default: () => [] },
   links: { type: Array as vue.PropType<ActionButton[]>, default: () => [] },
 })
 
@@ -63,7 +63,7 @@ const ico = vue.computed(() => iconThemes[props.status as keyof typeof iconTheme
         <div class="pb-24 md:pb-8 relative space-y-6">
           <slot />
 
-          <InputActionList :data-test-actions="actions.length" class="justify-center" ui-size="md" :actions />
+          <InputActionList :data-test-buttons="buttons.length" class="justify-center" ui-size="md" :buttons />
         </div>
       </div>
     </transition>

@@ -3,7 +3,7 @@ import type { ActionButton, vue } from '@fiction/core'
 import XButton from '../buttons/XButton.vue'
 
 const props = defineProps({
-  actions: { type: Array as vue.PropType<ActionButton[]>, default: () => [] },
+  buttons: { type: Array as vue.PropType<ActionButton[]>, default: () => [] },
   uiSize: { type: String as vue.PropType<ActionButton['size']>, default: 'sm' },
 })
 
@@ -28,19 +28,19 @@ function gapSize() {
 <template>
   <div class="flex items-center flex-wrap py-2" :class="gapSize()">
     <XButton
-      v-for="(action, i) in actions"
+      v-for="(btn, i) in buttons"
       :key="i"
-      :design="action.design || 'solid'"
-      :theme="action.theme || 'default'"
-      :size="action.size || uiSize"
-      :loading="action.loading"
-      :href="action.href"
-      :target="action.target"
-      :icon="action.icon"
-      :icon-after="action.iconAfter"
-      @click.stop.prevent="action.onClick ? action.onClick({ event: $event, props: { ...props, ...$attrs } }) : ''"
+      :design="btn.design || 'solid'"
+      :theme="btn.theme || 'default'"
+      :size="btn.size || uiSize"
+      :loading="btn.loading"
+      :href="btn.href"
+      :target="btn.target"
+      :icon="btn.icon"
+      :icon-after="btn.iconAfter"
+      @click.stop.prevent="btn.onClick ? btn.onClick({ event: $event, props: { ...props, ...$attrs } }) : ''"
     >
-      {{ action.label }}
+      {{ btn.label }}
     </XButton>
   </div>
 </template>

@@ -130,7 +130,7 @@ function isItemOpen(index: number) {
         v-if="uc.support.action"
         :card
         :base-path="pathCheck(`support.action`, schema)"
-        :actions="uc.support.action"
+        :action="uc.support.action"
         :classes="{ buttons: 'flex gap-4 justify-center  flex-wrap ' }"
       />
     </div>

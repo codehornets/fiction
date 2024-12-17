@@ -6,12 +6,12 @@ const {
   superTitle,
   title,
   subTitle,
-  actions = [{ label: 'Go Home', icon: 'i-tabler-home', href: '/', theme: 'primary' }],
+  buttons = [{ label: 'Go Home', icon: 'i-tabler-home', href: '/', theme: 'primary' }],
 } = defineProps<{
   superTitle?: SuperTitle | undefined
   title?: string | undefined
   subTitle?: string | undefined
-  actions?: ActionButton[] | undefined
+  buttons?: ActionButton[] | undefined
 }>()
 </script>
 
@@ -27,9 +27,9 @@ const {
       <p class="mt-6 text-base font-sans leading-7 text-theme-600">
         {{ subTitle || `We couldn't find the page you're looking for.` }}
       </p>
-      <div v-if="actions" class="mt-10 flex items-center justify-center gap-x-6">
+      <div v-if="buttons" class="mt-10 flex items-center justify-center gap-x-6">
         <XButton
-          v-for="(item, i) in actions"
+          v-for="(item, i) in buttons"
           :key="i"
           :href="item.href"
           :theme="item.theme"

@@ -82,7 +82,7 @@ describe('subscribe uiux', { retry: isCi() ? 3 : 0 }, async () => {
         { type: 'visible', selector },
         { type: 'hasText', selector, text: org.orgName },
         { type: 'exists', selector: '[data-transaction-status="success"]' },
-        { type: 'click', selector: '[data-test-actions] a' },
+        { type: 'click', selector: '[data-test-buttons] a' },
         { type: 'visible', selector: '[data-pathname="/"]' },
       ],
     })

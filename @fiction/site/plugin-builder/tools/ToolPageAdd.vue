@@ -71,7 +71,6 @@ async function save() {
 
 <template>
   <ElTool
-    :actions="[]"
     v-bind="{ site, tool, controller }"
     title="Add Page"
   >

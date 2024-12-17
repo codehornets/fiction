@@ -66,7 +66,7 @@ vue.onMounted(async () => {
         list-title="Email Campaigns"
         :list="list"
         :loading="loading"
-        :actions="{
+        :action="{
           buttons: [
             {
               testId: 'new-campaign-button-index',

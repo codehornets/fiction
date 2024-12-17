@@ -41,12 +41,12 @@ const indexMeta = vue.ref()
   <div>
     <ElIndexGrid
       :list
-      :actions="[{
+      :action="{ buttons: [{
         label: 'Add Team Member',
         theme: 'primary',
         icon: 'i-tabler-user-plus',
         onClick: () => (modalVisible = true),
-      }]"
+      }] }"
       list-title="Members"
       :index-meta="indexMeta"
       :zero="{

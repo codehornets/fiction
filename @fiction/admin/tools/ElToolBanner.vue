@@ -6,7 +6,7 @@ defineProps({
   title: { type: String, default: '' },
   sub: { type: String, default: '' },
   icon: { type: String, default: '' },
-  actions: { type: Array as vue.PropType<ActionButton[]>, default: () => [] },
+  buttons: { type: Array as vue.PropType<ActionButton[]>, default: () => [] },
   mode: { type: String as vue.PropType<'mast' | 'hero'>, default: 'mast' },
 })
 </script>
@@ -24,12 +24,12 @@ defineProps({
         {{ sub }}
       </div>
       <div
-        v-if="actions.length > 0"
+        v-if="buttons.length > 0"
         class="flex  mt-4"
         :class="[mode === 'hero' ? ' ' : 'justify-center']"
       >
         <XButton
-          v-for="(item, i) in actions"
+          v-for="(item, i) in buttons"
           :key="i"
           theme="primary"
           :href="item.href"

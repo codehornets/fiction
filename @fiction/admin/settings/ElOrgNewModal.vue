@@ -83,7 +83,7 @@ const options = vue.computed(() => {
   ]
 })
 
-const actions = vue.computed(() => {
+const buttons = vue.computed(() => {
   return [
     {
       label: 'Create New Organization',
@@ -102,7 +102,7 @@ const actions = vue.computed(() => {
     :options
     title="Create New Organization"
     sub-title="Enter the details for your new organization"
-    :actions="actions"
+    :buttons="buttons"
     @update:vis="closeModal"
   />
 </template>

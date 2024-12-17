@@ -43,7 +43,6 @@ const options = vue.computed<InputOption[]>(() => {
 
 <template>
   <ElTool
-    :actions="[]"
     v-bind="props"
     title="Edit Layout"
   >

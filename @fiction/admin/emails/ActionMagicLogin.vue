@@ -28,7 +28,7 @@ vue.onMounted(async () => {
 
 type TProps = InstanceType<typeof TransactionWrap>['$props']
 const wrapProps = vue.computed<TProps>(() => {
-  const actions = [
+  const buttons = [
     { name: 'Home', href: props.card.link('/'), theme: 'default' as const, icon: 'i-tabler-home' },
   ]
   const success: TProps = {
@@ -36,7 +36,7 @@ const wrapProps = vue.computed<TProps>(() => {
     title: 'You\'re Logged In',
     subTitle: 'You\'re now logged in to your account.',
     icon: 'i-tabler-check',
-    actions,
+    buttons,
   }
 
   const error: TProps = {
@@ -44,7 +44,7 @@ const wrapProps = vue.computed<TProps>(() => {
     title: 'Invalid Token',
     subTitle: 'The token you provided is invalid. Please try again.',
     icon: 'i-tabler-x',
-    actions,
+    buttons,
   }
 
   return fictionUser.activeUser.value ? success : error

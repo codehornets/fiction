@@ -23,7 +23,7 @@ const props = defineProps<{
   loading?: boolean
 
   cancelLabel?: string
-  actions?: ActionButton[]
+  buttons?: ActionButton[]
 }>()
 
 const emit = defineEmits<{
@@ -37,8 +37,8 @@ function closeModal() {
   emit('update:vis', false)
 }
 
-const modalActions = vue.computed(() => props.actions || [])
-const hasCustomActions = vue.computed(() => modalActions.value.length > 0)
+const modalButtons = vue.computed(() => props.buttons || [])
+const hasCustomActions = vue.computed(() => modalButtons.value.length > 0)
 
 const defaultModalClass = 'max-w-screen-md p-12'
 const finalModalClass = props.modalClass || defaultModalClass
@@ -93,7 +93,7 @@ const context = vue.computed(() => {
 
         <div v-if="hasCustomActions" class="gap-4 flex">
           <XButton
-            v-for="(action, i) in modalActions"
+            v-for="(action, i) in modalButtons"
             :key="i"
             :design="action.design || 'solid'"
             :theme="action.theme || 'theme'"

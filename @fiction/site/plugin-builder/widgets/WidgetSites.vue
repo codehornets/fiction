@@ -40,7 +40,7 @@ vue.onMounted(async () => {
   }
 })
 
-const actions: ActionButton[] = [
+const buttons: ActionButton[] = [
   {
     label: 'View Sites',
     icon: 'i-tabler-layout-grid',
@@ -55,7 +55,7 @@ const list = vue.computed<IndexItem[]>(() => {
 </script>
 
 <template>
-  <WidgetWrap :widget :actions>
+  <WidgetWrap :widget :buttons>
     <IndexItemList
       :list
       :action="{

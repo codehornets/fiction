@@ -41,7 +41,7 @@ vue.onMounted(async () => {
   }
 })
 
-const actions: ActionButton[] = [
+const buttons: ActionButton[] = [
   {
     label: 'All Posts',
     icon: 'i-tabler-list',
@@ -72,8 +72,8 @@ const list = vue.computed<IndexItem[]>(() => {
 </script>
 
 <template>
-  <WidgetWrap :widget :actions>
-    <IndexItemList :list :actions>
+  <WidgetWrap :widget :buttons>
+    <IndexItemList :list :action="{ buttons }">
       <template #subTitle="{ item }">
         <div class="flex gap-2 flex-wrap ">
           <div class="opacity-80">

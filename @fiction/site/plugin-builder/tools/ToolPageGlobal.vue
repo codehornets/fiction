@@ -139,7 +139,6 @@ const v = vue.computed({
 
 <template>
   <ElTool
-    :actions="[]"
     v-bind="props"
   >
     <ElForm>

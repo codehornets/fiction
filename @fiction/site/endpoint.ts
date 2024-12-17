@@ -8,6 +8,7 @@ import { abort } from '@fiction/core/utils/error.js'
 import { Card } from './card.js'
 import { t } from './tables.js'
 import { updateSiteCerts } from './utils/cert.js'
+import { getPageWordCount } from './utils/page.js'
 
 export type SitesQuerySettings = SitesPluginSettings & {
   fictionSites: FictionSites
@@ -140,8 +141,16 @@ export class ManagePage extends Query<SitesQuerySettings> {
     const upsertedPages: TableCardConfig[] = []
 
     for (const field of fields) {
+      // Calculate total word count including nested cards
+      const wordCount = await getPageWordCount({ page: field })
+
       const card = new Card(field)
-      const preparedFields = this.settings.fictionDb.prep({ type: 'insert', fields: card.toConfig(), table: t.pages, meta })
+      const preparedFields = this.settings.fictionDb.prep({
+        type: 'insert',
+        fields: { ...card.toConfig(), wordCount },
+        table: t.pages,
+        meta,
+      })
 
       await this.handleSpecialSlugConflicts({ slug: preparedFields.slug, cardId: card.cardId, siteId, db })
 

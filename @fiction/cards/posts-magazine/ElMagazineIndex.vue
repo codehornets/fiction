@@ -104,7 +104,7 @@ function changePage(newPage: number) {
       :super-title="{ text: 'Posts' }"
       title="No Posts Available"
       sub-title="Check back later for new content"
-      :actions="[{ label: 'Return to Homepage', href: '/', theme: 'primary' }]"
+      :buttons="[{ label: 'Return to Homepage', href: '/', theme: 'primary' }]"
     />
 
     <!-- Pagination -->

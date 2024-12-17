@@ -27,7 +27,7 @@ function useEditPage(args: { cardId?: string } = {}) {
   props.controller.useTool({ toolId: cardId ? 'editPage' : 'addPage' })
 }
 
-const actions: ActionButton[] = [
+const buttons: ActionButton[] = [
   {
     label: 'New Page',
     icon: 'i-tabler-circle-plus',
@@ -74,7 +74,7 @@ async function handleSorted(sorted: string[]) {
       title="Add New Page"
       sub="Click the add button above to add your first page."
       :icon="tool.icon"
-      :actions
+      :buttons
     />
     <template v-else>
       <div>

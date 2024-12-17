@@ -53,7 +53,7 @@ const hasActions = vue.computed(() => {
         v-else-if="uc?.buttons?.length"
         :class="classes.buttons"
         :card
-        :actions="uc?.buttons || []"
+        :buttons="uc?.buttons || []"
         :theme="uc?.theme || theme"
         :design="uc?.design || design"
         :ui-size="size"

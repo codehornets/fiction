@@ -258,14 +258,15 @@ const header = vue.computed(() => {
 <template>
   <SettingsPanel
     title="Subscriber Details"
-    :actions="[{
-      testId: 'subscriber-save-button',
-      label: saveUtil.isDirty.value ? 'Saving...' : 'Saved',
-      onClick: () => saveSubscriber(),
-      theme: saveUtil.isDirty.value ? 'orange' : 'theme',
-      loading: sending === 'saving',
-      icon: saveUtil.isDirty.value ? 'i-tabler-upload' : 'i-tabler-check',
-    }]"
+    :action="{
+      buttons: [{
+        testId: 'subscriber-save-button',
+        label: saveUtil.isDirty.value ? 'Saving...' : 'Saved',
+        onClick: () => saveSubscriber(),
+        theme: saveUtil.isDirty.value ? 'orange' : 'theme',
+        loading: sending === 'saving',
+        icon: saveUtil.isDirty.value ? 'i-tabler-upload' : 'i-tabler-check',
+      }] }"
     :header
   >
     <FormEngine

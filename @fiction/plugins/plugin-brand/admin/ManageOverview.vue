@@ -513,14 +513,16 @@ const options = vue.computed(() => {
       media: { class: `i-tabler-briefcase` },
       action: {},
     }"
-    :actions="[{
-      testId: 'brand-save-button',
-      label: saveUtil?.isDirty.value ? 'Saving...' : 'Saved',
-      onClick: () => updateBrand(),
-      theme: saveUtil?.isDirty.value ? 'green' : 'default',
-      icon: saveUtil?.isDirty.value ? 'i-tabler-upload' : 'i-tabler-check',
-      size: 'sm',
-    }]"
+    :action="{
+      buttons: [{
+        testId: 'brand-save-button',
+        label: saveUtil?.isDirty.value ? 'Saving...' : 'Saved',
+        onClick: () => updateBrand(),
+        theme: saveUtil?.isDirty.value ? 'green' : 'default',
+        icon: saveUtil?.isDirty.value ? 'i-tabler-upload' : 'i-tabler-check',
+        size: 'sm',
+      }],
+    }"
   >
     <div class="my-6 space-y-6">
       <FormEngine

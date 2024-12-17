@@ -120,7 +120,7 @@ const imageAspect = vue.computed(() => {
         </CardLink>
       </div>
     </article>
-    <El404 v-else title="Post Not Found" :actions="[{ label: 'All Posts', href: card.link('/:viewId') }]" />
+    <El404 v-else title="Post Not Found" :buttons="[{ label: 'All Posts', href: card.link('/:viewId') }]" />
   </div>
 </template>
 

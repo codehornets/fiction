@@ -70,7 +70,7 @@ const nav = vue.computed<NavListItem[]>(() => {
   <div class="md:flex h-[calc(100dvh-61px)]">
     <div class="md:w-[32%] shrink-0 rounded-l-md md:pb-32 p-3 md:p-6 border-r dark:border-theme-600/60 border-theme-300/60 space-y-6">
       <div class="space-y-3">
-        <CardButtons v-if="navActions?.length" :actions="navActions" :card="card" />
+        <CardButtons v-if="navActions?.length" :buttons="navActions" :card="card" />
         <ElHeader
           v-if="header"
           class="bg-theme-50/20 dark:bg-theme-700/30 rounded-xl p-4"

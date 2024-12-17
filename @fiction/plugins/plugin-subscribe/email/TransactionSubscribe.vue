@@ -25,7 +25,7 @@ const content = vue.computed<TransactionProps>(() => {
       title: 'An error occurred',
       subTitle: errorMessage.value,
       status: 'error' as const,
-      actions: [
+      buttons: [
         { label: 'Home', href: props.card.link('/'), theme: 'primary', icon: 'i-tabler-home' },
       ],
     } satisfies TransactionProps
@@ -36,7 +36,7 @@ const content = vue.computed<TransactionProps>(() => {
       title: props.queryVars.orgName || 'Subscribe',
       subTitle: response.value.message,
       status: response.value.status as 'success' | 'error' | 'pending',
-      actions: [
+      buttons: [
         { label: 'Home', href: props.card.link('/'), theme: 'primary', icon: 'i-tabler-home' },
       ],
     } satisfies TransactionProps

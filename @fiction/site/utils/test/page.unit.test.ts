@@ -3,7 +3,73 @@ import { describe, expect, it, vi } from 'vitest'
 import { Card } from '../../card'
 import { Site } from '../../site'
 import { createSiteTestUtils } from '../../test/testUtils'
-import { activePageId, getPageById, getViewMap } from '../page'
+import { activePageId, getPageById, getPageWordCount, getViewMap } from '../page'
+
+describe('getPageWordCount', () => {
+  it('should count words in page userConfig', async () => {
+    const page = {
+      userConfig: {
+        title: 'Welcome to site',
+        description: 'This is a test page',
+        content: 'Main content goes here',
+      },
+    }
+
+    const count = await getPageWordCount({ page })
+    expect(count).toBe(12)
+  })
+
+  it('should count words in nested card userConfigs', async () => {
+    const page = {
+      userConfig: {
+        title: 'Parent Page',
+      },
+      cards: [
+        {
+          userConfig: {
+            title: 'First Card',
+            description: 'Card description here',
+          },
+        },
+        {
+          userConfig: {
+            title: 'Second Card',
+            content: 'More content text',
+          },
+        },
+      ],
+    }
+
+    const count = await getPageWordCount({ page })
+    expect(count).toBe(12)
+  })
+
+  it('should count taxonomy terms as single units', async () => {
+    const page = {
+      userConfig: {
+        title: 'Blog Post',
+        tags: ['web-development', 'user-interface'],
+        categories: ['Tech Blog'],
+      },
+    }
+
+    const count = await getPageWordCount({ page })
+    expect(count).toBe(6)
+  })
+
+  it('should handle empty or invalid content', async () => {
+    const page = {
+      userConfig: {
+        title: '',
+        description: null,
+        tags: [],
+      },
+    }
+
+    const count = await getPageWordCount({ page })
+    expect(count).toBe(0)
+  })
+})
 
 describe('getViewMap', async () => {
   it('should map card slugs to cardIds correctly', () => {

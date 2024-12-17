@@ -261,7 +261,7 @@ const containerClass = vue.computed(() => {
           <div class="mt-8">
             <CardButtons
               :card
-              :actions="[{
+              :buttons="[{
                 icon: plan.button?.icon,
                 href: getPricingLink(plan),
                 label: plan.button?.label || 'Start',
