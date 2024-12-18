@@ -19,7 +19,7 @@ type FictionAnalyticsColSettings<U extends string = string, T extends ColDefault
   indexOn?: boolean
   getValue?: ValueCallback
   description?: string
-} & ColSettings<U, T>
+} & Omit<ColSettings<U, T>, 'make'>
 
 export class FictionAnalyticsCol< U extends string = string, T extends ColDefaultValue = ColDefaultValue> extends Col<U, T> {
   clickHouseType: ClickHouseDatatype
@@ -27,7 +27,7 @@ export class FictionAnalyticsCol< U extends string = string, T extends ColDefaul
   getValue?: ValueCallback
   sessionSelector?: SessionSelector
   constructor(settings: FictionAnalyticsColSettings<U, T>) {
-    super(settings)
+    super({ ...settings, make: ({ s, col }) => s.string(col.k) })
     this.key = settings.key
     this.clickHouseType = settings.clickHouseType || 'String'
     this.indexOn = settings.indexOn || false
