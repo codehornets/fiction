@@ -38,7 +38,7 @@ describe('jWT Functions with Expiration', () => {
   const user = {
     userId: '12345',
     email: 'test@example.com',
-    role: 'admin' as const,
+    systemRole: 'admin' as const,
   }
 
   afterAll(() => {
@@ -66,7 +66,7 @@ describe('jWT Functions with Expiration', () => {
     expect(decoded).toEqual({
       userId: user.userId,
       email: user.email,
-      role: user.role,
+      systemRole: user.systemRole,
       iat: expect.any(Number),
       exp: expect.any(Number),
       verifyEmail: false,
@@ -93,7 +93,7 @@ describe('jwt Functions', () => {
   const user = {
     userId: '12345',
     email: 'test@example.com',
-    role: 'admin' as const,
+    systemRole: 'admin' as const,
   }
 
   it('successfully creates and decodes a token', () => {
@@ -104,7 +104,7 @@ describe('jwt Functions', () => {
     expect(decoded).toEqual({
       userId: user.userId,
       email: user.email,
-      role: user.role,
+      systemRole: user.systemRole,
       iat: expect.any(Number),
       verifyEmail: false,
     })

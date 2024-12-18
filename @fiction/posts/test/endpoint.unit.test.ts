@@ -173,6 +173,8 @@ describe('post tests', async () => {
     const updatedPost = result.data?.find(post => post.postId === createdPost?.postId)
     expect(updatedPost?.title).toBe('Updated First Post')
     expect(updatedPost?.content).toBe('Updated content of the first post')
+
+    expect(updatedPost?.wordCount).toBe(9)
   })
 
   it('deletes a post and reflects in list', async () => {

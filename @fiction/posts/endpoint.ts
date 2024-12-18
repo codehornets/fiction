@@ -2,6 +2,7 @@ import type { EndpointMeta, EndpointResponse, FictionDb, FictionPluginSettings, 
 import type { FictionPosts } from '.'
 import type { TablePostConfig } from './schema'
 import { abort, applyComplexFilters, deepMerge, incrementSlugId, objectId, Query, standardTable, toSlug } from '@fiction/core'
+import { getObjectWordCount } from '@fiction/core/utils/wordCount'
 import { t } from './schema'
 
 export type PostsQuerySettings = FictionPluginSettings & {
@@ -342,8 +343,13 @@ export class QueryManagePost extends PostsQuery {
     // Ensure the slug is unique within the organization
     fields.slug = await this.getSlugId({ orgId, fields })
     fields.title = fields.title || defaultTitle
-
-    const prepped = this.settings.fictionDb.prep({ type: 'insert', fields, meta, table: t.posts })
+    const wordCount = getObjectWordCount(fields)
+    const prepped = this.settings.fictionDb.prep({
+      type: 'insert',
+      fields: { ...fields, wordCount },
+      meta,
+      table: t.posts,
+    })
 
     const fieldsWithOrg = { type: 'post', status: 'draft', ...prepped, orgId, userId } as const
     const [{ postId }] = await db(t.posts).insert(fieldsWithOrg).returning('postId')
